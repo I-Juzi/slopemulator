@@ -275,6 +275,12 @@ impl Session {
                     .ok_or(Error::Login(LoginError::WrongOrder))?;
                 return Ok(client::Reply::GameAccountList { aliases });
             }
+            W::GetBalance => {
+                self.login
+                    .identity()
+                    .ok_or(Error::Login(LoginError::WrongOrder))?;
+                return Ok(client::Reply::EmptyBalance);
+            }
             W::RequestToken { app_id } => {
                 let identity = self
                     .login
