@@ -39,9 +39,12 @@ pub enum NpReply {
     Expired,
 }
 
+/// NP error code that native handles as a publication success.
+pub const SUCCESS_ERROR_CODE: i32 = 5809;
+
 /// Error codes that do not mark the publication as failed.
 pub fn keeps_publication_status(code: i32) -> bool {
-    matches!(code, 42 | 5809 | 5812 | 30002)
+    matches!(code, 42 | 5812 | 30002)
 }
 
 /// eventNotiRes classification. `None` means the command id is not an
@@ -53,7 +56,12 @@ pub fn classify(
     accept_tid_field: &str,
     error_code: i32,
 ) -> Option<NpReply> {
-    if status == 200 || (status == 400 && reason_phrase == "Success") {
+    // Error 5809 takes the success path (0x14000A310); the phrase test is
+    // _wcsicmp.
+    let success = status == 200
+        || (status == 400 && reason_phrase.eq_ignore_ascii_case("Success"))
+        || error_code == SUCCESS_ERROR_CODE;
+    if success {
         if command != COMMAND_EVENT_NOTI && command != COMMAND_EVENT_NOTI_ALT {
             return None;
         }

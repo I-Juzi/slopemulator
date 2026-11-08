@@ -28,7 +28,7 @@ np-reward-changeover-enable yes.
 - SmartCouponDaemonTypeDesc @0x1400835F8 = `none`, `gamed`, then `bns-common-config` (next string, not a type). Group names match case-insensitively; index 0 (`none`) is skipped.
 - Event: all four attributes are required. `enable` is "true" (case-insensitive). Name max 260. Sample comment: type 1 = account, 2 = character; gamed event ids use the 10000 range.
 - gamed-list: element name must be `gamed`, otherwise log "unknown element" and skip. Empty wid/ip/port → entry skipped. XmlReader_sv64.dll interface version must be "15".
-- Port: missing-attribute event → load error ❓ (binary path not traced).
+- Missing attribute, or a child that is not `event` (case-insensitive): log and skip the entry, keep loading (`LoadGameEventConfig` @0x140002C80). `id` and `type` use `_wtoi` (`10001tail` → 10001).
 
 ## 2. Wire
 
@@ -85,21 +85,21 @@ Reasons read from the disassembly (r9 of each `Session::Send("hh", 3, r)`):
 
 | Order | Check | Reason |
 | --- | --- | --- |
-| 1 | decode fail | 2 (tid 0 ❓) |
+| 1 | decode fail | 2 (tid 0, or the tid if its 8 bytes decoded before a later field failed: 0x140008360, 0x140008E80, 0x14000F2F0) |
 | 2 | char: account 0, world ≤ 0, world ≠ channel wid, pcdbid ≤ 0, event ≤ 0; account: account 0, event ≤ 0 | 7 |
 | 3 | event not in game-event config | 7 |
 | 4 | event daemonType ≠ channel daemon type | 7 |
 | 5 | usp_RegisterGameEventLog fails | 6 |
 | 6 | ok: reply 5/8 [tid, logId], post GameEventLogEvent (target 2 char / 1 account) | — |
 
-Account requests bind world and pcdbid as NULL. `enable` and eventType are not checked here ❓.
-After a failure reply the session stays open ❓.
+Account requests bind world and pcdbid as NULL. `enable` and eventType are not checked here (0x140008360, 0x140008E80).
+After a failure reply the session stays open (rev-small).
 
 ### Manager
 
 | Handler | Order | Result |
 | --- | --- | --- |
-| HelloReq @0x14000EF40 | already hello → 8; decode → 2; version ≠ 2 → 9 | cmd 3 + close ❓; ok → cmd 2 |
+| HelloReq @0x14000EF40 | already hello with channel id != 0 → 8 (a channel with manager wid 0 can say hello again); decode → 2; version ≠ 2 → 9 | cmd 3 + close; ok → cmd 2 |
 | RetryCouponPublicationReq @0x14000F2F0 | decode or no IOCP → 2; tid ≤ 0, account 0, publication ≤ 0 → 7 | fail cmd 6; ok → post RetryCouponPublicationEvent (no direct reply) |
 | LoadRetryReadyGameEventLogListReq @0x14000F7F0 | decode → 2; tid ≤ 0 → 7; DB → 4; post → 2 | fail cmd 9; ok → cmd 8 [tid], post up to 128 logs |
 
@@ -134,8 +134,8 @@ EventNotiJob → NP (NPServiceChannel::SendRequestEventNoti @0x14000FF10):
 | NP result | DB | managementReason |
 | --- | --- | --- |
 | no channel / send fail | — | 5 |
-| status 200 (or 400 + "Success"), cmd 2851/2852, acceptTid = `_wtoi64(field 12)` | PublicationSuccess | 0 |
-| error code 42, 5809, 5812, 30002 | none | 6 |
+| status 200, or 400 + "Success" (`_wcsicmp`), or error 5809; cmd 2851/2852; acceptTid = `_wtoi64(field 12)` | PublicationSuccess | 0 |
+| error code 42, 5812, 30002 | none | 6 |
 | other error code | PublicationFailure | 6 |
 | expire (timeout value not read ❓) | — | 3 |
 
@@ -173,3 +173,15 @@ SendRetryCouponPublicationOkEvent (cmd 5 [tid, acceptTid]); reason > 0 → SendR
 | Sol review | Pending (Sol quota) |
 
 Tests: 22 (`tests/config.rs`, `handlers.rs`, `events.rs`, `sockets.rs`). Fixtures are synthetic.
+
+## Review rev-small (2026-11-08)
+
+Source: `Docs/Reviews/rev-small-348.md` (Sol, IDA). Fixed: NP 5809 and case-insensitive phrase,
+event config skip rules, partial-decode tid, manager hello guard.
+
+| Open item | Status |
+| --- | --- |
+| Durable SQL store (publication selection, restart recovery) | not started |
+| Real NP transport when `np-enabled=yes` | not started |
+| Publication dispatch without waiting for each NP result (0x14000BE30) | not started; the worker waits now |
+| NP request timeout value | ❓ not found |

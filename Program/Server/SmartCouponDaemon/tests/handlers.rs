@@ -114,7 +114,10 @@ fn by_character_parameter_checks() {
         assert_eq!(r.replies, vec![hqe(6, 1, 7)]);
         assert!(!r.close && r.work.is_empty());
     }
+    // A short request keeps the fully decoded tid (0x140008360).
     let r = d.daemon_packet(&mut c, &hq(4, 3));
+    assert_eq!(r.replies, vec![hqe(6, 3, 2)]);
+    let r = d.daemon_packet(&mut c, &h(4));
     assert_eq!(r.replies, vec![hqe(6, 0, 2)]);
     d.store.set_failing(true);
     let r = d.daemon_packet(&mut c, &by_character(4, 10001, ACC, 1, 900));
@@ -171,4 +174,15 @@ fn manager_hello_and_gating() {
     assert!(m.hello);
     assert_eq!(d.manager_packet(&mut m, &hello).replies, vec![hh(3, 8)]);
     assert!(d.manager_packet(&mut m, &h(10)).close);
+}
+
+#[test]
+fn manager_repeated_hello_with_wid_zero_passes() {
+    use bloodlib::packet::Value;
+    let d = daemon();
+    let mut m = ManagerConn::default();
+    let hello = pkt("hhh", &[Value::I16(1), Value::I16(2), Value::I16(0)]);
+    assert_eq!(d.manager_packet(&mut m, &hello).replies, vec![h(2)]);
+    // GetId() is 0, so the guard at 0x14000EF40 does not fire.
+    assert_eq!(d.manager_packet(&mut m, &hello).replies, vec![h(2)]);
 }
