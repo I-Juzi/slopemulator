@@ -1,12 +1,24 @@
 # 09 — GameDaemon 381 parity ledger
 
-## State
+## State (8 Nov 2026)
 
-Static specification only. No Rust change. No test or client connection ran.
-The ledger has one row for each supplied build-381 command name.
-The ledger records dispatch membership, checked sends and existing spec coverage.
-It has 1598 rows. It has 41 partial specs and no complete behavior specs.
-An unknown direction is a research gap. It is not an unused command.
+The ledger (`parity-ledger.tsv`) has one row for each build-381 command name (1598 rows).
+Counts come from the `dir`, `spec` and `rust` columns.
+
+| Direction | Rows | Rust ported | Rust partial | Rust none |
+| --- | ---: | ---: | ---: | ---: |
+| c2s (client → server handlers) | 502 | 74 | 423 | 5 |
+| s2c (server → client) | 152 | — | — | 152 |
+| unknown | 944 | — | — | 944 |
+
+| Spec state | Rows |
+| --- | ---: |
+| done | 64 |
+| partial | 453 |
+| none | 1081 |
+
+Handler specs are files 10–29 in this folder. An unknown direction is a research gap.
+It is not an unused command.
 
 ## Dispatch evidence
 

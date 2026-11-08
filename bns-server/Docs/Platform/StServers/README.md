@@ -1,0 +1,56 @@
+# StServers port tracker
+
+Goal: a Rust port of the original StServers (NP/STS platform, build 381 deployment from
+the BNSX image) with 100 % parity. Keys, passwords and certificates become the
+placeholder `keyhere`. Inventory and topology: `../Sts/10-stservers-original.md`.
+
+Updated 8 Nov 2026.
+
+## Terms
+
+| Term | Meaning |
+| --- | --- |
+| Ported | Rust crate exists, behaviour checked against the binary, tests pass |
+| In progress | Analysis done, Rust crate being written |
+| Analysed | Decompiled and documented, no Rust yet |
+| Not ported yet | The original has it; the port does not yet |
+| Not used | The shipped config does not turn it on |
+
+## Shared parts
+
+| Part | Crate | State | Spec |
+| --- | --- | --- | --- |
+| STS message, framing, errors, INI, XML | `sts-core` | Ported (used by DbSrv) | `../Sts/01-transport.md`, `../Sts/02-messages.md` |
+| Connect handshake | `sts-core::connect` | Ported | `11-cligate-protocol.md` |
+| Route message, commands, locations, `t` targets | `sts-core::route` | Types ported | `13-routesrv.md` |
+| Route bus client (service → RouteSrv registration) | — | Not ported yet (needs RouteSrv) | `13-routesrv.md` §3 |
+| Socket transaction map (`p`/`t`/`s` headers) | — | Analysed | `13-routesrv.md` §8.1 |
+| TLS between servers | — | Not ported yet; key = `keyhere` | `13-routesrv.md` §6 |
+| Admin HTTP pages | — | Not ported yet (low priority) | `../Sts/10-stservers-original.md` |
+
+## Services started by `StServer.ini` (49)
+
+| Service | State | Notes |
+| --- | --- | --- |
+| DbSrv (33 instances) | **Ported** | All reply, error and partial rules verified live on SQL Server. Not ported yet: RouteSrv registration. Storage path: not used. Spec `12-dbsrv-contract.md` |
+| RouteSrv | **In progress** | Single router first. Multi-router Paxos and forward scope later. Spec `13-routesrv.md` |
+| CliGate | Analysed | Client gate, port 6600. Spec `11-cligate-protocol.md`. The `sts` crate covers the client login path today |
+| AuthSrv | Analysed (partial) | Login, SRP verifier from `PlatformAcctDb.dbo.Users` |
+| GameGate | Analysed (partial) | Daemon gate for LobbyGate/GameDaemon, 74 commands |
+| SessionGateSrv, GameAccountSrv, SlotSrv, SpawnSrv | Decompiled | Next after RouteSrv |
+| AccessSrv, ApiGate, ApiManageSrv, ApiSrv, AppAuthSrv, AppGate, AuctionSrv, BanSrv, CacheSrv, ChargeSrv, CouponSrv, DeliverySrv, EventLogSrv, ExAuthSrv, ExAuthnSrv, ForwardSrv, FriendSrv, GoodsSrv, GradeMembersSrv, GradeSrv, IpCheckSrv, LevelSrv, MwGate, NameSrv, PresenceSrv, PrivacySrv, ProfileSrv, PromotionStampSrv, PurchaseLimitSrv, PurchaseSrv, RefundSrv, RewardSrv, RoleSrv, ShowcaseSrv, SvcDispatcher, SysInfoSrv, VirtualCurrencySrv, WarehouseSrv, WebGate, WishSrv | Not ported yet | Order follows the login and in-game flow |
+
+## Programs in the image but not started (65)
+
+WorldSrv is decompiled but has no `StServer.ini` line ❓ (check where the world list comes from before porting it).
+
+StorageSrv and MongoDbSrv belong here: no `StServer.ini` line, no `[Sql.StorageDb]`,
+and `MongoDbSrv` is commented out. They are "not used" in this deployment. They can be
+ported later with local Redis and MongoDB.
+
+## Order of work
+
+1. RouteSrv (single router) → DbSrv registration.
+2. CliGate, AuthSrv, SessionGateSrv, GameAccountSrv, SlotSrv, GameGate (client login to character select).
+3. SpawnSrv, then the remaining started services.
+4. Not-used programs (StorageSrv with Redis/Mongo, others).

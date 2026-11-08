@@ -11,11 +11,30 @@ paths inside the original binaries (`...\depot\Branch\381NC\Program\Server\...`)
 | `Program/Server/Shared` | `Program\Server\Shared` | NP channel trait, shared types and local stub (crate `shared`) |
 | `Program/Server/LobbyGate` | LobbyGate | Gate server, build 381 (crate `lobbygate`) |
 | `Program/Server/LobbyDaemon` | LobbyDaemon | Lobby daemon, build 307 (crate `lobbydaemon`) |
+| `Program/Server/GameDaemon` | GameDaemon | World server, build 381 (crate `gamedaemon`) |
+| `Program/Server/CacheGate` | CacheGate | Cache gate (crate `cachegate`) |
+| `Program/Server/AchievementDaemon` | AchievementDaemon | Achievements (crate `achievementdaemon`) |
+| `Program/Server/RankingDaemon` | RankingDaemon | Ranking boards and seasons (crate `rankingdaemon`) |
+| `Program/Server/SmartCouponDaemon` | SmartCouponDaemon | Smart coupons (crate `smartcoupondaemon`) |
 | `Program/Server/Data` | `Program\Server\Data` | LMXBOSLB codec (`Lmxb`) and typed game data (`GameData`) |
-| `Program/Platform/Sts` | platform-common | NP login server (crate `sts`) |
-| `Program/Tools` | — | Data file tools, BnsEdit, emulator scripts |
+| `Program/Platform/Sts` | platform-common | NP client-login server (crate `sts`) |
+| `Program/Platform/StServers/StsCore` | StServers framework | STS messages, Connect, Route types, INI, errors (crate `sts-core`) |
+| `Program/Platform/StServers/DbSrv` | `DbSrv.exe` | Stored-procedure gateway to SQL Server (crate `dbsrv`) |
+| `Program/Platform/StServers/RouteSrv` | `RouteSrv.exe` | Service bus router (crate `routesrv`, in progress) |
+| `Program/Tools` | — | Data file tools, BnsEdit, emulator scripts, client key tool |
 | `Program/output` | `Program\output` | Build output (not in git) |
 | `Docs/` | — | Specs and status for each part |
+
+## Status (8 Nov 2026)
+
+| Part | State | Tracker |
+| --- | --- | --- |
+| LobbyGate 381 | Ported; handshake, framing, dispatch, handlers | `Docs/Server/LobbyGate/` |
+| LobbyDaemon 307 | Ported; login and links | `Docs/Server/LobbyDaemon/` |
+| GameDaemon 381 | 502 client handlers: 74 ported, 423 partial, 5 not started | `Docs/Server/GameDaemon/09-parity.md`, `parity-ledger.tsv` |
+| CacheGate, AchievementDaemon, RankingDaemon, SmartCouponDaemon | Ported; parity reviews done | `Docs/Server/<name>/README.md` |
+| STS client login (`sts`) | SRP-6a login server; real-client login not yet verified | `Docs/Platform/Sts/STATUS.md` |
+| StServers (original NP platform) | DbSrv ported; RouteSrv in progress; 47 other services not ported yet | `Docs/Platform/StServers/README.md` |
 
 Build and check:
 
