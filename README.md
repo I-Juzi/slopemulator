@@ -77,6 +77,28 @@ console library, so small servers are mostly that library.
 Not counted: `ncgagent.exe`, `ncguardserver64.dll` and `ggauth64_27.dll` (anti-cheat, left out on purpose),
 `bsw.exe` and `StartServer` (service tools).
 
+### Porting plan for the remaining servers
+
+Order: smallest first. Estimates are rough: handler count is only one part of the work.
+Each server also has database procedures, game rules and links to other servers.
+
+| Group | Servers (handlers) | Estimate |
+| --- | --- | --- |
+| Very small | SmartCouponDaemon (6), AchievementDaemon (7), CacheGate (9), RankingDaemon (16) | About 1 day each |
+| Medium | DuelBotDaemon (23), ChannelChattingServer (29), MarketDealerDaemon (30), PostOfficeDaemon (33), InfoGateDaemon (44), AccountInventoryDaemon (44), ArenaLobby (60) | Several days each |
+| Large | MarketAgent (106), CacheDaemon (171) | Similar to LobbyDaemon (124 handlers: 11 steps so far, 15 %) |
+
+### STS sources
+
+The Rust `sts` crate was built from these original files (not in this repository):
+
+| File | Origin | Used for | Docs |
+| --- | --- | --- | --- |
+| `StsMsgSrv64.dll` + PDB | Server set, `GameDaemon/bin/` | Transport, messages, login flow, token validation, password login (SRP-6a setup) | `01`–`06` |
+| `StsMsgCli64.dll` (no PDB) | 2020 UE4 client (BNSR), 488 960 bytes | Client login wire: SRP-6a, KeyData, client XML, RC4 session; token verify RSA-2048 key at `0x58D60` | `07`–`09` |
+| `Client.exe` + PDB | 2020 client | Client login flow | `03` |
+| ❓ `StsMsgCli32.dll` | 2020 UE3 client | Not checked yet | `07` |
+
 ### How each number was measured
 
 | Column / server | Source |
