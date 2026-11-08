@@ -57,10 +57,11 @@ struct Fragments {
 #[derive(Debug, Default)]
 pub struct Gate {
     pub own_wid: u16,
-    /// ClientManager::clientMap (wid -> session).
-    clients: HashMap<u16, u64>,
+    /// ClientManager::clientMap (wid -> session). Hello does not check the
+    /// session type, so a CacheD session can be here too.
+    clients: HashMap<u16, Peer>,
     /// ClientManager::idIndexMap (session -> wid).
-    index: HashMap<u64, u16>,
+    index: HashMap<Peer, u16>,
     /// CacheDList.
     cached: BTreeMap<u16, CachedState>,
     fragments: HashMap<Peer, Fragments>,
@@ -78,7 +79,7 @@ impl Gate {
         self.cached.get(&wid)
     }
 
-    pub fn client(&self, wid: u16) -> Option<u64> {
+    pub fn client(&self, wid: u16) -> Option<Peer> {
         self.clients.get(&wid).copied()
     }
 
@@ -120,7 +121,7 @@ impl Gate {
     }
 
     /// CacheDChannel::onConnect @0x140003C80: CacheD::Verify, then Hello
-    /// with the CacheD's own wid as the 4th field ❓.
+    /// `[1, 4, 10, CacheD::_id]` (`LOWORD(v8[1])` = offset 40 = `_id`).
     pub fn cached_connected(&mut self, wid: u16, ip: Ipv4Addr, port: u16) -> Vec<Out> {
         match self.cached.get(&wid) {
             Some(c) if c.info.ip == ip && c.info.port == port => {
@@ -130,7 +131,10 @@ impl Gate {
         }
     }
 
-    /// CacheDChannel::onClose: status 0.
+    /// CacheDChannel::onClose @0x140003E40: status 0. It does not call
+    /// ClientManager::ReleaseSession (only CacheGateSessionHandler::OnClose
+    /// @0x140004100, port 1, does), so a ClientManager entry made by a
+    /// CacheD Hello stays.
     pub fn cached_closed(&mut self, wid: u16) {
         if let Some(c) = self.cached.get_mut(&wid) {
             c.ready = false;
@@ -140,12 +144,13 @@ impl Gate {
 
     /// CacheGateSessionHandler::OnClose: ClientManager::ReleaseSession.
     pub fn client_closed(&mut self, session: u64) {
+        let session = Peer::Client(session);
         if let Some(wid) = self.index.remove(&session) {
             if self.clients.get(&wid) == Some(&session) {
                 self.clients.remove(&wid);
             }
         }
-        self.fragments.remove(&Peer::Client(session));
+        self.fragments.remove(&session);
     }
 
     /// PacketHandler @0x140004150.
@@ -183,13 +188,11 @@ impl Gate {
             out.push(Out::Send(from, protocol::hello_fail(reason::VERSION)));
             return Flow::Close;
         }
-        let Peer::Client(session) = from else {
-            // Only port 1 sessions register in ClientManager ❓.
-            return Flow::Close;
-        };
+        // No session type check: a CacheD session registers too.
+        let session = from;
         if let Some(&old) = self.clients.get(&wid) {
             out.push(Out::Send(from, protocol::hello_fail(reason::DUPLICATE)));
-            out.push(Out::Close(Peer::Client(old)));
+            out.push(Out::Close(old));
             return Flow::Close;
         }
         if self.index.contains_key(&session) {
@@ -225,11 +228,7 @@ impl Gate {
                 Some(_) => Err(reason::NOT_READY),
                 None => Err(reason::NO_TARGET),
             },
-            Peer::Cached(_) => self
-                .clients
-                .get(&to_wid)
-                .map(|&s| Peer::Client(s))
-                .ok_or(reason::NO_TARGET),
+            Peer::Cached(_) => self.clients.get(&to_wid).copied().ok_or(reason::NO_TARGET),
         }
     }
 

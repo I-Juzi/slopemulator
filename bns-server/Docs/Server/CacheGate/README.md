@@ -112,10 +112,18 @@ Hello `hhhh`: cmd, packetVersion, economyPacketVersion, wid.
 
 - ClientManager: `clientMap` wid → session, `idIndexMap` session → wid.
   `ReleaseSession` on client OnClose.
-- Hello from a CacheD session: Rust closes it ❓ (native path not traced).
+- Hello has no session type check. A CacheD session that sends Hello is
+  added to ClientManager like a client (0x140004C00, build 348).
+- Only the port 1 handler `CacheGateSessionHandler::OnClose` @0x140004100
+  calls `ReleaseSession` (`initNetwork` gives it to `OpenPort(1)` only).
+  `CacheDChannel::onClose` @0x140003E40 does not, so that entry stays.
+  Rust keys the entry by `Peer::Cached(wid)`; native keys it by the
+  session, so after a reconnect native keeps a dead session and Rust
+  routes to the new one ❓.
 - Outbound: `CacheDChannel::onConnect` @0x140003C80 runs `CacheD::Verify`
   (`_addr` and `_port` equal the peer) and sends Hello `[1, 4, 10, wid]`.
-  The wid is `LOWORD(v8[1].__vftable)` = the CacheD id ❓ (not the gate wid).
+  The wid is `LOWORD(v8[1].__vftable)`: offset 40 of `CacheD` (base
+  `Channel` is 40 bytes) = `CacheD::_id`, the CacheD wid, not the gate wid.
 - HelloOk needs `session->_channel` (a CacheD), else log "unknow hello ok"
   and return false. Verify == 0 → status = 1. onClose → status = 0.
 
@@ -133,7 +141,10 @@ reserved u64. The header is 22 bytes; payload starts at frame offset 26.
 - Failure: RelayFail (cmd 5, 28 bytes) to the sender, header
   {fromWid = own config wid, toWid = original fromWid, tid, hint, reserved}
   and `h` reason.
-- Short header (decompose fails): Rust closes ❓.
+- Short header: `Packet::Decompose` fails, the handler returns false, the
+  session closes (0x1400051C0). Rust matches.
+- Native rebuilds the forwarded frame (cmd 4, the same 22-byte header,
+  payload from offset 26). The bytes equal the input frame.
 - The handler returns true.
 
 ## 6. FragmentRelay (cmd 9)
@@ -149,7 +160,9 @@ Frame: size i16, cmd i16, mark i32, data. One concatenater per session.
 
 - Complete: decompose `hihhqhq` (the relay header is the first 22 data bytes)
   and route as in section 5. Forward the chain with `Session::Send(Packet)`.
-  Rust forwards the original frames unchanged ❓.
+  `Packet::Concatenate` @0x140007300 copies each received frame byte for
+  byte, so the forwarded chain equals the input frames. Rust matches.
+- Chain decompose failure: clear, return false (close).
 - Failure: non-fragment RelayFail (28 bytes) with reason 3 or 8. Clear, keep.
 - Rust only: a chain over 1 MiB, or data past `mark`, closes the session.
 

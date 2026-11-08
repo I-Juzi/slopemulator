@@ -81,7 +81,7 @@ fn hello_ok_and_version_errors() {
         (out, flow),
         (vec![Out::Send(C1, protocol::hello_ok())], Flow::Keep)
     );
-    assert_eq!(g.client(5), Some(1));
+    assert_eq!(g.client(5), Some(C1));
     for bad in [hello(3, 10, 6), hello(4, 9, 6)] {
         let (out, flow) = g.handle(C2, &bad);
         assert_eq!(
@@ -344,4 +344,30 @@ fn gate_config_parse() {
     let missing = xml.replace("<option name='max-public-session-count' value='100'/>", "");
     assert!(GateConfig::parse(&missing).is_err());
     assert!(GateConfig::parse(&xml.replace("cacheGate", "other")).is_err());
+}
+
+/// Hello @0x140004C00 has no session type check: a CacheD session that
+/// sends Hello enters ClientManager. CacheDChannel::onClose does not
+/// release it.
+#[test]
+fn cached_hello_registers_in_client_manager() {
+    let mut g = ready_gate();
+    let d1 = Peer::Cached(1);
+    assert_eq!(
+        g.handle(d1, &hello(4, 10, 200)),
+        (vec![Out::Send(d1, protocol::hello_ok())], Flow::Keep)
+    );
+    assert_eq!(g.client(200), Some(d1));
+    // A client Hello with the same wid closes the CacheD session.
+    let (out, flow) = g.handle(C2, &hello(4, 10, 200));
+    assert_eq!(
+        out,
+        vec![
+            Out::Send(C2, protocol::hello_fail(reason::DUPLICATE)),
+            Out::Close(d1),
+        ]
+    );
+    assert_eq!(flow, Flow::Close);
+    g.cached_closed(1);
+    assert_eq!(g.client(200), Some(d1));
 }
