@@ -7,6 +7,10 @@ use std::{
     time::{Duration, Instant},
 };
 
+/// Owner tag of launcher tokens (spec 09). Game-token consumers refuse it,
+/// and launcher consumers accept only it, so the two kinds never cross.
+const LAUNCHER_OWNER: [u8; 16] = [0xff; 16];
+
 struct Entry {
     identity: Identity,
     binding: Binding,
@@ -79,7 +83,46 @@ impl TokenAuthority {
             entries.remove(&token);
             return Err(LoginError::Authentication);
         }
-        if entry.identity.portal_id != portal || entry.binding != *binding {
+        if entry.owner == LAUNCHER_OWNER
+            || entry.identity.portal_id != portal
+            || entry.binding != *binding
+        {
+            return Err(LoginError::Authentication);
+        }
+        Ok(entries
+            .remove(&token)
+            .ok_or(LoginError::Authentication)?
+            .identity)
+    }
+    /// Issue a single-use launcher token for the token login path (spec 09).
+    /// Call only from the trusted launcher issuer, after it authenticated the user.
+    pub fn issue_launcher<R: RngCore + CryptoRng>(
+        &self,
+        identity: Identity,
+        binding: Binding,
+        rng: &mut R,
+        now: Instant,
+    ) -> Result<[u8; 16], LoginError> {
+        if !identity.valid() || !binding.valid() {
+            return Err(LoginError::InvalidInput);
+        }
+        self.issue(identity, binding, LAUNCHER_OWNER, rng, now)
+    }
+    /// Consume a launcher token at TokenKeyData. The portal is not known yet on
+    /// this path, so only the binding is checked. Wrong bindings do not consume.
+    pub(crate) fn consume_launcher(
+        &self,
+        token: [u8; 16],
+        binding: &Binding,
+        now: Instant,
+    ) -> Result<Identity, LoginError> {
+        let mut entries = self.entries.lock().map_err(|_| LoginError::Unavailable)?;
+        let entry = entries.get(&token).ok_or(LoginError::Authentication)?;
+        if entry.deadline <= now {
+            entries.remove(&token);
+            return Err(LoginError::Authentication);
+        }
+        if entry.owner != LAUNCHER_OWNER || entry.binding != *binding {
             return Err(LoginError::Authentication);
         }
         Ok(entries

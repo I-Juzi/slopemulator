@@ -16,3 +16,9 @@ members = [
 ]
 exclude = ["Program/Tools/BnsEdit"]
 resolver = "2"
+
+# RSA-2048 key generation (STS token login, spec 09) is very slow unoptimised.
+[profile.dev.package.num-bigint-dig]
+opt-level = 3
+[profile.dev.package.rsa]
+opt-level = 3

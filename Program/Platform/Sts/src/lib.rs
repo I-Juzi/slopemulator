@@ -1,5 +1,6 @@
 //! Bounded STS framing and the local 2020 client SRP login profile.
 //! See Docs/Platform/Sts/07-client-login-wire.md. Real-client validation is pending.
+//! The launcher token path (spec 09) is in `token_login`.
 pub mod key_data;
 #[cfg(any(feature = "listener", test))]
 pub mod listener;
@@ -12,6 +13,7 @@ pub mod srp6;
 #[cfg(test)]
 #[path = "../tests/common/mod.rs"]
 mod test_client;
+pub mod token_login;
 pub mod tokens;
 pub mod wire;
 

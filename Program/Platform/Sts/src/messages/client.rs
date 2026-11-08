@@ -61,7 +61,7 @@ fn tag(name: &str) -> bool {
         && name.bytes().all(|b| b.is_ascii_alphanumeric() || b == b'_')
         && name.as_bytes()[0].is_ascii_alphabetic()
 }
-fn field(out: &mut String, name: &str, value: &str) -> Result<(), Error> {
+pub(crate) fn field(out: &mut String, name: &str, value: &str) -> Result<(), Error> {
     if !tag(name) || !value.chars().all(xml_char) {
         return Err(Error::Xml);
     }
@@ -75,13 +75,13 @@ fn field(out: &mut String, name: &str, value: &str) -> Result<(), Error> {
     Ok(())
 }
 #[derive(Default)]
-struct Node {
+pub(crate) struct Node {
     name: String,
     text: String,
     children: Vec<Node>,
 }
 impl Node {
-    fn only(&self, names: &[&str]) -> Result<(), Error> {
+    pub(crate) fn only(&self, names: &[&str]) -> Result<(), Error> {
         if !self.text.trim().is_empty()
             || self
                 .children
@@ -111,11 +111,11 @@ impl Node {
             })
             .transpose()
     }
-    fn value(&self, name: &str) -> Result<&str, Error> {
+    pub(crate) fn value(&self, name: &str) -> Result<&str, Error> {
         self.optional(name)?.ok_or(Error::Field)
     }
 }
-fn parse_xml(bytes: &[u8], root_name: &str) -> Result<Node, Error> {
+pub(crate) fn parse_xml(bytes: &[u8], root_name: &str) -> Result<Node, Error> {
     if bytes.len() > 65_536 {
         return Err(Error::Xml);
     }

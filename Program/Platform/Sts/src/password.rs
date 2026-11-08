@@ -28,7 +28,7 @@ pub struct Identity {
     pub slot_id: u64,
 }
 impl Identity {
-    fn valid(&self) -> bool {
+    pub(crate) fn valid(&self) -> bool {
         self.portal_id != [0; 16]
             && self.account_id != [0; 16]
             && !self.login_name.is_empty()
@@ -329,6 +329,29 @@ impl Session {
     }
     pub fn binding(&self) -> &Binding {
         &self.binding
+    }
+    /// Token login (spec 09): the launcher token replaces LoginStart/KeyData.
+    /// The account must match the token identity and hold a grant for this binding.
+    pub(crate) fn accept_token_login(
+        &mut self,
+        identity: &Identity,
+        store: &impl AccountStore,
+    ) -> Result<(), LoginError> {
+        if self.state != State::Connected {
+            return Err(LoginError::WrongOrder);
+        }
+        let account = store
+            .find(&identity.login_name)
+            .ok_or(LoginError::Authentication)?;
+        if account.identity.account_id != identity.account_id
+            || account.identity.portal_id != identity.portal_id
+            || !account.grants.iter().any(|g| g.binding == self.binding)
+        {
+            return Err(LoginError::Authentication);
+        }
+        self.account = Some(account);
+        self.state = State::AwaitFinish;
+        Ok(())
     }
     /// Close on framing, XML, transport or authorization errors too.
     pub fn abort(&mut self) {

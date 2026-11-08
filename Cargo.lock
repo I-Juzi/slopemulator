@@ -1038,10 +1038,12 @@ name = "sts"
 version = "0.1.0"
 dependencies = [
  "base64 0.22.1",
+ "md-5",
  "num-bigint",
  "num-traits",
  "quick-xml",
  "rand",
+ "rsa",
  "sha2",
  "shared",
 ]

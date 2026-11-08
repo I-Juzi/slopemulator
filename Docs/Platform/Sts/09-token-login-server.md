@@ -84,3 +84,19 @@ RC4 key length is 128 bytes. One stream per direction, no reset — same whole-m
 ## Security / policy
 
 The identity private key (`sts_token_private.pem`) and the ephemeral keys are the server's own. No vendor private key is used. The patched client trusts our identity key by `08`. Keep `sts_token_private.pem` out of the repo.
+
+## Implementation (Rust, `Program/Platform/Sts/src/token_login.rs`)
+
+| Item | Where | Choice for each ❓ |
+| --- | --- | --- |
+| MD5, PRF, two-stage expansion | `md5`, `prf`, `KeyBlock::derive` | Labels `"B"`, `"CC"`, …; stage 1 = client‖server, stage 2 = server‖client |
+| Raw RSA, blob, signature | `RawRsaKey` (`generate`, `from_pem`, `public_blob`, `sign_md5`, `decrypt`) | Ephemeral key per connection (`rsa` crate keygen) |
+| State machine | `TokenSession` wraps a new 07 `password::Session` | After TokenKeyData the session continues as 07 (`AwaitFinish`) |
+| ServerRand / premaster | `SERVER_RAND_LEN = 28`, `PREMASTER_LEN = 48` | Decrypted premaster is zero-padded to 48; longer is refused |
+| AuthnToken | `launcher_token` | 36-byte GUID text (trailing NULs ignored) or ≤ 16 raw bytes |
+| Token store | `TokenAuthority::issue_launcher` / `consume_launcher` | Launcher tokens carry a fixed owner tag; game-token `consume` refuses them and the reverse |
+| Reply 3112 | `TOKEN_KEY_DATA_REPLY_ID`, `xml::token_key_data_reply` | Empty `<Reply/>` |
+| RC4 start | `TokenSession::take_ciphers` | Installed after the 3112 reply is sent (same rule as 07) |
+| XML element names | `token_login::xml` | Same as the field names in this spec |
+
+Not wired into `listener.rs` or `wire.rs` yet: SRP stays the only live path. Wire it after one real launcher capture confirms the ❓ items. Tests: `tests/token_login.rs` (independent client transcribed from this spec).
