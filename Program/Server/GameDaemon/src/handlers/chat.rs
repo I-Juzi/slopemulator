@@ -68,8 +68,13 @@ pub enum ChatRequest {
     },
     /// 390: petition backend request 173 (`u1i8`).
     CurrentPetition { world: i16, db_id: u64 },
-    /// 1560: petition backend request 154 (`u1s2i8s2i8`, PC +194 block).
-    CancelPetition { world: i16 },
+    /// 1560: petition backend request 154 (`u1s2i8s2i8`).
+    /// Both pairs use the PC +194 string and PC +20744 DB ID.
+    CancelPetition {
+        world: i16,
+        identity: Vec<u16>,
+        db_id: u64,
+    },
     /// 904: lobby request 97 `hqqQi` (0, db_id, key type, grade) to world short_96.
     ActivateGameGrade {
         world: i16,
@@ -86,6 +91,25 @@ pub enum ChatRequest {
     },
     /// 1047: user transaction (DWORD +8 = 0x3F210A), started with event 376.
     TimeBasedPlayReward { db_id: u64, target: u8 },
+}
+
+impl ChatRequest {
+    /// Backend 154 payload, without the outer size. Route it to `world`.
+    /// Native `0x14018D030` writes each s2 string up to the first NUL.
+    pub fn cancel_petition_packet(&self) -> Option<Vec<u8>> {
+        let Self::CancelPetition {
+            identity, db_id, ..
+        } = self
+        else {
+            return None;
+        };
+        let mut body = vec![154];
+        for _ in 0..2 {
+            super::party::string_body(&mut body, identity);
+            body.extend(db_id.to_le_bytes());
+        }
+        Some(body)
+    }
 }
 
 pub(super) fn dispatch_chat(ctx: &mut Context<'_>, command: u16, req: &[u8]) -> Outcome {
@@ -328,7 +352,9 @@ pub fn handle_submit_petition(ctx: &mut Context<'_>, _: &[u8]) -> Outcome {
         out.logs.push("SubmitPetitionReq: cannot process in arena");
         return out;
     }
-    // Decode into zeroed buffers; the result is ignored.
+    // Native clears only the first string buffer (0x642 bytes), then ignores
+    // the decode result. The integer and second string have no zero defaults.
+    // Keep malformed values at the boundary; do not invent decoded fields.
     if !ctx.pc().user_present {
         let mut out = petition_reply(F, 2);
         out.logs
@@ -347,6 +373,8 @@ pub fn handle_cancel_petition(ctx: &mut Context<'_>, _: &[u8]) -> Outcome {
     }
     let request = ChatRequest::CancelPetition {
         world: ctx.pc().short_96,
+        identity: ctx.pc().name.clone(),
+        db_id: ctx.pc().db_id,
     };
     chat_request(ctx, request, Outcome::default())
 }

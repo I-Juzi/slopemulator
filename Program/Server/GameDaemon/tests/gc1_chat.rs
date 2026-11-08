@@ -214,6 +214,69 @@ fn channel_and_petition_boundaries() {
 }
 
 #[test]
+fn cancel_petition_keeps_owner_identity_in_one_world() {
+    let mut h = H::new();
+    h.services.chat_result = Gate::Pass;
+    h.pc().name = vec![0x0041, 0xD83D, 0xDE00, 0, 0x0058];
+    assert!(h.run(1560, &[]).replies.is_empty());
+    let first = h.services.chat_calls.last().unwrap().clone();
+
+    h.pc().object_id = PC_ID + 1;
+    h.pc().db_id = 0x0807_0605_0403_0201;
+    h.pc().name = vec![0x0042];
+    assert!(h.run(1560, &[]).replies.is_empty());
+    let second = h.services.chat_calls.last().unwrap().clone();
+    assert_ne!(first, second);
+    assert_eq!(
+        first,
+        ChatRequest::CancelPetition {
+            world: 3,
+            identity: vec![0x0041, 0xD83D, 0xDE00, 0, 0x0058],
+            db_id: 77,
+        }
+    );
+    assert_eq!(
+        second,
+        ChatRequest::CancelPetition {
+            world: 3,
+            identity: vec![0x0042],
+            db_id: 0x0807_0605_0403_0201,
+        }
+    );
+    // u1 opcode, then two identical s2/i8 pairs. Do not send the NUL or suffix.
+    let first_pair = [3, 0, 0x41, 0, 0x3D, 0xD8, 0, 0xDE, 77, 0, 0, 0, 0, 0, 0, 0];
+    let second_pair = [1, 0, 0x42, 0, 1, 2, 3, 4, 5, 6, 7, 8];
+    assert_eq!(
+        first.cancel_petition_packet().unwrap(),
+        [&[154][..], &first_pair, &first_pair].concat()
+    );
+    assert_eq!(
+        second.cancel_petition_packet().unwrap(),
+        [&[154][..], &second_pair, &second_pair].concat()
+    );
+    assert!(ChatRequest::CurrentPetition {
+        world: 3,
+        db_id: 77,
+    }
+    .cancel_petition_packet()
+    .is_none());
+}
+
+#[test]
+fn submit_petition_unchecked_decode_stays_at_boundary() {
+    let mut h = H::new();
+    // Empty body, then integer + first string only. The second string is absent.
+    for body in [&[][..], &[1, 0, 0, 0, 0, 0][..]] {
+        let out = h.run(1557, body);
+        assert!(unsupported(&out));
+        assert!(out.replies.is_empty());
+        assert!(h.services.chat_calls.is_empty());
+    }
+    h.pc().user_present = false;
+    assert_eq!(replies(&h.run(1557, &[])), vec![(1559, vec![2, 0, 0, 0])]);
+}
+
+#[test]
 fn board_gacha_reward_and_qq() {
     let mut h = H::new();
     let count = 2i16.to_le_bytes();

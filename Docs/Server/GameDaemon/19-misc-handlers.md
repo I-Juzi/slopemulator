@@ -7,7 +7,7 @@ Descriptor letters follow docs 16–18: `h` header or i16, `Q` u8, `q` u64,
 `c` i8, `i` i32, `s` UTF-16 string with an i16 count, `E` u16 reason.
 
 Coverage: 165, 356, 359, 360, 362, 407, 419, 820, 1130, 1137, 1188, 1423.
-Quest commands are in doc 20.
+Quest commands are in docs 20 and 21.
 
 ## Shared fields
 

@@ -50,7 +50,7 @@ Shared fields:
 | 395 | G_SendPetitionChatNotifyReqCmd | `h` | log only | done |
 | 1557 | G_SubmitPetitionReqCmd | `hiss` | 1559 `hEcc` | partial |
 | 1560 | G_CancelPetitionReqCmd | `h` | 1562 `hEcc`, backend 154 | partial |
-| 1563 | G_FeedbackPetitionReqCmd | `hccS…` | 1565 `hh` | partial |
+| 1563 | G_FeedbackPetitionReqCmd | `hCc;s` | 1565 `hh` on failure; none on forward path | partial |
 | 1185 | G_BoardGachaTakeParticipationRewardReqCmd | `hh` | 1187 `hh` | partial |
 | 844 … 893 | QQ group (15 commands) | – | as 887 | partial |
 
@@ -151,8 +151,19 @@ Shared fields:
   2. Type 1: id = PC object ID. Type 2: id = u16(PC +40) | (short_96 << 32). Other → 389/2.
   3. `0x14033ED20(type)` null → 389/2 ("arena lobby disconnected").
   4. BlowFish key failure → 389/2.
-  5. Build a 64-byte signature with `0x1403A0800` from cfg strings +328/+320, DWORD +312 and time32. Reply 388 (`hqqb` builder) through vtable +584.
-- **❓ Missing:** the signature internals (a boundary) and the 388 body layout.
+  5. Build a 64-byte signature with `0x1403A0800` from cfg strings +328/+320, DWORD +312 and time32. Send reply 388 through vtable +584.
+- **Reply 388:** `hQqb`. The descriptor at `0x140BEF380` contains these bytes.
+  `0x1403A1906` selects it. The builder at `0x1403A198A–0x1403A19AE` supplies the fields.
+
+  | Field | Size | Value |
+  | --- | --- | --- |
+  | Command `h` | 2 bytes | 388 |
+  | Server type `Q` | 1 byte | Request type, 1 or 2 |
+  | Lobby ID `q` | 8 bytes | Result from `0x14033ED20(type)` |
+  | Blob length | 2 bytes | 64 |
+  | Signature | 64 bytes | Output from `0x1403A0800` |
+
+- **❓ Missing:** the signature internals (a boundary).
 
 ## 390 — G_CurrentPetitionReqCmd — partial
 
@@ -174,7 +185,12 @@ Shared fields:
 ## 1557 — G_SubmitPetitionReqCmd — partial
 
 - **381:** `0x14039B240`. **348:** `HandleGame_SubmitPetitionReq`.
-- **Wire:** `hiss`: i, s (capacity 801), s (capacity 801). The buffers are zeroed. The decode result is ignored.
+- **Wire:** `hiss`: i, s (capacity 801), s (capacity 801).
+  At `0x14039B2FF–0x14039B35A`, the handler clears only the first string buffer (0x642 bytes).
+  It does not initialize the second string buffer or the integer before decode.
+  It ignores the decode result. A failed decode does not give all fields zero defaults.
+  A failure before the second string does not establish an empty second string.
+  Rust keeps these malformed values at the unsupported boundary.
 - **Checks/order:**
   1. Arena config → 1559/5 and log "cannot process in arena".
   2. No user → log "user is null" and 1559/2.
@@ -188,19 +204,50 @@ Shared fields:
 ## 1560 — G_CancelPetitionReqCmd — partial
 
 - **381:** `0x14039B6D0`. **348:** `HandleGame_CancelPetitionReq`.
-- **Checks/order:** Arena config → 1562/5 and log. Otherwise backend request 154 (`u1s2i8s2i8`) with PC +194, to world short_96. The result is ignored.
+- **Checks/order:** Arena config → 1562/5 and log.
+  Otherwise send backend request 154 (`u1s2i8s2i8`) to world short_96.
+  The call at `0x14039B79A–0x14039B7D4` passes both identity pairs.
+  The fields are 154, PC +194 string, DB ID (PC +20744), PC +194 string, DB ID.
+  Both pairs identify the same PC. The handler ignores the send result.
+- **Backend layout:** One-byte opcode 154, then two identical string/DB-ID pairs.
+  Each string has a two-byte UTF-16 unit count, then the UTF-16 units without a NUL.
+  Each DB ID has eight bytes. Encoder `0x14018D030` stops each string at its first NUL.
+- **Rust:** `ChatRequest::CancelPetition` keeps `world`, `identity` (`Pc.name`) and `db_id`.
+  `cancel_petition_packet()` encodes both pairs without the outer size.
 - **❓ Missing:** the petition daemon channel.
 
 ## 1563 — G_FeedbackPetitionReqCmd — partial
 
 - **381:** `0x14039B7F0`. **348:** `HandleGame_FeedbackPetitionReq`.
-- **Wire:** a nested score list, then a string (forwarded raw).
+- **Wire:** `hCc;s`. The descriptor at `0x140BEE330` contains these bytes.
+  `0x14039B963` selects it. The fields are command, two-byte score count,
+  one byte for each score, then a length-prefixed UTF-16 string (capacity 801).
+  List decoder `0x14069DA00` reads the two-byte count.
 - **Checks/order:**
   1. Arena config → 1565/5.
   2. Petition map lookup by db_id. Not found → log and 1565/2.
-  3. Build forward packet (`hccS`, opcode 0xAA, petition id). Score count > 255 → log.
-  4. Send it on the petition channel. Final reply 1565 with a computed reason.
-- **❓ Missing:** the score list codec, the channel send and the final reason.
+  3. Decode the score count. A count outside 0..255 → log and 1565/2.
+  4. Decode each score, then the string. A decode failure → log and 1565/2.
+  5. Build the backend packet. Find the first NUL in the decoded string.
+     Calculate a new string length from that position. Do not forward the string bytes unchanged.
+  6. Send the packet on the petition channel. No immediate client reply follows.
+     A missing channel or session also gives no immediate client reply.
+- **Backend layout:** `0x14039B9E6–0x14039BA77` builds the header.
+  The string copy follows the decode and first-NUL scan.
+
+  | Field | Size | Value |
+  | --- | --- | --- |
+  | Opcode | 1 byte | 0xAA |
+  | Petition ID | 4 bytes | Petition map value |
+  | Score count | 1 byte | 0..255 |
+  | Scores | Count bytes | One byte per score |
+  | String length | 2 bytes | UTF-16 unit count before the first NUL |
+  | String | Length × 2 bytes | UTF-16 units without the NUL or its suffix |
+
+- **Reply paths:** `0x14039BCD5–0x14039BCEB` sends 1565/2 for count or decode failure.
+  After the send at `0x14039BC70–0x14039BCA7`, the handler jumps to cleanup at `0x14039BCF2`.
+  It sends no final reply on that path. Missing channel and session paths also reach cleanup.
+- **❓ Missing:** the petition map and channel internals. Rust keeps these paths at the unsupported boundary.
 
 ## 1185 — G_BoardGachaTakeParticipationRewardReqCmd — partial
 
