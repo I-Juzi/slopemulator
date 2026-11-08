@@ -134,6 +134,8 @@ pub enum SkillTaskKind {
     /// Doc 25 arena lobby zone tasks.
     ArenaLobby(ArenaLobbyTask),
     ArenaEvent(ArenaEventTask),
+    /// Doc 27 duel and party-battle zone tasks.
+    Duel(DuelTask),
     /// Doc 24 market zone actions and tasks.
     Market(MarketTask),
     /// Doc 23 post task type. Reserved: native post entries use account transactions.

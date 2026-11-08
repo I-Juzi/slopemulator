@@ -20,6 +20,7 @@ mod arena_event;
 mod arena_lobby;
 mod challenge;
 mod chat;
+mod duel_ranking;
 mod items;
 mod items2;
 mod items3;
@@ -39,6 +40,7 @@ pub use arena_event::*;
 pub use arena_lobby::*;
 pub use challenge::*;
 pub use chat::*;
+pub use duel_ranking::*;
 pub use items2::*;
 pub use items3::*;
 pub use items4::*;
@@ -1177,6 +1179,7 @@ fn dispatch_inner(ctx: &mut Context<'_>, command: u16, req: &[u8]) -> Outcome {
         && !MISC_COMMANDS.contains(&command)
         && !ARENA_LOBBY_COMMANDS.contains(&command)
         && !ARENA_EVENT_COMMANDS.contains(&command)
+        && !DUEL_RANKING_COMMANDS.contains(&command)
         && !MARKET_COMMANDS.contains(&command)
         && !POST_COMMANDS.contains(&command)
         && !SHOP_COMMANDS.contains(&command)
@@ -1252,6 +1255,9 @@ fn dispatch_inner(ctx: &mut Context<'_>, command: u16, req: &[u8]) -> Outcome {
     }
     if ARENA_EVENT_COMMANDS.contains(&command) {
         return arena_event::dispatch_arena_event(ctx, command, req);
+    }
+    if DUEL_RANKING_COMMANDS.contains(&command) {
+        return duel_ranking::dispatch_duel_ranking(ctx, command, req);
     }
     if MARKET_COMMANDS.contains(&command) {
         return market::dispatch_market(ctx, command, req);

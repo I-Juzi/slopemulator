@@ -7,7 +7,7 @@ use super::skills::{counted, queue};
 use super::*;
 
 pub const MISC_COMMANDS: &[u16] = &[
-    165, 356, 359, 360, 362, 407, 419, 820, 1130, 1137, 1188, 1423,
+    165, 356, 358, 359, 360, 362, 407, 419, 820, 1130, 1137, 1188, 1423,
 ];
 
 /// Doc 19 shared fields.
@@ -43,7 +43,7 @@ impl From<MiscTask> for SkillTaskKind {
 pub(super) fn dispatch_misc(ctx: &mut Context<'_>, command: u16, req: &[u8]) -> Outcome {
     match command {
         165 => handle_stop_cinematic(ctx, req),
-        356 | 359 | 360 | 362 => handle_return_true_stub(ctx, req),
+        356 | 358 | 359 | 360 | 362 => handle_return_true_stub(ctx, req),
         407 => handle_write_client_log(ctx, req),
         419 => handle_report_bot_spammer(ctx, req),
         820 => handle_trace_route_ip(ctx, req),
@@ -86,6 +86,7 @@ pub fn handle_stop_cinematic(ctx: &mut Context<'_>, req: &[u8]) -> Outcome {
 }
 
 /// parity: 356 19-misc-handlers.md#356--g_dpgameclienttoserverreqcmd--done ported
+/// parity: 358 27-duel-ranking-handlers.md#358--g_dparenaclienttoserverreqcmd--done ported
 /// parity: 359 19-misc-handlers.md#359--g_reloaddaemonreqcmd--done ported
 /// parity: 360 19-misc-handlers.md#360--g_registertracereqcmd--done ported
 /// parity: 362 19-misc-handlers.md#362--g_unregistertracereqcmd--done ported
