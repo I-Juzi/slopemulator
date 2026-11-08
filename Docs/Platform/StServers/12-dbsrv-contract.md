@@ -160,3 +160,14 @@ Live test (bns-mssql, 8 Nov 2026): typed values, `&`/`<` escape, return code 300
 empty-set aux dropped (3010), missing procedure → 977, error after a set → 1001 with aux,
 NULL body → module 1 line 71, 32 params → 977 without text, ExecBatched → `r1`, `r2`, `R3`
 with 58981-byte partials.
+
+### Gap check against the shipped config and the SQL dump (8 Nov 2026)
+
+| Gap | Check | Effect on build 381 |
+| --- | --- | --- |
+| RouteSrv registration | DbSrv.c ~178913 looks up `RouteSrv` / `RouteSrv.<name>` and connects (`Can't find RouteSrv(%s) for %s(%u)`) | original services cannot reach the port until RouteSrv is ported |
+| `Storage` protocol | `Storage.ini` `[Storage] DbSrv = StorageDb` is present, so the DbSrv Storage path is on | port answers line 101; needs the StorageSrv analysis |
+| EncryptedPassword, Mirror, Driver | shipped `Db.ini`: 33 sections, keys Address, Database, Username, Password only | none |
+| float / real / money columns | `columns.txt` of PlatformAcctDb, GameDb, SlotDb, SessionDb: 0 | none for these DBs |
+| PRINT / RAISERROR (info messages) | `modules.sql` of the same DBs: 0 | none for these DBs |
+| varchar columns | AcctDb 16, GameDb 13, SlotDb 5, SessionDb 2 | same text for ASCII data; non-ASCII data ❓ |
