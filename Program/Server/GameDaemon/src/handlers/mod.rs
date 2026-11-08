@@ -24,6 +24,7 @@ mod items3;
 mod items4;
 mod items5;
 mod mentoring;
+mod misc;
 mod skills;
 mod skills2;
 mod social;
@@ -34,6 +35,7 @@ pub use items3::*;
 pub use items4::*;
 pub use items5::*;
 pub use mentoring::*;
+pub use misc::*;
 pub use skills::*;
 pub use skills2::*;
 pub use social::*;
@@ -322,6 +324,10 @@ pub struct Pc {
     pub trial_jumping: bool,
     /// Doc 17: PC byte +36746 (mentoring type 0, 1 or 2).
     pub mentoring_type: u8,
+    /// Doc 19 419: PC qword +20800, tick of the last accepted bot report.
+    pub bot_report_tick: u64,
+    /// Doc 19 419: level byte of the `0x14060D810` PC snapshot (❓ level).
+    pub level: i8,
 }
 impl Default for Pc {
     fn default() -> Self {
@@ -339,6 +345,8 @@ impl Default for Pc {
             zone: None,
             native_kind: 1,
             mentoring_type: 0,
+            bot_report_tick: 0,
+            level: 0,
             position: Position::default(),
             yaw: 0,
             user_available: false,
@@ -472,6 +480,8 @@ pub struct World {
     pub time_play_schedules: [Option<(i64, i64)>; 2],
     /// Doc 17 mentoring fields.
     pub mentoring: MentoringWorld,
+    /// Doc 19 misc fields.
+    pub misc: MiscWorld,
     /// Doc 18: global byte +1982.
     pub challenge_party_enabled: bool,
     /// Doc 18: shared PC name lookup, daemon +5824.
@@ -1071,6 +1081,7 @@ fn dispatch_inner(ctx: &mut Context<'_>, command: u16, req: &[u8]) -> Outcome {
         && !QQ_COMMANDS.contains(&command)
         && !SOCIAL_COMMANDS.contains(&command)
         && !MENTORING_COMMANDS.contains(&command)
+        && !MISC_COMMANDS.contains(&command)
         && !CHALLENGE_COMMANDS.contains(&command)
     {
         return Outcome::log("unknown command");
@@ -1132,6 +1143,9 @@ fn dispatch_inner(ctx: &mut Context<'_>, command: u16, req: &[u8]) -> Outcome {
     }
     if MENTORING_COMMANDS.contains(&command) {
         return mentoring::dispatch_mentoring(ctx, command, req);
+    }
+    if MISC_COMMANDS.contains(&command) {
+        return misc::dispatch_misc(ctx, command, req);
     }
     if CHALLENGE_COMMANDS.contains(&command) {
         return challenge::dispatch_challenge(ctx, command, req);

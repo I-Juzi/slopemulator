@@ -103,6 +103,8 @@ pub enum SkillTaskKind {
     Mentoring(MentoringTask),
     /// Doc 18 challenge-party zone tasks.
     ChallengeParty(ChallengeTask),
+    /// Doc 19 misc zone tasks.
+    Misc(MiscTask),
 }
 
 #[derive(Clone, Debug, PartialEq, Eq)]
