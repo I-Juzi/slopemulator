@@ -16,6 +16,7 @@ pub use guild::*;
 pub use party::*;
 pub use party_model::*;
 pub use party_tasks::execute_party_task;
+mod arena_lobby;
 mod challenge;
 mod chat;
 mod items;
@@ -33,6 +34,7 @@ mod shop;
 mod skills;
 mod skills2;
 mod social;
+pub use arena_lobby::*;
 pub use challenge::*;
 pub use chat::*;
 pub use items2::*;
@@ -286,7 +288,10 @@ pub struct Pc {
     pub yaw: u16,
     pub user_available: bool,
     pub arena_state: u8,
+    /// PC qwords +37528 and +37544. Shared with return-to-game (648).
     pub arena_qwords: [u64; 2],
+    /// Doc 25: extra lobby fields under the same native arena lock.
+    pub arena_lobby: ArenaLobbyPc,
     pub received_enter_world: bool,
     pub client_version: u32,
     pub received_ping: [u64; 2],
@@ -365,6 +370,7 @@ impl Default for Pc {
             user_available: false,
             arena_state: 0,
             arena_qwords: [0; 2],
+            arena_lobby: ArenaLobbyPc::default(),
             received_enter_world: false,
             client_version: 0,
             received_ping: [0; 2],
@@ -636,6 +642,10 @@ pub trait Services {
     fn mentoring_registry(&mut self, _mentor: u64, _mentee: u64, _max: i8) -> MentoringRegistry {
         MentoringRegistry::Unknown
     }
+    /// Doc 25: server-owned arena state, packet builders and backend sends.
+    fn arena_lobby(&mut self, _operation: &ArenaLobbyOperation) -> ArenaLobbyResult {
+        ArenaLobbyResult::Unknown
+    }
     /// Doc 24: market configuration, agent sends and account transactions.
     fn market(&mut self, _check: &MarketCheck) -> Gate {
         Gate::Unknown
@@ -780,6 +790,7 @@ pub struct MemoryServices {
     pub chat_result: Gate,
     pub chat_calls: Vec<ChatRequest>,
     pub mentoring_registry_result: MentoringRegistry,
+    pub arena_lobby: MemoryArenaLobby,
     pub market: MemoryMarket,
     pub post: MemoryPost,
     pub shop: MemoryShop,
@@ -897,6 +908,7 @@ impl Default for MemoryServices {
             chat_result: Gate::Unknown,
             chat_calls: vec![],
             mentoring_registry_result: MentoringRegistry::Unknown,
+            arena_lobby: MemoryArenaLobby::default(),
             market: MemoryMarket::default(),
             post: MemoryPost::default(),
             shop: MemoryShop::default(),
@@ -907,6 +919,9 @@ impl Default for MemoryServices {
     }
 }
 impl Services for MemoryServices {
+    fn arena_lobby(&mut self, operation: &ArenaLobbyOperation) -> ArenaLobbyResult {
+        self.arena_lobby.check(operation)
+    }
     fn market(&mut self, check: &MarketCheck) -> Gate {
         self.market.check(check)
     }
@@ -1144,6 +1159,7 @@ fn dispatch_inner(ctx: &mut Context<'_>, command: u16, req: &[u8]) -> Outcome {
         && !SOCIAL_COMMANDS.contains(&command)
         && !MENTORING_COMMANDS.contains(&command)
         && !MISC_COMMANDS.contains(&command)
+        && !ARENA_LOBBY_COMMANDS.contains(&command)
         && !MARKET_COMMANDS.contains(&command)
         && !POST_COMMANDS.contains(&command)
         && !SHOP_COMMANDS.contains(&command)
@@ -1213,6 +1229,9 @@ fn dispatch_inner(ctx: &mut Context<'_>, command: u16, req: &[u8]) -> Outcome {
     }
     if MISC_COMMANDS.contains(&command) {
         return misc::dispatch_misc(ctx, command, req);
+    }
+    if ARENA_LOBBY_COMMANDS.contains(&command) {
+        return arena_lobby::dispatch_arena_lobby(ctx, command, req);
     }
     if MARKET_COMMANDS.contains(&command) {
         return market::dispatch_market(ctx, command, req);
