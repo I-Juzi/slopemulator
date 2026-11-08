@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<profile>
+    <name>Private Server</name>
+    <background>red</background>
+    <foreground>white</foreground>
+
+    <!-- Path to Client.exe of the 2020 client (build 381).
+         Leave it out to use the client path from the launcher settings. -->
+    <!--<clientpath>C:\BnS\bin\Client.exe</clientpath>-->
+
+    <!-- /LoginMode makes the client show its own login panel (password path).
+         Type the user name and password of your private-server account there.
+         The server address comes from release.config2.xml in config.dat. -->
+    <arguments>/LaunchByLauncher /LoginMode 2</arguments>
+
+    <priority>0</priority>
+</profile>

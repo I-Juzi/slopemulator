@@ -1,0 +1,347 @@
+{
+  "name": "zonetriggereventcond",
+  "type": 518,
+  "major_ver": 3,
+  "minor_ver": 1,
+  "el": [
+    {
+      "name": "table",
+      "type": 0,
+      "body": {
+        "attr": null,
+        "sub": null,
+        "defaultRecord": null,
+        "attrcount": 0,
+        "subcount": 0,
+        "size": 60,
+        "keyoffset": 0
+      },
+      "child": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "name": "record",
+      "type": 1,
+      "body": {
+        "attr": [
+          {
+            "name": "alias",
+            "namehash": {
+              "namehash": 2441418165,
+              "name": "alias"
+            },
+            "type": "string",
+            "key": false,
+            "repeat": 1,
+            "required": 1,
+            "defvalue": null,
+            "min": 0,
+            "max": 70,
+            "fmin": 0.0,
+            "fmax": 0.0,
+            "seq": null,
+            "seqcount": 0,
+            "reftable": 0,
+            "refel": 0,
+            "deprecated": false,
+            "hidden": false,
+            "offset": 16,
+            "size": 8,
+            "propfield": 0
+          },
+          {
+            "name": "cond-contents-type",
+            "namehash": {
+              "namehash": 2848496810,
+              "name": "cond-contents-type"
+            },
+            "type": "seq",
+            "key": false,
+            "repeat": 1,
+            "required": 0,
+            "defvalue": "none",
+            "min": 0,
+            "max": 0,
+            "fmin": 0.0,
+            "fmax": 0.0,
+            "seq": [
+              "none",
+              "faction-stage-faction-1-win",
+              "faction-stage-faction-2-win"
+            ],
+            "seqcount": 3,
+            "reftable": 0,
+            "refel": 0,
+            "deprecated": false,
+            "hidden": false,
+            "offset": 24,
+            "size": 1,
+            "propfield": 0
+          },
+          {
+            "name": "cond-event-message",
+            "namehash": {
+              "namehash": 417108149,
+              "name": "cond-event-message"
+            },
+            "type": "ref",
+            "key": false,
+            "repeat": 1,
+            "required": 0,
+            "defvalue": null,
+            "min": 0,
+            "max": 0,
+            "fmin": 0.0,
+            "fmax": 0.0,
+            "seq": null,
+            "seqcount": 0,
+            "reftable": 164,
+            "refel": 1,
+            "deprecated": false,
+            "hidden": false,
+            "offset": 28,
+            "size": 8,
+            "propfield": 0
+          }
+        ],
+        "sub": [
+          {
+            "name": "weekly-event",
+            "attr": [
+              {
+                "name": "event-day-of-week",
+                "namehash": {
+                  "namehash": 3297359727,
+                  "name": "event-day-of-week"
+                },
+                "type": "seq",
+                "key": false,
+                "repeat": 1,
+                "required": 1,
+                "defvalue": null,
+                "min": 0,
+                "max": 0,
+                "fmin": 0.0,
+                "fmax": 0.0,
+                "seq": [
+                  "sun",
+                  "mon",
+                  "tue",
+                  "wed",
+                  "thu",
+                  "fri",
+                  "sat",
+                  "thu-fri",
+                  "mon-tue-wed-thu",
+                  "fri-sat-sun",
+                  "tue-thu",
+                  "weekend",
+                  "entire-week"
+                ],
+                "seqcount": 13,
+                "reftable": 0,
+                "refel": 0,
+                "deprecated": false,
+                "hidden": false,
+                "offset": 36,
+                "size": 1,
+                "propfield": 0
+              },
+              {
+                "name": "event-hour",
+                "namehash": {
+                  "namehash": 2644309959,
+                  "name": "event-hour-1"
+                },
+                "type": "int8",
+                "key": false,
+                "repeat": 12,
+                "required": 0,
+                "defvalue": "-1",
+                "min": -1,
+                "max": 23,
+                "fmin": 0.0,
+                "fmax": 0.0,
+                "seq": null,
+                "seqcount": 0,
+                "reftable": 0,
+                "refel": 0,
+                "deprecated": false,
+                "hidden": false,
+                "offset": 37,
+                "size": 1,
+                "propfield": 0
+              },
+              {
+                "name": "event-minute",
+                "namehash": {
+                  "namehash": 1256723363,
+                  "name": "event-minute-1"
+                },
+                "type": "int8",
+                "key": false,
+                "repeat": 12,
+                "required": 0,
+                "defvalue": "-1",
+                "min": -1,
+                "max": 59,
+                "fmin": 0.0,
+                "fmax": 0.0,
+                "seq": null,
+                "seqcount": 0,
+                "reftable": 0,
+                "refel": 0,
+                "deprecated": false,
+                "hidden": false,
+                "offset": 49,
+                "size": 1,
+                "propfield": 0
+              }
+            ],
+            "defaultRecord": null,
+            "attrcount": 3,
+            "size": 64
+          },
+          {
+            "name": "timeout-event",
+            "attr": null,
+            "defaultRecord": null,
+            "attrcount": 0,
+            "size": 36
+          },
+          {
+            "name": "npc-killed-event",
+            "attr": null,
+            "defaultRecord": null,
+            "attrcount": 0,
+            "size": 36
+          },
+          {
+            "name": "npc-killed-event2",
+            "attr": null,
+            "defaultRecord": null,
+            "attrcount": 0,
+            "size": 36
+          },
+          {
+            "name": "npc-survived-score-decision-timeout-event",
+            "attr": null,
+            "defaultRecord": null,
+            "attrcount": 0,
+            "size": 36
+          },
+          {
+            "name": "npc-survived-timeout-event",
+            "attr": null,
+            "defaultRecord": null,
+            "attrcount": 0,
+            "size": 36
+          },
+          {
+            "name": "boss-challenge-timeout-event",
+            "attr": null,
+            "defaultRecord": null,
+            "attrcount": 0,
+            "size": 36
+          },
+          {
+            "name": "boss-challenge-round-score-event",
+            "attr": null,
+            "defaultRecord": null,
+            "attrcount": 0,
+            "size": 36
+          },
+          {
+            "name": "boss-challenge-boss-npc-killed-event",
+            "attr": null,
+            "defaultRecord": null,
+            "attrcount": 0,
+            "size": 36
+          },
+          {
+            "name": "random-time-interval-event",
+            "attr": null,
+            "defaultRecord": null,
+            "attrcount": 0,
+            "size": 36
+          }
+        ],
+        "defaultRecord": null,
+        "attrcount": 3,
+        "subcount": 10,
+        "size": 36,
+        "keyoffset": 8
+      },
+      "child": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    }
+  ],
+  "elcount": 2,
+  "maxid": 10000,
+  "autokey": true,
+  "module": 6
+}

@@ -1,0 +1,49 @@
+# --- Never upload: NCSoft game files and data ---
+BnS_2020/
+BNSR_2020_client/
+Service_348_8349/
+db/
+ida/
+*.exe
+!dist/**/*.exe
+*.dll
+*.pdb
+*.map
+*.mdf
+*.ldf
+*.rar
+*.i64
+*.idb
+*.id0
+*.id1
+*.id2
+*.nam
+*.til
+datafile*.bin
+locale.bin
+*.dat
+
+# --- Never upload: keys and secrets ---
+server-keys/
+*.blob
+*.key
+*.pem
+*.pfx
+*.p12
+*.url
+.env
+*worker-api-key*
+
+# --- Local tools and state ---
+.claude/
+.mcp.json
+CLAUDE.md
+.venv/
+__pycache__/
+
+# --- Build output ---
+target/
+bns-server/Program/output/
+launcher-src/**/bin/
+launcher-src/**/obj/
+launcher-src/**/.vs/
