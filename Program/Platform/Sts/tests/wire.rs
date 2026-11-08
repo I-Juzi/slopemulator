@@ -412,3 +412,38 @@ fn keydata_without_session_key_closes_the_session() {
     // The session is closed: any further input is rejected.
     assert!(f.receive(&bytes).is_err());
 }
+#[test]
+fn unknown_requests_after_login_get_400_and_keep_the_session() {
+    let mut f = Fixture::new();
+    let (mut send, mut receive) = authenticate(&mut f);
+    let mut bytes =
+        b"POST /Shop/Unknown STS/1.0\r\ns:9\r\nl:10\r\n\r\n<Request/>".to_vec();
+    send.apply(&mut bytes);
+    let mut replies = f.receive(&bytes).unwrap();
+    receive.apply(&mut replies[0]);
+    let (frame, _) = Codec::default().decode(&replies[0]).unwrap().unwrap();
+    assert_eq!(
+        frame.start,
+        sts::StartLine::Response {
+            status: 400,
+            reason: "ErrBadData".into()
+        }
+    );
+    assert_eq!(frame.headers[0].value, "9R");
+    assert_eq!(frame.body, b"<Error code=\"4\"/>");
+    assert_eq!(f.wire.take_unsupported(), vec!["Shop/Unknown".to_string()]);
+    let mut bytes = encode(&W::ListSlots, 10);
+    send.apply(&mut bytes);
+    let mut replies = f.receive(&bytes).unwrap();
+    receive.apply(&mut replies[0]);
+    assert!(matches!(parse(&replies[0], 1501, 10), V::EmptySlotList));
+    assert_eq!(f.wire.state(), State::Authenticated);
+}
+#[test]
+fn unknown_requests_before_login_still_close() {
+    let mut f = Fixture::new();
+    assert!(f
+        .receive(b"POST /Shop/Unknown STS/1.0\r\ns:1\r\nl:10\r\n\r\n<Request/>")
+        .is_err());
+    assert_eq!(f.wire.state(), State::Closed);
+}

@@ -248,12 +248,17 @@ pub enum Request {
     /// send `UserId`, currency selectors and an optional `ClientNetAddress`.
     /// The local server keeps no wallet, so the body is accepted but not used.
     GetBalance,
+    /// `Slot/ListSlots` (library ID 1501). Builder StsMsgCli32.dll 0.122
+    /// `sub_10017B60` sends `UserId` and `SlotType`. The local server keeps
+    /// no slots, so the body is accepted but not used.
+    ListSlots,
 }
 impl Request {
     pub fn protocol(&self) -> &'static str {
         match self {
             Self::ListMyAccounts { .. } => "GameAccount",
             Self::GetBalance => "VirtualCurrency",
+            Self::ListSlots => "Slot",
             _ => "Auth",
         }
     }
@@ -268,6 +273,7 @@ impl Request {
             Self::GetMyUserInfo => "GetMyUserInfo",
             Self::ListMyAccounts { .. } => "ListMyAccounts",
             Self::GetBalance => "GetBalance",
+            Self::ListSlots => "ListSlots",
         }
     }
     pub fn body(&self) -> Result<Vec<u8>, Error> {
@@ -289,7 +295,7 @@ impl Request {
             }
             Self::RequestToken { app_id } => field(&mut out, "AppId", app_id)?,
             Self::ListMyAccounts { game_code } => field(&mut out, "GameCode", game_code)?,
-            Self::LogoutMyClient | Self::GetMyUserInfo | Self::GetBalance => {
+            Self::LogoutMyClient | Self::GetMyUserInfo | Self::GetBalance | Self::ListSlots => {
                 return Ok(b"<Request/>".to_vec())
             }
         }
@@ -339,6 +345,7 @@ impl Request {
                 Self::GetMyUserInfo
             }
             "GetBalance" => Self::GetBalance,
+            "ListSlots" => Self::ListSlots,
             "ListMyAccounts" => {
                 n.only(&["GameCode"])?;
                 Self::ListMyAccounts {
@@ -375,10 +382,11 @@ impl Request {
             StartLine::Request { protocol, command }
                 if matches!(
                     (protocol.as_str(), command.as_str()),
-                    ("GameAccount", "ListMyAccounts") | ("VirtualCurrency", "GetBalance")
+                    ("GameAccount", "ListMyAccounts")
+                        | ("VirtualCurrency", "GetBalance")
+                        | ("Slot", "ListSlots")
                 ) || (protocol == "Auth"
-                    && command != "ListMyAccounts"
-                    && command != "GetBalance") =>
+                    && !matches!(command.as_str(), "ListMyAccounts" | "GetBalance" | "ListSlots")) =>
             {
                 Self::parse(command, &frame.body)
             }
@@ -429,6 +437,9 @@ pub enum Reply {
     /// Reply 3957/3970/3981. Parser StsMsgCli32.dll 0.122 `sub_10008270`
     /// reads `BalanceInfoListCount`; when it is 0 it reads nothing else.
     EmptyBalance,
+    /// Reply 1501. Parser StsMsgCli32.dll 0.122 `sub_10005B40` counts the
+    /// `Slot` children and accepts zero.
+    EmptySlotList,
     /// ❓ Logout reply fields and its library ID are not established.
     LoggedOut,
 }
@@ -503,7 +514,7 @@ impl Reply {
                 }
             }
             Self::EmptyBalance => field(&mut out, "BalanceInfoListCount", "0")?,
-            Self::LoggedOut => return Ok(b"<Reply/>".to_vec()),
+            Self::LoggedOut | Self::EmptySlotList => return Ok(b"<Reply/>".to_vec()),
         }
         out.push_str("</Reply>\n");
         Ok(out.into_bytes())
@@ -580,6 +591,10 @@ impl Reply {
                     return Err(Error::Field);
                 }
                 Self::EmptyBalance
+            }
+            1501 => {
+                n.only(&[])?;
+                Self::EmptySlotList
             }
             3107 => {
                 n.only(&["Token"])?;

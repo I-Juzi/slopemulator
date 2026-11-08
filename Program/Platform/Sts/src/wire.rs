@@ -42,6 +42,7 @@ pub struct Session {
     user_center: String,
     app_tokens: Option<Arc<dyn AppTokenIssuer>>,
     last_command: Option<String>,
+    unsupported: Vec<String>,
 }
 impl Session {
     pub fn new(login: password::Session, user_center: String) -> Result<Self, Error> {
@@ -61,6 +62,7 @@ impl Session {
             user_center,
             app_tokens: None,
             last_command: None,
+            unsupported: Vec::new(),
         })
     }
     pub fn with_app_tokens(mut self, issuer: Arc<dyn AppTokenIssuer>) -> Self {
@@ -70,6 +72,11 @@ impl Session {
     /// `Protocol/Command` of the last complete request frame, for diagnostics.
     pub fn last_command(&self) -> Option<&str> {
         self.last_command.as_deref()
+    }
+    /// `Protocol/Command` of requests answered with `400 ErrBadData` since
+    /// the last call. Bounded by the number of frames in one `receive`.
+    pub fn take_unsupported(&mut self) -> Vec<String> {
+        std::mem::take(&mut self.unsupported)
     }
     pub fn state(&self) -> State {
         self.login.state()
@@ -192,7 +199,46 @@ impl Session {
                 }
                 continue;
             }
-            let request = client::Request::from_frame(&frame).map_err(|_| Error::Xml)?;
+            let request = match client::Request::from_frame(&frame) {
+                Ok(request) => request,
+                // After login the game sends many platform requests that the
+                // local server does not model. StsMsgCli32.dll 0.122 reads
+                // `Error/@code` for any status >= 400 (sub_100039A0) and still
+                // hands the reply to the caller, so answer with the library's
+                // own 400 ErrBadData (code 4, table 0x100582D4) and keep the
+                // session. Before login, any unknown request still closes it.
+                Err(_) if self.login.identity().is_some() && self.send.is_some() => {
+                    if let crate::StartLine::Request { protocol, command } = &frame.start {
+                        if self.unsupported.len() < 64 {
+                            self.unsupported.push(format!("{protocol}/{command}"));
+                        }
+                    }
+                    let frame = Frame {
+                        start: crate::StartLine::Response {
+                            status: 400,
+                            reason: "ErrBadData".into(),
+                        },
+                        headers: transaction
+                            .map(|t| {
+                                Transaction {
+                                    id: t.id,
+                                    complete: Some(true),
+                                    sequence: 0,
+                                }
+                                .to_header()
+                                .map_err(|_| Error::Framing)
+                            })
+                            .transpose()?
+                            .into_iter()
+                            .collect(),
+                        body: b"<Error code=\"4\"/>".to_vec(),
+                    };
+                    let bytes = self.encode(&frame)?;
+                    replies.push(bytes);
+                    continue;
+                }
+                Err(_) => return Err(Error::Xml),
+            };
             let reply = self.handle(request, store, rng, now)?;
             let frame = reply
                 .frame(transaction.map(|t| t.id))
@@ -280,6 +326,12 @@ impl Session {
                     .identity()
                     .ok_or(Error::Login(LoginError::WrongOrder))?;
                 return Ok(client::Reply::EmptyBalance);
+            }
+            W::ListSlots => {
+                self.login
+                    .identity()
+                    .ok_or(Error::Login(LoginError::WrongOrder))?;
+                return Ok(client::Reply::EmptySlotList);
             }
             W::RequestToken { app_id } => {
                 let identity = self

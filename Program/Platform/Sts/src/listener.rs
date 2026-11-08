@@ -383,6 +383,9 @@ pub fn serve_connection(
                 );
                 Error::Protocol
             })?;
+        for name in session.take_unsupported() {
+            eprintln!("sts-local: {name} not supported, replied 400 ErrBadData");
+        }
         connect.clear();
         for reply in replies {
             set_deadline(&stream, deadline)?;
