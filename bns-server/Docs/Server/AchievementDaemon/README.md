@@ -41,6 +41,19 @@ A valid Ping updates the channel's last-Ping time (`0x14000D6B0`). Other traffic
 The port uses a monotonic millisecond clock, separate from event time.
 `CheckPingTimer::HandleEvent` rearms **3000 ms after each check** (`0x140002650`).
 
+### Reconnect ownership in the port
+
+The port retains the latest Hello token after Ping expiry removes a channel.
+A new Hello for the same cluster replaces that token.
+An old disconnect must not remove the replacement channel, routing entries, or Pcs.
+The port checks the token and completes Pc cleanup under one state lock.
+This also protects a replacement session after its own Ping timeout.
+The latest session can still clean up after its channel expires.
+
+Native sources: Hello `0x14000D280`, CheckPing `0x14000CED0`, and single-cluster Pc cleanup `0x140019990` / `0x140008F80`.
+The token guard protects these paths in the port's concurrent socket and timer code.
+Regression test: `stale_disconnect_after_reconnect_keeps_new_channel_pcs_and_routes` in `Program/Server/AchievementDaemon/tests/daemon.rs`.
+
 ## 2. Wire
 
 Frames: i16 size (4..=4000), i16 cmd, body. Format codes follow bloodlib.

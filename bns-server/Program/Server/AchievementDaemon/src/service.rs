@@ -59,6 +59,9 @@ pub struct GameChannel {
 pub struct State {
     pub pcs: HashMap<i64, Pc>,
     pub clusters: BTreeMap<i16, GameChannel>,
+    /// Latest Hello owns cleanup even after CheckPing removes its channel.
+    /// Keep the token until that session disconnects or a new Hello replaces it.
+    cluster_owners: HashMap<i16, u64>,
     next_token: u64,
     /// Pc routing membership exists before a load completes (0x140009B50).
     pub routes: HashMap<i64, i16>,
@@ -176,6 +179,7 @@ impl<S: Store> Daemon<S> {
             }
             st.next_token += 1;
             conn.token = st.next_token;
+            st.cluster_owners.insert(cluster, conn.token);
             st.clusters.insert(
                 cluster,
                 GameChannel {
@@ -199,31 +203,20 @@ impl<S: Store> Daemon<S> {
         out
     }
 
-    /// Session closed: free the cluster and post ClusterDisconnected.
-    pub fn game_disconnect(&self, conn: &GameConn, now: i64) -> Vec<Out> {
+    /// Session closed: free the owned cluster and run ClusterDisconnected.
+    pub fn game_disconnect(&self, conn: &GameConn, _now: i64) -> Vec<Out> {
         let Some(cluster) = conn.cluster else {
             return Vec::new();
         };
-        {
-            let mut st = self.lock();
-            if st
-                .clusters
-                .get(&cluster)
-                .is_some_and(|c| c.token == conn.token)
-            {
-                st.clusters.remove(&cluster);
-            }
+        let mut st = self.lock();
+        if st.cluster_owners.get(&cluster) != Some(&conn.token) {
+            return Vec::new();
         }
-        self.post(
-            Event::new(
-                id::CLUSTER_DISCONNECTED,
-                0,
-                0,
-                cluster,
-                vec![FieldValue::Int(0), FieldValue::Int(0)],
-            ),
-            now,
-        )
+        st.cluster_owners.remove(&cluster);
+        st.clusters.remove(&cluster);
+        // CheckPing may already have removed the channel (0x14000CED0).
+        // Keep the ownership check and Pc cleanup (0x140019990) atomic with Hello.
+        self.cluster_disconnected(&mut st, cluster, false)
     }
 
     /// Native CheckPing removes up to 100 expired channels. Expiry is strict >.
