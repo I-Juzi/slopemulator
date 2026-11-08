@@ -25,6 +25,7 @@ mod items4;
 mod items5;
 mod mentoring;
 mod misc;
+mod post;
 mod quest;
 mod quest2;
 mod shop;
@@ -39,6 +40,7 @@ pub use items4::*;
 pub use items5::*;
 pub use mentoring::*;
 pub use misc::*;
+pub use post::*;
 pub use quest::*;
 pub use quest2::*;
 pub use shop::*;
@@ -632,6 +634,10 @@ pub trait Services {
     fn mentoring_registry(&mut self, _mentor: u64, _mentee: u64, _max: i8) -> MentoringRegistry {
         MentoringRegistry::Unknown
     }
+    /// Doc 23: cached post requests and account transactions. Unknown is never approval.
+    fn post(&mut self, _operation: &PostOperation) -> PostResult {
+        PostResult::Unknown
+    }
     /// Doc 22: server-owned shop state and tables. Unknown is never approval.
     fn shop_check(&mut self, _check: &ShopCheck) -> Gate {
         Gate::Unknown
@@ -768,6 +774,7 @@ pub struct MemoryServices {
     pub chat_result: Gate,
     pub chat_calls: Vec<ChatRequest>,
     pub mentoring_registry_result: MentoringRegistry,
+    pub post: MemoryPost,
     pub shop: MemoryShop,
     pub quest: MemoryQuest,
     pub quest_progress: MemoryQuestProgress,
@@ -883,6 +890,7 @@ impl Default for MemoryServices {
             chat_result: Gate::Unknown,
             chat_calls: vec![],
             mentoring_registry_result: MentoringRegistry::Unknown,
+            post: MemoryPost::default(),
             shop: MemoryShop::default(),
             quest: MemoryQuest::default(),
             quest_progress: MemoryQuestProgress::default(),
@@ -891,6 +899,9 @@ impl Default for MemoryServices {
     }
 }
 impl Services for MemoryServices {
+    fn post(&mut self, operation: &PostOperation) -> PostResult {
+        self.post.check(operation)
+    }
     fn chat(&mut self, request: &ChatRequest) -> Gate {
         self.chat_calls.push(request.clone());
         self.chat_result
@@ -1122,6 +1133,7 @@ fn dispatch_inner(ctx: &mut Context<'_>, command: u16, req: &[u8]) -> Outcome {
         && !SOCIAL_COMMANDS.contains(&command)
         && !MENTORING_COMMANDS.contains(&command)
         && !MISC_COMMANDS.contains(&command)
+        && !POST_COMMANDS.contains(&command)
         && !SHOP_COMMANDS.contains(&command)
         && !QUEST_COMMANDS.contains(&command)
         && !QUEST2_COMMANDS.contains(&command)
@@ -1189,6 +1201,9 @@ fn dispatch_inner(ctx: &mut Context<'_>, command: u16, req: &[u8]) -> Outcome {
     }
     if MISC_COMMANDS.contains(&command) {
         return misc::dispatch_misc(ctx, command, req);
+    }
+    if POST_COMMANDS.contains(&command) {
+        return post::dispatch_post(ctx, command, req);
     }
     if SHOP_COMMANDS.contains(&command) {
         return shop::dispatch_shop(ctx, command, req);

@@ -105,6 +105,8 @@ pub enum SkillTaskKind {
     ChallengeParty(ChallengeTask),
     /// Doc 19 misc zone tasks.
     Misc(MiscTask),
+    /// Doc 23 post task type. Reserved: native post entries use account transactions.
+    Post(PostTask),
     /// Doc 22 shop and store zone tasks.
     Shop(ShopTask),
     /// Doc 20 quest, discovery and survey zone tasks.
