@@ -1,0 +1,10 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!-- 테스트: operator paths only. The cert path is not read. -->
+<config module='lobbygate'>
+  <option name='root-path' value='.'/>
+  <option name="log-path" value="logs"/>
+  <option name='config-path' value='.'/>
+  <option name='cert' value='not-opened.cert'/>
+  <option name='client-close-timeout' value='10'/>
+  <option name='future-unknown-key' value='ignored'/>
+</config>

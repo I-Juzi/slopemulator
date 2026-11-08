@@ -1,0 +1,24 @@
+[package]
+name = "lobbydaemon"
+version = "0.1.0"
+edition = "2021"
+publish = false
+
+[dependencies]
+bloodlib = { path = "../BloodLib" }
+tokio = { version = "1", features = ["rt-multi-thread", "net", "io-util", "sync", "time", "macros", "signal"] }
+
+tiberius = { version = "0.12", default-features = false, features = ["tds73", "rustls", "chrono"], optional = true }
+tokio-util = { version = "0.7", features = ["compat"], optional = true }
+
+[features]
+default = []
+# SQL Server Store adapter. Connection settings come only from the environment at run time.
+mssql = ["dep:tiberius", "dep:tokio-util"]
+
+[dev-dependencies]
+lobbygate = { path = "../LobbyGate" }
+tokio = { version = "1", features = ["test-util"] }
+rand = "0.8"
+rsa = "0.9"
+num-bigint = "0.4"

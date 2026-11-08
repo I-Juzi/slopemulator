@@ -1,0 +1,18 @@
+[package]
+name = "bnsedit"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+eframe = "0.37.0"
+egui = "0.37.0"
+serde_json = "1"
+rfd = "0.18.0"
+bnsdata = { path = "../DataFile/BnsData" }
+bnsmodel = { path = "../DataFile/BnsModel" }
+bnsschema = { path = "../DataFile/BnsSchema" }
+
+[workspace]
+
+[profile.release]
+strip = true

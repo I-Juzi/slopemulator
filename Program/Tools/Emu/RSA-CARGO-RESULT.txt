@@ -1,0 +1,41 @@
+   Compiling lobbygate-proto v0.1.0 (/home/ubuntu/Documents/Codex/private-project/lobbygate-rs/crates/proto)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.49s
+     Running tests/emu_381.rs (lobbygate-rs/target/debug/deps/emu_381-6b4f0a20cba5c81a)
+
+running 10 tests
+test original_381_rsa_bad_oaep ... ignored, Original zero-ciphertext RSA path has no sentinel return (RIP=0); error 17 is unverified
+test original_381_dh_exchange ... FAILED
+test original_381_ripemd128_differences ... ok
+test original_381_ripemd128_empty ... ok
+test original_381_oaep_encode ... ok
+test original_381_mgf_through_production_oaep ... ok
+test original_381_dh_reject_modulus ... FAILED
+test original_381_oaep_decode ... ok
+test original_381_rsa_decrypt ... ok
+test original_381_rsa_encrypt ... ok
+
+failures:
+
+---- original_381_dh_exchange stdout ----
+
+thread 'original_381_dh_exchange' (4042501) panicked at crates/proto/tests/emu_381.rs:229:5:
+assertion `left == right` failed
+  left: 0
+ right: 3
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+---- original_381_dh_reject_modulus stdout ----
+
+thread 'original_381_dh_reject_modulus' (4042502) panicked at crates/proto/tests/emu_381.rs:264:5:
+assertion `left == right` failed
+  left: 0
+ right: 2
+
+
+failures:
+    original_381_dh_exchange
+    original_381_dh_reject_modulus
+
+test result: FAILED. 7 passed; 2 failed; 1 ignored; 0 measured; 0 filtered out; finished in 0.09s
+
+error: test failed, to rerun pass `--test emu_381`

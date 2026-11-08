@@ -1,0 +1,12 @@
+[package]
+name = "bnsschema"
+version = "0.1.0"
+edition = "2021"
+publish = false
+description = "Passive TableDefs export from unprotected PE client files"
+
+[dependencies]
+serde_json = "1"
+
+[dev-dependencies]
+bnsdata = { path = "../BnsData" }

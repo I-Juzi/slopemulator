@@ -1,0 +1,44 @@
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.03s
+     Running tests/emu_381.rs (lobbygate-rs/target/debug/deps/emu_381-6b4f0a20cba5c81a)
+
+running 4 tests
+test original_381_session_automatic_key_change ... FAILED
+test original_381_session_wrong_active_slot ... FAILED
+test original_381_session_small_buffer ... FAILED
+test original_381_session_size_limit ... FAILED
+
+failures:
+
+---- original_381_session_automatic_key_change stdout ----
+
+thread 'original_381_session_automatic_key_change' (4046299) panicked at crates/proto/tests/emu_381.rs:419:5:
+assertion `left == right` failed
+  left: [8, 160, 204, 122, 32, 129, 254, 142, 59, 27, 197, 35, 23, 86, 26, 146, 253, 163, 24, 130, 74, 50, 141, 85, 174, 121, 137, 5, 198, 99, 23, 116, 18, 36]
+ right: [8, 176, 13, 74, 219, 212, 161, 174, 230, 186, 35, 222, 114, 69, 133, 139, 48, 197, 188, 32, 110, 180, 140, 77, 60, 158, 233, 130, 65, 165, 206, 143, 198, 229]
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+---- original_381_session_wrong_active_slot stdout ----
+
+thread 'original_381_session_wrong_active_slot' (4046302) panicked at crates/proto/tests/emu_381.rs:411:5:
+assertion failed: session(&case).decrypt(&packet[2..], 9).is_err()
+
+---- original_381_session_small_buffer stdout ----
+
+thread 'original_381_session_small_buffer' (4046301) panicked at crates/proto/tests/emu_381.rs:402:5:
+assertion failed: session(&case).encrypt(&bytes(&case, "input"), 8).is_err()
+
+---- original_381_session_size_limit stdout ----
+
+thread 'original_381_session_size_limit' (4046300) panicked at crates/proto/tests/emu_381.rs:394:5:
+assertion failed: session(&case).encrypt(&bytes(&case, "input"), 8).is_err()
+
+
+failures:
+    original_381_session_automatic_key_change
+    original_381_session_size_limit
+    original_381_session_small_buffer
+    original_381_session_wrong_active_slot
+
+test result: FAILED. 0 passed; 4 failed; 0 ignored; 0 measured; 15 filtered out; finished in 0.00s
+
+error: test failed, to rerun pass `--test emu_381`

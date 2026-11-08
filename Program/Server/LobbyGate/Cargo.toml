@@ -1,0 +1,25 @@
+[package]
+name = "lobbygate"
+version = "0.1.0"
+edition = "2021"
+publish = false
+
+[[bin]]
+name = "lobbygate"
+path = "src/main.rs"
+
+[dependencies]
+bloodlib = { path = "../BloodLib" }
+tokio = { version = "1", features = ["rt-multi-thread", "net", "io-util", "sync", "time", "macros", "signal"] }
+quick-xml = { version = "0.38", features = ["serialize"] }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+thiserror = "2"
+rand = "0.8"
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["fmt"] }
+
+[dev-dependencies]
+tokio = { version = "1", features = ["test-util"] }
+rsa = "0.9"
+num-bigint = "0.4"

@@ -1,0 +1,14 @@
+[workspace]
+members = [
+    "Program/Server/BloodLib",
+    "Program/Server/LobbyGate",
+    "Program/Server/LobbyDaemon",
+    "Program/Server/Data/Lmxb",
+    "Program/Server/Data/GameData",
+    "Program/Platform/Sts",
+    "Program/Tools/DataFile/BnsData",
+    "Program/Tools/DataFile/BnsModel",
+    "Program/Tools/DataFile/BnsSchema",
+]
+exclude = ["Program/Tools/BnsEdit"]
+resolver = "2"

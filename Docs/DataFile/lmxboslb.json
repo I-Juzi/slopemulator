@@ -1,0 +1,21 @@
+{
+  "format": "LMXBOSLB",
+  "byte_order": "little",
+  "header_size": 80,
+  "header": [
+    {"offset": 0, "width": 8, "field": "magic", "ascii": "LMXBOSLB"},
+    {"offset": 8, "width": 1, "field": "version", "value": 3},
+    {"offset": 9, "width": 3, "field": "padding"},
+    {"offset": 12, "width": 4, "field": "total_size"},
+    {"offset": 16, "width": 64, "field": "reserved"}
+  ],
+  "string": {"count": "u32 UTF-16 code units", "encoding": "UTF-16LE", "terminator": false, "xor_period_bytes": 16, "xor_reset": "each string"},
+  "key_sources": {"xml2019": "cipherKeys at 0x1801ba930", "xml2020": "table at 0x1800dc4b0", "runtime": "BNSDATA_KEY_FILE"},
+  "document": ["u8 valid", "string name", "element root without tag"],
+  "element": ["u32 attribute_count", "attribute_count * (string name, string value)", "common_node"],
+  "text": ["string text", "common_node"],
+  "common_node": ["u8 valid", "string name", "u32 child_count", "u32 line", "child_count * (u32 tag, child)"],
+  "tags": {"1": "element", "2": "text"},
+  "sources": {"xml2019": ["0x180006470", "0x180006970", "0x180007240", "0x1800081c0", "0x180008700"], "xml2020": ["0x1800068d0", "0x180006e40", "0x180007800", "0x180008830", "0x18000a920"]},
+  "open": ["2020 text helper confirmation", "real server file checks", "cross-build table equality"]
+}

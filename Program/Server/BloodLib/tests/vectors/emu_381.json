@@ -1,0 +1,1939 @@
+{
+  "schema": 1,
+  "build": "0.0.381.572",
+  "pe_timestamp": "0x5eb5328b",
+  "key_origin": "generated test material only; built-in range was never read",
+  "cases": [
+    {
+      "kind": "ripemd128",
+      "case": "empty",
+      "source": "0x14006f600",
+      "calls": [
+        {
+          "address": "0x14006f600",
+          "sentinel": true,
+          "instructions": 1321
+        }
+      ],
+      "input": "",
+      "output": "cdf26213a150dc3ecb610f18f6b38b46",
+      "result": 1
+    },
+    {
+      "kind": "ripemd128",
+      "case": "short",
+      "source": "0x14006f600",
+      "calls": [
+        {
+          "address": "0x14006f600",
+          "sentinel": true,
+          "instructions": 1363
+        }
+      ],
+      "input": "616263",
+      "output": "032040b7faf9301e1db81896cc3c221a",
+      "result": 1
+    },
+    {
+      "kind": "ripemd128",
+      "case": "multi_block",
+      "source": "0x14006f600",
+      "calls": [
+        {
+          "address": "0x14006f600",
+          "sentinel": true,
+          "instructions": 6879
+        }
+      ],
+      "input": "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0d1d2d3d4d5d6d7d8d9dadbdcdddedfe0e1e2e3e4e5e6e7e8e9eaebecedeeeff0f1f2f3f4f5f6f7f8f9fafbfcfdfeff333831206d756c74692d626c6f636b",
+      "output": "365ca0fb263fbf725e3a82f5dd14c640",
+      "result": 1
+    },
+    {
+      "kind": "mgf",
+      "case": "length_7",
+      "source": "0x140069750",
+      "calls": [
+        {
+          "address": "0x140069750",
+          "sentinel": true,
+          "instructions": 1736
+        }
+      ],
+      "input": "bcc825f7c4f55bd5a85e241ba006a6cb",
+      "length": 7,
+      "output": "5a74e6920d1d24",
+      "result": 1
+    },
+    {
+      "kind": "mgf",
+      "case": "length_16",
+      "source": "0x140069750",
+      "calls": [
+        {
+          "address": "0x140069750",
+          "sentinel": true,
+          "instructions": 1826
+        }
+      ],
+      "input": "0459f225ae52c22c96688f446d574bee",
+      "length": 16,
+      "output": "8edbb5be0444e9f24e247be3cacfbce1",
+      "result": 1
+    },
+    {
+      "kind": "mgf",
+      "case": "length_47",
+      "source": "0x140069750",
+      "calls": [
+        {
+          "address": "0x140069750",
+          "sentinel": true,
+          "instructions": 5342
+        }
+      ],
+      "input": "64fba3faed6d2d784cc147bd8c9db771",
+      "length": 47,
+      "output": "3363c425e216c6786ead3296d6683bbc3363c425e216c6786ead3296d6683bbc3363c425e216c6786ead3296d6683b",
+      "result": 1
+    },
+    {
+      "kind": "oaep_encode",
+      "case": "k128_empty",
+      "source": "0x1400699d0",
+      "calls": [
+        {
+          "address": "0x1400699d0",
+          "sentinel": true,
+          "instructions": 20805
+        }
+      ],
+      "k": 128,
+      "input": "",
+      "seed": "d4b37e24cc0b637b97e178b068011e85",
+      "output": "8849d39d351830f0fceac7305103cd5d8949d39d351830f0fceac7305103cd5d8949d39d351830f0fceac7305103cd5d8949d39d351830f0fceac7305103cd5d8949d39d351830f0fceac7305103cd5d8949d39d351830f0fceac7305103cd9e050ef7bcc414097fc1abbb5962c0b9b003650bbbf5de1b7ac8f5954b2fda5a00",
+      "result": 1,
+      "output_length": 128,
+      "random_used": 16
+    },
+    {
+      "kind": "oaep_encode",
+      "case": "k128_short",
+      "source": "0x1400699d0",
+      "calls": [
+        {
+          "address": "0x1400699d0",
+          "sentinel": true,
+          "instructions": 20805
+        }
+      ],
+      "k": 128,
+      "input": "333831204f414550",
+      "seed": "96418a294f6207f88dea981c8494c6ec",
+      "output": "3b42e4ab548f8fa8a01fa4d8516e94df6b07a5e474beb79ba11fa4d8516e94df6b07a5e474beb79ba11fa4d8516e94df6b07a5e474beb79ba11fa4d8516e94df6b07a5e474beb79ba11fa4d8516e94df6b07a5e474beb79ba11fa4d8516e941ce74081c585b28e149c5ed8b162ade07755606ad16e643f6a02ebbffe47b71f00",
+      "result": 1,
+      "output_length": 128,
+      "random_used": 16
+    },
+    {
+      "kind": "oaep_encode",
+      "case": "k128_capacity",
+      "source": "0x1400699d0",
+      "calls": [
+        {
+          "address": "0x1400699d0",
+          "sentinel": true,
+          "instructions": 20800
+        }
+      ],
+      "k": 128,
+      "input": "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d",
+      "seed": "4e93db45a9d2191bcf1011f7437b1ccc",
+      "output": "6dbaa3fc28d8adfc4a1418ab50aa7dd47daab3ec38c8bdec5a0408bb40ba0da40ddac39c48b8cd9c2a7478cb30ca1db41dcad38c58a8dd8c3a6468db20da2d842dfae3bc6898edbc0a5458eb10ea3d943deaf3ac7888fdac1a4448fb00fa3359bca1dc87808cc32522013790323946e00079713727235bf52845e4c04c9b2300",
+      "result": 1,
+      "output_length": 128,
+      "random_used": 16
+    },
+    {
+      "kind": "oaep_encode",
+      "case": "k128_over_capacity",
+      "source": "0x1400699d0",
+      "calls": [
+        {
+          "address": "0x1400699d0",
+          "sentinel": true,
+          "instructions": 40
+        }
+      ],
+      "k": 128,
+      "input": "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e",
+      "seed": "12c90a25cfd63578e2924d82af1138bf",
+      "output": "",
+      "result": 0,
+      "output_length": 128,
+      "random_used": 0
+    },
+    {
+      "kind": "oaep_decode",
+      "case": "k128_empty",
+      "source": "0x140069d30",
+      "calls": [
+        {
+          "address": "0x140069d30",
+          "sentinel": true,
+          "instructions": 19992
+        }
+      ],
+      "k": 128,
+      "input": "8849d39d351830f0fceac7305103cd5d8949d39d351830f0fceac7305103cd5d8949d39d351830f0fceac7305103cd5d8949d39d351830f0fceac7305103cd5d8949d39d351830f0fceac7305103cd5d8949d39d351830f0fceac7305103cd9e050ef7bcc414097fc1abbb5962c0b9b003650bbbf5de1b7ac8f5954b2fda5a00",
+      "output": "",
+      "result": 1,
+      "output_length": 0
+    },
+    {
+      "kind": "oaep_decode",
+      "case": "k128_short",
+      "source": "0x140069d30",
+      "calls": [
+        {
+          "address": "0x140069d30",
+          "sentinel": true,
+          "instructions": 19888
+        }
+      ],
+      "k": 128,
+      "input": "3b42e4ab548f8fa8a01fa4d8516e94df6b07a5e474beb79ba11fa4d8516e94df6b07a5e474beb79ba11fa4d8516e94df6b07a5e474beb79ba11fa4d8516e94df6b07a5e474beb79ba11fa4d8516e94df6b07a5e474beb79ba11fa4d8516e941ce74081c585b28e149c5ed8b162ade07755606ad16e643f6a02ebbffe47b71f00",
+      "output": "333831204f414550",
+      "result": 1,
+      "output_length": 8
+    },
+    {
+      "kind": "oaep_decode",
+      "case": "k128_capacity",
+      "source": "0x140069d30",
+      "calls": [
+        {
+          "address": "0x140069d30",
+          "sentinel": true,
+          "instructions": 18770
+        }
+      ],
+      "k": 128,
+      "input": "6dbaa3fc28d8adfc4a1418ab50aa7dd47daab3ec38c8bdec5a0408bb40ba0da40ddac39c48b8cd9c2a7478cb30ca1db41dcad38c58a8dd8c3a6468db20da2d842dfae3bc6898edbc0a5458eb10ea3d943deaf3ac7888fdac1a4448fb00fa3359bca1dc87808cc32522013790323946e00079713727235bf52845e4c04c9b2300",
+      "output": "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d",
+      "result": 1,
+      "output_length": 94
+    },
+    {
+      "kind": "oaep_decode",
+      "case": "k128_bad_00",
+      "source": "0x140069d30",
+      "calls": [
+        {
+          "address": "0x140069d30",
+          "sentinel": true,
+          "instructions": 19888
+        }
+      ],
+      "k": 128,
+      "input": "3b42e4ab548f8fa8a01fa4d8516e94df6b07a5e474beb79ba11fa4d8516e94df6b07a5e474beb79ba11fa4d8516e94df6b07a5e474beb79ba11fa4d8516e94df6b07a5e474beb79ba11fa4d8516e94df6b07a5e474beb79ba11fa4d8516e941ce74081c585b28e149c5ed8b162ade07755606ad16e643f6a02ebbffe47b71fa7",
+      "output": "333831204f414550",
+      "result": 1,
+      "output_length": 8
+    },
+    {
+      "kind": "oaep_decode",
+      "case": "k128_bad_label_hash",
+      "source": "0x140069d30",
+      "calls": [
+        {
+          "address": "0x140069d30",
+          "sentinel": true,
+          "instructions": 19888
+        }
+      ],
+      "k": 128,
+      "input": "3b42e4ab548f8fa8a01fa4d8516e94df6b07a5e474beb79ba11fa4d8516e94df6b07a5e474beb79ba11fa4d8516e94df6b07a5e474beb79ba11fa4d8516e94df6b07a5e474beb79ba11fa4d8516e94df6b07a5e474beb79ba11fa4d8516e949d2945e7a636fcf5d9e35de69a132cd6776842c254db1c590d67468d6109a31100",
+      "output": "333831204f414550",
+      "result": 1,
+      "output_length": 8
+    },
+    {
+      "kind": "oaep_decode",
+      "case": "k128_no_01_delimiter",
+      "source": "0x140069d30",
+      "calls": [
+        {
+          "address": "0x140069d30",
+          "sentinel": true,
+          "instructions": 19981
+        }
+      ],
+      "k": 128,
+      "input": "6b07a5e474beb79ba11fa4d8516e94df6b07a5e474beb79ba11fa4d8516e94df6b07a5e474beb79ba11fa4d8516e94df6b07a5e474beb79ba11fa4d8516e94df6b07a5e474beb79ba11fa4d8516e94df6b07a5e474beb79ba11fa4d8516e949d2945e7a636fcf5d9e35de69a132cd68299de8ef404e4ebda21b4b73772d92600",
+      "output": "",
+      "result": 0,
+      "output_length": 128
+    },
+    {
+      "kind": "oaep_encode",
+      "case": "k64_empty",
+      "source": "0x1400699d0",
+      "calls": [
+        {
+          "address": "0x1400699d0",
+          "sentinel": true,
+          "instructions": 10922
+        }
+      ],
+      "k": 64,
+      "input": "",
+      "seed": "a9e6be57bbdb2ddcd6ebb5e23c08dbc1",
+      "output": "e59de2124734766d6e0f6caafbb71f90e49de2124734766d6e0f6caafbb71f5368dac633b6384fe2534e10c3c8746b4543c2b36a49ef83b8de8f270db20f8b00",
+      "result": 1,
+      "output_length": 64,
+      "random_used": 16
+    },
+    {
+      "kind": "oaep_encode",
+      "case": "k64_short",
+      "source": "0x1400699d0",
+      "calls": [
+        {
+          "address": "0x1400699d0",
+          "sentinel": true,
+          "instructions": 10922
+        }
+      ],
+      "k": 64,
+      "input": "333831204f414550",
+      "seed": "470eb9f954c831fdad10b95fa12b255c",
+      "output": "dccef040b9074025ad9c779e0dd6b3a28c8bb10f99367816ac9c779e0dd6b36100cc952e683a419991dd0bf73e15c726f65d0195932ec11faa73e4a971c8a600",
+      "result": 1,
+      "output_length": 64,
+      "random_used": 16
+    },
+    {
+      "kind": "oaep_encode",
+      "case": "k64_capacity",
+      "source": "0x1400699d0",
+      "calls": [
+        {
+          "address": "0x1400699d0",
+          "sentinel": true,
+          "instructions": 10917
+        }
+      ],
+      "k": 64,
+      "input": "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d",
+      "seed": "041243f0eb2f5182ed59b70518a56f89",
+      "output": "1bc1367457231d91a14cb0691696d7bc0bd1266447330d81b15ca0790686d9718a9a094fbf3733088919df123445acf82873c0b6c7eb9c4c579a4e3eddc5c400",
+      "result": 1,
+      "output_length": 64,
+      "random_used": 16
+    },
+    {
+      "kind": "oaep_encode",
+      "case": "k64_over_capacity",
+      "source": "0x1400699d0",
+      "calls": [
+        {
+          "address": "0x1400699d0",
+          "sentinel": true,
+          "instructions": 40
+        }
+      ],
+      "k": 64,
+      "input": "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e",
+      "seed": "22c1fdeda4c505638b5774eb2fe9ea16",
+      "output": "",
+      "result": 0,
+      "output_length": 64,
+      "random_used": 0
+    },
+    {
+      "kind": "oaep_decode",
+      "case": "k64_empty",
+      "source": "0x140069d30",
+      "calls": [
+        {
+          "address": "0x140069d30",
+          "sentinel": true,
+          "instructions": 9389
+        }
+      ],
+      "k": 64,
+      "input": "e59de2124734766d6e0f6caafbb71f90e49de2124734766d6e0f6caafbb71f5368dac633b6384fe2534e10c3c8746b4543c2b36a49ef83b8de8f270db20f8b00",
+      "output": "",
+      "result": 1,
+      "output_length": 0
+    },
+    {
+      "kind": "oaep_decode",
+      "case": "k64_short",
+      "source": "0x140069d30",
+      "calls": [
+        {
+          "address": "0x140069d30",
+          "sentinel": true,
+          "instructions": 9285
+        }
+      ],
+      "k": 64,
+      "input": "dccef040b9074025ad9c779e0dd6b3a28c8bb10f99367816ac9c779e0dd6b36100cc952e683a419991dd0bf73e15c726f65d0195932ec11faa73e4a971c8a600",
+      "output": "333831204f414550",
+      "result": 1,
+      "output_length": 8
+    },
+    {
+      "kind": "oaep_decode",
+      "case": "k64_capacity",
+      "source": "0x140069d30",
+      "calls": [
+        {
+          "address": "0x140069d30",
+          "sentinel": true,
+          "instructions": 8999
+        }
+      ],
+      "k": 64,
+      "input": "1bc1367457231d91a14cb0691696d7bc0bd1266447330d81b15ca0790686d9718a9a094fbf3733088919df123445acf82873c0b6c7eb9c4c579a4e3eddc5c400",
+      "output": "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d",
+      "result": 1,
+      "output_length": 30
+    },
+    {
+      "kind": "oaep_decode",
+      "case": "k64_bad_00",
+      "source": "0x140069d30",
+      "calls": [
+        {
+          "address": "0x140069d30",
+          "sentinel": true,
+          "instructions": 9285
+        }
+      ],
+      "k": 64,
+      "input": "dccef040b9074025ad9c779e0dd6b3a28c8bb10f99367816ac9c779e0dd6b36100cc952e683a419991dd0bf73e15c726f65d0195932ec11faa73e4a971c8a6a7",
+      "output": "333831204f414550",
+      "result": 1,
+      "output_length": 8
+    },
+    {
+      "kind": "oaep_decode",
+      "case": "k64_bad_label_hash",
+      "source": "0x140069d30",
+      "calls": [
+        {
+          "address": "0x140069d30",
+          "sentinel": true,
+          "instructions": 9285
+        }
+      ],
+      "k": 64,
+      "input": "dccef040b9074025ad9c779e0dd6b3a28c8bb10f99367816ac9c779e0dd6b3e0cec9f34ddb743a54eede35dc4f94f1ec4e99cbc09f840eeb630888e309240c00",
+      "output": "333831204f414550",
+      "result": 1,
+      "output_length": 8
+    },
+    {
+      "kind": "oaep_decode",
+      "case": "k64_no_01_delimiter",
+      "source": "0x140069d30",
+      "calls": [
+        {
+          "address": "0x140069d30",
+          "sentinel": true,
+          "instructions": 9378
+        }
+      ],
+      "k": 64,
+      "input": "8c8bb10f99367816ac9c779e0dd6b3a28c8bb10f99367816ac9c779e0dd6b3e0cec9f34ddb743a54eede35dc4f94f146d390c365991097e28235a9ff101a5300",
+      "output": "",
+      "result": 0,
+      "output_length": 64
+    },
+    {
+      "kind": "rsa_encrypt",
+      "case": "short",
+      "source": "0x140066a10",
+      "calls": [
+        {
+          "address": "0x140066a10",
+          "sentinel": true,
+          "instructions": 951788
+        }
+      ],
+      "input": "33383120525341",
+      "output": "8f408b6c690230057271154f0a86dc5cd14a70afa4f2384e66fad303f42ba6da6092afc6e33c2c89825c52e5b86505dcf90f3c77015bd7e6397dc98cff6e401503db44996ae5a8ee02e9c3cb3d8c5f099068c759d792942621ac75aa68f747fc60bd62deebd71d4b1c0e863854b5c3bcce4dbec4587a29dfa96e993bea02a96f",
+      "seed": "d0bc1099230e3298a06463966ade677f",
+      "public_blob": "80000000219ef14f33e0259ea3358e57d0da7bb88c539ca874844c43a4461626426d4c55d9fbbdc2301c8543c06d9a0f3e6a84a695095d8b4bbb2425cc54680d5b948ad3b0644934fc5b3217bccde1fc6372c4ac73ca64c3d60b1ec9ee05ae2281d72c2bceb846d6dbab96918dca39464d53e3eac044dd46ea5fbacc861338dca0886780",
+      "private_blob": "80000000219ef14f33e0259ea3358e57d0da7bb88c539ca874844c43a4461626426d4c55d9fbbdc2301c8543c06d9a0f3e6a84a695095d8b4bbb2425cc54680d5b948ad3b0644934fc5b3217bccde1fc6372c4ac73ca64c3d60b1ec9ee05ae2281d72c2bceb846d6dbab96918dca39464d53e3eac044dd46ea5fbacc861338dca08867808000000001fb6702541e7d96050643978c3a284d171579a9cc0ce009c84696015bc4bbff14bec4ea02ad3c1728a2887939bf34c4aa796db993d2908d4b1fc61197bda6281b2315e983e6ed938472545dd350c5dbf2235f67c144434e95a9469330c70539a01599e5ab1756580c769d2e07ef24abb60198fcf59aee92bd786af4d7a0d617",
+      "result": 1,
+      "random_used": 16,
+      "output_length": 128,
+      "setup_calls": [
+        {
+          "address": "0x1400661a0",
+          "sentinel": true,
+          "instructions": 534
+        },
+        {
+          "address": "0x1400661a0",
+          "sentinel": true,
+          "instructions": 534
+        },
+        {
+          "address": "0x1400668e0",
+          "sentinel": true,
+          "instructions": 211
+        },
+        {
+          "address": "0x140066b50",
+          "sentinel": true,
+          "instructions": 347
+        }
+      ]
+    },
+    {
+      "kind": "rsa_encrypt",
+      "case": "multi_chunk",
+      "source": "0x140066a10",
+      "calls": [
+        {
+          "address": "0x140066a10",
+          "sentinel": true,
+          "instructions": 2857666
+        }
+      ],
+      "input": "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8",
+      "output": "c879a7a0ce3a9b8ec18a60ece7c4620cec752548fe8656da7a227eae5eea2ec4bd3e77e007fe710ce66485bd97b49af3a17f33c970ca2a393103dff7cb6ec40c6276dcec8e6f17e1a040df578dc0903c2d9e97f3b27852fe04688e13b1ed24c31921babf298474139f6159385c02fd2965046680aa55d919ffbf65512ddaec2554b9e75c9ed1fd9b85cee5b7f0c702ba65b3afca8eaa6167981895a4520da947a31b6c673a1e7bef7c69ae3c9112285463533fc7a42ba83c7087d6a1c0e93c991d8c539ca7a225e03b8fb0da9b30258b9689b37facc58f3c5387f14466b290b9a1b8203514ee8f39c2de0802d3ab07ea6a58f10990b14c5cf88e169d2a700b2d90d7e6982adfa1f900902edc1948181164df09c67be2c9ddfda2210b0796a785f4899f059ea67d3a4ebe1e074ffa8fd5812d141e8d6e46f1617379baca630b731cc04c4bc1f8992b308d7ba324ab1fbe6b1f26b96a7f1c7f01058da41d815f478e5709c438b2312291702dc394f367c6ba9eb8b5757a0cdc4666c51735ee7628",
+      "seed": "c95058ab05af8160786297552b25c48118ab63b0325c835e997bfb4917a8c60a392bb2badd84d8fe58872dc65bf9ab8b",
+      "public_blob": "80000000219ef14f33e0259ea3358e57d0da7bb88c539ca874844c43a4461626426d4c55d9fbbdc2301c8543c06d9a0f3e6a84a695095d8b4bbb2425cc54680d5b948ad3b0644934fc5b3217bccde1fc6372c4ac73ca64c3d60b1ec9ee05ae2281d72c2bceb846d6dbab96918dca39464d53e3eac044dd46ea5fbacc861338dca0886780",
+      "private_blob": "80000000219ef14f33e0259ea3358e57d0da7bb88c539ca874844c43a4461626426d4c55d9fbbdc2301c8543c06d9a0f3e6a84a695095d8b4bbb2425cc54680d5b948ad3b0644934fc5b3217bccde1fc6372c4ac73ca64c3d60b1ec9ee05ae2281d72c2bceb846d6dbab96918dca39464d53e3eac044dd46ea5fbacc861338dca08867808000000001fb6702541e7d96050643978c3a284d171579a9cc0ce009c84696015bc4bbff14bec4ea02ad3c1728a2887939bf34c4aa796db993d2908d4b1fc61197bda6281b2315e983e6ed938472545dd350c5dbf2235f67c144434e95a9469330c70539a01599e5ab1756580c769d2e07ef24abb60198fcf59aee92bd786af4d7a0d617",
+      "result": 1,
+      "random_used": 48,
+      "output_length": 384,
+      "setup_calls": [
+        {
+          "address": "0x1400661a0",
+          "sentinel": true,
+          "instructions": 534
+        },
+        {
+          "address": "0x1400661a0",
+          "sentinel": true,
+          "instructions": 534
+        },
+        {
+          "address": "0x1400668e0",
+          "sentinel": true,
+          "instructions": 211
+        },
+        {
+          "address": "0x140066b50",
+          "sentinel": true,
+          "instructions": 347
+        }
+      ]
+    },
+    {
+      "kind": "rsa_decrypt",
+      "case": "short",
+      "source": "0x140066d50",
+      "calls": [
+        {
+          "address": "0x140066d50",
+          "sentinel": true,
+          "instructions": 49865439
+        }
+      ],
+      "input": "8f408b6c690230057271154f0a86dc5cd14a70afa4f2384e66fad303f42ba6da6092afc6e33c2c89825c52e5b86505dcf90f3c77015bd7e6397dc98cff6e401503db44996ae5a8ee02e9c3cb3d8c5f099068c759d792942621ac75aa68f747fc60bd62deebd71d4b1c0e863854b5c3bcce4dbec4587a29dfa96e993bea02a96f",
+      "output": "33383120525341",
+      "result": 1,
+      "public_blob": "80000000219ef14f33e0259ea3358e57d0da7bb88c539ca874844c43a4461626426d4c55d9fbbdc2301c8543c06d9a0f3e6a84a695095d8b4bbb2425cc54680d5b948ad3b0644934fc5b3217bccde1fc6372c4ac73ca64c3d60b1ec9ee05ae2281d72c2bceb846d6dbab96918dca39464d53e3eac044dd46ea5fbacc861338dca0886780",
+      "private_blob": "80000000219ef14f33e0259ea3358e57d0da7bb88c539ca874844c43a4461626426d4c55d9fbbdc2301c8543c06d9a0f3e6a84a695095d8b4bbb2425cc54680d5b948ad3b0644934fc5b3217bccde1fc6372c4ac73ca64c3d60b1ec9ee05ae2281d72c2bceb846d6dbab96918dca39464d53e3eac044dd46ea5fbacc861338dca08867808000000001fb6702541e7d96050643978c3a284d171579a9cc0ce009c84696015bc4bbff14bec4ea02ad3c1728a2887939bf34c4aa796db993d2908d4b1fc61197bda6281b2315e983e6ed938472545dd350c5dbf2235f67c144434e95a9469330c70539a01599e5ab1756580c769d2e07ef24abb60198fcf59aee92bd786af4d7a0d617",
+      "output_length": 7,
+      "object_changes": {},
+      "setup_calls": [
+        {
+          "address": "0x1400661a0",
+          "sentinel": true,
+          "instructions": 534
+        },
+        {
+          "address": "0x1400661a0",
+          "sentinel": true,
+          "instructions": 534
+        },
+        {
+          "address": "0x1400668e0",
+          "sentinel": true,
+          "instructions": 211
+        },
+        {
+          "address": "0x140066b50",
+          "sentinel": true,
+          "instructions": 347
+        }
+      ]
+    },
+    {
+      "kind": "rsa_decrypt",
+      "case": "multi_chunk",
+      "source": "0x140066d50",
+      "calls": [
+        {
+          "address": "0x140066d50",
+          "sentinel": true,
+          "instructions": 149580240
+        }
+      ],
+      "input": "c879a7a0ce3a9b8ec18a60ece7c4620cec752548fe8656da7a227eae5eea2ec4bd3e77e007fe710ce66485bd97b49af3a17f33c970ca2a393103dff7cb6ec40c6276dcec8e6f17e1a040df578dc0903c2d9e97f3b27852fe04688e13b1ed24c31921babf298474139f6159385c02fd2965046680aa55d919ffbf65512ddaec2554b9e75c9ed1fd9b85cee5b7f0c702ba65b3afca8eaa6167981895a4520da947a31b6c673a1e7bef7c69ae3c9112285463533fc7a42ba83c7087d6a1c0e93c991d8c539ca7a225e03b8fb0da9b30258b9689b37facc58f3c5387f14466b290b9a1b8203514ee8f39c2de0802d3ab07ea6a58f10990b14c5cf88e169d2a700b2d90d7e6982adfa1f900902edc1948181164df09c67be2c9ddfda2210b0796a785f4899f059ea67d3a4ebe1e074ffa8fd5812d141e8d6e46f1617379baca630b731cc04c4bc1f8992b308d7ba324ab1fbe6b1f26b96a7f1c7f01058da41d815f478e5709c438b2312291702dc394f367c6ba9eb8b5757a0cdc4666c51735ee7628",
+      "output": "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8",
+      "result": 1,
+      "public_blob": "80000000219ef14f33e0259ea3358e57d0da7bb88c539ca874844c43a4461626426d4c55d9fbbdc2301c8543c06d9a0f3e6a84a695095d8b4bbb2425cc54680d5b948ad3b0644934fc5b3217bccde1fc6372c4ac73ca64c3d60b1ec9ee05ae2281d72c2bceb846d6dbab96918dca39464d53e3eac044dd46ea5fbacc861338dca0886780",
+      "private_blob": "80000000219ef14f33e0259ea3358e57d0da7bb88c539ca874844c43a4461626426d4c55d9fbbdc2301c8543c06d9a0f3e6a84a695095d8b4bbb2425cc54680d5b948ad3b0644934fc5b3217bccde1fc6372c4ac73ca64c3d60b1ec9ee05ae2281d72c2bceb846d6dbab96918dca39464d53e3eac044dd46ea5fbacc861338dca08867808000000001fb6702541e7d96050643978c3a284d171579a9cc0ce009c84696015bc4bbff14bec4ea02ad3c1728a2887939bf34c4aa796db993d2908d4b1fc61197bda6281b2315e983e6ed938472545dd350c5dbf2235f67c144434e95a9469330c70539a01599e5ab1756580c769d2e07ef24abb60198fcf59aee92bd786af4d7a0d617",
+      "output_length": 201,
+      "object_changes": {},
+      "setup_calls": [
+        {
+          "address": "0x1400661a0",
+          "sentinel": true,
+          "instructions": 534
+        },
+        {
+          "address": "0x1400661a0",
+          "sentinel": true,
+          "instructions": 534
+        },
+        {
+          "address": "0x1400668e0",
+          "sentinel": true,
+          "instructions": 211
+        },
+        {
+          "address": "0x140066b50",
+          "sentinel": true,
+          "instructions": 347
+        }
+      ]
+    },
+    {
+      "kind": "rsa_decrypt",
+      "case": "incomplete",
+      "source": "0x140066d50",
+      "calls": [
+        {
+          "address": "0x140066d50",
+          "sentinel": true,
+          "instructions": 65
+        }
+      ],
+      "input": "8f408b6c690230057271154f0a86dc5cd14a70afa4f2384e66fad303f42ba6da6092afc6e33c2c89825c52e5b86505dcf90f3c77015bd7e6397dc98cff6e401503db44996ae5a8ee02e9c3cb3d8c5f099068c759d792942621ac75aa68f747fc60bd62deebd71d4b1c0e863854b5c3bcce4dbec4587a29dfa96e993bea02a9",
+      "output": "",
+      "result": 0,
+      "public_blob": "80000000219ef14f33e0259ea3358e57d0da7bb88c539ca874844c43a4461626426d4c55d9fbbdc2301c8543c06d9a0f3e6a84a695095d8b4bbb2425cc54680d5b948ad3b0644934fc5b3217bccde1fc6372c4ac73ca64c3d60b1ec9ee05ae2281d72c2bceb846d6dbab96918dca39464d53e3eac044dd46ea5fbacc861338dca0886780",
+      "private_blob": "80000000219ef14f33e0259ea3358e57d0da7bb88c539ca874844c43a4461626426d4c55d9fbbdc2301c8543c06d9a0f3e6a84a695095d8b4bbb2425cc54680d5b948ad3b0644934fc5b3217bccde1fc6372c4ac73ca64c3d60b1ec9ee05ae2281d72c2bceb846d6dbab96918dca39464d53e3eac044dd46ea5fbacc861338dca08867808000000001fb6702541e7d96050643978c3a284d171579a9cc0ce009c84696015bc4bbff14bec4ea02ad3c1728a2887939bf34c4aa796db993d2908d4b1fc61197bda6281b2315e983e6ed938472545dd350c5dbf2235f67c144434e95a9469330c70539a01599e5ab1756580c769d2e07ef24abb60198fcf59aee92bd786af4d7a0d617",
+      "output_length": 512,
+      "object_changes": {
+        "0x8": 4
+      },
+      "setup_calls": [
+        {
+          "address": "0x1400661a0",
+          "sentinel": true,
+          "instructions": 534
+        },
+        {
+          "address": "0x1400661a0",
+          "sentinel": true,
+          "instructions": 534
+        },
+        {
+          "address": "0x1400668e0",
+          "sentinel": true,
+          "instructions": 211
+        },
+        {
+          "address": "0x140066b50",
+          "sentinel": true,
+          "instructions": 347
+        }
+      ]
+    },
+    {
+      "kind": "rsa_decrypt",
+      "case": "bad_oaep",
+      "source": "0x140066d50",
+      "calls": [
+        {
+          "address": "0x140066d50",
+          "sentinel": true,
+          "instructions": 49861181
+        }
+      ],
+      "input": "7c3c142e983876c44ec3123f7c50cb3bb12784be35e12cb3ebb631dfbe6d1eda01fd05011d3f31aa8267ae49f5470bfcab906b3ca50512b1aa6ddf136f642cb641e6ac750b1c197264b27dc418d5b2fa8766a390587e8bbe3176b211ad8c896cb4da2741d8ae418081eaabb080ddee8832c13753986c81905b7bf97e0d42771c",
+      "output": "",
+      "result": 0,
+      "error": 17,
+      "preimage": "6b07a5e474beb79ba11fa4d8516e94df6b07a5e474beb79ba11fa4d8516e94df6b07a5e474beb79ba11fa4d8516e94df6b07a5e474beb79ba11fa4d8516e94df6b07a5e474beb79ba11fa4d8516e94df6b07a5e474beb79ba11fa4d8516e949d2945e7a636fcf5d9e35de69a132cd68299de8ef404e4ebda21b4b73772d92600",
+      "output_length": 0,
+      "public_blob": "80000000219ef14f33e0259ea3358e57d0da7bb88c539ca874844c43a4461626426d4c55d9fbbdc2301c8543c06d9a0f3e6a84a695095d8b4bbb2425cc54680d5b948ad3b0644934fc5b3217bccde1fc6372c4ac73ca64c3d60b1ec9ee05ae2281d72c2bceb846d6dbab96918dca39464d53e3eac044dd46ea5fbacc861338dca0886780",
+      "private_blob": "80000000219ef14f33e0259ea3358e57d0da7bb88c539ca874844c43a4461626426d4c55d9fbbdc2301c8543c06d9a0f3e6a84a695095d8b4bbb2425cc54680d5b948ad3b0644934fc5b3217bccde1fc6372c4ac73ca64c3d60b1ec9ee05ae2281d72c2bceb846d6dbab96918dca39464d53e3eac044dd46ea5fbacc861338dca08867808000000001fb6702541e7d96050643978c3a284d171579a9cc0ce009c84696015bc4bbff14bec4ea02ad3c1728a2887939bf34c4aa796db993d2908d4b1fc61197bda6281b2315e983e6ed938472545dd350c5dbf2235f67c144434e95a9469330c70539a01599e5ab1756580c769d2e07ef24abb60198fcf59aee92bd786af4d7a0d617",
+      "object_changes": {
+        "0x8": 17
+      },
+      "setup_calls": [
+        {
+          "address": "0x1400661a0",
+          "sentinel": true,
+          "instructions": 534
+        },
+        {
+          "address": "0x1400661a0",
+          "sentinel": true,
+          "instructions": 534
+        },
+        {
+          "address": "0x1400668e0",
+          "sentinel": true,
+          "instructions": 211
+        },
+        {
+          "address": "0x140066b50",
+          "sentinel": true,
+          "instructions": 347
+        }
+      ]
+    },
+    {
+      "kind": "dh",
+      "case": "normal",
+      "source": "0x140067a10",
+      "calls": [
+        {
+          "address": "0x1400670a0",
+          "sentinel": true,
+          "instructions": 568
+        },
+        {
+          "address": "0x140067130",
+          "sentinel": true,
+          "instructions": 8
+        },
+        {
+          "address": "0x140067850",
+          "sentinel": true,
+          "instructions": 454
+        },
+        {
+          "address": "0x140067a10",
+          "sentinel": true,
+          "instructions": 393958
+        },
+        {
+          "address": "0x140067660",
+          "sentinel": true,
+          "instructions": 396743
+        }
+      ],
+      "input": "20000000cfaf6a5327f2e8a75c1387bbe4ff2cba6c818cc3fcdee565f32cb41251596c26200000000768f3927d2ff5608bdd434b24cb4dee3b1b187211e6543ca2266c04cf41e0e520000000ce11f5ed1c5024b49a861b9864fb8c4b1f0cf61219d6ae4758902e592b391895",
+      "seed": "8298ac3fe1f21820",
+      "output": "c7c7d884f018747ba5355e74463bbd8ae13347a40f8e28cde343a1a03a33d9ac",
+      "session_key": "fce6749eb0d63998f5550baae2a7f06a",
+      "exponent": "8398ac3fe1f218a0",
+      "exponent_bits": 64,
+      "result": 1,
+      "key_result": 1,
+      "random_used": 8
+    },
+    {
+      "kind": "dh",
+      "case": "short_shared",
+      "source": "0x140067a10",
+      "calls": [
+        {
+          "address": "0x1400670a0",
+          "sentinel": true,
+          "instructions": 568
+        },
+        {
+          "address": "0x140067130",
+          "sentinel": true,
+          "instructions": 8
+        },
+        {
+          "address": "0x140067850",
+          "sentinel": true,
+          "instructions": 730
+        },
+        {
+          "address": "0x140067a10",
+          "sentinel": true,
+          "instructions": 131244
+        },
+        {
+          "address": "0x140067660",
+          "sentinel": true,
+          "instructions": 130510
+        }
+      ],
+      "input": "02000000c975020000007f81020000007e81",
+      "seed": "5c0b5841925cd840",
+      "output": "7866",
+      "session_key": "7e817e817e817e817e817e817e817e81",
+      "exponent": "5d0b5841925cd8c0",
+      "exponent_bits": 64,
+      "result": 1,
+      "key_result": 1,
+      "random_used": 8
+    },
+    {
+      "kind": "dh",
+      "case": "exponent_64_bits",
+      "source": "0x140067a10",
+      "calls": [
+        {
+          "address": "0x1400670a0",
+          "sentinel": true,
+          "instructions": 568
+        },
+        {
+          "address": "0x140067130",
+          "sentinel": true,
+          "instructions": 8
+        },
+        {
+          "address": "0x140067850",
+          "sentinel": true,
+          "instructions": 454
+        },
+        {
+          "address": "0x140067a10",
+          "sentinel": true,
+          "instructions": 397029
+        },
+        {
+          "address": "0x140067660",
+          "sentinel": true,
+          "instructions": 399903
+        }
+      ],
+      "input": "20000000cfaf6a5327f2e8a75c1387bbe4ff2cba6c818cc3fcdee565f32cb41251596c26200000000768f3927d2ff5608bdd434b24cb4dee3b1b187211e6543ca2266c04cf41e0e520000000ce11f5ed1c5024b49a861b9864fb8c4b1f0cf61219d6ae4758902e592b391895",
+      "seed": "a7bf352f47a758f0",
+      "output": "aadd4cabc6152b71933ca3d33876cacf5c741b3ce42377a5c1c5f397a74ac4a5",
+      "session_key": "316325552acd5401c7ff08e26d8cfc13",
+      "exponent": "a7bf352f47a758f0",
+      "exponent_bits": 64,
+      "result": 1,
+      "key_result": 1,
+      "random_used": 8
+    },
+    {
+      "kind": "dh_reject",
+      "case": "p_equal_g",
+      "source": "0x140067850",
+      "calls": [
+        {
+          "address": "0x1400670a0",
+          "sentinel": true,
+          "instructions": 568
+        },
+        {
+          "address": "0x140067130",
+          "sentinel": true,
+          "instructions": 8
+        },
+        {
+          "address": "0x140067850",
+          "sentinel": true,
+          "instructions": 646
+        }
+      ],
+      "input": "200000000768f3927d2ff5608bdd434b24cb4dee3b1b187211e6543ca2266c04cf41e0e5200000000768f3927d2ff5608bdd434b24cb4dee3b1b187211e6543ca2266c04cf41e0e520000000ce11f5ed1c5024b49a861b9864fb8c4b1f0cf61219d6ae4758902e592b391895",
+      "result": 0
+    },
+    {
+      "kind": "dh_reject",
+      "case": "p_less_g",
+      "source": "0x140067850",
+      "calls": [
+        {
+          "address": "0x1400670a0",
+          "sentinel": true,
+          "instructions": 568
+        },
+        {
+          "address": "0x140067130",
+          "sentinel": true,
+          "instructions": 8
+        },
+        {
+          "address": "0x140067850",
+          "sentinel": true,
+          "instructions": 645
+        }
+      ],
+      "input": "200000000868f3927d2ff5608bdd434b24cb4dee3b1b187211e6543ca2266c04cf41e0e5200000000768f3927d2ff5608bdd434b24cb4dee3b1b187211e6543ca2266c04cf41e0e520000000ce11f5ed1c5024b49a861b9864fb8c4b1f0cf61219d6ae4758902e592b391895",
+      "result": 0
+    },
+    {
+      "kind": "session_encrypt",
+      "case": "aligned_false",
+      "source": "0x14005f3b0",
+      "calls": [
+        {
+          "address": "0x14005f3b0",
+          "sentinel": true,
+          "instructions": 821
+        }
+      ],
+      "input": "000102030405060708090a0b0c0d0e0f",
+      "output": "0480e30a75a99a1f63be81541759e119515a",
+      "result": 0,
+      "key0": "0d2791d1ab8a0accba9a9566c8892787",
+      "key1": "69d6723dfbaea573702d510e040b20c9",
+      "flag": false,
+      "capacity": 18,
+      "output_length": 18,
+      "before": {
+        "send": 0,
+        "receive": 0,
+        "pending": 0
+      },
+      "after": {
+        "send": 0,
+        "receive": 0,
+        "pending": 0
+      },
+      "setup_calls": [
+        {
+          "address": "0x14005ee80",
+          "sentinel": true,
+          "instructions": 96
+        },
+        {
+          "address": "0x14005f1e0",
+          "sentinel": true,
+          "instructions": 1115
+        }
+      ],
+      "error_output": "00000000"
+    },
+    {
+      "kind": "session_decrypt",
+      "case": "aligned_false",
+      "source": "0x14005f4d0",
+      "calls": [
+        {
+          "address": "0x14005f4d0",
+          "sentinel": true,
+          "instructions": 807
+        }
+      ],
+      "input": "0480e30a75a99a1f63be81541759e119515a",
+      "output": "000102030405060708090a0b0c0d0e0f",
+      "result": 0,
+      "key0": "0d2791d1ab8a0accba9a9566c8892787",
+      "key1": "69d6723dfbaea573702d510e040b20c9",
+      "flag": 0,
+      "output_length": 18,
+      "before": {
+        "send": 0,
+        "receive": 0,
+        "pending": 0
+      },
+      "after": {
+        "send": 0,
+        "receive": 0,
+        "pending": 0
+      },
+      "setup_calls": [
+        {
+          "address": "0x14005ee80",
+          "sentinel": true,
+          "instructions": 96
+        },
+        {
+          "address": "0x14005f1e0",
+          "sentinel": true,
+          "instructions": 1115
+        }
+      ],
+      "error_output": "00000000"
+    },
+    {
+      "kind": "session_encrypt",
+      "case": "aligned_true",
+      "source": "0x14005f3b0",
+      "calls": [
+        {
+          "address": "0x14005f3b0",
+          "sentinel": true,
+          "instructions": 1521
+        }
+      ],
+      "input": "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f",
+      "output": "08a0e30a75a99a1f63be81541759e119515aae14df4defaa36e64867b6f65b7f53f5",
+      "result": 0,
+      "key0": "0d2791d1ab8a0accba9a9566c8892787",
+      "key1": "69d6723dfbaea573702d510e040b20c9",
+      "flag": true,
+      "capacity": 34,
+      "output_length": 34,
+      "before": {
+        "send": 0,
+        "receive": 0,
+        "pending": 0
+      },
+      "after": {
+        "send": 0,
+        "receive": 0,
+        "pending": 0
+      },
+      "setup_calls": [
+        {
+          "address": "0x14005ee80",
+          "sentinel": true,
+          "instructions": 96
+        },
+        {
+          "address": "0x14005f1e0",
+          "sentinel": true,
+          "instructions": 1115
+        }
+      ],
+      "error_output": "00000000"
+    },
+    {
+      "kind": "session_decrypt",
+      "case": "aligned_true",
+      "source": "0x14005f4d0",
+      "calls": [
+        {
+          "address": "0x14005f4d0",
+          "sentinel": true,
+          "instructions": 1501
+        }
+      ],
+      "input": "08a0e30a75a99a1f63be81541759e119515aae14df4defaa36e64867b6f65b7f53f5",
+      "output": "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f",
+      "result": 0,
+      "key0": "0d2791d1ab8a0accba9a9566c8892787",
+      "key1": "69d6723dfbaea573702d510e040b20c9",
+      "flag": 1,
+      "output_length": 34,
+      "before": {
+        "send": 0,
+        "receive": 0,
+        "pending": 0
+      },
+      "after": {
+        "send": 0,
+        "receive": 0,
+        "pending": 0
+      },
+      "setup_calls": [
+        {
+          "address": "0x14005ee80",
+          "sentinel": true,
+          "instructions": 96
+        },
+        {
+          "address": "0x14005f1e0",
+          "sentinel": true,
+          "instructions": 1115
+        }
+      ],
+      "error_output": "00000000"
+    },
+    {
+      "kind": "session_encrypt",
+      "case": "short_7",
+      "source": "0x14005f3b0",
+      "calls": [
+        {
+          "address": "0x14005f3b0",
+          "sentinel": true,
+          "instructions": 829
+        }
+      ],
+      "input": "33383120414553",
+      "output": "048088a3056baf839b1b42e01abd983c899c",
+      "result": 0,
+      "key0": "0d2791d1ab8a0accba9a9566c8892787",
+      "key1": "69d6723dfbaea573702d510e040b20c9",
+      "flag": false,
+      "capacity": 18,
+      "output_length": 18,
+      "before": {
+        "send": 0,
+        "receive": 0,
+        "pending": 0
+      },
+      "after": {
+        "send": 0,
+        "receive": 0,
+        "pending": 0
+      },
+      "setup_calls": [
+        {
+          "address": "0x14005ee80",
+          "sentinel": true,
+          "instructions": 96
+        },
+        {
+          "address": "0x14005f1e0",
+          "sentinel": true,
+          "instructions": 1115
+        }
+      ],
+      "error_output": "00000000"
+    },
+    {
+      "kind": "session_decrypt",
+      "case": "short_7",
+      "source": "0x14005f4d0",
+      "calls": [
+        {
+          "address": "0x14005f4d0",
+          "sentinel": true,
+          "instructions": 807
+        }
+      ],
+      "input": "048088a3056baf839b1b42e01abd983c899c",
+      "output": "33383120414553000000000000000000",
+      "result": 0,
+      "key0": "0d2791d1ab8a0accba9a9566c8892787",
+      "key1": "69d6723dfbaea573702d510e040b20c9",
+      "flag": 0,
+      "output_length": 18,
+      "before": {
+        "send": 0,
+        "receive": 0,
+        "pending": 0
+      },
+      "after": {
+        "send": 0,
+        "receive": 0,
+        "pending": 0
+      },
+      "setup_calls": [
+        {
+          "address": "0x14005ee80",
+          "sentinel": true,
+          "instructions": 96
+        },
+        {
+          "address": "0x14005f1e0",
+          "sentinel": true,
+          "instructions": 1115
+        }
+      ],
+      "error_output": "00000000"
+    },
+    {
+      "kind": "session_encrypt",
+      "case": "short_17",
+      "source": "0x14005f3b0",
+      "calls": [
+        {
+          "address": "0x14005f3b0",
+          "sentinel": true,
+          "instructions": 1529
+        }
+      ],
+      "input": "000102030405060708090a0b0c0d0e0f10",
+      "output": "08a0e30a75a99a1f63be81541759e119515a7ff9a630a0d9e4ceb36ad5dde405cdee",
+      "result": 0,
+      "key0": "0d2791d1ab8a0accba9a9566c8892787",
+      "key1": "69d6723dfbaea573702d510e040b20c9",
+      "flag": true,
+      "capacity": 34,
+      "output_length": 34,
+      "before": {
+        "send": 0,
+        "receive": 0,
+        "pending": 0
+      },
+      "after": {
+        "send": 0,
+        "receive": 0,
+        "pending": 0
+      },
+      "setup_calls": [
+        {
+          "address": "0x14005ee80",
+          "sentinel": true,
+          "instructions": 96
+        },
+        {
+          "address": "0x14005f1e0",
+          "sentinel": true,
+          "instructions": 1115
+        }
+      ],
+      "error_output": "00000000"
+    },
+    {
+      "kind": "session_decrypt",
+      "case": "short_17",
+      "source": "0x14005f4d0",
+      "calls": [
+        {
+          "address": "0x14005f4d0",
+          "sentinel": true,
+          "instructions": 1501
+        }
+      ],
+      "input": "08a0e30a75a99a1f63be81541759e119515a7ff9a630a0d9e4ceb36ad5dde405cdee",
+      "output": "000102030405060708090a0b0c0d0e0f10000000000000000000000000000000",
+      "result": 0,
+      "key0": "0d2791d1ab8a0accba9a9566c8892787",
+      "key1": "69d6723dfbaea573702d510e040b20c9",
+      "flag": 1,
+      "output_length": 34,
+      "before": {
+        "send": 0,
+        "receive": 0,
+        "pending": 0
+      },
+      "after": {
+        "send": 0,
+        "receive": 0,
+        "pending": 0
+      },
+      "setup_calls": [
+        {
+          "address": "0x14005ee80",
+          "sentinel": true,
+          "instructions": 96
+        },
+        {
+          "address": "0x14005f1e0",
+          "sentinel": true,
+          "instructions": 1115
+        }
+      ],
+      "error_output": "00000000"
+    },
+    {
+      "kind": "session_encrypt",
+      "case": "limit_4000",
+      "source": "0x14005f3b0",
+      "calls": [
+        {
+          "address": "0x14005f3b0",
+          "sentinel": true,
+          "instructions": 174872
+        }
+      ],
+      "input": "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0d1d2d3d4d5d6d7d8d9dadbdcdddedfe0e1e2e3e4e5e6e7e8e9eaebecedeeeff0f1f2f3f4f5f6f7f8f9000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0d1d2d3d4d5d6d7d8d9dadbdcdddedfe0e1e2e3e4e5e6e7e8e9eaebecedeeeff0f1f2f3f4f5f6f7f8f9000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0d1d2d3d4d5d6d7d8d9dadbdcdddedfe0e1e2e3e4e5e6e7e8e9eaebecedeeeff0f1f2f3f4f5f6f7f8f9000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0d1d2d3d4d5d6d7d8d9dadbdcdddedfe0e1e2e3e4e5e6e7e8e9eaebecedeeeff0f1f2f3f4f5f6f7f8f9000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0d1d2d3d4d5d6d7d8d9dadbdcdddedfe0e1e2e3e4e5e6e7e8e9eaebecedeeeff0f1f2f3f4f5f6f7f8f9000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0d1d2d3d4d5d6d7d8d9dadbdcdddedfe0e1e2e3e4e5e6e7e8e9eaebecedeeeff0f1f2f3f4f5f6f7f8f9000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0d1d2d3d4d5d6d7d8d9dadbdcdddedfe0e1e2e3e4e5e6e7e8e9eaebecedeeeff0f1f2f3f4f5f6f7f8f9000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0d1d2d3d4d5d6d7d8d9dadbdcdddedfe0e1e2e3e4e5e6e7e8e9eaebecedeeeff0f1f2f3f4f5f6f7f8f9000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0d1d2d3d4d5d6d7d8d9dadbdcdddedfe0e1e2e3e4e5e6e7e8e9eaebecedeeeff0f1f2f3f4f5f6f7f8f9000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0d1d2d3d4d5d6d7d8d9dadbdcdddedfe0e1e2e3e4e5e6e7e8e9eaebecedeeeff0f1f2f3f4f5f6f7f8f9000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0d1d2d3d4d5d6d7d8d9dadbdcdddedfe0e1e2e3e4e5e6e7e8e9eaebecedeeeff0f1f2f3f4f5f6f7f8f9000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0d1d2d3d4d5d6d7d8d9dadbdcdddedfe0e1e2e3e4e5e6e7e8e9eaebecedeeeff0f1f2f3f4f5f6f7f8f9000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0d1d2d3d4d5d6d7d8d9dadbdcdddedfe0e1e2e3e4e5e6e7e8e9eaebecedeeeff0f1f2f3f4f5f6f7f8f9000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0d1d2d3d4d5d6d7d8d9dadbdcdddedfe0e1e2e3e4e5e6e7e8e9eaebecedeeeff0f1f2f3f4f5f6f7f8f9000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0d1d2d3d4d5d6d7d8d9dadbdcdddedfe0e1e2e3e4e5e6e7e8e9eaebecedeeeff0f1f2f3f4f5f6f7f8f9000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0d1d2d3d4d5d6d7d8d9dadbdcdddedfe0e1e2e3e4e5e6e7e8e9eaebecedeeeff0f1f2f3f4f5f6f7f8f9",
+      "output": "e883e30a75a99a1f63be81541759e119515aae14df4defaa36e64867b6f65b7f53f517d100560eb8ce7d91f8497d4408e65a32077a4e359a9b3b315ab224a786ce08e5849a1b05ef19c99d9d4004adcf41a434ef7ac5a81d04afdc68f0ba4eaddfdbf8dbbd2abfa197e34b7fb0cdd3a46db3b9dd093bed0e2231c5aabbcc14e32987d20d8d7a0ae19559f60e958e3193bc364b7583e419ca2ee6cca14fd29edab98e9f99cc8545b09bd0762dfd3b11361dbd341ec9f1c01885aa42ec11760210db96e5dd7ef1e5b1f30fdc261cd94b2a97bafe55ebb066de2d5ffb1fa4e1e516eaa590d23f2648aa5d52ea05c72893bbe01858540b6e0fd2851faf25556d2bb22011a8a221f03b1bd7107120b948f20eb4a4f308ca6273f1da67554ee3dcbacc98387e4d851eaf6d70d96076961c1048400089ba9e7ef2e9b5101cad4b88ea53f06872402c0e9ef28c3369d0024672e7eadff56451a03dc64e7e0e32cf236688d8145659dd0a0d42c671371a16d893334fe71b5ab0fffcee24aa64c07c1fbb937303c3f448271677391becb8888bf1d53e9044cd29fca5a9b835cff7745f98f1106c1ac5dff5c9bb8ec9d4401855bb34d587dadb530aa889fe791c54d7ed0605d5fdf89eee00482bfe45240a8602438f3239c931dd0a3d93bfa2ce26998ff6706eabe2b119c4db380576499b3e77cc4175b3f238dc53e1bf909f55c9ae08e48535e4cd2040ece851d724ab92555921c0e872c612fe824fb8f34cd0df3edcec2680f91a80256afd8c8164cfea637d2f7a18453d742026fbbf2e045ef76c9b6fb6cc18f9ceeecfc3ef6ff04f1c75f378d40f9621174ad4bb5102c780021f3fc60bbfdcf4584645d5a66fa44bc353ad7de661d5ded269a98070faa58bdc6ebac0974b64d41e3b52dc76fa3744ed61321d6f6fdee1ff21c97840b3d42fb8daa33e91a0ed5d50d3ae6ef156f84533f48ccf35a78f3702d5bdc6da2e6ca56564e96766043f93fcecc9ef5be8ec97e0675b68b7689ce0e6b8a9c76c2ee91dfc5ef57c632c3aa0b6b949592e13c04f4efef06b201c7afaa8215f0cb1cce22043eff39a96ad68fb7db0e52b806a19513cef9e9ab9bf8ae3b23cf979adc04174c6d0401a6466ef5b68812814aa9c150a03605398331438a7d5385c27d7a7e32185450a301061bfa94d1106d133d263a99cd3baaec4c77f039802a8a3339e22cd425c0a60a2bd9e3f5fd70dd1295c732430a4769d7d5c363f3209aba012483709f1d8c24bc2633f4cd14dc678c1f80e467f6750dbec7eb8482b7ebeb247ff531a02f7248a1fb49a0805b1c666ca7804d9452fcb4b69c527d2885d56bdd3d0f829ff1ca1c0f8b8a9557c4aa444c3d9a9ada3613a000e0510a4b202e7cf6082b83cbead2fc9037d67a34720b86c9faa35cd0c7b19eb8fb2a7b40b971aadee6e4625f08fcfa04b12eb2a71a4ce930311e46d4205fe45f336d0e9869a83eab55899be312cb25888ee421ea734d0f8d12ab0646d727faa8123085a41e911dd3e2923ff0fac9fdcc8fa3c8535f7235c854d07e9f2f7538ee57f4db32b83e1b46f2ef6b3c4af14f733e0d1f2848b9d20a2a23d4ade0f1757fdd43bc734d8bafbdee4a6125dc6b2b70078c48c200ee7617c33f11510da46dee2698c9a91460c35ba00bfdb3200fe648fed5f090d17972394af267899ce8ae2a7f8bd3e37171fc6e40f67e40d626501e1e0796ecf24c732fae376e563ff25743d932b75c5dc2943e7b4f217b00cd19ead877a397ee25c5067e6aa9e01ffbbf21b5ecc388434197a5863695b5f05b1b9b79c202f9a53e46d3fe3842328e8cec57ff22a35f80c78db07c70b2cb878a933864b8a72e458ffa7b178f1bf6f8f78b240421f20b4971e51f0fa8af21f292709f91443ce136e589d1dbeae4e88f287633c08e3e2d9bd34884e11ef75405eba4772cba1f64d27d1bae465559816231cb2352796a782c813ab32fc16ac27031e80713bbfc237bb51f6e1960e0d2ac8e6137bd94911abd8f71820f715d84bb6f455afbf5f83f1dcfb0bb14441a480c345ad849468363dde6183dadd06b1303c90a2307747d7616216acfa8a384ba74f8e39605cfc795d917130d18161e10892bfe2d830185ddf9b6b7d1f09727256ca26e6a36e93e40fd7aac047fa6eda6243f5581a3204220f722be9146fc83176edb469f5152f0c9c2b6749b20ffa5008f90ac9799bae3f1d2d100710519439cf796955f3e495b894a7ea256ebeb15463db4e3b9dc5f7db964688f4b849c5180b60ccaaa2fd181e2a6258b3d8ebc3ee64f99681dd460751784c02a6099bddab540a129a763b04f8454be40a2efe7ab618ee1508e5764bfffb944a7dbc2a45f7fb0a9217331cfd040ade90267292e56d99ff9a2d55cacf8d468526841d92156feba12523f123908cb82667c497cf30599d86a6915deb07c8b769fc04b33e2e5e0412d6e5f95b5cc3f9cbbc6304418d14e240d6ba3e274bb70ea399c347d554d327b4c88e4dd5a56c0be6e7a1fb7672d47f22f9b3333a4fd8468799478de00c1893eb9447ccd14b3fa121211d2079ead9546cb6f983664959946087f5a66a8adeeff3e596e6c9f47c3be3f986ba298fed468d2a8cdd71901724edc818172af4ffa999b623dfd4ae9b24cc3b4803849a9a4a742ffb13ea813f614f110a9a76a85557802713b5add9ec49d4a09f8d24ba1bd490a85092f3d67dac596fadf243ab9dc80e4f41369fff6d5ae2c67c5326e33a3814702374c332d2d7dd9a6beb6df31d751a18abd5040a83d83cfcd666cb14aea71d7ea92fc5e2eeea8fc2a7ff85ece3212eb5405ce33be30a75a99a1f63be81541759e119515aae14df4defaa36e64867b6f65b7f53f517d100560eb8ce7d91f8497d4408e65a32077a4e359a9b3b315ab224a786ce08e5849a1b05ef19c99d9d4004adcf41a434ef7ac5a81d04afdc68f0ba4eaddfdbf8dbbd2abfa197e34b7fb0cdd3a46db3b9dd093bed0e2231c5aabbcc14e32987d20d8d7a0ae19559f60e958e3193bc364b7583e419ca2ee6cca14fd29edab98e9f99cc8545b09bd0762dfd3b11361dbd341ec9f1c01885aa42ec11760210db96e5dd7ef1e5b1f30fdc261cd94b2a97bafe55ebb066de2d5ffb1fa4e1e516eaa590d23f2648aa5d52ea05c72893bbe01858540b6e0fd2851faf25556d2bb22011a8a221f03b1bd7107120b948f20eb4a4f308ca6273f1da67554ee3dcbacc98387e4d851eaf6d70d96076961c1048400089ba9e7ef2e9b5101cad4b88ea53f06872402c0e9ef28c3369d0024672e7eadff56451a03dc64e7e0e32cf236688d8145659dd0a0d42c671371a16d893334fe71b5ab0fffcee24aa64c07c1fbb937303c3f448271677391becb8888bf1d53e9044cd29fca5a9b835cff7745f98f1106c1ac5dff5c9bb8ec9d4401855bb34d587dadb530aa889fe791c54d7ed0605d5fdf89eee00482bfe45240a8602438f3239c931dd0a3d93bfa2ce26998ff6706eabe2b119c4db380576499b3e77cc4175b3f238dc53e1bf909f55c9ae08e48535e4cd2040ece851d724ab92555921c0e872c612fe824fb8f34cd0df3edcec2680f91a80256afd8c8164cfea637d2f7a18453d742026fbbf2e045ef76c9b6fb6cc18f9ceeecfc3ef6ff04f1c75f378d40f9621174ad4bb5102c780021f3fc60bbfdcf4584645d5a66fa44bc353ad7de661d5ded269a98070faa58bdc6ebac0974b64d41e3b52dc76fa3744ed61321d6f6fdee1ff21c97840b3d42fb8daa33e91a0ed5d50d3ae6ef156f84533f48ccf35a78f3702d5bdc6da2e6ca56564e96766043f93fcecc9ef5be8ec97e0675b68b7689ce0e6b8a9c76c2ee91dfc5ef57c632c3aa0b6b949592e13c04f4efef06b201c7afaa8215f0cb1cce22043eff39a96ad68fb7db0e52b806a19513cef9e9ab9bf8ae3b23cf979adc04174c6d0401a6466ef5b68812814aa9c150a03605398331438a7d5385c27d7a7e32185450a301061bfa94d1106d133d263a99cd3baaec4c77f039802a8a3339e22cd425c0a60a2bd9e3f5fd70dd1295c732430a4769d7d5c363f3209aba012483709f1d8c24bc2633f4cd14dc678c1f80e467f6750dbec7eb8482b7ebeb247ff531a02f7248a1fb49a0805b1c666ca7804d9452fcb4b69c527d2885d56bdd3d0f829ff1ca1c0f8b8a9557c4aa444c3d9a9ada3613a000e0510a4b202e7cf6082b83cbead2fc9037d67a34720b86c9faa35cd0c7b19eb8fb2a7b40b971aadee6e4625f08fcfa04b12eb2a71a4ce930311e46d4205fe45f336d0e9869a83eab55899be312cb25888ee421ea734d0f8d12ab0646d727faa8123085a41e911dd3e2923ff0fac9fdcc8fa3c8535f7235c854d07e9f2f7538ee57f4db32b83e1b46f2ef6b3c4af14f733e0d1f2848b9d20a2a23d4ade0f1757fdd43bc734d8bafbdee4a6125dc6b2b70078c48c200ee7617c33f11510da46dee2698c9a91460c35ba00bfdb3200fe648fed5f090d17972394af267899ce8ae2a7f8bd3e37171fc6e40f67e40d626501e1e0796ecf24c732fae376e563ff25743d932b75c5dc2943e7b4f217b00cd19ead877a397ee25c5067e6aa9e01ffbbf21b5ecc388434197a5863695b5f05b1b9b79c202f9a53e46d3fe3842328e8cec57ff22a35f80c78db07c70b2cb878a933864b8a72e458ffa7b178f1bf6f8f78b240421f20b4971e51f0fa8af21f292709f91443ce136e589d1dbeae4e88f287633c08e3e2d9bd34884e11ef75405eba4772cba1f64d27d1bae465559816231cb2352796a782c813ab32fc16ac27031e80713bbfc237bb51f6e1960e0d2ac8e6137bd94911abd8f71820f715d84bb6f455afbf5f83f1dcfb0bb14441a480c345ad849468363dde6183dadd06b1303c90a2307747d7616216acfa8a384ba74f8e39605cfc795d917130d18161e10892bfe2d830185ddf9b6b7d1f09727256ca26e6a36e93e40fd7aac047fa6eda6243f5581a3204220f722be9146fc83176edb469f5152f0c9c2b6749b20ffa5008f90ac9799bae3f1d2d100710519439cf796955f3e495b894a7ea256ebeb15463db4e3b9dc5f7db964688f4b849c5180b60ccaaa2fd181e2a6258b3d8ebc3ee64f99681dd460751784c02a6099bddab540a129a763b04f8454be40a2efe7ab618ee1508e5764bfffb944a7dbc2a45f7fb0a9217331cfd040ade90267292e56d99ff9a2d55cacf8d468526841d92156feba12523f123908cb82667c497cf30599d86a6915deb07c8b769fc04b33e2e5e0412d6e5f95b5cc3f9cbbc6304418d14e240d6ba3e274bb70ea399c347d554d327b4c88e4dd5a56c0be6e7a1fb7672d47f22f9b3333a4fd8468799478de00c1893eb9447ccd14b3fa121211d2079ead9546cb6f983664959946087f5a66a8adeeff3e596e6c9f47c3be3f986ba298fed468d2a8cdd71901724edc818172af4ffa999b623dfd4ae9b24cc3b4803849a9a4a742ffb13ea813f614f110a9a76a85557802713b5add9ec49d4a09f8d24ba1bd490a85092f3d67dac596fadf243ab9dc80e4f41369fff6d5ae2c67c5326e33a3814702374c332d2d7dd9a6beb6df31d751a18abd5040a83d83cfcd666cb14aea71d7ea92fc5e2eeea8fc2a7ff85ece3212eb5405ce33b",
+      "result": 0,
+      "key0": "0d2791d1ab8a0accba9a9566c8892787",
+      "key1": "69d6723dfbaea573702d510e040b20c9",
+      "flag": false,
+      "capacity": 4002,
+      "output_length": 4002,
+      "before": {
+        "send": 0,
+        "receive": 0,
+        "pending": 0
+      },
+      "after": {
+        "send": 0,
+        "receive": 0,
+        "pending": 0
+      },
+      "setup_calls": [
+        {
+          "address": "0x14005ee80",
+          "sentinel": true,
+          "instructions": 96
+        },
+        {
+          "address": "0x14005f1e0",
+          "sentinel": true,
+          "instructions": 1115
+        }
+      ],
+      "error_output": "00000000"
+    },
+    {
+      "kind": "session_decrypt",
+      "case": "limit_4000",
+      "source": "0x14005f4d0",
+      "calls": [
+        {
+          "address": "0x14005f4d0",
+          "sentinel": true,
+          "instructions": 173613
+        }
+      ],
+      "input": "e883e30a75a99a1f63be81541759e119515aae14df4defaa36e64867b6f65b7f53f517d100560eb8ce7d91f8497d4408e65a32077a4e359a9b3b315ab224a786ce08e5849a1b05ef19c99d9d4004adcf41a434ef7ac5a81d04afdc68f0ba4eaddfdbf8dbbd2abfa197e34b7fb0cdd3a46db3b9dd093bed0e2231c5aabbcc14e32987d20d8d7a0ae19559f60e958e3193bc364b7583e419ca2ee6cca14fd29edab98e9f99cc8545b09bd0762dfd3b11361dbd341ec9f1c01885aa42ec11760210db96e5dd7ef1e5b1f30fdc261cd94b2a97bafe55ebb066de2d5ffb1fa4e1e516eaa590d23f2648aa5d52ea05c72893bbe01858540b6e0fd2851faf25556d2bb22011a8a221f03b1bd7107120b948f20eb4a4f308ca6273f1da67554ee3dcbacc98387e4d851eaf6d70d96076961c1048400089ba9e7ef2e9b5101cad4b88ea53f06872402c0e9ef28c3369d0024672e7eadff56451a03dc64e7e0e32cf236688d8145659dd0a0d42c671371a16d893334fe71b5ab0fffcee24aa64c07c1fbb937303c3f448271677391becb8888bf1d53e9044cd29fca5a9b835cff7745f98f1106c1ac5dff5c9bb8ec9d4401855bb34d587dadb530aa889fe791c54d7ed0605d5fdf89eee00482bfe45240a8602438f3239c931dd0a3d93bfa2ce26998ff6706eabe2b119c4db380576499b3e77cc4175b3f238dc53e1bf909f55c9ae08e48535e4cd2040ece851d724ab92555921c0e872c612fe824fb8f34cd0df3edcec2680f91a80256afd8c8164cfea637d2f7a18453d742026fbbf2e045ef76c9b6fb6cc18f9ceeecfc3ef6ff04f1c75f378d40f9621174ad4bb5102c780021f3fc60bbfdcf4584645d5a66fa44bc353ad7de661d5ded269a98070faa58bdc6ebac0974b64d41e3b52dc76fa3744ed61321d6f6fdee1ff21c97840b3d42fb8daa33e91a0ed5d50d3ae6ef156f84533f48ccf35a78f3702d5bdc6da2e6ca56564e96766043f93fcecc9ef5be8ec97e0675b68b7689ce0e6b8a9c76c2ee91dfc5ef57c632c3aa0b6b949592e13c04f4efef06b201c7afaa8215f0cb1cce22043eff39a96ad68fb7db0e52b806a19513cef9e9ab9bf8ae3b23cf979adc04174c6d0401a6466ef5b68812814aa9c150a03605398331438a7d5385c27d7a7e32185450a301061bfa94d1106d133d263a99cd3baaec4c77f039802a8a3339e22cd425c0a60a2bd9e3f5fd70dd1295c732430a4769d7d5c363f3209aba012483709f1d8c24bc2633f4cd14dc678c1f80e467f6750dbec7eb8482b7ebeb247ff531a02f7248a1fb49a0805b1c666ca7804d9452fcb4b69c527d2885d56bdd3d0f829ff1ca1c0f8b8a9557c4aa444c3d9a9ada3613a000e0510a4b202e7cf6082b83cbead2fc9037d67a34720b86c9faa35cd0c7b19eb8fb2a7b40b971aadee6e4625f08fcfa04b12eb2a71a4ce930311e46d4205fe45f336d0e9869a83eab55899be312cb25888ee421ea734d0f8d12ab0646d727faa8123085a41e911dd3e2923ff0fac9fdcc8fa3c8535f7235c854d07e9f2f7538ee57f4db32b83e1b46f2ef6b3c4af14f733e0d1f2848b9d20a2a23d4ade0f1757fdd43bc734d8bafbdee4a6125dc6b2b70078c48c200ee7617c33f11510da46dee2698c9a91460c35ba00bfdb3200fe648fed5f090d17972394af267899ce8ae2a7f8bd3e37171fc6e40f67e40d626501e1e0796ecf24c732fae376e563ff25743d932b75c5dc2943e7b4f217b00cd19ead877a397ee25c5067e6aa9e01ffbbf21b5ecc388434197a5863695b5f05b1b9b79c202f9a53e46d3fe3842328e8cec57ff22a35f80c78db07c70b2cb878a933864b8a72e458ffa7b178f1bf6f8f78b240421f20b4971e51f0fa8af21f292709f91443ce136e589d1dbeae4e88f287633c08e3e2d9bd34884e11ef75405eba4772cba1f64d27d1bae465559816231cb2352796a782c813ab32fc16ac27031e80713bbfc237bb51f6e1960e0d2ac8e6137bd94911abd8f71820f715d84bb6f455afbf5f83f1dcfb0bb14441a480c345ad849468363dde6183dadd06b1303c90a2307747d7616216acfa8a384ba74f8e39605cfc795d917130d18161e10892bfe2d830185ddf9b6b7d1f09727256ca26e6a36e93e40fd7aac047fa6eda6243f5581a3204220f722be9146fc83176edb469f5152f0c9c2b6749b20ffa5008f90ac9799bae3f1d2d100710519439cf796955f3e495b894a7ea256ebeb15463db4e3b9dc5f7db964688f4b849c5180b60ccaaa2fd181e2a6258b3d8ebc3ee64f99681dd460751784c02a6099bddab540a129a763b04f8454be40a2efe7ab618ee1508e5764bfffb944a7dbc2a45f7fb0a9217331cfd040ade90267292e56d99ff9a2d55cacf8d468526841d92156feba12523f123908cb82667c497cf30599d86a6915deb07c8b769fc04b33e2e5e0412d6e5f95b5cc3f9cbbc6304418d14e240d6ba3e274bb70ea399c347d554d327b4c88e4dd5a56c0be6e7a1fb7672d47f22f9b3333a4fd8468799478de00c1893eb9447ccd14b3fa121211d2079ead9546cb6f983664959946087f5a66a8adeeff3e596e6c9f47c3be3f986ba298fed468d2a8cdd71901724edc818172af4ffa999b623dfd4ae9b24cc3b4803849a9a4a742ffb13ea813f614f110a9a76a85557802713b5add9ec49d4a09f8d24ba1bd490a85092f3d67dac596fadf243ab9dc80e4f41369fff6d5ae2c67c5326e33a3814702374c332d2d7dd9a6beb6df31d751a18abd5040a83d83cfcd666cb14aea71d7ea92fc5e2eeea8fc2a7ff85ece3212eb5405ce33be30a75a99a1f63be81541759e119515aae14df4defaa36e64867b6f65b7f53f517d100560eb8ce7d91f8497d4408e65a32077a4e359a9b3b315ab224a786ce08e5849a1b05ef19c99d9d4004adcf41a434ef7ac5a81d04afdc68f0ba4eaddfdbf8dbbd2abfa197e34b7fb0cdd3a46db3b9dd093bed0e2231c5aabbcc14e32987d20d8d7a0ae19559f60e958e3193bc364b7583e419ca2ee6cca14fd29edab98e9f99cc8545b09bd0762dfd3b11361dbd341ec9f1c01885aa42ec11760210db96e5dd7ef1e5b1f30fdc261cd94b2a97bafe55ebb066de2d5ffb1fa4e1e516eaa590d23f2648aa5d52ea05c72893bbe01858540b6e0fd2851faf25556d2bb22011a8a221f03b1bd7107120b948f20eb4a4f308ca6273f1da67554ee3dcbacc98387e4d851eaf6d70d96076961c1048400089ba9e7ef2e9b5101cad4b88ea53f06872402c0e9ef28c3369d0024672e7eadff56451a03dc64e7e0e32cf236688d8145659dd0a0d42c671371a16d893334fe71b5ab0fffcee24aa64c07c1fbb937303c3f448271677391becb8888bf1d53e9044cd29fca5a9b835cff7745f98f1106c1ac5dff5c9bb8ec9d4401855bb34d587dadb530aa889fe791c54d7ed0605d5fdf89eee00482bfe45240a8602438f3239c931dd0a3d93bfa2ce26998ff6706eabe2b119c4db380576499b3e77cc4175b3f238dc53e1bf909f55c9ae08e48535e4cd2040ece851d724ab92555921c0e872c612fe824fb8f34cd0df3edcec2680f91a80256afd8c8164cfea637d2f7a18453d742026fbbf2e045ef76c9b6fb6cc18f9ceeecfc3ef6ff04f1c75f378d40f9621174ad4bb5102c780021f3fc60bbfdcf4584645d5a66fa44bc353ad7de661d5ded269a98070faa58bdc6ebac0974b64d41e3b52dc76fa3744ed61321d6f6fdee1ff21c97840b3d42fb8daa33e91a0ed5d50d3ae6ef156f84533f48ccf35a78f3702d5bdc6da2e6ca56564e96766043f93fcecc9ef5be8ec97e0675b68b7689ce0e6b8a9c76c2ee91dfc5ef57c632c3aa0b6b949592e13c04f4efef06b201c7afaa8215f0cb1cce22043eff39a96ad68fb7db0e52b806a19513cef9e9ab9bf8ae3b23cf979adc04174c6d0401a6466ef5b68812814aa9c150a03605398331438a7d5385c27d7a7e32185450a301061bfa94d1106d133d263a99cd3baaec4c77f039802a8a3339e22cd425c0a60a2bd9e3f5fd70dd1295c732430a4769d7d5c363f3209aba012483709f1d8c24bc2633f4cd14dc678c1f80e467f6750dbec7eb8482b7ebeb247ff531a02f7248a1fb49a0805b1c666ca7804d9452fcb4b69c527d2885d56bdd3d0f829ff1ca1c0f8b8a9557c4aa444c3d9a9ada3613a000e0510a4b202e7cf6082b83cbead2fc9037d67a34720b86c9faa35cd0c7b19eb8fb2a7b40b971aadee6e4625f08fcfa04b12eb2a71a4ce930311e46d4205fe45f336d0e9869a83eab55899be312cb25888ee421ea734d0f8d12ab0646d727faa8123085a41e911dd3e2923ff0fac9fdcc8fa3c8535f7235c854d07e9f2f7538ee57f4db32b83e1b46f2ef6b3c4af14f733e0d1f2848b9d20a2a23d4ade0f1757fdd43bc734d8bafbdee4a6125dc6b2b70078c48c200ee7617c33f11510da46dee2698c9a91460c35ba00bfdb3200fe648fed5f090d17972394af267899ce8ae2a7f8bd3e37171fc6e40f67e40d626501e1e0796ecf24c732fae376e563ff25743d932b75c5dc2943e7b4f217b00cd19ead877a397ee25c5067e6aa9e01ffbbf21b5ecc388434197a5863695b5f05b1b9b79c202f9a53e46d3fe3842328e8cec57ff22a35f80c78db07c70b2cb878a933864b8a72e458ffa7b178f1bf6f8f78b240421f20b4971e51f0fa8af21f292709f91443ce136e589d1dbeae4e88f287633c08e3e2d9bd34884e11ef75405eba4772cba1f64d27d1bae465559816231cb2352796a782c813ab32fc16ac27031e80713bbfc237bb51f6e1960e0d2ac8e6137bd94911abd8f71820f715d84bb6f455afbf5f83f1dcfb0bb14441a480c345ad849468363dde6183dadd06b1303c90a2307747d7616216acfa8a384ba74f8e39605cfc795d917130d18161e10892bfe2d830185ddf9b6b7d1f09727256ca26e6a36e93e40fd7aac047fa6eda6243f5581a3204220f722be9146fc83176edb469f5152f0c9c2b6749b20ffa5008f90ac9799bae3f1d2d100710519439cf796955f3e495b894a7ea256ebeb15463db4e3b9dc5f7db964688f4b849c5180b60ccaaa2fd181e2a6258b3d8ebc3ee64f99681dd460751784c02a6099bddab540a129a763b04f8454be40a2efe7ab618ee1508e5764bfffb944a7dbc2a45f7fb0a9217331cfd040ade90267292e56d99ff9a2d55cacf8d468526841d92156feba12523f123908cb82667c497cf30599d86a6915deb07c8b769fc04b33e2e5e0412d6e5f95b5cc3f9cbbc6304418d14e240d6ba3e274bb70ea399c347d554d327b4c88e4dd5a56c0be6e7a1fb7672d47f22f9b3333a4fd8468799478de00c1893eb9447ccd14b3fa121211d2079ead9546cb6f983664959946087f5a66a8adeeff3e596e6c9f47c3be3f986ba298fed468d2a8cdd71901724edc818172af4ffa999b623dfd4ae9b24cc3b4803849a9a4a742ffb13ea813f614f110a9a76a85557802713b5add9ec49d4a09f8d24ba1bd490a85092f3d67dac596fadf243ab9dc80e4f41369fff6d5ae2c67c5326e33a3814702374c332d2d7dd9a6beb6df31d751a18abd5040a83d83cfcd666cb14aea71d7ea92fc5e2eeea8fc2a7ff85ece3212eb5405ce33b",
+      "output": "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0d1d2d3d4d5d6d7d8d9dadbdcdddedfe0e1e2e3e4e5e6e7e8e9eaebecedeeeff0f1f2f3f4f5f6f7f8f9000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0d1d2d3d4d5d6d7d8d9dadbdcdddedfe0e1e2e3e4e5e6e7e8e9eaebecedeeeff0f1f2f3f4f5f6f7f8f9000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0d1d2d3d4d5d6d7d8d9dadbdcdddedfe0e1e2e3e4e5e6e7e8e9eaebecedeeeff0f1f2f3f4f5f6f7f8f9000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0d1d2d3d4d5d6d7d8d9dadbdcdddedfe0e1e2e3e4e5e6e7e8e9eaebecedeeeff0f1f2f3f4f5f6f7f8f9000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0d1d2d3d4d5d6d7d8d9dadbdcdddedfe0e1e2e3e4e5e6e7e8e9eaebecedeeeff0f1f2f3f4f5f6f7f8f9000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0d1d2d3d4d5d6d7d8d9dadbdcdddedfe0e1e2e3e4e5e6e7e8e9eaebecedeeeff0f1f2f3f4f5f6f7f8f9000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0d1d2d3d4d5d6d7d8d9dadbdcdddedfe0e1e2e3e4e5e6e7e8e9eaebecedeeeff0f1f2f3f4f5f6f7f8f9000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0d1d2d3d4d5d6d7d8d9dadbdcdddedfe0e1e2e3e4e5e6e7e8e9eaebecedeeeff0f1f2f3f4f5f6f7f8f9000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0d1d2d3d4d5d6d7d8d9dadbdcdddedfe0e1e2e3e4e5e6e7e8e9eaebecedeeeff0f1f2f3f4f5f6f7f8f9000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0d1d2d3d4d5d6d7d8d9dadbdcdddedfe0e1e2e3e4e5e6e7e8e9eaebecedeeeff0f1f2f3f4f5f6f7f8f9000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0d1d2d3d4d5d6d7d8d9dadbdcdddedfe0e1e2e3e4e5e6e7e8e9eaebecedeeeff0f1f2f3f4f5f6f7f8f9000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0d1d2d3d4d5d6d7d8d9dadbdcdddedfe0e1e2e3e4e5e6e7e8e9eaebecedeeeff0f1f2f3f4f5f6f7f8f9000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0d1d2d3d4d5d6d7d8d9dadbdcdddedfe0e1e2e3e4e5e6e7e8e9eaebecedeeeff0f1f2f3f4f5f6f7f8f9000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0d1d2d3d4d5d6d7d8d9dadbdcdddedfe0e1e2e3e4e5e6e7e8e9eaebecedeeeff0f1f2f3f4f5f6f7f8f9000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0d1d2d3d4d5d6d7d8d9dadbdcdddedfe0e1e2e3e4e5e6e7e8e9eaebecedeeeff0f1f2f3f4f5f6f7f8f9000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0d1d2d3d4d5d6d7d8d9dadbdcdddedfe0e1e2e3e4e5e6e7e8e9eaebecedeeeff0f1f2f3f4f5f6f7f8f9",
+      "result": 0,
+      "key0": "0d2791d1ab8a0accba9a9566c8892787",
+      "key1": "69d6723dfbaea573702d510e040b20c9",
+      "flag": 0,
+      "output_length": 4002,
+      "before": {
+        "send": 0,
+        "receive": 0,
+        "pending": 0
+      },
+      "after": {
+        "send": 0,
+        "receive": 0,
+        "pending": 0
+      },
+      "setup_calls": [
+        {
+          "address": "0x14005ee80",
+          "sentinel": true,
+          "instructions": 96
+        },
+        {
+          "address": "0x14005f1e0",
+          "sentinel": true,
+          "instructions": 1115
+        }
+      ],
+      "error_output": "00000000"
+    },
+    {
+      "kind": "session_encrypt",
+      "case": "rotate_send_old",
+      "source": "0x14005f3b0",
+      "calls": [
+        {
+          "address": "0x14005f3b0",
+          "sentinel": true,
+          "instructions": 1534
+        }
+      ],
+      "input": "33383120726f746174696f6e20726f746174655f73656e645f6f6c64",
+      "output": "0880cc7a2081fe8e3b1bc52317561a92fda3dcb15ef9e27dcd8fe3301664435b5df8",
+      "result": 0,
+      "key0": "0d2791d1ab8a0accba9a9566c8892787",
+      "key1": "69d6723dfbaea573702d510e040b20c9",
+      "flag": false,
+      "capacity": 34,
+      "output_length": 34,
+      "before": {
+        "send": 0,
+        "receive": 0,
+        "pending": 1
+      },
+      "after": {
+        "send": 1,
+        "receive": 0,
+        "pending": 0
+      },
+      "setup_calls": [
+        {
+          "address": "0x14005f240",
+          "sentinel": true,
+          "instructions": 1280
+        }
+      ],
+      "error_output": "00000000"
+    },
+    {
+      "kind": "session_decrypt",
+      "case": "rotate_send_old",
+      "source": "0x14005f4d0",
+      "calls": [
+        {
+          "address": "0x14005f4d0",
+          "sentinel": true,
+          "instructions": 1501
+        }
+      ],
+      "input": "0880cc7a2081fe8e3b1bc52317561a92fda3dcb15ef9e27dcd8fe3301664435b5df8",
+      "output": "33383120726f746174696f6e20726f746174655f73656e645f6f6c6400000000",
+      "result": 0,
+      "key0": "0d2791d1ab8a0accba9a9566c8892787",
+      "key1": "69d6723dfbaea573702d510e040b20c9",
+      "flag": 0,
+      "output_length": 34,
+      "before": {
+        "send": 0,
+        "receive": 0,
+        "pending": 1
+      },
+      "after": {
+        "send": 0,
+        "receive": 0,
+        "pending": 1
+      },
+      "setup_calls": [
+        {
+          "address": "0x14005f240",
+          "sentinel": true,
+          "instructions": 1280
+        }
+      ],
+      "error_output": "00000000"
+    },
+    {
+      "kind": "session_encrypt",
+      "case": "rotate_reply_old",
+      "source": "0x14005f3b0",
+      "calls": [
+        {
+          "address": "0x14005f3b0",
+          "sentinel": true,
+          "instructions": 1535
+        }
+      ],
+      "input": "33383120726f746174696f6e20726f746174655f7265706c795f6f6c64",
+      "output": "08a0cc7a2081fe8e3b1bc52317561a92fda31a9b59f78916d516805fe368407de192",
+      "result": 0,
+      "key0": "0d2791d1ab8a0accba9a9566c8892787",
+      "key1": "69d6723dfbaea573702d510e040b20c9",
+      "flag": true,
+      "capacity": 34,
+      "output_length": 34,
+      "before": {
+        "send": 0,
+        "receive": 0,
+        "pending": 1
+      },
+      "after": {
+        "send": 1,
+        "receive": 0,
+        "pending": 0
+      },
+      "setup_calls": [
+        {
+          "address": "0x14005f240",
+          "sentinel": true,
+          "instructions": 1280
+        }
+      ],
+      "error_output": "00000000"
+    },
+    {
+      "kind": "session_decrypt",
+      "case": "rotate_reply_old",
+      "source": "0x14005f4d0",
+      "calls": [
+        {
+          "address": "0x14005f4d0",
+          "sentinel": true,
+          "instructions": 1501
+        }
+      ],
+      "input": "08a0cc7a2081fe8e3b1bc52317561a92fda31a9b59f78916d516805fe368407de192",
+      "output": "33383120726f746174696f6e20726f746174655f7265706c795f6f6c64000000",
+      "result": 0,
+      "key0": "0d2791d1ab8a0accba9a9566c8892787",
+      "key1": "69d6723dfbaea573702d510e040b20c9",
+      "flag": 1,
+      "output_length": 34,
+      "before": {
+        "send": 1,
+        "receive": 0,
+        "pending": 0
+      },
+      "after": {
+        "send": 1,
+        "receive": 0,
+        "pending": 0
+      },
+      "setup_calls": [
+        {
+          "address": "0x14005f240",
+          "sentinel": true,
+          "instructions": 1280
+        }
+      ],
+      "error_output": "00000000"
+    },
+    {
+      "kind": "session_encrypt",
+      "case": "rotate_send_new",
+      "source": "0x14005f3b0",
+      "calls": [
+        {
+          "address": "0x14005f3b0",
+          "sentinel": true,
+          "instructions": 1529
+        }
+      ],
+      "input": "33383120726f746174696f6e20726f746174655f73656e645f6e6577",
+      "output": "08b00d4adbd4a1aee6ba23de7245858b30c5bc206eb48c4d3c9ee98241a5ce8fc6e5",
+      "result": 0,
+      "key0": "0d2791d1ab8a0accba9a9566c8892787",
+      "key1": "69d6723dfbaea573702d510e040b20c9",
+      "flag": true,
+      "capacity": 34,
+      "output_length": 34,
+      "before": {
+        "send": 1,
+        "receive": 0,
+        "pending": 0
+      },
+      "after": {
+        "send": 1,
+        "receive": 0,
+        "pending": 0
+      },
+      "setup_calls": [
+        {
+          "address": "0x14005f240",
+          "sentinel": true,
+          "instructions": 1280
+        }
+      ],
+      "error_output": "00000000"
+    },
+    {
+      "kind": "session_decrypt",
+      "case": "rotate_send_new",
+      "source": "0x14005f4d0",
+      "calls": [
+        {
+          "address": "0x14005f4d0",
+          "sentinel": true,
+          "instructions": 1515
+        }
+      ],
+      "input": "08b00d4adbd4a1aee6ba23de7245858b30c5bc206eb48c4d3c9ee98241a5ce8fc6e5",
+      "output": "33383120726f746174696f6e20726f746174655f73656e645f6e657700000000",
+      "result": 0,
+      "key0": "0d2791d1ab8a0accba9a9566c8892787",
+      "key1": "69d6723dfbaea573702d510e040b20c9",
+      "flag": 1,
+      "output_length": 34,
+      "before": {
+        "send": 1,
+        "receive": 0,
+        "pending": 0
+      },
+      "after": {
+        "send": 1,
+        "receive": 1,
+        "pending": 0
+      },
+      "setup_calls": [
+        {
+          "address": "0x14005f240",
+          "sentinel": true,
+          "instructions": 1280
+        }
+      ],
+      "error_output": "00000000"
+    },
+    {
+      "kind": "session_encrypt",
+      "case": "rotate_reply_new",
+      "source": "0x14005f3b0",
+      "calls": [
+        {
+          "address": "0x14005f3b0",
+          "sentinel": true,
+          "instructions": 1528
+        }
+      ],
+      "input": "33383120726f746174696f6e20726f746174655f7265706c795f6e6577",
+      "output": "08900d4adbd4a1aee6ba23de7245858b30c53d5154f6d21ae05284752487a45a063a",
+      "result": 0,
+      "key0": "0d2791d1ab8a0accba9a9566c8892787",
+      "key1": "69d6723dfbaea573702d510e040b20c9",
+      "flag": false,
+      "capacity": 34,
+      "output_length": 34,
+      "before": {
+        "send": 1,
+        "receive": 1,
+        "pending": 0
+      },
+      "after": {
+        "send": 1,
+        "receive": 1,
+        "pending": 0
+      },
+      "setup_calls": [
+        {
+          "address": "0x14005f240",
+          "sentinel": true,
+          "instructions": 1280
+        }
+      ],
+      "error_output": "00000000"
+    },
+    {
+      "kind": "session_decrypt",
+      "case": "rotate_reply_new",
+      "source": "0x14005f4d0",
+      "calls": [
+        {
+          "address": "0x14005f4d0",
+          "sentinel": true,
+          "instructions": 1512
+        }
+      ],
+      "input": "08900d4adbd4a1aee6ba23de7245858b30c53d5154f6d21ae05284752487a45a063a",
+      "output": "33383120726f746174696f6e20726f746174655f7265706c795f6e6577000000",
+      "result": 0,
+      "key0": "0d2791d1ab8a0accba9a9566c8892787",
+      "key1": "69d6723dfbaea573702d510e040b20c9",
+      "flag": 0,
+      "output_length": 34,
+      "before": {
+        "send": 1,
+        "receive": 0,
+        "pending": 0
+      },
+      "after": {
+        "send": 1,
+        "receive": 1,
+        "pending": 0
+      },
+      "setup_calls": [
+        {
+          "address": "0x14005f240",
+          "sentinel": true,
+          "instructions": 1280
+        }
+      ],
+      "error_output": "00000000"
+    },
+    {
+      "kind": "session_encrypt",
+      "case": "no_key",
+      "source": "0x14005f3b0",
+      "calls": [
+        {
+          "address": "0x14005f3b0",
+          "sentinel": true,
+          "instructions": 21
+        }
+      ],
+      "input": "333831206e6f206b6579",
+      "output": "",
+      "result": 3,
+      "key0": "0d2791d1ab8a0accba9a9566c8892787",
+      "key1": "69d6723dfbaea573702d510e040b20c9",
+      "flag": false,
+      "capacity": 18,
+      "output_length": 18,
+      "before": {
+        "send": 4294967295,
+        "receive": 4294967295,
+        "pending": 0
+      },
+      "after": {
+        "send": 4294967295,
+        "receive": 4294967295,
+        "pending": 0
+      },
+      "setup_calls": [
+        {
+          "address": "0x14005ee80",
+          "sentinel": true,
+          "instructions": 96
+        }
+      ],
+      "error_output": "03000000"
+    },
+    {
+      "kind": "session_decrypt",
+      "case": "no_key",
+      "source": "0x14005f4d0",
+      "calls": [
+        {
+          "address": "0x14005f4d0",
+          "sentinel": true,
+          "instructions": 12
+        }
+      ],
+      "input": "048000000000000000000000000000000000",
+      "output": "",
+      "result": 3,
+      "key0": "0d2791d1ab8a0accba9a9566c8892787",
+      "key1": "69d6723dfbaea573702d510e040b20c9",
+      "flag": 165,
+      "output_length": 2779096485,
+      "before": {
+        "send": 4294967295,
+        "receive": 4294967295,
+        "pending": 0
+      },
+      "after": {
+        "send": 4294967295,
+        "receive": 4294967295,
+        "pending": 0
+      },
+      "setup_calls": [
+        {
+          "address": "0x14005ee80",
+          "sentinel": true,
+          "instructions": 96
+        }
+      ],
+      "error_output": "03000000"
+    },
+    {
+      "kind": "session_decrypt",
+      "case": "wrong_tag",
+      "source": "0x14005f4d0",
+      "calls": [
+        {
+          "address": "0x14005f4d0",
+          "sentinel": true,
+          "instructions": 61
+        }
+      ],
+      "input": "04c0e30a75a99a1f63be81541759e119515a",
+      "output": "",
+      "result": 7,
+      "key0": "0d2791d1ab8a0accba9a9566c8892787",
+      "key1": "69d6723dfbaea573702d510e040b20c9",
+      "flag": 0,
+      "output_length": 18,
+      "before": {
+        "send": 0,
+        "receive": 0,
+        "pending": 1
+      },
+      "after": {
+        "send": 0,
+        "receive": 0,
+        "pending": 1
+      },
+      "setup_calls": [
+        {
+          "address": "0x14005ee80",
+          "sentinel": true,
+          "instructions": 96
+        },
+        {
+          "address": "0x14005f1e0",
+          "sentinel": true,
+          "instructions": 1115
+        },
+        {
+          "address": "0x14005f240",
+          "sentinel": true,
+          "instructions": 1280
+        }
+      ],
+      "error_output": "07000000"
+    },
+    {
+      "kind": "session_decrypt",
+      "case": "wrong_active_slot",
+      "source": "0x14005f4d0",
+      "calls": [
+        {
+          "address": "0x14005f4d0",
+          "sentinel": true,
+          "instructions": 61
+        }
+      ],
+      "input": "0490e30a75a99a1f63be81541759e119515a",
+      "output": "",
+      "result": 7,
+      "key0": "0d2791d1ab8a0accba9a9566c8892787",
+      "key1": "69d6723dfbaea573702d510e040b20c9",
+      "flag": 0,
+      "output_length": 18,
+      "before": {
+        "send": 0,
+        "receive": 0,
+        "pending": 1
+      },
+      "after": {
+        "send": 0,
+        "receive": 0,
+        "pending": 1
+      },
+      "setup_calls": [
+        {
+          "address": "0x14005ee80",
+          "sentinel": true,
+          "instructions": 96
+        },
+        {
+          "address": "0x14005f1e0",
+          "sentinel": true,
+          "instructions": 1115
+        },
+        {
+          "address": "0x14005f240",
+          "sentinel": true,
+          "instructions": 1280
+        }
+      ],
+      "error_output": "07000000"
+    },
+    {
+      "kind": "session_encrypt",
+      "case": "too_large",
+      "source": "0x14005f3b0",
+      "calls": [
+        {
+          "address": "0x14005f3b0",
+          "sentinel": true,
+          "instructions": 30
+        }
+      ],
+      "input": "3838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838383838",
+      "output": "",
+      "result": 8,
+      "key0": "0d2791d1ab8a0accba9a9566c8892787",
+      "key1": "69d6723dfbaea573702d510e040b20c9",
+      "flag": false,
+      "capacity": 4018,
+      "output_length": 4018,
+      "before": {
+        "send": 0,
+        "receive": 0,
+        "pending": 1
+      },
+      "after": {
+        "send": 0,
+        "receive": 0,
+        "pending": 1
+      },
+      "setup_calls": [
+        {
+          "address": "0x14005ee80",
+          "sentinel": true,
+          "instructions": 96
+        },
+        {
+          "address": "0x14005f1e0",
+          "sentinel": true,
+          "instructions": 1115
+        },
+        {
+          "address": "0x14005f240",
+          "sentinel": true,
+          "instructions": 1280
+        }
+      ],
+      "error_output": "08000000"
+    },
+    {
+      "kind": "session_encrypt",
+      "case": "small_buffer",
+      "source": "0x14005f3b0",
+      "calls": [
+        {
+          "address": "0x14005f3b0",
+          "sentinel": true,
+          "instructions": 34
+        }
+      ],
+      "input": "000102030405060708090a0b0c0d0e0f10",
+      "output": "",
+      "result": 9,
+      "key0": "0d2791d1ab8a0accba9a9566c8892787",
+      "key1": "69d6723dfbaea573702d510e040b20c9",
+      "flag": false,
+      "capacity": 18,
+      "output_length": 18,
+      "before": {
+        "send": 0,
+        "receive": 0,
+        "pending": 1
+      },
+      "after": {
+        "send": 0,
+        "receive": 0,
+        "pending": 1
+      },
+      "setup_calls": [
+        {
+          "address": "0x14005ee80",
+          "sentinel": true,
+          "instructions": 96
+        },
+        {
+          "address": "0x14005f1e0",
+          "sentinel": true,
+          "instructions": 1115
+        },
+        {
+          "address": "0x14005f240",
+          "sentinel": true,
+          "instructions": 1280
+        }
+      ],
+      "error_output": "09000000"
+    },
+    {
+      "kind": "session_decrypt",
+      "case": "truncated",
+      "source": "0x14005f4d0",
+      "calls": [
+        {
+          "address": "0x14005f4d0",
+          "sentinel": true,
+          "instructions": 37
+        }
+      ],
+      "input": "0480e30a75a99a1f63be81541759e11951",
+      "output": "",
+      "result": 10,
+      "key0": "0d2791d1ab8a0accba9a9566c8892787",
+      "key1": "69d6723dfbaea573702d510e040b20c9",
+      "flag": 165,
+      "output_length": 18,
+      "before": {
+        "send": 0,
+        "receive": 0,
+        "pending": 1
+      },
+      "after": {
+        "send": 0,
+        "receive": 0,
+        "pending": 1
+      },
+      "setup_calls": [
+        {
+          "address": "0x14005ee80",
+          "sentinel": true,
+          "instructions": 96
+        },
+        {
+          "address": "0x14005f1e0",
+          "sentinel": true,
+          "instructions": 1115
+        },
+        {
+          "address": "0x14005f240",
+          "sentinel": true,
+          "instructions": 1280
+        }
+      ],
+      "error_output": "0a000000"
+    }
+  ],
+  "reused_rsa_stub_counts": {
+    "VCRUNTIME140.dll!memset": 5252,
+    "VCRUNTIME140.dll!memcpy": 108,
+    "controlled TLS PRNG virtual output": 10
+  },
+  "session_startup": {
+    "size_limit": 4000,
+    "size_write": "0x140021087",
+    "aes_branch": "original non-AES-NI",
+    "pointer_writer": "0x140066db0",
+    "setup": "0x14006d540",
+    "encrypt": "0x14006d590",
+    "decrypt": "0x14006d6a0"
+  },
+  "stub_counts": {
+    "VCRUNTIME140.dll!memset": 1308,
+    "VCRUNTIME140.dll!memcpy": 82,
+    "controlled TLS PRNG virtual output": 6,
+    "controlled CRT rand for generated session key": 48
+  }
+}

@@ -1,0 +1,1181 @@
+{
+  "build": "0.0.348",
+  "status": "\u2753 Guide only",
+  "entry_layout": "16-byte entries; handler pointer +0; flags follow the pointer.",
+  "tables": [
+    {
+      "address": "0x140202530",
+      "name": "?LobbyManagePacketLobbySideHandlerList@@3PAULobbyManagePacketHandlerDef@@A",
+      "rows": [
+        {
+          "command": 1,
+          "kind": "handler_pointer",
+          "slot": "0x140202540",
+          "handler": "0x1400587d0",
+          "name": "HandleLobbyManage_HelloReq",
+          "formats": []
+        },
+        {
+          "command": 4,
+          "kind": "handler_pointer",
+          "slot": "0x140202570",
+          "handler": "0x1400589b0",
+          "name": "HandleLobbyManage_AnnounceNotify",
+          "formats": []
+        },
+        {
+          "command": 5,
+          "kind": "handler_pointer",
+          "slot": "0x140202580",
+          "handler": "0x140058b00",
+          "name": "HandleLobbyManage_KickReq",
+          "formats": []
+        },
+        {
+          "command": 8,
+          "kind": "handler_pointer",
+          "slot": "0x1402025b0",
+          "handler": "0x1400590a0",
+          "name": "HandleLobbyManage_CleanupGameAccountIdIndexReq",
+          "formats": []
+        },
+        {
+          "command": 11,
+          "kind": "handler_pointer",
+          "slot": "0x1402025e0",
+          "handler": "0x140059470",
+          "name": "HandleLobbyManage_CleanupPcidIndexReq",
+          "formats": []
+        },
+        {
+          "command": 14,
+          "kind": "handler_pointer",
+          "slot": "0x140202610",
+          "handler": "0x140059820",
+          "name": "HandleLobbyManage_RetryMileageDepositReq",
+          "formats": []
+        }
+      ]
+    },
+    {
+      "address": "0x140202640",
+      "name": "?LobbyLobbyGatePacketLobbySideHandlerList@@3PAULobbyLobbyGatePacketHandlerDef@@A",
+      "rows": [
+        {
+          "command": 1,
+          "kind": "handler_pointer",
+          "slot": "0x140202650",
+          "handler": "0x1400c25c0",
+          "name": "HandleLobbyLobbyGate_HelloReq",
+          "formats": []
+        },
+        {
+          "command": 6,
+          "kind": "handler_pointer",
+          "slot": "0x1402026a0",
+          "handler": "0x1400c2d90",
+          "name": "HandleLobbyLobbyGate_InitSessionWithNPTokenReq",
+          "formats": [
+            {
+              "address": "0x1401c4e68",
+              "format": "hqooi"
+            }
+          ]
+        },
+        {
+          "command": 9,
+          "kind": "handler_pointer",
+          "slot": "0x1402026d0",
+          "handler": "0x1400c3380",
+          "name": "HandleLobbyLobbyGate_StartSessionWithNPTokenReq",
+          "formats": []
+        },
+        {
+          "command": 12,
+          "kind": "handler_pointer",
+          "slot": "0x140202700",
+          "handler": "0x1400c3890",
+          "name": "HandleLobbyLobbyGate_InitSessionWithLobbyTokenReq",
+          "formats": [
+            {
+              "address": "0x140183dc0",
+              "format": "hqqqi"
+            }
+          ]
+        },
+        {
+          "command": 15,
+          "kind": "handler_pointer",
+          "slot": "0x140202730",
+          "handler": "0x1400c3e70",
+          "name": "HandleLobbyLobbyGate_StartSessionWithLobbyTokenReq",
+          "formats": []
+        },
+        {
+          "command": 18,
+          "kind": "handler_pointer",
+          "slot": "0x140202760",
+          "handler": "0x1400c4180",
+          "name": "HandleLobbyLobbyGate_LostAnonymousConnectionNotify",
+          "formats": []
+        },
+        {
+          "command": 19,
+          "kind": "handler_pointer",
+          "slot": "0x140202770",
+          "handler": "0x1400c43f0",
+          "name": "HandleLobbyLobbyGate_LostConnectionNotify",
+          "formats": []
+        },
+        {
+          "command": 23,
+          "kind": "handler_pointer",
+          "slot": "0x1402027b0",
+          "handler": "0x1400c4650",
+          "name": "HandleLobbyLobbyGate_LogoutNotify",
+          "formats": []
+        },
+        {
+          "command": 24,
+          "kind": "handler_pointer",
+          "slot": "0x1402027c0",
+          "handler": "0x1400c48b0",
+          "name": "HandleLobbyLobbyGate_GetEnterWorldTokenReq",
+          "formats": []
+        },
+        {
+          "command": 28,
+          "kind": "handler_pointer",
+          "slot": "0x140202800",
+          "handler": "0x1400c4df0",
+          "name": "HandleLobbyLobbyGate_GetWaitInfoReq",
+          "formats": []
+        },
+        {
+          "command": 31,
+          "kind": "handler_pointer",
+          "slot": "0x140202830",
+          "handler": "0x1400c5040",
+          "name": "HandleLobbyLobbyGate_GiveupWaitReq",
+          "formats": []
+        },
+        {
+          "command": 35,
+          "kind": "handler_pointer",
+          "slot": "0x140202870",
+          "handler": "0x1400c5360",
+          "name": "HandleLobbyLobbyGate_GetCharacterInfoListReq",
+          "formats": [
+            {
+              "address": "0x1401c7c38",
+              "format": "hiqqhCqohsbqQQi;"
+            }
+          ]
+        },
+        {
+          "command": 38,
+          "kind": "handler_pointer",
+          "slot": "0x1402028a0",
+          "handler": "0x1400c5630",
+          "name": "HandleLobbyLobbyGate_GetCharacterInfoReq",
+          "formats": [
+            {
+              "address": "0x1401c7fe8",
+              "format": "hqqohsbqQQi"
+            }
+          ]
+        },
+        {
+          "command": 41,
+          "kind": "handler_pointer",
+          "slot": "0x1402028d0",
+          "handler": "0x1400c5ae0",
+          "name": "HandleLobbyLobbyGate_CheckCharacterNameReq",
+          "formats": []
+        },
+        {
+          "command": 44,
+          "kind": "handler_pointer",
+          "slot": "0x140202900",
+          "handler": "0x1400c5b10",
+          "name": "HandleLobbyLobbyGate_CreateCharacterReq",
+          "formats": [
+            {
+              "address": "0x1401c8298",
+              "format": "hqohsbQ"
+            }
+          ]
+        },
+        {
+          "command": 47,
+          "kind": "handler_pointer",
+          "slot": "0x140202930",
+          "handler": "0x1400c6190",
+          "name": "HandleLobbyLobbyGate_DeleteCharacterReq",
+          "formats": [
+            {
+              "address": "0x1401c2680",
+              "format": "hqoQE"
+            }
+          ]
+        },
+        {
+          "command": 51,
+          "kind": "handler_pointer",
+          "slot": "0x140202970",
+          "handler": "0x1400c67e0",
+          "name": "HandleLobbyLobbyGate_CancelWaitCharacterDeletionReq",
+          "formats": [
+            {
+              "address": "0x1401c2680",
+              "format": "hqoQE"
+            }
+          ]
+        },
+        {
+          "command": 54,
+          "kind": "handler_pointer",
+          "slot": "0x1402029a0",
+          "handler": "0x1400c6e30",
+          "name": "HandleLobbyLobbyGate_RecoverCharacterReq",
+          "formats": [
+            {
+              "address": "0x1401c2680",
+              "format": "hqoQE"
+            }
+          ]
+        },
+        {
+          "command": 57,
+          "kind": "handler_pointer",
+          "slot": "0x1402029d0",
+          "handler": "0x1400c7540",
+          "name": "HandleLobbyLobbyGate_BindCharacterSlotReq",
+          "formats": []
+        },
+        {
+          "command": 60,
+          "kind": "handler_pointer",
+          "slot": "0x140202a00",
+          "handler": "0x1400c7af0",
+          "name": "HandleLobbyLobbyGate_GetChargeInfoReq",
+          "formats": []
+        },
+        {
+          "command": 64,
+          "kind": "handler_pointer",
+          "slot": "0x140202a40",
+          "handler": "0x1400c7df0",
+          "name": "HandleLobbyLobbyGate_GetGoodsCountReq",
+          "formats": []
+        },
+        {
+          "command": 67,
+          "kind": "handler_pointer",
+          "slot": "0x140202a70",
+          "handler": "0x1400c8080",
+          "name": "HandleLobbyLobbyGate_ListGoodsReq",
+          "formats": []
+        },
+        {
+          "command": 70,
+          "kind": "handler_pointer",
+          "slot": "0x140202aa0",
+          "handler": "0x1400c83d0",
+          "name": "HandleLobbyLobbyGate_TakeGoodsReq",
+          "formats": []
+        },
+        {
+          "command": 73,
+          "kind": "handler_pointer",
+          "slot": "0x140202ad0",
+          "handler": "0x1400c85e0",
+          "name": "HandleLobbyLobbyGate_ListLobbyServiceItemInfoReq",
+          "formats": []
+        },
+        {
+          "command": 76,
+          "kind": "handler_pointer",
+          "slot": "0x140202b00",
+          "handler": "0x1400c8860",
+          "name": "HandleLobbyLobbyGate_GetLobbyServiceItemInfoReq",
+          "formats": []
+        },
+        {
+          "command": 79,
+          "kind": "handler_pointer",
+          "slot": "0x140202b30",
+          "handler": "0x1400c8aa0",
+          "name": "HandleLobbyLobbyGate_GetServiceEntryListReq",
+          "formats": [
+            {
+              "address": "0x1401cb218",
+              "format": "hiqCqQqohq;"
+            }
+          ]
+        },
+        {
+          "command": 82,
+          "kind": "handler_pointer",
+          "slot": "0x140202b60",
+          "handler": "0x1400c8d00",
+          "name": "HandleLobbyLobbyGate_ChangeCharacterAppearanceWithAccountInventoryItemReq",
+          "formats": [
+            {
+              "address": "0x1401cb388",
+              "format": "hqobqqi"
+            }
+          ]
+        },
+        {
+          "command": 85,
+          "kind": "handler_pointer",
+          "slot": "0x140202b90",
+          "handler": "0x1400c9300",
+          "name": "HandleLobbyLobbyGate_ChangeCharacterSexWithAccountInventoryItemReq",
+          "formats": []
+        },
+        {
+          "command": 88,
+          "kind": "handler_pointer",
+          "slot": "0x140202bc0",
+          "handler": "0x1400c9940",
+          "name": "HandleLobbyLobbyGate_ChangeCharacterRaceWithAccountInventoryItemReq",
+          "formats": []
+        },
+        {
+          "command": 91,
+          "kind": "handler_pointer",
+          "slot": "0x140202bf0",
+          "handler": "0x1400c9fc0",
+          "name": "HandleLobbyLobbyGate_RenameCharacterWithAccountInventoryItemReq",
+          "formats": [
+            {
+              "address": "0x1401ccc58",
+              "format": "hqosqqi"
+            }
+          ]
+        },
+        {
+          "command": 94,
+          "kind": "handler_pointer",
+          "slot": "0x140202c20",
+          "handler": "0x1400ca560",
+          "name": "HandleLobbyLobbyGate_AddSlotWithAccountInventoryItemReq",
+          "formats": [
+            {
+              "address": "0x140183dc0",
+              "format": "hqqqi"
+            }
+          ]
+        },
+        {
+          "command": 97,
+          "kind": "handler_pointer",
+          "slot": "0x140202c50",
+          "handler": "0x1400ca8b0",
+          "name": "HandleLobbyLobbyGate_ChangeUserNameWithAccountInventoryItemReq",
+          "formats": [
+            {
+              "address": "0x1401c2bac",
+              "format": "hqsqqi"
+            }
+          ]
+        },
+        {
+          "command": 100,
+          "kind": "handler_pointer",
+          "slot": "0x140202c80",
+          "handler": "0x1400cac70",
+          "name": "HandleLobbyLobbyGate_ExtendJumpingCharacterCreationQuotaWithAccountInventoryItemReq",
+          "formats": [
+            {
+              "address": "0x140183dc0",
+              "format": "hqqqi"
+            }
+          ]
+        },
+        {
+          "command": 103,
+          "kind": "handler_pointer",
+          "slot": "0x140202cb0",
+          "handler": "0x1400cafd0",
+          "name": "HandleLobbyLobbyGate_CreateInitialUserNameReq",
+          "formats": []
+        },
+        {
+          "command": 106,
+          "kind": "handler_pointer",
+          "slot": "0x140202ce0",
+          "handler": "0x1400cb330",
+          "name": "HandleLobbyLobbyGate_ActivateGradeReq",
+          "formats": []
+        }
+      ]
+    },
+    {
+      "address": "0x140202d30",
+      "name": "?LobbyInfoGatePacketLobbySideHandlerList@@3PAULobbyInfoGatePacketHandlerDef@@A",
+      "rows": [
+        {
+          "command": 1,
+          "kind": "handler_pointer",
+          "slot": "0x140202d40",
+          "handler": "0x140056d40",
+          "name": "HandleLobbyInfoGate_HelloReq",
+          "formats": [
+            {
+              "address": "0x1401606d0",
+              "format": "hiChhQ;"
+            }
+          ]
+        },
+        {
+          "command": 4,
+          "kind": "handler_pointer",
+          "slot": "0x140202d70",
+          "handler": "0x140057350",
+          "name": "HandleLobbyInfoGate_AuthTokenReq",
+          "formats": []
+        },
+        {
+          "command": 7,
+          "kind": "handler_pointer",
+          "slot": "0x140202da0",
+          "handler": "0x140057880",
+          "name": "HandleLobbyInfoGate_GetWorldInfoListReq",
+          "formats": [
+            {
+              "address": "0x1401606d0",
+              "format": "hiChhQ;"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "address": "0x140202de0",
+      "name": "?LobbyGamePacketLobbySideHandlerList@@3PAULobbyGamePacketHandlerDef@@A",
+      "rows": [
+        {
+          "command": 1,
+          "kind": "handler_pointer",
+          "slot": "0x140202df0",
+          "handler": "0x140088260",
+          "name": "HandleLobbyGame_HelloReq",
+          "formats": [
+            {
+              "address": "0x1401823c8",
+              "format": "hhhhh"
+            },
+            {
+              "address": "0x140182f38",
+              "format": "hCQiiiqqChiiii;;qqqi"
+            }
+          ]
+        },
+        {
+          "command": 4,
+          "kind": "handler_pointer",
+          "slot": "0x140202e20",
+          "handler": "0x140088cd0",
+          "name": "HandleLobbyGame_ServiceOpenNotify",
+          "formats": []
+        },
+        {
+          "command": 5,
+          "kind": "handler_pointer",
+          "slot": "0x140202e30",
+          "handler": "0x140089270",
+          "name": "HandleLobbyGame_EnterWorldReq",
+          "formats": [
+            {
+              "address": "0x140183dc0",
+              "format": "hqqqi"
+            }
+          ]
+        },
+        {
+          "command": 8,
+          "kind": "handler_pointer",
+          "slot": "0x140202e60",
+          "handler": "0x1400899a0",
+          "name": "HandleLobbyGame_LeaveWorldReq",
+          "formats": []
+        },
+        {
+          "command": 11,
+          "kind": "handler_pointer",
+          "slot": "0x140202e90",
+          "handler": "0x140089d90",
+          "name": "HandleLobbyGame_UpdateBotScoreNotify",
+          "formats": []
+        },
+        {
+          "command": 12,
+          "kind": "handler_pointer",
+          "slot": "0x140202ea0",
+          "handler": "0x14008a060",
+          "name": "HandleLobbyGame_LogoutNotify",
+          "formats": []
+        },
+        {
+          "command": 15,
+          "kind": "handler_pointer",
+          "slot": "0x140202ed0",
+          "handler": "0x14008a400",
+          "name": "HandleLobbyGame_KickOk",
+          "formats": []
+        },
+        {
+          "command": 16,
+          "kind": "handler_pointer",
+          "slot": "0x140202ee0",
+          "handler": "0x14008a560",
+          "name": "HandleLobbyGame_KickFail",
+          "formats": []
+        },
+        {
+          "command": 17,
+          "kind": "handler_pointer",
+          "slot": "0x140202ef0",
+          "handler": "0x140088f30",
+          "name": "HandleLobbyGame_NPPresenceKickReq",
+          "formats": []
+        },
+        {
+          "command": 21,
+          "kind": "handler_pointer",
+          "slot": "0x140202f30",
+          "handler": "0x14008a7c0",
+          "name": "HandleLobbyGame_CreateCharacterOk",
+          "formats": [
+            {
+              "address": "0x1401859fc",
+              "format": "hqhhb"
+            }
+          ]
+        },
+        {
+          "command": 22,
+          "kind": "handler_pointer",
+          "slot": "0x140202f40",
+          "handler": "0x14008aad0",
+          "name": "HandleLobbyGame_CreateCharacterFail",
+          "formats": []
+        },
+        {
+          "command": 24,
+          "kind": "handler_pointer",
+          "slot": "0x140202f60",
+          "handler": "0x14008ad30",
+          "name": "HandleLobbyGame_DeleteCharacterOk",
+          "formats": []
+        },
+        {
+          "command": 25,
+          "kind": "handler_pointer",
+          "slot": "0x140202f70",
+          "handler": "0x14008af90",
+          "name": "HandleLobbyGame_DeleteCharacterFail",
+          "formats": []
+        },
+        {
+          "command": 27,
+          "kind": "handler_pointer",
+          "slot": "0x140202f90",
+          "handler": "0x14008b1f0",
+          "name": "HandleLobbyGame_RestoreCharacterOk",
+          "formats": []
+        },
+        {
+          "command": 28,
+          "kind": "handler_pointer",
+          "slot": "0x140202fa0",
+          "handler": "0x14008b350",
+          "name": "HandleLobbyGame_RestoreCharacterFail",
+          "formats": []
+        },
+        {
+          "command": 30,
+          "kind": "handler_pointer",
+          "slot": "0x140202fc0",
+          "handler": "0x14008b5b0",
+          "name": "HandleLobbyGame_StartChargeReq",
+          "formats": []
+        },
+        {
+          "command": 33,
+          "kind": "handler_pointer",
+          "slot": "0x140202ff0",
+          "handler": "0x14008b9b0",
+          "name": "HandleLobbyGame_StopChargeReq",
+          "formats": [
+            {
+              "address": "0x140186c38",
+              "format": "hqqqs"
+            }
+          ]
+        },
+        {
+          "command": 38,
+          "kind": "handler_pointer",
+          "slot": "0x140203040",
+          "handler": "0x14008be60",
+          "name": "HandleLobbyGame_AbandonChargeNotify",
+          "formats": []
+        },
+        {
+          "command": 39,
+          "kind": "handler_pointer",
+          "slot": "0x140203050",
+          "handler": "0x14008c250",
+          "name": "HandleLobbyGame_UpdateCharacterDataReq",
+          "formats": [
+            {
+              "address": "0x1401877b8",
+              "format": "hqqqhb"
+            }
+          ]
+        },
+        {
+          "command": 42,
+          "kind": "handler_pointer",
+          "slot": "0x140203080",
+          "handler": "0x14008c660",
+          "name": "HandleLobbyGame_UpdateAccountDataReq",
+          "formats": []
+        },
+        {
+          "command": 45,
+          "kind": "handler_pointer",
+          "slot": "0x1402030b0",
+          "handler": "0x14008d590",
+          "name": "HandleLobbyGame_TryRegisterGuildReq",
+          "formats": []
+        },
+        {
+          "command": 48,
+          "kind": "handler_pointer",
+          "slot": "0x1402030e0",
+          "handler": "0x14008d9a0",
+          "name": "HandleLobbyGame_FinishRegisterGuildNotify",
+          "formats": []
+        },
+        {
+          "command": 49,
+          "kind": "handler_pointer",
+          "slot": "0x1402030f0",
+          "handler": "0x14008db10",
+          "name": "HandleLobbyGame_CancelRegisterGuildNotify",
+          "formats": []
+        },
+        {
+          "command": 50,
+          "kind": "handler_pointer",
+          "slot": "0x140203100",
+          "handler": "0x14008dc80",
+          "name": "HandleLobbyGame_TryRenameGuildReq",
+          "formats": []
+        },
+        {
+          "command": 53,
+          "kind": "handler_pointer",
+          "slot": "0x140203130",
+          "handler": "0x14008e010",
+          "name": "HandleLobbyGame_FinishRenameGuildNotify",
+          "formats": []
+        },
+        {
+          "command": 54,
+          "kind": "handler_pointer",
+          "slot": "0x140203140",
+          "handler": "0x14008e220",
+          "name": "HandleLobbyGame_CancelRenameGuildNotify",
+          "formats": []
+        },
+        {
+          "command": 55,
+          "kind": "handler_pointer",
+          "slot": "0x140203150",
+          "handler": "0x14008e390",
+          "name": "HandleLobbyGame_DeleteGuildNotify",
+          "formats": []
+        },
+        {
+          "command": 58,
+          "kind": "handler_pointer",
+          "slot": "0x140203180",
+          "handler": "0x14008e520",
+          "name": "HandleLobbyGame_ChangeCharacterAppearanceOk",
+          "formats": []
+        },
+        {
+          "command": 59,
+          "kind": "handler_pointer",
+          "slot": "0x140203190",
+          "handler": "0x14008e820",
+          "name": "HandleLobbyGame_ChangeCharacterAppearanceFail",
+          "formats": []
+        },
+        {
+          "command": 61,
+          "kind": "handler_pointer",
+          "slot": "0x1402031b0",
+          "handler": "0x14008eab0",
+          "name": "HandleLobbyGame_ChangeCharacterSexOk",
+          "formats": []
+        },
+        {
+          "command": 62,
+          "kind": "handler_pointer",
+          "slot": "0x1402031c0",
+          "handler": "0x14008edb0",
+          "name": "HandleLobbyGame_ChangeCharacterSexFail",
+          "formats": []
+        },
+        {
+          "command": 64,
+          "kind": "handler_pointer",
+          "slot": "0x1402031e0",
+          "handler": "0x14008f040",
+          "name": "HandleLobbyGame_ChangeCharacterRaceOk",
+          "formats": []
+        },
+        {
+          "command": 65,
+          "kind": "handler_pointer",
+          "slot": "0x1402031f0",
+          "handler": "0x14008f340",
+          "name": "HandleLobbyGame_ChangeCharacterRaceFail",
+          "formats": []
+        },
+        {
+          "command": 67,
+          "kind": "handler_pointer",
+          "slot": "0x140203210",
+          "handler": "0x14008f5d0",
+          "name": "HandleLobbyGame_RenameCharacterOk",
+          "formats": []
+        },
+        {
+          "command": 68,
+          "kind": "handler_pointer",
+          "slot": "0x140203220",
+          "handler": "0x14008f870",
+          "name": "HandleLobbyGame_RenameCharacterFail",
+          "formats": []
+        },
+        {
+          "command": 69,
+          "kind": "handler_pointer",
+          "slot": "0x140203230",
+          "handler": "0x14008fb00",
+          "name": "HandleLobbyGame_ExtendJumpingCharacterCreationQuotaWithAccountInventoryItemReq",
+          "formats": [
+            {
+              "address": "0x14018b928",
+              "format": "hqqqqqi"
+            }
+          ]
+        },
+        {
+          "command": 72,
+          "kind": "handler_pointer",
+          "slot": "0x140203260",
+          "handler": "0x14008ffc0",
+          "name": "HandleLobbyGame_UpgradeJumpingCharacterStateWithCreationQuotaReq",
+          "formats": []
+        },
+        {
+          "command": 75,
+          "kind": "handler_pointer",
+          "slot": "0x140203290",
+          "handler": "0x1400903d0",
+          "name": "HandleLobbyGame_UpdateJumpingCharacterStateReq",
+          "formats": []
+        },
+        {
+          "command": 78,
+          "kind": "handler_pointer",
+          "slot": "0x1402032c0",
+          "handler": "0x1400907e0",
+          "name": "HandleLobbyGame_SetAppDataNotify",
+          "formats": [
+            {
+              "address": "0x14018c9dc",
+              "format": "hqCss;"
+            }
+          ]
+        },
+        {
+          "command": 79,
+          "kind": "handler_pointer",
+          "slot": "0x1402032d0",
+          "handler": "0x140090f70",
+          "name": "HandleLobbyGame_FriendMessageNotify",
+          "formats": [
+            {
+              "address": "0x14018d260",
+              "format": "hqsCss;"
+            }
+          ]
+        },
+        {
+          "command": 80,
+          "kind": "handler_pointer",
+          "slot": "0x1402032e0",
+          "handler": "0x140091ab0",
+          "name": "HandleLobbyGame_SecondPasswordGetStatusReq",
+          "formats": []
+        },
+        {
+          "command": 83,
+          "kind": "handler_pointer",
+          "slot": "0x140203310",
+          "handler": "0x140091e80",
+          "name": "HandleLobbyGame_SecondPasswordIsVerifiedReq",
+          "formats": []
+        },
+        {
+          "command": 87,
+          "kind": "handler_pointer",
+          "slot": "0x140203350",
+          "handler": "0x140092280",
+          "name": "HandleLobbyGame_AuctionEscrowOk",
+          "formats": []
+        },
+        {
+          "command": 88,
+          "kind": "handler_pointer",
+          "slot": "0x140203360",
+          "handler": "0x140092400",
+          "name": "HandleLobbyGame_AuctionEscrowFail",
+          "formats": []
+        },
+        {
+          "command": 89,
+          "kind": "handler_pointer",
+          "slot": "0x140203370",
+          "handler": "0x1400926a0",
+          "name": "HandleLobbyGame_AuctionBidReq",
+          "formats": [
+            {
+              "address": "0x14018ef00",
+              "format": "hqohq"
+            }
+          ]
+        },
+        {
+          "command": 92,
+          "kind": "handler_pointer",
+          "slot": "0x1402033a0",
+          "handler": "0x140092ca0",
+          "name": "HandleLobbyGame_GetGradeListReq",
+          "formats": [
+            {
+              "address": "0x14018f468",
+              "format": "hqQqi"
+            }
+          ]
+        },
+        {
+          "command": 97,
+          "kind": "handler_pointer",
+          "slot": "0x1402033f0",
+          "handler": "0x140092f00",
+          "name": "HandleLobbyGame_ActivateGradeReq",
+          "formats": [
+            {
+              "address": "0x14018f774",
+              "format": "hqqQi"
+            }
+          ]
+        },
+        {
+          "command": 100,
+          "kind": "handler_pointer",
+          "slot": "0x140203420",
+          "handler": "0x140093540",
+          "name": "HandleLobbyGame_DepositGameMileageReq",
+          "formats": []
+        },
+        {
+          "command": 103,
+          "kind": "handler_pointer",
+          "slot": "0x140203450",
+          "handler": "0x140094780",
+          "name": "HandleLobbyGame_BoastEventInWorldNotify",
+          "formats": []
+        },
+        {
+          "command": 104,
+          "kind": "handler_pointer",
+          "slot": "0x140203460",
+          "handler": "0x140094910",
+          "name": "HandleLobbyGame_TakeAccountTimeBasedPlayRewardReq",
+          "formats": [
+            {
+              "address": "0x140190988",
+              "format": "hqqiQhq"
+            }
+          ]
+        },
+        {
+          "command": 107,
+          "kind": "handler_pointer",
+          "slot": "0x140203490",
+          "handler": "0x140094df0",
+          "name": "HandleLobbyGame_UpdateAccountExpReq",
+          "formats": [
+            {
+              "address": "0x140190ee8",
+              "format": "hqqqqiq"
+            }
+          ]
+        },
+        {
+          "command": 110,
+          "kind": "handler_pointer",
+          "slot": "0x1402034c0",
+          "handler": "0x1400951f0",
+          "name": "HandleLobbyGame_UpdateAccountContentQuotaReq",
+          "formats": [
+            {
+              "address": "0x140191528",
+              "format": "hqqqCihqq;"
+            }
+          ]
+        },
+        {
+          "command": 113,
+          "kind": "handler_pointer",
+          "slot": "0x1402034f0",
+          "handler": "0x140095890",
+          "name": "HandleLobbyGame_UpdateAccountRecycleTimeReq",
+          "formats": [
+            {
+              "address": "0x140191bf8",
+              "format": "hqqqChq;"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "address": "0x140203520",
+      "name": "?AccountInventoryLobbyPacketLobbySideHandlerList@@3PAUAccountInventoryLobbyPacketHandlerDef@@A",
+      "rows": [
+        {
+          "command": 2,
+          "kind": "handler_pointer",
+          "slot": "0x140203540",
+          "handler": "0x1400087d0",
+          "name": "HandleAccountInventoryLobby_HelloOk",
+          "formats": []
+        },
+        {
+          "command": 3,
+          "kind": "handler_pointer",
+          "slot": "0x140203550",
+          "handler": "0x140008820",
+          "name": "HandleAccountInventoryLobby_HelloFail",
+          "formats": []
+        },
+        {
+          "command": 5,
+          "kind": "handler_pointer",
+          "slot": "0x140203570",
+          "handler": "0x1400088b0",
+          "name": "HandleAccountInventoryLobby_GetGoodsCountOk",
+          "formats": []
+        },
+        {
+          "command": 6,
+          "kind": "handler_pointer",
+          "slot": "0x140203580",
+          "handler": "0x140008ad0",
+          "name": "HandleAccountInventoryLobby_GetGoodsCountFail",
+          "formats": []
+        },
+        {
+          "command": 8,
+          "kind": "handler_pointer",
+          "slot": "0x1402035a0",
+          "handler": "0x140008d00",
+          "name": "HandleAccountInventoryLobby_ListGoodsOk",
+          "formats": [
+            {
+              "address": "0x140134c08",
+              "format": "hiqCqiQQqqssissbbCiiibb;;"
+            }
+          ]
+        },
+        {
+          "command": 9,
+          "kind": "handler_pointer",
+          "slot": "0x1402035b0",
+          "handler": "0x140009550",
+          "name": "HandleAccountInventoryLobby_ListGoodsFail",
+          "formats": []
+        },
+        {
+          "command": 11,
+          "kind": "handler_pointer",
+          "slot": "0x1402035d0",
+          "handler": "0x140009750",
+          "name": "HandleAccountInventoryLobby_TakeGoodsOk",
+          "formats": [
+            {
+              "address": "0x1401356c0",
+              "format": "hiqCqqqiQ;"
+            }
+          ]
+        },
+        {
+          "command": 12,
+          "kind": "handler_pointer",
+          "slot": "0x1402035e0",
+          "handler": "0x140009a60",
+          "name": "HandleAccountInventoryLobby_TakeGoodsFail",
+          "formats": []
+        },
+        {
+          "command": 14,
+          "kind": "handler_pointer",
+          "slot": "0x140203600",
+          "handler": "0x140009c60",
+          "name": "HandleAccountInventoryLobby_RetrieveLobbyServiceItemListOk",
+          "formats": [
+            {
+              "address": "0x140135bf0",
+              "format": "hiqiCqqqiQ;"
+            }
+          ]
+        },
+        {
+          "command": 15,
+          "kind": "handler_pointer",
+          "slot": "0x140203610",
+          "handler": "0x140009f60",
+          "name": "HandleAccountInventoryLobby_RetrieveLobbyServiceItemListFail",
+          "formats": []
+        },
+        {
+          "command": 17,
+          "kind": "handler_pointer",
+          "slot": "0x140203630",
+          "handler": "0x14000a160",
+          "name": "HandleAccountInventoryLobby_RetrieveSingleWarehouseItemOk",
+          "formats": [
+            {
+              "address": "0x1401361b0",
+              "format": "hqqqqiQ"
+            }
+          ]
+        },
+        {
+          "command": 18,
+          "kind": "handler_pointer",
+          "slot": "0x140203640",
+          "handler": "0x14000a440",
+          "name": "HandleAccountInventoryLobby_RetrieveSingleWarehouseItemFail",
+          "formats": []
+        },
+        {
+          "command": 20,
+          "kind": "handler_pointer",
+          "slot": "0x140203660",
+          "handler": "0x14000a680",
+          "name": "HandleAccountInventoryLobby_TryWarehouseItemConsumptionOk",
+          "formats": []
+        },
+        {
+          "command": 21,
+          "kind": "handler_pointer",
+          "slot": "0x140203670",
+          "handler": "0x14000a780",
+          "name": "HandleAccountInventoryLobby_TryWarehouseItemConsumptionFail",
+          "formats": []
+        },
+        {
+          "command": 23,
+          "kind": "handler_pointer",
+          "slot": "0x140203690",
+          "handler": "0x14000a9c0",
+          "name": "HandleAccountInventoryLobby_FinishWarehouseItemConsumptionOk",
+          "formats": []
+        },
+        {
+          "command": 24,
+          "kind": "handler_pointer",
+          "slot": "0x1402036a0",
+          "handler": "0x14000aac0",
+          "name": "HandleAccountInventoryLobby_FinishWarehouseItemConsumptionFail",
+          "formats": []
+        },
+        {
+          "command": 26,
+          "kind": "handler_pointer",
+          "slot": "0x1402036c0",
+          "handler": "0x14000ad00",
+          "name": "HandleAccountInventoryLobby_CancelWarehouseItemConsumptionOk",
+          "formats": []
+        },
+        {
+          "command": 27,
+          "kind": "handler_pointer",
+          "slot": "0x1402036d0",
+          "handler": "0x14000ad40",
+          "name": "HandleAccountInventoryLobby_CancelWarehouseItemConsumptionFail",
+          "formats": []
+        },
+        {
+          "command": 29,
+          "kind": "handler_pointer",
+          "slot": "0x1402036f0",
+          "handler": "0x14000ad80",
+          "name": "HandleAccountInventoryLobby_ConsumeWarehouseItemOk",
+          "formats": []
+        },
+        {
+          "command": 30,
+          "kind": "handler_pointer",
+          "slot": "0x140203700",
+          "handler": "0x14000ae80",
+          "name": "HandleAccountInventoryLobby_ConsumeWarehouseItemFail",
+          "formats": []
+        },
+        {
+          "command": 32,
+          "kind": "handler_pointer",
+          "slot": "0x140203720",
+          "handler": "0x14000b0c0",
+          "name": "HandleAccountInventoryLobby_RetrieveCharacterGoodsCountOk",
+          "formats": []
+        },
+        {
+          "command": 33,
+          "kind": "handler_pointer",
+          "slot": "0x140203730",
+          "handler": "0x14000b310",
+          "name": "HandleAccountInventoryLobby_RetrieveCharacterGoodsCountFail",
+          "formats": []
+        },
+        {
+          "command": 34,
+          "kind": "handler_pointer",
+          "slot": "0x140203740",
+          "handler": "0x14000b510",
+          "name": "HandleAccountInventoryLobby_GoodsInventoryChangedNotify",
+          "formats": [
+            {
+              "address": "0x140137cf8",
+              "format": "hioQCqqi;Qqq"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

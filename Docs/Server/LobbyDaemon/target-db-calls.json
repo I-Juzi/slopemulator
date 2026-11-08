@@ -1,0 +1,3061 @@
+{
+  "build": "0.0.307",
+  "status": "\u2705 call templates and source descriptor labels. \u2753 Descriptor names do not prove SQL schema or value types.",
+  "calls": [
+    {
+      "function": "0x14009c710",
+      "string_address": "0x14019c910",
+      "sql": "{?=CALL dbo.usp_LoadGameAccount(?)}",
+      "descriptor_arrays": [
+        {
+          "address": "0x1401fe648",
+          "labels": [
+            {
+              "slot": "0x1401fe648",
+              "string_address": "0x14019c8e8",
+              "label": "PARAM_RETURN"
+            },
+            {
+              "slot": "0x1401fe650",
+              "string_address": "0x14019c8b8",
+              "label": "PARAM_GAME_ACCOUNT_ID"
+            }
+          ]
+        },
+        {
+          "address": "0x1401fe658",
+          "labels": [
+            {
+              "slot": "0x1401fe658",
+              "string_address": "0x14019c890",
+              "label": "COL_GAME_ACCOUNT_ID"
+            },
+            {
+              "slot": "0x1401fe660",
+              "string_address": "0x14019c860",
+              "label": "COL_GAME_ACCOUNT_NAME"
+            },
+            {
+              "slot": "0x1401fe668",
+              "string_address": "0x14019c830",
+              "label": "COL_GAME_ACCOUNT_RIGHT"
+            },
+            {
+              "slot": "0x1401fe670",
+              "string_address": "0x14019c800",
+              "label": "COL_REPRESENTATIVE_PCID"
+            },
+            {
+              "slot": "0x1401fe678",
+              "string_address": "0x14019c7c8",
+              "label": "COL_GAME_ACCOUNT_BOT_SCORE"
+            },
+            {
+              "slot": "0x1401fe680",
+              "string_address": "0x14019c780",
+              "label": "COL_GAME_ACCOUNT_BOT_SCORE_IGNORE"
+            }
+          ]
+        }
+      ],
+      "bind_parameter_count": 2,
+      "parameter_count_note": "Static BindParam call sites. Loops can execute a site more than once."
+    },
+    {
+      "function": "0x14009ccf0",
+      "string_address": "0x14019c710",
+      "sql": "{?=CALL dbo.usp_LoadGameAccountTimeBasedPlayInfo(?)}",
+      "descriptor_arrays": [
+        {
+          "address": "0x1401fe688",
+          "labels": [
+            {
+              "slot": "0x1401fe688",
+              "string_address": "0x14019c8e8",
+              "label": "PARAM_RETURN"
+            },
+            {
+              "slot": "0x1401fe690",
+              "string_address": "0x14019c8b8",
+              "label": "PARAM_GAME_ACCOUNT_ID"
+            }
+          ]
+        },
+        {
+          "address": "0x1401fe698",
+          "labels": [
+            {
+              "slot": "0x1401fe698",
+              "string_address": "0x14019c6e0",
+              "label": "COL_SCHEDULE_NUMBER"
+            },
+            {
+              "slot": "0x1401fe6a0",
+              "string_address": "0x14019c6c0",
+              "label": "COL_TARGET_TYPE"
+            },
+            {
+              "slot": "0x1401fe6a8",
+              "string_address": "0x14019c6a0",
+              "label": "COL_EXPIRE_TIME"
+            },
+            {
+              "slot": "0x1401fe6b0",
+              "string_address": "0x14019c680",
+              "label": "COL_DURATION"
+            },
+            {
+              "slot": "0x1401fe6b8",
+              "string_address": "0x14019c660",
+              "label": "COL_LAST_UPDATE"
+            }
+          ]
+        }
+      ],
+      "bind_parameter_count": 2,
+      "parameter_count_note": "Static BindParam call sites. Loops can execute a site more than once."
+    },
+    {
+      "function": "0x14009d350",
+      "string_address": "0x14019c5d0",
+      "sql": "{?=CALL dbo.usp_UpdateGameAccountTimeBasedPlayInfo(?, ?, ?, ?, ?, ?)}",
+      "descriptor_arrays": [
+        {
+          "address": "0x1401fe6c0",
+          "labels": [
+            {
+              "slot": "0x1401fe6c0",
+              "string_address": "0x14019c8e8",
+              "label": "PARAM_RETURN"
+            },
+            {
+              "slot": "0x1401fe6c8",
+              "string_address": "0x14019c8b8",
+              "label": "PARAM_GAME_ACCOUNT_ID"
+            },
+            {
+              "slot": "0x1401fe6d0",
+              "string_address": "0x14019c540",
+              "label": "PARAM_SCHEDULE_NUMBERPARAM_TARGET_TYPEPARAM_EXPIRE_TIMEPARAM_DURATION"
+            },
+            {
+              "slot": "0x1401fe6d8",
+              "string_address": "0x14019c518",
+              "label": "PARAM_LAST_UPDATE"
+            }
+          ]
+        }
+      ],
+      "bind_parameter_count": 7,
+      "parameter_count_note": "Static BindParam call sites. Loops can execute a site more than once."
+    },
+    {
+      "function": "0x14009d7c0",
+      "string_address": "0x14019c4b0",
+      "sql": "{?=CALL dbo.usp_RegisterGameAccount(?, ?, ?, ?)}",
+      "descriptor_arrays": [
+        {
+          "address": "0x1401fe6e0",
+          "labels": [
+            {
+              "slot": "0x1401fe6e0",
+              "string_address": "0x14019c8e8",
+              "label": "PARAM_RETURN"
+            },
+            {
+              "slot": "0x1401fe6e8",
+              "string_address": "0x14019c8b8",
+              "label": "PARAM_GAME_ACCOUNT_ID"
+            },
+            {
+              "slot": "0x1401fe6f0",
+              "string_address": "0x14019c478",
+              "label": "PARAM_GAME_ACCOUNT_NAME"
+            },
+            {
+              "slot": "0x1401fe6f8",
+              "string_address": "0x14019c440",
+              "label": "PARAM_GAME_ACCOUNT_RIGHT"
+            },
+            {
+              "slot": "0x1401fe700",
+              "string_address": "0x14019c400",
+              "label": "PARAM_LAST_ACCESS_IPv4_ADDRESS"
+            }
+          ]
+        }
+      ],
+      "bind_parameter_count": 5,
+      "parameter_count_note": "Static BindParam call sites. Loops can execute a site more than once."
+    },
+    {
+      "function": "0x14009dbb0",
+      "string_address": "0x14019c3b0",
+      "sql": "{?=CALL dbo.usp_UpdateLastLogin(?, ?)}",
+      "descriptor_arrays": [
+        {
+          "address": "0x1401fe708",
+          "labels": [
+            {
+              "slot": "0x1401fe708",
+              "string_address": "0x14019c8e8",
+              "label": "PARAM_RETURN"
+            },
+            {
+              "slot": "0x1401fe710",
+              "string_address": "0x14019c8b8",
+              "label": "PARAM_GAME_ACCOUNT_ID"
+            },
+            {
+              "slot": "0x1401fe718",
+              "string_address": "0x14019c400",
+              "label": "PARAM_LAST_ACCESS_IPv4_ADDRESS"
+            }
+          ]
+        }
+      ],
+      "bind_parameter_count": 3,
+      "parameter_count_note": "Static BindParam call sites. Loops can execute a site more than once."
+    },
+    {
+      "function": "0x14009de90",
+      "string_address": "0x14019c360",
+      "sql": "{?=CALL dbo.usp_UpdateLastLogout(?,?)}",
+      "descriptor_arrays": [
+        {
+          "address": "0x1401fe720",
+          "labels": [
+            {
+              "slot": "0x1401fe720",
+              "string_address": "0x14019c8e8",
+              "label": "PARAM_RETURN"
+            },
+            {
+              "slot": "0x1401fe728",
+              "string_address": "0x14019c8b8",
+              "label": "PARAM_GAME_ACCOUNT_ID"
+            },
+            {
+              "slot": "0x1401fe730",
+              "string_address": "0x14019c320",
+              "label": "PARAM_GAME_ACCOUNT_BOT_SCORE"
+            }
+          ]
+        }
+      ],
+      "bind_parameter_count": 3,
+      "parameter_count_note": "Static BindParam call sites. Loops can execute a site more than once."
+    },
+    {
+      "function": "0x14009e100",
+      "string_address": "0x14019c2d0",
+      "sql": "{?=CALL dbo.usp_LoadCharacterList(?)}",
+      "descriptor_arrays": [
+        {
+          "address": "0x1401fe738",
+          "labels": [
+            {
+              "slot": "0x1401fe738",
+              "string_address": "0x14019c8e8",
+              "label": "PARAM_RETURN"
+            },
+            {
+              "slot": "0x1401fe740",
+              "string_address": "0x14019c8b8",
+              "label": "PARAM_GAME_ACCOUNT_ID"
+            }
+          ]
+        },
+        {
+          "address": "0x1401fe750",
+          "labels": [
+            {
+              "slot": "0x1401fe750",
+              "string_address": "0x14019c2b0",
+              "label": "COL_PCID"
+            },
+            {
+              "slot": "0x1401fe758",
+              "string_address": "0x14019c890",
+              "label": "COL_GAME_ACCOUNT_ID"
+            },
+            {
+              "slot": "0x1401fe760",
+              "string_address": "0x14019c298",
+              "label": "COL_SLOT_ID"
+            },
+            {
+              "slot": "0x1401fe768",
+              "string_address": "0x14019c278",
+              "label": "COL_WORLD_ID"
+            },
+            {
+              "slot": "0x1401fe770",
+              "string_address": "0x14019c268",
+              "label": "COL_JOB"
+            },
+            {
+              "slot": "0x1401fe778",
+              "string_address": "0x14019c250",
+              "label": "COL_LEVEL"
+            },
+            {
+              "slot": "0x1401fe780",
+              "string_address": "0x14019c228",
+              "label": "COL_CHARACTER_NAME"
+            },
+            {
+              "slot": "0x1401fe788",
+              "string_address": "0x14019c200",
+              "label": "COL_CHARACTER_RIGHT"
+            },
+            {
+              "slot": "0x1401fe790",
+              "string_address": "0x14019c1d8",
+              "label": "COL_CHARACTER_STATE"
+            },
+            {
+              "slot": "0x1401fe798",
+              "string_address": "0x14019c1a8",
+              "label": "COL_DELETION_DELAY_TIME"
+            },
+            {
+              "slot": "0x1401fe7a0",
+              "string_address": "0x14019c178",
+              "label": "COL_LAST_PLAY_END_TIME"
+            },
+            {
+              "slot": "0x1401fe7a8",
+              "string_address": "0x14019c140",
+              "label": "COL_JUMPING_CHARACTER_STATE"
+            },
+            {
+              "slot": "0x1401fe7b0",
+              "string_address": "0x14019c118",
+              "label": "COL_SHOWCASE_DATA"
+            },
+            {
+              "slot": "0x1401fe7b8",
+              "string_address": "0x14019c100",
+              "label": "COL_BLOCKED"
+            },
+            {
+              "slot": "0x1401fe7c0",
+              "string_address": "0x14019c8e8",
+              "label": "PARAM_RETURN"
+            }
+          ]
+        }
+      ],
+      "bind_parameter_count": 2,
+      "parameter_count_note": "Static BindParam call sites. Loops can execute a site more than once."
+    },
+    {
+      "function": "0x1400a00f0",
+      "string_address": "0x14019bce0",
+      "sql": "{?=CALL dbo.usp_CheckValidityOfCharacterName(?)}",
+      "descriptor_arrays": [
+        {
+          "address": "0x1401fe880",
+          "labels": [
+            {
+              "slot": "0x1401fe880",
+              "string_address": "0x14019c8e8",
+              "label": "PARAM_RETURN"
+            },
+            {
+              "slot": "0x1401fe888",
+              "string_address": "0x14019bca8",
+              "label": "PARAM_CHARACTER_NAME"
+            }
+          ]
+        }
+      ],
+      "bind_parameter_count": 2,
+      "parameter_count_note": "Static BindParam call sites. Loops can execute a site more than once."
+    },
+    {
+      "function": "0x1400a02c0",
+      "string_address": "0x14019bc10",
+      "sql": "{?=CALL dbo.usp_TryCharacterCreation(?, ?, ?, ?, ?, ?)}",
+      "descriptor_arrays": [
+        {
+          "address": "0x1401fe890",
+          "labels": [
+            {
+              "slot": "0x1401fe890",
+              "string_address": "0x14019c8e8",
+              "label": "PARAM_RETURN"
+            },
+            {
+              "slot": "0x1401fe898",
+              "string_address": "0x14019c8b8",
+              "label": "PARAM_GAME_ACCOUNT_ID"
+            },
+            {
+              "slot": "0x1401fe8a0",
+              "string_address": "0x14019bbf0",
+              "label": "PARAM_SLOT_ID"
+            },
+            {
+              "slot": "0x1401fe8a8",
+              "string_address": "0x14019bbd0",
+              "label": "PARAM_WORLD_ID"
+            },
+            {
+              "slot": "0x1401fe8b0",
+              "string_address": "0x14019bca8",
+              "label": "PARAM_CHARACTER_NAME"
+            },
+            {
+              "slot": "0x1401fe8b8",
+              "string_address": "0x14019bba0",
+              "label": "PARAM_CHARACTER_RIGHT"
+            },
+            {
+              "slot": "0x1401fe8c0",
+              "string_address": "0x14019bb88",
+              "label": "PARAM_PCID"
+            }
+          ]
+        }
+      ],
+      "bind_parameter_count": 7,
+      "parameter_count_note": "Static BindParam call sites. Loops can execute a site more than once."
+    },
+    {
+      "function": "0x1400a06b0",
+      "string_address": "0x14019bb10",
+      "sql": "{?=CALL dbo.usp_FinishCharacterCreation(?, ?, ?, ?, ?, ?)}",
+      "descriptor_arrays": [
+        {
+          "address": "0x1401fe8d0",
+          "labels": [
+            {
+              "slot": "0x1401fe8d0",
+              "string_address": "0x14019c8e8",
+              "label": "PARAM_RETURN"
+            },
+            {
+              "slot": "0x1401fe8d8",
+              "string_address": "0x14019bb88",
+              "label": "PARAM_PCID"
+            },
+            {
+              "slot": "0x1401fe8e0",
+              "string_address": "0x14019baf8",
+              "label": "PARAM_JOB"
+            },
+            {
+              "slot": "0x1401fe8e8",
+              "string_address": "0x14019bae0",
+              "label": "PARAM_LEVEL"
+            },
+            {
+              "slot": "0x1401fe8f0",
+              "string_address": "0x14019baa0",
+              "label": "PARAM_JUMPING_CHARACTER_STATE"
+            },
+            {
+              "slot": "0x1401fe8f8",
+              "string_address": "0x14019ba30",
+              "label": "PARAM_IS_CONSUMPTION_JUMPING_CHARACTER_CREATION_QUOTA"
+            },
+            {
+              "slot": "0x1401fe900",
+              "string_address": "0x14019ba00",
+              "label": "PARAM_SHOWCASE_DATA"
+            },
+            {
+              "slot": "0x1401fe908",
+              "string_address": "0x14019b9e8",
+              "label": "PARAM_MAX"
+            }
+          ]
+        }
+      ],
+      "bind_parameter_count": 7,
+      "parameter_count_note": "Static BindParam call sites. Loops can execute a site more than once."
+    },
+    {
+      "function": "0x1400a0a60",
+      "string_address": "0x14019b990",
+      "sql": "{?=CALL dbo.usp_CancelCharacterCreation(?)}",
+      "descriptor_arrays": [
+        {
+          "address": "0x1401fe910",
+          "labels": [
+            {
+              "slot": "0x1401fe910",
+              "string_address": "0x14019c8e8",
+              "label": "PARAM_RETURN"
+            },
+            {
+              "slot": "0x1401fe918",
+              "string_address": "0x14019bb88",
+              "label": "PARAM_PCID"
+            },
+            {
+              "slot": "0x1401fe920",
+              "string_address": "0x14019b9e8",
+              "label": "PARAM_MAX"
+            }
+          ]
+        }
+      ],
+      "bind_parameter_count": 2,
+      "parameter_count_note": "Static BindParam call sites. Loops can execute a site more than once."
+    },
+    {
+      "function": "0x1400a0c30",
+      "string_address": "0x14019b930",
+      "sql": "{?=CALL dbo.usp_TryCharacterDeletion(?)}",
+      "descriptor_arrays": [
+        {
+          "address": "0x1401fe928",
+          "labels": [
+            {
+              "slot": "0x1401fe928",
+              "string_address": "0x14019c8e8",
+              "label": "PARAM_RETURN"
+            },
+            {
+              "slot": "0x1401fe930",
+              "string_address": "0x14019bb88",
+              "label": "PARAM_PCID"
+            }
+          ]
+        }
+      ],
+      "bind_parameter_count": 2,
+      "parameter_count_note": "Static BindParam call sites. Loops can execute a site more than once."
+    },
+    {
+      "function": "0x1400a0e00",
+      "string_address": "0x14019b8c0",
+      "sql": "{?=CALL dbo.usp_FinishCharacterDeletion(?, ?, ?)}",
+      "descriptor_arrays": [
+        {
+          "address": "0x1401fe938",
+          "labels": [
+            {
+              "slot": "0x1401fe938",
+              "string_address": "0x14019c8e8",
+              "label": "PARAM_RETURN"
+            },
+            {
+              "slot": "0x1401fe940",
+              "string_address": "0x14019bb88",
+              "label": "PARAM_PCID"
+            },
+            {
+              "slot": "0x1401fe948",
+              "string_address": "0x14019b880",
+              "label": "PARAM_DELETION_DELAY_DURATION"
+            },
+            {
+              "slot": "0x1401fe950",
+              "string_address": "0x14019b848",
+              "label": "PARAM_DELETION_DELAY_TIME"
+            }
+          ]
+        }
+      ],
+      "bind_parameter_count": 4,
+      "parameter_count_note": "Static BindParam call sites. Loops can execute a site more than once."
+    },
+    {
+      "function": "0x1400a10d0",
+      "string_address": "0x14019b7f0",
+      "sql": "{?=CALL dbo.usp_CancelCharacterDeletion(?)}",
+      "descriptor_arrays": [
+        {
+          "address": "0x1401fe958",
+          "labels": [
+            {
+              "slot": "0x1401fe958",
+              "string_address": "0x14019c8e8",
+              "label": "PARAM_RETURN"
+            },
+            {
+              "slot": "0x1401fe960",
+              "string_address": "0x14019bb88",
+              "label": "PARAM_PCID"
+            }
+          ]
+        }
+      ],
+      "bind_parameter_count": 2,
+      "parameter_count_note": "Static BindParam call sites. Loops can execute a site more than once."
+    },
+    {
+      "function": "0x1400a12a0",
+      "string_address": "0x14019b790",
+      "sql": "{?=CALL dbo.usp_TryCharacterRestoration(?)}",
+      "descriptor_arrays": [
+        {
+          "address": "0x1401fe968",
+          "labels": [
+            {
+              "slot": "0x1401fe968",
+              "string_address": "0x14019c8e8",
+              "label": "PARAM_RETURN"
+            },
+            {
+              "slot": "0x1401fe970",
+              "string_address": "0x14019bb88",
+              "label": "PARAM_PCID"
+            }
+          ]
+        }
+      ],
+      "bind_parameter_count": 2,
+      "parameter_count_note": "Static BindParam call sites. Loops can execute a site more than once."
+    },
+    {
+      "function": "0x1400a1470",
+      "string_address": "0x14019b730",
+      "sql": "{?=CALL dbo.usp_FinishCharacterRestoration(?)}",
+      "descriptor_arrays": [
+        {
+          "address": "0x1401fe978",
+          "labels": [
+            {
+              "slot": "0x1401fe978",
+              "string_address": "0x14019c8e8",
+              "label": "PARAM_RETURN"
+            },
+            {
+              "slot": "0x1401fe980",
+              "string_address": "0x14019bb88",
+              "label": "PARAM_PCID"
+            }
+          ]
+        }
+      ],
+      "bind_parameter_count": 2,
+      "parameter_count_note": "Static BindParam call sites. Loops can execute a site more than once."
+    },
+    {
+      "function": "0x1400a1640",
+      "string_address": "0x14019b6c0",
+      "sql": "{?=CALL dbo.usp_RetrieveExpiredDeletionWaitingList(?)}",
+      "descriptor_arrays": [
+        {
+          "address": "0x1401fe988",
+          "labels": [
+            {
+              "slot": "0x1401fe988",
+              "string_address": "0x14019c8e8",
+              "label": "PARAM_RETURN"
+            },
+            {
+              "slot": "0x1401fe990",
+              "string_address": "0x14019b690",
+              "label": "PARAM_MAX_SEARCH_COUNT"
+            }
+          ]
+        },
+        {
+          "address": "0x1401fe998",
+          "labels": [
+            {
+              "slot": "0x1401fe998",
+              "string_address": "0x14019c890",
+              "label": "COL_GAME_ACCOUNT_ID"
+            },
+            {
+              "slot": "0x1401fe9a0",
+              "string_address": "0x14019b678",
+              "label": "COL_WORLDID"
+            },
+            {
+              "slot": "0x1401fe9a8",
+              "string_address": "0x14019c2b0",
+              "label": "COL_PCID"
+            }
+          ]
+        }
+      ],
+      "bind_parameter_count": 2,
+      "parameter_count_note": "Static BindParam call sites. Loops can execute a site more than once."
+    },
+    {
+      "function": "0x1400a1b30",
+      "string_address": "0x14019b610",
+      "sql": "{?=CALL dbo.usp_ExpireCharacterDeletionWaiting(?)}",
+      "descriptor_arrays": [
+        {
+          "address": "0x1401fe9b0",
+          "labels": [
+            {
+              "slot": "0x1401fe9b0",
+              "string_address": "0x14019c8e8",
+              "label": "PARAM_RETURN"
+            },
+            {
+              "slot": "0x1401fe9b8",
+              "string_address": "0x14019bb88",
+              "label": "PARAM_PCID"
+            }
+          ]
+        }
+      ],
+      "bind_parameter_count": 2,
+      "parameter_count_note": "Static BindParam call sites. Loops can execute a site more than once."
+    },
+    {
+      "function": "0x1400a1d00",
+      "string_address": "0x14019b5b0",
+      "sql": "{?=CALL dbo.usp_UpdateLastPlayStart(?, ?)}",
+      "descriptor_arrays": [
+        {
+          "address": "0x1401fe9c0",
+          "labels": [
+            {
+              "slot": "0x1401fe9c0",
+              "string_address": "0x14019c8e8",
+              "label": "PARAM_RETURN"
+            },
+            {
+              "slot": "0x1401fe9c8",
+              "string_address": "0x14019bb88",
+              "label": "PARAM_PCID"
+            },
+            {
+              "slot": "0x1401fe9d0",
+              "string_address": "0x14019b570",
+              "label": "PARAM_LAST_PLAY_IPv4_ADDRESS"
+            }
+          ]
+        }
+      ],
+      "bind_parameter_count": 3,
+      "parameter_count_note": "Static BindParam call sites. Loops can execute a site more than once."
+    },
+    {
+      "function": "0x1400a1fa0",
+      "string_address": "0x14019b520",
+      "sql": "{?=CALL dbo.usp_UpdateLastPlayEnd(?)}",
+      "descriptor_arrays": [
+        {
+          "address": "0x1401fe9d8",
+          "labels": [
+            {
+              "slot": "0x1401fe9d8",
+              "string_address": "0x14019c8e8",
+              "label": "PARAM_RETURN"
+            },
+            {
+              "slot": "0x1401fe9e0",
+              "string_address": "0x14019bb88",
+              "label": "PARAM_PCID"
+            }
+          ]
+        }
+      ],
+      "bind_parameter_count": 2,
+      "parameter_count_note": "Static BindParam call sites. Loops can execute a site more than once."
+    },
+    {
+      "function": "0x1400a21c0",
+      "string_address": "0x14019b4b0",
+      "sql": "{?=CALL dbo.usp_UpdateCharacterData(?, ?, ?, ?)}",
+      "descriptor_arrays": [
+        {
+          "address": "0x1401fe9e8",
+          "labels": [
+            {
+              "slot": "0x1401fe9e8",
+              "string_address": "0x14019c8e8",
+              "label": "PARAM_RETURN"
+            },
+            {
+              "slot": "0x1401fe9f0",
+              "string_address": "0x14019bb88",
+              "label": "PARAM_PCID"
+            },
+            {
+              "slot": "0x1401fe9f8",
+              "string_address": "0x14019baf8",
+              "label": "PARAM_JOB"
+            },
+            {
+              "slot": "0x1401fea00",
+              "string_address": "0x14019bae0",
+              "label": "PARAM_LEVEL"
+            },
+            {
+              "slot": "0x1401fea08",
+              "string_address": "0x14019ba00",
+              "label": "PARAM_SHOWCASE_DATA"
+            }
+          ]
+        }
+      ],
+      "bind_parameter_count": 5,
+      "parameter_count_note": "Static BindParam call sites. Loops can execute a site more than once."
+    },
+    {
+      "function": "0x1400a25b0",
+      "string_address": "0x14019b450",
+      "sql": "{?=CALL dbo.usp_UpdateCharacterLevel(?, ?)}",
+      "descriptor_arrays": [
+        {
+          "address": "0x1401fea10",
+          "labels": [
+            {
+              "slot": "0x1401fea10",
+              "string_address": "0x14019c8e8",
+              "label": "PARAM_RETURN"
+            },
+            {
+              "slot": "0x1401fea18",
+              "string_address": "0x14019bb88",
+              "label": "PARAM_PCID"
+            },
+            {
+              "slot": "0x1401fea20",
+              "string_address": "0x14019bae0",
+              "label": "PARAM_LEVEL"
+            }
+          ]
+        }
+      ],
+      "bind_parameter_count": 3,
+      "parameter_count_note": "Static BindParam call sites. Loops can execute a site more than once."
+    },
+    {
+      "function": "0x1400a2890",
+      "string_address": "0x14019b3e0",
+      "sql": "{?=CALL dbo.usp_TryGuildRegistration(?, ?, ?, ?, ?)}",
+      "descriptor_arrays": [
+        {
+          "address": "0x1401fea28",
+          "labels": [
+            {
+              "slot": "0x1401fea28",
+              "string_address": "0x14019c8e8",
+              "label": "PARAM_RETURN"
+            },
+            {
+              "slot": "0x1401fea30",
+              "string_address": "0x14019b3b0",
+              "label": "PARAM_WORLD_CLUSTER_ID"
+            },
+            {
+              "slot": "0x1401fea38",
+              "string_address": "0x14019bbd0",
+              "label": "PARAM_WORLD_ID"
+            },
+            {
+              "slot": "0x1401fea40",
+              "string_address": "0x14019b388",
+              "label": "PARAM_GUILD_TYPE"
+            },
+            {
+              "slot": "0x1401fea48",
+              "string_address": "0x14019bc80",
+              "label": "PARAM_GUILD_NAME"
+            },
+            {
+              "slot": "0x1401fea50",
+              "string_address": "0x14019b368",
+              "label": "PARAM_GUILD_ID"
+            }
+          ]
+        }
+      ],
+      "bind_parameter_count": 6,
+      "parameter_count_note": "Static BindParam call sites. Loops can execute a site more than once."
+    },
+    {
+      "function": "0x1400a2c20",
+      "string_address": "0x14019b310",
+      "sql": "{?=CALL dbo.usp_FinishGuildRegistration(?)}",
+      "descriptor_arrays": [
+        {
+          "address": "0x1401fea58",
+          "labels": [
+            {
+              "slot": "0x1401fea58",
+              "string_address": "0x14019c8e8",
+              "label": "PARAM_RETURN"
+            },
+            {
+              "slot": "0x1401fea60",
+              "string_address": "0x14019b368",
+              "label": "PARAM_GUILD_ID"
+            }
+          ]
+        }
+      ],
+      "bind_parameter_count": 2,
+      "parameter_count_note": "Static BindParam call sites. Loops can execute a site more than once."
+    },
+    {
+      "function": "0x1400a2df0",
+      "string_address": "0x14019b2b0",
+      "sql": "{?=CALL dbo.usp_CancelGuildRegistration(?)}",
+      "descriptor_arrays": [
+        {
+          "address": "0x1401fea68",
+          "labels": [
+            {
+              "slot": "0x1401fea68",
+              "string_address": "0x14019c8e8",
+              "label": "PARAM_RETURN"
+            },
+            {
+              "slot": "0x1401fea70",
+              "string_address": "0x14019b368",
+              "label": "PARAM_GUILD_ID"
+            }
+          ]
+        }
+      ],
+      "bind_parameter_count": 2,
+      "parameter_count_note": "Static BindParam call sites. Loops can execute a site more than once."
+    },
+    {
+      "function": "0x1400a2fc0",
+      "string_address": "0x14019b260",
+      "sql": "{?=CALL dbo.usp_DeleteGuild(?, ?)}",
+      "descriptor_arrays": [
+        {
+          "address": "0x1401fea78",
+          "labels": [
+            {
+              "slot": "0x1401fea78",
+              "string_address": "0x14019c8e8",
+              "label": "PARAM_RETURN"
+            },
+            {
+              "slot": "0x1401fea80",
+              "string_address": "0x14019b368",
+              "label": "PARAM_GUILD_ID"
+            },
+            {
+              "slot": "0x1401fea88",
+              "string_address": "0x14019b220",
+              "label": "PARAM_REUSE_LIMIT_DURATION"
+            }
+          ]
+        }
+      ],
+      "bind_parameter_count": 3,
+      "parameter_count_note": "Static BindParam call sites. Loops can execute a site more than once."
+    },
+    {
+      "function": "0x1400a3200",
+      "string_address": "0x14019b1c0",
+      "sql": "{?=CALL dbo.usp_TryRenameGuild(?, ?, ?, ?, ?)}",
+      "descriptor_arrays": [
+        {
+          "address": "0x1401fea90",
+          "labels": [
+            {
+              "slot": "0x1401fea90",
+              "string_address": "0x14019c8e8",
+              "label": "PARAM_RETURN"
+            },
+            {
+              "slot": "0x1401fea98",
+              "string_address": "0x14019b368",
+              "label": "PARAM_GUILD_ID"
+            },
+            {
+              "slot": "0x1401feaa0",
+              "string_address": "0x14019b190",
+              "label": "PARAM_RENAME_GUILD_TYPE"
+            },
+            {
+              "slot": "0x1401feaa8",
+              "string_address": "0x14019b160",
+              "label": "PARAM_NEW_GUILD_NAME"
+            },
+            {
+              "slot": "0x1401feab0",
+              "string_address": "0x14019b220",
+              "label": "PARAM_REUSE_LIMIT_DURATION"
+            },
+            {
+              "slot": "0x1401feab8",
+              "string_address": "0x14019b138",
+              "label": "PARAM_RENAME_KEY"
+            }
+          ]
+        }
+      ],
+      "bind_parameter_count": 6,
+      "parameter_count_note": "Static BindParam call sites. Loops can execute a site more than once."
+    },
+    {
+      "function": "0x1400a3570",
+      "string_address": "0x14019b0e0",
+      "sql": "{?=CALL dbo.usp_FinishRenameGuild(?, ?)}",
+      "descriptor_arrays": [
+        {
+          "address": "0x1401feac0",
+          "labels": [
+            {
+              "slot": "0x1401feac0",
+              "string_address": "0x14019c8e8",
+              "label": "PARAM_RETURN"
+            },
+            {
+              "slot": "0x1401feac8",
+              "string_address": "0x14019b138",
+              "label": "PARAM_RENAME_KEY"
+            },
+            {
+              "slot": "0x1401fead0",
+              "string_address": "0x14019b368",
+              "label": "PARAM_GUILD_ID"
+            }
+          ]
+        }
+      ],
+      "bind_parameter_count": 3,
+      "parameter_count_note": "Static BindParam call sites. Loops can execute a site more than once."
+    },
+    {
+      "function": "0x1400a37d0",
+      "string_address": "0x14019b090",
+      "sql": "{?=CALL dbo.usp_CancelRenameGuild(?)}",
+      "descriptor_arrays": [
+        {
+          "address": "0x1401fead8",
+          "labels": [
+            {
+              "slot": "0x1401fead8",
+              "string_address": "0x14019c8e8",
+              "label": "PARAM_RETURN"
+            },
+            {
+              "slot": "0x1401feae0",
+              "string_address": "0x14019b138",
+              "label": "PARAM_RENAME_KEY"
+            }
+          ]
+        }
+      ],
+      "bind_parameter_count": 2,
+      "parameter_count_note": "Static BindParam call sites. Loops can execute a site more than once."
+    },
+    {
+      "function": "0x1400a39c0",
+      "string_address": "0x14019b020",
+      "sql": "{?=CALL dbo.usp_LoadJumpingCharacterCreationQuota(?)}",
+      "descriptor_arrays": [
+        {
+          "address": "0x1401feae8",
+          "labels": [
+            {
+              "slot": "0x1401feae8",
+              "string_address": "0x14019c8e8",
+              "label": "PARAM_RETURN"
+            },
+            {
+              "slot": "0x1401feaf0",
+              "string_address": "0x14019c8b8",
+              "label": "PARAM_GAME_ACCOUNT_ID"
+            }
+          ]
+        },
+        {
+          "address": "0x1401feaf8",
+          "labels": [
+            {
+              "slot": "0x1401feaf8",
+              "string_address": "0x14019c890",
+              "label": "COL_GAME_ACCOUNT_ID"
+            },
+            {
+              "slot": "0x1401feb00",
+              "string_address": "0x14019afe0",
+              "label": "COL_QUOTA_CREATION_QUOTA"
+            },
+            {
+              "slot": "0x1401feb08",
+              "string_address": "0x14019afa8",
+              "label": "COL_QUOTA_CREATION_COUNT"
+            }
+          ]
+        }
+      ],
+      "bind_parameter_count": 2,
+      "parameter_count_note": "Static BindParam call sites. Loops can execute a site more than once."
+    },
+    {
+      "function": "0x1400a3e80",
+      "string_address": "0x14019af50",
+      "sql": "{?=CALL dbo.usp_BindCharacterSlot(?, ?)}",
+      "descriptor_arrays": [
+        {
+          "address": "0x1401feb10",
+          "labels": [
+            {
+              "slot": "0x1401feb10",
+              "string_address": "0x14019c8e8",
+              "label": "PARAM_RETURN"
+            },
+            {
+              "slot": "0x1401feb18",
+              "string_address": "0x14019af30",
+              "label": "PARAM_PC_ID"
+            },
+            {
+              "slot": "0x1401feb20",
+              "string_address": "0x14019bbf0",
+              "label": "PARAM_SLOT_ID"
+            }
+          ]
+        }
+      ],
+      "bind_parameter_count": 3,
+      "parameter_count_note": "Static BindParam call sites. Loops can execute a site more than once."
+    },
+    {
+      "function": "0x1400a40f0",
+      "string_address": "0x14019ae30",
+      "sql": "{?=CALL dbo.usp_UpdateJumpingCharacterStateCompleteWithoutQuota(?)}",
+      "descriptor_arrays": [
+        {
+          "address": "0x1401feb28",
+          "labels": [
+            {
+              "slot": "0x1401feb28",
+              "string_address": "0x14019c8e8",
+              "label": "PARAM_RETURN"
+            },
+            {
+              "slot": "0x1401feb30",
+              "string_address": "0x14019bb88",
+              "label": "PARAM_PCID"
+            },
+            {
+              "slot": "0x1401feb38",
+              "string_address": "0x14019b9e8",
+              "label": "PARAM_MAX"
+            }
+          ]
+        }
+      ],
+      "bind_parameter_count": 2,
+      "parameter_count_note": "Static BindParam call sites. Loops can execute a site more than once."
+    },
+    {
+      "function": "0x1400a40f0",
+      "string_address": "0x14019aec0",
+      "sql": "{?=CALL dbo.usp_UpdateJumpingCharacterStateComplete(?)}",
+      "descriptor_arrays": [
+        {
+          "address": "0x1401feb28",
+          "labels": [
+            {
+              "slot": "0x1401feb28",
+              "string_address": "0x14019c8e8",
+              "label": "PARAM_RETURN"
+            },
+            {
+              "slot": "0x1401feb30",
+              "string_address": "0x14019bb88",
+              "label": "PARAM_PCID"
+            },
+            {
+              "slot": "0x1401feb38",
+              "string_address": "0x14019b9e8",
+              "label": "PARAM_MAX"
+            }
+          ]
+        }
+      ],
+      "bind_parameter_count": 2,
+      "parameter_count_note": "Static BindParam call sites. Loops can execute a site more than once."
+    },
+    {
+      "function": "0x1400a4300",
+      "string_address": "0x14019ade0",
+      "sql": "{?=CALL dbo.usp_LoadGameAccountExp(?)}",
+      "descriptor_arrays": [
+        {
+          "address": "0x1401feb40",
+          "labels": [
+            {
+              "slot": "0x1401feb40",
+              "string_address": "0x14019c8e8",
+              "label": "PARAM_RETURN"
+            },
+            {
+              "slot": "0x1401feb48",
+              "string_address": "0x14019c8b8",
+              "label": "PARAM_GAME_ACCOUNT_ID"
+            }
+          ]
+        },
+        {
+          "address": "0x1401feb50",
+          "labels": [
+            {
+              "slot": "0x1401feb50",
+              "string_address": "0x14019c890",
+              "label": "COL_GAME_ACCOUNT_ID"
+            },
+            {
+              "slot": "0x1401feb58",
+              "string_address": "0x14019ada8",
+              "label": "COL_GAME_ACCOUNT_EXP"
+            },
+            {
+              "slot": "0x1401feb60",
+              "string_address": "0x14019ad60",
+              "label": "COL_GAME_ACCOUNT_EXP_QUOTA_PER_DAY"
+            },
+            {
+              "slot": "0x1401feb68",
+              "string_address": "0x14019ad10",
+              "label": "COL_GAME_ACCOUNT_LAST_UPDATE_TIME"
+            }
+          ]
+        }
+      ],
+      "bind_parameter_count": 2,
+      "parameter_count_note": "Static BindParam call sites. Loops can execute a site more than once."
+    },
+    {
+      "function": "0x1400a47a0",
+      "string_address": "0x14019aca0",
+      "sql": "{?=CALL dbo.usp_InsertGameAccountExp(?, ?, ?, ?)}",
+      "descriptor_arrays": [
+        {
+          "address": "0x1401feb70",
+          "labels": [
+            {
+              "slot": "0x1401feb70",
+              "string_address": "0x14019c8e8",
+              "label": "PARAM_RETURN"
+            },
+            {
+              "slot": "0x1401feb78",
+              "string_address": "0x14019c8b8",
+              "label": "PARAM_GAME_ACCOUNT_ID"
+            },
+            {
+              "slot": "0x1401feb80",
+              "string_address": "0x14019ac68",
+              "label": "PARAM_GAME_ACCOUNT_EXP"
+            },
+            {
+              "slot": "0x1401feb88",
+              "string_address": "0x14019ac28",
+              "label": "PARAM_GAME_ACCOUNT_EXP_PER_DAY"
+            },
+            {
+              "slot": "0x1401feb90",
+              "string_address": "0x14019abf8",
+              "label": "PARAM_LAST_UPDATE_TIME"
+            }
+          ]
+        }
+      ],
+      "bind_parameter_count": 5,
+      "parameter_count_note": "Static BindParam call sites. Loops can execute a site more than once."
+    },
+    {
+      "function": "0x1400a4af0",
+      "string_address": "0x14019ab90",
+      "sql": "{?=CALL dbo.usp_UpdateGameAccountExp(?, ?, ?, ?)}",
+      "descriptor_arrays": [
+        {
+          "address": "0x1401feb98",
+          "labels": [
+            {
+              "slot": "0x1401feb98",
+              "string_address": "0x14019c8e8",
+              "label": "PARAM_RETURN"
+            },
+            {
+              "slot": "0x1401feba0",
+              "string_address": "0x14019c8b8",
+              "label": "PARAM_GAME_ACCOUNT_ID"
+            },
+            {
+              "slot": "0x1401feba8",
+              "string_address": "0x14019ac68",
+              "label": "PARAM_GAME_ACCOUNT_EXP"
+            },
+            {
+              "slot": "0x1401febb0",
+              "string_address": "0x14019ac28",
+              "label": "PARAM_GAME_ACCOUNT_EXP_PER_DAY"
+            },
+            {
+              "slot": "0x1401febb8",
+              "string_address": "0x14019abf8",
+              "label": "PARAM_LAST_UPDATE_TIME"
+            }
+          ]
+        }
+      ],
+      "bind_parameter_count": 5,
+      "parameter_count_note": "Static BindParam call sites. Loops can execute a site more than once."
+    },
+    {
+      "function": "0x1400a4e00",
+      "string_address": "0x14019ab10",
+      "sql": "{?=CALL dbo.usp_LoadRandomStoreInitializationSchedule(?,?,?)}",
+      "descriptor_arrays": [
+        {
+          "address": "0x1401febc0",
+          "labels": [
+            {
+              "slot": "0x1401febc0",
+              "string_address": "0x14019c8e8",
+              "label": "PARAM_RETURN"
+            },
+            {
+              "slot": "0x1401febc8",
+              "string_address": "0x14019aad0",
+              "label": "PARAM_CURRENT_SCHEDULE_NUMBER"
+            }
+          ]
+        }
+      ],
+      "bind_parameter_count": 4,
+      "parameter_count_note": "Static BindParam call sites. Loops can execute a site more than once."
+    },
+    {
+      "function": "0x1400a5090",
+      "string_address": "0x14019aa70",
+      "sql": "{?=CALL dbo.usp_LoadIncompleteLobbyService(?)}",
+      "descriptor_arrays": [
+        {
+          "address": "0x1401febd0",
+          "labels": [
+            {
+              "slot": "0x1401febd0",
+              "string_address": "0x14019c8e8",
+              "label": "PARAM_RETURN"
+            },
+            {
+              "slot": "0x1401febd8",
+              "string_address": "0x14019c8b8",
+              "label": "PARAM_GAME_ACCOUNT_ID"
+            }
+          ]
+        },
+        {
+          "address": "0x1401febe0",
+          "labels": [
+            {
+              "slot": "0x1401febe0",
+              "string_address": "0x14019aa50",
+              "label": "COL_SERVICE_ID"
+            },
+            {
+              "slot": "0x1401febe8",
+              "string_address": "0x14019c890",
+              "label": "COL_GAME_ACCOUNT_ID"
+            },
+            {
+              "slot": "0x1401febf0",
+              "string_address": "0x14019aa28",
+              "label": "COL_SERVICE_TYPE"
+            },
+            {
+              "slot": "0x1401febf8",
+              "string_address": "0x14019a9f8",
+              "label": "COL_ITEM_INSTANCE_ID"
+            },
+            {
+              "slot": "0x1401fec00",
+              "string_address": "0x14019a9d0",
+              "label": "COL_ITEM_DATA_ID"
+            },
+            {
+              "slot": "0x1401fec08",
+              "string_address": "0x14019a9a8",
+              "label": "COL_SERVICE_STATE"
+            }
+          ]
+        }
+      ],
+      "bind_parameter_count": 2,
+      "parameter_count_note": "Static BindParam call sites. Loops can execute a site more than once."
+    },
+    {
+      "function": "0x1400a59e0",
+      "string_address": "0x14019a940",
+      "sql": "{?=CALL dbo.usp_LoadCharacterCosmesisService(?)}",
+      "descriptor_arrays": [
+        {
+          "address": "0x1401fec10",
+          "labels": [
+            {
+              "slot": "0x1401fec10",
+              "string_address": "0x14019c8e8",
+              "label": "PARAM_RETURN"
+            },
+            {
+              "slot": "0x1401fec18",
+              "string_address": "0x14019a910",
+              "label": "PARAM_SERVICE_ID"
+            }
+          ]
+        },
+        {
+          "address": "0x1401fec20",
+          "labels": [
+            {
+              "slot": "0x1401fec20",
+              "string_address": "0x14019aa50",
+              "label": "COL_SERVICE_ID"
+            },
+            {
+              "slot": "0x1401fec28",
+              "string_address": "0x14019c2b0",
+              "label": "COL_PCID"
+            },
+            {
+              "slot": "0x1401fec30",
+              "string_address": "0x14019a8e0",
+              "label": "COL_NEW_APPEARANCE_DATA"
+            }
+          ]
+        }
+      ],
+      "bind_parameter_count": 2,
+      "parameter_count_note": "Static BindParam call sites. Loops can execute a site more than once."
+    },
+    {
+      "function": "0x1400a5e80",
+      "string_address": "0x14019a860",
+      "sql": "{?=CALL dbo.usp_TryCharacterCosmesisService(?, ?, ?, ?, ?, ?)}",
+      "descriptor_arrays": [
+        {
+          "address": "0x1401fec38",
+          "labels": [
+            {
+              "slot": "0x1401fec38",
+              "string_address": "0x14019c8e8",
+              "label": "PARAM_RETURN"
+            },
+            {
+              "slot": "0x1401fec40",
+              "string_address": "0x14019c8b8",
+              "label": "PARAM_GAME_ACCOUNT_ID"
+            },
+            {
+              "slot": "0x1401fec48",
+              "string_address": "0x14019bb88",
+              "label": "PARAM_PCID"
+            },
+            {
+              "slot": "0x1401fec50",
+              "string_address": "0x14019a828",
+              "label": "PARAM_ITEM_INSTANCE_ID"
+            },
+            {
+              "slot": "0x1401fec58",
+              "string_address": "0x14019a800",
+              "label": "PARAM_ITEM_DATA_ID"
+            },
+            {
+              "slot": "0x1401fec60",
+              "string_address": "0x14019a7c8",
+              "label": "PARAM_NEW_APPEARANCE_DATA"
+            },
+            {
+              "slot": "0x1401fec68",
+              "string_address": "0x14019a910",
+              "label": "PARAM_SERVICE_ID"
+            }
+          ]
+        }
+      ],
+      "bind_parameter_count": 7,
+      "parameter_count_note": "Static BindParam call sites. Loops can execute a site more than once."
+    },
+    {
+      "function": "0x1400a65c0",
+      "string_address": "0x14019a700",
+      "sql": "{?=CALL dbo.usp_UpdateLobbyServiceStateToItemConsumptionTryState_CharacterCosmesisService(?, ?)}",
+      "descriptor_arrays": [
+        {
+          "address": "0x1401fec70",
+          "labels": [
+            {
+              "slot": "0x1401fec70",
+              "string_address": "0x14019c8e8",
+              "label": "PARAM_RETURN"
+            },
+            {
+              "slot": "0x1401fec78",
+              "string_address": "0x14019a910",
+              "label": "PARAM_SERVICE_ID"
+            },
+            {
+              "slot": "0x1401fec80",
+              "string_address": "0x14019c8b8",
+              "label": "PARAM_GAME_ACCOUNT_ID"
+            }
+          ]
+        }
+      ],
+      "bind_parameter_count": 3,
+      "parameter_count_note": "Static BindParam call sites. Loops can execute a site more than once."
+    },
+    {
+      "function": "0x1400a6880",
+      "string_address": "0x14019a650",
+      "sql": "{?=CALL dbo.usp_UpdateLobbyServiceStateToTaskDoneState_CharacterCosmesisService(?, ?)}",
+      "descriptor_arrays": [
+        {
+          "address": "0x1401fec88",
+          "labels": [
+            {
+              "slot": "0x1401fec88",
+              "string_address": "0x14019c8e8",
+              "label": "PARAM_RETURN"
+            },
+            {
+              "slot": "0x1401fec90",
+              "string_address": "0x14019a910",
+              "label": "PARAM_SERVICE_ID"
+            },
+            {
+              "slot": "0x1401fec98",
+              "string_address": "0x14019c8b8",
+              "label": "PARAM_GAME_ACCOUNT_ID"
+            }
+          ]
+        }
+      ],
+      "bind_parameter_count": 3,
+      "parameter_count_note": "Static BindParam call sites. Loops can execute a site more than once."
+    },
+    {
+      "function": "0x1400a6b40",
+      "string_address": "0x14019a580",
+      "sql": "{?=CALL dbo.usp_UpdateLobbyServiceStateToItemConsumptionFinishState_CharacterCosmesisService(?, ?)}",
+      "descriptor_arrays": [
+        {
+          "address": "0x1401feca0",
+          "labels": [
+            {
+              "slot": "0x1401feca0",
+              "string_address": "0x14019c8e8",
+              "label": "PARAM_RETURN"
+            },
+            {
+              "slot": "0x1401feca8",
+              "string_address": "0x14019a910",
+              "label": "PARAM_SERVICE_ID"
+            },
+            {
+              "slot": "0x1401fecb0",
+              "string_address": "0x14019c8b8",
+              "label": "PARAM_GAME_ACCOUNT_ID"
+            }
+          ]
+        }
+      ],
+      "bind_parameter_count": 3,
+      "parameter_count_note": "Static BindParam call sites. Loops can execute a site more than once."
+    },
+    {
+      "function": "0x1400a6e00",
+      "string_address": "0x14019a510",
+      "sql": "{?=CALL dbo.usp_FinishCharacterCosmesisService(?, ?)}",
+      "descriptor_arrays": [
+        {
+          "address": "0x1401fecb8",
+          "labels": [
+            {
+              "slot": "0x1401fecb8",
+              "string_address": "0x14019c8e8",
+              "label": "PARAM_RETURN"
+            },
+            {
+              "slot": "0x1401fecc0",
+              "string_address": "0x14019a910",
+              "label": "PARAM_SERVICE_ID"
+            },
+            {
+              "slot": "0x1401fecc8",
+              "string_address": "0x14019c8b8",
+              "label": "PARAM_GAME_ACCOUNT_ID"
+            }
+          ]
+        }
+      ],
+      "bind_parameter_count": 3,
+      "parameter_count_note": "Static BindParam call sites. Loops can execute a site more than once."
+    },
+    {
+      "function": "0x1400a70c0",
+      "string_address": "0x14019a4a0",
+      "sql": "{?=CALL dbo.usp_LoadChangeCharacterSexService(?)}",
+      "descriptor_arrays": [
+        {
+          "address": "0x1401fecd0",
+          "labels": [
+            {
+              "slot": "0x1401fecd0",
+              "string_address": "0x14019c8e8",
+              "label": "PARAM_RETURN"
+            },
+            {
+              "slot": "0x1401fecd8",
+              "string_address": "0x14019a910",
+              "label": "PARAM_SERVICE_ID"
+            }
+          ]
+        },
+        {
+          "address": "0x1401fece0",
+          "labels": [
+            {
+              "slot": "0x1401fece0",
+              "string_address": "0x14019aa50",
+              "label": "COL_SERVICE_ID"
+            },
+            {
+              "slot": "0x1401fece8",
+              "string_address": "0x14019c2b0",
+              "label": "COL_PCID"
+            },
+            {
+              "slot": "0x1401fecf0",
+              "string_address": "0x14019a488",
+              "label": "COL_SEX"
+            },
+            {
+              "slot": "0x1401fecf8",
+              "string_address": "0x14019a8e0",
+              "label": "COL_NEW_APPEARANCE_DATA"
+            }
+          ]
+        }
+      ],
+      "bind_parameter_count": 2,
+      "parameter_count_note": "Static BindParam call sites. Loops can execute a site more than once."
+    },
+    {
+      "function": "0x1400a75d0",
+      "string_address": "0x14019a400",
+      "sql": "{?=CALL dbo.usp_TryChangeCharacterSexService(?, ?, ?, ?, ?, ?, ?)}",
+      "descriptor_arrays": [
+        {
+          "address": "0x1401fed00",
+          "labels": [
+            {
+              "slot": "0x1401fed00",
+              "string_address": "0x14019c8e8",
+              "label": "PARAM_RETURN"
+            },
+            {
+              "slot": "0x1401fed08",
+              "string_address": "0x14019c8b8",
+              "label": "PARAM_GAME_ACCOUNT_ID"
+            },
+            {
+              "slot": "0x1401fed10",
+              "string_address": "0x14019bb88",
+              "label": "PARAM_PCID"
+            },
+            {
+              "slot": "0x1401fed18",
+              "string_address": "0x14019a828",
+              "label": "PARAM_ITEM_INSTANCE_ID"
+            },
+            {
+              "slot": "0x1401fed20",
+              "string_address": "0x14019a800",
+              "label": "PARAM_ITEM_DATA_ID"
+            },
+            {
+              "slot": "0x1401fed28",
+              "string_address": "0x14019a3e8",
+              "label": "PARAM_SEX"
+            },
+            {
+              "slot": "0x1401fed30",
+              "string_address": "0x14019a7c8",
+              "label": "PARAM_NEW_APPEARANCE_DATA"
+            },
+            {
+              "slot": "0x1401fed38",
+              "string_address": "0x14019a910",
+              "label": "PARAM_SERVICE_ID"
+            }
+          ]
+        }
+      ],
+      "bind_parameter_count": 8,
+      "parameter_count_note": "Static BindParam call sites. Loops can execute a site more than once."
+    },
+    {
+      "function": "0x1400a7dd0",
+      "string_address": "0x14019a320",
+      "sql": "{?=CALL dbo.usp_UpdateLobbyServiceStateToItemConsumptionTryState_ChangeCharacterSexService(?, ?)}",
+      "descriptor_arrays": [
+        {
+          "address": "0x1401fed40",
+          "labels": [
+            {
+              "slot": "0x1401fed40",
+              "string_address": "0x14019c8e8",
+              "label": "PARAM_RETURN"
+            },
+            {
+              "slot": "0x1401fed48",
+              "string_address": "0x14019a910",
+              "label": "PARAM_SERVICE_ID"
+            },
+            {
+              "slot": "0x1401fed50",
+              "string_address": "0x14019c8b8",
+              "label": "PARAM_GAME_ACCOUNT_ID"
+            }
+          ]
+        }
+      ],
+      "bind_parameter_count": 3,
+      "parameter_count_note": "Static BindParam call sites. Loops can execute a site more than once."
+    },
+    {
+      "function": "0x1400a8090",
+      "string_address": "0x14019a270",
+      "sql": "{?=CALL dbo.usp_UpdateLobbyServiceStateToTaskDoneState_ChangeCharacterSexService(?, ?)}",
+      "descriptor_arrays": [
+        {
+          "address": "0x1401fed58",
+          "labels": [
+            {
+              "slot": "0x1401fed58",
+              "string_address": "0x14019c8e8",
+              "label": "PARAM_RETURN"
+            },
+            {
+              "slot": "0x1401fed60",
+              "string_address": "0x14019a910",
+              "label": "PARAM_SERVICE_ID"
+            },
+            {
+              "slot": "0x1401fed68",
+              "string_address": "0x14019c8b8",
+              "label": "PARAM_GAME_ACCOUNT_ID"
+            }
+          ]
+        }
+      ],
+      "bind_parameter_count": 3,
+      "parameter_count_note": "Static BindParam call sites. Loops can execute a site more than once."
+    },
+    {
+      "function": "0x1400a8350",
+      "string_address": "0x14019a1a0",
+      "sql": "{?=CALL dbo.usp_UpdateLobbyServiceStateToItemConsumptionFinishState_ChangeCharacterSexService(?, ?)}",
+      "descriptor_arrays": [
+        {
+          "address": "0x1401fed70",
+          "labels": [
+            {
+              "slot": "0x1401fed70",
+              "string_address": "0x14019c8e8",
+              "label": "PARAM_RETURN"
+            },
+            {
+              "slot": "0x1401fed78",
+              "string_address": "0x14019a910",
+              "label": "PARAM_SERVICE_ID"
+            },
+            {
+              "slot": "0x1401fed80",
+              "string_address": "0x14019c8b8",
+              "label": "PARAM_GAME_ACCOUNT_ID"
+            }
+          ]
+        }
+      ],
+      "bind_parameter_count": 3,
+      "parameter_count_note": "Static BindParam call sites. Loops can execute a site more than once."
+    },
+    {
+      "function": "0x1400a8610",
+      "string_address": "0x14019a130",
+      "sql": "{?=CALL dbo.usp_FinishChangeCharacterSexService(?, ?)}",
+      "descriptor_arrays": [
+        {
+          "address": "0x1401fed88",
+          "labels": [
+            {
+              "slot": "0x1401fed88",
+              "string_address": "0x14019c8e8",
+              "label": "PARAM_RETURN"
+            },
+            {
+              "slot": "0x1401fed90",
+              "string_address": "0x14019a910",
+              "label": "PARAM_SERVICE_ID"
+            },
+            {
+              "slot": "0x1401fed98",
+              "string_address": "0x14019c8b8",
+              "label": "PARAM_GAME_ACCOUNT_ID"
+            }
+          ]
+        }
+      ],
+      "bind_parameter_count": 3,
+      "parameter_count_note": "Static BindParam call sites. Loops can execute a site more than once."
+    },
+    {
+      "function": "0x1400a88d0",
+      "string_address": "0x14019a0c0",
+      "sql": "{?=CALL dbo.usp_LoadChangeCharacterRaceService(?)}",
+      "descriptor_arrays": [
+        {
+          "address": "0x1401feda0",
+          "labels": [
+            {
+              "slot": "0x1401feda0",
+              "string_address": "0x14019c8e8",
+              "label": "PARAM_RETURN"
+            },
+            {
+              "slot": "0x1401feda8",
+              "string_address": "0x14019a910",
+              "label": "PARAM_SERVICE_ID"
+            }
+          ]
+        },
+        {
+          "address": "0x1401fedb0",
+          "labels": [
+            {
+              "slot": "0x1401fedb0",
+              "string_address": "0x14019aa50",
+              "label": "COL_SERVICE_ID"
+            },
+            {
+              "slot": "0x1401fedb8",
+              "string_address": "0x14019c2b0",
+              "label": "COL_PCID"
+            },
+            {
+              "slot": "0x1401fedc0",
+              "string_address": "0x14019a0a0",
+              "label": "COL_RACE"
+            },
+            {
+              "slot": "0x1401fedc8",
+              "string_address": "0x14019a488",
+              "label": "COL_SEX"
+            },
+            {
+              "slot": "0x1401fedd0",
+              "string_address": "0x14019a8e0",
+              "label": "COL_NEW_APPEARANCE_DATA"
+            }
+          ]
+        }
+      ],
+      "bind_parameter_count": 2,
+      "parameter_count_note": "Static BindParam call sites. Loops can execute a site more than once."
+    },
+    {
+      "function": "0x1400a8e60",
+      "string_address": "0x14019a010",
+      "sql": "{?=CALL dbo.usp_TryChangeCharacterRaceService(?, ?, ?, ?, ?, ?, ?, ?)}",
+      "descriptor_arrays": [
+        {
+          "address": "0x1401fede0",
+          "labels": [
+            {
+              "slot": "0x1401fede0",
+              "string_address": "0x14019c8e8",
+              "label": "PARAM_RETURN"
+            },
+            {
+              "slot": "0x1401fede8",
+              "string_address": "0x14019c8b8",
+              "label": "PARAM_GAME_ACCOUNT_ID"
+            },
+            {
+              "slot": "0x1401fedf0",
+              "string_address": "0x14019bb88",
+              "label": "PARAM_PCID"
+            },
+            {
+              "slot": "0x1401fedf8",
+              "string_address": "0x14019a828",
+              "label": "PARAM_ITEM_INSTANCE_ID"
+            },
+            {
+              "slot": "0x1401fee00",
+              "string_address": "0x14019a800",
+              "label": "PARAM_ITEM_DATA_ID"
+            },
+            {
+              "slot": "0x1401fee08",
+              "string_address": "0x140199ff8",
+              "label": "PARAM_RACE"
+            },
+            {
+              "slot": "0x1401fee10",
+              "string_address": "0x14019a3e8",
+              "label": "PARAM_SEX"
+            },
+            {
+              "slot": "0x1401fee18",
+              "string_address": "0x14019a7c8",
+              "label": "PARAM_NEW_APPEARANCE_DATA"
+            },
+            {
+              "slot": "0x1401fee20",
+              "string_address": "0x14019a910",
+              "label": "PARAM_SERVICE_ID"
+            }
+          ]
+        }
+      ],
+      "bind_parameter_count": 9,
+      "parameter_count_note": "Static BindParam call sites. Loops can execute a site more than once."
+    },
+    {
+      "function": "0x1400a9720",
+      "string_address": "0x140199f30",
+      "sql": "{?=CALL dbo.usp_UpdateLobbyServiceStateToItemConsumptionTryState_ChangeCharacterRaceService(?, ?)}",
+      "descriptor_arrays": [
+        {
+          "address": "0x1401fee28",
+          "labels": [
+            {
+              "slot": "0x1401fee28",
+              "string_address": "0x14019c8e8",
+              "label": "PARAM_RETURN"
+            },
+            {
+              "slot": "0x1401fee30",
+              "string_address": "0x14019a910",
+              "label": "PARAM_SERVICE_ID"
+            },
+            {
+              "slot": "0x1401fee38",
+              "string_address": "0x14019c8b8",
+              "label": "PARAM_GAME_ACCOUNT_ID"
+            }
+          ]
+        }
+      ],
+      "bind_parameter_count": 3,
+      "parameter_count_note": "Static BindParam call sites. Loops can execute a site more than once."
+    },
+    {
+      "function": "0x1400a99e0",
+      "string_address": "0x140199e70",
+      "sql": "{?=CALL dbo.usp_UpdateLobbyServiceStateToTaskDoneState_ChangeCharacterRaceService(?, ?)}",
+      "descriptor_arrays": [
+        {
+          "address": "0x1401fee40",
+          "labels": [
+            {
+              "slot": "0x1401fee40",
+              "string_address": "0x14019c8e8",
+              "label": "PARAM_RETURN"
+            },
+            {
+              "slot": "0x1401fee48",
+              "string_address": "0x14019a910",
+              "label": "PARAM_SERVICE_ID"
+            },
+            {
+              "slot": "0x1401fee50",
+              "string_address": "0x14019c8b8",
+              "label": "PARAM_GAME_ACCOUNT_ID"
+            }
+          ]
+        }
+      ],
+      "bind_parameter_count": 3,
+      "parameter_count_note": "Static BindParam call sites. Loops can execute a site more than once."
+    },
+    {
+      "function": "0x1400a9ca0",
+      "string_address": "0x140199da0",
+      "sql": "{?=CALL dbo.usp_UpdateLobbyServiceStateToItemConsumptionFinishState_ChangeCharacterRaceService(?, ?)}",
+      "descriptor_arrays": [
+        {
+          "address": "0x1401fee58",
+          "labels": [
+            {
+              "slot": "0x1401fee58",
+              "string_address": "0x14019c8e8",
+              "label": "PARAM_RETURN"
+            },
+            {
+              "slot": "0x1401fee60",
+              "string_address": "0x14019a910",
+              "label": "PARAM_SERVICE_ID"
+            },
+            {
+              "slot": "0x1401fee68",
+              "string_address": "0x14019c8b8",
+              "label": "PARAM_GAME_ACCOUNT_ID"
+            }
+          ]
+        }
+      ],
+      "bind_parameter_count": 3,
+      "parameter_count_note": "Static BindParam call sites. Loops can execute a site more than once."
+    },
+    {
+      "function": "0x1400a9f60",
+      "string_address": "0x140199d30",
+      "sql": "{?=CALL dbo.usp_FinishChangeCharacterRaceService(?, ?)}",
+      "descriptor_arrays": [
+        {
+          "address": "0x1401fee70",
+          "labels": [
+            {
+              "slot": "0x1401fee70",
+              "string_address": "0x14019c8e8",
+              "label": "PARAM_RETURN"
+            },
+            {
+              "slot": "0x1401fee78",
+              "string_address": "0x14019a910",
+              "label": "PARAM_SERVICE_ID"
+            },
+            {
+              "slot": "0x1401fee80",
+              "string_address": "0x14019c8b8",
+              "label": "PARAM_GAME_ACCOUNT_ID"
+            }
+          ]
+        }
+      ],
+      "bind_parameter_count": 3,
+      "parameter_count_note": "Static BindParam call sites. Loops can execute a site more than once."
+    },
+    {
+      "function": "0x1400aa220",
+      "string_address": "0x140199cd0",
+      "sql": "{?=CALL dbo.usp_LoadCharacterRenameService(?)}",
+      "descriptor_arrays": [
+        {
+          "address": "0x1401fee88",
+          "labels": [
+            {
+              "slot": "0x1401fee88",
+              "string_address": "0x14019c8e8",
+              "label": "PARAM_RETURN"
+            },
+            {
+              "slot": "0x1401fee90",
+              "string_address": "0x14019a910",
+              "label": "PARAM_SERVICE_ID"
+            }
+          ]
+        },
+        {
+          "address": "0x1401fee98",
+          "labels": [
+            {
+              "slot": "0x1401fee98",
+              "string_address": "0x14019aa50",
+              "label": "COL_SERVICE_ID"
+            },
+            {
+              "slot": "0x1401feea0",
+              "string_address": "0x14019c2b0",
+              "label": "COL_PCID"
+            },
+            {
+              "slot": "0x1401feea8",
+              "string_address": "0x140199ca0",
+              "label": "COL_OLD_CHARACTER_NAME"
+            },
+            {
+              "slot": "0x1401feeb0",
+              "string_address": "0x140199c70",
+              "label": "COL_NEW_CHARACTER_NAME"
+            }
+          ]
+        }
+      ],
+      "bind_parameter_count": 2,
+      "parameter_count_note": "Static BindParam call sites. Loops can execute a site more than once."
+    },
+    {
+      "function": "0x1400aa680",
+      "string_address": "0x140199bf0",
+      "sql": "{?=CALL dbo.usp_TryCharacterRenameService(?, ?, ?, ?, ?, ?, ?)}",
+      "descriptor_arrays": [
+        {
+          "address": "0x1401feec0",
+          "labels": [
+            {
+              "slot": "0x1401feec0",
+              "string_address": "0x14019c8e8",
+              "label": "PARAM_RETURN"
+            },
+            {
+              "slot": "0x1401feec8",
+              "string_address": "0x14019c8b8",
+              "label": "PARAM_GAME_ACCOUNT_ID"
+            },
+            {
+              "slot": "0x1401feed0",
+              "string_address": "0x14019bb88",
+              "label": "PARAM_PCID"
+            },
+            {
+              "slot": "0x1401feed8",
+              "string_address": "0x14019a828",
+              "label": "PARAM_ITEM_INSTANCE_ID"
+            },
+            {
+              "slot": "0x1401feee0",
+              "string_address": "0x14019a800",
+              "label": "PARAM_ITEM_DATA_ID"
+            },
+            {
+              "slot": "0x1401feee8",
+              "string_address": "0x140199bb0",
+              "label": "PARAM_NEW_CHARACTER_NAME"
+            },
+            {
+              "slot": "0x1401feef0",
+              "string_address": "0x14019b220",
+              "label": "PARAM_REUSE_LIMIT_DURATION"
+            },
+            {
+              "slot": "0x1401feef8",
+              "string_address": "0x14019a910",
+              "label": "PARAM_SERVICE_ID"
+            }
+          ]
+        }
+      ],
+      "bind_parameter_count": 8,
+      "parameter_count_note": "Static BindParam call sites. Loops can execute a site more than once."
+    },
+    {
+      "function": "0x1400aae40",
+      "string_address": "0x140199af0",
+      "sql": "{?=CALL dbo.usp_UpdateLobbyServiceStateToItemConsumptionTryState_CharacterRenameService(?, ?)}",
+      "descriptor_arrays": [
+        {
+          "address": "0x1401fef00",
+          "labels": [
+            {
+              "slot": "0x1401fef00",
+              "string_address": "0x14019c8e8",
+              "label": "PARAM_RETURN"
+            },
+            {
+              "slot": "0x1401fef08",
+              "string_address": "0x14019a910",
+              "label": "PARAM_SERVICE_ID"
+            },
+            {
+              "slot": "0x1401fef10",
+              "string_address": "0x14019c8b8",
+              "label": "PARAM_GAME_ACCOUNT_ID"
+            }
+          ]
+        }
+      ],
+      "bind_parameter_count": 3,
+      "parameter_count_note": "Static BindParam call sites. Loops can execute a site more than once."
+    },
+    {
+      "function": "0x1400ab370",
+      "string_address": "0x140199a40",
+      "sql": "{?=CALL dbo.usp_UpdateLobbyServiceStateToTaskDoneState_CharacterRenameService(?, ?)}",
+      "descriptor_arrays": [
+        {
+          "address": "0x1401fef18",
+          "labels": [
+            {
+              "slot": "0x1401fef18",
+              "string_address": "0x14019c8e8",
+              "label": "PARAM_RETURN"
+            },
+            {
+              "slot": "0x1401fef20",
+              "string_address": "0x14019a910",
+              "label": "PARAM_SERVICE_ID"
+            },
+            {
+              "slot": "0x1401fef28",
+              "string_address": "0x14019c8b8",
+              "label": "PARAM_GAME_ACCOUNT_ID"
+            }
+          ]
+        }
+      ],
+      "bind_parameter_count": 3,
+      "parameter_count_note": "Static BindParam call sites. Loops can execute a site more than once."
+    },
+    {
+      "function": "0x1400ab8a0",
+      "string_address": "0x140199970",
+      "sql": "{?=CALL dbo.usp_UpdateLobbyServiceStateToItemConsumptionFinishState_CharacterRenameService(?, ?)}",
+      "descriptor_arrays": [
+        {
+          "address": "0x1401fef30",
+          "labels": [
+            {
+              "slot": "0x1401fef30",
+              "string_address": "0x14019c8e8",
+              "label": "PARAM_RETURN"
+            },
+            {
+              "slot": "0x1401fef38",
+              "string_address": "0x14019a910",
+              "label": "PARAM_SERVICE_ID"
+            },
+            {
+              "slot": "0x1401fef40",
+              "string_address": "0x14019c8b8",
+              "label": "PARAM_GAME_ACCOUNT_ID"
+            }
+          ]
+        }
+      ],
+      "bind_parameter_count": 3,
+      "parameter_count_note": "Static BindParam call sites. Loops can execute a site more than once."
+    },
+    {
+      "function": "0x1400abdd0",
+      "string_address": "0x140199900",
+      "sql": "{?=CALL dbo.usp_FinishCharacterRenameService(?, ?)}",
+      "descriptor_arrays": [
+        {
+          "address": "0x1401fef48",
+          "labels": [
+            {
+              "slot": "0x1401fef48",
+              "string_address": "0x14019c8e8",
+              "label": "PARAM_RETURN"
+            },
+            {
+              "slot": "0x1401fef50",
+              "string_address": "0x14019a910",
+              "label": "PARAM_SERVICE_ID"
+            },
+            {
+              "slot": "0x1401fef58",
+              "string_address": "0x14019c8b8",
+              "label": "PARAM_GAME_ACCOUNT_ID"
+            }
+          ]
+        }
+      ],
+      "bind_parameter_count": 3,
+      "parameter_count_note": "Static BindParam call sites. Loops can execute a site more than once."
+    },
+    {
+      "function": "0x1400ac090",
+      "string_address": "0x1401998a0",
+      "sql": "{?=CALL dbo.usp_LoadSlotAdditionService(?)}",
+      "descriptor_arrays": [
+        {
+          "address": "0x1401fef60",
+          "labels": [
+            {
+              "slot": "0x1401fef60",
+              "string_address": "0x14019c8e8",
+              "label": "PARAM_RETURN"
+            },
+            {
+              "slot": "0x1401fef68",
+              "string_address": "0x14019a910",
+              "label": "PARAM_SERVICE_ID"
+            }
+          ]
+        },
+        {
+          "address": "0x1401fef70",
+          "labels": [
+            {
+              "slot": "0x1401fef70",
+              "string_address": "0x14019aa50",
+              "label": "COL_SERVICE_ID"
+            },
+            {
+              "slot": "0x1401fef78",
+              "string_address": "0x140199878",
+              "label": "COL_ADDED_SLOT_ID"
+            }
+          ]
+        }
+      ],
+      "bind_parameter_count": 2,
+      "parameter_count_note": "Static BindParam call sites. Loops can execute a site more than once."
+    },
+    {
+      "function": "0x1400ac440",
+      "string_address": "0x140199810",
+      "sql": "{?=CALL dbo.usp_TrySlotAdditionService(?, ?, ?, ?)}",
+      "descriptor_arrays": [
+        {
+          "address": "0x1401fef80",
+          "labels": [
+            {
+              "slot": "0x1401fef80",
+              "string_address": "0x14019c8e8",
+              "label": "PARAM_RETURN"
+            },
+            {
+              "slot": "0x1401fef88",
+              "string_address": "0x14019c8b8",
+              "label": "PARAM_GAME_ACCOUNT_ID"
+            },
+            {
+              "slot": "0x1401fef90",
+              "string_address": "0x14019a828",
+              "label": "PARAM_ITEM_INSTANCE_ID"
+            },
+            {
+              "slot": "0x1401fef98",
+              "string_address": "0x14019a800",
+              "label": "PARAM_ITEM_DATA_ID"
+            },
+            {
+              "slot": "0x1401fefa0",
+              "string_address": "0x14019a910",
+              "label": "PARAM_SERVICE_ID"
+            }
+          ]
+        }
+      ],
+      "bind_parameter_count": 5,
+      "parameter_count_note": "Static BindParam call sites. Loops can execute a site more than once."
+    },
+    {
+      "function": "0x1400ac9e0",
+      "string_address": "0x140199750",
+      "sql": "{?=CALL dbo.usp_UpdateLobbyServiceStateToItemConsumptionTryState_SlotAdditionService(?, ?)}",
+      "descriptor_arrays": [
+        {
+          "address": "0x1401fefa8",
+          "labels": [
+            {
+              "slot": "0x1401fefa8",
+              "string_address": "0x14019c8e8",
+              "label": "PARAM_RETURN"
+            },
+            {
+              "slot": "0x1401fefb0",
+              "string_address": "0x14019a910",
+              "label": "PARAM_SERVICE_ID"
+            },
+            {
+              "slot": "0x1401fefb8",
+              "string_address": "0x14019c8b8",
+              "label": "PARAM_GAME_ACCOUNT_ID"
+            }
+          ]
+        }
+      ],
+      "bind_parameter_count": 3,
+      "parameter_count_note": "Static BindParam call sites. Loops can execute a site more than once."
+    },
+    {
+      "function": "0x1400acf10",
+      "string_address": "0x1401996a0",
+      "sql": "{?=CALL dbo.usp_UpdateLobbyServiceStateToTaskDoneState_SlotAdditionService(?, ?, ?)}",
+      "descriptor_arrays": [
+        {
+          "address": "0x1401fefc0",
+          "labels": [
+            {
+              "slot": "0x1401fefc0",
+              "string_address": "0x14019c8e8",
+              "label": "PARAM_RETURN"
+            },
+            {
+              "slot": "0x1401fefc8",
+              "string_address": "0x14019a910",
+              "label": "PARAM_SERVICE_ID"
+            },
+            {
+              "slot": "0x1401fefd0",
+              "string_address": "0x14019c8b8",
+              "label": "PARAM_GAME_ACCOUNT_ID"
+            },
+            {
+              "slot": "0x1401fefd8",
+              "string_address": "0x140199670",
+              "label": "PARAM_ADDED_SLOT_ID"
+            }
+          ]
+        }
+      ],
+      "bind_parameter_count": 4,
+      "parameter_count_note": "Static BindParam call sites. Loops can execute a site more than once."
+    },
+    {
+      "function": "0x1400ad770",
+      "string_address": "0x1401995b0",
+      "sql": "{?=CALL dbo.usp_UpdateLobbyServiceStateToItemConsumptionFinishState_SlotAdditionService(?, ?)}",
+      "descriptor_arrays": [
+        {
+          "address": "0x1401fefe0",
+          "labels": [
+            {
+              "slot": "0x1401fefe0",
+              "string_address": "0x14019c8e8",
+              "label": "PARAM_RETURN"
+            },
+            {
+              "slot": "0x1401fefe8",
+              "string_address": "0x14019a910",
+              "label": "PARAM_SERVICE_ID"
+            },
+            {
+              "slot": "0x1401feff0",
+              "string_address": "0x14019c8b8",
+              "label": "PARAM_GAME_ACCOUNT_ID"
+            }
+          ]
+        }
+      ],
+      "bind_parameter_count": 3,
+      "parameter_count_note": "Static BindParam call sites. Loops can execute a site more than once."
+    },
+    {
+      "function": "0x1400adca0",
+      "string_address": "0x140199540",
+      "sql": "{?=CALL dbo.usp_FinishSlotAdditionService(?, ?)}",
+      "descriptor_arrays": [
+        {
+          "address": "0x1401feff8",
+          "labels": [
+            {
+              "slot": "0x1401feff8",
+              "string_address": "0x14019c8e8",
+              "label": "PARAM_RETURN"
+            },
+            {
+              "slot": "0x1401ff000",
+              "string_address": "0x14019a910",
+              "label": "PARAM_SERVICE_ID"
+            },
+            {
+              "slot": "0x1401ff008",
+              "string_address": "0x14019c8b8",
+              "label": "PARAM_GAME_ACCOUNT_ID"
+            }
+          ]
+        }
+      ],
+      "bind_parameter_count": 3,
+      "parameter_count_note": "Static BindParam call sites. Loops can execute a site more than once."
+    },
+    {
+      "function": "0x1400adf60",
+      "string_address": "0x1401994c0",
+      "sql": "{?=CALL dbo.usp_WriteUserRenameServiceLog(?, ?, ?, ?, ?)}",
+      "descriptor_arrays": [
+        {
+          "address": "0x1401ff010",
+          "labels": [
+            {
+              "slot": "0x1401ff010",
+              "string_address": "0x14019c8e8",
+              "label": "PARAM_RETURN"
+            },
+            {
+              "slot": "0x1401ff018",
+              "string_address": "0x14019c8b8",
+              "label": "PARAM_GAME_ACCOUNT_ID"
+            },
+            {
+              "slot": "0x1401ff020",
+              "string_address": "0x14019a828",
+              "label": "PARAM_ITEM_INSTANCE_ID"
+            },
+            {
+              "slot": "0x1401ff028",
+              "string_address": "0x14019a800",
+              "label": "PARAM_ITEM_DATA_ID"
+            },
+            {
+              "slot": "0x1401ff030",
+              "string_address": "0x140199490",
+              "label": "PARAM_OLD_USER_NAME"
+            },
+            {
+              "slot": "0x1401ff038",
+              "string_address": "0x140199468",
+              "label": "PARAM_NEW_USER_NAME"
+            }
+          ]
+        }
+      ],
+      "bind_parameter_count": 6,
+      "parameter_count_note": "Static BindParam call sites. Loops can execute a site more than once."
+    },
+    {
+      "function": "0x1400ae650",
+      "string_address": "0x1401993e0",
+      "sql": "{?=CALL dbo.usp_TryExtendJumpingCharacterCreationQuota(?, ?, ?, ?)}",
+      "descriptor_arrays": [
+        {
+          "address": "0x1401ff040",
+          "labels": [
+            {
+              "slot": "0x1401ff040",
+              "string_address": "0x14019c8e8",
+              "label": "PARAM_RETURN"
+            },
+            {
+              "slot": "0x1401ff048",
+              "string_address": "0x14019c8b8",
+              "label": "PARAM_GAME_ACCOUNT_ID"
+            },
+            {
+              "slot": "0x1401ff050",
+              "string_address": "0x14019a828",
+              "label": "PARAM_ITEM_INSTANCE_ID"
+            },
+            {
+              "slot": "0x1401ff058",
+              "string_address": "0x14019a800",
+              "label": "PARAM_ITEM_DATA_ID"
+            },
+            {
+              "slot": "0x1401ff060",
+              "string_address": "0x14019a910",
+              "label": "PARAM_SERVICE_ID"
+            }
+          ]
+        }
+      ],
+      "bind_parameter_count": 5,
+      "parameter_count_note": "Static BindParam call sites. Loops can execute a site more than once."
+    },
+    {
+      "function": "0x1400aebf0",
+      "string_address": "0x140199300",
+      "sql": "{?=CALL dbo.usp_UpdateLobbyServiceStateToItemConsumptionTryState_ExtendJumpingCharacterCreationQuota(?, ?)}",
+      "descriptor_arrays": [
+        {
+          "address": "0x1401ff068",
+          "labels": [
+            {
+              "slot": "0x1401ff068",
+              "string_address": "0x14019c8e8",
+              "label": "PARAM_RETURN"
+            },
+            {
+              "slot": "0x1401ff070",
+              "string_address": "0x14019a910",
+              "label": "PARAM_SERVICE_ID"
+            },
+            {
+              "slot": "0x1401ff078",
+              "string_address": "0x14019c8b8",
+              "label": "PARAM_GAME_ACCOUNT_ID"
+            }
+          ]
+        }
+      ],
+      "bind_parameter_count": 3,
+      "parameter_count_note": "Static BindParam call sites. Loops can execute a site more than once."
+    },
+    {
+      "function": "0x1400af120",
+      "string_address": "0x140199230",
+      "sql": "{?=CALL dbo.usp_UpdateLobbyServiceStateToTaskDoneState_ExtendJumpingCharacterCreationQuota(?, ?)}",
+      "descriptor_arrays": [
+        {
+          "address": "0x1401ff080",
+          "labels": [
+            {
+              "slot": "0x1401ff080",
+              "string_address": "0x14019c8e8",
+              "label": "PARAM_RETURN"
+            },
+            {
+              "slot": "0x1401ff088",
+              "string_address": "0x14019a910",
+              "label": "PARAM_SERVICE_ID"
+            },
+            {
+              "slot": "0x1401ff090",
+              "string_address": "0x14019c8b8",
+              "label": "PARAM_GAME_ACCOUNT_ID"
+            }
+          ]
+        }
+      ],
+      "bind_parameter_count": 3,
+      "parameter_count_note": "Static BindParam call sites. Loops can execute a site more than once."
+    },
+    {
+      "function": "0x1400af650",
+      "string_address": "0x140199150",
+      "sql": "{?=CALL dbo.usp_UpdateLobbyServiceStateToItemConsumptionFinishState_ExtendJumpingCharacterCreationQuota(?, ?)}",
+      "descriptor_arrays": [
+        {
+          "address": "0x1401ff098",
+          "labels": [
+            {
+              "slot": "0x1401ff098",
+              "string_address": "0x14019c8e8",
+              "label": "PARAM_RETURN"
+            },
+            {
+              "slot": "0x1401ff0a0",
+              "string_address": "0x14019a910",
+              "label": "PARAM_SERVICE_ID"
+            },
+            {
+              "slot": "0x1401ff0a8",
+              "string_address": "0x14019c8b8",
+              "label": "PARAM_GAME_ACCOUNT_ID"
+            }
+          ]
+        }
+      ],
+      "bind_parameter_count": 3,
+      "parameter_count_note": "Static BindParam call sites. Loops can execute a site more than once."
+    },
+    {
+      "function": "0x1400afb80",
+      "string_address": "0x1401990c0",
+      "sql": "{?=CALL dbo.usp_FinishExtendJumpingCharacterCreationQuota(?, ?)}",
+      "descriptor_arrays": [
+        {
+          "address": "0x1401ff0b0",
+          "labels": [
+            {
+              "slot": "0x1401ff0b0",
+              "string_address": "0x14019c8e8",
+              "label": "PARAM_RETURN"
+            },
+            {
+              "slot": "0x1401ff0b8",
+              "string_address": "0x14019a910",
+              "label": "PARAM_SERVICE_ID"
+            },
+            {
+              "slot": "0x1401ff0c0",
+              "string_address": "0x14019c8b8",
+              "label": "PARAM_GAME_ACCOUNT_ID"
+            }
+          ]
+        }
+      ],
+      "bind_parameter_count": 3,
+      "parameter_count_note": "Static BindParam call sites. Loops can execute a site more than once."
+    },
+    {
+      "function": "0x1400afe40",
+      "string_address": "0x140199050",
+      "sql": "{?=CALL dbo.usp_TryAuctionEscrow(?, ?, ?, ?, ?, ?)}",
+      "descriptor_arrays": [
+        {
+          "address": "0x1401ff0c8",
+          "labels": [
+            {
+              "slot": "0x1401ff0c8",
+              "string_address": "0x14019c8e8",
+              "label": "PARAM_RETURN"
+            },
+            {
+              "slot": "0x1401ff0d0",
+              "string_address": "0x140199020",
+              "label": "PARAM_REQUEST_ID"
+            },
+            {
+              "slot": "0x1401ff0d8",
+              "string_address": "0x140198ff8",
+              "label": "PARAM_ACCOUNT_ID"
+            },
+            {
+              "slot": "0x1401ff0e0",
+              "string_address": "0x14019bbd0",
+              "label": "PARAM_WORLD_ID"
+            },
+            {
+              "slot": "0x1401ff0e8",
+              "string_address": "0x14019bb88",
+              "label": "PARAM_PCID"
+            },
+            {
+              "slot": "0x1401ff0f0",
+              "string_address": "0x140198fc8",
+              "label": "PARAM_GAME_MONEY_AMOUNT"
+            },
+            {
+              "slot": "0x1401ff0f8",
+              "string_address": "0x140198fa8",
+              "label": "PARAM_ESCROW_ID"
+            }
+          ]
+        }
+      ],
+      "bind_parameter_count": 7,
+      "parameter_count_note": "Static BindParam call sites. Loops can execute a site more than once."
+    },
+    {
+      "function": "0x1400b0680",
+      "string_address": "0x140198f50",
+      "sql": "{?=CALL dbo.usp_CancelAuctionEscrow(?, ?)}",
+      "descriptor_arrays": [
+        {
+          "address": "0x1401ff100",
+          "labels": [
+            {
+              "slot": "0x1401ff100",
+              "string_address": "0x14019c8e8",
+              "label": "PARAM_RETURN"
+            },
+            {
+              "slot": "0x1401ff108",
+              "string_address": "0x140198fa8",
+              "label": "PARAM_ESCROW_ID"
+            },
+            {
+              "slot": "0x1401ff110",
+              "string_address": "0x14019bb88",
+              "label": "PARAM_PCID"
+            }
+          ]
+        }
+      ],
+      "bind_parameter_count": 3,
+      "parameter_count_note": "Static BindParam call sites. Loops can execute a site more than once."
+    },
+    {
+      "function": "0x1400b0950",
+      "string_address": "0x140198ef0",
+      "sql": "{?=CALL dbo.usp_FinishAuctionEscrow(?, ?)}",
+      "descriptor_arrays": [
+        {
+          "address": "0x1401ff118",
+          "labels": [
+            {
+              "slot": "0x1401ff118",
+              "string_address": "0x14019c8e8",
+              "label": "PARAM_RETURN"
+            },
+            {
+              "slot": "0x1401ff120",
+              "string_address": "0x140198fa8",
+              "label": "PARAM_ESCROW_ID"
+            },
+            {
+              "slot": "0x1401ff128",
+              "string_address": "0x14019bb88",
+              "label": "PARAM_PCID"
+            }
+          ]
+        }
+      ],
+      "bind_parameter_count": 3,
+      "parameter_count_note": "Static BindParam call sites. Loops can execute a site more than once."
+    },
+    {
+      "function": "0x1400b0c20",
+      "string_address": "0x140198e60",
+      "sql": "{?=CALL dbo.usp_TryAuctionEscrowRollback(?, ?, ?, ?, ?, ?, ?, ?)}",
+      "descriptor_arrays": [
+        {
+          "address": "0x1401ff130",
+          "labels": [
+            {
+              "slot": "0x1401ff130",
+              "string_address": "0x14019c8e8",
+              "label": "PARAM_RETURN"
+            },
+            {
+              "slot": "0x1401ff138",
+              "string_address": "0x140199020",
+              "label": "PARAM_REQUEST_ID"
+            },
+            {
+              "slot": "0x1401ff140",
+              "string_address": "0x140198fa8",
+              "label": "PARAM_ESCROW_ID"
+            },
+            {
+              "slot": "0x1401ff148",
+              "string_address": "0x140198e20",
+              "label": "PARAM_RECIPIENT_ACCOUNT_ID"
+            },
+            {
+              "slot": "0x1401ff150",
+              "string_address": "0x140198df8",
+              "label": "PARAM_RECIPIENT_WID"
+            },
+            {
+              "slot": "0x1401ff158",
+              "string_address": "0x140198dc8",
+              "label": "PARAM_RECIPIENT_PCID"
+            },
+            {
+              "slot": "0x1401ff160",
+              "string_address": "0x140198d98",
+              "label": "PARAM_RECIPIENT_NAME"
+            },
+            {
+              "slot": "0x1401ff168",
+              "string_address": "0x140198fc8",
+              "label": "PARAM_GAME_MONEY_AMOUNT"
+            },
+            {
+              "slot": "0x1401ff170",
+              "string_address": "0x140198d70",
+              "label": "PARAM_DELIVERY_ID"
+            }
+          ]
+        }
+      ],
+      "bind_parameter_count": 9,
+      "parameter_count_note": "Static BindParam call sites. Loops can execute a site more than once."
+    },
+    {
+      "function": "0x1400b1240",
+      "string_address": "0x140198d00",
+      "sql": "{?=CALL dbo.usp_FinishAuctionEscrowRollback(?, ?, ?)}",
+      "descriptor_arrays": [
+        {
+          "address": "0x1401ff178",
+          "labels": [
+            {
+              "slot": "0x1401ff178",
+              "string_address": "0x14019c8e8",
+              "label": "PARAM_RETURN"
+            },
+            {
+              "slot": "0x1401ff180",
+              "string_address": "0x140198fa8",
+              "label": "PARAM_ESCROW_ID"
+            },
+            {
+              "slot": "0x1401ff188",
+              "string_address": "0x140198d70",
+              "label": "PARAM_DELIVERY_ID"
+            },
+            {
+              "slot": "0x1401ff190",
+              "string_address": "0x140198cd8",
+              "label": "PARAM_POST_ID"
+            }
+          ]
+        }
+      ],
+      "bind_parameter_count": 4,
+      "parameter_count_note": "Static BindParam call sites. Loops can execute a site more than once."
+    },
+    {
+      "function": "0x1400b1560",
+      "string_address": "0x140198c50",
+      "sql": "{?=CALL dbo.usp_TryAuctionResultDelivery(?, ?, ?, ?, ?, ?, ?, ?)}",
+      "descriptor_arrays": [
+        {
+          "address": "0x1401ff1a0",
+          "labels": [
+            {
+              "slot": "0x1401ff1a0",
+              "string_address": "0x14019c8e8",
+              "label": "PARAM_RETURN"
+            },
+            {
+              "slot": "0x1401ff1a8",
+              "string_address": "0x140199020",
+              "label": "PARAM_REQUEST_ID"
+            },
+            {
+              "slot": "0x1401ff1b0",
+              "string_address": "0x140198c28",
+              "label": "PARAM_AUCTION_ID"
+            },
+            {
+              "slot": "0x1401ff1b8",
+              "string_address": "0x140198e20",
+              "label": "PARAM_RECIPIENT_ACCOUNT_ID"
+            },
+            {
+              "slot": "0x1401ff1c0",
+              "string_address": "0x140198df8",
+              "label": "PARAM_RECIPIENT_WID"
+            },
+            {
+              "slot": "0x1401ff1c8",
+              "string_address": "0x140198dc8",
+              "label": "PARAM_RECIPIENT_PCID"
+            },
+            {
+              "slot": "0x1401ff1d0",
+              "string_address": "0x140198d70",
+              "label": "PARAM_DELIVERY_ID"
+            },
+            {
+              "slot": "0x1401ff1d8",
+              "string_address": "0x140198d98",
+              "label": "PARAM_RECIPIENT_NAME"
+            },
+            {
+              "slot": "0x1401ff1e0",
+              "string_address": "0x140198cd8",
+              "label": "PARAM_POST_ID"
+            }
+          ]
+        }
+      ],
+      "bind_parameter_count": 9,
+      "parameter_count_note": "Static BindParam call sites. Loops can execute a site more than once."
+    },
+    {
+      "function": "0x1400b2000",
+      "string_address": "0x140198bc0",
+      "sql": "{?=CALL dbo.usp_FinishAuctionResultDelivery(?, ?)}",
+      "descriptor_arrays": [
+        {
+          "address": "0x1401ff1e8",
+          "labels": [
+            {
+              "slot": "0x1401ff1e8",
+              "string_address": "0x14019c8e8",
+              "label": "PARAM_RETURN"
+            },
+            {
+              "slot": "0x1401ff1f0",
+              "string_address": "0x140198d70",
+              "label": "PARAM_DELIVERY_ID"
+            },
+            {
+              "slot": "0x1401ff1f8",
+              "string_address": "0x140198cd8",
+              "label": "PARAM_POST_ID"
+            }
+          ]
+        }
+      ],
+      "bind_parameter_count": 3,
+      "parameter_count_note": "Static BindParam call sites. Loops can execute a site more than once."
+    },
+    {
+      "function": "0x1400b2fc0",
+      "string_address": "0x140198860",
+      "sql": "{?=CALL dbo.usp_LoadMileagePolicy(?)}",
+      "descriptor_arrays": [
+        {
+          "address": "0x1401ff280",
+          "labels": []
+        },
+        {
+          "address": "0x1401ff290",
+          "labels": []
+        }
+      ],
+      "bind_parameter_count": 2,
+      "parameter_count_note": "Static BindParam call sites. Loops can execute a site more than once."
+    },
+    {
+      "function": "0x1400b38b0",
+      "string_address": "0x140198760",
+      "sql": "{?=CALL dbo.usp_LoadMileageFeverTime(?, ?)}",
+      "descriptor_arrays": [
+        {
+          "address": "0x1401ff2b8",
+          "labels": []
+        },
+        {
+          "address": "0x1401ff2d0",
+          "labels": []
+        }
+      ],
+      "bind_parameter_count": 3,
+      "parameter_count_note": "Static BindParam call sites. Loops can execute a site more than once."
+    },
+    {
+      "function": "0x1400b45c0",
+      "string_address": "0x140198530",
+      "sql": "{?=CALL dbo.usp_LoadMileageAccumulatedTimePerDay(?,?, ?, ?, ?, ?, ?, ?, ?, ?, ?)}",
+      "descriptor_arrays": [
+        {
+          "address": "0x1401ff320",
+          "labels": []
+        },
+        {
+          "address": "0x1401ff380",
+          "labels": []
+        }
+      ],
+      "bind_parameter_count": 3,
+      "parameter_count_note": "Static BindParam call sites. Loops can execute a site more than once."
+    },
+    {
+      "function": "0x1400b4e40",
+      "string_address": "0x140198330",
+      "sql": "{?=CALL dbo.usp_LoadRetryMileageDeposit(?, ?, ?, ?)}",
+      "descriptor_arrays": [
+        {
+          "address": "0x1401ff3a0",
+          "labels": []
+        },
+        {
+          "address": "0x1401ff3d0",
+          "labels": []
+        }
+      ],
+      "bind_parameter_count": 5,
+      "parameter_count_note": "Static BindParam call sites. Loops can execute a site more than once."
+    },
+    {
+      "function": "0x1400b5ba0",
+      "string_address": "0x140198190",
+      "sql": "{?=CALL dbo.usp_RetrieveMileageDeposit(?)}",
+      "descriptor_arrays": [
+        {
+          "address": "0x1401ff410",
+          "labels": []
+        },
+        {
+          "address": "0x1401ff420",
+          "labels": []
+        }
+      ],
+      "bind_parameter_count": 2,
+      "parameter_count_note": "Static BindParam call sites. Loops can execute a site more than once."
+    },
+    {
+      "function": "0x1400b62d0",
+      "string_address": "0x140198110",
+      "sql": "{?=CALL dbo.usp_TryMileageDeposit(?, ?, ?, ?, ?, ?, ?, ?)}",
+      "descriptor_arrays": [
+        {
+          "address": "0x1401ff460",
+          "labels": []
+        }
+      ],
+      "bind_parameter_count": 9,
+      "parameter_count_note": "Static BindParam call sites. Loops can execute a site more than once."
+    },
+    {
+      "function": "0x1400b6bc0",
+      "string_address": "0x1401980b0",
+      "sql": "{?=CALL dbo.usp_FinishMileageDeposit(?, ?)}",
+      "descriptor_arrays": [
+        {
+          "address": "0x1401ff4a8",
+          "labels": []
+        }
+      ],
+      "bind_parameter_count": 3,
+      "parameter_count_note": "Static BindParam call sites. Loops can execute a site more than once."
+    }
+  ]
+}

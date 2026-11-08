@@ -1,0 +1,3603 @@
+{
+  "target_build": "0.0.307",
+  "guide_build": "0.0.348",
+  "confidence_rules": {
+    "exact": "Two-build body check, or command slot plus independent unique string anchors. This is identity confidence, not full behavioral equivalence.",
+    "likely": "One evidence path, or command-slot alignment without an independent anchor."
+  },
+  "exclusions": "No anti-cheat, licence-check or BNSHelper mappings.",
+  "entries": [
+    {
+      "target": "0x1400016b0",
+      "guide": "0x1400016d0",
+      "name": "FragmentPacketConcatenater::Copy",
+      "confidence": "likely",
+      "status": "❓",
+      "evidence": {
+        "unique_shared_string_hashes": 1
+      },
+      "method": "Unique shared string-reference anchors; body comparison pending."
+    },
+    {
+      "target": "0x140001ed0",
+      "guide": "0x140002d60",
+      "name": "NPTransactionRegistry::Find",
+      "confidence": "likely",
+      "status": "❓",
+      "evidence": {
+        "unique_shared_string_hashes": 1
+      },
+      "method": "Unique shared string-reference anchors; body comparison pending."
+    },
+    {
+      "target": "0x1400025d0",
+      "guide": "0x140003460",
+      "name": "NPChannel::Setup",
+      "confidence": "likely",
+      "status": "❓",
+      "evidence": {
+        "unique_shared_string_hashes": 2
+      },
+      "method": "Unique shared string-reference anchors; body comparison pending."
+    },
+    {
+      "target": "0x1400063c0",
+      "guide": "0x140007090",
+      "name": "AccountInventoryChannel::SendRetrieveLobbyServiceItemListReq",
+      "confidence": "likely",
+      "status": "❓",
+      "evidence": {
+        "unique_shared_string_hashes": 1
+      },
+      "method": "Unique shared string-reference anchors; body comparison pending."
+    },
+    {
+      "target": "0x140006610",
+      "guide": "0x1400072f0",
+      "name": "AccountInventoryChannel::SendRetrieveSingleWarehouseItemReq",
+      "confidence": "likely",
+      "status": "❓",
+      "evidence": {
+        "unique_shared_string_hashes": 1
+      },
+      "method": "Unique shared string-reference anchors; body comparison pending."
+    },
+    {
+      "target": "0x140006b10",
+      "guide": "0x140007810",
+      "name": "AccountInventoryChannel::SendFinishWarehouseItemConsumptionReq",
+      "confidence": "likely",
+      "status": "❓",
+      "evidence": {
+        "unique_shared_string_hashes": 1
+      },
+      "method": "Unique shared string-reference anchors; body comparison pending."
+    },
+    {
+      "target": "0x140007a90",
+      "guide": "0x1400087d0",
+      "name": "HandleAccountInventoryLobby_HelloOk",
+      "confidence": "likely",
+      "status": "❓",
+      "evidence": {
+        "target_table": "0x1401fa4c0",
+        "target_slot": "0x1401fa4e0",
+        "guide_table": "0x140203520",
+        "command": 2,
+        "shared_string_anchor": false
+      },
+      "method": "Same command position; exact also has independent unique string anchors. Flag bytes checked in target."
+    },
+    {
+      "target": "0x140007ae0",
+      "guide": "0x140008820",
+      "name": "HandleAccountInventoryLobby_HelloFail",
+      "confidence": "likely",
+      "status": "❓",
+      "evidence": {
+        "target_table": "0x1401fa4c0",
+        "target_slot": "0x1401fa4f0",
+        "guide_table": "0x140203520",
+        "command": 3,
+        "shared_string_anchor": false
+      },
+      "method": "Same command position; exact also has independent unique string anchors. Flag bytes checked in target."
+    },
+    {
+      "target": "0x140007b70",
+      "guide": "0x1400088b0",
+      "name": "HandleAccountInventoryLobby_GetGoodsCountOk",
+      "confidence": "likely",
+      "status": "❓",
+      "evidence": {
+        "target_table": "0x1401fa4c0",
+        "target_slot": "0x1401fa510",
+        "guide_table": "0x140203520",
+        "command": 5,
+        "shared_string_anchor": false
+      },
+      "method": "Same command position; exact also has independent unique string anchors. Flag bytes checked in target."
+    },
+    {
+      "target": "0x140007d90",
+      "guide": "0x140008ad0",
+      "name": "HandleAccountInventoryLobby_GetGoodsCountFail",
+      "confidence": "likely",
+      "status": "❓",
+      "evidence": {
+        "target_table": "0x1401fa4c0",
+        "target_slot": "0x1401fa520",
+        "guide_table": "0x140203520",
+        "command": 6,
+        "shared_string_anchor": false
+      },
+      "method": "Same command position; exact also has independent unique string anchors. Flag bytes checked in target."
+    },
+    {
+      "target": "0x140007fc0",
+      "guide": "0x140008d00",
+      "name": "HandleAccountInventoryLobby_ListGoodsOk",
+      "confidence": "likely",
+      "status": "❓",
+      "evidence": {
+        "target_table": "0x1401fa4c0",
+        "target_slot": "0x1401fa540",
+        "guide_table": "0x140203520",
+        "command": 8,
+        "shared_string_anchor": false
+      },
+      "method": "Same command position; exact also has independent unique string anchors. Flag bytes checked in target."
+    },
+    {
+      "target": "0x140008810",
+      "guide": "0x140009550",
+      "name": "HandleAccountInventoryLobby_ListGoodsFail",
+      "confidence": "likely",
+      "status": "❓",
+      "evidence": {
+        "target_table": "0x1401fa4c0",
+        "target_slot": "0x1401fa550",
+        "guide_table": "0x140203520",
+        "command": 9,
+        "shared_string_anchor": false
+      },
+      "method": "Same command position; exact also has independent unique string anchors. Flag bytes checked in target."
+    },
+    {
+      "target": "0x140008a10",
+      "guide": "0x140009750",
+      "name": "HandleAccountInventoryLobby_TakeGoodsOk",
+      "confidence": "exact",
+      "status": "✅",
+      "evidence": {
+        "target_table": "0x1401fa4c0",
+        "target_slot": "0x1401fa570",
+        "guide_table": "0x140203520",
+        "command": 11,
+        "shared_string_anchor": true
+      },
+      "method": "Same command position; exact also has independent unique string anchors. Flag bytes checked in target."
+    },
+    {
+      "target": "0x140008d20",
+      "guide": "0x140009a60",
+      "name": "HandleAccountInventoryLobby_TakeGoodsFail",
+      "confidence": "likely",
+      "status": "❓",
+      "evidence": {
+        "target_table": "0x1401fa4c0",
+        "target_slot": "0x1401fa580",
+        "guide_table": "0x140203520",
+        "command": 12,
+        "shared_string_anchor": false
+      },
+      "method": "Same command position; exact also has independent unique string anchors. Flag bytes checked in target."
+    },
+    {
+      "target": "0x140008f20",
+      "guide": "0x140009c60",
+      "name": "HandleAccountInventoryLobby_RetrieveLobbyServiceItemListOk",
+      "confidence": "exact",
+      "status": "✅",
+      "evidence": {
+        "target_table": "0x1401fa4c0",
+        "target_slot": "0x1401fa5a0",
+        "guide_table": "0x140203520",
+        "command": 14,
+        "shared_string_anchor": true
+      },
+      "method": "Same command position; exact also has independent unique string anchors. Flag bytes checked in target."
+    },
+    {
+      "target": "0x140009220",
+      "guide": "0x140009f60",
+      "name": "HandleAccountInventoryLobby_RetrieveLobbyServiceItemListFail",
+      "confidence": "likely",
+      "status": "❓",
+      "evidence": {
+        "target_table": "0x1401fa4c0",
+        "target_slot": "0x1401fa5b0",
+        "guide_table": "0x140203520",
+        "command": 15,
+        "shared_string_anchor": false
+      },
+      "method": "Same command position; exact also has independent unique string anchors. Flag bytes checked in target."
+    },
+    {
+      "target": "0x140009420",
+      "guide": "0x14000a160",
+      "name": "HandleAccountInventoryLobby_RetrieveSingleWarehouseItemOk",
+      "confidence": "likely",
+      "status": "❓",
+      "evidence": {
+        "target_table": "0x1401fa4c0",
+        "target_slot": "0x1401fa5d0",
+        "guide_table": "0x140203520",
+        "command": 17,
+        "shared_string_anchor": false
+      },
+      "method": "Same command position; exact also has independent unique string anchors. Flag bytes checked in target."
+    },
+    {
+      "target": "0x140009700",
+      "guide": "0x14000a440",
+      "name": "HandleAccountInventoryLobby_RetrieveSingleWarehouseItemFail",
+      "confidence": "likely",
+      "status": "❓",
+      "evidence": {
+        "target_table": "0x1401fa4c0",
+        "target_slot": "0x1401fa5e0",
+        "guide_table": "0x140203520",
+        "command": 18,
+        "shared_string_anchor": false
+      },
+      "method": "Same command position; exact also has independent unique string anchors. Flag bytes checked in target."
+    },
+    {
+      "target": "0x140009940",
+      "guide": "0x14000a680",
+      "name": "HandleAccountInventoryLobby_TryWarehouseItemConsumptionOk",
+      "confidence": "likely",
+      "status": "❓",
+      "evidence": {
+        "target_table": "0x1401fa4c0",
+        "target_slot": "0x1401fa600",
+        "guide_table": "0x140203520",
+        "command": 20,
+        "shared_string_anchor": false
+      },
+      "method": "Same command position; exact also has independent unique string anchors. Flag bytes checked in target."
+    },
+    {
+      "target": "0x140009a40",
+      "guide": "0x14000a780",
+      "name": "HandleAccountInventoryLobby_TryWarehouseItemConsumptionFail",
+      "confidence": "likely",
+      "status": "❓",
+      "evidence": {
+        "target_table": "0x1401fa4c0",
+        "target_slot": "0x1401fa610",
+        "guide_table": "0x140203520",
+        "command": 21,
+        "shared_string_anchor": false
+      },
+      "method": "Same command position; exact also has independent unique string anchors. Flag bytes checked in target."
+    },
+    {
+      "target": "0x140009c80",
+      "guide": "0x14000a9c0",
+      "name": "HandleAccountInventoryLobby_FinishWarehouseItemConsumptionOk",
+      "confidence": "likely",
+      "status": "❓",
+      "evidence": {
+        "target_table": "0x1401fa4c0",
+        "target_slot": "0x1401fa630",
+        "guide_table": "0x140203520",
+        "command": 23,
+        "shared_string_anchor": false
+      },
+      "method": "Same command position; exact also has independent unique string anchors. Flag bytes checked in target."
+    },
+    {
+      "target": "0x140009d80",
+      "guide": "0x14000aac0",
+      "name": "HandleAccountInventoryLobby_FinishWarehouseItemConsumptionFail",
+      "confidence": "likely",
+      "status": "❓",
+      "evidence": {
+        "target_table": "0x1401fa4c0",
+        "target_slot": "0x1401fa640",
+        "guide_table": "0x140203520",
+        "command": 24,
+        "shared_string_anchor": false
+      },
+      "method": "Same command position; exact also has independent unique string anchors. Flag bytes checked in target."
+    },
+    {
+      "target": "0x140009fc0",
+      "guide": "0x14000ad00",
+      "name": "HandleAccountInventoryLobby_CancelWarehouseItemConsumptionOk",
+      "confidence": "likely",
+      "status": "❓",
+      "evidence": {
+        "target_table": "0x1401fa4c0",
+        "target_slot": "0x1401fa660",
+        "guide_table": "0x140203520",
+        "command": 26,
+        "shared_string_anchor": false
+      },
+      "method": "Same command position; exact also has independent unique string anchors. Flag bytes checked in target."
+    },
+    {
+      "target": "0x14000a000",
+      "guide": "0x14000ad40",
+      "name": "HandleAccountInventoryLobby_CancelWarehouseItemConsumptionFail",
+      "confidence": "likely",
+      "status": "❓",
+      "evidence": {
+        "target_table": "0x1401fa4c0",
+        "target_slot": "0x1401fa670",
+        "guide_table": "0x140203520",
+        "command": 27,
+        "shared_string_anchor": false
+      },
+      "method": "Same command position; exact also has independent unique string anchors. Flag bytes checked in target."
+    },
+    {
+      "target": "0x14000a040",
+      "guide": "0x14000ad80",
+      "name": "HandleAccountInventoryLobby_ConsumeWarehouseItemOk",
+      "confidence": "likely",
+      "status": "❓",
+      "evidence": {
+        "target_table": "0x1401fa4c0",
+        "target_slot": "0x1401fa690",
+        "guide_table": "0x140203520",
+        "command": 29,
+        "shared_string_anchor": false
+      },
+      "method": "Same command position; exact also has independent unique string anchors. Flag bytes checked in target."
+    },
+    {
+      "target": "0x14000a140",
+      "guide": "0x14000ae80",
+      "name": "HandleAccountInventoryLobby_ConsumeWarehouseItemFail",
+      "confidence": "likely",
+      "status": "❓",
+      "evidence": {
+        "target_table": "0x1401fa4c0",
+        "target_slot": "0x1401fa6a0",
+        "guide_table": "0x140203520",
+        "command": 30,
+        "shared_string_anchor": false
+      },
+      "method": "Same command position; exact also has independent unique string anchors. Flag bytes checked in target."
+    },
+    {
+      "target": "0x14000a380",
+      "guide": "0x14000b0c0",
+      "name": "HandleAccountInventoryLobby_RetrieveCharacterGoodsCountOk",
+      "confidence": "likely",
+      "status": "❓",
+      "evidence": {
+        "target_table": "0x1401fa4c0",
+        "target_slot": "0x1401fa6c0",
+        "guide_table": "0x140203520",
+        "command": 32,
+        "shared_string_anchor": false
+      },
+      "method": "Same command position; exact also has independent unique string anchors. Flag bytes checked in target."
+    },
+    {
+      "target": "0x14000a5d0",
+      "guide": "0x14000b310",
+      "name": "HandleAccountInventoryLobby_RetrieveCharacterGoodsCountFail",
+      "confidence": "likely",
+      "status": "❓",
+      "evidence": {
+        "target_table": "0x1401fa4c0",
+        "target_slot": "0x1401fa6d0",
+        "guide_table": "0x140203520",
+        "command": 33,
+        "shared_string_anchor": false
+      },
+      "method": "Same command position; exact also has independent unique string anchors. Flag bytes checked in target."
+    },
+    {
+      "target": "0x14000a7d0",
+      "guide": "0x14000b510",
+      "name": "HandleAccountInventoryLobby_GoodsInventoryChangedNotify",
+      "confidence": "exact",
+      "status": "✅",
+      "evidence": {
+        "target_table": "0x1401fa4c0",
+        "target_slot": "0x1401fa6e0",
+        "guide_table": "0x140203520",
+        "command": 34,
+        "shared_string_anchor": true
+      },
+      "method": "Same command position; exact also has independent unique string anchors. Flag bytes checked in target."
+    },
+    {
+      "target": "0x140034f90",
+      "guide": "0x140036240",
+      "name": "CliSession::HandleGameGetGradeList",
+      "confidence": "likely",
+      "status": "❓",
+      "evidence": {
+        "unique_shared_string_hashes": 1
+      },
+      "method": "Unique shared string-reference anchors; body comparison pending."
+    },
+    {
+      "target": "0x1400356f0",
+      "guide": "0x140036960",
+      "name": "CliSession::setRMSInquiryResult",
+      "confidence": "likely",
+      "status": "❓",
+      "evidence": {
+        "unique_shared_string_hashes": 1
+      },
+      "method": "Unique shared string-reference anchors; body comparison pending."
+    },
+    {
+      "target": "0x140048780",
+      "guide": "0x14004a3e0",
+      "name": "DepositMileageJob::depositReq",
+      "confidence": "likely",
+      "status": "❓",
+      "evidence": {
+        "unique_shared_string_hashes": 3
+      },
+      "method": "Unique shared string-reference anchors; body comparison pending."
+    },
+    {
+      "target": "0x14004e060",
+      "guide": "0x14004fc70",
+      "name": "GameWorldReport::Write",
+      "confidence": "likely",
+      "status": "❓",
+      "evidence": {
+        "unique_shared_string_hashes": 1
+      },
+      "method": "Unique shared string-reference anchors; body comparison pending."
+    },
+    {
+      "target": "0x140055860",
+      "guide": "0x140056d40",
+      "name": "HandleLobbyInfoGate_HelloReq",
+      "confidence": "likely",
+      "status": "❓",
+      "evidence": {
+        "target_table": "0x1401f9d30",
+        "target_slot": "0x1401f9d40",
+        "guide_table": "0x140202d30",
+        "command": 1,
+        "shared_string_anchor": false
+      },
+      "method": "Same command position; exact also has independent unique string anchors. Flag bytes checked in target."
+    },
+    {
+      "target": "0x140055e70",
+      "guide": "0x140057350",
+      "name": "HandleLobbyInfoGate_AuthTokenReq",
+      "confidence": "likely",
+      "status": "❓",
+      "evidence": {
+        "target_table": "0x1401f9d30",
+        "target_slot": "0x1401f9d70",
+        "guide_table": "0x140202d30",
+        "command": 4,
+        "shared_string_anchor": false
+      },
+      "method": "Same command position; exact also has independent unique string anchors. Flag bytes checked in target."
+    },
+    {
+      "target": "0x1400563a0",
+      "guide": "0x140057880",
+      "name": "HandleLobbyInfoGate_GetWorldInfoListReq",
+      "confidence": "likely",
+      "status": "❓",
+      "evidence": {
+        "target_table": "0x1401f9d30",
+        "target_slot": "0x1401f9da0",
+        "guide_table": "0x140202d30",
+        "command": 7,
+        "shared_string_anchor": false
+      },
+      "method": "Same command position; exact also has independent unique string anchors. Flag bytes checked in target."
+    },
+    {
+      "target": "0x1400572e0",
+      "guide": "0x1400587d0",
+      "name": "HandleLobbyManage_HelloReq",
+      "confidence": "likely",
+      "status": "❓",
+      "evidence": {
+        "target_table": "0x1401f9530",
+        "target_slot": "0x1401f9540",
+        "guide_table": "0x140202530",
+        "command": 1,
+        "shared_string_anchor": false
+      },
+      "method": "Same command position; exact also has independent unique string anchors. Flag bytes checked in target."
+    },
+    {
+      "target": "0x1400574c0",
+      "guide": "0x1400589b0",
+      "name": "HandleLobbyManage_AnnounceNotify",
+      "confidence": "likely",
+      "status": "❓",
+      "evidence": {
+        "target_table": "0x1401f9530",
+        "target_slot": "0x1401f9570",
+        "guide_table": "0x140202530",
+        "command": 4,
+        "shared_string_anchor": false
+      },
+      "method": "Same command position; exact also has independent unique string anchors. Flag bytes checked in target."
+    },
+    {
+      "target": "0x140057610",
+      "guide": "0x140058b00",
+      "name": "HandleLobbyManage_KickReq",
+      "confidence": "likely",
+      "status": "❓",
+      "evidence": {
+        "target_table": "0x1401f9530",
+        "target_slot": "0x1401f9580",
+        "guide_table": "0x140202530",
+        "command": 5,
+        "shared_string_anchor": false
+      },
+      "method": "Same command position; exact also has independent unique string anchors. Flag bytes checked in target."
+    },
+    {
+      "target": "0x140057bb0",
+      "guide": "0x1400590a0",
+      "name": "HandleLobbyManage_CleanupGameAccountIdIndexReq",
+      "confidence": "likely",
+      "status": "❓",
+      "evidence": {
+        "target_table": "0x1401f9530",
+        "target_slot": "0x1401f95b0",
+        "guide_table": "0x140202530",
+        "command": 8,
+        "shared_string_anchor": false
+      },
+      "method": "Same command position; exact also has independent unique string anchors. Flag bytes checked in target."
+    },
+    {
+      "target": "0x140057f80",
+      "guide": "0x140059470",
+      "name": "HandleLobbyManage_CleanupPcidIndexReq",
+      "confidence": "likely",
+      "status": "❓",
+      "evidence": {
+        "target_table": "0x1401f9530",
+        "target_slot": "0x1401f95e0",
+        "guide_table": "0x140202530",
+        "command": 11,
+        "shared_string_anchor": false
+      },
+      "method": "Same command position; exact also has independent unique string anchors. Flag bytes checked in target."
+    },
+    {
+      "target": "0x140058330",
+      "guide": "0x140059820",
+      "name": "HandleLobbyManage_RetryMileageDepositReq",
+      "confidence": "likely",
+      "status": "❓",
+      "evidence": {
+        "target_table": "0x1401f9530",
+        "target_slot": "0x1401f9610",
+        "guide_table": "0x140202530",
+        "command": 14,
+        "shared_string_anchor": false
+      },
+      "method": "Same command position; exact also has independent unique string anchors. Flag bytes checked in target."
+    },
+    {
+      "target": "0x140058cd0",
+      "guide": "0x14005a210",
+      "name": "LobbyStats::update",
+      "confidence": "likely",
+      "status": "❓",
+      "evidence": {
+        "unique_shared_string_hashes": 3
+      },
+      "method": "Unique shared string-reference anchors; body comparison pending."
+    },
+    {
+      "target": "0x1400627a0",
+      "guide": "0x140063ba0",
+      "name": "PostOfficeChannel::SendHelloReq",
+      "confidence": "likely",
+      "status": "❓",
+      "evidence": {
+        "unique_shared_string_hashes": 1
+      },
+      "method": "Unique shared string-reference anchors; body comparison pending."
+    },
+    {
+      "target": "0x1400628a0",
+      "guide": "0x140063cb0",
+      "name": "PostOfficeChannel::SendRegisterPostReq",
+      "confidence": "likely",
+      "status": "❓",
+      "evidence": {
+        "unique_shared_string_hashes": 1
+      },
+      "method": "Unique shared string-reference anchors; body comparison pending."
+    },
+    {
+      "target": "0x1400768c0",
+      "guide": "0x140077910",
+      "name": "StartCliSessionWlobbyTokenJob::start",
+      "confidence": "likely",
+      "status": "❓",
+      "evidence": {
+        "unique_shared_string_hashes": 1
+      },
+      "method": "Unique shared string-reference anchors; body comparison pending."
+    },
+    {
+      "target": "0x140079bd0",
+      "guide": "0x14007ac30",
+      "name": "tss_load_sdk",
+      "confidence": "likely",
+      "status": "❓",
+      "evidence": {
+        "unique_shared_string_hashes": 3
+      },
+      "method": "Unique shared string-reference anchors; body comparison pending."
+    },
+    {
+      "target": "0x14007fdc0",
+      "guide": "0x140080e20",
+      "name": "GamedChannel::SendCreateCharacterReq",
+      "confidence": "likely",
+      "status": "❓",
+      "evidence": {
+        "unique_shared_string_hashes": 1
+      },
+      "method": "Unique shared string-reference anchors; body comparison pending."
+    },
+    {
+      "target": "0x14007ffd0",
+      "guide": "0x140081040",
+      "name": "GamedChannel::SendDeleteCharacterReq",
+      "confidence": "likely",
+      "status": "❓",
+      "evidence": {
+        "unique_shared_string_hashes": 1
+      },
+      "method": "Unique shared string-reference anchors; body comparison pending."
+    },
+    {
+      "target": "0x140080420",
+      "guide": "0x1400814a0",
+      "name": "GamedChannel::SendKickReq",
+      "confidence": "likely",
+      "status": "❓",
+      "evidence": {
+        "unique_shared_string_hashes": 1
+      },
+      "method": "Unique shared string-reference anchors; body comparison pending."
+    },
+    {
+      "target": "0x140080cd0",
+      "guide": "0x140081d50",
+      "name": "GamedChannel::SendTryRenameGuildOk",
+      "confidence": "likely",
+      "status": "❓",
+      "evidence": {
+        "unique_shared_string_hashes": 1
+      },
+      "method": "Unique shared string-reference anchors; body comparison pending."
+    },
+    {
+      "target": "0x140080dc0",
+      "guide": "0x140081e40",
+      "name": "GamedChannel::SendTryRenameGuildFail",
+      "confidence": "likely",
+      "status": "❓",
+      "evidence": {
+        "unique_shared_string_hashes": 1
+      },
+      "method": "Unique shared string-reference anchors; body comparison pending."
+    },
+    {
+      "target": "0x140080ea0",
+      "guide": "0x140081f30",
+      "name": "GamedChannel::SendAccountInventoryNotify",
+      "confidence": "likely",
+      "status": "❓",
+      "evidence": {
+        "unique_shared_string_hashes": 1
+      },
+      "method": "Unique shared string-reference anchors; body comparison pending."
+    },
+    {
+      "target": "0x140081150",
+      "guide": "0x1400821f0",
+      "name": "GamedChannel::SendStartChargeOk",
+      "confidence": "likely",
+      "status": "❓",
+      "evidence": {
+        "unique_shared_string_hashes": 1
+      },
+      "method": "Unique shared string-reference anchors; body comparison pending."
+    },
+    {
+      "target": "0x1400814b0",
+      "guide": "0x140082560",
+      "name": "GamedChannel::SendUpdateChargeRemainTimeNotify",
+      "confidence": "likely",
+      "status": "❓",
+      "evidence": {
+        "unique_shared_string_hashes": 1
+      },
+      "method": "Unique shared string-reference anchors; body comparison pending."
+    },
+    {
+      "target": "0x140081590",
+      "guide": "0x140082650",
+      "name": "GamedChannel::SendApplyNewChargeItemNotify",
+      "confidence": "likely",
+      "status": "❓",
+      "evidence": {
+        "unique_shared_string_hashes": 1
+      },
+      "method": "Unique shared string-reference anchors; body comparison pending."
+    },
+    {
+      "target": "0x140081680",
+      "guide": "0x140082750",
+      "name": "GamedChannel::SendChangeCharacterAppearanceReq",
+      "confidence": "likely",
+      "status": "❓",
+      "evidence": {
+        "unique_shared_string_hashes": 1
+      },
+      "method": "Unique shared string-reference anchors; body comparison pending."
+    },
+    {
+      "target": "0x140081870",
+      "guide": "0x140082950",
+      "name": "GamedChannel::SendChangeCharacterSexReq",
+      "confidence": "likely",
+      "status": "❓",
+      "evidence": {
+        "unique_shared_string_hashes": 1
+      },
+      "method": "Unique shared string-reference anchors; body comparison pending."
+    },
+    {
+      "target": "0x140081a90",
+      "guide": "0x140082b70",
+      "name": "GamedChannel::SendChangeCharacterRaceReq",
+      "confidence": "likely",
+      "status": "❓",
+      "evidence": {
+        "unique_shared_string_hashes": 1
+      },
+      "method": "Unique shared string-reference anchors; body comparison pending."
+    },
+    {
+      "target": "0x140081cc0",
+      "guide": "0x140082db0",
+      "name": "GamedChannel::SendRenameCharacterReq",
+      "confidence": "likely",
+      "status": "❓",
+      "evidence": {
+        "unique_shared_string_hashes": 1
+      },
+      "method": "Unique shared string-reference anchors; body comparison pending."
+    },
+    {
+      "target": "0x140082430",
+      "guide": "0x140083520",
+      "name": "GamedChannel::SendSecondPasswordGetStatusOk",
+      "confidence": "likely",
+      "status": "❓",
+      "evidence": {
+        "unique_shared_string_hashes": 1
+      },
+      "method": "Unique shared string-reference anchors; body comparison pending."
+    },
+    {
+      "target": "0x140082860",
+      "guide": "0x140083960",
+      "name": "GamedChannel::SendAuctionEscrowReq",
+      "confidence": "likely",
+      "status": "❓",
+      "evidence": {
+        "unique_shared_string_hashes": 1
+      },
+      "method": "Unique shared string-reference anchors; body comparison pending."
+    },
+    {
+      "target": "0x1400829f0",
+      "guide": "0x140083b00",
+      "name": "GamedChannel::SendGetGradeListFail",
+      "confidence": "likely",
+      "status": "❓",
+      "evidence": {
+        "unique_shared_string_hashes": 1
+      },
+      "method": "Unique shared string-reference anchors; body comparison pending."
+    },
+    {
+      "target": "0x140082b00",
+      "guide": "0x140083c20",
+      "name": "GamedChannel::SendActivateGradeOk",
+      "confidence": "likely",
+      "status": "❓",
+      "evidence": {
+        "unique_shared_string_hashes": 1
+      },
+      "method": "Unique shared string-reference anchors; body comparison pending."
+    },
+    {
+      "target": "0x140082c30",
+      "guide": "0x140083d60",
+      "name": "GamedChannel::SendActivateGradeFail",
+      "confidence": "likely",
+      "status": "❓",
+      "evidence": {
+        "unique_shared_string_hashes": 1
+      },
+      "method": "Unique shared string-reference anchors; body comparison pending."
+    },
+    {
+      "target": "0x140082d60",
+      "guide": "0x140083ea0",
+      "name": "GamedChannel::SendChangedGradeNotify",
+      "confidence": "likely",
+      "status": "❓",
+      "evidence": {
+        "unique_shared_string_hashes": 1
+      },
+      "method": "Unique shared string-reference anchors; body comparison pending."
+    },
+    {
+      "target": "0x140082f40",
+      "guide": "0x140084090",
+      "name": "GamedChannel::SendChangedGradeLevelNotify",
+      "confidence": "likely",
+      "status": "❓",
+      "evidence": {
+        "unique_shared_string_hashes": 1
+      },
+      "method": "Unique shared string-reference anchors; body comparison pending."
+    },
+    {
+      "target": "0x140083050",
+      "guide": "0x1400841a0",
+      "name": "GamedChannel::SendDepositGameMileageOk",
+      "confidence": "likely",
+      "status": "❓",
+      "evidence": {
+        "unique_shared_string_hashes": 1
+      },
+      "method": "Unique shared string-reference anchors; body comparison pending."
+    },
+    {
+      "target": "0x1400831c0",
+      "guide": "0x140084310",
+      "name": "GamedChannel::SendDepositGameMileageFail",
+      "confidence": "likely",
+      "status": "❓",
+      "evidence": {
+        "unique_shared_string_hashes": 1
+      },
+      "method": "Unique shared string-reference anchors; body comparison pending."
+    },
+    {
+      "target": "0x140083620",
+      "guide": "0x140084790",
+      "name": "GamedChannel::SendTakeAccountTimeBasedPlayRewardFail",
+      "confidence": "likely",
+      "status": "❓",
+      "evidence": {
+        "unique_shared_string_hashes": 1
+      },
+      "method": "Unique shared string-reference anchors; body comparison pending."
+    },
+    {
+      "target": "0x140086d50",
+      "guide": "0x140088260",
+      "name": "HandleLobbyGame_HelloReq",
+      "confidence": "exact",
+      "status": "✅",
+      "evidence": {
+        "target_table": "0x1401f9de0",
+        "target_slot": "0x1401f9df0",
+        "guide_table": "0x140202de0",
+        "command": 1,
+        "shared_string_anchor": true
+      },
+      "method": "Same command position; exact also has independent unique string anchors. Flag bytes checked in target."
+    },
+    {
+      "target": "0x1400877b0",
+      "guide": "0x140088cd0",
+      "name": "HandleLobbyGame_ServiceOpenNotify",
+      "confidence": "likely",
+      "status": "❓",
+      "evidence": {
+        "target_table": "0x1401f9de0",
+        "target_slot": "0x1401f9e20",
+        "guide_table": "0x140202de0",
+        "command": 4,
+        "shared_string_anchor": false
+      },
+      "method": "Same command position; exact also has independent unique string anchors. Flag bytes checked in target."
+    },
+    {
+      "target": "0x140087a10",
+      "guide": "0x140088f30",
+      "name": "HandleLobbyGame_NPPresenceKickReq",
+      "confidence": "likely",
+      "status": "❓",
+      "evidence": {
+        "target_table": "0x1401f9de0",
+        "target_slot": "0x1401f9ef0",
+        "guide_table": "0x140202de0",
+        "command": 17,
+        "shared_string_anchor": false
+      },
+      "method": "Same command position; exact also has independent unique string anchors. Flag bytes checked in target."
+    },
+    {
+      "target": "0x140087d40",
+      "guide": "0x140089270",
+      "name": "HandleLobbyGame_EnterWorldReq",
+      "confidence": "likely",
+      "status": "❓",
+      "evidence": {
+        "target_table": "0x1401f9de0",
+        "target_slot": "0x1401f9e30",
+        "guide_table": "0x140202de0",
+        "command": 5,
+        "shared_string_anchor": false
+      },
+      "method": "Same command position; exact also has independent unique string anchors. Flag bytes checked in target."
+    },
+    {
+      "target": "0x140088470",
+      "guide": "0x1400899a0",
+      "name": "HandleLobbyGame_LeaveWorldReq",
+      "confidence": "likely",
+      "status": "❓",
+      "evidence": {
+        "target_table": "0x1401f9de0",
+        "target_slot": "0x1401f9e60",
+        "guide_table": "0x140202de0",
+        "command": 8,
+        "shared_string_anchor": false
+      },
+      "method": "Same command position; exact also has independent unique string anchors. Flag bytes checked in target."
+    },
+    {
+      "target": "0x140088860",
+      "guide": "0x140089d90",
+      "name": "HandleLobbyGame_UpdateBotScoreNotify",
+      "confidence": "likely",
+      "status": "❓",
+      "evidence": {
+        "target_table": "0x1401f9de0",
+        "target_slot": "0x1401f9e90",
+        "guide_table": "0x140202de0",
+        "command": 11,
+        "shared_string_anchor": false
+      },
+      "method": "Same command position; exact also has independent unique string anchors. Flag bytes checked in target."
+    },
+    {
+      "target": "0x140088b30",
+      "guide": "0x14008a060",
+      "name": "HandleLobbyGame_LogoutNotify",
+      "confidence": "likely",
+      "status": "❓",
+      "evidence": {
+        "target_table": "0x1401f9de0",
+        "target_slot": "0x1401f9ea0",
+        "guide_table": "0x140202de0",
+        "command": 12,
+        "shared_string_anchor": false
+      },
+      "method": "Same command position; exact also has independent unique string anchors. Flag bytes checked in target."
+    },
+    {
+      "target": "0x140088ed0",
+      "guide": "0x14008a400",
+      "name": "HandleLobbyGame_KickOk",
+      "confidence": "likely",
+      "status": "❓",
+      "evidence": {
+        "target_table": "0x1401f9de0",
+        "target_slot": "0x1401f9ed0",
+        "guide_table": "0x140202de0",
+        "command": 15,
+        "shared_string_anchor": false
+      },
+      "method": "Same command position; exact also has independent unique string anchors. Flag bytes checked in target."
+    },
+    {
+      "target": "0x140089030",
+      "guide": "0x14008a560",
+      "name": "HandleLobbyGame_KickFail",
+      "confidence": "likely",
+      "status": "❓",
+      "evidence": {
+        "target_table": "0x1401f9de0",
+        "target_slot": "0x1401f9ee0",
+        "guide_table": "0x140202de0",
+        "command": 16,
+        "shared_string_anchor": false
+      },
+      "method": "Same command position; exact also has independent unique string anchors. Flag bytes checked in target."
+    },
+    {
+      "target": "0x140089290",
+      "guide": "0x14008a7c0",
+      "name": "HandleLobbyGame_CreateCharacterOk",
+      "confidence": "exact",
+      "status": "✅",
+      "evidence": {
+        "target_table": "0x1401f9de0",
+        "target_slot": "0x1401f9f30",
+        "guide_table": "0x140202de0",
+        "command": 21,
+        "shared_string_anchor": true
+      },
+      "method": "Same command position; exact also has independent unique string anchors. Flag bytes checked in target."
+    },
+    {
+      "target": "0x1400895a0",
+      "guide": "0x14008aad0",
+      "name": "HandleLobbyGame_CreateCharacterFail",
+      "confidence": "likely",
+      "status": "❓",
+      "evidence": {
+        "target_table": "0x1401f9de0",
+        "target_slot": "0x1401f9f40",
+        "guide_table": "0x140202de0",
+        "command": 22,
+        "shared_string_anchor": false
+      },
+      "method": "Same command position; exact also has independent unique string anchors. Flag bytes checked in target."
+    },
+    {
+      "target": "0x140089800",
+      "guide": "0x14008ad30",
+      "name": "HandleLobbyGame_DeleteCharacterOk",
+      "confidence": "likely",
+      "status": "❓",
+      "evidence": {
+        "target_table": "0x1401f9de0",
+        "target_slot": "0x1401f9f60",
+        "guide_table": "0x140202de0",
+        "command": 24,
+        "shared_string_anchor": false
+      },
+      "method": "Same command position; exact also has independent unique string anchors. Flag bytes checked in target."
+    },
+    {
+      "target": "0x140089a60",
+      "guide": "0x14008af90",
+      "name": "HandleLobbyGame_DeleteCharacterFail",
+      "confidence": "likely",
+      "status": "❓",
+      "evidence": {
+        "target_table": "0x1401f9de0",
+        "target_slot": "0x1401f9f70",
+        "guide_table": "0x140202de0",
+        "command": 25,
+        "shared_string_anchor": false
+      },
+      "method": "Same command position; exact also has independent unique string anchors. Flag bytes checked in target."
+    },
+    {
+      "target": "0x140089cc0",
+      "guide": "0x14008b1f0",
+      "name": "HandleLobbyGame_RestoreCharacterOk",
+      "confidence": "likely",
+      "status": "❓",
+      "evidence": {
+        "target_table": "0x1401f9de0",
+        "target_slot": "0x1401f9f90",
+        "guide_table": "0x140202de0",
+        "command": 27,
+        "shared_string_anchor": false
+      },
+      "method": "Same command position; exact also has independent unique string anchors. Flag bytes checked in target."
+    },
+    {
+      "target": "0x140089e20",
+      "guide": "0x14008b350",
+      "name": "HandleLobbyGame_RestoreCharacterFail",
+      "confidence": "likely",
+      "status": "❓",
+      "evidence": {
+        "target_table": "0x1401f9de0",
+        "target_slot": "0x1401f9fa0",
+        "guide_table": "0x140202de0",
+        "command": 28,
+        "shared_string_anchor": false
+      },
+      "method": "Same command position; exact also has independent unique string anchors. Flag bytes checked in target."
+    },
+    {
+      "target": "0x14008a080",
+      "guide": "0x14008b5b0",
+      "name": "HandleLobbyGame_StartChargeReq",
+      "confidence": "likely",
+      "status": "❓",
+      "evidence": {
+        "target_table": "0x1401f9de0",
+        "target_slot": "0x1401f9fc0",
+        "guide_table": "0x140202de0",
+        "command": 30,
+        "shared_string_anchor": false
+      },
+      "method": "Same command position; exact also has independent unique string anchors. Flag bytes checked in target."
+    },
+    {
+      "target": "0x14008a480",
+      "guide": "0x14008b9b0",
+      "name": "HandleLobbyGame_StopChargeReq",
+      "confidence": "exact",
+      "status": "✅",
+      "evidence": {
+        "target_table": "0x1401f9de0",
+        "target_slot": "0x1401f9ff0",
+        "guide_table": "0x140202de0",
+        "command": 33,
+        "shared_string_anchor": true
+      },
+      "method": "Same command position; exact also has independent unique string anchors. Flag bytes checked in target."
+    },
+    {
+      "target": "0x14008a930",
+      "guide": "0x14008be60",
+      "name": "HandleLobbyGame_AbandonChargeNotify",
+      "confidence": "likely",
+      "status": "❓",
+      "evidence": {
+        "target_table": "0x1401f9de0",
+        "target_slot": "0x1401fa040",
+        "guide_table": "0x140202de0",
+        "command": 38,
+        "shared_string_anchor": false
+      },
+      "method": "Same command position; exact also has independent unique string anchors. Flag bytes checked in target."
+    },
+    {
+      "target": "0x14008ad20",
+      "guide": "0x14008c250",
+      "name": "HandleLobbyGame_UpdateCharacterDataReq",
+      "confidence": "exact",
+      "status": "✅",
+      "evidence": {
+        "target_table": "0x1401f9de0",
+        "target_slot": "0x1401fa050",
+        "guide_table": "0x140202de0",
+        "command": 39,
+        "shared_string_anchor": true
+      },
+      "method": "Same command position; exact also has independent unique string anchors. Flag bytes checked in target."
+    },
+    {
+      "target": "0x14008b130",
+      "guide": "0x14008c660",
+      "name": "HandleLobbyGame_UpdateAccountDataReq",
+      "confidence": "likely",
+      "status": "❓",
+      "evidence": {
+        "target_table": "0x1401f9de0",
+        "target_slot": "0x1401fa080",
+        "guide_table": "0x140202de0",
+        "command": 42,
+        "shared_string_anchor": false
+      },
+      "method": "Same command position; exact also has independent unique string anchors. Flag bytes checked in target."
+    },
+    {
+      "target": "0x14008b770",
+      "guide": "0x14008d590",
+      "name": "HandleLobbyGame_TryRegisterGuildReq",
+      "confidence": "likely",
+      "status": "❓",
+      "evidence": {
+        "target_table": "0x1401f9de0",
+        "target_slot": "0x1401fa0b0",
+        "guide_table": "0x140202de0",
+        "command": 45,
+        "shared_string_anchor": false
+      },
+      "method": "Same command position; exact also has independent unique string anchors. Flag bytes checked in target."
+    },
+    {
+      "target": "0x14008bb80",
+      "guide": "0x14008d9a0",
+      "name": "HandleLobbyGame_FinishRegisterGuildNotify",
+      "confidence": "likely",
+      "status": "❓",
+      "evidence": {
+        "target_table": "0x1401f9de0",
+        "target_slot": "0x1401fa0e0",
+        "guide_table": "0x140202de0",
+        "command": 48,
+        "shared_string_anchor": false
+      },
+      "method": "Same command position; exact also has independent unique string anchors. Flag bytes checked in target."
+    },
+    {
+      "target": "0x14008bcf0",
+      "guide": "0x14008db10",
+      "name": "HandleLobbyGame_CancelRegisterGuildNotify",
+      "confidence": "likely",
+      "status": "❓",
+      "evidence": {
+        "target_table": "0x1401f9de0",
+        "target_slot": "0x1401fa0f0",
+        "guide_table": "0x140202de0",
+        "command": 49,
+        "shared_string_anchor": false
+      },
+      "method": "Same command position; exact also has independent unique string anchors. Flag bytes checked in target."
+    },
+    {
+      "target": "0x14008be60",
+      "guide": "0x14008dc80",
+      "name": "HandleLobbyGame_TryRenameGuildReq",
+      "confidence": "exact",
+      "status": "✅",
+      "evidence": {
+        "target_table": "0x1401f9de0",
+        "target_slot": "0x1401fa100",
+        "guide_table": "0x140202de0",
+        "command": 50,
+        "shared_string_anchor": true
+      },
+      "method": "Same command position; exact also has independent unique string anchors. Flag bytes checked in target."
+    },
+    {
+      "target": "0x14008c1f0",
+      "guide": "0x14008e010",
+      "name": "HandleLobbyGame_FinishRenameGuildNotify",
+      "confidence": "likely",
+      "status": "❓",
+      "evidence": {
+        "target_table": "0x1401f9de0",
+        "target_slot": "0x1401fa130",
+        "guide_table": "0x140202de0",
+        "command": 53,
+        "shared_string_anchor": false
+      },
+      "method": "Same command position; exact also has independent unique string anchors. Flag bytes checked in target."
+    },
+    {
+      "target": "0x14008c400",
+      "guide": "0x14008e220",
+      "name": "HandleLobbyGame_CancelRenameGuildNotify",
+      "confidence": "likely",
+      "status": "❓",
+      "evidence": {
+        "target_table": "0x1401f9de0",
+        "target_slot": "0x1401fa140",
+        "guide_table": "0x140202de0",
+        "command": 54,
+        "shared_string_anchor": false
+      },
+      "method": "Same command position; exact also has independent unique string anchors. Flag bytes checked in target."
+    },
+    {
+      "target": "0x14008c570",
+      "guide": "0x14008e390",
+      "name": "HandleLobbyGame_DeleteGuildNotify",
+      "confidence": "likely",
+      "status": "❓",
+      "evidence": {
+        "target_table": "0x1401f9de0",
+        "target_slot": "0x1401fa150",
+        "guide_table": "0x140202de0",
+        "command": 55,
+        "shared_string_anchor": false
+      },
+      "method": "Same command position; exact also has independent unique string anchors. Flag bytes checked in target."
+    },
+    {
+      "target": "0x14008c700",
+      "guide": "0x14008e520",
+      "name": "HandleLobbyGame_ChangeCharacterAppearanceOk",
+      "confidence": "likely",
+      "status": "❓",
+      "evidence": {
+        "target_table": "0x1401f9de0",
+        "target_slot": "0x1401fa180",
+        "guide_table": "0x140202de0",
+        "command": 58,
+        "shared_string_anchor": false
+      },
+      "method": "Same command position; exact also has independent unique string anchors. Flag bytes checked in target."
+    },
+    {
+      "target": "0x14008ca00",
+      "guide": "0x14008e820",
+      "name": "HandleLobbyGame_ChangeCharacterAppearanceFail",
+      "confidence": "likely",
+      "status": "❓",
+      "evidence": {
+        "target_table": "0x1401f9de0",
+        "target_slot": "0x1401fa190",
+        "guide_table": "0x140202de0",
+        "command": 59,
+        "shared_string_anchor": false
+      },
+      "method": "Same command position; exact also has independent unique string anchors. Flag bytes checked in target."
+    },
+    {
+      "target": "0x14008cc90",
+      "guide": "0x14008eab0",
+      "name": "HandleLobbyGame_ChangeCharacterSexOk",
+      "confidence": "likely",
+      "status": "❓",
+      "evidence": {
+        "target_table": "0x1401f9de0",
+        "target_slot": "0x1401fa1b0",
+        "guide_table": "0x140202de0",
+        "command": 61,
+        "shared_string_anchor": false
+      },
+      "method": "Same command position; exact also has independent unique string anchors. Flag bytes checked in target."
+    },
+    {
+      "target": "0x14008cf90",
+      "guide": "0x14008edb0",
+      "name": "HandleLobbyGame_ChangeCharacterSexFail",
+      "confidence": "likely",
+      "status": "❓",
+      "evidence": {
+        "target_table": "0x1401f9de0",
+        "target_slot": "0x1401fa1c0",
+        "guide_table": "0x140202de0",
+        "command": 62,
+        "shared_string_anchor": false
+      },
+      "method": "Same command position; exact also has independent unique string anchors. Flag bytes checked in target."
+    },
+    {
+      "target": "0x14008d220",
+      "guide": "0x14008f040",
+      "name": "HandleLobbyGame_ChangeCharacterRaceOk",
+      "confidence": "likely",
+      "status": "❓",
+      "evidence": {
+        "target_table": "0x1401f9de0",
+        "target_slot": "0x1401fa1e0",
+        "guide_table": "0x140202de0",
+        "command": 64,
+        "shared_string_anchor": false
+      },
+      "method": "Same command position; exact also has independent unique string anchors. Flag bytes checked in target."
+    },
+    {
+      "target": "0x14008d520",
+      "guide": "0x14008f340",
+      "name": "HandleLobbyGame_ChangeCharacterRaceFail",
+      "confidence": "likely",
+      "status": "❓",
+      "evidence": {
+        "target_table": "0x1401f9de0",
+        "target_slot": "0x1401fa1f0",
+        "guide_table": "0x140202de0",
+        "command": 65,
+        "shared_string_anchor": false
+      },
+      "method": "Same command position; exact also has independent unique string anchors. Flag bytes checked in target."
+    },
+    {
+      "target": "0x14008d7b0",
+      "guide": "0x14008f5d0",
+      "name": "HandleLobbyGame_RenameCharacterOk",
+      "confidence": "likely",
+      "status": "❓",
+      "evidence": {
+        "target_table": "0x1401f9de0",
+        "target_slot": "0x1401fa210",
+        "guide_table": "0x140202de0",
+        "command": 67,
+        "shared_string_anchor": false
+      },
+      "method": "Same command position; exact also has independent unique string anchors. Flag bytes checked in target."
+    },
+    {
+      "target": "0x14008da50",
+      "guide": "0x14008f870",
+      "name": "HandleLobbyGame_RenameCharacterFail",
+      "confidence": "likely",
+      "status": "❓",
+      "evidence": {
+        "target_table": "0x1401f9de0",
+        "target_slot": "0x1401fa220",
+        "guide_table": "0x140202de0",
+        "command": 68,
+        "shared_string_anchor": false
+      },
+      "method": "Same command position; exact also has independent unique string anchors. Flag bytes checked in target."
+    },
+    {
+      "target": "0x14008dce0",
+      "guide": "0x14008fb00",
+      "name": "HandleLobbyGame_ExtendJumpingCharacterCreationQuotaWithAccountInventoryItemReq",
+      "confidence": "exact",
+      "status": "✅",
+      "evidence": {
+        "target_table": "0x1401f9de0",
+        "target_slot": "0x1401fa230",
+        "guide_table": "0x140202de0",
+        "command": 69,
+        "shared_string_anchor": true
+      },
+      "method": "Same command position; exact also has independent unique string anchors. Flag bytes checked in target."
+    },
+    {
+      "target": "0x14008e1a0",
+      "guide": "0x14008ffc0",
+      "name": "HandleLobbyGame_UpgradeJumpingCharacterStateWithCreationQuotaReq",
+      "confidence": "likely",
+      "status": "❓",
+      "evidence": {
+        "target_table": "0x1401f9de0",
+        "target_slot": "0x1401fa260",
+        "guide_table": "0x140202de0",
+        "command": 72,
+        "shared_string_anchor": false
+      },
+      "method": "Same command position; exact also has independent unique string anchors. Flag bytes checked in target."
+    },
+    {
+      "target": "0x14008e5b0",
+      "guide": "0x1400903d0",
+      "name": "HandleLobbyGame_UpdateJumpingCharacterStateReq",
+      "confidence": "likely",
+      "status": "❓",
+      "evidence": {
+        "target_table": "0x1401f9de0",
+        "target_slot": "0x1401fa290",
+        "guide_table": "0x140202de0",
+        "command": 75,
+        "shared_string_anchor": false
+      },
+      "method": "Same command position; exact also has independent unique string anchors. Flag bytes checked in target."
+    },
+    {
+      "target": "0x14008e9c0",
+      "guide": "0x1400907e0",
+      "name": "HandleLobbyGame_SetAppDataNotify",
+      "confidence": "exact",
+      "status": "✅",
+      "evidence": {
+        "target_table": "0x1401f9de0",
+        "target_slot": "0x1401fa2c0",
+        "guide_table": "0x140202de0",
+        "command": 78,
+        "shared_string_anchor": true
+      },
+      "method": "Same command position; exact also has independent unique string anchors. Flag bytes checked in target."
+    },
+    {
+      "target": "0x14008f150",
+      "guide": "0x140090f70",
+      "name": "HandleLobbyGame_FriendMessageNotify",
+      "confidence": "exact",
+      "status": "✅",
+      "evidence": {
+        "target_table": "0x1401f9de0",
+        "target_slot": "0x1401fa2d0",
+        "guide_table": "0x140202de0",
+        "command": 79,
+        "shared_string_anchor": true
+      },
+      "method": "Same command position; exact also has independent unique string anchors. Flag bytes checked in target."
+    },
+    {
+      "target": "0x14008fc90",
+      "guide": "0x140091ab0",
+      "name": "HandleLobbyGame_SecondPasswordGetStatusReq",
+      "confidence": "likely",
+      "status": "❓",
+      "evidence": {
+        "target_table": "0x1401f9de0",
+        "target_slot": "0x1401fa2e0",
+        "guide_table": "0x140202de0",
+        "command": 80,
+        "shared_string_anchor": false
+      },
+      "method": "Same command position; exact also has independent unique string anchors. Flag bytes checked in target."
+    },
+    {
+      "target": "0x140090060",
+      "guide": "0x140091e80",
+      "name": "HandleLobbyGame_SecondPasswordIsVerifiedReq",
+      "confidence": "exact",
+      "status": "✅",
+      "evidence": {
+        "target_table": "0x1401f9de0",
+        "target_slot": "0x1401fa310",
+        "guide_table": "0x140202de0",
+        "command": 83,
+        "shared_string_anchor": true
+      },
+      "method": "Same command position; exact also has independent unique string anchors. Flag bytes checked in target."
+    },
+    {
+      "target": "0x140090460",
+      "guide": "0x140092280",
+      "name": "HandleLobbyGame_AuctionEscrowOk",
+      "confidence": "likely",
+      "status": "❓",
+      "evidence": {
+        "target_table": "0x1401f9de0",
+        "target_slot": "0x1401fa350",
+        "guide_table": "0x140202de0",
+        "command": 87,
+        "shared_string_anchor": false
+      },
+      "method": "Same command position; exact also has independent unique string anchors. Flag bytes checked in target."
+    },
+    {
+      "target": "0x1400905e0",
+      "guide": "0x140092400",
+      "name": "HandleLobbyGame_AuctionEscrowFail",
+      "confidence": "likely",
+      "status": "❓",
+      "evidence": {
+        "target_table": "0x1401f9de0",
+        "target_slot": "0x1401fa360",
+        "guide_table": "0x140202de0",
+        "command": 88,
+        "shared_string_anchor": false
+      },
+      "method": "Same command position; exact also has independent unique string anchors. Flag bytes checked in target."
+    },
+    {
+      "target": "0x140090880",
+      "guide": "0x1400926a0",
+      "name": "HandleLobbyGame_AuctionBidReq",
+      "confidence": "exact",
+      "status": "✅",
+      "evidence": {
+        "target_table": "0x1401f9de0",
+        "target_slot": "0x1401fa370",
+        "guide_table": "0x140202de0",
+        "command": 89,
+        "shared_string_anchor": true
+      },
+      "method": "Same command position; exact also has independent unique string anchors. Flag bytes checked in target."
+    },
+    {
+      "target": "0x140090e80",
+      "guide": "0x140092ca0",
+      "name": "HandleLobbyGame_GetGradeListReq",
+      "confidence": "exact",
+      "status": "✅",
+      "evidence": {
+        "target_table": "0x1401f9de0",
+        "target_slot": "0x1401fa3a0",
+        "guide_table": "0x140202de0",
+        "command": 92,
+        "shared_string_anchor": true
+      },
+      "method": "Same command position; exact also has independent unique string anchors. Flag bytes checked in target."
+    },
+    {
+      "target": "0x1400910e0",
+      "guide": "0x140092f00",
+      "name": "HandleLobbyGame_ActivateGradeReq",
+      "confidence": "exact",
+      "status": "✅",
+      "evidence": {
+        "target_table": "0x1401f9de0",
+        "target_slot": "0x1401fa3f0",
+        "guide_table": "0x140202de0",
+        "command": 97,
+        "shared_string_anchor": true
+      },
+      "method": "Same command position; exact also has independent unique string anchors. Flag bytes checked in target."
+    },
+    {
+      "target": "0x140091720",
+      "guide": "0x140093540",
+      "name": "HandleLobbyGame_DepositGameMileageReq",
+      "confidence": "exact",
+      "status": "✅",
+      "evidence": {
+        "target_table": "0x1401f9de0",
+        "target_slot": "0x1401fa420",
+        "guide_table": "0x140202de0",
+        "command": 100,
+        "shared_string_anchor": true
+      },
+      "method": "Same command position; exact also has independent unique string anchors. Flag bytes checked in target."
+    },
+    {
+      "target": "0x140092960",
+      "guide": "0x140094780",
+      "name": "HandleLobbyGame_BoastEventInWorldNotify",
+      "confidence": "likely",
+      "status": "❓",
+      "evidence": {
+        "target_table": "0x1401f9de0",
+        "target_slot": "0x1401fa450",
+        "guide_table": "0x140202de0",
+        "command": 103,
+        "shared_string_anchor": false
+      },
+      "method": "Same command position; exact also has independent unique string anchors. Flag bytes checked in target."
+    },
+    {
+      "target": "0x140092af0",
+      "guide": "0x140094910",
+      "name": "HandleLobbyGame_TakeAccountTimeBasedPlayRewardReq",
+      "confidence": "exact",
+      "status": "✅",
+      "evidence": {
+        "target_table": "0x1401f9de0",
+        "target_slot": "0x1401fa460",
+        "guide_table": "0x140202de0",
+        "command": 104,
+        "shared_string_anchor": true
+      },
+      "method": "Same command position; exact also has independent unique string anchors. Flag bytes checked in target."
+    },
+    {
+      "target": "0x140092fd0",
+      "guide": "0x140094df0",
+      "name": "HandleLobbyGame_UpdateAccountExpReq",
+      "confidence": "exact",
+      "status": "✅",
+      "evidence": {
+        "target_table": "0x1401f9de0",
+        "target_slot": "0x1401fa490",
+        "guide_table": "0x140202de0",
+        "command": 107,
+        "shared_string_anchor": true
+      },
+      "method": "Same command position; exact also has independent unique string anchors. Flag bytes checked in target."
+    },
+    {
+      "target": "0x140097b10",
+      "guide": "0x14009af60",
+      "name": "LobbyDaemon::GetTimerInterval",
+      "confidence": "exact",
+      "status": "✅",
+      "evidence": {
+        "target_body": "0x140097b10"
+      },
+      "method": "Timer getters match config loads. Initialize matches vtable role, DB setup and NP setup. NP manager matches target caller and role; guide body not compared."
+    },
+    {
+      "target": "0x140097b20",
+      "guide": "0x14009af70",
+      "name": "LobbyDaemon::GetTimerMaxTime",
+      "confidence": "exact",
+      "status": "✅",
+      "evidence": {
+        "target_body": "0x140097b20"
+      },
+      "method": "Timer getters match config loads. Initialize matches vtable role, DB setup and NP setup. NP manager matches target caller and role; guide body not compared."
+    },
+    {
+      "target": "0x140097eb0",
+      "guide": "0x14009b300",
+      "name": "LobbyDaemon::initialize",
+      "confidence": "exact",
+      "status": "✅",
+      "evidence": {
+        "target_body": "0x140097eb0"
+      },
+      "method": "Timer getters match config loads. Initialize matches vtable role, DB setup and NP setup. NP manager matches target caller and role; guide body not compared."
+    },
+    {
+      "target": "0x14009a0b0",
+      "guide": "0x14009d520",
+      "name": "LobbyDaemon::initNetwork",
+      "confidence": "exact",
+      "status": "✅",
+      "evidence": {
+        "target_body": "0x14009a0b0"
+      },
+      "method": "Compared startup calls, port identifiers and diagnostic labels in both builds."
+    },
+    {
+      "target": "0x14009a830",
+      "guide": "0x14009dca0",
+      "name": "LobbyDaemon::onStart",
+      "confidence": "exact",
+      "status": "✅",
+      "evidence": {
+        "target_body": "0x14009a830"
+      },
+      "method": "Compared startup calls, port identifiers and diagnostic labels in both builds."
+    },
+    {
+      "target": "0x14009b930",
+      "guide": "0x14009f010",
+      "name": "LobbyDaemon::startNPChannel",
+      "confidence": "exact",
+      "status": "✅",
+      "evidence": {
+        "target_body": "0x14009b930"
+      },
+      "method": "Compared startup calls, port identifiers and diagnostic labels in both builds."
+    },
+    {
+      "target": "0x14009c710",
+      "guide": "0x14009fe00",
+      "name": "LobbyDB::LoadGameAccount",
+      "confidence": "exact",
+      "status": "✅",
+      "evidence": {
+        "target_sql_string": "0x14019c910",
+        "procedure": "dbo.usp_LoadGameAccount"
+      },
+      "method": "Target procedure equals guide method name. Only LoadGameAccount has a direct two-build body check."
+    },
+    {
+      "target": "0x14009ccf0",
+      "guide": "0x1400a03e0",
+      "name": "LobbyDB::LoadGameAccountTimeBasedPlayInfo",
+      "confidence": "likely",
+      "status": "❓",
+      "evidence": {
+        "target_sql_string": "0x14019c710",
+        "procedure": "dbo.usp_LoadGameAccountTimeBasedPlayInfo"
+      },
+      "method": "Target procedure equals guide method name. Only LoadGameAccount has a direct two-build body check."
+    },
+    {
+      "target": "0x14009d350",
+      "guide": "0x1400a0a40",
+      "name": "LobbyDB::UpdateGameAccountTimeBasedPlayInfo",
+      "confidence": "likely",
+      "status": "❓",
+      "evidence": {
+        "target_sql_string": "0x14019c5d0",
+        "procedure": "dbo.usp_UpdateGameAccountTimeBasedPlayInfo"
+      },
+      "method": "Target procedure equals guide method name. Only LoadGameAccount has a direct two-build body check."
+    },
+    {
+      "target": "0x14009d7c0",
+      "guide": "0x1400a0eb0",
+      "name": "LobbyDB::RegisterGameAccount",
+      "confidence": "likely",
+      "status": "❓",
+      "evidence": {
+        "target_sql_string": "0x14019c4b0",
+        "procedure": "dbo.usp_RegisterGameAccount"
+      },
+      "method": "Target procedure equals guide method name. Only LoadGameAccount has a direct two-build body check."
+    },
+    {
+      "target": "0x14009dbb0",
+      "guide": "0x1400a12a0",
+      "name": "LobbyDB::UpdateLastLogin",
+      "confidence": "likely",
+      "status": "❓",
+      "evidence": {
+        "target_sql_string": "0x14019c3b0",
+        "procedure": "dbo.usp_UpdateLastLogin"
+      },
+      "method": "Target procedure equals guide method name. Only LoadGameAccount has a direct two-build body check."
+    },
+    {
+      "target": "0x14009de90",
+      "guide": "0x1400a1580",
+      "name": "LobbyDB::UpdateLastLogout",
+      "confidence": "likely",
+      "status": "❓",
+      "evidence": {
+        "target_sql_string": "0x14019c360",
+        "procedure": "dbo.usp_UpdateLastLogout"
+      },
+      "method": "Target procedure equals guide method name. Only LoadGameAccount has a direct two-build body check."
+    },
+    {
+      "target": "0x14009e100",
+      "guide": "0x1400a17f0",
+      "name": "LobbyDB::LoadCharacterList",
+      "confidence": "likely",
+      "status": "❓",
+      "evidence": {
+        "target_sql_string": "0x14019c2d0",
+        "procedure": "dbo.usp_LoadCharacterList"
+      },
+      "method": "Target procedure equals guide method name. Only LoadGameAccount has a direct two-build body check."
+    },
+    {
+      "target": "0x1400a00f0",
+      "guide": "0x1400a37e0",
+      "name": "LobbyDB::CheckValidityOfCharacterName",
+      "confidence": "likely",
+      "status": "❓",
+      "evidence": {
+        "target_sql_string": "0x14019bce0",
+        "procedure": "dbo.usp_CheckValidityOfCharacterName"
+      },
+      "method": "Target procedure equals guide method name. Only LoadGameAccount has a direct two-build body check."
+    },
+    {
+      "target": "0x1400a02c0",
+      "guide": "0x1400a39b0",
+      "name": "LobbyDB::TryCharacterCreation",
+      "confidence": "likely",
+      "status": "❓",
+      "evidence": {
+        "target_sql_string": "0x14019bc10",
+        "procedure": "dbo.usp_TryCharacterCreation"
+      },
+      "method": "Target procedure equals guide method name. Only LoadGameAccount has a direct two-build body check."
+    },
+    {
+      "target": "0x1400a06b0",
+      "guide": "0x1400a3da0",
+      "name": "LobbyDB::FinishCharacterCreation",
+      "confidence": "likely",
+      "status": "❓",
+      "evidence": {
+        "target_sql_string": "0x14019bb10",
+        "procedure": "dbo.usp_FinishCharacterCreation"
+      },
+      "method": "Target procedure equals guide method name. Only LoadGameAccount has a direct two-build body check."
+    },
+    {
+      "target": "0x1400a0a60",
+      "guide": "0x1400a4150",
+      "name": "LobbyDB::CancelCharacterCreation",
+      "confidence": "likely",
+      "status": "❓",
+      "evidence": {
+        "target_sql_string": "0x14019b990",
+        "procedure": "dbo.usp_CancelCharacterCreation"
+      },
+      "method": "Target procedure equals guide method name. Only LoadGameAccount has a direct two-build body check."
+    },
+    {
+      "target": "0x1400a0c30",
+      "guide": "0x1400a4320",
+      "name": "LobbyDB::TryCharacterDeletion",
+      "confidence": "likely",
+      "status": "❓",
+      "evidence": {
+        "target_sql_string": "0x14019b930",
+        "procedure": "dbo.usp_TryCharacterDeletion"
+      },
+      "method": "Target procedure equals guide method name. Only LoadGameAccount has a direct two-build body check."
+    },
+    {
+      "target": "0x1400a0e00",
+      "guide": "0x1400a44f0",
+      "name": "LobbyDB::FinishCharacterDeletion",
+      "confidence": "likely",
+      "status": "❓",
+      "evidence": {
+        "target_sql_string": "0x14019b8c0",
+        "procedure": "dbo.usp_FinishCharacterDeletion"
+      },
+      "method": "Target procedure equals guide method name. Only LoadGameAccount has a direct two-build body check."
+    },
+    {
+      "target": "0x1400a10d0",
+      "guide": "0x1400a47c0",
+      "name": "LobbyDB::CancelCharacterDeletion",
+      "confidence": "likely",
+      "status": "❓",
+      "evidence": {
+        "target_sql_string": "0x14019b7f0",
+        "procedure": "dbo.usp_CancelCharacterDeletion"
+      },
+      "method": "Target procedure equals guide method name. Only LoadGameAccount has a direct two-build body check."
+    },
+    {
+      "target": "0x1400a12a0",
+      "guide": "0x1400a4990",
+      "name": "LobbyDB::TryCharacterRestoration",
+      "confidence": "likely",
+      "status": "❓",
+      "evidence": {
+        "target_sql_string": "0x14019b790",
+        "procedure": "dbo.usp_TryCharacterRestoration"
+      },
+      "method": "Target procedure equals guide method name. Only LoadGameAccount has a direct two-build body check."
+    },
+    {
+      "target": "0x1400a1470",
+      "guide": "0x1400a4b60",
+      "name": "LobbyDB::FinishCharacterRestoration",
+      "confidence": "likely",
+      "status": "❓",
+      "evidence": {
+        "target_sql_string": "0x14019b730",
+        "procedure": "dbo.usp_FinishCharacterRestoration"
+      },
+      "method": "Target procedure equals guide method name. Only LoadGameAccount has a direct two-build body check."
+    },
+    {
+      "target": "0x1400a1640",
+      "guide": "0x1400a4d30",
+      "name": "LobbyDB::RetrieveExpiredDeletionWaitingList",
+      "confidence": "likely",
+      "status": "❓",
+      "evidence": {
+        "target_sql_string": "0x14019b6c0",
+        "procedure": "dbo.usp_RetrieveExpiredDeletionWaitingList"
+      },
+      "method": "Target procedure equals guide method name. Only LoadGameAccount has a direct two-build body check."
+    },
+    {
+      "target": "0x1400a1b30",
+      "guide": "0x1400a5220",
+      "name": "LobbyDB::ExpireCharacterDeletionWaiting",
+      "confidence": "likely",
+      "status": "❓",
+      "evidence": {
+        "target_sql_string": "0x14019b610",
+        "procedure": "dbo.usp_ExpireCharacterDeletionWaiting"
+      },
+      "method": "Target procedure equals guide method name. Only LoadGameAccount has a direct two-build body check."
+    },
+    {
+      "target": "0x1400a1d00",
+      "guide": "0x1400a53f0",
+      "name": "LobbyDB::UpdateLastPlayStart",
+      "confidence": "likely",
+      "status": "❓",
+      "evidence": {
+        "target_sql_string": "0x14019b5b0",
+        "procedure": "dbo.usp_UpdateLastPlayStart"
+      },
+      "method": "Target procedure equals guide method name. Only LoadGameAccount has a direct two-build body check."
+    },
+    {
+      "target": "0x1400a1fa0",
+      "guide": "0x1400a5690",
+      "name": "LobbyDB::UpdateLastPlayEnd",
+      "confidence": "likely",
+      "status": "❓",
+      "evidence": {
+        "target_sql_string": "0x14019b520",
+        "procedure": "dbo.usp_UpdateLastPlayEnd"
+      },
+      "method": "Target procedure equals guide method name. Only LoadGameAccount has a direct two-build body check."
+    },
+    {
+      "target": "0x1400a21c0",
+      "guide": "0x1400a58b0",
+      "name": "LobbyDB::UpdateCharacterData",
+      "confidence": "likely",
+      "status": "❓",
+      "evidence": {
+        "target_sql_string": "0x14019b4b0",
+        "procedure": "dbo.usp_UpdateCharacterData"
+      },
+      "method": "Target procedure equals guide method name. Only LoadGameAccount has a direct two-build body check."
+    },
+    {
+      "target": "0x1400a25b0",
+      "guide": "0x1400a5ca0",
+      "name": "LobbyDB::UpdateCharacterLevel",
+      "confidence": "likely",
+      "status": "❓",
+      "evidence": {
+        "target_sql_string": "0x14019b450",
+        "procedure": "dbo.usp_UpdateCharacterLevel"
+      },
+      "method": "Target procedure equals guide method name. Only LoadGameAccount has a direct two-build body check."
+    },
+    {
+      "target": "0x1400a2890",
+      "guide": "0x1400a5f80",
+      "name": "LobbyDB::TryGuildRegistration",
+      "confidence": "likely",
+      "status": "❓",
+      "evidence": {
+        "target_sql_string": "0x14019b3e0",
+        "procedure": "dbo.usp_TryGuildRegistration"
+      },
+      "method": "Target procedure equals guide method name. Only LoadGameAccount has a direct two-build body check."
+    },
+    {
+      "target": "0x1400a2c20",
+      "guide": "0x1400a6310",
+      "name": "LobbyDB::FinishGuildRegistration",
+      "confidence": "likely",
+      "status": "❓",
+      "evidence": {
+        "target_sql_string": "0x14019b310",
+        "procedure": "dbo.usp_FinishGuildRegistration"
+      },
+      "method": "Target procedure equals guide method name. Only LoadGameAccount has a direct two-build body check."
+    },
+    {
+      "target": "0x1400a2df0",
+      "guide": "0x1400a64e0",
+      "name": "LobbyDB::CancelGuildRegistration",
+      "confidence": "likely",
+      "status": "❓",
+      "evidence": {
+        "target_sql_string": "0x14019b2b0",
+        "procedure": "dbo.usp_CancelGuildRegistration"
+      },
+      "method": "Target procedure equals guide method name. Only LoadGameAccount has a direct two-build body check."
+    },
+    {
+      "target": "0x1400a2fc0",
+      "guide": "0x1400a66b0",
+      "name": "LobbyDB::DeleteGuild",
+      "confidence": "likely",
+      "status": "❓",
+      "evidence": {
+        "target_sql_string": "0x14019b260",
+        "procedure": "dbo.usp_DeleteGuild"
+      },
+      "method": "Target procedure equals guide method name. Only LoadGameAccount has a direct two-build body check."
+    },
+    {
+      "target": "0x1400a3200",
+      "guide": "0x1400a68f0",
+      "name": "LobbyDB::TryRenameGuild",
+      "confidence": "likely",
+      "status": "❓",
+      "evidence": {
+        "target_sql_string": "0x14019b1c0",
+        "procedure": "dbo.usp_TryRenameGuild"
+      },
+      "method": "Target procedure equals guide method name. Only LoadGameAccount has a direct two-build body check."
+    },
+    {
+      "target": "0x1400a3570",
+      "guide": "0x1400a6c60",
+      "name": "LobbyDB::FinishRenameGuild",
+      "confidence": "likely",
+      "status": "❓",
+      "evidence": {
+        "target_sql_string": "0x14019b0e0",
+        "procedure": "dbo.usp_FinishRenameGuild"
+      },
+      "method": "Target procedure equals guide method name. Only LoadGameAccount has a direct two-build body check."
+    },
+    {
+      "target": "0x1400a37d0",
+      "guide": "0x1400a6ec0",
+      "name": "LobbyDB::CancelRenameGuild",
+      "confidence": "likely",
+      "status": "❓",
+      "evidence": {
+        "target_sql_string": "0x14019b090",
+        "procedure": "dbo.usp_CancelRenameGuild"
+      },
+      "method": "Target procedure equals guide method name. Only LoadGameAccount has a direct two-build body check."
+    },
+    {
+      "target": "0x1400a39c0",
+      "guide": "0x1400a70b0",
+      "name": "LobbyDB::LoadJumpingCharacterCreationQuota",
+      "confidence": "likely",
+      "status": "❓",
+      "evidence": {
+        "target_sql_string": "0x14019b020",
+        "procedure": "dbo.usp_LoadJumpingCharacterCreationQuota"
+      },
+      "method": "Target procedure equals guide method name. Only LoadGameAccount has a direct two-build body check."
+    },
+    {
+      "target": "0x1400a3e80",
+      "guide": "0x1400a7570",
+      "name": "LobbyDB::BindCharacterSlot",
+      "confidence": "likely",
+      "status": "❓",
+      "evidence": {
+        "target_sql_string": "0x14019af50",
+        "procedure": "dbo.usp_BindCharacterSlot"
+      },
+      "method": "Target procedure equals guide method name. Only LoadGameAccount has a direct two-build body check."
+    },
+    {
+      "target": "0x1400a40f0",
+      "guide": "0x1400a77e0",
+      "name": "LobbyDB::UpdateJumpingCharacterStateComplete",
+      "confidence": "likely",
+      "status": "❓",
+      "evidence": {
+        "target_sql_string": "0x14019aec0",
+        "procedure": "dbo.usp_UpdateJumpingCharacterStateComplete"
+      },
+      "method": "Target procedure equals guide method name. Only LoadGameAccount has a direct two-build body check."
+    },
+    {
+      "target": "0x1400a4e00",
+      "guide": "0x1400a95f0",
+      "name": "LobbyDB::LoadRandomStoreInitializationSchedule",
+      "confidence": "likely",
+      "status": "❓",
+      "evidence": {
+        "target_sql_string": "0x14019ab10",
+        "procedure": "dbo.usp_LoadRandomStoreInitializationSchedule"
+      },
+      "method": "Target procedure equals guide method name. Only LoadGameAccount has a direct two-build body check."
+    },
+    {
+      "target": "0x1400a5090",
+      "guide": "0x1400a9880",
+      "name": "LobbyDB::LoadIncompleteLobbyService",
+      "confidence": "likely",
+      "status": "❓",
+      "evidence": {
+        "target_sql_string": "0x14019aa70",
+        "procedure": "dbo.usp_LoadIncompleteLobbyService"
+      },
+      "method": "Target procedure equals guide method name. Only LoadGameAccount has a direct two-build body check."
+    },
+    {
+      "target": "0x1400a59e0",
+      "guide": "0x1400aa1d0",
+      "name": "LobbyDB::LoadCharacterCosmesisService",
+      "confidence": "likely",
+      "status": "❓",
+      "evidence": {
+        "target_sql_string": "0x14019a940",
+        "procedure": "dbo.usp_LoadCharacterCosmesisService"
+      },
+      "method": "Target procedure equals guide method name. Only LoadGameAccount has a direct two-build body check."
+    },
+    {
+      "target": "0x1400a5e80",
+      "guide": "0x1400aa670",
+      "name": "LobbyDB::TryCharacterCosmesisService",
+      "confidence": "likely",
+      "status": "❓",
+      "evidence": {
+        "target_sql_string": "0x14019a860",
+        "procedure": "dbo.usp_TryCharacterCosmesisService"
+      },
+      "method": "Target procedure equals guide method name. Only LoadGameAccount has a direct two-build body check."
+    },
+    {
+      "target": "0x1400a65c0",
+      "guide": "0x1400aadb0",
+      "name": "LobbyDB::UpdateLobbyServiceStateToItemConsumptionTryState_CharacterCosmesisService",
+      "confidence": "likely",
+      "status": "❓",
+      "evidence": {
+        "target_sql_string": "0x14019a700",
+        "procedure": "dbo.usp_UpdateLobbyServiceStateToItemConsumptionTryState_CharacterCosmesisService"
+      },
+      "method": "Target procedure equals guide method name. Only LoadGameAccount has a direct two-build body check."
+    },
+    {
+      "target": "0x1400a6880",
+      "guide": "0x1400ab070",
+      "name": "LobbyDB::UpdateLobbyServiceStateToTaskDoneState_CharacterCosmesisService",
+      "confidence": "likely",
+      "status": "❓",
+      "evidence": {
+        "target_sql_string": "0x14019a650",
+        "procedure": "dbo.usp_UpdateLobbyServiceStateToTaskDoneState_CharacterCosmesisService"
+      },
+      "method": "Target procedure equals guide method name. Only LoadGameAccount has a direct two-build body check."
+    },
+    {
+      "target": "0x1400a6b40",
+      "guide": "0x1400ab330",
+      "name": "LobbyDB::UpdateLobbyServiceStateToItemConsumptionFinishState_CharacterCosmesisService",
+      "confidence": "likely",
+      "status": "❓",
+      "evidence": {
+        "target_sql_string": "0x14019a580",
+        "procedure": "dbo.usp_UpdateLobbyServiceStateToItemConsumptionFinishState_CharacterCosmesisService"
+      },
+      "method": "Target procedure equals guide method name. Only LoadGameAccount has a direct two-build body check."
+    },
+    {
+      "target": "0x1400a6e00",
+      "guide": "0x1400ab5f0",
+      "name": "LobbyDB::FinishCharacterCosmesisService",
+      "confidence": "likely",
+      "status": "❓",
+      "evidence": {
+        "target_sql_string": "0x14019a510",
+        "procedure": "dbo.usp_FinishCharacterCosmesisService"
+      },
+      "method": "Target procedure equals guide method name. Only LoadGameAccount has a direct two-build body check."
+    },
+    {
+      "target": "0x1400a70c0",
+      "guide": "0x1400ab8b0",
+      "name": "LobbyDB::LoadChangeCharacterSexService",
+      "confidence": "likely",
+      "status": "❓",
+      "evidence": {
+        "target_sql_string": "0x14019a4a0",
+        "procedure": "dbo.usp_LoadChangeCharacterSexService"
+      },
+      "method": "Target procedure equals guide method name. Only LoadGameAccount has a direct two-build body check."
+    },
+    {
+      "target": "0x1400a75d0",
+      "guide": "0x1400abdc0",
+      "name": "LobbyDB::TryChangeCharacterSexService",
+      "confidence": "likely",
+      "status": "❓",
+      "evidence": {
+        "target_sql_string": "0x14019a400",
+        "procedure": "dbo.usp_TryChangeCharacterSexService"
+      },
+      "method": "Target procedure equals guide method name. Only LoadGameAccount has a direct two-build body check."
+    },
+    {
+      "target": "0x1400a7dd0",
+      "guide": "0x1400ac5c0",
+      "name": "LobbyDB::UpdateLobbyServiceStateToItemConsumptionTryState_ChangeCharacterSexService",
+      "confidence": "likely",
+      "status": "❓",
+      "evidence": {
+        "target_sql_string": "0x14019a320",
+        "procedure": "dbo.usp_UpdateLobbyServiceStateToItemConsumptionTryState_ChangeCharacterSexService"
+      },
+      "method": "Target procedure equals guide method name. Only LoadGameAccount has a direct two-build body check."
+    },
+    {
+      "target": "0x1400a8090",
+      "guide": "0x1400ac880",
+      "name": "LobbyDB::UpdateLobbyServiceStateToTaskDoneState_ChangeCharacterSexService",
+      "confidence": "likely",
+      "status": "❓",
+      "evidence": {
+        "target_sql_string": "0x14019a270",
+        "procedure": "dbo.usp_UpdateLobbyServiceStateToTaskDoneState_ChangeCharacterSexService"
+      },
+      "method": "Target procedure equals guide method name. Only LoadGameAccount has a direct two-build body check."
+    },
+    {
+      "target": "0x1400a8350",
+      "guide": "0x1400acb40",
+      "name": "LobbyDB::UpdateLobbyServiceStateToItemConsumptionFinishState_ChangeCharacterSexService",
+      "confidence": "likely",
+      "status": "❓",
+      "evidence": {
+        "target_sql_string": "0x14019a1a0",
+        "procedure": "dbo.usp_UpdateLobbyServiceStateToItemConsumptionFinishState_ChangeCharacterSexService"
+      },
+      "method": "Target procedure equals guide method name. Only LoadGameAccount has a direct two-build body check."
+    },
+    {
+      "target": "0x1400a8610",
+      "guide": "0x1400ace00",
+      "name": "LobbyDB::FinishChangeCharacterSexService",
+      "confidence": "likely",
+      "status": "❓",
+      "evidence": {
+        "target_sql_string": "0x14019a130",
+        "procedure": "dbo.usp_FinishChangeCharacterSexService"
+      },
+      "method": "Target procedure equals guide method name. Only LoadGameAccount has a direct two-build body check."
+    },
+    {
+      "target": "0x1400a88d0",
+      "guide": "0x1400ad0c0",
+      "name": "LobbyDB::LoadChangeCharacterRaceService",
+      "confidence": "likely",
+      "status": "❓",
+      "evidence": {
+        "target_sql_string": "0x14019a0c0",
+        "procedure": "dbo.usp_LoadChangeCharacterRaceService"
+      },
+      "method": "Target procedure equals guide method name. Only LoadGameAccount has a direct two-build body check."
+    },
+    {
+      "target": "0x1400a8e60",
+      "guide": "0x1400ad650",
+      "name": "LobbyDB::TryChangeCharacterRaceService",
+      "confidence": "likely",
+      "status": "❓",
+      "evidence": {
+        "target_sql_string": "0x14019a010",
+        "procedure": "dbo.usp_TryChangeCharacterRaceService"
+      },
+      "method": "Target procedure equals guide method name. Only LoadGameAccount has a direct two-build body check."
+    },
+    {
+      "target": "0x1400a9720",
+      "guide": "0x1400adf10",
+      "name": "LobbyDB::UpdateLobbyServiceStateToItemConsumptionTryState_ChangeCharacterRaceService",
+      "confidence": "likely",
+      "status": "❓",
+      "evidence": {
+        "target_sql_string": "0x140199f30",
+        "procedure": "dbo.usp_UpdateLobbyServiceStateToItemConsumptionTryState_ChangeCharacterRaceService"
+      },
+      "method": "Target procedure equals guide method name. Only LoadGameAccount has a direct two-build body check."
+    },
+    {
+      "target": "0x1400a99e0",
+      "guide": "0x1400ae1d0",
+      "name": "LobbyDB::UpdateLobbyServiceStateToTaskDoneState_ChangeCharacterRaceService",
+      "confidence": "likely",
+      "status": "❓",
+      "evidence": {
+        "target_sql_string": "0x140199e70",
+        "procedure": "dbo.usp_UpdateLobbyServiceStateToTaskDoneState_ChangeCharacterRaceService"
+      },
+      "method": "Target procedure equals guide method name. Only LoadGameAccount has a direct two-build body check."
+    },
+    {
+      "target": "0x1400a9ca0",
+      "guide": "0x1400ae490",
+      "name": "LobbyDB::UpdateLobbyServiceStateToItemConsumptionFinishState_ChangeCharacterRaceService",
+      "confidence": "likely",
+      "status": "❓",
+      "evidence": {
+        "target_sql_string": "0x140199da0",
+        "procedure": "dbo.usp_UpdateLobbyServiceStateToItemConsumptionFinishState_ChangeCharacterRaceService"
+      },
+      "method": "Target procedure equals guide method name. Only LoadGameAccount has a direct two-build body check."
+    },
+    {
+      "target": "0x1400a9f60",
+      "guide": "0x1400ae750",
+      "name": "LobbyDB::FinishChangeCharacterRaceService",
+      "confidence": "likely",
+      "status": "❓",
+      "evidence": {
+        "target_sql_string": "0x140199d30",
+        "procedure": "dbo.usp_FinishChangeCharacterRaceService"
+      },
+      "method": "Target procedure equals guide method name. Only LoadGameAccount has a direct two-build body check."
+    },
+    {
+      "target": "0x1400aa680",
+      "guide": "0x1400aee70",
+      "name": "LobbyDB::TryCharacterRenameService",
+      "confidence": "likely",
+      "status": "❓",
+      "evidence": {
+        "target_sql_string": "0x140199bf0",
+        "procedure": "dbo.usp_TryCharacterRenameService"
+      },
+      "method": "Target procedure equals guide method name. Only LoadGameAccount has a direct two-build body check."
+    },
+    {
+      "target": "0x1400aae40",
+      "guide": "0x1400af630",
+      "name": "LobbyDB::UpdateLobbyServiceStateToItemConsumptionTryState_CharacterRenameService",
+      "confidence": "likely",
+      "status": "❓",
+      "evidence": {
+        "target_sql_string": "0x140199af0",
+        "procedure": "dbo.usp_UpdateLobbyServiceStateToItemConsumptionTryState_CharacterRenameService"
+      },
+      "method": "Target procedure equals guide method name. Only LoadGameAccount has a direct two-build body check."
+    },
+    {
+      "target": "0x1400ab370",
+      "guide": "0x1400afb60",
+      "name": "LobbyDB::UpdateLobbyServiceStateToTaskDoneState_CharacterRenameService",
+      "confidence": "likely",
+      "status": "❓",
+      "evidence": {
+        "target_sql_string": "0x140199a40",
+        "procedure": "dbo.usp_UpdateLobbyServiceStateToTaskDoneState_CharacterRenameService"
+      },
+      "method": "Target procedure equals guide method name. Only LoadGameAccount has a direct two-build body check."
+    },
+    {
+      "target": "0x1400ab8a0",
+      "guide": "0x1400b0090",
+      "name": "LobbyDB::UpdateLobbyServiceStateToItemConsumptionFinishState_CharacterRenameService",
+      "confidence": "likely",
+      "status": "❓",
+      "evidence": {
+        "target_sql_string": "0x140199970",
+        "procedure": "dbo.usp_UpdateLobbyServiceStateToItemConsumptionFinishState_CharacterRenameService"
+      },
+      "method": "Target procedure equals guide method name. Only LoadGameAccount has a direct two-build body check."
+    },
+    {
+      "target": "0x1400abdd0",
+      "guide": "0x1400b05c0",
+      "name": "LobbyDB::FinishCharacterRenameService",
+      "confidence": "likely",
+      "status": "❓",
+      "evidence": {
+        "target_sql_string": "0x140199900",
+        "procedure": "dbo.usp_FinishCharacterRenameService"
+      },
+      "method": "Target procedure equals guide method name. Only LoadGameAccount has a direct two-build body check."
+    },
+    {
+      "target": "0x1400ac090",
+      "guide": "0x1400b0880",
+      "name": "LobbyDB::LoadSlotAdditionService",
+      "confidence": "likely",
+      "status": "❓",
+      "evidence": {
+        "target_sql_string": "0x1401998a0",
+        "procedure": "dbo.usp_LoadSlotAdditionService"
+      },
+      "method": "Target procedure equals guide method name. Only LoadGameAccount has a direct two-build body check."
+    },
+    {
+      "target": "0x1400ac440",
+      "guide": "0x1400b0c30",
+      "name": "LobbyDB::TrySlotAdditionService",
+      "confidence": "likely",
+      "status": "❓",
+      "evidence": {
+        "target_sql_string": "0x140199810",
+        "procedure": "dbo.usp_TrySlotAdditionService"
+      },
+      "method": "Target procedure equals guide method name. Only LoadGameAccount has a direct two-build body check."
+    },
+    {
+      "target": "0x1400ac9e0",
+      "guide": "0x1400b11d0",
+      "name": "LobbyDB::UpdateLobbyServiceStateToItemConsumptionTryState_SlotAdditionService",
+      "confidence": "likely",
+      "status": "❓",
+      "evidence": {
+        "target_sql_string": "0x140199750",
+        "procedure": "dbo.usp_UpdateLobbyServiceStateToItemConsumptionTryState_SlotAdditionService"
+      },
+      "method": "Target procedure equals guide method name. Only LoadGameAccount has a direct two-build body check."
+    },
+    {
+      "target": "0x1400acf10",
+      "guide": "0x1400b1700",
+      "name": "LobbyDB::UpdateLobbyServiceStateToTaskDoneState_SlotAdditionService",
+      "confidence": "likely",
+      "status": "❓",
+      "evidence": {
+        "target_sql_string": "0x1401996a0",
+        "procedure": "dbo.usp_UpdateLobbyServiceStateToTaskDoneState_SlotAdditionService"
+      },
+      "method": "Target procedure equals guide method name. Only LoadGameAccount has a direct two-build body check."
+    },
+    {
+      "target": "0x1400ad770",
+      "guide": "0x1400b1f60",
+      "name": "LobbyDB::UpdateLobbyServiceStateToItemConsumptionFinishState_SlotAdditionService",
+      "confidence": "likely",
+      "status": "❓",
+      "evidence": {
+        "target_sql_string": "0x1401995b0",
+        "procedure": "dbo.usp_UpdateLobbyServiceStateToItemConsumptionFinishState_SlotAdditionService"
+      },
+      "method": "Target procedure equals guide method name. Only LoadGameAccount has a direct two-build body check."
+    },
+    {
+      "target": "0x1400adca0",
+      "guide": "0x1400b2490",
+      "name": "LobbyDB::FinishSlotAdditionService",
+      "confidence": "likely",
+      "status": "❓",
+      "evidence": {
+        "target_sql_string": "0x140199540",
+        "procedure": "dbo.usp_FinishSlotAdditionService"
+      },
+      "method": "Target procedure equals guide method name. Only LoadGameAccount has a direct two-build body check."
+    },
+    {
+      "target": "0x1400adf60",
+      "guide": "0x1400b2750",
+      "name": "LobbyDB::WriteUserRenameServiceLog",
+      "confidence": "likely",
+      "status": "❓",
+      "evidence": {
+        "target_sql_string": "0x1401994c0",
+        "procedure": "dbo.usp_WriteUserRenameServiceLog"
+      },
+      "method": "Target procedure equals guide method name. Only LoadGameAccount has a direct two-build body check."
+    },
+    {
+      "target": "0x1400ae650",
+      "guide": "0x1400b2e40",
+      "name": "LobbyDB::TryExtendJumpingCharacterCreationQuota",
+      "confidence": "likely",
+      "status": "❓",
+      "evidence": {
+        "target_sql_string": "0x1401993e0",
+        "procedure": "dbo.usp_TryExtendJumpingCharacterCreationQuota"
+      },
+      "method": "Target procedure equals guide method name. Only LoadGameAccount has a direct two-build body check."
+    },
+    {
+      "target": "0x1400aebf0",
+      "guide": "0x1400b33e0",
+      "name": "LobbyDB::UpdateLobbyServiceStateToItemConsumptionTryState_ExtendJumpingCharacterCreationQuota",
+      "confidence": "likely",
+      "status": "❓",
+      "evidence": {
+        "target_sql_string": "0x140199300",
+        "procedure": "dbo.usp_UpdateLobbyServiceStateToItemConsumptionTryState_ExtendJumpingCharacterCreationQuota"
+      },
+      "method": "Target procedure equals guide method name. Only LoadGameAccount has a direct two-build body check."
+    },
+    {
+      "target": "0x1400af120",
+      "guide": "0x1400b3910",
+      "name": "LobbyDB::UpdateLobbyServiceStateToTaskDoneState_ExtendJumpingCharacterCreationQuota",
+      "confidence": "likely",
+      "status": "❓",
+      "evidence": {
+        "target_sql_string": "0x140199230",
+        "procedure": "dbo.usp_UpdateLobbyServiceStateToTaskDoneState_ExtendJumpingCharacterCreationQuota"
+      },
+      "method": "Target procedure equals guide method name. Only LoadGameAccount has a direct two-build body check."
+    },
+    {
+      "target": "0x1400af650",
+      "guide": "0x1400b3e40",
+      "name": "LobbyDB::UpdateLobbyServiceStateToItemConsumptionFinishState_ExtendJumpingCharacterCreationQuota",
+      "confidence": "likely",
+      "status": "❓",
+      "evidence": {
+        "target_sql_string": "0x140199150",
+        "procedure": "dbo.usp_UpdateLobbyServiceStateToItemConsumptionFinishState_ExtendJumpingCharacterCreationQuota"
+      },
+      "method": "Target procedure equals guide method name. Only LoadGameAccount has a direct two-build body check."
+    },
+    {
+      "target": "0x1400afb80",
+      "guide": "0x1400b4370",
+      "name": "LobbyDB::FinishExtendJumpingCharacterCreationQuota",
+      "confidence": "likely",
+      "status": "❓",
+      "evidence": {
+        "target_sql_string": "0x1401990c0",
+        "procedure": "dbo.usp_FinishExtendJumpingCharacterCreationQuota"
+      },
+      "method": "Target procedure equals guide method name. Only LoadGameAccount has a direct two-build body check."
+    },
+    {
+      "target": "0x1400afe40",
+      "guide": "0x1400b4630",
+      "name": "LobbyDB::TryAuctionEscrow",
+      "confidence": "likely",
+      "status": "❓",
+      "evidence": {
+        "target_sql_string": "0x140199050",
+        "procedure": "dbo.usp_TryAuctionEscrow"
+      },
+      "method": "Target procedure equals guide method name. Only LoadGameAccount has a direct two-build body check."
+    },
+    {
+      "target": "0x1400b0680",
+      "guide": "0x1400b4e70",
+      "name": "LobbyDB::CancelAuctionEscrow",
+      "confidence": "likely",
+      "status": "❓",
+      "evidence": {
+        "target_sql_string": "0x140198f50",
+        "procedure": "dbo.usp_CancelAuctionEscrow"
+      },
+      "method": "Target procedure equals guide method name. Only LoadGameAccount has a direct two-build body check."
+    },
+    {
+      "target": "0x1400b0950",
+      "guide": "0x1400b5140",
+      "name": "LobbyDB::FinishAuctionEscrow",
+      "confidence": "likely",
+      "status": "❓",
+      "evidence": {
+        "target_sql_string": "0x140198ef0",
+        "procedure": "dbo.usp_FinishAuctionEscrow"
+      },
+      "method": "Target procedure equals guide method name. Only LoadGameAccount has a direct two-build body check."
+    },
+    {
+      "target": "0x1400b0c20",
+      "guide": "0x1400b5410",
+      "name": "LobbyDB::TryAuctionEscrowRollback",
+      "confidence": "likely",
+      "status": "❓",
+      "evidence": {
+        "target_sql_string": "0x140198e60",
+        "procedure": "dbo.usp_TryAuctionEscrowRollback"
+      },
+      "method": "Target procedure equals guide method name. Only LoadGameAccount has a direct two-build body check."
+    },
+    {
+      "target": "0x1400b1240",
+      "guide": "0x1400b5a30",
+      "name": "LobbyDB::FinishAuctionEscrowRollback",
+      "confidence": "likely",
+      "status": "❓",
+      "evidence": {
+        "target_sql_string": "0x140198d00",
+        "procedure": "dbo.usp_FinishAuctionEscrowRollback"
+      },
+      "method": "Target procedure equals guide method name. Only LoadGameAccount has a direct two-build body check."
+    },
+    {
+      "target": "0x1400b1560",
+      "guide": "0x1400b5d50",
+      "name": "LobbyDB::TryAuctionResultDelivery",
+      "confidence": "likely",
+      "status": "❓",
+      "evidence": {
+        "target_sql_string": "0x140198c50",
+        "procedure": "dbo.usp_TryAuctionResultDelivery"
+      },
+      "method": "Target procedure equals guide method name. Only LoadGameAccount has a direct two-build body check."
+    },
+    {
+      "target": "0x1400b2000",
+      "guide": "0x1400b67f0",
+      "name": "LobbyDB::FinishAuctionResultDelivery",
+      "confidence": "likely",
+      "status": "❓",
+      "evidence": {
+        "target_sql_string": "0x140198bc0",
+        "procedure": "dbo.usp_FinishAuctionResultDelivery"
+      },
+      "method": "Target procedure equals guide method name. Only LoadGameAccount has a direct two-build body check."
+    },
+    {
+      "target": "0x1400b2fc0",
+      "guide": "0x1400b77b0",
+      "name": "LobbyDB::LoadMileagePolicy",
+      "confidence": "likely",
+      "status": "❓",
+      "evidence": {
+        "target_sql_string": "0x140198860",
+        "procedure": "dbo.usp_LoadMileagePolicy"
+      },
+      "method": "Target procedure equals guide method name. Only LoadGameAccount has a direct two-build body check."
+    },
+    {
+      "target": "0x1400b38b0",
+      "guide": "0x1400b80a0",
+      "name": "LobbyDB::LoadMileageFeverTime",
+      "confidence": "likely",
+      "status": "❓",
+      "evidence": {
+        "target_sql_string": "0x140198760",
+        "procedure": "dbo.usp_LoadMileageFeverTime"
+      },
+      "method": "Target procedure equals guide method name. Only LoadGameAccount has a direct two-build body check."
+    },
+    {
+      "target": "0x1400b45c0",
+      "guide": "0x1400b8db0",
+      "name": "LobbyDB::LoadMileageAccumulatedTimePerDay",
+      "confidence": "likely",
+      "status": "❓",
+      "evidence": {
+        "target_sql_string": "0x140198530",
+        "procedure": "dbo.usp_LoadMileageAccumulatedTimePerDay"
+      },
+      "method": "Target procedure equals guide method name. Only LoadGameAccount has a direct two-build body check."
+    },
+    {
+      "target": "0x1400b4e40",
+      "guide": "0x1400b9630",
+      "name": "LobbyDB::LoadRetryMileageDeposit",
+      "confidence": "likely",
+      "status": "❓",
+      "evidence": {
+        "target_sql_string": "0x140198330",
+        "procedure": "dbo.usp_LoadRetryMileageDeposit"
+      },
+      "method": "Target procedure equals guide method name. Only LoadGameAccount has a direct two-build body check."
+    },
+    {
+      "target": "0x1400b5ba0",
+      "guide": "0x1400ba390",
+      "name": "LobbyDB::RetrieveMileageDeposit",
+      "confidence": "likely",
+      "status": "❓",
+      "evidence": {
+        "target_sql_string": "0x140198190",
+        "procedure": "dbo.usp_RetrieveMileageDeposit"
+      },
+      "method": "Target procedure equals guide method name. Only LoadGameAccount has a direct two-build body check."
+    },
+    {
+      "target": "0x1400b6bc0",
+      "guide": "0x1400bb3b0",
+      "name": "LobbyDB::FinishMileageDeposit",
+      "confidence": "likely",
+      "status": "❓",
+      "evidence": {
+        "target_sql_string": "0x1401980b0",
+        "procedure": "dbo.usp_FinishMileageDeposit"
+      },
+      "method": "Target procedure equals guide method name. Only LoadGameAccount has a direct two-build body check."
+    },
+    {
+      "target": "0x1400b7570",
+      "guide": "0x1400bbe90",
+      "name": "LobbyGateChannel::SendInitSessionWithNPTokenOk",
+      "confidence": "likely",
+      "status": "❓",
+      "evidence": {
+        "unique_shared_string_hashes": 1
+      },
+      "method": "Unique shared string-reference anchors; body comparison pending."
+    },
+    {
+      "target": "0x1400b78f0",
+      "guide": "0x1400bc220",
+      "name": "LobbyGateChannel::SendStartSessionWithNPTokenOk",
+      "confidence": "likely",
+      "status": "❓",
+      "evidence": {
+        "unique_shared_string_hashes": 1
+      },
+      "method": "Unique shared string-reference anchors; body comparison pending."
+    },
+    {
+      "target": "0x1400b7cd0",
+      "guide": "0x1400bc610",
+      "name": "LobbyGateChannel::SendStartSessionWithLobbyTokenOk",
+      "confidence": "likely",
+      "status": "❓",
+      "evidence": {
+        "unique_shared_string_hashes": 1
+      },
+      "method": "Unique shared string-reference anchors; body comparison pending."
+    },
+    {
+      "target": "0x1400b8470",
+      "guide": "0x1400bcdd0",
+      "name": "LobbyGateChannel::SendCreateCharacterOk",
+      "confidence": "likely",
+      "status": "❓",
+      "evidence": {
+        "unique_shared_string_hashes": 1
+      },
+      "method": "Unique shared string-reference anchors; body comparison pending."
+    },
+    {
+      "target": "0x1400b86d0",
+      "guide": "0x1400bd030",
+      "name": "LobbyGateChannel::SendDeleteCharacterOk",
+      "confidence": "likely",
+      "status": "❓",
+      "evidence": {
+        "unique_shared_string_hashes": 1
+      },
+      "method": "Unique shared string-reference anchors; body comparison pending."
+    },
+    {
+      "target": "0x1400b95d0",
+      "guide": "0x1400bdfd0",
+      "name": "LobbyGateChannel::SendGetChargeInfoOk",
+      "confidence": "likely",
+      "status": "❓",
+      "evidence": {
+        "unique_shared_string_hashes": 1
+      },
+      "method": "Unique shared string-reference anchors; body comparison pending."
+    },
+    {
+      "target": "0x1400b99c0",
+      "guide": "0x1400be3f0",
+      "name": "LobbyGateChannel::SendBindCharacterSlotFail",
+      "confidence": "likely",
+      "status": "❓",
+      "evidence": {
+        "unique_shared_string_hashes": 1
+      },
+      "method": "Unique shared string-reference anchors; body comparison pending."
+    },
+    {
+      "target": "0x1400ba010",
+      "guide": "0x1400bea50",
+      "name": "LobbyGateChannel::SendTakeGoodsOk",
+      "confidence": "likely",
+      "status": "❓",
+      "evidence": {
+        "unique_shared_string_hashes": 1
+      },
+      "method": "Unique shared string-reference anchors; body comparison pending."
+    },
+    {
+      "target": "0x1400ba380",
+      "guide": "0x1400bedd0",
+      "name": "LobbyGateChannel::SendListLobbyServiceItemInfoOk",
+      "confidence": "likely",
+      "status": "❓",
+      "evidence": {
+        "unique_shared_string_hashes": 1
+      },
+      "method": "Unique shared string-reference anchors; body comparison pending."
+    },
+    {
+      "target": "0x1400bafe0",
+      "guide": "0x1400bfaf0",
+      "name": "LobbyGateChannel::SendRenameCharacterWithAccountInventoryItemOk",
+      "confidence": "likely",
+      "status": "❓",
+      "evidence": {
+        "unique_shared_string_hashes": 1
+      },
+      "method": "Unique shared string-reference anchors; body comparison pending."
+    },
+    {
+      "target": "0x1400bb9f0",
+      "guide": "0x1400c0550",
+      "name": "LobbyGateChannel::SendActivateGradeOk",
+      "confidence": "likely",
+      "status": "❓",
+      "evidence": {
+        "unique_shared_string_hashes": 1
+      },
+      "method": "Unique shared string-reference anchors; body comparison pending."
+    },
+    {
+      "target": "0x1400bbb10",
+      "guide": "0x1400c0670",
+      "name": "LobbyGateChannel::SendActivateGradeFail",
+      "confidence": "likely",
+      "status": "❓",
+      "evidence": {
+        "unique_shared_string_hashes": 1
+      },
+      "method": "Unique shared string-reference anchors; body comparison pending."
+    },
+    {
+      "target": "0x1400bbc20",
+      "guide": "0x1400c0790",
+      "name": "LobbyGateChannel::SendChangedGradeNotify",
+      "confidence": "likely",
+      "status": "❓",
+      "evidence": {
+        "unique_shared_string_hashes": 1
+      },
+      "method": "Unique shared string-reference anchors; body comparison pending."
+    },
+    {
+      "target": "0x1400bbe00",
+      "guide": "0x1400c0970",
+      "name": "LobbyGateChannel::SendChangedGradeLevelNotify",
+      "confidence": "likely",
+      "status": "❓",
+      "evidence": {
+        "unique_shared_string_hashes": 1
+      },
+      "method": "Unique shared string-reference anchors; body comparison pending."
+    },
+    {
+      "target": "0x1400bdc90",
+      "guide": "0x1400c25c0",
+      "name": "HandleLobbyLobbyGate_HelloReq",
+      "confidence": "exact",
+      "status": "✅",
+      "evidence": {
+        "target_table": "0x1401f9640",
+        "target_slot": "0x1401f9650",
+        "guide_table": "0x140202640",
+        "command": 1,
+        "shared_string_anchor": true,
+        "step2_log": "L\"[lobby-gate], handle hello fail; decompose fail, session-id:0x%I64X, gate-wid:%d, packet-version:%d, internal-port:%d\","
+      },
+      "method": "307 command slot plus independent operation-specific handler log; receive parser checked in step 2."
+    },
+    {
+      "target": "0x1400be4c0",
+      "guide": "0x1400c2d90",
+      "name": "HandleLobbyLobbyGate_InitSessionWithNPTokenReq",
+      "confidence": "exact",
+      "status": "✅",
+      "evidence": {
+        "target_table": "0x1401f9640",
+        "target_slot": "0x1401f96a0",
+        "guide_table": "0x140202640",
+        "command": 6,
+        "shared_string_anchor": true,
+        "step2_log": "L\"[lobby-gate], handle init session w/ np-token fail; init session fail, error:%d(%s), gate-wid:%d, gate-key:0x%I6\""
+      },
+      "method": "307 command slot plus independent operation-specific handler log; receive parser checked in step 2."
+    },
+    {
+      "target": "0x1400beab0",
+      "guide": "0x1400c3380",
+      "name": "HandleLobbyLobbyGate_StartSessionWithNPTokenReq",
+      "confidence": "exact",
+      "status": "✅",
+      "evidence": {
+        "target_table": "0x1401f9640",
+        "target_slot": "0x1401f96d0",
+        "guide_table": "0x140202640",
+        "command": 9,
+        "shared_string_anchor": false,
+        "step2_log": "L\"[lobby-gate], handle start session w/ np-token fail; decompose fail, gate-wid:%d, cli-key:0x%I64X, np-token:%08X-%\""
+      },
+      "method": "307 command slot plus independent operation-specific handler log; receive parser checked in step 2."
+    },
+    {
+      "target": "0x1400befc0",
+      "guide": "0x1400c3890",
+      "name": "HandleLobbyLobbyGate_InitSessionWithLobbyTokenReq",
+      "confidence": "exact",
+      "status": "✅",
+      "evidence": {
+        "target_table": "0x1401f9640",
+        "target_slot": "0x1401f9700",
+        "guide_table": "0x140202640",
+        "command": 12,
+        "shared_string_anchor": false,
+        "step2_log": "L\"[lobby-gate], handle init session w/ lobby-token ok, channel-id:%I64d, gate-key:0x%I64X, cli-key:0x%I64X, \""
+      },
+      "method": "307 command slot plus independent operation-specific handler log; receive parser checked in step 2."
+    },
+    {
+      "target": "0x1400bf5a0",
+      "guide": "0x1400c3e70",
+      "name": "HandleLobbyLobbyGate_StartSessionWithLobbyTokenReq",
+      "confidence": "exact",
+      "status": "✅",
+      "evidence": {
+        "target_table": "0x1401f9640",
+        "target_slot": "0x1401f9730",
+        "guide_table": "0x140202640",
+        "command": 15,
+        "shared_string_anchor": false,
+        "step2_log": "L\"[lobby-gate], handle start session w/ lobby-token ok, channel-id:%I64d, cli-key:0x%I64X\","
+      },
+      "method": "307 command slot plus independent operation-specific handler log; receive parser checked in step 2."
+    },
+    {
+      "target": "0x1400bf8b0",
+      "guide": "0x1400c4180",
+      "name": "HandleLobbyLobbyGate_LostAnonymousConnectionNotify",
+      "confidence": "exact",
+      "status": "✅",
+      "evidence": {
+        "target_table": "0x1401f9640",
+        "target_slot": "0x1401f9760",
+        "guide_table": "0x140202640",
+        "command": 18,
+        "shared_string_anchor": false,
+        "step2_log": "L\"[lobby-gate], handle lost anonymous connection notify ok, gate-wid:%d, gate-key:0x%I64X\","
+      },
+      "method": "307 command slot plus independent operation-specific handler log; receive parser checked in step 2."
+    },
+    {
+      "target": "0x1400bfb20",
+      "guide": "0x1400c43f0",
+      "name": "HandleLobbyLobbyGate_LostConnectionNotify",
+      "confidence": "exact",
+      "status": "✅",
+      "evidence": {
+        "target_table": "0x1401f9640",
+        "target_slot": "0x1401f9770",
+        "guide_table": "0x140202640",
+        "command": 19,
+        "shared_string_anchor": false,
+        "step2_log": "L\"[lobby-gate], handle lost connection notify ok, gate-wid:%d, cli-key:0x%I64X\","
+      },
+      "method": "307 command slot plus independent operation-specific handler log; receive parser checked in step 2."
+    },
+    {
+      "target": "0x1400bfd80",
+      "guide": "0x1400c4650",
+      "name": "HandleLobbyLobbyGate_LogoutNotify",
+      "confidence": "exact",
+      "status": "✅",
+      "evidence": {
+        "target_table": "0x1401f9640",
+        "target_slot": "0x1401f97b0",
+        "guide_table": "0x140202640",
+        "command": 23,
+        "shared_string_anchor": false,
+        "step2_log": "L\"[lobby-gate], handle logout ok, gate-wid:%d, gate-key:0x%I64X\","
+      },
+      "method": "307 command slot plus independent operation-specific handler log; receive parser checked in step 2."
+    },
+    {
+      "target": "0x1400bffe0",
+      "guide": "0x1400c48b0",
+      "name": "HandleLobbyLobbyGate_GetEnterWorldTokenReq",
+      "confidence": "exact",
+      "status": "✅",
+      "evidence": {
+        "target_table": "0x1401f9640",
+        "target_slot": "0x1401f97c0",
+        "guide_table": "0x140202640",
+        "command": 24,
+        "shared_string_anchor": false,
+        "step2_log": "L\"[lobby-gate], handle get enter world token ok, gate-wid:%d, cli-key:0x%I64X, slot-id:%08X-%04X-%04X-%02X%02X\""
+      },
+      "method": "307 command slot plus independent operation-specific handler log; receive parser checked in step 2."
+    },
+    {
+      "target": "0x1400c0520",
+      "guide": "0x1400c4df0",
+      "name": "HandleLobbyLobbyGate_GetWaitInfoReq",
+      "confidence": "exact",
+      "status": "✅",
+      "evidence": {
+        "target_table": "0x1401f9640",
+        "target_slot": "0x1401f9800",
+        "guide_table": "0x140202640",
+        "command": 28,
+        "shared_string_anchor": false,
+        "step2_log": "L\"[lobby-gate], handle get wait info req fail; get wait info fail, error:%d, gate-wid:%d, cli-key:0x%I64X\","
+      },
+      "method": "307 command slot plus independent operation-specific handler log; receive parser checked in step 2."
+    },
+    {
+      "target": "0x1400c0770",
+      "guide": "0x1400c5040",
+      "name": "HandleLobbyLobbyGate_GiveupWaitReq",
+      "confidence": "exact",
+      "status": "✅",
+      "evidence": {
+        "target_table": "0x1401f9640",
+        "target_slot": "0x1401f9830",
+        "guide_table": "0x140202640",
+        "command": 31,
+        "shared_string_anchor": false,
+        "step2_log": "L\"[lobby-gate], handle giveup wait req ok, gate-wid:%d, cli-key:0x%I64X\","
+      },
+      "method": "307 command slot plus independent operation-specific handler log; receive parser checked in step 2."
+    },
+    {
+      "target": "0x1400c0a90",
+      "guide": "0x1400c5360",
+      "name": "HandleLobbyLobbyGate_GetCharacterInfoListReq",
+      "confidence": "exact",
+      "status": "✅",
+      "evidence": {
+        "target_table": "0x1401f9640",
+        "target_slot": "0x1401f9870",
+        "guide_table": "0x140202640",
+        "command": 35,
+        "shared_string_anchor": true,
+        "step2_log": "L\"[lobby-gate], get character list fail; fetch fail, error:%d, gate-wid:%d, cli-key:0x%I64X\","
+      },
+      "method": "307 command slot plus independent operation-specific handler log; receive parser checked in step 2."
+    },
+    {
+      "target": "0x1400c0dd0",
+      "guide": "0x1400c5630",
+      "name": "HandleLobbyLobbyGate_GetCharacterInfoReq",
+      "confidence": "exact",
+      "status": "✅",
+      "evidence": {
+        "target_table": "0x1401f9640",
+        "target_slot": "0x1401f98a0",
+        "guide_table": "0x140202640",
+        "command": 38,
+        "shared_string_anchor": true,
+        "step2_log": "L\"[lobby-gate], get character info ok, gate-wid:%d, cli-key:0x%I64X, slot-id:%08X-%04X-%04X-%02X%02X-%02X%02X%02X%02X%02X%02X\","
+      },
+      "method": "307 command slot plus independent operation-specific handler log; receive parser checked in step 2."
+    },
+    {
+      "target": "0x1400c1270",
+      "guide": "0x1400c5ae0",
+      "name": "HandleLobbyLobbyGate_CheckCharacterNameReq",
+      "confidence": "exact",
+      "status": "✅",
+      "evidence": {
+        "target_table": "0x1401f9640",
+        "target_slot": "0x1401f98d0",
+        "guide_table": "0x140202640",
+        "command": 41,
+        "shared_string_anchor": false,
+        "step2_log": "L\"[lobby-gate], check character name req fail; N/A\");"
+      },
+      "method": "307 command slot plus independent operation-specific handler log; receive parser checked in step 2."
+    },
+    {
+      "target": "0x1400c12a0",
+      "guide": "0x1400c5b10",
+      "name": "HandleLobbyLobbyGate_CreateCharacterReq",
+      "confidence": "exact",
+      "status": "✅",
+      "evidence": {
+        "target_table": "0x1401f9640",
+        "target_slot": "0x1401f9900",
+        "guide_table": "0x140202640",
+        "command": 44,
+        "shared_string_anchor": true,
+        "step2_log": "L\"[lobby-gate], handle create character ok, gate-wid:%d, cli-key:0x%I64X, slot-id:%08X-%04X-%04X-%02X%02X-%02X%0\""
+      },
+      "method": "307 command slot plus independent operation-specific handler log; receive parser checked in step 2."
+    },
+    {
+      "target": "0x1400c1920",
+      "guide": "0x1400c6190",
+      "name": "HandleLobbyLobbyGate_DeleteCharacterReq",
+      "confidence": "exact",
+      "status": "✅",
+      "evidence": {
+        "target_table": "0x1401f9640",
+        "target_slot": "0x1401f9930",
+        "guide_table": "0x140202640",
+        "command": 47,
+        "shared_string_anchor": false,
+        "step2_log": "L\"[lobby-gate], handle delete character ok, gate-wid:%d, cli-key:0x%I64X, slot-id:%08X-%04X-%04X-%02X%02X-%02X%0\""
+      },
+      "method": "307 command slot plus independent operation-specific handler log; receive parser checked in step 2."
+    },
+    {
+      "target": "0x1400c1f60",
+      "guide": "0x1400c67e0",
+      "name": "HandleLobbyLobbyGate_CancelWaitCharacterDeletionReq",
+      "confidence": "exact",
+      "status": "✅",
+      "evidence": {
+        "target_table": "0x1401f9640",
+        "target_slot": "0x1401f9970",
+        "guide_table": "0x140202640",
+        "command": 51,
+        "shared_string_anchor": false,
+        "step2_log": "L\"[lobby-gate], handle cancel wait character deletion req ok, gate-wid:%d, cli-key:0x%I64X, slot-id:%08X-%04X-%0\""
+      },
+      "method": "307 command slot plus independent operation-specific handler log; receive parser checked in step 2."
+    },
+    {
+      "target": "0x1400c25a0",
+      "guide": "0x1400c6e30",
+      "name": "HandleLobbyLobbyGate_RecoverCharacterReq",
+      "confidence": "exact",
+      "status": "✅",
+      "evidence": {
+        "target_table": "0x1401f9640",
+        "target_slot": "0x1401f99a0",
+        "guide_table": "0x140202640",
+        "command": 54,
+        "shared_string_anchor": false,
+        "step2_log": "L\"[lobby-gate], handle recover character req ok, gate-wid:%d, cli-key:0x%I64X, slot-id:%08X-%04X-%04X-%02X%02X\""
+      },
+      "method": "307 command slot plus independent operation-specific handler log; receive parser checked in step 2."
+    },
+    {
+      "target": "0x1400c2ca0",
+      "guide": "0x1400c7540",
+      "name": "HandleLobbyLobbyGate_BindCharacterSlotReq",
+      "confidence": "exact",
+      "status": "✅",
+      "evidence": {
+        "target_table": "0x1401f9640",
+        "target_slot": "0x1401f99d0",
+        "guide_table": "0x140202640",
+        "command": 57,
+        "shared_string_anchor": false,
+        "step2_log": "L\"[lobby-gate], handle bind character slot req ok, gate-wid:%d, cli-key:0x%I64X, slot-id:%08X-%04X-%04X-%02X%02X\""
+      },
+      "method": "307 command slot plus independent operation-specific handler log; receive parser checked in step 2."
+    },
+    {
+      "target": "0x1400c3250",
+      "guide": "0x1400c7af0",
+      "name": "HandleLobbyLobbyGate_GetChargeInfoReq",
+      "confidence": "exact",
+      "status": "✅",
+      "evidence": {
+        "target_table": "0x1401f9640",
+        "target_slot": "0x1401f9a00",
+        "guide_table": "0x140202640",
+        "command": 60,
+        "shared_string_anchor": false,
+        "step2_log": "L\"[lobby-gate], handle get charge info req ok, gate-wid:%d, cli-key:0x%I64X\","
+      },
+      "method": "307 command slot plus independent operation-specific handler log; receive parser checked in step 2."
+    },
+    {
+      "target": "0x1400c3550",
+      "guide": "0x1400c7df0",
+      "name": "HandleLobbyLobbyGate_GetGoodsCountReq",
+      "confidence": "exact",
+      "status": "✅",
+      "evidence": {
+        "target_table": "0x1401f9640",
+        "target_slot": "0x1401f9a40",
+        "guide_table": "0x140202640",
+        "command": 64,
+        "shared_string_anchor": false,
+        "step2_log": "L\"[lobby-gate], handle get goods count ok, gate-wid:%d, cli-key:0x%I64X\","
+      },
+      "method": "307 command slot plus independent operation-specific handler log; receive parser checked in step 2."
+    },
+    {
+      "target": "0x1400c37e0",
+      "guide": "0x1400c8080",
+      "name": "HandleLobbyLobbyGate_ListGoodsReq",
+      "confidence": "exact",
+      "status": "✅",
+      "evidence": {
+        "target_table": "0x1401f9640",
+        "target_slot": "0x1401f9a70",
+        "guide_table": "0x140202640",
+        "command": 67,
+        "shared_string_anchor": false,
+        "step2_log": "L\"[lobby-gate], handle list goods req ok, gate-wid:%d, cli-key:0x%I64X\","
+      },
+      "method": "307 command slot plus independent operation-specific handler log; receive parser checked in step 2."
+    },
+    {
+      "target": "0x1400c3b30",
+      "guide": "0x1400c83d0",
+      "name": "HandleLobbyLobbyGate_TakeGoodsReq",
+      "confidence": "exact",
+      "status": "✅",
+      "evidence": {
+        "target_table": "0x1401f9640",
+        "target_slot": "0x1401f9aa0",
+        "guide_table": "0x140202640",
+        "command": 70,
+        "shared_string_anchor": false,
+        "step2_log": "L\"[lobby-gate], handle take goods req ok, cli-key:0x%I64X\","
+      },
+      "method": "307 command slot plus independent operation-specific handler log; receive parser checked in step 2."
+    },
+    {
+      "target": "0x1400c3d40",
+      "guide": "0x1400c85e0",
+      "name": "HandleLobbyLobbyGate_ListLobbyServiceItemInfoReq",
+      "confidence": "exact",
+      "status": "✅",
+      "evidence": {
+        "target_table": "0x1401f9640",
+        "target_slot": "0x1401f9ad0",
+        "guide_table": "0x140202640",
+        "command": 73,
+        "shared_string_anchor": false,
+        "step2_log": "L\"[lobby-gate], handle list lobby service item info req ok, cli-key:0x%I64X, search-type:%d, search-key:0x%I64X\","
+      },
+      "method": "307 command slot plus independent operation-specific handler log; receive parser checked in step 2."
+    },
+    {
+      "target": "0x1400c3fc0",
+      "guide": "0x1400c8860",
+      "name": "HandleLobbyLobbyGate_GetLobbyServiceItemInfoReq",
+      "confidence": "exact",
+      "status": "✅",
+      "evidence": {
+        "target_table": "0x1401f9640",
+        "target_slot": "0x1401f9b00",
+        "guide_table": "0x140202640",
+        "command": 76,
+        "shared_string_anchor": false,
+        "step2_log": "L\"[lobby-gate], handle get lobby service item info req ok, cli-key:0x%I64X, item-instance-id:0x%I64X\","
+      },
+      "method": "307 command slot plus independent operation-specific handler log; receive parser checked in step 2."
+    },
+    {
+      "target": "0x1400c4200",
+      "guide": "0x1400c8aa0",
+      "name": "HandleLobbyLobbyGate_GetServiceEntryListReq",
+      "confidence": "exact",
+      "status": "✅",
+      "evidence": {
+        "target_table": "0x1401f9640",
+        "target_slot": "0x1401f9b30",
+        "guide_table": "0x140202640",
+        "command": 79,
+        "shared_string_anchor": true,
+        "step2_log": "L\"[lobby-gate], handle get service-entry list req fail; no such cli-session, cli-key:0x%I64X\","
+      },
+      "method": "307 command slot plus independent operation-specific handler log; receive parser checked in step 2."
+    },
+    {
+      "target": "0x1400c44c0",
+      "guide": "0x1400c8d00",
+      "name": "HandleLobbyLobbyGate_ChangeCharacterAppearanceWithAccountInventoryItemReq",
+      "confidence": "exact",
+      "status": "✅",
+      "evidence": {
+        "target_table": "0x1401f9640",
+        "target_slot": "0x1401f9b60",
+        "guide_table": "0x140202640",
+        "command": 82,
+        "shared_string_anchor": true,
+        "step2_log": "L\"[lobby-gate], handle change-appearance-with-account-inventory-item req ok, cli-key:0x%I64X, slot-id:%08X-%04X-\""
+      },
+      "method": "307 command slot plus independent operation-specific handler log; receive parser checked in step 2."
+    },
+    {
+      "target": "0x1400c4ac0",
+      "guide": "0x1400c9300",
+      "name": "HandleLobbyLobbyGate_ChangeCharacterSexWithAccountInventoryItemReq",
+      "confidence": "exact",
+      "status": "✅",
+      "evidence": {
+        "target_table": "0x1401f9640",
+        "target_slot": "0x1401f9b90",
+        "guide_table": "0x140202640",
+        "command": 85,
+        "shared_string_anchor": true,
+        "step2_log": "L\"[lobby-gate], handle change-character-sex-with-account-inventory-item req ok, cli-key:0x%I64X, slot-id:%08X-%0\""
+      },
+      "method": "307 command slot plus independent operation-specific handler log; receive parser checked in step 2."
+    },
+    {
+      "target": "0x1400c5100",
+      "guide": "0x1400c9940",
+      "name": "HandleLobbyLobbyGate_ChangeCharacterRaceWithAccountInventoryItemReq",
+      "confidence": "exact",
+      "status": "✅",
+      "evidence": {
+        "target_table": "0x1401f9640",
+        "target_slot": "0x1401f9bc0",
+        "guide_table": "0x140202640",
+        "command": 88,
+        "shared_string_anchor": true,
+        "step2_log": "L\"[lobby-gate], handle change-character-race-with-account-inventory-item req ok, cli-key:0x%I64X, slot-id:%08X-%\""
+      },
+      "method": "307 command slot plus independent operation-specific handler log; receive parser checked in step 2."
+    },
+    {
+      "target": "0x1400c5780",
+      "guide": "0x1400c9fc0",
+      "name": "HandleLobbyLobbyGate_RenameCharacterWithAccountInventoryItemReq",
+      "confidence": "exact",
+      "status": "✅",
+      "evidence": {
+        "target_table": "0x1401f9640",
+        "target_slot": "0x1401f9bf0",
+        "guide_table": "0x140202640",
+        "command": 91,
+        "shared_string_anchor": true,
+        "step2_log": "L\"[lobby-gate], handle rename-character-with-account-inventory-item req ok, cli-key:0x%I64X, slot-id:%08X-%04X-%\""
+      },
+      "method": "307 command slot plus independent operation-specific handler log; receive parser checked in step 2."
+    },
+    {
+      "target": "0x1400c5d20",
+      "guide": "0x1400ca560",
+      "name": "HandleLobbyLobbyGate_AddSlotWithAccountInventoryItemReq",
+      "confidence": "exact",
+      "status": "✅",
+      "evidence": {
+        "target_table": "0x1401f9640",
+        "target_slot": "0x1401f9c20",
+        "guide_table": "0x140202640",
+        "command": 94,
+        "shared_string_anchor": false,
+        "step2_log": "L\"[lobby-gate], handle add-slot-with-account-inventory-item req ok, cli-key:0x%I64X, label-id:0x%I64X, item-inst\""
+      },
+      "method": "307 command slot plus independent operation-specific handler log; receive parser checked in step 2."
+    },
+    {
+      "target": "0x1400c6070",
+      "guide": "0x1400ca8b0",
+      "name": "HandleLobbyLobbyGate_ChangeUserNameWithAccountInventoryItemReq",
+      "confidence": "exact",
+      "status": "✅",
+      "evidence": {
+        "target_table": "0x1401f9640",
+        "target_slot": "0x1401f9c50",
+        "guide_table": "0x140202640",
+        "command": 97,
+        "shared_string_anchor": false,
+        "step2_log": "L\"[lobby-gate], handle change-user-name-with-account-inventory-item-req ok, cli-key:0x%I64X, label-id:0x%I64X, i\""
+      },
+      "method": "307 command slot plus independent operation-specific handler log; receive parser checked in step 2."
+    },
+    {
+      "target": "0x1400c6430",
+      "guide": "0x1400cac70",
+      "name": "HandleLobbyLobbyGate_ExtendJumpingCharacterCreationQuotaWithAccountInventoryItemReq",
+      "confidence": "exact",
+      "status": "✅",
+      "evidence": {
+        "target_table": "0x1401f9640",
+        "target_slot": "0x1401f9c80",
+        "guide_table": "0x140202640",
+        "command": 100,
+        "shared_string_anchor": false,
+        "step2_log": "L\"[lobby-gate], handle extend-jumping-character-creation-quota-with-account-inventory-item req ok, cli-key:0x%I6\""
+      },
+      "method": "307 command slot plus independent operation-specific handler log; receive parser checked in step 2."
+    },
+    {
+      "target": "0x1400c6790",
+      "guide": "0x1400cafd0",
+      "name": "HandleLobbyLobbyGate_CreateInitialUserNameReq",
+      "confidence": "exact",
+      "status": "✅",
+      "evidence": {
+        "target_table": "0x1401f9640",
+        "target_slot": "0x1401f9cb0",
+        "guide_table": "0x140202640",
+        "command": 103,
+        "shared_string_anchor": false,
+        "step2_log": "L\"[lobby-gate], handle create-initial-user-name-req ok, cli-key:0x%I64X, new-user-name:%s\","
+      },
+      "method": "307 command slot plus independent operation-specific handler log; receive parser checked in step 2."
+    },
+    {
+      "target": "0x1400c6af0",
+      "guide": "0x1400cb330",
+      "name": "HandleLobbyLobbyGate_ActivateGradeReq",
+      "confidence": "exact",
+      "status": "✅",
+      "evidence": {
+        "target_table": "0x1401f9640",
+        "target_slot": "0x1401f9ce0",
+        "guide_table": "0x140202640",
+        "command": 106,
+        "shared_string_anchor": false,
+        "step2_log": "L\"[lobby-gate], handle activate-grade-req ok, cli-key:0x%I64X\","
+      },
+      "method": "307 command slot plus independent operation-specific handler log; receive parser checked in step 2."
+    },
+    {
+      "target": "0x1400cb380",
+      "guide": "0x1400cfba0",
+      "name": "NPServiceChannelManager::Initialize",
+      "confidence": "likely",
+      "status": "❓",
+      "evidence": {
+        "target_body": "0x1400cb380"
+      },
+      "method": "Timer getters match config loads. Initialize matches vtable role, DB setup and NP setup. NP manager matches target caller and role; guide body not compared."
+    },
+    {
+      "target": "0x1400cb590",
+      "guide": "0x1400cfdb0",
+      "name": "NPServiceChannelManager::OnConnect",
+      "confidence": "likely",
+      "status": "❓",
+      "evidence": {
+        "unique_shared_string_hashes": 1
+      },
+      "method": "Unique shared string-reference anchors; body comparison pending."
+    },
+    {
+      "target": "0x1400cd3c0",
+      "guide": "0x1400d1be0",
+      "name": "NPGameServiceChannel::SendRequestRMSInquiry",
+      "confidence": "likely",
+      "status": "❓",
+      "evidence": {
+        "unique_shared_string_hashes": 1
+      },
+      "method": "Unique shared string-reference anchors; body comparison pending."
+    },
+    {
+      "target": "0x1400d2310",
+      "guide": "0x1400d6ad0",
+      "name": "StartCliSessionWnpTokenJob::presenceLoginResponse",
+      "confidence": "likely",
+      "status": "❓",
+      "evidence": {
+        "unique_shared_string_hashes": 1
+      },
+      "method": "Unique shared string-reference anchors; body comparison pending."
+    },
+    {
+      "target": "0x1400db330",
+      "guide": "0x1400dfd80",
+      "name": "ExceptionCodeString",
+      "confidence": "likely",
+      "status": "❓",
+      "evidence": {
+        "unique_shared_string_hashes": 23
+      },
+      "method": "Unique shared string-reference anchors; body comparison pending."
+    },
+    {
+      "target": "0x1400db5a0",
+      "guide": "0x1400dfff0",
+      "name": "DumpRegister",
+      "confidence": "likely",
+      "status": "❓",
+      "evidence": {
+        "unique_shared_string_hashes": 2
+      },
+      "method": "Unique shared string-reference anchors; body comparison pending."
+    },
+    {
+      "target": "0x1400db750",
+      "guide": "0x1400e01a0",
+      "name": "InitSymbol",
+      "confidence": "likely",
+      "status": "❓",
+      "evidence": {
+        "unique_shared_string_hashes": 10
+      },
+      "method": "Unique shared string-reference anchors; body comparison pending."
+    },
+    {
+      "target": "0x1400db8f0",
+      "guide": "0x1400e0340",
+      "name": "DumpStack",
+      "confidence": "likely",
+      "status": "❓",
+      "evidence": {
+        "unique_shared_string_hashes": 6
+      },
+      "method": "Unique shared string-reference anchors; body comparison pending."
+    },
+    {
+      "target": "0x1400dbc90",
+      "guide": "0x1400e06e0",
+      "name": "CrashHandler::CrashHandler",
+      "confidence": "likely",
+      "status": "❓",
+      "evidence": {
+        "unique_shared_string_hashes": 1
+      },
+      "method": "Unique shared string-reference anchors; body comparison pending."
+    },
+    {
+      "target": "0x1400dc1a0",
+      "guide": "0x1400e0c00",
+      "name": "CrashHandler::handleCrash",
+      "confidence": "likely",
+      "status": "❓",
+      "evidence": {
+        "unique_shared_string_hashes": 13
+      },
+      "method": "Unique shared string-reference anchors; body comparison pending."
+    },
+    {
+      "target": "0x1400e0890",
+      "guide": "0x1400e6d10",
+      "name": "Session::SendV",
+      "confidence": "likely",
+      "status": "❓",
+      "evidence": {
+        "unique_shared_string_hashes": 1
+      },
+      "method": "Unique shared string-reference anchors; body comparison pending."
+    },
+    {
+      "target": "0x1400e2880",
+      "guide": "0x1400e37f0",
+      "name": "DaemonConfig::Load",
+      "confidence": "likely",
+      "status": "❓",
+      "evidence": {
+        "unique_shared_string_hashes": 4
+      },
+      "method": "Unique shared string-reference anchors; body comparison pending."
+    },
+    {
+      "target": "0x1400e2f40",
+      "guide": "0x1400e7ae0",
+      "name": "PerfCounterProvider::loadLibrary",
+      "confidence": "likely",
+      "status": "❓",
+      "evidence": {
+        "unique_shared_string_hashes": 12
+      },
+      "method": "Unique shared string-reference anchors; body comparison pending."
+    },
+    {
+      "target": "0x1400e3250",
+      "guide": "0x1400e7df0",
+      "name": "Db::Initialize",
+      "confidence": "likely",
+      "status": "❓",
+      "evidence": {
+        "unique_shared_string_hashes": 1
+      },
+      "method": "Unique shared string-reference anchors; body comparison pending."
+    },
+    {
+      "target": "0x1400e5050",
+      "guide": "0x1400e9bf0",
+      "name": "LogFile::makeDirectory",
+      "confidence": "likely",
+      "status": "❓",
+      "evidence": {
+        "unique_shared_string_hashes": 1
+      },
+      "method": "Unique shared string-reference anchors; body comparison pending."
+    }
+  ]
+}
