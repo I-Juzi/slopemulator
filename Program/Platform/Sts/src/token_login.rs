@@ -479,9 +479,9 @@ pub mod xml {
 
     /// Client `LoginTokenStart` body: `<Request><ClientRand>b64</ClientRand></Request>`.
     pub fn login_token_start(client_rand: &[u8]) -> Result<Vec<u8>, XmlError> {
-        let mut out = String::from("<Request>");
+        let mut out = String::from("<Request>\n");
         field(&mut out, "ClientRand", &STANDARD.encode(client_rand))?;
-        out.push_str("</Request>");
+        out.push_str("</Request>\n");
         Ok(out.into_bytes())
     }
     pub fn parse_login_token_start(body: &[u8]) -> Result<Request, XmlError> {
@@ -498,12 +498,12 @@ pub mod xml {
         auth_provider_code: &str,
         app_id: &str,
     ) -> Result<Vec<u8>, XmlError> {
-        let mut out = String::from("<Request>");
+        let mut out = String::from("<Request>\n");
         field(&mut out, "PremasterSecret", &STANDARD.encode(premaster))?;
         field(&mut out, "AuthnToken", &STANDARD.encode(token))?;
         field(&mut out, "AuthProviderCode", auth_provider_code)?;
         field(&mut out, "AppId", app_id)?;
-        out.push_str("</Request>");
+        out.push_str("</Request>\n");
         Ok(out.into_bytes())
     }
     pub fn parse_token_key_data(body: &[u8]) -> Result<Request, XmlError> {
@@ -522,7 +522,7 @@ pub mod xml {
         server_public_key: &[u8],
         server_signature: &[u8],
     ) -> Result<Vec<u8>, XmlError> {
-        let mut out = String::from("<Reply>");
+        let mut out = String::from("<Reply>\n");
         field(&mut out, "ServerRand", &STANDARD.encode(server_rand))?;
         field(
             &mut out,
@@ -534,7 +534,7 @@ pub mod xml {
             "ServerSignature",
             &STANDARD.encode(server_signature),
         )?;
-        out.push_str("</Reply>");
+        out.push_str("</Reply>\n");
         Ok(out.into_bytes())
     }
     /// `(server_rand, server_public_key, server_signature)` of reply 3111.
