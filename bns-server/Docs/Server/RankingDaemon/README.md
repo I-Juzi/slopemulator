@@ -74,6 +74,16 @@ config service-mode stay.
 | service-mode | 0 none … 6 live-rc … 11 addition-2 |
 
 - Times are `YYYY-MM-DD H:MM:SS`. The port reads them as UTC ❓.
+- The exporter leaves out attributes at their default (`reward-group-data`
+  is missing in 579 of 3012 records; ArenaLobby leaves out
+  `season-reward-expiration-time`). The port reads a missing number or time
+  as 0 and a missing name as index 0 ❓.
+- The 348 enum @0x1400E15C0 has 16 contents types. The 2020 table also has
+  `mastery-exp-best-record` (8 records). The port skips records with
+  unknown names ❓ (native DrDataReader path not traced).
+- Data size limit 64 MiB (the 2020 table is 1.9 MB). Check a file with
+  `cargo run -p rankingdaemon --example check_seasons -- <file>`:
+  RankingDaemon 2020 table → 3004 seasons; ArenaLobby → 2832.
 - `convertSeasonContentsTypeToMaxRankingListIndex` @0x14001BAE0: types 1,
   3–7, 9–12, 14, 15 → 14; 8 → 2; 13 → 1; else 0.
 - Result schedules come from `loadHiddenField` (phase 2; the list is empty now).

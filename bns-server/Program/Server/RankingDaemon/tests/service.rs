@@ -123,7 +123,15 @@ fn season_data_parses_names_and_times() {
     assert_eq!(s[1].player_type, 2);
     assert_eq!(s[2].service_mode, 8);
     assert_eq!(s[0].start_time, 1_653_116_400);
-    assert!(parse_season_data(&SEASONS.replace("live-rc", "bogus")).is_err());
+    assert_eq!(
+        parse_season_data(&SEASONS.replace("live-rc", "bogus"))
+            .unwrap()
+            .len(),
+        1
+    );
+    let no_reward = SEASONS.replace(r#"reward-group-data="14" "#, "");
+    assert_eq!(parse_season_data(&no_reward).unwrap()[0].reward_group_id, 0);
+    assert!(parse_season_data(&SEASONS.replace("2022-08-21 7:00:00", "never")).is_err());
     assert_eq!(parse_time("1970-01-01 00:00:00"), Some(0));
     assert_eq!(parse_time("2022-13-01 0:00:00"), None);
     // Only seasons for the configured service mode stay.
