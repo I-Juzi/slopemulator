@@ -26,6 +26,7 @@ mod items5;
 mod mentoring;
 mod misc;
 mod quest;
+mod quest2;
 mod skills;
 mod skills2;
 mod social;
@@ -38,6 +39,7 @@ pub use items5::*;
 pub use mentoring::*;
 pub use misc::*;
 pub use quest::*;
+pub use quest2::*;
 pub use skills::*;
 pub use skills2::*;
 pub use social::*;
@@ -632,6 +634,10 @@ pub trait Services {
     fn quest_config(&mut self) -> QuestConfig {
         QuestConfig::Unknown
     }
+    /// Doc 21: quest progress configuration, tables and name services.
+    fn quest_progress(&mut self, _check: &QuestProgressCheck) -> Gate {
+        Gate::Unknown
+    }
     /// Doc 18: opaque season and name checks. Unknown is never approval.
     fn challenge_party(&mut self, _check: &ChallengeCheck) -> Gate {
         Gate::Unknown
@@ -757,6 +763,7 @@ pub struct MemoryServices {
     pub chat_calls: Vec<ChatRequest>,
     pub mentoring_registry_result: MentoringRegistry,
     pub quest: MemoryQuest,
+    pub quest_progress: MemoryQuestProgress,
     pub challenge: MemoryChallenge,
 }
 /// Test/default doc 12 boundary results. Unknown is never approval.
@@ -870,6 +877,7 @@ impl Default for MemoryServices {
             chat_calls: vec![],
             mentoring_registry_result: MentoringRegistry::Unknown,
             quest: MemoryQuest::default(),
+            quest_progress: MemoryQuestProgress::default(),
             challenge: MemoryChallenge::default(),
         }
     }
@@ -896,6 +904,9 @@ impl Services for MemoryServices {
             ChallengeCheck::NameValid { .. } => self.challenge.name_rules,
             ChallengeCheck::NameAllowed { .. } => self.challenge.name_filter,
         }
+    }
+    fn quest_progress(&mut self, check: &QuestProgressCheck) -> Gate {
+        self.quest_progress.check(check)
     }
     fn queue_skill(&mut self, task: &SkillTask) -> Gate {
         if self.skill_queue_result == Gate::Pass {
@@ -1101,6 +1112,7 @@ fn dispatch_inner(ctx: &mut Context<'_>, command: u16, req: &[u8]) -> Outcome {
         && !MENTORING_COMMANDS.contains(&command)
         && !MISC_COMMANDS.contains(&command)
         && !QUEST_COMMANDS.contains(&command)
+        && !QUEST2_COMMANDS.contains(&command)
         && !CHALLENGE_COMMANDS.contains(&command)
     {
         return Outcome::log("unknown command");
@@ -1168,6 +1180,9 @@ fn dispatch_inner(ctx: &mut Context<'_>, command: u16, req: &[u8]) -> Outcome {
     }
     if QUEST_COMMANDS.contains(&command) {
         return quest::dispatch_quest(ctx, command, req);
+    }
+    if QUEST2_COMMANDS.contains(&command) {
+        return quest2::dispatch_quest2(ctx, command, req);
     }
     if CHALLENGE_COMMANDS.contains(&command) {
         return challenge::dispatch_challenge(ctx, command, req);

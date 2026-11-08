@@ -107,6 +107,8 @@ pub enum SkillTaskKind {
     Misc(MiscTask),
     /// Doc 20 quest, discovery and survey zone tasks.
     Quest(QuestTask),
+    /// Doc 21 quest progress zone tasks.
+    QuestProgress(QuestProgressTask),
 }
 
 #[derive(Clone, Debug, PartialEq, Eq)]
