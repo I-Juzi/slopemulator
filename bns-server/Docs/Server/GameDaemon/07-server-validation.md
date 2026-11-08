@@ -297,6 +297,10 @@ Keep this part partial. Do not invent a single universal skill-validation pipeli
 
 ## Step 5, part 3 — Interaction distance (partial)
 
+See [29 — NPC trade, board gacha and dungeon-step handlers](29-npc-trade-handlers.md)
+for receive entries 1341, 1343, 1348, 1350, 1352 and 1456.
+The task-distance evidence below stays in this doc.
+
 ### Common position and distance rule
 
 The checked trade and NPC inventory paths read signed-short x/y/z from live server objects at +268/+270/+272.
