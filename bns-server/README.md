@@ -35,6 +35,7 @@ paths inside the original binaries (`...\depot\Branch\381NC\Program\Server\...`)
 | CacheGate, AchievementDaemon, RankingDaemon, SmartCouponDaemon | Ported; parity reviews done | `Docs/Server/<name>/README.md` |
 | STS client login (`sts`) | SRP-6a login server; real-client login not yet verified | `Docs/Platform/Sts/STATUS.md` |
 | StServers (original NP platform) | DbSrv ported; RouteSrv in progress; 47 other services not ported yet | `Docs/Platform/StServers/README.md` |
+| Client 381 (reversing) | Notes: packets, framing, datafiles, command list | `Docs/Client/README.md` |
 
 Build and check:
 
