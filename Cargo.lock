@@ -172,6 +172,15 @@ dependencies = [
 ]
 
 [[package]]
+name = "clientkey"
+version = "0.1.0"
+dependencies = [
+ "bloodlib",
+ "rand",
+ "rsa",
+]
+
+[[package]]
 name = "connection-string"
 version = "0.2.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
