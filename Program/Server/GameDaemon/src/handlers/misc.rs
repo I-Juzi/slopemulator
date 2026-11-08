@@ -85,10 +85,10 @@ pub fn handle_stop_cinematic(ctx: &mut Context<'_>, req: &[u8]) -> Outcome {
     queue(ctx, t, Outcome::reason(F, 2))
 }
 
-/// parity: 356 19-misc-handlers.md#356--g_dpgameclienttoserverreqcmd--done done
-/// parity: 359 19-misc-handlers.md#359--g_reloaddaemonreqcmd--done done
-/// parity: 360 19-misc-handlers.md#360--g_registertracereqcmd--done done
-/// parity: 362 19-misc-handlers.md#362--g_unregistertracereqcmd--done done
+/// parity: 356 19-misc-handlers.md#356--g_dpgameclienttoserverreqcmd--done ported
+/// parity: 359 19-misc-handlers.md#359--g_reloaddaemonreqcmd--done ported
+/// parity: 360 19-misc-handlers.md#360--g_registertracereqcmd--done ported
+/// parity: 362 19-misc-handlers.md#362--g_unregistertracereqcmd--done ported
 pub fn handle_return_true_stub(_ctx: &mut Context<'_>, _req: &[u8]) -> Outcome {
     Outcome::default()
 }
