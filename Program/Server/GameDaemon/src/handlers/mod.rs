@@ -32,6 +32,7 @@ mod misc;
 mod post;
 mod quest;
 mod quest2;
+mod season;
 mod shop;
 mod skills;
 mod skills2;
@@ -51,6 +52,7 @@ pub use misc::*;
 pub use post::*;
 pub use quest::*;
 pub use quest2::*;
+pub use season::*;
 pub use shop::*;
 pub use skills::*;
 pub use skills2::*;
@@ -675,6 +677,10 @@ pub trait Services {
     fn quest_config(&mut self) -> QuestConfig {
         QuestConfig::Unknown
     }
+    /// Doc 28: season, ranking, raid and store state. Unknown never approves.
+    fn season_check(&mut self, _check: &SeasonCheck) -> Gate {
+        Gate::Unknown
+    }
     /// Doc 21: quest progress configuration, tables and name services.
     fn quest_progress(&mut self, _check: &QuestProgressCheck) -> Gate {
         Gate::Unknown
@@ -809,6 +815,7 @@ pub struct MemoryServices {
     pub post: MemoryPost,
     pub shop: MemoryShop,
     pub quest: MemoryQuest,
+    pub season: MemorySeason,
     pub quest_progress: MemoryQuestProgress,
     pub challenge: MemoryChallenge,
 }
@@ -928,12 +935,16 @@ impl Default for MemoryServices {
             post: MemoryPost::default(),
             shop: MemoryShop::default(),
             quest: MemoryQuest::default(),
+            season: MemorySeason::default(),
             quest_progress: MemoryQuestProgress::default(),
             challenge: MemoryChallenge::default(),
         }
     }
 }
 impl Services for MemoryServices {
+    fn season_check(&mut self, check: &SeasonCheck) -> Gate {
+        self.season.check(check)
+    }
     fn arena_lobby(&mut self, operation: &ArenaLobbyOperation) -> ArenaLobbyResult {
         self.arena_lobby.check(operation)
     }
@@ -1177,6 +1188,7 @@ fn dispatch_inner(ctx: &mut Context<'_>, command: u16, req: &[u8]) -> Outcome {
         && !SOCIAL_COMMANDS.contains(&command)
         && !MENTORING_COMMANDS.contains(&command)
         && !MISC_COMMANDS.contains(&command)
+        && !SEASON_COMMANDS.contains(&command)
         && !ARENA_LOBBY_COMMANDS.contains(&command)
         && !ARENA_EVENT_COMMANDS.contains(&command)
         && !DUEL_RANKING_COMMANDS.contains(&command)
@@ -1249,6 +1261,9 @@ fn dispatch_inner(ctx: &mut Context<'_>, command: u16, req: &[u8]) -> Outcome {
     }
     if MISC_COMMANDS.contains(&command) {
         return misc::dispatch_misc(ctx, command, req);
+    }
+    if SEASON_COMMANDS.contains(&command) {
+        return season::dispatch_season(ctx, command, req);
     }
     if ARENA_LOBBY_COMMANDS.contains(&command) {
         return arena_lobby::dispatch_arena_lobby(ctx, command, req);
