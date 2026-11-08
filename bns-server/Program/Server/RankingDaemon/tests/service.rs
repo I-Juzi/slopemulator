@@ -1,5 +1,6 @@
 use bloodlib::packet::{decode_fields, DecodeLimits, Value};
 use packet::fragments::FragmentReader;
+use rankingdaemon::boards::{RankingBoards, ScoreInsert};
 use rankingdaemon::config::{
     load_result_schedules, parse_game_list, parse_infogate_list, parse_season_data,
     parse_season_data_at, parse_time, RankingConfig, ResultSchedule,
@@ -892,4 +893,116 @@ fn pc_job_board_index_table() {
         got,
         vec![0, 1, 2, 3, 10, 4, 5, 6, 7, 8, 9, 11, 12, 13, 14, 0]
     );
+}
+
+fn ranked(name: &str, job: i16, kind: i8, modified: i64) -> RankedPlayer {
+    let mut p = RankedPlayer {
+        name: name.into(),
+        job,
+        world_id: 2,
+        guild_id: 0x44,
+        guild_name: "G".into(),
+        ..RankedPlayer::default()
+    };
+    p.last_modification.insert(kind, modified);
+    p
+}
+
+fn join_list(frames: &[Vec<u8>]) -> Vec<Value> {
+    let mut reader = FragmentReader::default();
+    let mut joined = None;
+    for f in frames {
+        joined = reader.add(f).unwrap().map(|j| (j.cmd, j.data.into_owned()));
+    }
+    let (cmd, data) = joined.unwrap();
+    assert_eq!(cmd, infogate_cmd::RETRIEVE_RANKING_LIST_ACK);
+    let limits = DecodeLimits {
+        blob_bytes: 0,
+        string_units: 64,
+        property_bytes: 0,
+    };
+    decode_fields("ccqCicshqsqqqq;", &data, limits).unwrap()
+}
+
+fn score(kind: i16, id: u64, job: i16, primary: u64) -> ScoreInsert {
+    ScoreInsert {
+        season_contents_type: kind,
+        player_type: 1,
+        player_id: id,
+        job,
+        primary,
+        secondary: 0,
+        request_time: 5,
+        log_id: 9,
+    }
+}
+
+#[test]
+fn make_ranking_lists_builds_every_list_index() {
+    let mut d = authed_infogate();
+    let mut b = RankingBoards::new(15, 36, 100);
+    d.set_player(1, 1, ranked("A", 1, 6, 111));
+    d.set_player(1, 2, ranked("B", 2, 6, 222));
+    b.insert_score(&score(6, 1, 1, 50)).unwrap();
+    b.insert_score(&score(6, 2, 2, 70)).unwrap();
+    assert_eq!(d.make_ranking_lists(&b, &[]), None);
+    assert_eq!(d.make_ranking_lists(&b, &[(2, 1)]), None);
+    assert_eq!(d.make_ranking_lists(&b, &[(6, 99)]), Some(vec![(6, 99)]));
+
+    let (frames, _) = ig(
+        &mut d,
+        packet("hcc", &[Value::I16(5), Value::U8(6), Value::U8(0)]),
+    );
+    let v = join_list(&frames);
+    assert_eq!(&v[..3], &[Value::U8(6), Value::U8(0), Value::U64(99)]);
+    let Value::Repeat(rows) = &v[3] else { panic!() };
+    assert_eq!(rows.len(), 2);
+    assert_eq!(
+        rows[0],
+        vec![
+            Value::U32(1),
+            Value::U8(2),
+            w("B"),
+            Value::I16(2),
+            Value::U64(0x44),
+            w("G"),
+            Value::U64(0),
+            Value::U64(70),
+            Value::U64(222),
+            Value::U64(222),
+        ]
+    );
+    // Job list 1 holds only A; an empty list still has a frame.
+    let (frames, _) = ig(
+        &mut d,
+        packet("hcc", &[Value::I16(5), Value::U8(6), Value::U8(1)]),
+    );
+    let Value::Repeat(rows) = &join_list(&frames)[3] else {
+        panic!()
+    };
+    assert_eq!(rows.len(), 1);
+    assert_eq!(rows[0][2], w("A"));
+    let (frames, _) = ig(
+        &mut d,
+        packet("hcc", &[Value::I16(5), Value::U8(6), Value::U8(14)]),
+    );
+    assert_eq!(join_list(&frames)[3], Value::Repeat(vec![]));
+}
+
+#[test]
+fn make_ranking_lists_needs_players_and_sends_party_ids() {
+    let mut d = authed_infogate();
+    let mut b = RankingBoards::new(15, 36, 100);
+    b.insert_score(&score(13, 7, 1, 50)).unwrap();
+    assert_eq!(d.make_ranking_lists(&b, &[(13, 1)]), None);
+    d.set_player(1, 7, ranked("P", 1, 13, 3));
+    assert!(d.make_ranking_lists(&b, &[(13, 1)]).is_some());
+    let (frames, _) = ig(
+        &mut d,
+        packet("hcc", &[Value::I16(5), Value::U8(13), Value::U8(0)]),
+    );
+    let Value::Repeat(rows) = &join_list(&frames)[3] else {
+        panic!()
+    };
+    assert_eq!(rows[0][6], Value::U64(7));
 }

@@ -269,6 +269,18 @@ In all three, a decode failure only logs and returns true (no reply, keep).
 - The top ranker rank is tier min − 1 (1 when min is 1). LookUp one node at that rank in list 0 (types 8, 13..=15) or the job list. An empty LookUp is a failure (null value, line 517).
 - Player::UpdateScore and Player::UpdatePcInfo run after the board change. The Rust port returns the key; the caller stores it (`boards.rs`).
 
+## 6d. Ranking list composition
+
+| Function | Address | Rule |
+| --- | --- | --- |
+| RankingBoardManager::FetchRankingList | 0x14001B360 | for each activated type: no board → fail; for each list index 0..=max: LookUp(start 1, count 1000), an empty list gives count 0 |
+| RankingListManager::MakeRankingList | 0x140026B90 | one RankingList per (type, index), FragmentPacket cmd 6 `hiccqCicshqsqqqq;`; swap the whole map, then BroadcastChangedRankingList(type, makeTime) for each type |
+| RankingList::FetchRankingList | 0x1400267E0 | header (type, index, makeTime); repeat per ranker: rank (1-based), job, name, worldId, guildId, guildName, playerId (type 13 only, else 0), key1, lastModificationTime, lastModificationTime |
+
+- A null player value fails the whole build; the old lists stay.
+- Native starts a new packet when less than 0xB0 bytes are free (4000-byte packets). The port uses the shared fragment writer; split points can differ ❓.
+- RankingListMaker::HandleEvent @0x1400271B0 (the timer that calls FetchRankingList) is not ported yet.
+
 ## 6b. Phase 1 gaps
 
 | Gap | Phase |
@@ -276,7 +288,7 @@ In all three, a decode failure only logs and returns true (no reply, keep).
 | RankingDB (insert, load, black list persist) | 2 |
 | Ranking boards: wire `boards.rs` into Game port score commands, Player score store, update period | 2b |
 | Result schedules from RankingDB (AddResultSchedule), current week index, season state timers | 2 |
-| InfoGate ranking list composition (RankingListMaker, FetchRankingList) | 2b |
+| RankingListMaker timer and InfoGate broadcast of changed lists (composition is `Daemon::make_ranking_lists`) | 2b |
 
 ## 7. Rust port map
 
