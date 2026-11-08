@@ -1,9 +1,7 @@
 //! Gate-key and client-key correlation. Spec 05 §1.3.
 use crate::{daemon::LobbyDaemon, wire::invalid};
-use bloodlib::{
-    fragments::compose_fragments,
-    packet::{compose, decode_fields, decompose, DecodeLimits, Value},
-};
+use bloodlib::packet::{compose, decode_fields, decompose, DecodeLimits, Value};
+use packet::fragments::compose_fragments;
 use std::{
     collections::HashMap,
     io,

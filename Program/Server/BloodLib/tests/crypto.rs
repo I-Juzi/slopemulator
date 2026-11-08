@@ -1,7 +1,7 @@
 mod common;
 
-use common::*;
 use bloodlib::crypto::*;
+use common::*;
 use num_bigint::BigUint;
 use ripemd::{Digest, Ripemd128};
 

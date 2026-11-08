@@ -59,7 +59,7 @@ pub struct Server {
     close_jobs: Mutex<std::collections::BinaryHeap<std::cmp::Reverse<(tokio::time::Instant, u64)>>>,
     max_clients: usize,
     log_ip: bool,
-    tables: bloodlib::dispatch::Tables,
+    tables: packet::dispatch::Tables,
 }
 impl Server {
     pub fn new(config: &GateConfig, key: RsaKey, daemon: Arc<dyn LobbyDaemon>) -> io::Result<Self> {
@@ -99,10 +99,8 @@ impl Server {
             close_jobs: Mutex::new(std::collections::BinaryHeap::new()),
             max_clients: config.max_client as usize,
             log_ip: config.allow_client_ip_address_in_logs,
-            tables: bloodlib::dispatch::Tables::parse(
-                bloodlib::dispatch::DEFAULT_TABLES,
-            )
-            .map_err(protocol)?,
+            tables: packet::dispatch::Tables::parse(packet::dispatch::DEFAULT_TABLES)
+                .map_err(protocol)?,
         })
     }
     pub fn with_contents(mut self, contents: &crate::config::ContentsConfig) -> io::Result<Self> {
@@ -118,7 +116,7 @@ impl Server {
         let permits = Arc::new(Semaphore::new(self.max_clients));
         let mut tasks = JoinSet::new();
         let mut events = self.daemon.take_events();
-        let mut fragments = bloodlib::fragments::FragmentReader::default();
+        let mut fragments = packet::fragments::FragmentReader::default();
         let mut cadence = crate::idle::cadence(tokio::time::Instant::now(), self.timer_interval);
         loop {
             // Reap completed tasks before each accept. Their retained results
@@ -341,7 +339,7 @@ impl Server {
                 }
                 _ if matches!(
                     self.tables.client_route(cmd, client_key != 0),
-                    bloodlib::dispatch::Route::Relay
+                    packet::dispatch::Route::Relay
                 ) =>
                 {
                     let packet = self
@@ -356,10 +354,7 @@ impl Server {
     }
     async fn daemon_packet(&self, cmd: i16, data: &[u8]) -> io::Result<()> {
         let tables = &self.tables;
-        if matches!(
-            tables.lobbyd_route(cmd),
-            bloodlib::dispatch::Route::Relay
-        ) {
+        if matches!(tables.lobbyd_route(cmd), packet::dispatch::Route::Relay) {
             let (key, packet) = tables.relay_to_client(data).map_err(protocol)?;
             self.hub.send_client(key, vec![packet]).await;
             return Ok(());

@@ -339,9 +339,9 @@ async fn malformed_login_inactive_tag_and_connection_limit() {
 /// Exercise the real daemon socket and the encrypted client socket together.
 #[tokio::test]
 async fn tcp_daemon_both_login_paths_and_every_failure_reason() {
-    use bloodlib::fragments::{compose_fragments, FragmentReader};
     use bloodlib::packet::decode_fields;
     use lobbygate::daemon::{read_trusted, TcpLobbyDaemon};
+    use packet::fragments::{compose_fragments, FragmentReader};
     let fake = TcpListener::bind("127.0.0.1:0").await.unwrap();
     let mut config = Config::from_xml(
         include_str!("fixtures/lobbygate.config.xml"),
@@ -735,8 +735,8 @@ impl SocketRig {
         }
     }
     async fn login(&mut self, client_key: u64) -> (TcpStream, SessionPacketCrypt, u64) {
-        use bloodlib::fragments::compose_fragments;
         use lobbygate::daemon::read_trusted;
+        use packet::fragments::compose_fragments;
         let (mut client, mut crypt) = handshake(self.address).await;
         send_packet(
             &mut client,
@@ -826,7 +826,7 @@ fn socket_config() -> Config {
     config
 }
 fn minimal_hello() -> Vec<Vec<u8>> {
-    bloodlib::fragments::compose_fragments(2, "hiQ", &[Value::I8(1)]).unwrap()
+    packet::fragments::compose_fragments(2, "hiQ", &[Value::I8(1)]).unwrap()
 }
 async fn send_packet(client: &mut TcpStream, crypt: &mut SessionPacketCrypt, packet: Vec<u8>) {
     write_frame(client, &crypt.encrypt(&packet, 4002, false).unwrap())
@@ -925,7 +925,8 @@ async fn close_timeout_zero_suppresses_d21_and_d22_jobs() {
 fn operator_key_file_is_required_bounded_and_validated() {
     static FILE_LOCK: Mutex<()> = Mutex::new(());
     let _guard = FILE_LOCK.lock().unwrap();
-    let path = std::path::PathBuf::from(env!("CARGO_TARGET_TMPDIR")).join("generated-handshake-test-key.bin");
+    let path = std::path::PathBuf::from(env!("CARGO_TARGET_TMPDIR"))
+        .join("generated-handshake-test-key.bin");
     assert!(load_handshake_key(&path.with_extension("absent")).is_err());
     std::fs::write(&path, &keys().server_blob).unwrap();
     assert_eq!(load_handshake_key(&path).unwrap().block_len(), 128);

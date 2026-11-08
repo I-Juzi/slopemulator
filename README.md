@@ -6,7 +6,8 @@ paths inside the original binaries (`...\depot\Branch\381NC\Program\Server\...`)
 
 | Folder | Original | Contents |
 | --- | --- | --- |
-| `Program/Server/BloodLib` | `Program\Server\BloodLib` | Session, framing, packets, fragments, dispatch (crate `bloodlib`) |
+| `Program/Server/BloodLib` | `Program\Server\BloodLib` | Session, framing, packet fields, ciphers (crate `bloodlib`) |
+| `Program/Server/Packet` | `Program\Server\Packet` | Fragment packets, command dispatch tables `tables/381.json` (crate `packet`) |
 | `Program/Server/Shared` | `Program\Server\Shared` | NP channel trait, shared types and local stub (crate `shared`) |
 | `Program/Server/LobbyGate` | LobbyGate | Gate server, build 381 (crate `lobbygate`) |
 | `Program/Server/LobbyDaemon` | LobbyDaemon | Lobby daemon, build 307 (crate `lobbydaemon`) |

@@ -6,6 +6,7 @@ publish = false
 
 [dependencies]
 bloodlib = { path = "../BloodLib" }
+packet = { path = "../Packet" }
 shared = { path = "../Shared" }
 tokio = { version = "1", features = ["rt-multi-thread", "net", "io-util", "sync", "time", "macros", "signal"] }
 

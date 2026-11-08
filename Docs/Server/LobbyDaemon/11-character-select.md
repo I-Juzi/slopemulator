@@ -450,7 +450,7 @@ No SQL connection was made in this pass.
 ## 13. Unchanged gate check
 
 Evidence: `spec/04-dispatch.md`, `spec/05-handlers.md`,
-`Program/Server/BloodLib/src/dispatch.rs`, `Program/Server/LobbyGate/src/server.rs`.
+`Program/Server/Packet/src/dispatch.rs`, `Program/Server/LobbyGate/src/server.rs`.
 
 | Client request | Daemon request | Daemon replies → client replies |
 | --- | --- | --- |

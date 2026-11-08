@@ -1,8 +1,6 @@
 use super::*;
-use bloodlib::{
-    fragments::{compose_fragments, FragmentReader},
-    packet::decode_fields,
-};
+use bloodlib::packet::decode_fields;
+use packet::fragments::{compose_fragments, FragmentReader};
 
 async fn reply(
     client: &mut TcpStream,

@@ -3,7 +3,7 @@
 //! can pass a replacement JSON file to `initialize_tables`; no code change is
 //! needed. This module does not perform I/O, encryption, or session closure.
 
-use crate::packet::{packet_size, PacketError, MAX_PACKET};
+use bloodlib::packet::{packet_size, PacketError, MAX_PACKET};
 use serde::Deserialize;
 use std::{
     collections::{BTreeMap, BTreeSet},

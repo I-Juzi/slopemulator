@@ -1,13 +1,11 @@
-use bloodlib::{
-    fragments::FragmentReader,
-    packet::{decode_fields, Value},
-};
+use bloodlib::packet::{decode_fields, Value};
 use lobbydaemon::{
     jobs::{Jobs, Settings, State},
     np::{Np, NpError, StubNp},
     protocol as w,
     store::{Account, AccountId, Character, IncompleteService, MemoryStore, Store},
 };
+use packet::fragments::FragmentReader;
 use std::{io, time::Duration};
 
 fn info_request(key: u64, slot: [u8; 16]) -> Vec<u8> {

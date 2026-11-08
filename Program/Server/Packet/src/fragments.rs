@@ -1,6 +1,6 @@
 //! Field-aligned fragment writer and synchronous reader (spec 03 section 7).
 
-use crate::packet::{fields, packet_size, PacketError, Value, MAX_PACKET};
+use bloodlib::packet::{fields, packet_size, PacketError, Value, MAX_PACKET};
 use std::borrow::Cow;
 use thiserror::Error;
 

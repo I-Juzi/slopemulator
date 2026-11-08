@@ -1,4 +1,5 @@
-use bloodlib::{dispatch::*, fragments::*, packet::*};
+use bloodlib::packet::*;
+use packet::{dispatch::*, fragments::*};
 use std::borrow::Cow;
 
 fn packet(cmd: i16, body: &[u8]) -> Vec<u8> {

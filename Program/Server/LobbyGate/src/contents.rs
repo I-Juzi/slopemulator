@@ -1,9 +1,7 @@
 //! Operator contents rules. Spec 05 §5. No runtime reload.
 use crate::{config::ContentsConfig, wire::invalid};
-use bloodlib::{
-    fragments::compose_fragments,
-    packet::{compose, Value},
-};
+use bloodlib::packet::{compose, Value};
+use packet::fragments::compose_fragments;
 use std::io;
 
 pub struct ContentsRules {

@@ -131,7 +131,8 @@ fn length(n: usize) -> Result<[u8; 2], PacketError> {
 
 // Each vector is one indivisible wire field. Counts remain at their original
 // field index while rows are emitted, even when later fields cross fragments.
-pub(crate) fn fields(
+#[doc(hidden)]
+pub fn fields(
     format: &str,
     values: &[Value],
     capacity: usize,
@@ -248,7 +249,8 @@ pub fn compose(format: &str, values: &[Value]) -> Result<Vec<u8>, PacketError> {
     Ok(output)
 }
 
-pub(crate) fn packet_size(input: &[u8], minimum: usize) -> Result<(), PacketError> {
+#[doc(hidden)]
+pub fn packet_size(input: &[u8], minimum: usize) -> Result<(), PacketError> {
     let size = i16::from_le_bytes(
         input
             .get(..2)

@@ -1,8 +1,6 @@
 use super::*;
-use bloodlib::{
-    fragments::{compose_fragments, FragmentReader},
-    packet::decode_fields,
-};
+use bloodlib::packet::decode_fields;
+use packet::fragments::{compose_fragments, FragmentReader};
 
 fn character_row(text: Vec<u16>, bytes: usize) -> Vec<Value> {
     vec![

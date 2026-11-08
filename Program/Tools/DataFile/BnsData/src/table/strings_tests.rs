@@ -223,10 +223,7 @@ fn native_edit_sets_size_and_keeps_other_text() {
             let changed = table.write(width, 2, Some(&def)).unwrap();
             let parsed = TableBody::parse(&changed, width, 2, Some(&def)).unwrap();
             let first = fields(&parsed, &def, width, 0);
-            assert!(matches!(
-                first[1].value,
-                RawValue::Native { a: 22, .. }
-            ));
+            assert!(matches!(first[1].value, RawValue::Native { a: 22, .. }));
             // Unedited records keep their stored size.
             assert!(matches!(
                 fields(&parsed, &def, width, 1)[1].value,

@@ -4,8 +4,6 @@
 //! unauthenticated ECB mode are not suitable for new protocols.
 
 pub mod crypto;
-pub mod dispatch;
-pub mod fragments;
 pub mod frames;
 pub mod packet;
 pub mod session;

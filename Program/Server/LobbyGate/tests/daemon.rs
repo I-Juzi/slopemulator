@@ -1,11 +1,9 @@
-use bloodlib::{
-    fragments::compose_fragments,
-    packet::{compose, decompose, DecodeLimits, Value},
-};
+use bloodlib::packet::{compose, decompose, DecodeLimits, Value};
 use lobbygate::{
     config::Config,
     daemon::{read_trusted, LobbyDaemon, TcpLobbyDaemon},
 };
+use packet::fragments::compose_fragments;
 use std::time::Duration;
 use tokio::{io::AsyncWriteExt, net::TcpListener, sync::watch, time::timeout};
 fn config() -> Config {

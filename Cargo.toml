@@ -1,6 +1,7 @@
 [workspace]
 members = [
     "Program/Server/BloodLib",
+    "Program/Server/Packet",
     "Program/Server/Shared",
     "Program/Server/LobbyGate",
     "Program/Server/LobbyDaemon",

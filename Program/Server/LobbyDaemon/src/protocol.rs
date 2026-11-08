@@ -1,9 +1,7 @@
 //! Build 307 LobbyGate packets. Shared codec is used without changes.
 use crate::store::{Account, Character};
-use bloodlib::{
-    fragments::compose_fragments,
-    packet::{compose, decompose, DecodeLimits, Value},
-};
+use bloodlib::packet::{compose, decompose, DecodeLimits, Value};
+use packet::fragments::compose_fragments;
 use std::io;
 use tokio::io::{AsyncRead, AsyncReadExt};
 

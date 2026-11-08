@@ -2,10 +2,10 @@
 use crate::wire::invalid;
 use bloodlib::{
     crypto::SessionCrypt,
-    fragments::compose_fragments,
     frames::encrypted_header,
     packet::{compose, decode_fields, DecodeLimits, Value},
 };
+use packet::fragments::compose_fragments;
 use std::io;
 
 pub const WORLD: &str = "ChhsQQiihhiQQQQQQQ;";
@@ -87,8 +87,7 @@ impl Lists {
         Ok(())
     }
     pub fn announcement(data: &[u8], key: &[u8]) -> io::Result<Vec<Vec<u8>>> {
-        let mut v =
-            bloodlib::packet::decompose("hs", data, Default::default()).map_err(p)?;
+        let mut v = bloodlib::packet::decompose("hs", data, Default::default()).map_err(p)?;
         v[0] = Value::I16(11);
         broadcast_packets(&[compose("hs", &v).map_err(p)?], key)
     }
@@ -97,7 +96,8 @@ impl Lists {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use bloodlib::{fragments::FragmentReader, packet::decode_fields};
+    use bloodlib::packet::decode_fields;
+    use packet::fragments::FragmentReader;
     fn plain(frame: &[u8]) -> Vec<u8> {
         assert_eq!(frame[1] >> 4, 0xe);
         let crypt = SessionCrypt::new([7; 16]);

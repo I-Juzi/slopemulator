@@ -1,7 +1,6 @@
 //! Real in-process LobbyGate, real lobbyd listener, generated encrypted client.
 use bloodlib::{
     crypto::RsaKey,
-    fragments::FragmentReader,
     frames::{decode_client, encode_client, ClientDecrypt, ClientEncrypt},
     packet::{compose, decode_fields, decompose, Value},
     session::SessionPacketCrypt,
@@ -21,6 +20,7 @@ use lobbygate::{
     wire::{inner_packet, read_frame, write_frame},
 };
 use num_bigint::BigUint;
+use packet::fragments::FragmentReader;
 use rand::{rngs::StdRng, SeedableRng};
 use rsa::{
     traits::{PrivateKeyParts, PublicKeyParts},

@@ -92,7 +92,7 @@ pub fn characters(data: &[u8]) -> io::Result<(u64, Vec<Vec<u8>>)> {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use bloodlib::fragments::compose_fragments;
+    use packet::fragments::compose_fragments;
     #[test]
     fn token_omits_key_world_and_trailing_bytes() {
         let mut packet = compose(

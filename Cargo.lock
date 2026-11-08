@@ -453,6 +453,7 @@ dependencies = [
  "bloodlib",
  "lobbygate",
  "num-bigint",
+ "packet",
  "rand",
  "rsa",
  "shared",
@@ -467,6 +468,7 @@ version = "0.1.0"
 dependencies = [
  "bloodlib",
  "num-bigint",
+ "packet",
  "quick-xml",
  "rand",
  "rsa",
@@ -602,6 +604,17 @@ name = "openssl-probe"
 version = "0.1.6"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "d05e27ee213611ffe7d6348b942e8f942b37114c00cc03cec254295a4a17852e"
+
+[[package]]
+name = "packet"
+version = "0.1.0"
+dependencies = [
+ "bloodlib",
+ "rand",
+ "serde",
+ "serde_json",
+ "thiserror 2.0.21",
+]
 
 [[package]]
 name = "pem-rfc7468"

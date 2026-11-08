@@ -1,7 +1,7 @@
 mod common;
 
-use common::*;
 use bloodlib::{crypto::*, frames::*};
+use common::*;
 
 fn wire(code: u8, payload: &[u8]) -> Vec<u8> {
     let mut frame = encrypted_header(code, payload.len())

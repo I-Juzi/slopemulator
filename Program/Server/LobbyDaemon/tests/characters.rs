@@ -1,7 +1,4 @@
-use bloodlib::{
-    fragments::FragmentReader,
-    packet::{decode_fields, Value},
-};
+use bloodlib::packet::{decode_fields, Value};
 use lobbydaemon::{
     character::{
         CharacterPolicy, CreateCharacter, CreatedCharacter, InternalState, ProcedureError,
@@ -12,6 +9,7 @@ use lobbydaemon::{
     protocol as w,
     store::{Account, MemoryStore, Store},
 };
+use packet::fragments::FragmentReader;
 use std::{sync::Arc, time::Duration};
 type Rig = Jobs<MemoryStore, StubNp>;
 const SLOT: [u8; 16] = [91; 16];

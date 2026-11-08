@@ -3,7 +3,8 @@ use std::{fs, process::Command};
 
 #[test]
 fn dump_generated_xml_and_reject_bad_input() {
-    let dir = std::path::PathBuf::from(env!("CARGO_TARGET_TMPDIR")).join("lmxb-cli-tests")
+    let dir = std::path::PathBuf::from(env!("CARGO_TARGET_TMPDIR"))
+        .join("lmxb-cli-tests")
         .join(std::process::id().to_string());
     fs::create_dir_all(&dir).unwrap();
     let path = dir.join("generated.lmxb");

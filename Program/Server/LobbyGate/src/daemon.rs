@@ -146,9 +146,8 @@ impl TcpLobbyDaemon {
     ) {
         let mut ready = Some(ready);
         let mut first = true;
-        let tables =
-            bloodlib::dispatch::Tables::parse(bloodlib::dispatch::DEFAULT_TABLES)
-                .expect("built-in dispatch data");
+        let tables = packet::dispatch::Tables::parse(packet::dispatch::DEFAULT_TABLES)
+            .expect("built-in dispatch data");
         loop {
             if *shutdown.borrow() {
                 break;
@@ -198,7 +197,7 @@ impl TcpLobbyDaemon {
             }
             self.connected.store(true, Ordering::Release);
             let (mut reader, mut writer) = stream.into_split();
-            let mut fragments = bloodlib::fragments::FragmentReader::default();
+            let mut fragments = packet::fragments::FragmentReader::default();
             'link: loop {
                 // Retain a partial read across outgoing writes.
                 let read = read_trusted(&mut reader);
@@ -223,10 +222,7 @@ impl TcpLobbyDaemon {
                     }
                 };
                 let cmd = i16::from_le_bytes([packet[2], packet[3]]);
-                if matches!(
-                    tables.lobbyd_route(cmd),
-                    bloodlib::dispatch::Route::Reject
-                ) {
+                if matches!(tables.lobbyd_route(cmd), packet::dispatch::Route::Reject) {
                     tracing::warn!(cmd, "unknown LobbyDaemon command");
                     break 'link;
                 }
@@ -316,8 +312,7 @@ impl LobbyDaemon for TcpLobbyDaemon {
     }
     fn send_packet(&self, packet: Vec<u8>) -> SendFuture<'_> {
         Box::pin(async move {
-            bloodlib::frames::encode_trusted(&packet)
-                .map_err(|e| invalid(&e.to_string()))?;
+            bloodlib::frames::encode_trusted(&packet).map_err(|e| invalid(&e.to_string()))?;
             let generation = self.generation.load(Ordering::Acquire);
             if !self.connected() {
                 return Err(io::Error::new(
