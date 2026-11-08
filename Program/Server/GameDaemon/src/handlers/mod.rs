@@ -17,6 +17,8 @@ pub use party::*;
 pub use party_model::*;
 pub use party_tasks::execute_party_task;
 mod token;
+mod trade;
+pub use trade::*;
 mod wire;
 use crate::{kick::FailureAction, Position};
 pub use movement::*;
@@ -60,6 +62,10 @@ pub enum StateChange {
     /// Doc 15: a guild work object was posted to the guild manager.
     GuildWorkPosted(GuildWork),
     GuildTaskQueued(GuildTask),
+    /// Doc 12: trade task allocated, initialized and queued.
+    TradeTaskQueued(TradeTask),
+    /// Doc 12: account-inventory transaction registered.
+    AccountTransactionStarted(AccountTransaction),
     /// `0x1400F9B80` under the guild lock after a failed 506/508 post.
     GuildInviteeRemoved {
         guild_id: u64,
@@ -145,6 +151,8 @@ pub struct Outcome {
     pub session_effects: Vec<SessionEffect>,
     /// Ordered party sends and state boundaries. Do not also send the summaries.
     pub party_effects: Vec<PartyEffect>,
+    /// Ordered trade task sends and state effects.
+    pub trade_effects: Vec<TradeEffect>,
 }
 impl Default for Outcome {
     fn default() -> Self {
@@ -159,6 +167,7 @@ impl Default for Outcome {
             reports: vec![],
             session_effects: vec![],
             party_effects: vec![],
+            trade_effects: vec![],
         }
     }
 }
@@ -446,6 +455,18 @@ pub trait Services {
     fn queue_guild(&mut self, _task: &GuildTask) -> Gate {
         Gate::Unknown
     }
+    /// Doc 12 trade task allocation, PC-kind init and queue.
+    fn queue_trade(&mut self, _task: &TradeTask) -> Gate {
+        Gate::Unknown
+    }
+    /// Adapter-owned trade state. Exclusive during one task call.
+    fn trade_state(&mut self) -> Option<&mut TradeState> {
+        None
+    }
+    /// Doc 12 account-inventory transaction registration (0x1400D4FE0).
+    fn account_transaction(&mut self, _txn: &AccountTransaction) -> Gate {
+        Gate::Unknown
+    }
     /// UIC user lookup for the PC.
     fn guild_user_found(&mut self, _pc: &Pc) -> Option<bool> {
         None
@@ -546,6 +567,27 @@ pub struct MemoryServices {
     pub queued: Vec<u16>,
     pub logout_calls: usize,
     pub guild: MemoryGuild,
+    pub trade: MemoryTrade,
+}
+/// Test/default doc 12 boundary results. Unknown is never approval.
+#[derive(Clone, Debug)]
+pub struct MemoryTrade {
+    pub queue_result: Gate,
+    pub account_result: Gate,
+    pub state: Option<TradeState>,
+    pub tasks: Vec<TradeTask>,
+    pub transactions: Vec<AccountTransaction>,
+}
+impl Default for MemoryTrade {
+    fn default() -> Self {
+        Self {
+            queue_result: Gate::Unknown,
+            account_result: Gate::Unknown,
+            state: None,
+            tasks: vec![],
+            transactions: vec![],
+        }
+    }
 }
 /// Test/default guild boundary results.
 #[derive(Clone, Debug)]
@@ -618,10 +660,26 @@ impl Default for MemoryServices {
             queued: vec![],
             logout_calls: 0,
             guild: MemoryGuild::default(),
+            trade: MemoryTrade::default(),
         }
     }
 }
 impl Services for MemoryServices {
+    fn queue_trade(&mut self, task: &TradeTask) -> Gate {
+        if self.trade.queue_result == Gate::Pass {
+            self.trade.tasks.push(task.clone());
+        }
+        self.trade.queue_result
+    }
+    fn trade_state(&mut self) -> Option<&mut TradeState> {
+        self.trade.state.as_mut()
+    }
+    fn account_transaction(&mut self, txn: &AccountTransaction) -> Gate {
+        if self.trade.account_result == Gate::Pass {
+            self.trade.transactions.push(txn.clone());
+        }
+        self.trade.account_result
+    }
     fn guild_post(&mut self, work: &GuildWork) -> Gate {
         self.guild.posted.push(work.clone());
         self.guild.post_result
@@ -770,6 +828,7 @@ fn dispatch_inner(ctx: &mut Context<'_>, command: u16, req: &[u8]) -> Outcome {
     if !COMMANDS.contains(&command)
         && !PARTY_COMMANDS.contains(&command)
         && !GUILD_COMMANDS.contains(&command)
+        && !ITEM_COMMANDS.contains(&command)
     {
         return Outcome::log("unknown command");
     }
@@ -800,6 +859,9 @@ fn dispatch_inner(ctx: &mut Context<'_>, command: u16, req: &[u8]) -> Outcome {
     }
     if GUILD_COMMANDS.contains(&command) {
         return guild::dispatch_guild(ctx, command, req);
+    }
+    if ITEM_COMMANDS.contains(&command) {
+        return trade::dispatch_item(ctx, command, req);
     }
     match command {
         11 => handle_hello(ctx, req),

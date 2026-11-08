@@ -666,3 +666,21 @@ No inventory grant, balance, ownership, slot, distance, cooldown or table check 
 ❓ Success builder, echoed callback fields, endpoint, decoder, timers, cleanup and DB procedure remain open.
 No direct kick appears in the read prefix. Unread success paths remain unknown.
 Acceptance: test final selector -128/-1/0/127, each earlier config failure, missing user, registration/request failure and all callback events. Verify echo excludes the final byte.
+
+## Rust port status (part 1)
+
+Source: `Program/Server/GameDaemon/src/handlers/trade.rs`, tests `tests/gi1_trade.rs`.
+
+| Command | Rust | Boundary that stops the port |
+| --- | --- | --- |
+| 121, 123 | ported | — |
+| 311, 314, 317 | partial | Short-body decode result; audit helpers (+537) not ported |
+| 320 | partial | Escrow return `0x140515A80` when either escrow holds an item |
+| 324 | partial | Escrow insert `0x140515360` and eligibility `0x1405593A0` after the 927/926 gates |
+| 327 | partial | Escrow return after the 931 gate |
+| 330, 333, 336 | ported | — |
+| 339 | partial | Item transfer `0x140515960` and backend command 274; money-only confirm is ported |
+| 793–805 | partial | Transaction runner, backend commands 4/7/10/13/16 and callbacks |
+
+- Uppercase `Q` is one signed byte (BloodLib codec, `0x14069DA00` family). The port encodes 322/338 `Q` and decodes 802/805 `Q` as one byte.
+- Request handlers queue a `TradeTask`. `execute_trade_task` runs the task body on adapter-owned `TradeState`.
