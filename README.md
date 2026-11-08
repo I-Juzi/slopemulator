@@ -69,7 +69,7 @@ console library, so small servers are mostly that library.
 | `RankingDaemon.exe` | Rankings and leaderboards | 16 | 535 KB | — | 0 | `░░░░░░░░░░` 0 % |
 | `CacheGate.exe` | Gate in front of CacheDaemon | 9 | 231 KB | — | 0 | `░░░░░░░░░░` 0 % |
 | `AchievementDaemon.exe` | Achievements | 7 | 448 KB | — | 0 | `░░░░░░░░░░` 0 % |
-| `SmartCouponDaemon.exe` | Coupon codes | 6 | 327 KB | — | 0 | `░░░░░░░░░░` 0 % |
+| `SmartCouponDaemon.exe` | Game-event coupons: GameDaemon events → NP coupon publication | 6 | 327 KB | `smartcoupondaemon` (348) | 6 / 6 handlers (MSSQL + NP transport not started) | `██████████` **100 %** handlers ❓ |
 | `ArenaDaemon` | Arena match server. It runs the same `GameDaemon.exe` and `GameDaemon.pdb` | (GameDaemon) | (GameDaemon) | — | 0 | `░░░░░░░░░░` 0 % |
 | STS / NP login (`StsMsgSrv64.dll` peer) | Platform login: SRP-6a password login, RC4 session, game tokens | — | — | `sts` (2020 client) | 7 / 7 client commands | `██████████` **100 %** ❓ |
 | **All except GameDaemon** | | **814** | | | | |
