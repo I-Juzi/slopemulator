@@ -340,3 +340,150 @@ fn recruit_gates_and_modes() {
     h.world.party_config.arena_enabled = false;
     assert_eq!(replies(&h.run(963, &key)), r(966, 2214));
 }
+
+fn key_body(extra: &[u8]) -> Vec<u8> {
+    let mut v = 44u64.to_le_bytes().to_vec();
+    v.extend(extra);
+    v
+}
+
+#[test]
+fn return_from_duel_and_dungeon() {
+    let mut h = H::new();
+    h.world.arena_event.attraction = 1;
+    h.services.arena_event.portal_type = Some(0);
+    assert!(h.run(708, &key_body(&[])).replies.is_empty());
+    assert_eq!(
+        kind(&h.last()),
+        ArenaEventTask::ReturnFromDuel { portal_key: 44 }
+    );
+    h.services.arena_event.portal_type = Some(1);
+    assert_eq!(replies(&h.run(708, &key_body(&[]))), r(710, 1888));
+    h.services.arena_event.portal_type = None;
+    assert!(matches!(
+        h.run(708, &key_body(&[])).status,
+        Status::Unsupported(_)
+    ));
+    assert_eq!(replies(&h.run(708, &[1])), r(710, 2));
+    // 711 needs attraction 2 and portal type 1 or 2.
+    assert_eq!(replies(&h.run(711, &key_body(&[1]))), r(713, 2));
+    h.world.arena_event.attraction = 2;
+    h.services.arena_event.portal_type = Some(2);
+    assert_eq!(replies(&h.run(711, &key_body(&[]))), r(713, 2));
+    assert!(h.run(711, &key_body(&[5])).replies.is_empty());
+    assert_eq!(
+        kind(&h.last()),
+        ArenaEventTask::ReturnFromDungeon {
+            portal_key: 44,
+            flag: true
+        }
+    );
+    h.services.arena_event.portal_type = Some(0);
+    assert_eq!(replies(&h.run(711, &key_body(&[0]))), r(713, 1888));
+    h.services.skill_queue_result = Gate::Fail;
+    h.services.arena_event.portal_type = Some(1);
+    assert_eq!(replies(&h.run(711, &key_body(&[0]))), r(713, 2));
+    h.world.arena = false;
+    assert_eq!(replies(&h.run(711, &key_body(&[0]))), r(713, 1890));
+    h.world.party_config.arena_enabled = false;
+    assert_eq!(replies(&h.run(708, &key_body(&[]))), r(710, 1889));
+}
+
+fn rn(command: u16, reason: u16, name: &[u16]) -> Vec<(u16, Vec<u8>)> {
+    let mut b = reason.to_le_bytes().to_vec();
+    b.extend(s(name));
+    vec![(command, b)]
+}
+
+#[test]
+fn spectate_game_sends_and_echoes_name() {
+    let mut h = H::lobby();
+    h.services.arena_event.cross_option = Gate::Pass;
+    h.services.arena_event.portal_type = Some(1);
+    let body = key_body(&s(&NAME));
+    assert_eq!(replies(&h.run(714, &[1])), rn(716, 2, &[]));
+    assert_eq!(replies(&h.run(714, &body)), rn(716, 1896, &NAME));
+    h.pc().arena_state = 3;
+    assert!(h.run(714, &body).replies.is_empty());
+    let mut want = 0u64.to_le_bytes().to_vec();
+    want.extend(77u64.to_le_bytes());
+    want.extend(PC_ID.to_le_bytes());
+    want.extend(3i16.to_le_bytes());
+    want.push(2);
+    want.extend(s(&NAME));
+    assert_eq!(
+        h.services.arena_event.calls.last(),
+        Some(&ArenaEventOperation::Send {
+            world: 3,
+            command: 127,
+            descriptor: "hqqqhQs",
+            body: want,
+        })
+    );
+    h.services.arena_event.portal_type = Some(7);
+    assert_eq!(replies(&h.run(714, &body)), rn(716, 2, &NAME));
+    h.services.arena_event.portal_type = Some(0);
+    h.services.arena_event.send = Gate::Fail;
+    assert_eq!(replies(&h.run(714, &body)), rn(716, 1895, &NAME));
+    h.world.arena = true;
+    assert_eq!(replies(&h.run(714, &body)), rn(716, 5, &NAME));
+    h.world.party_config.arena_enabled = false;
+    assert_eq!(replies(&h.run(714, &body)), rn(716, 1895, &NAME));
+    h.services.arena_event.cross_option = Gate::Fail;
+    assert_eq!(replies(&h.run(714, &body)), rn(716, 2, &NAME));
+    h.services.arena_event.portal = Gate::Fail;
+    assert_eq!(replies(&h.run(714, &body)), rn(716, 2, &NAME));
+}
+
+#[test]
+fn spectate_return_to_lobby() {
+    let mut h = H::new();
+    assert!(h.run(717, &key_body(&[])).replies.is_empty());
+    assert_eq!(
+        kind(&h.last()),
+        ArenaEventTask::SpectateReturn { portal_key: 44 }
+    );
+    h.services.arena_event.portal = Gate::Fail;
+    assert_eq!(replies(&h.run(717, &key_body(&[]))), r(719, 1906));
+    assert_eq!(replies(&h.run(717, &[])), r(719, 2));
+    h.world.arena = false;
+    assert_eq!(replies(&h.run(717, &key_body(&[]))), r(719, 1908));
+    h.world.party_config.arena_enabled = false;
+    assert_eq!(replies(&h.run(717, &key_body(&[]))), r(719, 1907));
+}
+
+#[test]
+fn list_spectate_game_gates_and_send() {
+    let mut h = H::lobby();
+    h.services.arena_event.list_cooldown = Gate::Pass;
+    h.services.arena_event.portal_type = Some(0);
+    h.pc().guild_id = 9;
+    let ok = key_body(&[1, 1]);
+    assert_eq!(replies(&h.run(720, &key_body(&[2, 1]))), r(722, 2));
+    assert_eq!(replies(&h.run(720, &ok)), r(722, 1912));
+    h.pc().arena_state = 3;
+    assert!(h.run(720, &ok).replies.is_empty());
+    let mut want = PC_ID.to_le_bytes().to_vec();
+    want.extend(77u64.to_le_bytes());
+    want.extend(0u64.to_le_bytes());
+    want.extend(9u64.to_le_bytes());
+    want.extend([1, 1, 1]);
+    assert_eq!(
+        h.services.arena_event.calls.last(),
+        Some(&ArenaEventOperation::Send {
+            world: 3,
+            command: 133,
+            descriptor: "hqqqqQcc",
+            body: want,
+        })
+    );
+    assert_eq!(replies(&h.run(720, &key_body(&[0, 2]))), r(722, 1914));
+    h.services.arena_event.portal_type = Some(1);
+    assert_eq!(replies(&h.run(720, &ok)), r(722, 1913));
+    h.services.arena_event.list_cooldown = Gate::Fail;
+    assert_eq!(replies(&h.run(720, &ok)), r(722, 1915));
+    h.pc().user_present = false;
+    assert_eq!(replies(&h.run(720, &ok)), r(722, 2));
+    h.world.party_config.arena_enabled = false;
+    assert_eq!(replies(&h.run(720, &ok)), r(722, 1911));
+}

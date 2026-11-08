@@ -8,7 +8,8 @@ use super::skills::queue;
 use super::*;
 
 pub const ARENA_EVENT_COMMANDS: &[u16] = &[
-    723, 726, 729, 732, 733, 736, 739, 742, 745, 748, 751, 754, 757, 959, 963,
+    708, 711, 714, 717, 720, 723, 726, 729, 732, 733, 736, 739, 742, 745, 748, 751, 754, 757, 959,
+    963,
 ];
 
 /// Doc 26 shared fields.
@@ -49,6 +50,12 @@ pub enum ArenaEventTask {
     /// 959 / 963: CheckArenaPortalUsableTask 0x14036D670, kind 112, vtable 0x140B9E890.
     /// Portal record +144, mode DWORD +152 (2 publish, 3 cancel).
     CheckPortal { portal_key: u64, mode: u32 },
+    /// 708, kind 125, 0x98 bytes, vtable 0x140BA9F00. Portal record +144.
+    ReturnFromDuel { portal_key: u64 },
+    /// 711, kind 126, 0xA0 bytes, vtable 0x140C36C10. Portal record +144, bool +152.
+    ReturnFromDungeon { portal_key: u64, flag: bool },
+    /// 717, kind 263, 0x98 bytes, vtable 0x140BAB4E0. Portal record +144.
+    SpectateReturn { portal_key: u64 },
 }
 impl From<ArenaEventTask> for SkillTaskKind {
     fn from(task: ArenaEventTask) -> Self {
@@ -63,6 +70,16 @@ pub enum ArenaEventOperation {
     PortalExists { portal_key: u64 },
     /// Zone qword +16224 (geo zone). Fail means null.
     GeoZone { zone: u64 },
+    /// Portal record exists and its type word +2 is in `types`.
+    PortalType {
+        portal_key: u64,
+        types: &'static [i16],
+    },
+    /// Global config byte +819 (`qword_140EE58A0`).
+    CrossOptionEnabled,
+    /// 720: user list-time slot `list_type` (user virtual +48, +200, +16 + 8 × type)
+    /// plus global DWORD index 207 seconds is not in the future. Pass stamps now.
+    SpectateListCooldown { list_type: u8 },
     /// Body-only send through daemon +3840 (0x1400D2EE0) to world `world`.
     Send {
         world: i16,
@@ -75,6 +92,10 @@ pub enum ArenaEventOperation {
 #[derive(Clone, Debug)]
 pub struct MemoryArenaEvent {
     pub portal: Gate,
+    /// Portal type word +2. None = Unknown.
+    pub portal_type: Option<i16>,
+    pub cross_option: Gate,
+    pub list_cooldown: Gate,
     pub geo_zone: Gate,
     pub send: Gate,
     pub calls: Vec<ArenaEventOperation>,
@@ -83,6 +104,9 @@ impl Default for MemoryArenaEvent {
     fn default() -> Self {
         Self {
             portal: Gate::Unknown,
+            portal_type: None,
+            cross_option: Gate::Unknown,
+            list_cooldown: Gate::Unknown,
             geo_zone: Gate::Unknown,
             send: Gate::Unknown,
             calls: Vec::new(),
@@ -96,12 +120,24 @@ impl MemoryArenaEvent {
             ArenaEventOperation::PortalExists { .. } => self.portal,
             ArenaEventOperation::GeoZone { .. } => self.geo_zone,
             ArenaEventOperation::Send { .. } => self.send,
+            ArenaEventOperation::PortalType { types, .. } => match self.portal_type {
+                Some(t) if types.contains(&t) => Gate::Pass,
+                Some(_) => Gate::Fail,
+                None => Gate::Unknown,
+            },
+            ArenaEventOperation::CrossOptionEnabled => self.cross_option,
+            ArenaEventOperation::SpectateListCooldown { .. } => self.list_cooldown,
         }
     }
 }
 
 pub(super) fn dispatch_arena_event(ctx: &mut Context<'_>, command: u16, req: &[u8]) -> Outcome {
     match command {
+        708 => handle_return_to_arena_lobby_from_duel(ctx, req),
+        711 => handle_return_to_arena_lobby_from_dungeon(ctx, req),
+        714 => handle_arena_spectate_game(ctx, req),
+        717 => handle_arena_spectate_return_to_arena_lobby(ctx, req),
+        720 => handle_list_arena_spectate_game(ctx, req),
         723 => handle_arena_event_teleport_to(ctx, req),
         726 => handle_arena_event_recall(ctx, req),
         729 => handle_arena_event_warp_to_pos(ctx, req),
@@ -413,7 +449,8 @@ pub fn handle_arena_event_move_to_arena(ctx: &mut Context<'_>, req: &[u8]) -> Ou
     body.extend(pc.object_id.to_le_bytes());
     body.extend(pc.short_96.to_le_bytes());
     body.extend(arena_id.to_le_bytes());
-    // ❓ The trailing `Q` argument of "hqqqhiQ" is not visible in the decompile.
+    // Trailing `Q` is the constant 2 (`mov [rsp+var_30], 2` at 0x1403BDF25).
+    body.push(2);
     match send(ctx, 137, "hqqqhiQ", body) {
         Some(true) => Outcome::default(),
         Some(false) => logged(Outcome::reason(F, 1921), "arena event move: fail to send"),
@@ -738,4 +775,259 @@ pub fn handle_publish_recruit_arena_dungeon_member(ctx: &mut Context<'_>, req: &
 /// parity: 963 26-arena-event-handlers.md#963--g_cancelrecruitarenadungeonmemberreqcmd--partial partial
 pub fn handle_cancel_recruit_arena_dungeon_member(ctx: &mut Context<'_>, req: &[u8]) -> Outcome {
     recruit(ctx, req, 963, 966, 3)
+}
+
+fn portal_type(ctx: &mut Context<'_>, portal_key: u64, types: &'static [i16]) -> Option<bool> {
+    gate(ctx, ArenaEventOperation::PortalType { portal_key, types })
+}
+
+/// 708 / 711 shared flow. `attraction` is the required daemon byte +4152.
+fn return_to_lobby(
+    ctx: &mut Context<'_>,
+    req: &[u8],
+    command: u16,
+    fail: u16,
+    attraction: i8,
+) -> Outcome {
+    if !ctx.world.party_config.arena_enabled {
+        return logged(
+            Outcome::reason(fail, 1889),
+            "arena cannot return: arena not enabled",
+        );
+    }
+    if !ctx.world.arena {
+        return logged(
+            Outcome::reason(fail, 1890),
+            "arena cannot return: not in arena",
+        );
+    }
+    if ctx.world.arena_event.attraction != attraction {
+        return logged(
+            Outcome::reason(fail, 2),
+            "arena cannot return: wrong attraction",
+        );
+    }
+    let mut r = Reader(req);
+    let Some(portal_key) = r.quad() else {
+        return logged(
+            Outcome::reason(fail, 2),
+            "arena cannot return: decompose failed",
+        );
+    };
+    let flag = if command == 711 {
+        match r.byte() {
+            Some(b) => b != 0,
+            None => {
+                return logged(
+                    Outcome::reason(fail, 2),
+                    "arena cannot return: decompose failed",
+                )
+            }
+        }
+    } else {
+        false
+    };
+    let types: &'static [i16] = if command == 711 { &[1, 2] } else { &[0] };
+    match portal_type(ctx, portal_key, types) {
+        Some(true) => {}
+        Some(false) => {
+            return logged(
+                Outcome::reason(fail, 1888),
+                "arena cannot return: invalid portal",
+            )
+        }
+        None => return unknown(),
+    }
+    let Some(zone) = ctx.pc().zone else {
+        return logged(
+            Outcome::reason(fail, 2),
+            "arena cannot return: zone is null",
+        );
+    };
+    let kind = if command == 711 {
+        ArenaEventTask::ReturnFromDungeon { portal_key, flag }
+    } else {
+        ArenaEventTask::ReturnFromDuel { portal_key }
+    };
+    let t = task(ctx, command, zone, kind);
+    queue(ctx, t, Outcome::reason(fail, 2))
+}
+
+/// parity: 708 26-arena-event-handlers.md#708--g_returntoarenalobbyfromduelreqcmd--partial partial
+pub fn handle_return_to_arena_lobby_from_duel(ctx: &mut Context<'_>, req: &[u8]) -> Outcome {
+    return_to_lobby(ctx, req, 708, 710, 1)
+}
+
+/// parity: 711 26-arena-event-handlers.md#711--g_returntoarenalobbyfromdungeonreqcmd--partial partial
+pub fn handle_return_to_arena_lobby_from_dungeon(ctx: &mut Context<'_>, req: &[u8]) -> Outcome {
+    return_to_lobby(ctx, req, 711, 713, 2)
+}
+
+/// Reply `hEs`: reason, then the decoded name (empty before decode).
+fn reason_name(command: u16, reason: u16, name: &[u16]) -> Outcome {
+    let mut body = reason.to_le_bytes().to_vec();
+    string_body(&mut body, name);
+    Outcome {
+        replies: vec![Message { command, body }],
+        ..Outcome::default()
+    }
+}
+
+/// parity: 714 26-arena-event-handlers.md#714--g_arenaspectategamereqcmd--partial partial
+pub fn handle_arena_spectate_game(ctx: &mut Context<'_>, req: &[u8]) -> Outcome {
+    const F: u16 = 716;
+    let mut r = Reader(req);
+    let (Some(portal_key), Some(name)) = (r.quad(), r.string(33)) else {
+        return logged(reason_name(F, 2, &[]), "arena spectate: decompose failed");
+    };
+    match portal(ctx, portal_key) {
+        Some(true) => {}
+        Some(false) => return logged(reason_name(F, 2, &name), "arena spectate: invalid portal"),
+        None => return unknown(),
+    }
+    match gate(ctx, ArenaEventOperation::CrossOptionEnabled) {
+        Some(true) => {}
+        Some(false) => return logged(reason_name(F, 2, &name), "arena spectate: cross option off"),
+        None => return unknown(),
+    }
+    if !ctx.world.party_config.arena_enabled {
+        return logged(
+            reason_name(F, 1895, &name),
+            "arena spectate: arena not enabled",
+        );
+    }
+    if ctx.world.arena {
+        return logged(reason_name(F, 5, &name), "arena spectate: already in arena");
+    }
+    if ctx.pc().arena_state != 3 {
+        return logged(reason_name(F, 1896, &name), "arena spectate: not in lobby");
+    }
+    // Portal type 0 → attraction 1; 1 or 2 → 2; other → reason 2.
+    let attraction = match portal_type(ctx, portal_key, &[0]) {
+        Some(true) => 1u8,
+        Some(false) => match portal_type(ctx, portal_key, &[1, 2]) {
+            Some(true) => 2,
+            Some(false) => {
+                return logged(
+                    reason_name(F, 2, &name),
+                    "arena spectate: invalid portal type",
+                )
+            }
+            None => return unknown(),
+        },
+        None => return unknown(),
+    };
+    let pc = ctx.pc();
+    let mut body = pc.arena_lobby.route.to_le_bytes().to_vec();
+    body.extend(pc.db_id.to_le_bytes());
+    body.extend(pc.object_id.to_le_bytes());
+    body.extend(pc.short_96.to_le_bytes());
+    body.push(attraction);
+    string_body(&mut body, &name);
+    match send(ctx, 127, "hqqqhQs", body) {
+        Some(true) => Outcome::default(),
+        Some(false) => logged(reason_name(F, 1895, &name), "arena spectate: fail to send"),
+        None => unknown(),
+    }
+}
+
+/// parity: 717 26-arena-event-handlers.md#717--g_arenaspectatereturntoarenalobbyreqcmd--partial partial
+pub fn handle_arena_spectate_return_to_arena_lobby(ctx: &mut Context<'_>, req: &[u8]) -> Outcome {
+    const F: u16 = 719;
+    if !ctx.world.party_config.arena_enabled {
+        return logged(
+            Outcome::reason(F, 1907),
+            "arena cannot return: arena not enabled",
+        );
+    }
+    if !ctx.world.arena {
+        return logged(
+            Outcome::reason(F, 1908),
+            "arena cannot return: not in arena",
+        );
+    }
+    let Some(portal_key) = Reader(req).quad() else {
+        return logged(
+            Outcome::reason(F, 2),
+            "arena cannot return: decompose failed",
+        );
+    };
+    match portal(ctx, portal_key) {
+        Some(true) => {}
+        Some(false) => {
+            return logged(
+                Outcome::reason(F, 1906),
+                "arena cannot return: invalid portal",
+            )
+        }
+        None => return unknown(),
+    }
+    let Some(zone) = ctx.pc().zone else {
+        return logged(Outcome::reason(F, 2), "arena cannot return: zone is null");
+    };
+    let t = task(
+        ctx,
+        717,
+        zone,
+        ArenaEventTask::SpectateReturn { portal_key },
+    );
+    queue(ctx, t, Outcome::reason(F, 2))
+}
+
+/// parity: 720 26-arena-event-handlers.md#720--g_listarenaspectategamereqcmd--partial partial
+pub fn handle_list_arena_spectate_game(ctx: &mut Context<'_>, req: &[u8]) -> Outcome {
+    const F: u16 = 722;
+    let mut r = Reader(req);
+    let (Some(portal_key), Some(list_type), Some(page)) = (r.quad(), r.byte(), r.byte()) else {
+        return logged(Outcome::reason(F, 2), "arena cannot list: decompose failed");
+    };
+    if list_type > 1 {
+        return logged(
+            Outcome::reason(F, 2),
+            "arena cannot list: invalid list type",
+        );
+    }
+    if !ctx.world.party_config.arena_enabled {
+        return logged(
+            Outcome::reason(F, 1911),
+            "arena cannot list: arena not enabled",
+        );
+    }
+    if ctx.world.arena || ctx.pc().arena_state != 3 {
+        return logged(Outcome::reason(F, 1912), "arena cannot list: not in lobby");
+    }
+    let pc = ctx.pc();
+    if !pc.user_present || pc.party_user_blocked {
+        return logged(Outcome::reason(F, 2), "arena cannot list: no user");
+    }
+    match gate(ctx, ArenaEventOperation::SpectateListCooldown { list_type }) {
+        Some(true) => {}
+        Some(false) => return logged(Outcome::reason(F, 1915), "arena cannot list: too often"),
+        None => return unknown(),
+    }
+    match portal_type(ctx, portal_key, &[0]) {
+        Some(true) => {}
+        Some(false) => {
+            return logged(
+                Outcome::reason(F, 1913),
+                "arena cannot list: invalid portal",
+            )
+        }
+        None => return unknown(),
+    }
+    if page != 1 {
+        return logged(Outcome::reason(F, 1914), "arena cannot list: invalid page");
+    }
+    let pc = ctx.pc();
+    let mut body = pc.object_id.to_le_bytes().to_vec();
+    body.extend(pc.db_id.to_le_bytes());
+    body.extend(pc.arena_lobby.route.to_le_bytes());
+    body.extend(pc.guild_id.to_le_bytes());
+    // ❓ The last byte is the portal attraction register; it is 1 on this path.
+    body.extend([list_type, 1, 1]);
+    match send(ctx, 133, "hqqqqQcc", body) {
+        Some(true) => Outcome::default(),
+        Some(false) => logged(Outcome::reason(F, 1911), "arena cannot list: fail to send"),
+        None => unknown(),
+    }
 }
