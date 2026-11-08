@@ -15,6 +15,7 @@ Use this only if the launcher forces the client into token mode. The password pa
 | **File offset** | **`0x58D60`** |
 | String length | **361 bytes** (Base64 text, no terminator counted) |
 | Decoded blob | 268 bytes |
+| 32-bit file | `StsMsgCli32.dll` (UE3): same key at file offset **`0x4A088`**. `sts_key_patch.py` has the 64-bit offset fixed; it needs an offset option for this file. |
 
 ## Blob format (the client's own public-key layout)
 
