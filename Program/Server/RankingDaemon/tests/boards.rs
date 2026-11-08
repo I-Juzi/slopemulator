@@ -1,4 +1,5 @@
 //! RankingBoardManager score paths (README section 6c).
+use rankingdaemon::board::Key;
 use rankingdaemon::boards::*;
 
 fn boards() -> RankingBoards {
@@ -101,4 +102,109 @@ fn delete_removes_and_reports() {
     // Missing key: Remove still succeeds.
     assert!(b.delete_score((1, 1), 1, 6, k));
     assert!(!b.delete_score((1, 1), 1, 2, k));
+}
+
+fn q(season: i8, score: Key) -> TopRankerQuery {
+    TopRankerQuery {
+        season_contents_type: season,
+        schedule_number: 1,
+        player_type: 1,
+        player_id: 1,
+        job: 1,
+        score,
+    }
+}
+const TIERS: [RewardTier; 3] = [
+    RewardTier {
+        min_rank: 1,
+        max_rank: 1,
+    },
+    RewardTier {
+        min_rank: 2,
+        max_rank: 3,
+    },
+    RewardTier {
+        min_rank: 4,
+        max_rank: 10,
+    },
+];
+
+fn filled(season: i16) -> (RankingBoards, Vec<Key>) {
+    let mut b = boards();
+    let keys = (1..=5u64)
+        .map(|i| {
+            b.insert_score(&ins(season, 1, i, 1, 100 - i, 1))
+                .unwrap()
+                .key
+        })
+        .collect();
+    (b, keys)
+}
+
+#[test]
+fn top_ranker_validates_input() {
+    let (b, keys) = filled(6);
+    let mut bad = q(6, keys[0]);
+    bad.schedule_number = 0;
+    assert_eq!(b.ranking_with_top_ranker(&bad, Some(&TIERS)), None);
+    let mut bad = q(6, keys[0]);
+    bad.job = 15;
+    assert_eq!(b.ranking_with_top_ranker(&bad, Some(&TIERS)), None);
+    assert_eq!(
+        b.ranking_with_top_ranker(&q(6, EMPTY_KEY), Some(&TIERS)),
+        None
+    );
+    assert_eq!(
+        b.ranking_with_top_ranker(&q(2, keys[0]), Some(&TIERS)),
+        None
+    );
+}
+
+#[test]
+fn top_ranker_is_last_of_the_better_tier() {
+    let (b, keys) = filled(6);
+    // Rank 5 → tier 4..10 → top ranker at rank 3 (player 3).
+    let r = b
+        .ranking_with_top_ranker(&q(6, keys[4]), Some(&TIERS))
+        .unwrap();
+    assert_eq!(r.ranks, [5, 5]);
+    let top = r.top.unwrap();
+    assert_eq!((top.ranking, top.player, top.score), (3, (1, 3), keys[2]));
+    // Rank 1 → tier min 1 → top ranker is rank 1.
+    let r = b
+        .ranking_with_top_ranker(&q(6, keys[0]), Some(&TIERS))
+        .unwrap();
+    assert_eq!(r.top.unwrap().ranking, 1);
+}
+
+#[test]
+fn top_ranker_without_tier_or_rank_returns_ranks_only() {
+    let (b, keys) = filled(6);
+    let r = b.ranking_with_top_ranker(&q(6, keys[1]), None).unwrap();
+    assert_eq!((r.ranks, r.top), ([2, 2], None));
+    let r = b
+        .ranking_with_top_ranker(&q(6, keys[1]), Some(&TIERS[2..]))
+        .unwrap();
+    assert_eq!(r.top, None);
+    let r = b
+        .ranking_with_top_ranker(&q(6, (1, 1, 1)), Some(&TIERS))
+        .unwrap();
+    assert_eq!((r.ranks, r.top), ([0, 0], None));
+}
+
+#[test]
+fn list_zero_types_use_the_overall_rank() {
+    assert!(ranks_over_all(8) && ranks_over_all(13) && ranks_over_all(15));
+    assert!(!ranks_over_all(6));
+    let mut b = boards();
+    // Type 8 has job lists 1..=2; players spread over both.
+    b.insert_score(&ins(8, 1, 1, 2, 90, 1)).unwrap();
+    b.insert_score(&ins(8, 1, 2, 2, 80, 1)).unwrap();
+    let me = b.insert_score(&ins(8, 1, 3, 1, 70, 1)).unwrap().key;
+    let mut query = q(8, me);
+    query.job = 1;
+    let r = b.ranking_with_top_ranker(&query, Some(&TIERS)).unwrap();
+    assert_eq!(r.ranks, [3, 1]);
+    let top = r.top.unwrap();
+    assert_eq!((top.ranking, top.player), (1, (1, 1)));
 }
