@@ -13,6 +13,7 @@ members = [
     "Program/Server/Data/Lmxb",
     "Program/Server/Data/GameData",
     "Program/Platform/Sts",
+    "Program/Platform/StServers/StsCore",
     "Program/Tools/DataFile/BnsData",
     "Program/Tools/DataFile/BnsModel",
     "Program/Tools/DataFile/BnsSchema",
