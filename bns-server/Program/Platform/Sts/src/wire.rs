@@ -169,6 +169,20 @@ impl Session {
             if transaction.is_some_and(|t| t.complete.is_some() || t.sequence != 0) {
                 return Err(Error::Framing);
             }
+            // Sts/Ping is one-way keepalive. StsMsgCli32.dll (0.122) has no
+            // reply parser for 1002 (reply dispatch sub_100231E0 returns 9),
+            // so send nothing and keep the session.
+            if frame.start
+                == (crate::StartLine::Request {
+                    protocol: "Sts".into(),
+                    command: "Ping".into(),
+                })
+            {
+                if !frame.body.is_empty() {
+                    return Err(Error::Framing);
+                }
+                continue;
+            }
             let request = client::Request::from_frame(&frame).map_err(|_| Error::Xml)?;
             let reply = self.handle(request, store, rng, now)?;
             let frame = reply
