@@ -41,6 +41,7 @@ pub struct Session {
     total: Option<usize>,
     user_center: String,
     app_tokens: Option<Arc<dyn AppTokenIssuer>>,
+    last_command: Option<String>,
 }
 impl Session {
     pub fn new(login: password::Session, user_center: String) -> Result<Self, Error> {
@@ -59,11 +60,16 @@ impl Session {
             total: None,
             user_center,
             app_tokens: None,
+            last_command: None,
         })
     }
     pub fn with_app_tokens(mut self, issuer: Arc<dyn AppTokenIssuer>) -> Self {
         self.app_tokens = Some(issuer);
         self
+    }
+    /// `Protocol/Command` of the last complete request frame, for diagnostics.
+    pub fn last_command(&self) -> Option<&str> {
+        self.last_command.as_deref()
     }
     pub fn state(&self) -> State {
         self.login.state()
@@ -160,6 +166,9 @@ impl Session {
             }
             self.staged.clear();
             self.total = None;
+            if let crate::StartLine::Request { protocol, command } = &frame.start {
+                self.last_command = Some(format!("{protocol}/{command}"));
+            }
             let transaction = frame
                 .headers
                 .iter()
@@ -255,6 +264,16 @@ impl Session {
                     login_name: id.login_name.clone(),
                     external_account: Vec::new(),
                 }));
+            }
+            W::ListMyAccounts { game_code } => {
+                if game_code != self.login.binding().game_code {
+                    return Err(Error::Login(LoginError::Forbidden));
+                }
+                let aliases = self
+                    .login
+                    .game_aliases()
+                    .ok_or(Error::Login(LoginError::WrongOrder))?;
+                return Ok(client::Reply::GameAccountList { aliases });
             }
             W::RequestToken { app_id } => {
                 let identity = self

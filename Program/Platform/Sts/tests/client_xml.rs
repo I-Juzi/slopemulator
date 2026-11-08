@@ -20,6 +20,9 @@ fn all_request_bodies_and_frames_round_trip() {
             account_alias: name.clone(),
         },
         Request::RequestToken { app_id: name },
+        Request::ListMyAccounts {
+            game_code: "TEST".into(),
+        },
         Request::LogoutMyClient,
         Request::GetMyUserInfo,
     ] {
@@ -60,6 +63,13 @@ fn all_documented_reply_fields_round_trip() {
         ),
         (3103, Reply::LoginFinish(LoginInfo::default())),
         (3107, Reply::GameToken { token: [5; 16] }),
+        (
+            3106,
+            Reply::GameAccountList {
+                aliases: vec![name.clone(), "second".into()],
+            },
+        ),
+        (3106, Reply::GameAccountList { aliases: vec![] }),
         (
             3110,
             Reply::Token {
@@ -180,4 +190,34 @@ fn reply_puts_each_element_on_its_own_line() {
     let text = String::from_utf8(body).unwrap();
     assert!(text.starts_with("<Reply>\n<KeyData>"), "{text}");
     assert!(text.ends_with("</KeyData>\n</Reply>\n"), "{text}");
+}
+#[test]
+fn list_my_accounts_uses_the_game_account_protocol() {
+    let frame = Request::ListMyAccounts {
+        game_code: "bns".into(),
+    }
+    .frame(Some(4))
+    .unwrap();
+    assert!(
+        frame.start
+            == sts::StartLine::Request {
+                protocol: "GameAccount".into(),
+                command: "ListMyAccounts".into(),
+            }
+    );
+    let body = Reply::GameAccountList {
+        aliases: vec!["katie".into()],
+    }
+    .body()
+    .unwrap();
+    assert_eq!(
+        body,
+        b"<Reply>\n<GameAccount>\n<Alias>katie</Alias>\n</GameAccount>\n</Reply>\n"
+    );
+    let mut wrong = frame.clone();
+    wrong.start = sts::StartLine::Request {
+        protocol: "Auth".into(),
+        command: "ListMyAccounts".into(),
+    };
+    assert!(Request::from_frame(&wrong).is_err());
 }

@@ -54,6 +54,43 @@ pub struct Config {
     pub session_lifetime: Duration,
     pub min_accept_interval: Duration,
     pub connect_mode: ConnectMode,
+    /// Optional `--app-ids`: comma list of AppIds that get a local opaque
+    /// authentication token on Auth/RequestToken. `*` allows any AppId
+    /// (❓ explicit local test policy; the vendor grant rules are unknown).
+    /// Absent: RequestToken fails and the session closes.
+    pub app_ids: Option<AppIds>,
+}
+#[derive(Clone, Debug, PartialEq, Eq)]
+pub enum AppIds {
+    Any,
+    List(Vec<String>),
+}
+/// Local opaque tokens. No vendor token format; nothing consumes them yet.
+pub struct LocalAppTokens {
+    allowed: AppIds,
+}
+impl wire::AppTokenIssuer for LocalAppTokens {
+    fn issue(
+        &self,
+        _identity: &Identity,
+        app_id: &str,
+        _now: Instant,
+    ) -> Result<String, crate::password::LoginError> {
+        use rand::RngCore;
+        let allowed = match &self.allowed {
+            AppIds::Any => true,
+            AppIds::List(ids) => ids.iter().any(|id| id == app_id),
+        };
+        let printable: String = app_id.chars().filter(|c| c.is_ascii_graphic()).take(64).collect();
+        if !allowed {
+            eprintln!("sts-local: RequestToken refused for AppId {printable}");
+            return Err(crate::password::LoginError::Forbidden);
+        }
+        let mut raw = [0u8; 32];
+        OsRng.fill_bytes(&mut raw);
+        eprintln!("sts-local: RequestToken issued for AppId {printable}");
+        Ok(raw.iter().map(|b| format!("{b:02x}")).collect())
+    }
 }
 fn positive(value: String) -> Result<u64, Error> {
     if value.is_empty() || !value.bytes().all(|b| b.is_ascii_digit()) {
@@ -107,6 +144,17 @@ impl Config {
             "unverified-connect" => ConnectMode::UnverifiedConnect,
             _ => return Err(Error::Configuration),
         };
+        let app_ids = match options.remove("--app-ids") {
+            None => None,
+            Some(v) if v == "*" => Some(AppIds::Any),
+            Some(v) => {
+                let ids: Vec<String> = v.split(',').map(str::to_owned).collect();
+                if ids.len() > 16 || ids.iter().any(|id| id.is_empty() || id.len() > 256) {
+                    return Err(Error::Configuration);
+                }
+                Some(AppIds::List(ids))
+            }
+        };
         if !options.is_empty() {
             return Err(Error::Configuration);
         }
@@ -124,6 +172,7 @@ impl Config {
             session_lifetime,
             min_accept_interval,
             connect_mode,
+            app_ids,
         })
     }
 }
@@ -216,7 +265,7 @@ fn set_deadline(stream: &TcpStream, deadline: Instant) -> Result<(), Error> {
     stream.set_write_timeout(Some(left)).map_err(|_| Error::Io)
 }
 /// One connection for an embedding caller or an explicit local listener.
-/// RequestToken is unavailable without a separate AppTokenIssuer integration.
+/// RequestToken needs `--app-ids` (local issuer); otherwise it is unavailable.
 pub fn serve_connection(
     mut stream: TcpStream,
     config: &Config,
@@ -240,6 +289,11 @@ pub fn serve_connection(
         .map_err(|_| Error::Protocol)?;
     let mut session =
         wire::Session::new(login, config.user_center.clone()).map_err(|_| Error::Configuration)?;
+    if let Some(allowed) = &config.app_ids {
+        session = session.with_app_tokens(Arc::new(LocalAppTokens {
+            allowed: allowed.clone(),
+        }));
+    }
     let mut connected = config.connect_mode == ConnectMode::LoginStart;
     let mut connect = Vec::new();
     let codec = Codec {
@@ -309,7 +363,10 @@ pub fn serve_connection(
         let replies = session
             .receive(input, store, &mut rng, Instant::now())
             .map_err(|error| {
-                eprintln!("sts-local: session closed: {error}");
+                eprintln!(
+                    "sts-local: session closed after {}: {error}",
+                    session.last_command().unwrap_or("-")
+                );
                 Error::Protocol
             })?;
         connect.clear();
