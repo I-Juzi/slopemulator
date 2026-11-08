@@ -32,6 +32,7 @@ This file covers the 17 core guild commands: create, rename, destroy, info, memb
 | 4 | 489 Change flag bearer |
 | 5 | 443 Guild level up |
 | 6 | 445 Deposit in guild bank |
+| 7 | 447 Contract guild craft |
 | 9 | 494 Delegate leader |
 | 11 | 511 Leave |
 | 12 | 513 Banish |
@@ -280,6 +281,95 @@ Shared task attachment (431, 434) uses `0x14025DB30` (zone), `0x14069BF60` (PC c
 - **Output:** Helper success (0) → no reply.
 - **❓ Missing:** The body of `0x1400FF0D0` (member lookup, broadcasts, DB work).
 
+## Guild craft group (447–459): shared facts
+
+- **Craft session gate (CS):** PC +20696 (ref-counted object) is non-null and PC byte +20752 = 0. ❓ The object is probably the craft NPC dialog; the name is not proven. 447, 449, 451 and 453 need it.
+- **Records:** A `c` repeat count read by `0x14069DA00`, then `count` records of (`h` slot, `h` amount). The count test is `(u16)count > 5` → reject, so a negative count also fails.
+- **Task queue:** These tasks queue with `0x140603BD0(task+32 → +16, task, 0, 0)`, as in 445. That call has no failure branch.
+- **Guild +32488:** leader PC DB ID. **PC +20744:** PC DB ID. **PC +20664:** ❓ unread field passed to the abandon helper.
+
+## 447 — G_ContractGuildCraftReqCmd — partial
+
+- **381:** `0x1403AAF20`. **PDB hint:** `HandleGame_ContractGuildCraftReq`.
+- **Wire:** `hiqschhChh`: `i`, `q`, `s`, then list A (`c` count, records), then list B (`C` count, records).
+- **Checks/order (reply 448):**
+  1. Arena form B → 5.
+  2. T2 → 7.
+  3. CS fails → 1.
+  4. No guild → 2. Lookup fails → 2. Action row 7 not enabled → 2.
+  5. Header `iqs` decode fails → 1553.
+  6. List A count > 5, or a record fails → 1553.
+  7. List B count > 5, or a record fails → 1553.
+  8. A slot repeats in list A, a list A slot is also in list B, or a slot repeats in list B → 1553.
+  9. Both counts are 1 and the two slots are equal → 1553.
+  10. No zone → 1553.
+  11. Build a 0x158 object (`0x14002F440(obj, CS object)`, vtable `off_1409CEEF8`, id 1843466, +24 = World +5128 call). Try the World +5080 lock (`0x1400D4FE0`). Fail → 1553. Success → `0x1400D4A80`, log, no reply.
+- **❓ Missing:** The decompile does not show the decoded fields stored in the object. The object's later work is not read.
+
+## 449 — G_AssentGuildCraftReqCmd — done
+
+- **381:** `0x1403AB970`. **PDB hint:** `HandleGame_AssentGuildCraftReq`.
+- **Wire:** `hqc`. Only `q` is stored (❓ the `c` value is not used on any visible path).
+- **Checks/order (reply 450):** Arena form B → 5. T2 → 7. CS fails → 1. Decode fails → 1553. No zone → **1553**.
+- **Output:** Task `new(0xA8)`, `0x14025D9F0`, vtable `off_140BB8BF0`, +68 = 167, +8 = 10950410. +144 = 1, +152 = q, +160 = 0. Attach and queue (shared). No allocation check, no PC-kind check. No reply.
+
+## 451 — G_DonateGuildCraftNormalMaterialReqCmd — done
+
+- **381:** `0x1403ABD30`. **PDB hint:** `HandleGame_DonateGuildCraftNormalMaterialReq`.
+- **Wire:** `hqchh`: `q`, then records.
+- **Checks/order (reply 452):**
+  1. Arena form B → 5. T2 → 7. CS fails → 1.
+  2. `q` decode fails → 1553.
+  3. Count > 5 → 1553. A record fails → 1553.
+  4. A slot repeats → **1592**.
+  5. No zone → 2.
+  6. Task alloc (`new(0x190)`, `0x14053C7D0`) fails → 2.
+  7. PC kind ≠ 1 → assert (13440), then 2.
+  8. q = 0 or count = 0 → 2.
+  9. A record with slot 0 or amount 0 → 2.
+- **Output:** Task +144 = 1, +152 q, +160 count, +162 slots, +182 amounts. Queue (shared). No reply.
+
+## 453 — G_DonateGuildCraftBrandMaterialReqCmd — done
+
+- **381:** `0x1403AC500`. **PDB hint:** `HandleGame_DonateGuildCraftBrandMaterialReq`.
+- **Wire:** `hqicchh`: `q`, `i`, `c`, then records.
+- **Checks/order (reply 454):** As 451. Header `qic` decode fails → 1553. Task `0x14053D830`.
+- **Output:** Task +144 = 1, +152 q, +160 i, +164 c, +166 count, +168 slots, +188 amounts.
+
+## 455 — G_MakeGuildCraftReqCmd — partial
+
+- **381:** `0x1403ACD00`. **PDB hint:** `HandleGame_MakeGuildCraftReq`.
+- **Wire:** `hq`.
+- **Checks/order (reply 456):**
+  1. Arena form B → 5. T2 → 7.
+  2. Decode fails → 1553.
+  3. CS fails → **2** (not 1).
+  4. No guild → 1554. Lookup fails → 2.
+  5. `0x1400F6470(guild, PC DB ID, q)` returns nonzero → reply that reason.
+- **Output:** Helper success → no reply. No action-row check.
+- **❓ Missing:** Body of `0x1400F6470`.
+
+## 457 — G_TakeGuildCraftReqCmd — done
+
+- **381:** `0x1403AD0A0`. **PDB hint:** `HandleGame_TakeGuildCraftReq`.
+- **Wire:** `hqh`. Only `q` is stored (❓ the `h` value is not used).
+- **Checks/order (reply 458):** Arena form B → 5. T2 → 7. Decode fails → 1553. No zone → 2. Task alloc (`new(0x3400)`, `0x14027F720`) fails → 2. PC kind ≠ 1 → assert (14275), then 2. No CS gate.
+- **Output:** Task +144 = 1, +152 q, +160 = 0. Queue (shared). No reply.
+
+## 459 — G_AbandonGuildCraftReqCmd — partial
+
+- **381:** `0x1403AD450`. **PDB hint:** `HandleGame_AbandonGuildCraftReq`.
+- **Wire:** `hq`. ❓ The decoded `q` is not used on a visible path.
+- **Checks/order (reply 460):**
+  1. Arena form B → 5. T2 → 7.
+  2. Decode fails → 1553.
+  3. No guild → 1554. Lookup fails → 2.
+  4. Guild +32488 ≠ PC DB ID (not the leader) → 1597.
+  5. No craft object (`0x140105E30` under guild lock +34456) → 1555.
+  6. `0x140105BA0(craft, PC +20664, guild +32408, PC DB ID)` nonzero → reply that reason.
+- **Output:** Helper success → no reply.
+- **❓ Missing:** Body of `0x140105BA0`.
+
 ## Status
 
 | Id | State |
@@ -290,6 +380,13 @@ Shared task attachment (431, 434) uses `0x14025DB30` (zone), `0x14069BF60` (PC c
 | 483 | done |
 | 486 | done |
 | 489 | partial |
+| 447 | partial |
+| 449 | done |
+| 451 | done |
+| 453 | done |
+| 455 | partial |
+| 457 | done |
+| 459 | partial |
 | 434 | partial |
 | 437 | done |
 | 440 | done |

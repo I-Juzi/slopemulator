@@ -247,6 +247,8 @@ pub struct Pc {
     pub faction: i8,
     /// PC byte +13768 = 1: the T2 gate of spec 12 (reason 7).
     pub t2_blocked: bool,
+    /// PC +20696 object present and byte +20752 = 0 (doc 15 craft session gate).
+    pub craft_session: bool,
 }
 impl Default for Pc {
     fn default() -> Self {
@@ -288,6 +290,7 @@ impl Default for Pc {
             pending_guild_id: 0,
             faction: 0,
             t2_blocked: false,
+            craft_session: false,
         }
     }
 }
@@ -471,6 +474,18 @@ pub trait Services {
     ) -> Option<u16> {
         None
     }
+    /// 447 contract object + World +5080 lock. Fail = lock not taken.
+    fn guild_craft_contract(&mut self, _contract: &GuildCraftContract) -> Gate {
+        Gate::Unknown
+    }
+    /// Opaque `0x1400F6470`: 0 = success, else the reason.
+    fn guild_craft_make(&mut self, _guild_id: u64, _db_id: u64, _value: u64) -> Option<u16> {
+        None
+    }
+    /// Opaque `0x140105BA0`: 0 = success, else the reason.
+    fn guild_craft_abandon(&mut self, _guild_id: u64, _pc: &Pc) -> Option<u16> {
+        None
+    }
     fn queue(&mut self, command: u16) -> Gate;
     fn logout(&mut self) -> Gate;
     fn available_channel(&mut self, channel: i16) -> Gate;
@@ -508,6 +523,10 @@ pub struct MemoryGuild {
     pub leave_result: Option<Result<(), u16>>,
     pub banish_result: Option<Result<(), u16>>,
     pub flag_bearer_result: Option<u16>,
+    pub craft_contract_result: Gate,
+    pub craft_make_result: Option<u16>,
+    pub craft_abandon_result: Option<u16>,
+    pub contracts: Vec<GuildCraftContract>,
     pub posted: Vec<GuildWork>,
     pub tasks: Vec<GuildTask>,
 }
@@ -523,6 +542,10 @@ impl Default for MemoryGuild {
             leave_result: None,
             banish_result: None,
             flag_bearer_result: None,
+            craft_contract_result: Gate::Unknown,
+            craft_make_result: None,
+            craft_abandon_result: None,
+            contracts: vec![],
             posted: vec![],
             tasks: vec![],
         }
@@ -579,6 +602,16 @@ impl Services for MemoryServices {
     }
     fn guild_flag_bearer(&mut self, _: u64, _: &Pc, _: u8, _: &[u16]) -> Option<u16> {
         self.guild.flag_bearer_result
+    }
+    fn guild_craft_contract(&mut self, contract: &GuildCraftContract) -> Gate {
+        self.guild.contracts.push(contract.clone());
+        self.guild.craft_contract_result
+    }
+    fn guild_craft_make(&mut self, _: u64, _: u64, _: u64) -> Option<u16> {
+        self.guild.craft_make_result
+    }
+    fn guild_craft_abandon(&mut self, _: u64, _: &Pc) -> Option<u16> {
+        self.guild.craft_abandon_result
     }
     fn party_state(&mut self) -> Option<&mut PartyState> {
         self.party.as_mut()

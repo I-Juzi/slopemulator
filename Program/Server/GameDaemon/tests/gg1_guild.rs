@@ -34,6 +34,7 @@ impl H {
             zone: Some(9),
             guild_id: GUILD,
             faction: 1,
+            craft_session: true,
             ..Pc::default()
         };
         let mut world = World::default();
@@ -43,6 +44,8 @@ impl H {
                 guild_type: 1,
                 name: name("[Old]Guild"),
                 rename_in_progress: false,
+                leader_db_id: DB_ID,
+                craft_active: true,
             },
         );
         world.guild.guilds.insert(
@@ -51,9 +54,11 @@ impl H {
                 guild_type: 2,
                 name: name("Open"),
                 rename_in_progress: false,
+                leader_db_id: DB_ID,
+                craft_active: true,
             },
         );
-        for row in [1, 2, 3, 4, 5, 6, 9, 11, 12, 13, 17] {
+        for row in [1, 2, 3, 4, 5, 6, 7, 9, 11, 12, 13, 17] {
             world.guild.actions.insert(
                 row,
                 GuildActionRow {
@@ -78,6 +83,9 @@ impl H {
         services.guild.leave_result = Some(Ok(()));
         services.guild.banish_result = Some(Ok(()));
         services.guild.flag_bearer_result = Some(0);
+        services.guild.craft_contract_result = Gate::Pass;
+        services.guild.craft_make_result = Some(0);
+        services.guild.craft_abandon_result = Some(0);
         Self {
             session: Session {
                 authenticated: true,
@@ -585,4 +593,151 @@ fn change_flag_bearer() {
     assert_eq!(reason(&h.run(489, &body)), Some((490, 7)));
     h.world.arena = true;
     assert_eq!(reason(&h.run(489, &body)), Some((490, 5)));
+}
+
+fn recs(items: &[(u16, u16)]) -> Vec<u8> {
+    let mut b = vec![items.len() as u8];
+    for (s, a) in items {
+        b.extend(s.to_le_bytes());
+        b.extend(a.to_le_bytes());
+    }
+    b
+}
+fn last_task(h: &H) -> &GuildTaskKind {
+    &h.services.guild.tasks.last().unwrap().kind
+}
+
+#[test]
+fn contract_guild_craft() {
+    let body = |a: &[(u16, u16)], b: &[(u16, u16)]| {
+        [
+            5u32.to_le_bytes().to_vec(),
+            q(9),
+            s("Item"),
+            recs(a),
+            recs(b),
+        ]
+        .concat()
+    };
+    let mut h = H::new();
+    assert!(h.run(447, &body(&[(1, 1)], &[(2, 1)])).replies.is_empty());
+    let c = h.services.guild.contracts.last().unwrap().clone();
+    assert_eq!((c.amount, c.value, c.list_a.len()), (5, 9, 1));
+    assert_eq!(reason(&h.run(447, &[1, 0])), Some((448, 1553)));
+    let six: Vec<_> = (1..=6).map(|i| (i, 1)).collect();
+    assert_eq!(reason(&h.run(447, &body(&six, &[]))), Some((448, 1553)));
+    assert_eq!(
+        reason(&h.run(447, &body(&[(1, 1), (1, 2)], &[]))),
+        Some((448, 1553))
+    );
+    assert_eq!(
+        reason(&h.run(447, &body(&[(1, 1)], &[(1, 2)]))),
+        Some((448, 1553))
+    );
+    assert_eq!(
+        reason(&h.run(447, &body(&[], &[(3, 1), (3, 1)]))),
+        Some((448, 1553))
+    );
+    h.services.guild.craft_contract_result = Gate::Fail;
+    assert_eq!(reason(&h.run(447, &body(&[], &[]))), Some((448, 1553)));
+    h.pc().zone = None;
+    assert_eq!(reason(&h.run(447, &body(&[], &[]))), Some((448, 1553)));
+    h.world.guild.actions.remove(&7);
+    assert_eq!(reason(&h.run(447, &body(&[], &[]))), Some((448, 2)));
+    h.pc().guild_id = 0;
+    assert_eq!(reason(&h.run(447, &body(&[], &[]))), Some((448, 2)));
+    h.pc().craft_session = false;
+    assert_eq!(reason(&h.run(447, &body(&[], &[]))), Some((448, 1)));
+    h.pc().t2_blocked = true;
+    assert_eq!(reason(&h.run(447, &[])), Some((448, 7)));
+    h.pc().arena_state = 2;
+    assert_eq!(reason(&h.run(447, &[])), Some((448, 5)));
+}
+
+#[test]
+fn assent_and_take_craft() {
+    let mut h = H::new();
+    assert!(h.run(449, &[q(4), vec![1]].concat()).replies.is_empty());
+    assert_eq!(last_task(&h), &GuildTaskKind::CraftAssent { value: 4 });
+    assert_eq!(reason(&h.run(449, &q(4))), Some((450, 1553)));
+    h.pc().zone = None;
+    assert_eq!(
+        reason(&h.run(449, &[q(4), vec![1]].concat())),
+        Some((450, 1553))
+    );
+    h.pc().craft_session = false;
+    assert_eq!(reason(&h.run(449, &[])), Some((450, 1)));
+
+    let take = [q(8), vec![0, 0]].concat();
+    let mut h = H::new();
+    h.pc().craft_session = false;
+    assert!(h.run(457, &take).replies.is_empty());
+    assert_eq!(last_task(&h), &GuildTaskKind::CraftTake { value: 8 });
+    assert_eq!(reason(&h.run(457, &q(8))), Some((458, 1553)));
+    h.pc().native_kind = 2;
+    assert_eq!(reason(&h.run(457, &take)), Some((458, 2)));
+    h.pc().zone = None;
+    assert_eq!(reason(&h.run(457, &take)), Some((458, 2)));
+}
+
+#[test]
+fn donate_craft_materials() {
+    let normal = |v: u64, it: &[(u16, u16)]| [q(v), recs(it)].concat();
+    let mut h = H::new();
+    assert!(h.run(451, &normal(3, &[(1, 2)])).replies.is_empty());
+    assert!(matches!(
+        last_task(&h),
+        GuildTaskKind::CraftDonateNormal { value: 3, .. }
+    ));
+    assert_eq!(reason(&h.run(451, &[1])), Some((452, 1553)));
+    assert_eq!(
+        reason(&h.run(451, &normal(3, &[(1, 2), (1, 3)]))),
+        Some((452, 1592))
+    );
+    assert_eq!(reason(&h.run(451, &normal(0, &[(1, 2)]))), Some((452, 2)));
+    assert_eq!(reason(&h.run(451, &normal(3, &[]))), Some((452, 2)));
+    assert_eq!(reason(&h.run(451, &normal(3, &[(1, 0)]))), Some((452, 2)));
+    h.pc().craft_session = false;
+    assert_eq!(reason(&h.run(451, &normal(3, &[(1, 2)]))), Some((452, 1)));
+
+    let brand = [q(3), 7u32.to_le_bytes().to_vec(), vec![1], recs(&[(1, 2)])].concat();
+    let mut h = H::new();
+    assert!(h.run(453, &brand).replies.is_empty());
+    assert!(matches!(
+        last_task(&h),
+        GuildTaskKind::CraftDonateBrand {
+            value: 3,
+            extra: 7,
+            flag: 1,
+            ..
+        }
+    ));
+    assert_eq!(reason(&h.run(453, &q(3))), Some((454, 1553)));
+}
+
+#[test]
+fn make_and_abandon_craft() {
+    let mut h = H::new();
+    assert!(h.run(455, &q(1)).replies.is_empty());
+    h.services.guild.craft_make_result = Some(1600);
+    assert_eq!(reason(&h.run(455, &q(1))), Some((456, 1600)));
+    h.pc().guild_id = 0;
+    assert_eq!(reason(&h.run(455, &q(1))), Some((456, 1554)));
+    h.pc().craft_session = false;
+    assert_eq!(reason(&h.run(455, &q(1))), Some((456, 2)));
+    assert_eq!(reason(&h.run(455, &[])), Some((456, 1553)));
+
+    let mut h = H::new();
+    assert!(h.run(459, &q(1)).replies.is_empty());
+    h.services.guild.craft_abandon_result = Some(1601);
+    assert_eq!(reason(&h.run(459, &q(1))), Some((460, 1601)));
+    h.world.guild.guilds.get_mut(&GUILD).unwrap().craft_active = false;
+    assert_eq!(reason(&h.run(459, &q(1))), Some((460, 1555)));
+    h.world.guild.guilds.get_mut(&GUILD).unwrap().leader_db_id = 1;
+    assert_eq!(reason(&h.run(459, &q(1))), Some((460, 1597)));
+    h.pc().guild_id = 0x4242;
+    assert_eq!(reason(&h.run(459, &q(1))), Some((460, 2)));
+    h.pc().guild_id = 0;
+    assert_eq!(reason(&h.run(459, &q(1))), Some((460, 1554)));
+    assert_eq!(reason(&h.run(459, &[])), Some((460, 1553)));
 }

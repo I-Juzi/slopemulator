@@ -4,8 +4,8 @@
 use super::*;
 
 pub const GUILD_COMMANDS: &[u16] = &[
-    431, 434, 437, 440, 443, 445, 477, 480, 483, 486, 489, 491, 494, 499, 501, 503, 506, 508, 509,
-    511, 513, 515,
+    431, 434, 437, 440, 443, 445, 447, 449, 451, 453, 455, 457, 459, 477, 480, 483, 486, 489, 491,
+    494, 499, 501, 503, 506, 508, 509, 511, 513, 515,
 ];
 
 /// Server config read by the guild handlers (`qword_140EE58A0`, World +6208).
@@ -44,6 +44,10 @@ pub struct Guild {
     pub guild_type: u8,
     pub name: Vec<u16>,
     pub rename_in_progress: bool,
+    /// Guild +32488: leader PC DB ID.
+    pub leader_db_id: u64,
+    /// A guild craft object exists (`0x140105E30` under lock +34456).
+    pub craft_active: bool,
 }
 /// Guild action table row: byte +16 (normal guild) and +17 (open guild).
 #[derive(Clone, Copy, Debug, Default)]
@@ -151,6 +155,30 @@ pub enum GuildTaskKind {
     },
     /// Deposit task (`0x140540BF0`): +144 = 1, +148 money, (slot, amount) records.
     Deposit { money: i32, items: Vec<(u16, u16)> },
+    /// 449 task (+68 = 167): +152 value.
+    CraftAssent { value: u64 },
+    /// 451 task (`0x14053C7D0`).
+    CraftDonateNormal { value: u64, items: Vec<(u16, u16)> },
+    /// 453 task (`0x14053D830`): +160 dword, +164 byte.
+    CraftDonateBrand {
+        value: u64,
+        extra: u32,
+        flag: u8,
+        items: Vec<(u16, u16)>,
+    },
+    /// 457 task (`0x14027F720`): +152 value.
+    CraftTake { value: u64 },
+}
+/// 447 decoded request. ❓ The native copy into the 0x158 object is not seen.
+#[derive(Clone, Debug, PartialEq, Eq)]
+pub struct GuildCraftContract {
+    pub guild_id: u64,
+    pub requester: u64,
+    pub amount: u32,
+    pub value: u64,
+    pub name: Vec<u16>,
+    pub list_a: Vec<(u16, u16)>,
+    pub list_b: Vec<(u16, u16)>,
 }
 #[derive(Clone, Debug, PartialEq, Eq)]
 pub struct GuildTask {
@@ -177,6 +205,13 @@ pub(super) fn dispatch_guild(ctx: &mut Context<'_>, command: u16, req: &[u8]) ->
         483 => handle_retrieve_guild_member_permission(ctx, req),
         486 => handle_edit_guild_member_permission(ctx, req),
         489 => handle_change_guild_flag_bearer(ctx, req),
+        447 => handle_contract_guild_craft(ctx, req),
+        449 => handle_assent_guild_craft(ctx, req),
+        451 => handle_donate_guild_craft_normal_material(ctx, req),
+        453 => handle_donate_guild_craft_brand_material(ctx, req),
+        455 => handle_make_guild_craft(ctx, req),
+        457 => handle_take_guild_craft(ctx, req),
+        459 => handle_abandon_guild_craft(ctx, req),
         477 => handle_retrieve_guild_members(ctx, req),
         480 => handle_edit_guild_notification_message(ctx, req),
         491 => handle_change_guild_member_grade(ctx, req),
@@ -837,15 +872,7 @@ pub fn handle_deposit_in_guild_bank(ctx: &mut Context<'_>, req: &[u8]) -> Outcom
         guild_id: pc.guild_id,
         kind: GuildTaskKind::Deposit { money, items },
     };
-    // `0x140603BD0` has no failure branch; only allocation failure replies.
-    match ctx.services.queue_guild(&task) {
-        Gate::Unknown => boundary("❓ guild deposit task adapter"),
-        Gate::Fail => Outcome::reason(R, 2),
-        Gate::Pass => Outcome {
-            changes: vec![StateChange::Queued(445), StateChange::GuildTaskQueued(task)],
-            ..Outcome::default()
-        },
-    }
+    queue_shared(ctx, task, R)
 }
 
 /// parity: 483 15-guild-handlers.md#483--g_retrieveguildmemberpermissionreqcmd--done ported
@@ -923,6 +950,282 @@ pub fn handle_change_guild_flag_bearer(ctx: &mut Context<'_>, req: &[u8]) -> Out
     let pc = ctx.pc().clone();
     match ctx.services.guild_flag_bearer(id, &pc, index, &name) {
         None => boundary("❓ guild flag bearer helper 0x1400FF0D0"),
+        Some(0) => Outcome::default(),
+        Some(reason) => Outcome::reason(R, reason),
+    }
+}
+
+/// Tasks queued with `0x140603BD0` (no failure branch). Gate::Fail stands for
+/// the allocation failure, which replies reason 2.
+fn queue_shared(ctx: &mut Context<'_>, task: GuildTask, reply: u16) -> Outcome {
+    match ctx.services.queue_guild(&task) {
+        Gate::Unknown => boundary("❓ guild task allocation adapter"),
+        Gate::Fail => Outcome::reason(reply, 2),
+        Gate::Pass => Outcome {
+            changes: vec![
+                StateChange::Queued(task.command),
+                StateChange::GuildTaskQueued(task),
+            ],
+            ..Outcome::default()
+        },
+    }
+}
+/// `c` count (`(u16)count > 5` rejects) then (slot, amount) records.
+fn craft_records(r: &mut Reader<'_>) -> Option<Vec<(u16, u16)>> {
+    let count = r.byte()? as i8;
+    if !(0..=5).contains(&count) {
+        return None;
+    }
+    (0..count).map(|_| Some((r.short()?, r.short()?))).collect()
+}
+fn has_duplicate_slot(items: &[(u16, u16)]) -> bool {
+    items
+        .iter()
+        .enumerate()
+        .any(|(i, (s, _))| items[i + 1..].iter().any(|(o, _)| o == s))
+}
+/// Arena form B → 5, then T2 → 7.
+fn craft_gates(ctx: &Context<'_>, reply: u16) -> Option<Outcome> {
+    if arena_b(ctx) {
+        return Some(Outcome::reason(reply, 5));
+    }
+    if ctx.pc().t2_blocked {
+        return Some(Outcome::reason(reply, 7));
+    }
+    None
+}
+
+/// parity: 447 15-guild-handlers.md#447--g_contractguildcraftreqcmd--partial partial
+pub fn handle_contract_guild_craft(ctx: &mut Context<'_>, req: &[u8]) -> Outcome {
+    // ❓ Contract object contents and its later work are not read.
+    const R: u16 = 448;
+    if let Some(out) = craft_gates(ctx, R) {
+        return out;
+    }
+    if !ctx.pc().craft_session {
+        return Outcome::reason(R, 1);
+    }
+    if guild_id(ctx.pc()) == 0 {
+        return Outcome::reason(R, 2);
+    }
+    let Some(id) = guild_with_action(ctx, 7) else {
+        return Outcome::reason(R, 2);
+    };
+    let mut r = Reader(req);
+    // ❓ Name decode capacity is not read; 33 units as the other guild names.
+    let (Some(amount), Some(value), Some(name)) = (r.int(), r.quad(), r.string(NAME_UNITS)) else {
+        return Outcome::reason(R, 1553);
+    };
+    let Some(list_a) = craft_records(&mut r) else {
+        return Outcome::reason(R, 1553);
+    };
+    let Some(list_b) = craft_records(&mut r) else {
+        return Outcome::reason(R, 1553);
+    };
+    let crossed = list_a
+        .iter()
+        .any(|(s, _)| list_b.iter().any(|(o, _)| o == s));
+    if has_duplicate_slot(&list_a) || crossed || has_duplicate_slot(&list_b) {
+        return Outcome::reason(R, 1553);
+    }
+    if ctx.pc().zone.is_none() {
+        return Outcome::reason(R, 1553);
+    }
+    let contract = GuildCraftContract {
+        guild_id: id,
+        requester: ctx.pc().object_id,
+        amount,
+        value,
+        name,
+        list_a,
+        list_b,
+    };
+    match ctx.services.guild_craft_contract(&contract) {
+        Gate::Pass => Outcome::default(),
+        Gate::Fail => Outcome::reason(R, 1553),
+        Gate::Unknown => boundary("❓ guild craft contract object / World +5080 lock"),
+    }
+}
+
+/// parity: 449 15-guild-handlers.md#449--g_assentguildcraftreqcmd--done ported
+pub fn handle_assent_guild_craft(ctx: &mut Context<'_>, req: &[u8]) -> Outcome {
+    const R: u16 = 450;
+    if let Some(out) = craft_gates(ctx, R) {
+        return out;
+    }
+    if !ctx.pc().craft_session {
+        return Outcome::reason(R, 1);
+    }
+    let mut r = Reader(req);
+    let (Some(value), Some(_)) = (r.quad(), r.byte()) else {
+        return Outcome::reason(R, 1553);
+    };
+    let pc = ctx.pc().clone();
+    let Some(zone) = pc.zone else {
+        return Outcome::reason(R, 1553);
+    };
+    let task = GuildTask {
+        command: 449,
+        caster: pc.object_id,
+        zone,
+        guild_id: pc.guild_id,
+        kind: GuildTaskKind::CraftAssent { value },
+    };
+    queue_shared(ctx, task, R)
+}
+
+type DonateHeader = fn(&mut Reader<'_>) -> Option<(u64, u32, u8)>;
+
+fn donate(
+    ctx: &mut Context<'_>,
+    reply: u16,
+    req: &[u8],
+    header: DonateHeader,
+    brand: bool,
+) -> Outcome {
+    if let Some(out) = craft_gates(ctx, reply) {
+        return out;
+    }
+    if !ctx.pc().craft_session {
+        return Outcome::reason(reply, 1);
+    }
+    let mut r = Reader(req);
+    let Some((value, extra, flag)) = header(&mut r) else {
+        return Outcome::reason(reply, 1553);
+    };
+    let Some(items) = craft_records(&mut r) else {
+        return Outcome::reason(reply, 1553);
+    };
+    if has_duplicate_slot(&items) {
+        return Outcome::reason(reply, 1592);
+    }
+    let pc = ctx.pc().clone();
+    let Some(zone) = pc.zone else {
+        return Outcome::reason(reply, 2);
+    };
+    if pc.native_kind != 1
+        || value == 0
+        || items.is_empty()
+        || items.iter().any(|(s, a)| *s == 0 || *a == 0)
+    {
+        return Outcome::reason(reply, 2);
+    }
+    let kind = if brand {
+        GuildTaskKind::CraftDonateBrand {
+            value,
+            extra,
+            flag,
+            items,
+        }
+    } else {
+        GuildTaskKind::CraftDonateNormal { value, items }
+    };
+    let task = GuildTask {
+        command: reply - 1,
+        caster: pc.object_id,
+        zone,
+        guild_id: pc.guild_id,
+        kind,
+    };
+    queue_shared(ctx, task, reply)
+}
+
+/// parity: 451 15-guild-handlers.md#451--g_donateguildcraftnormalmaterialreqcmd--done ported
+pub fn handle_donate_guild_craft_normal_material(ctx: &mut Context<'_>, req: &[u8]) -> Outcome {
+    donate(ctx, 452, req, |r| Some((r.quad()?, 0, 0)), false)
+}
+/// parity: 453 15-guild-handlers.md#453--g_donateguildcraftbrandmaterialreqcmd--done ported
+pub fn handle_donate_guild_craft_brand_material(ctx: &mut Context<'_>, req: &[u8]) -> Outcome {
+    donate(
+        ctx,
+        454,
+        req,
+        |r| Some((r.quad()?, r.int()?, r.byte()?)),
+        true,
+    )
+}
+
+/// parity: 455 15-guild-handlers.md#455--g_makeguildcraftreqcmd--partial partial
+pub fn handle_make_guild_craft(ctx: &mut Context<'_>, req: &[u8]) -> Outcome {
+    // ❓ 0x1400F6470 body.
+    const R: u16 = 456;
+    if let Some(out) = craft_gates(ctx, R) {
+        return out;
+    }
+    let Some(value) = Reader(req).quad() else {
+        return Outcome::reason(R, 1553);
+    };
+    if !ctx.pc().craft_session {
+        return Outcome::reason(R, 2);
+    }
+    let id = guild_id(ctx.pc());
+    if id == 0 {
+        return Outcome::reason(R, 1554);
+    }
+    if !ctx.world.guild.guilds.contains_key(&id) {
+        return Outcome::reason(R, 2);
+    }
+    let db_id = ctx.pc().db_id;
+    match ctx.services.guild_craft_make(id, db_id, value) {
+        None => boundary("❓ guild craft make helper 0x1400F6470"),
+        Some(0) => Outcome::default(),
+        Some(reason) => Outcome::reason(R, reason),
+    }
+}
+
+/// parity: 457 15-guild-handlers.md#457--g_takeguildcraftreqcmd--done ported
+pub fn handle_take_guild_craft(ctx: &mut Context<'_>, req: &[u8]) -> Outcome {
+    const R: u16 = 458;
+    if let Some(out) = craft_gates(ctx, R) {
+        return out;
+    }
+    let mut r = Reader(req);
+    let (Some(value), Some(_)) = (r.quad(), r.short()) else {
+        return Outcome::reason(R, 1553);
+    };
+    let pc = ctx.pc().clone();
+    let Some(zone) = pc.zone else {
+        return Outcome::reason(R, 2);
+    };
+    if pc.native_kind != 1 {
+        return Outcome::reason(R, 2);
+    }
+    let task = GuildTask {
+        command: 457,
+        caster: pc.object_id,
+        zone,
+        guild_id: pc.guild_id,
+        kind: GuildTaskKind::CraftTake { value },
+    };
+    queue_shared(ctx, task, R)
+}
+
+/// parity: 459 15-guild-handlers.md#459--g_abandonguildcraftreqcmd--partial partial
+pub fn handle_abandon_guild_craft(ctx: &mut Context<'_>, req: &[u8]) -> Outcome {
+    // ❓ 0x140105BA0 body.
+    const R: u16 = 460;
+    if let Some(out) = craft_gates(ctx, R) {
+        return out;
+    }
+    if Reader(req).quad().is_none() {
+        return Outcome::reason(R, 1553);
+    }
+    let id = guild_id(ctx.pc());
+    if id == 0 {
+        return Outcome::reason(R, 1554);
+    }
+    let Some(guild) = ctx.world.guild.guilds.get(&id) else {
+        return Outcome::reason(R, 2);
+    };
+    if guild.leader_db_id != ctx.pc().db_id {
+        return Outcome::reason(R, 1597);
+    }
+    if !guild.craft_active {
+        return Outcome::reason(R, 1555);
+    }
+    let pc = ctx.pc().clone();
+    match ctx.services.guild_craft_abandon(id, &pc) {
+        None => boundary("❓ guild craft abandon helper 0x140105BA0"),
         Some(0) => Outcome::default(),
         Some(reason) => Outcome::reason(R, reason),
     }
