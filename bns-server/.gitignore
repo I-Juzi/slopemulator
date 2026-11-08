@@ -12,3 +12,22 @@ __pycache__/
 *.idb
 *.dat
 *.bin
+# Never commit: NCSoft binaries and game data
+*.exe
+*.dll
+*.pdb
+*.map
+*.mdf
+*.ldf
+*.rar
+*.id0
+*.id1
+*.id2
+*.nam
+*.til
+*.blob
+*.pfx
+*.p12
+.env
+*worker-api-key*
+ida/
