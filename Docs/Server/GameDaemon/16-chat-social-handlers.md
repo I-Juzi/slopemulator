@@ -222,6 +222,66 @@ Shared fields:
 - **Checks/order:** The same as 887: no QQ interface → native false; no user → nothing; otherwise the QQ interface (`0x140371430`).
 - **❓ Missing:** the QQ interface identity and effects.
 
+## 844 — G_QQLoginReqCmd — partial
+
+- **381:** `0x1400DE550`. See the QQ group above.
+
+## 849 — G_QQUserStatusReqCmd — partial
+
+- **381:** `0x1400DE550`. See the QQ group above.
+
+## 852 — G_QQGetUnreadMsgReqCmd — partial
+
+- **381:** `0x1400DE550`. See the QQ group above.
+
+## 855 — G_QQConfirmUnreadMsgReqCmd — partial
+
+- **381:** `0x1400DE550`. See the QQ group above.
+
+## 857 — G_QQC2CReqCmd — partial
+
+- **381:** `0x1400DE550`. See the QQ group above.
+
+## 860 — G_QQGroupCreateReqCmd — partial
+
+- **381:** `0x1400DE550`. See the QQ group above.
+
+## 863 — G_QQGroupListReqCmd — partial
+
+- **381:** `0x1400DE550`. See the QQ group above.
+
+## 866 — G_QQGroupBindingReqCmd — partial
+
+- **381:** `0x1400DE550`. See the QQ group above.
+
+## 869 — G_QQGroupUnbindingReqCmd — partial
+
+- **381:** `0x1400DE550`. See the QQ group above.
+
+## 873 — G_QQGroupMemberInviteReqCmd — partial
+
+- **381:** `0x1400DE550`. See the QQ group above.
+
+## 877 — G_QQGroupMemberJoinReqCmd — partial
+
+- **381:** `0x1400DE550`. See the QQ group above.
+
+## 881 — G_QQGroupMessageReqCmd — partial
+
+- **381:** `0x1400DE550`. See the QQ group above.
+
+## 884 — G_QQUserChangeStatusReqCmd — partial
+
+- **381:** `0x1400DE550`. See the QQ group above.
+
+## 890 — G_QQUserNameReqCmd — partial
+
+- **381:** `0x1400DE550`. See the QQ group above.
+
+## 893 — G_QQGroupMemberNameReqCmd — partial
+
+- **381:** `0x1400DE550`. See the QQ group above.
+
 ## Rust port status (part 1)
 
 | Ids | Rust | State |
