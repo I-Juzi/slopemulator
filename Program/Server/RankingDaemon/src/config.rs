@@ -7,6 +7,8 @@ use std::fmt;
 use std::net::Ipv4Addr;
 
 const MAX_CONFIG_BYTES: usize = 1 << 20;
+/// Data tables are larger (the 2020 season table is 1.9 MB).
+const MAX_DATA_BYTES: usize = 64 << 20;
 
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub struct ConfigError(pub String);
@@ -30,7 +32,11 @@ pub struct Element {
 /// Parse a small XML document into an element tree. DTDs, CDATA and
 /// non-blank text are refused.
 pub fn parse(xml: &str) -> Result<Element, ConfigError> {
-    if xml.len() > MAX_CONFIG_BYTES {
+    parse_limited(xml, MAX_CONFIG_BYTES)
+}
+
+fn parse_limited(xml: &str, limit: usize) -> Result<Element, ConfigError> {
+    if xml.len() > limit {
         return Err(error("XML exceeds size limit"));
     }
     let mut reader = Reader::from_str(xml);
@@ -402,48 +408,57 @@ pub fn parse_time(text: &str) -> Option<i64> {
 }
 
 /// Parse SeasonContentsScheduleData.xml (`table` of `record` rows).
-/// Rows whose `season-contents-type`, `season-type`, `player-type` or
-/// `service-mode` name is unknown, or whose times do not parse, fail the load.
-/// Result schedules are not derived yet (phase 2: loadHiddenFieldFromSeasonContentsSchedule).
+/// Result schedules are not derived yet (phase 2: loadHiddenFieldFromSeasonContentsSchedule). The exporter leaves out attributes that hold
+/// their default, so a missing number or time is 0 and a missing name is index 0 ❓.
+/// A time that is present but does not parse fails the load.
+/// A record with a name the 348 enums do not know (newer data, for example
+/// `mastery-exp-best-record`) is skipped ❓ (native DrDataReader path not
+/// traced).
 pub fn parse_season_data(xml: &str) -> Result<Vec<Season>, ConfigError> {
-    let root = parse(xml)?;
+    let root = parse_limited(xml, MAX_DATA_BYTES)?;
     if root.name != "table" {
         return Err(error("root element must be table"));
     }
-    list_rows(&root, "record")?
-        .iter()
-        .map(|row| {
-            let get = |k: &str| {
-                row.attrs
-                    .get(k)
-                    .ok_or_else(|| error(format!("record has no {k}")))
-            };
-            let named = |k: &str, names: &[&str]| -> Result<usize, ConfigError> {
-                name_index(names, get(k)?).ok_or_else(|| error(format!("bad {k}")))
-            };
-            let time = |k: &str| parse_time(get(k)?).ok_or_else(|| error(format!("bad {k}")));
-            let num = |k: &str| -> Result<i64, ConfigError> {
-                get(k)?
-                    .trim()
-                    .parse()
-                    .map_err(|_| error(format!("bad {k}")))
-            };
-            Ok(Season {
-                service_mode: named("service-mode", &SERVICE_MODE_NAMES)? as i32,
-                season_contents_type: named("season-contents-type", &SEASON_CONTENTS_TYPE_NAMES)?
-                    as u8,
-                schedule_number: num("season-contents-schedule-number")? as i32,
-                name: get("season-name")?.clone(),
-                season_type: named("season-type", &SEASON_TYPE_NAMES)? as u8,
-                player_type: named("player-type", &PLAYER_TYPE_NAMES)? as i16,
-                start_time: time("season-start-time")?,
-                end_time: time("season-end-time")?,
-                result_expiration_time: time("season-reward-expiration-time")?,
-                reward_group_id: num("reward-group-data")? as i16,
-                default_rating_score: num("default-rating-score")? as i32,
-                ranking_minimum_score: num("ranking-minimum-score")?,
-                results: Vec::new(),
-            })
-        })
-        .collect()
+    let mut seasons = Vec::new();
+    for row in list_rows(&root, "record")? {
+        let get = |k: &str| row.attrs.get(k).map(String::as_str);
+        let named = |k: &str, names: &[&str]| match get(k) {
+            None => Some(0),
+            Some(v) => name_index(names, v),
+        };
+        let time = |k: &str| match get(k) {
+            None => Ok(0),
+            Some(v) => parse_time(v).ok_or_else(|| error(format!("bad {k}"))),
+        };
+        let num = |k: &str| -> Result<i64, ConfigError> {
+            match get(k) {
+                None => Ok(0),
+                Some(v) => v.trim().parse().map_err(|_| error(format!("bad {k}"))),
+            }
+        };
+        let (Some(service_mode), Some(contents), Some(season_type), Some(player_type)) = (
+            named("service-mode", &SERVICE_MODE_NAMES),
+            named("season-contents-type", &SEASON_CONTENTS_TYPE_NAMES),
+            named("season-type", &SEASON_TYPE_NAMES),
+            named("player-type", &PLAYER_TYPE_NAMES),
+        ) else {
+            continue;
+        };
+        seasons.push(Season {
+            service_mode: service_mode as i32,
+            season_contents_type: contents as u8,
+            schedule_number: num("season-contents-schedule-number")? as i32,
+            name: get("season-name").unwrap_or_default().to_owned(),
+            season_type: season_type as u8,
+            player_type: player_type as i16,
+            start_time: time("season-start-time")?,
+            end_time: time("season-end-time")?,
+            result_expiration_time: time("season-reward-expiration-time")?,
+            reward_group_id: num("reward-group-data")? as i16,
+            default_rating_score: num("default-rating-score")? as i32,
+            ranking_minimum_score: num("ranking-minimum-score")?,
+            results: Vec::new(),
+        });
+    }
+    Ok(seasons)
 }
