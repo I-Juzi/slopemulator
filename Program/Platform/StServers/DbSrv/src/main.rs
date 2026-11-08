@@ -2,7 +2,7 @@
 
 use dbsrv::{config, exec::Executor, server::DbServer};
 use std::sync::Arc;
-use sts_core::ini::Ini;
+use sts_core::{ini::Ini, secrets::{names, SecretStore}};
 
 fn usage() -> ! {
     eprintln!("usage: DbSrv --config Db.ini --db <Logical> [--db <Logical>…] [--listen addr:port] [--server-id N]");
@@ -28,9 +28,14 @@ async fn main() -> std::io::Result<()> {
     }
     let (Some(path), false) = (config_path, dbs.is_empty()) else { usage() };
     let ini = Ini::load(&path)?;
+    let secrets = SecretStore::from_env();
     let mut execs = Vec::new();
     for db in &dbs {
-        match config::SqlConfig::from_ini(&ini, db) {
+        let cfg = config::SqlConfig::from_ini(&ini, db).and_then(|mut c| {
+            c.password = secrets.resolve(&names::db_password(db), &c.password).map_err(|e| e.to_string())?;
+            Ok(c)
+        });
+        match cfg {
             Ok(c) => execs.push(Executor::new(c)),
             Err(e) => {
                 eprintln!("{e}");

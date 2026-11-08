@@ -7,14 +7,15 @@
 //! `[ThreadTasks] ThreadTasks` = worker count. `[DbSrvOptions]` ServerKeyBits
 //! (2048), ServerPrName (`plaync.pr`) for EncryptedPassword.
 //!
-//! Secrets: the shipped config has `Password=keyhere`. EncryptedPassword
+//! Secrets: the shipped config has `Password=keyhere`. `main` replaces it with
+//! secret `db.<Logical>.password` (`sts_core::secrets`). EncryptedPassword
 //! (Base64, RSA with the server `.pr` key) is not supported by the port.
 
 use sts_core::ini::{Ini, Section};
 
 pub const DEFAULT_DRIVER: &str = "SQL Server Native Client 10.0";
 
-#[derive(Clone, Debug, PartialEq, Eq)]
+#[derive(Clone, PartialEq, Eq)]
 pub struct SqlConfig {
     pub logical: String,
     pub database: String,
@@ -41,6 +42,22 @@ fn computer_name() -> String {
     std::env::var("COMPUTERNAME")
         .or_else(|_| std::env::var("HOSTNAME"))
         .unwrap_or_else(|_| std::fs::read_to_string("/etc/hostname").unwrap_or_default().trim().to_owned())
+}
+
+/// Debug output hides the password.
+impl std::fmt::Debug for SqlConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.debug_struct("SqlConfig")
+            .field("logical", &self.logical)
+            .field("database", &self.database)
+            .field("host", &self.host)
+            .field("port", &self.port)
+            .field("instance", &self.instance)
+            .field("username", &self.username)
+            .field("password", &if self.password.is_empty() { "" } else { "***" })
+            .field("trans_timeout_secs", &self.trans_timeout_secs)
+            .finish_non_exhaustive()
+    }
 }
 
 impl SqlConfig {

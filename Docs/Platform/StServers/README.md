@@ -25,6 +25,7 @@ Updated 8 Nov 2026.
 | Route message, commands, locations, `t` targets | `sts-core::route` | Types ported | `13-routesrv.md` |
 | Route bus client (service → RouteSrv registration) | — | Not ported yet (RouteSrv phase 1 now exists) | `13-routesrv.md` §3 |
 | Socket transaction map (`p`/`t`/`s` headers) | `routesrv::relay` | Ported in RouteSrv (25000 ms map) | `13-routesrv.md` §8.1 |
+| Secrets loader (`keyhere` → real value at start-up) | `sts-core::secrets` | Ported; DbSrv uses it. Names and rules: `secrets/README.md` | — |
 | TLS between servers | — | Not ported yet; key = `keyhere` | `13-routesrv.md` §6 |
 | Admin HTTP pages | — | Not ported yet (low priority) | `../Sts/10-stservers-original.md` |
 

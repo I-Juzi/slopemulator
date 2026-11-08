@@ -6,6 +6,7 @@ pub mod connect;
 pub mod error;
 pub mod ini;
 pub mod route;
+pub mod secrets;
 pub mod xml;
 
 pub use error::StsError;
