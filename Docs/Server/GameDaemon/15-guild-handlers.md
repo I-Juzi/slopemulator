@@ -231,7 +231,7 @@ Shared task attachment (431, 434) uses `0x14025DB30` (zone), `0x14069BF60` (PC c
 ## 445 — G_DepositInGuildBankReqCmd — done
 
 - **381:** `0x1403AA5D0`. **PDB hint:** `HandleGame_DepositInGuildBankReq`.
-- **Wire:** `hichh`: money (`i`), then a repeat count (`c`, read by `0x14069DA00`), then `count` records of (`h` slot, `h` amount).
+- **Wire:** `hichh`: money (`i`), then a repeat count (signed short, read by `0x14069DA00`; doc 12 command 797 and the BloodLib `C` codec), then `count` records of (`h` slot, `h` amount).
 - **Checks/order (reply 446):**
   1. Config +2106 byte = 0 (bank off) → 2.
   2. Arena form B → 5.
@@ -608,10 +608,10 @@ Shared task attachment (431, 434) uses `0x14025DB30` (zone), `0x14069BF60` (PC c
 - **381:** `0x1403B5A20`. **Wire:** `hq` (guild ID). Reply 620 `hE`.
 - Decode fails → 2. Guild lookup null → 2. Op 1: first = `q` guild, second = own guild.
 
-## 621 — G_RejectGuildAllianceReqCmd — partial
+## 621 — G_RejectGuildAllianceReqCmd — done
 
 - **381:** `0x1403B5FA0`. **Wire:** `hqQ` (guild ID, reason). Reply 622 `hE`.
-- As 619, op 2, +282 = reason (word). ❓ `Q` wire width. Rust stops at a boundary after the `q` decode.
+- As 619, op 2. `Q` is one byte (BloodLib codec). The decoder writes it into a zeroed word (`0x1403B603E`); `movzx` copies the word to +282 (`0x1403B62AC`, `0x1403B6334`). Reason = byte value 0–255. A `hqQ` decode failure → 2.
 
 ## 623 — G_DeleteGuildAllianceReqCmd — done
 
@@ -625,7 +625,7 @@ Shared task attachment (431, 434) uses `0x14025DB30` (zone), `0x14069BF60` (PC c
 - **Busy flags** (1274, 1280): PC +21096 achievement reward, +13752 jumping ticket or +21080 instant payment, each read under its lock.
 - **Member lookup** `0x1400EF0B0(guild, index)` → PC object ID (Rust `member_slots`). **Meeting place** `0x1400F2900(guild, &out)` → 32 bytes (Rust `meeting_places`).
 - **Actions** come from `0x140472550(World +86712, kind)` and go to `0x140254FD0(zone, action)`. Zone null, action null, PC kind (+46) ≠ 1 or queue fail → 2.
-- Records: `C` count, then (h, h) pairs. Count > 16 rejects.
+- Records: `C` count (two bytes, BloodLib codec), then (h, h) pairs. Count > 16 (unsigned) rejects.
 - Only 1277 calls the excluded restriction helper `0x14060E280` (checked in all six disassemblies).
 
 ## 1274 — G_WarpToGuildMemberReqCmd — done
@@ -722,7 +722,7 @@ Shared task attachment (431, 434) uses `0x14025DB30` (zone), `0x14069BF60` (PC c
 | 610 | done |
 | 615 | done |
 | 619 | done |
-| 621 | partial |
+| 621 | done |
 | 623 | done |
 | 1274 | done |
 | 1277 | partial |

@@ -619,7 +619,7 @@ id	name	dir	handler381	name348	subsystem	spec	rust	tests	notes
 618	G_CreateGuildAllianceRelayCmd	unknown	-	-	guild	none	none	none	❓ Direction not established.; ❓ Subsystem is a command-name planning group, not a verified behavior contract.
 619	G_AcceptGuildAllianceReqCmd	c2s	0x1403b5a20	-	guild	done:15-guild-handlers.md	ported	none	381 table 0x1407d9f80 slot 0x1407db2d8; 381 log 0x140c10b70; ❓ Subsystem is a command-name planning group, not a verified behavior contract.
 620	G_AcceptGuildAllianceFailCmd	unknown	-	-	guild	none	none	none	❓ Direction not established.; ❓ Subsystem is a command-name planning group, not a verified behavior contract.
-621	G_RejectGuildAllianceReqCmd	c2s	0x1403b5fa0	-	guild	partial:15-guild-handlers.md	partial	none	381 table 0x1407d9f80 slot 0x1407db2e8; 381 log 0x140c11510; ❓ Subsystem is a command-name planning group, not a verified behavior contract.
+621	G_RejectGuildAllianceReqCmd	c2s	0x1403b5fa0	-	guild	done:15-guild-handlers.md	ported	none	381 table 0x1407d9f80 slot 0x1407db2e8; 381 log 0x140c11510; ❓ Subsystem is a command-name planning group, not a verified behavior contract.
 622	G_RejectGuildAllianceFailCmd	unknown	-	-	guild	none	none	none	❓ Direction not established.; ❓ Subsystem is a command-name planning group, not a verified behavior contract.
 623	G_DeleteGuildAllianceReqCmd	c2s	0x1403b6530	-	guild	done:15-guild-handlers.md	ported	none	381 table 0x1407d9f80 slot 0x1407db2f8; 381 log 0x140c11600; ❓ Subsystem is a command-name planning group, not a verified behavior contract.
 624	G_DeleteGuildAllianceNotifyCmd	unknown	-	-	guild	none	none	none	❓ Direction not established.; ❓ Subsystem is a command-name planning group, not a verified behavior contract.

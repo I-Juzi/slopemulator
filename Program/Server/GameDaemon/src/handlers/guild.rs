@@ -995,8 +995,8 @@ pub fn handle_deposit_in_guild_bank(ctx: &mut Context<'_>, req: &[u8]) -> Outcom
     if guild_with_action(ctx, 6).is_none() {
         return Outcome::reason(R, 2);
     }
-    // ❓ A missing count byte: the reader result is treated as a decode failure.
-    let Some(count) = r.byte().map(|c| c as i8) else {
+    // `0x14069DA00` reads a signed short count (doc 12, 797 builder).
+    let Some(count) = r.short().map(|c| c as i16) else {
         return Outcome::reason(R, 1553);
     };
     if !(0..=5).contains(&count) || (money == 0 && count == 0) {
@@ -1945,7 +1945,7 @@ pub fn handle_query_guild_info_to_gamed(ctx: &mut Context<'_>, req: &[u8]) -> Ou
         return Outcome::reason(R, 5);
     }
     let mut r = Reader(req);
-    let Some(count) = r.byte() else {
+    let Some(count) = r.short() else {
         return Outcome::reason(R, 2);
     };
     if count > 50 {
@@ -2170,17 +2170,23 @@ pub fn handle_accept_guild_alliance(ctx: &mut Context<'_>, req: &[u8]) -> Outcom
     alliance_by_id(ctx, 620, 1, req)
 }
 
-/// parity: 621 15-guild-handlers.md#621--g_rejectguildalliancereqcmd--partial partial
+/// parity: 621 15-guild-handlers.md#621--g_rejectguildalliancereqcmd--done ported
 pub fn handle_reject_guild_alliance(ctx: &mut Context<'_>, req: &[u8]) -> Outcome {
-    // ❓ `Q` wire width of the reason (stored as a word at +282).
     const R: u16 = 622;
-    if let Err(reason) = alliance_gates(ctx) {
-        return Outcome::reason(R, reason);
-    }
-    if Reader(req).quad().is_none() {
+    let own = match alliance_gates(ctx) {
+        Ok(own) => own,
+        Err(reason) => return Outcome::reason(R, reason),
+    };
+    // `Q` is one byte. The decoder writes it into a zeroed word; movzx copies
+    // that word to +282 (0x1403B62AC, 0x1403B6334).
+    let mut r = Reader(req);
+    let (Some(key), Some(reason)) = (r.quad(), r.byte()) else {
         return Outcome::reason(R, 2);
-    }
-    boundary("❓ 621 `Q` reason wire width")
+    };
+    let Some(other) = guild_named(ctx, key) else {
+        return Outcome::reason(R, 2);
+    };
+    alliance_post(ctx, R, 2, other, own, u16::from(reason))
 }
 
 /// parity: 623 15-guild-handlers.md#623--g_deleteguildalliancereqcmd--done ported
@@ -2207,9 +2213,10 @@ fn warp_gates(ctx: &Context<'_>, v2: bool, no_guild: u16) -> Result<u64, u16> {
 fn warp_busy(pc: &Pc) -> bool {
     pc.achievement_reward || pc.jumping_ticket || pc.instant_payment
 }
-/// `C` count (> 16 rejects) then (h, h) records. Err(true) = count too big.
+/// `C` group: two-byte count (> 16 rejects, read unsigned), then (h, h)
+/// records. Err(true) = count too big.
 fn warp_records(r: &mut Reader<'_>) -> Result<Vec<(u16, u16)>, bool> {
-    let count = r.byte().ok_or(false)?;
+    let count = r.short().ok_or(false)?;
     if count > 16 {
         return Err(true);
     }

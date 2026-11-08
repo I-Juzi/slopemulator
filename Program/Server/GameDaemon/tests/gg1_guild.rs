@@ -501,7 +501,7 @@ fn level_up() {
 
 fn deposit(money: i32, items: &[(u16, u16)]) -> Vec<u8> {
     let mut b = money.to_le_bytes().to_vec();
-    b.push(items.len() as u8);
+    b.extend((items.len() as u16).to_le_bytes());
     for (s, a) in items {
         b.extend(s.to_le_bytes());
         b.extend(a.to_le_bytes());
@@ -1076,17 +1076,17 @@ fn send_guild_invitation2() {
 fn query_guild_info_to_gamed() {
     let mut h = H::new();
     assert!(unsupported(
-        &h.run(518, &[[2u8].to_vec(), q(1), q(2)].concat())
+        &h.run(518, &[2u16.to_le_bytes().to_vec(), q(1), q(2)].concat())
     ));
     assert_eq!(
-        reason(&h.run(518, &[[2u8].to_vec(), q(1), q(0)].concat())),
+        reason(&h.run(518, &[2u16.to_le_bytes().to_vec(), q(1), q(0)].concat())),
         Some((520, 2))
     );
     assert_eq!(
-        reason(&h.run(518, &[[1u8].to_vec()].concat())),
+        reason(&h.run(518, &[1u16.to_le_bytes().to_vec()].concat())),
         Some((520, 2))
     );
-    assert_eq!(reason(&h.run(518, &[51u8])), Some((520, 2)));
+    assert_eq!(reason(&h.run(518, &[51u8, 0])), Some((520, 2)));
     assert_eq!(reason(&h.run(518, &[])), Some((520, 2)));
     h.world.arena = true;
     assert_eq!(reason(&h.run(518, &[0u8])), Some((520, 5)));
@@ -1239,7 +1239,24 @@ fn guild_alliance() {
     }
     assert_eq!(reason(&h.run(619, &q(0x9999))), Some((620, 2)));
     assert_eq!(reason(&h.run(623, &[])), Some((625, 2)));
-    assert!(unsupported(&h.run(621, &[q(OPEN), q(1)].concat())));
+    let out = h.run(621, &[q(OPEN), vec![200]].concat());
+    match &posted(&out).unwrap().kind {
+        GuildWorkKind::Alliance {
+            op,
+            first_id,
+            second_id,
+            reason,
+            ..
+        } => {
+            assert_eq!((*op, *first_id, *second_id, *reason), (2, OPEN, GUILD, 200));
+        }
+        other => panic!("{other:?}"),
+    }
+    assert_eq!(reason(&h.run(621, &q(OPEN))), Some((622, 2)));
+    assert_eq!(
+        reason(&h.run(621, &[q(0x9999), vec![1]].concat())),
+        Some((622, 2))
+    );
     assert_eq!(reason(&h.run(621, &[])), Some((622, 2)));
     h.services.guild.post_result = Gate::Fail;
     assert_eq!(reason(&h.run(615, &s("Open"))), Some((617, 2)));
@@ -1282,7 +1299,7 @@ fn wp(v2: bool) -> H {
     h
 }
 fn recs16(n: u8, b: u16) -> Vec<u8> {
-    let mut v = vec![n];
+    let mut v = u16::from(n).to_le_bytes().to_vec();
     for i in 0..n {
         v.extend(u16::from(i).to_le_bytes());
         v.extend(b.to_le_bytes());
@@ -1306,7 +1323,7 @@ fn warp_to_guild_member() {
     );
     assert_eq!(reason(&h.run(1274, &body(3, 17))), Some((1276, 1468)));
     assert_eq!(
-        reason(&h.run(1274, &[3, 9, 0, 2, 0, 0])),
+        reason(&h.run(1274, &[3, 9, 0, 2, 0, 0, 0])),
         Some((1276, 1553))
     );
     assert_eq!(reason(&h.run(1274, &[3])), Some((1276, 1553)));
@@ -1391,7 +1408,7 @@ fn call_member2_and_meeting_place2() {
         }
     );
     assert_eq!(reason(&h.run(1286, &recs16(17, 3))), Some((1288, 2)));
-    assert_eq!(reason(&h.run(1286, &[1, 0])), Some((1288, 2)));
+    assert_eq!(reason(&h.run(1286, &[1, 0, 0])), Some((1288, 2)));
     assert_eq!(reason(&h.run(1289, &[])), Some((1291, 2)));
     let mut place = [0u8; 32];
     place[0] = 1;
@@ -1416,7 +1433,7 @@ fn call_member2_and_meeting_place2() {
     h.pc().guild_id = OPEN;
     assert_eq!(reason(&h.run(1286, &recs16(0, 0))), Some((1288, 2)));
     h.pc().guild_id = 0;
-    assert_eq!(reason(&h.run(1286, &[0])), Some((1288, 1523)));
+    assert_eq!(reason(&h.run(1286, &[0, 0])), Some((1288, 1523)));
     assert_eq!(reason(&h.run(1289, &[])), Some((1291, 1535)));
     h.world.arena = true;
     assert_eq!(reason(&h.run(1289, &[])), Some((1291, 5)));
