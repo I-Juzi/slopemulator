@@ -156,21 +156,23 @@ This is the same formula as `Program/Platform/Sts/src/srp6.rs` (`password_x`). C
 
 ## Gap list for the Rust STS (`Program/Platform/Sts`)
 
-| # | Gap | Original evidence | Action |
-| --- | --- | --- | --- |
-| 1 | `enroll` makes a 32-byte salt | Original salt = 8 bytes | Use 8 bytes; store Base64 like `Users.Salt` |
-| 2 | Verifier store is a local file | `PlatformAcctDb.dbo.Users` | Port `p_AcctLoginInfoById` semantics (SQL Server or embedded store) |
-| 3 | No GameGate | 74 daemon commands | Port GameGate for LobbyGate/GameDaemon |
-| 4 | No RouteSrv / service split | 114 programs over RouteSrv | One process with modular services first; same command names |
-| 5 | World list empty | `Worlds` table + World/AddWorld | Port WorldSrv + GameGate World/* |
-| 6 | Slot, GameAccount partial | SlotSrv, GameAccountSrv procs | Port with `v2016041101` / `v2016120901` semantics |
-| 7 | AppId values | `Game.ini` AppIds | Use `B0D42105-…` for client, `D5099619-…` for server |
-| 8 | Error codes | `RETURN (base + n - 100000)` | Map the same numbers |
-| 9 | Certificates / CliGate TLS | `CliGate.ini`, `Certificate/*` | ❓ Needs IDA on CliGate; key fields → `keyhere` |
-| 10 | Admin web pages | `Bin/Web/*` | Optional; low priority |
+Port progress for every original service is in `../StServers/README.md`.
+
+| # | Item | Original evidence | Action | State (8 Nov 2026) |
+| --- | --- | --- | --- | --- |
+| 1 | `enroll` makes a 32-byte salt | Original salt = 8 bytes | Use 8 bytes; store Base64 like `Users.Salt` | open |
+| 2 | Verifier store is a local file | `PlatformAcctDb.dbo.Users` | Port `p_AcctLoginInfoById` semantics through DbSrv | DbSrv ported; AuthSrv not ported yet |
+| 3 | No GameGate | 74 daemon commands | Port GameGate for LobbyGate/GameDaemon | not ported yet |
+| 4 | No RouteSrv / service split | 49 started services over RouteSrv | Port RouteSrv, then each service | RouteSrv in progress |
+| 5 | World list empty | `Worlds` table + World/AddWorld | Port WorldSrv + GameGate World/* | ❓ WorldSrv has no `StServer.ini` line |
+| 6 | Slot, GameAccount partial | SlotSrv, GameAccountSrv procs | Port with `v2016041101` / `v2016120901` semantics | not ported yet |
+| 7 | AppId values | `Game.ini` AppIds | Use `B0D42105-…` for client, `D5099619-…` for server | open |
+| 8 | Error codes | `RETURN (base + n - 100000)` | Map the same numbers | `sts-core` error table + `errcodes.tsv` |
+| 9 | Certificates / CliGate TLS | `CliGate.ini`, `Certificate/*` | Key fields → `keyhere` | analysed (`11-cligate-protocol.md`) |
+| 10 | Admin web pages | `Bin/Web/*` | Optional; low priority | not ported yet |
 
 ## Next steps
 
-1. Restore the IDA licence. Then decompile CliGate (`CliConn`, `SocketCrypt`, `Tls`), AuthSrv (`CAuLoginTxn`, `CAuAuthnTxn`) and RouteSrv framing.
+1. Done: IDA works; CliGate, AuthSrv, RouteSrv, DbSrv, GameGate, SessionGateSrv, GameAccountSrv, SlotSrv, SpawnSrv and WorldSrv are decompiled.
 2. Port the framework crate, then CliGate, GameGate, AuthSrv, SessionGateSrv, GameAccountSrv, SlotSrv, WorldSrv, PresenceSrv, NameSrv.
 3. Port the remaining services by the order of the BnS login and in-game flow.
