@@ -250,12 +250,27 @@ In all three, a decode failure only logs and returns true (no reply, keep).
 - Key = (key1, key2, key3) u64, compared in that order. A larger key ranks higher.
 - The skip-list levels change speed only. The port keeps sorted vectors (`board.rs`).
 
+## 6c. RankingBoardManager score paths
+
+| Function | Address | Rule |
+| --- | --- | --- |
+| InsertScoreForRatingScoreType | 0x140019850 | fail when type outside 1..=15, playerType outside 1..=3, playerId 0, primary 0, requestTime 0, or no board |
+| UpdateScoreForRatingScoreType | 0x140019E20 | fail when type outside 1..=15, old key empty, primary 0, requestTime 0, logId 0, or no board; playerType and job come from the stored Player |
+| DeleteScore | 0x14001BC20 | fail when old key empty or playerType outside 1..=3; success resets the Player score to the empty key, time 0 |
+
+- Key: key1 = primary, key2 = requestTime, key3 = logId.
+- Types 1..=4, 7, 10..=12 keep only the high dword of primary in key1 (asm 0x14001996F: low dword 0, high = primary >> 32).
+- Board index: playerType 1 → convertPcJobToBoardIndex(job); 2 → job 1 or 2, else 0 (Insert fails); 3 → 1.
+- Type 2 has max list index 0, so its Init fails and it has no board.
+- The empty key is `s_initializedCount` at 0x1400E3D50: uninitialized .data, no write xrefs, all zero.
+- Player::UpdateScore and Player::UpdatePcInfo run after the board change. The Rust port returns the key; the caller stores it (`boards.rs`).
+
 ## 6b. Phase 1 gaps
 
 | Gap | Phase |
 | --- | --- |
 | RankingDB (insert, load, black list persist) | 2 |
-| Ranking boards: RankingBoardManager score insert/update/delete on top of `board.rs`, update period | 2b |
+| Ranking boards: wire `boards.rs` into Game port score commands, Player score store, update period | 2b |
 | Result schedules from RankingDB (AddResultSchedule), current week index, season state timers | 2 |
 | InfoGate ranking list composition (RankingListMaker, FetchRankingList) | 2b |
 
@@ -267,5 +282,6 @@ In all three, a decode failure only logs and returns true (no reply, keep).
 | Commands, reasons, decode helpers | `protocol.rs` |
 | Session managers, handlers, black list | `service.rs` (pure) |
 | SkipListExManager | `board.rs` (pure) |
+| RankingBoardManager score paths | `boards.rs` (pure) |
 | Ports | `server.rs` (tokio) |
-| Tests | `tests/service.rs`, `tests/network.rs`, `tests/board.rs` |
+| Tests | `tests/service.rs`, `tests/network.rs`, `tests/board.rs`, `tests/boards.rs` |
