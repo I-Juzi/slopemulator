@@ -9,6 +9,12 @@ pub struct PartyConfig {
     pub arena_task_mode: u8,
     pub default_difficulty: u8,
     pub suggestion_task: bool,
+    /// Config +2736 byte +732: team-aware suggestion routing.
+    pub team_suggestion_routing: bool,
+    /// Config +2736 byte +537: optional party reports.
+    pub trace_report: bool,
+    /// Daemon +2728 pointer and pointee +32 enable rejection game-log output.
+    pub rejection_aux_report: bool,
     pub vote_enabled: bool,
     pub maximum_grade: i32,
     pub rule_three_mode: i16,
@@ -27,15 +33,26 @@ pub struct PartyState {
     pub world_mask: u64,
     pub world_shift: u32,
     pub world_slots: Vec<Option<PartyPeer>>,
-    /// Keys are exact NUL-terminated UTF-16 prefixes. No case folding.
+    /// Native uses CRT wcsicmp. ASCII keys use the exact portable subset.
+    /// Non-ASCII comparisons require the Services locale adapter.
     pub names: BTreeMap<Vec<u16>, usize>,
     pub pc_teams: Vec<u64>,
     pub team_mask: u64,
     pub team_shift: u32,
     pub teams: Vec<Option<Team>>,
+    /// None: unknown. A missing owner in a known map has an empty card box.
+    pub invitation_boxes: Option<BTreeMap<u64, Vec<PartyInvitation>>>,
+}
+#[derive(Clone, Debug, Default, PartialEq, Eq)]
+pub struct PartyInvitation {
+    pub inviter_db: u64,
+    pub inviter_runtime: u64,
+    pub kind: u32,
 }
 #[derive(Clone, Debug, Default)]
 pub struct Team {
+    /// Team +40.
+    pub runtime_id: u64,
     pub parties: Vec<Option<Party>>,
     pub indexed_parties: Vec<i32>,
     pub membership: BTreeMap<u64, i32>,
@@ -46,6 +63,8 @@ pub struct Team {
 }
 #[derive(Clone, Debug, Default)]
 pub struct Party {
+    /// Party +48.
+    pub runtime_id: u64,
     pub members: Vec<PartyMember>,
     pub difficulty: u8,
     pub invite_authority: u32,
@@ -118,7 +137,38 @@ impl PartyState {
         if key.is_empty() {
             return None;
         }
-        self.eligible(*self.names.get(key)?)
+        let PartyNameLookup::Slot(slot) = self.name_slot(key) else {
+            return None;
+        };
+        self.eligible(slot)
+    }
+    pub fn name_slot(&self, name: &[u16]) -> PartyNameLookup {
+        let key = name_prefix(name);
+        if key.is_empty() {
+            return PartyNameLookup::Missing;
+        }
+        if key.iter().any(|c| *c > 127)
+            || self
+                .names
+                .keys()
+                .any(|k| name_prefix(k).iter().any(|c| *c > 127))
+        {
+            return PartyNameLookup::Unknown;
+        }
+        let fold = |c: &u16| if (65..=90).contains(c) { *c + 32 } else { *c };
+        self.names
+            .iter()
+            .find_map(|(name, slot)| {
+                name_prefix(name)
+                    .iter()
+                    .map(fold)
+                    .eq(key.iter().map(fold))
+                    .then_some(PartyNameLookup::Slot(*slot))
+            })
+            .unwrap_or(PartyNameLookup::Missing)
+    }
+    pub(super) fn by_name_slot(&self, slot: usize) -> Option<&PartyPeer> {
+        self.eligible(slot)
     }
     pub fn target(&self, id: u64, name: &[u16]) -> Option<&PartyPeer> {
         if id != 0 {
@@ -258,6 +308,11 @@ pub enum PartyTaskKind {
         vote: u8,
     },
     ClearMembers,
+    /// Native kind 207, vtable 0x140B1DDD8, qwords +144/+152.
+    UpdatePcInfo {
+        team: u64,
+        party: u64,
+    },
     Auction {
         operation: AuctionOperation,
         value: u64,
@@ -299,6 +354,15 @@ pub enum PartyEffect {
         location: PartyLocation,
         difficulty: u8,
     },
+    PcInfoChanged {
+        runtime: u64,
+        team_mode: u8,
+        difficulty: u8,
+    },
+    InvitationRemoved {
+        owner: u64,
+        invitation: PartyInvitation,
+    },
     AssertionReport,
     /// ❓ This operation is not read. It is NOT a completed backend effect.
     Boundary(&'static str),
@@ -307,6 +371,44 @@ pub enum PartyEffect {
 pub struct PartyRegistration {
     pub value: u64,
     pub route: u32,
+}
+
+/// CRT locale lookup result. An absent locale adapter is not a missing PC.
+#[derive(Clone, Copy, Debug, Default, PartialEq, Eq)]
+pub enum PartyNameLookup {
+    #[default]
+    Unknown,
+    Missing,
+    Slot(usize),
+}
+
+impl Team {
+    /// 0x1401F31D0. Party index is a signed native byte.
+    pub fn allows_invite(&self, mode: u8, party: u8, db: u64, runtime: u64) -> bool {
+        if self.leader_db_id == db && self.leader_runtime_id == runtime {
+            return true;
+        }
+        if self.invite_authority == 0 {
+            return false;
+        }
+        let leader = (party as i8 >= 0)
+            .then(|| self.parties.get(usize::from(party)))
+            .flatten()
+            .and_then(|p| p.as_ref())
+            .and_then(|p| p.members.first())
+            .is_some_and(|m| m.db_id == db && m.runtime_id == runtime);
+        match self.invite_authority {
+            1 => leader && matches!(mode, 2 | 3),
+            2 => {
+                if leader {
+                    matches!(mode, 2 | 3)
+                } else {
+                    mode == 2
+                }
+            }
+            _ => false,
+        }
+    }
 }
 
 /// Result of an unread leader resolver. Missing differs from an absent adapter.
@@ -321,14 +423,6 @@ pub enum PartyLeaderLookup {
 /// Opaque game managers only. Excluded restriction queries have no adapter here.
 #[derive(Clone, Debug, PartialEq, Eq)]
 pub enum PartyOperation {
-    RegisterMatch(u32),
-    SuggestPermission {
-        team: usize,
-        mode: u8,
-        party: u8,
-        db: u64,
-        runtime: u64,
-    },
     LeaveTeam,
     LeaveParty,
     DelegateParty {
@@ -340,6 +434,9 @@ pub enum PartyOperation {
         team: usize,
         target_db: u64,
         target_runtime: u64,
+    },
+    BanishParty {
+        slot: u8,
     },
     BanishTeam {
         party: u16,
@@ -356,10 +453,6 @@ pub enum PartyOperation {
     NominateLeader {
         target_db: u64,
         target_runtime: u64,
-    },
-    TeamDifficulty {
-        selector: u8,
-        difficulty: u8,
     },
     ClearMembers,
 }

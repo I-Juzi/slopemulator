@@ -20,7 +20,7 @@ The locked resolver requires nonzero PC DB ID/runtime ID and `HIWORD(runtime ID)
 
 Membership helper `0x1401EE320` finds the PC DB ID in the ordered map at team +72. The map value gives party index. Require index >=0, index < team +48 and a nonnull pointer in team +56. `0x14021D070` scans that party's member array (+8, stride 128, count +36). Mode 3 requires member +8 DB ID equal to requester, +16 runtime ID equal to requester and +24 dword exactly 3. It returns the first matching member index. Missing map/party/member fails. No table or backend request occurs in these resolver helpers.
 
-World runtime lookup `0x1403F7D20` requires nonzero ID and high word 1. Under World +168 lock, derive index `(ID & descriptor +24 mask) >> descriptor +40 shift`, with descriptor at World +152. Require index <20000. Fetch PC from World +136, stride 8. With rights mask 6, require `(PC +20672 ushort & 6)!=0`. A found array pointer is not compared again against the full runtime ID. Name lookup `0x1403F7EF0` uses a NUL-terminated nonempty UTF-16 name and the name map at World +144 under the same lock; it applies the same rights gate. Counted request names still consume all wire units before this NUL-terminated lookup. ❓ The name-map comparator is not read; do not assume case folding.
+World runtime lookup `0x1403F7D20` requires nonzero ID and high word 1. Under World +168 lock, derive index `(ID & descriptor +24 mask) >> descriptor +40 shift`, with descriptor at World +152. Require index <20000. Fetch PC from World +136, stride 8. With rights mask 6, require `(PC +20672 ushort & 6)!=0`. A found array pointer is not compared again against the full runtime ID. Name lookup `0x1403F7EF0` uses a NUL-terminated nonempty UTF-16 name and the name map at World +144 under the same lock; it applies the same rights gate. Counted request names still consume all wire units before this NUL-terminated lookup. Name-map helper `0x140433BB0` uses CRT `wcsicmp` for tree traversal and equality. The lookup is case-insensitive. The CRT locale controls non-ASCII comparisons; do not replace it with Unicode lowercase conversion. Source: build 381.8867, `0x1403F7EF0` and `0x140433BB0`.
 
 ### Excluded call sites
 
@@ -75,18 +75,22 @@ Shared task attachment uses `0x14025DB30` (zone), task +128 (caster runtime ID),
 - **Checks/order:** Decode; reject arena config (+237 nonzero and +248 nonzero) with 173/782; require zone (173/2); create task, vtable `0x140BC1D08`; require PC kind 1 (173/2); attach; store byte at task +144; queue (173/2). Replies use `hh`, to self. Return true.
 - **State:** Wrapper creates task/child state only. A party ban is not a connection kick.
 - **Output/dependencies:** No immediate success, broadcast, direct socket kick, table, daemon request or DB call.
-- **❓ Missing:** Task role/slot checks, removal and leader handling, success notifications, late failures and backend work. Unchecked malformed-input byte is not specified.
+- **Task `0x1402B4840`:** Require PC party ID +21112 nonzero, else self 173/781 `hh`. Otherwise call `0x1401D71D0(manager,PC,unsigned slot,0)`. The byte is not a member-vector index. The manager searches member slot byte +2. Source: build 381.8867, task vtable `0x140BC1D08` +72.
+- **Manager entry `0x1401D71D0`:** Lock manager +144; resolve team by requester runtime ID; lock team. For command 172, require requester mode-3 membership and both DB/runtime identities to equal party member index 0, else 173/781. Search the first member with slot byte equal to the request and state not 2; missing target also gives 781. Later paths can send 785 for party +176 nonzero or blocked target content, 784 for target PC +19640 nonzero, and 782 for an unresolved state-1 target. State 4 uses direct removal helpers; other states use `0x1401E8780`. These paths are read at the call level only. No removal helper is treated as completed work.
+- **❓ Missing:** Removal-helper effects, leader/disband handling, late notifications and backend work inside `0x140218370`, `0x1401E8780`, `0x1401EA360`, `0x1401F1710`, `0x14021B6B0` and their callees. Rust closes the task's missing-party reply and stops at the manager adapter. Unchecked malformed-input byte is not specified.
 
 ## 176 — G_ChangePartyPickupRuleReqCmd — partial
 
 - **381:** `0x14038E060`. **PDB hint:** `HandleGame_ChangePartyPickupRuleReq`.
-- **Wire:** `hQcqq`: command:h, pickup-rule byte:Q, grade byte:c, designated-member runtime ID:q, money threshold:q. Instructions in `0x14038E060` verify the case-sensitive descriptor. Decode return is ignored. The initial command destination is a dummy. The first body byte must be <=3 unsigned. ❓ The final three semantic names require confirmation in the task/manager.
+- **Wire:** `hQcqq`: command:h, pickup-rule byte:Q, grade byte:c, designated-member runtime ID:q, money threshold:q. Instructions in `0x14038E060` verify the case-sensitive descriptor. Decode return is ignored. The initial command destination is a dummy. The first body byte must be <=3 unsigned. The wide manager log confirms auction item grade, dedicated member and auction start price; see below.
 - **Checks/order:** Decode return ignored; first byte <=3; zone exists; create task, vtable `0x140B984D8`; PC kind 1; attach; queue. Each wrapper failure sends 178, `hh`, reason 2, to self. Return true.
 - **Task fields:** +144 dword=sign-extended first byte; +152 qword=third decoded value; +160 byte=second byte; +168 qword=fourth decoded value.
 - **State/output:** No direct rule mutation or success send in wrapper. No direct kick, table, daemon or DB call.
 - **Task `0x1402B4A80`:** Require nonzero PC party ID +21112, else 178/787. Resolve the locked team/member pair through `0x1401D3F70(PC DB ID, runtime ID, &pair)`, else 178/786. Validate low-dword party index against team +48 and party vector +56. Call `0x140213760(party, high-dword member index, rule, grade, target, money)`. Invalid party index/pointer or false helper result sends 178/786. Unlock team +128 and release it. Replies use `hh`, to self.
 - **Party helper `0x140213760`:** Only member index zero can change rules. Reject other indices with false. Require signed grade >0 and <= daemon rule config +508 dword. If designated ID is nonzero, scan party +8 member vector, count +36, stride 128; require a matching runtime ID at member +16 and member state +24=3. If rule=3 and daemon +2752 short is not 2, log/assert then replace rule with zero. Set party +68 dword=rule, +80 byte=grade, +72 qword=designated ID, +88 qword=money. Compose 177, `hQcqq`, from these fields. Send through `0x1402132A0`. No unchanged-value rejection. A negative money value is not rejected in this helper. Optional config +537 logs after mutation; failure to resolve the logging PC does not undo success.
-- **❓ Missing:** Confirm final field names and config +508 name; full locked resolver and broadcast-helper recipient rules. The optional report sink and any hidden backend effects remain open.
+- **Field names:** Wide log `0x140B49420` names the fields `pickupRule`, `auctionItemGrade`, `dedicatedMember` and `auctionStartPrice`. Config +2744 dword +508 is the maximum accepted auction item grade. Rule 3 is random-member pickup (`0x140B49200`). The final qword is an auction start price, not a threshold.
+- **Optional report:** Save the old rule byte, grade byte and price before mutation. Config +537 must be set, and at least one of these three fields must change. A dedicated-member-only change does not cause a report. Resolve the leader with rights 6; missing PC skips the report without rollback. `0x140203F80` operation 1 receives the PC/zone/team snapshots, old/new rule, grade, price, member count and difficulty code (1→13, 2→11, 3→12). The sink updates a LogArchive counter and calls `0x1406A2FC0`; this is log output, not a gameplay DB request. Rust leaves this report sink as an explicit unsupported boundary when enabled.
+- **Completion:** All game-logic paths are read. The shared resolver and broadcast contracts apply. No hidden gameplay backend call occurs. Sources: build 381.8867, `0x140213760`, `0x140203F80`, `0x1406A2FC0`.
 
 ## 179 — G_ChangePartyDifficultyTypeReqCmd — partial
 
@@ -98,9 +102,14 @@ Shared task attachment uses `0x14025DB30` (zone), task +128 (caster runtime ID),
 - **Task `0x1402B51F0`:** Missing PC party ID sends 181, `hc`, from argument 789. Thus the wire reason is low byte 21. Otherwise call `0x1401E22D0`.
 - **Manager `0x1401E22D0`:** Resolve locked team/pair; failure sends 181/2. Validate party index/pointer; invalid gives reason 2. Call `0x1402140D0(party,member index,difficulty,0)`. Nonzero reason sends 181, `hc`, with the low byte. On zero, send self **193 `hc` first, then 180 `hc`**, both with difficulty. On either helper result, call `0x1405FAE30` with current team/party metadata. If team +124 is nonzero, send 275, `hcc`, to all online members of all indexed parties: party index byte and current party difficulty byte. This team sync also runs after a rejected change. Unlock/release team.
 - **Party helper `0x1402140D0`:** Require member index zero (790); reject unchanged difficulty (791). Resolve difficulty 1..3 through DataManager table pointer +5688 (slot 711); missing/outside gives maximum zero, otherwise signed byte record +24. Require maximum >= party member count +36, else 793. Require party +1600 and +1656 signed dwords <=0, else 794. Set party +56 byte=difficulty, then call `0x14021EDE0(party,0,0)`. Optional config +537 writes a report; missing logging PC does not change success. Return zero.
-- **❓ Missing:** Difficulty table/field names, `0x14021EDE0` resizing/sync, `0x1405FAE30` PC metadata update, report sink and full downstream effects. Native malformed-input byte remains unspecified.
+- **Capacity source:** DataManager table slot 711, record signed byte +24, gives maximum member count. ❓ No symbolic table/field name is verified. The offset and signed comparison are verified. Party +1600 counts party-zone members; +1656 counts prepare-zone members (wide log `0x140B495F0`).
+- **Metadata dispatch `0x14021EDE0`:** This helper does not resize the party. Iterate members with state 3. For command 179, skip index 0. For command 259, include index 0. Resolve each runtime ID with rights 6. Missing PC, missing zone, non-PC kind or dispatch failure logs and continues. Create native kind-207 task, vtable `0x140B1DDD8`, with team runtime ID +144 and party runtime ID +152. Attach to that member and dispatch through `0x140603BD0`. Do not execute it during the change request.
+- **Metadata task `0x1402B52F0`:** Missing PC party ID or locked team logs only. Require current team +40 and party +48 to equal the two queued IDs, else log only. Save old PC difficulty byte +21120. Call `0x1405FAE30` with current team mode, team/party IDs and party difficulty. If the old difficulty differs from party difficulty, send self 193 `hc` with current difficulty. No reply on an unchanged byte.
+- **PC write `0x1405FAE30`:** Require PC +21104 and +21112 to equal the supplied team and party IDs. On match, write +21120=difficulty and +21136=team mode. On mismatch, log only. It does not write the IDs. The command-179 manager calls this after either helper success or rejection, before the team sync.
+- **Optional report:** After metadata dispatch, config +537 and a resolved leader enable `0x140203F80` operation 2. It records the same snapshots as 176, with old/new difficulty codes. The sink is LogArchive output. Rust stops at this report adapter before command 193/180 or team success sync. Failed leader lookup skips it. No gameplay DB request occurs.
+- **Completion:** All game-logic paths are read. ❓ Short unchecked decode can expose an uninitialized byte; Rust stops there. Sources: build 381.8867, `0x1402140D0`, `0x14021EDE0`, `0x1402B52F0`, `0x1405FAE30`, `0x1401E22D0`.
 
-## 182 — G_ChangePartyInviteAuthReqCmd — partial
+## 182 — G_ChangePartyInviteAuthReqCmd — done
 
 - **381:** `0x14038EA50`. **PDB hint:** `HandleGame_ChangePartyInviteAuthReq`.
 - **Wire:** `hQ`: invite-authority byte. Decode return is ignored.
@@ -109,7 +118,7 @@ Shared task attachment uses `0x14025DB30` (zone), task +128 (caster runtime ID),
 - **State/dependencies:** Task/child state only. No direct table, daemon, DB or kick.
 - **Task `0x1402B4CC0`:** Require nonzero PC party ID +21112, else 184/796. Resolve locked team/member pair through `0x1401D3F70`, else 184/796. Call `0x1401EC100(team,&pair,authority)`. Nonzero returned short becomes 184/that reason. Unlock/release team.
 - **Manager `0x1401EC100`:** Validate party index (pair low dword) against team +48 and vector +56, else reason 796. Require member index (pair high dword) zero, else 797. Reject unchanged party +64 dword with 798. Set party +64 to requested authority. Compose command 183, `hQ`, with low byte of new value. Send through `0x1402132A0(party,packet)`. Return zero. No direct table, daemon, DB or kick in this manager.
-- **❓ Missing:** Full locked resolver semantics and broadcast-helper recipient selection. Flag update and explicit reason paths are read.
+- **Completion:** The shared resolver and recipient contracts above close both gaps. All game-logic paths are read. The manager writes a diagnostic log after command 183. It does not call a backend or a report sink. Source: build 381.8867, `0x1401EC100`.
 
 ## 157 — G_InvitePartyReqCmd — partial
 
@@ -138,7 +147,10 @@ Shared task attachment uses `0x14025DB30` (zone), task +128 (caster runtime ID),
 - **Checks/order:** Decode (164/2); zone exists (164/764); allocate through `0x14036D780`; initialize through `0x1402B1D20(task,zone,PC,1,second qword,byte,kind)`; queue. Allocation/init/queue failure uses 164/2.
 - **Output:** Failures send 164, `hEc`: reason and correlation/slot byte, to self. Return true. No immediate success, broadcast or direct kick.
 - **State/dependencies:** Wrapper only creates task/child state. No direct table, daemon request or DB procedure.
-- **❓ Missing:** Task rejection match, removal/notification, kind values, timeout interaction and downstream effects.
+- **Shared rejection task `0x1402B1E00`:** Resolve inviter runtime ID with rights 6. Missing inviter sends nothing and changes nothing. For group 1, search the caster's card box at PC +19712 with `0x1401F5610`: card type +24=1, inviter DB ID +0 and runtime ID +8 must both match the resolved PC. Remove only the first match, shift the later pointers, decrement count +19732 and free the card. A match sends inviter 186, `hqscQ`: caster runtime ID, caster name, correlation byte and original rejection-kind byte. No match sends nothing. No self success reply occurs.
+- **Group 2:** Search types 2, 3 and 4 in that order. Remove the first match of each type. If any card was removed, send inviter 264, `hqsQ`: caster runtime ID/name and rejection-kind byte. Send only one notification. No kind range, card-expiry or timeout check occurs. The request's first qword is unused; its second qword is the inviter runtime ID. The correlation byte is an opaque echoed field.
+- **Reports:** If inviter lookup succeeds, config +537 can send a rejection report through `0x140203710`. The report runs even without a matching card. Daemon +2728 and pointee +32 enable a second game-log callback (event 46). These calls do not supply a reason or undo removal. Rust stops at these report adapters after the verified removal and notification effects. No party/team membership changes or DB procedure occurs.
+- **Completion:** All game-logic paths are read. Rejection kind passes through unchanged. Sources: build 381.8867, `0x1402B1D20`, `0x1402B1E00`, `0x1401F5610`.
 
 ## 243 — G_LeaveTeamReqCmd — partial
 
@@ -209,7 +221,8 @@ Shared task attachment uses `0x14025DB30` (zone), task +128 (caster runtime ID),
 - **Output:** Failures send 261, `hh`, to self. Return true. No immediate success or broadcast.
 - **State/dependencies:** Task/child state only. No direct kick, table, daemon or DB call.
 - **Task `0x1402B31A0`:** Require PC party ID +21112 nonzero, else 261/897, `hh`. Otherwise call `0x1401E1FC0(...,PC,unsigned selector,unsigned difficulty)`.
-- **❓ Missing:** Manager selector/role/content checks, difficulty mutation, sync and backend effects.
+- **Manager `0x1401E1FC0`:** Resolve locked requester team/pair, else 261/897. Require both leader DB ID and runtime ID to match requester, else 897. Interpret selector as signed byte; a negative index, out-of-range index or null party gives 261/2. Call `0x1402140D0(selected party,0,difficulty,1)`. Use all capacity, unchanged and content gates under 179, with member index forced to zero. Nonzero reason sends 261 `hh` and stops; no team sync runs on failure. On success, metadata dispatch includes all selected-party members, then the optional difficulty report runs. Broadcast 275 `hcc` (selector, difficulty) to indexed team parties. Then send self 260 **`hc`**, with selector only. The native call passes an extra difficulty argument; the descriptor does not serialize it. No team-mode gate occurs on this success broadcast.
+- **Completion:** All game-logic paths are read. Use the metadata task, report boundary and recipient contracts under 179. No other daemon or gameplay DB request occurs. Sources: build 381.8867, `0x1401E1FC0`, descriptor `0x1408D9508`, `0x1402140D0`, `0x14021EDE0`.
 
 ## 147 — G_SuggestPartyReqCmd — partial
 
@@ -219,7 +232,10 @@ Shared task attachment uses `0x14025DB30` (zone), task +128 (caster runtime ID),
 - **Direct-send branch:** If daemon rule config +512 byte is zero, send target 149, `hscccccc`: requester name and all six bytes. Then send self 148, `hqscc`: original target ID/name, option A and difficulty. No party mutation or pending-invite insertion is shown in this branch.
 - **Task branch:** Otherwise require target zone; create task vtable `0x140BA8220`; require target kind 1; attach to target; task +144 requester runtime ID, +152..157 six bytes in wire order; queue. Zone/kind/queue failure uses 150/2.
 - **Failure:** 150, `hEqscc`: reason, original target ID/name, option A, difficulty, to self. Return true. No direct kick, table lookup, daemon request or DB procedure in wrapper.
-- **❓ Missing:** Task execution and notification policy, config +512 name, malformed native values, target resolver internals and downstream work.
+- **Task `0x1402B4350`:** Resolve requester runtime ID with rights 6. Missing requester logs only. If caster has no party, send caster 149 with requester name and six bytes. Then send requester 148 with the caster's authoritative ID/name and first two bytes. Otherwise resolve caster's locked team/member pair. Failed resolution sends nothing. Call `0x1401EBB50` on success. Unlock/release after the call.
+- **Routing `0x1401EBB50`:** Config +2736 byte +732 selects team-aware routing. When clear, validate the party and call `0x1402133B0`. Invalid party sends requester 150/740 with caster ID/name and first two bytes. When set, team mode 1 uses `0x1401F31D0(team,2,party byte,caster DB ID,caster runtime ID)`. Other modes require a valid party; authority 0 permits member index 0, authority 1 permits every member, other authorities do not permit direct notification. A permitted caster receives 149; requester receives 148 with caster ID/name. Otherwise resolve team leader with rights 6. Missing leader or leader arena state {2,3,5,6} under +237 set/+248 clear sends 150/740 with caster ID/name. Success sends leader 149, then requester 148 with leader ID/name.
+- **Party routing `0x1402133B0`:** Authority 0 selects member index 0. Authority 1 selects caster member index. Other values fail. Zero selected ID, selected ID=requester ID, missing selected PC, or selected PC arena gate as above gives 150/740 with caster ID/name. Otherwise send selected PC 149, then requester 148 with selected ID and authoritative selected name. No invite card, timer, mutation or backend call occurs.
+- **Completion:** All game-logic paths are read. Config +512 is the task-routing switch; no symbolic name is needed for the byte contract. Option bytes remain opaque and pass through unchanged. ❓ Native uninitialized values on short unchecked decode have no stable contract; Rust stops at that boundary. Source: build 381.8867, the functions above.
 
 ## 151 — G_RejectSuggestPartyReqCmd — partial
 
@@ -228,7 +244,7 @@ Shared task attachment uses `0x14025DB30` (zone), task +128 (caster runtime ID),
 - **Checks/order:** Reject request ID equal to self. Resolve by nonzero runtime ID, otherwise name. Reject missing target or resolved self. All these failures send 154, `hEqscc`, reason 742, followed by original target ID/name and two bytes.
 - **Success:** Send target 153, `hscc`: requester name and two bytes. Then send self 152, `hqscc`: original target ID/name and two bytes. Do not replace echoed ID/name with resolved values.
 - **State/dependencies:** No party mutation, membership/leader/distance/cooldown/table gate, task, daemon, DB or direct kick in the read wrapper. Return true.
-- **❓ Missing:** Target resolver eligibility and native values on unchecked malformed input. All explicit wrapper paths and send arguments are read.
+- **Completion:** All game-logic paths are read. The shared world/name contracts specify eligibility and CRT `wcsicmp`. Option bytes pass through unchanged. ❓ Short unchecked decode can expose uninitialized native fields; Rust returns unsupported and sends nothing there. Source: build 381.8867, `0x14038C640`, `0x1403F7EF0`, `0x140433BB0`.
 
 ## 226 — G_SuggestTeamReqCmd — partial
 
@@ -238,7 +254,8 @@ Shared task attachment uses `0x14025DB30` (zone), task +128 (caster runtime ID),
 - **Recipient selection:** Map suggestion mode 1/2/3 to permission mode 2/3/4; other bytes use permission mode 0. Call `0x1401F31D0(team,permission mode,low-byte party index,target DB ID,target runtime ID)`. If true, notify target. Otherwise resolve team leader runtime ID +104 and notify that PC; missing leader uses 822.
 - **Output:** Recipient gets 228, `hQsccccc`: suggestion mode, requester name, five option bytes. Self gets 227, `hQqsc`: suggestion mode, recipient runtime ID, target name, first option. On leader reroute, self receives the leader's authoritative name instead of target name. Failures send 229, `hEQqsc`: reason, mode, target ID/name, first option. Return true.
 - **State/dependencies:** No task or direct party mutation. Team lock spans permission/recipient sends. No direct kick, table, daemon or DB call.
-- **❓ Missing:** Exact mode/options, permission predicate, target resolver, full locking contract and unchecked malformed-input values.
+- **Permission `0x1401F31D0`:** Both leader identities match → true before the authority gate. Authority 0 → false. Authority 1 → require signed party byte >=0, a valid party pointer, both identities equal to member index 0, and permission mode 2 or 3. Authority 2 → a matching party leader needs mode 2 or 3; every other requester needs mode 2. Other authority values → false. No member-state gate occurs inside this predicate. The caller already resolved target membership in mode 3.
+- **Completion:** All game-logic paths are read. Use the shared case-insensitive resolver and exclusive state contract. Mode and option bytes pass through unchanged; their labels add no gate. ❓ Short unchecked decode can expose uninitialized native values; Rust stops there. Source: build 381.8867, `0x1401F31D0`, `0x14038FC00`, `0x140433BB0`.
 
 ## 230 — G_RejectSuggestTeamReqCmd — partial
 
@@ -247,7 +264,7 @@ Shared task attachment uses `0x14025DB30` (zone), task +128 (caster runtime ID),
 - **Checks/order:** Decode; config +725; request target ID differs from self; resolve by ID/name; require target. There is **no resolved-self check** after name resolution in this function.
 - **Output:** Disabled config sends **229**, `hEQqsc`, reason 822, mode, original target ID/name, first option. Self-ID or missing target sends 233, `hEQqscc`, reason 823, mode, target ID/name and both options. Success replaces target ID with resolved runtime ID, sends target 232, `hQscc` (mode, requester name, two options), then self 231, `hQqscc` (mode, resolved target ID, original target name, options). Return true.
 - **State/dependencies:** No task, party mutation, role/distance/cooldown/table check, daemon, DB or direct kick in wrapper.
-- **❓ Missing:** Mode/options, resolver eligibility and native values on unchecked malformed input.
+- **Completion:** All game-logic paths are read. The shared world/name contracts specify eligibility and CRT `wcsicmp`. Mode and option bytes pass through unchanged. ❓ Short unchecked decode can expose uninitialized fields; Rust returns unsupported there. Source: build 381.8867, `0x140390370`, `0x1403F7EF0`, `0x140433BB0`.
 
 ## 234 — G_InviteTeamReqCmd — partial
 
@@ -280,7 +297,7 @@ Shared task attachment uses `0x14025DB30` (zone), task +128 (caster runtime ID),
 - **Wire:** `hqQ`: inviter/invitation qword and rejection-kind byte. Both start at zero. ❓ Exact meanings remain open.
 - **Checks/order:** Decode; zone; allocate shared rejection task through `0x14036D780`; initialize through `0x1402B1D20(task,zone,PC,2,qword,0,kind)`; queue. Every wrapper failure sends 242, `hE`, reason 2, to self. Config +725 is not checked in this wrapper.
 - **State/dependencies:** Task/child state only. Return true. No immediate success, broadcast, table, daemon request, DB procedure or direct kick.
-- **❓ Missing:** Shared rejection task, pending-invite identity/kind checks, target notification and downstream effects.
+- **Completion:** All game-logic paths are read. Use the group-2 card removal and command-264 contract under 163. The qword is the inviter runtime ID. The kind byte passes through unchanged. No team-config, expiry, invitation-token or membership gate occurs in the shared task. Optional report outputs remain explicit Rust adapters, not successful backend work. Sources: build 381.8867, `0x140391F50`, `0x1402B1D20`, `0x1402B1E00`.
 
 ## 216 — G_PartyVoteCastReqCmd — partial
 
@@ -288,7 +305,9 @@ Shared task attachment uses `0x14025DB30` (zone), task +128 (caster runtime ID),
 - **Wire:** `hcQ`: vote target/member byte:c, vote byte:Q. Decode return is ignored. ❓ This name does not establish a general ready-check operation.
 - **Checks/order:** If rule config +513 byte is zero, log only. Otherwise require arena config (+237 and +248 nonzero); failure sends **173/813**, `hh`, to self. Decode; require zone; create task vtable `0x140B98718`; require PC kind 1; attach; store bytes +144/+145; queue. Zone/kind/queue failure sends 219/2, `hh`, to self.
 - **State/output:** Wrapper creates task/child state only. Return true. No immediate success, broadcast, table, daemon, DB or direct kick.
-- **❓ Missing:** Task vote state/role/target checks, vote tally/timing, notifications and downstream effects. Native malformed-input bytes remain unspecified.
+- **Task `0x1402B5540`:** Missing PC party ID sends self 219/812 `hh`. PC +21136 nonzero AND +21104 nonzero sends 219/814. Require PC qword +20816 plus signed config dword +516 <= global `Time`, else 219/818. Resolve locked team/member pair, else 219/812. Call `0x14021F1C0`; invalid party pointer/index gives 816. A nonzero result sends 219 `hh`. Zero sends 217 `hcQ` with the two task bytes. Unlock/release team. If the helper's output flag equals 1, call `0x1401D71D0(manager,PC,target slot,1)`. Then write current `Time` to PC +20816, even after a helper rejection. No timestamp write occurs on the earlier task gates. Source: build 381.8867, vtable `0x140B98718` +72.
+- **Vote helper `0x14021F1C0`:** Set party +1812 byte=1 before any gate. Party +1760 signed dword >0 gives 815. Target slot equal to caster member slot gives 816. Save caster's old voted-for/vote bytes +56/+57, then replace both with the request bytes **before** the remaining checks. Count state-3 members other than the target; count their target votes equal to 1. If a state-3 target exists and rule config +514 is zero, clear the output flag and return 819. Fewer than two other state-3 members gives 817. No matching target slot gives 816. These failures do not undo the caster's vote. On success, resolve the state-3 target and send 218 `hcQ` with the new bytes. Resolve the old state-3 target and send 222 `hcQ` with the saved bytes. Missing PCs skip only those sends. Set output flag=1 when the affirmative count is at least the other-member count. Return zero. No request vote-byte range check occurs.
+- **❓ Missing:** The exact global `Time` clock/width contract, symbolic config names and ban-manager removal effects remain open. Rust implements the first two task gates, then stops before the clock adapter. Native malformed-input bytes remain unspecified. Source: build 381.8867, `0x1402B5540`, `0x14021F1C0`, `0x1401D71D0`.
 
 ## 220 — G_PartyVoteCancelCastReqCmd — done
 
@@ -330,7 +349,8 @@ Shared task attachment uses `0x14025DB30` (zone), task +128 (caster runtime ID),
 - **Wire:** `hi`: match selector:i. Decode return is ignored. ❓ Exact selector meaning remains open.
 - **Checks/order:** Decode; require user present, PC +20752 clear and user +120 zero, else 426/1320. Call `0x14017E540(manager at daemon +86864,selector,PC)`. Map result 0 to success; 1→1318, 2→1317, 4→1319, every other nonzero→2.
 - **Output:** Success sends self 425, `h`. Failure sends self 426, `hh`, with mapped reason. Return true. No direct broadcast or kick.
-- **❓ Missing:** Manager authorization, selector/table/role/cooldown checks, registration state, notifications, daemon/DB effects and malformed native selector.
+- **Manager `0x14017E540`:** Require unsigned selector in 1..95, else result 2. Resolve selector through DataManager table slot 1983, virtual +168. Missing record gives result 2. Null PC gives result 1; authenticated-PC dispatch cannot reach this path. Record qword +24 is required faction: zero permits all factions; otherwise it must equal sign-extended PC byte +328, else result 4. Retain the PC. Under manager +48 lock, append a 16-byte entry containing selector dword +0 and PC pointer +8 to the deque at +88; increment queued count +120. Unlock and return 0. The selector is the table key, not a party ID. No role, party, cooldown, duplicate-registration, task-zone, daemon or DB gate occurs here.
+- **Completion:** All registration-entry paths are read. Reply 425 means the request entered the matchmaker queue. It does not mean matching completed. The matchmaker consumer is outside this receive operation. Rust uses an unknown-default table adapter and a retained-PC queue adapter. ❓ Short unchecked decode can expose an uninitialized selector; Rust stops there. Sources: build 381.8867, `0x1403A1AC0`, `0x14017E540`, grow helper `0x14017EFA0`.
 
 ## 429 — G_RejectPartyMatchReqCmd — partial
 
@@ -338,7 +358,7 @@ Shared task attachment uses `0x14025DB30` (zone), task +128 (caster runtime ID),
 - **Wire:** `hqi`: target runtime ID:q, match correlation:i. Decode return is ignored. ❓ Correlation meaning remains open.
 - **Checks/order:** Decode; resolve target via `0x1403F7D20(...,6)`. Missing target logs only. Found target receives 430, `hqi`: requester's authoritative runtime ID and original correlation. No self reply.
 - **State/dependencies:** No match deregistration, party mutation, task, role/distance/cooldown/table check, daemon, DB or direct kick in wrapper. Return true.
-- **❓ Missing:** Field meaning and native values on unchecked malformed input. No extra membership or invitation-token rule is established.
+- **Completion:** All game-logic paths are read. The i32 is an opaque correlation value; no instruction interprets it. Use the shared world-ID lookup contract. ❓ Short unchecked decode can expose uninitialized fields; Rust returns unsupported there. No membership or invitation-token gate occurs. Source: build 381.8867, `0x1403A1C20`.
 
 ## 174 — G_ClearLogoutPartyMemberReqCmd — partial
 
@@ -390,36 +410,48 @@ They use `ported` for the existing `done` sections, as in doc 19.
 
 | IDs | Spec | Rust | Open boundary |
 | --- | --- | --- | --- |
-| 155, 220, 224, 256 | done | ported | No unread game-logic path is listed. |
-| 147 | partial | partial | Suggestion task and notification policy. |
-| 151 | partial | partial | Name resolver comparator and unchecked decode values. |
-| 157 | partial | partial | Excluded restriction call; cleanup and invitation task. |
-| 161 | partial | partial | Invitation match, insertion, sync and backend work. |
-| 163, 241 | partial | partial | Shared rejection task, match, notification and timeout. |
+| 155, 182, 220, 224, 256 | done | ported | No unread game-logic path is listed. |
+| 147 | partial | partial | Task and routing are implemented. Short unchecked decode and non-ASCII CRT locale need explicit boundaries. |
+| 151 | partial | partial | Case-insensitive ASCII lookup is implemented. Short unchecked decode and non-ASCII CRT locale remain boundaries. |
+| 157 | partial | partial | Excluded restriction call; cleanup and invitation task. No bypass adapter exists. |
+| 161 | partial | partial | Invitation match, insertion, sync and backend work. This is not the shared rejection task. |
+| 163, 241 | partial | partial | Exact first-card removal and 186/264 sends are implemented. Optional rejection report sinks remain unsupported. No timeout gate was found. |
 | 168, 243 | partial | partial | Removal, leader replacement, notifications and backend work. |
 | 170 | partial | partial | Party-leader mutation and team-leader transfer. |
-| 172 | partial | partial | Ban task, target checks, removal and notifications. |
+| 172 | partial | partial | Task's 173/781 reply is implemented. Manager removal helpers, leader effects and notifications remain boundaries. |
 | 174, 262 | partial | partial | Shared expired-member removal manager. |
-| 176 | partial | partial | Field names, report sink and downstream effects. |
-| 179 | partial | partial | Difficulty resize, PC metadata, report and downstream effects. |
-| 182 | partial | partial | The section still lists resolver and recipient checks as missing. See the shared contracts above. |
+| 176 | partial | partial | All game logic is read and implemented. Optional config +537 LogArchive report sink remains unsupported. |
+| 179 | partial | partial | Capacity, blockers, metadata task dispatch/execution and team sync are implemented. Optional config +537 report sink remains unsupported. No resize occurs. |
 | 202, 205, 208, 211, 214 | partial | partial | Auction task checks, transitions, item, money and persistence. |
-| 216 | partial | partial | Vote target, stored state, timing and notifications. |
-| 226 | partial | partial | Permission predicate and resolver gaps. An absent state adapter is unknown, not reason 822. |
-| 230 | partial | partial | Mode/options, resolver gaps and unchecked decode values. |
+| 216 | partial | partial | Early 219/812 and 219/814 replies are implemented. Rust stops before the clock, stored-vote/tally helper and ban continuation. |
+| 226 | partial | partial | Permission predicate and recipient routing are implemented. Short unchecked decode and non-ASCII CRT locale remain boundaries. Missing state is unknown, not reason 822. |
+| 230 | partial | partial | Literal mode/options and resolver behavior are implemented. Short unchecked decode and non-ASCII CRT locale remain boundaries. |
 | 234 | partial | partial | Excluded restriction call; leader lookup and invitation task. |
 | 239 | partial | partial | Invitation, mode, merge, member changes and backend work. |
 | 245 | partial | partial | Team-ban manager checks, removal and notifications. |
 | 247 | partial | partial | Member move/swap, leader rules and sync. |
 | 250, 253 | partial | partial | Leader-manager checks, mutation and notifications. |
-| 259 | partial | partial | Team-party difficulty manager and sync. |
-| 424 | partial | partial | Match-registration manager. An unknown result sends no success reply. |
-| 429 | partial | partial | Correlation meaning and unchecked decode values. |
+| 259 | partial | partial | Selected-party gates, all-member metadata dispatch, 275 broadcast and selector-only 260 ack are implemented. Optional config +537 report sink remains unsupported. |
+| 424 | partial | partial | Selector/table/faction/queue logic is implemented. Table and retained-PC queue adapters default to unknown. Short unchecked decode remains unsupported. Reply 425 means queued only. |
+| 429 | partial | partial | Authoritative requester ID and opaque i32 echo are implemented. Short unchecked decode remains unsupported. |
 
 The Rust files are `src/handlers/party.rs`, `party_model.rs` and `party_tasks.rs`.
 The tests are in `tests/pp1_party.rs`.
-The tests check unknown adapters, command-170 helper order and command-424 user gates.
+The party suite has 60 tests. This continuation adds 17 tests.
+The tests cover the seven corrected assumptions, first-match rejection cards,
+optional report boundaries, metadata dispatch and guarded PC writes, command-259
+reply width/order, suggestion routing, CRT locale boundaries, match table/faction
+checks and the new command-172/216 early task replies.
 They do not verify the unread native paths.
+
+### party2 verification notes
+
+- The previous command-424 test expected selector 123 to reach an opaque manager. `0x14017E540` rejects that selector before the table read. The valid fixture now uses selector 23. Null-PC result 1 is unreachable through authenticated-PC dispatch. Table/faction and retained-PC queue tests replace arbitrary result injection.
+- The previous command-226 tests injected permission results. `0x1401F31D0` now runs directly on team state. Tests cover each mode/authority and both party/team leader identities. The handler retains the locked state through recipient selection. It does not perform a third adapter read.
+- The previous command-179 test expected an unread resize boundary. `0x14021EDE0` only dispatches kind-207 metadata tasks. Success tests leave config +537 off. Separate tests require unsupported status when a report sink is enabled.
+- The previous name test required case-sensitive equality. `0x140433BB0` uses CRT `wcsicmp`. ASCII folding is implemented. Non-ASCII comparisons require the locale adapter. An absent adapter does not mean the target is missing.
+- Missing metadata recipients must log and continue. Rust now retains failed lookup entries until the dispatch loop, as `0x14021EDE0` does.
+- No test treats an invitation/join queue as completed membership work. No excluded restriction query was read or implemented.
 
 
 

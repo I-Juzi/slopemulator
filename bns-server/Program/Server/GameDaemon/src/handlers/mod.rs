@@ -290,6 +290,10 @@ pub struct Pc {
     pub team_member: bool,
     pub team_id: u64,
     pub party_registration: Option<PartyRegistration>,
+    /// Doc 14: PC byte +21120.
+    pub party_difficulty: u8,
+    /// Doc 14: raw PC byte +21136; team_member is its nonzero projection.
+    pub party_team_mode: u8,
     pub world_id: u16,
     pub routing: u64,
     pub zone: Option<u64>,
@@ -369,6 +373,8 @@ impl Default for Pc {
             team_member: false,
             team_id: 0,
             party_registration: None,
+            party_difficulty: 0,
+            party_team_mode: 0,
             world_id: 0,
             routing: 0,
             zone: None,
@@ -590,6 +596,19 @@ pub trait Services {
     fn party_state(&mut self) -> Option<&mut PartyState> {
         None
     }
+    /// Resolve non-ASCII UTF-16 names with the server CRT locale and wcsicmp.
+    fn party_name_lookup(&mut self, _name: &[u16]) -> PartyNameLookup {
+        PartyNameLookup::Unknown
+    }
+    /// Table slot 1983, record qword +24. None means unknown table state.
+    fn party_match_faction(&mut self, _selector: u32) -> Option<Option<i64>> {
+        None
+    }
+    /// Retain the PC and append (selector, PC) under matchmaker +48 lock.
+    /// Pass means queued, not matched. Native has no recoverable failure code.
+    fn queue_party_match(&mut self, _selector: u32, _pc: &Pc) -> Gate {
+        Gate::Unknown
+    }
     /// None is an unread manager result, never an approval.
     fn party_operation(&mut self, _operation: PartyOperation) -> Option<i32> {
         None
@@ -801,6 +820,10 @@ pub trait Services {
 #[derive(Clone, Debug)]
 pub struct MemoryServices {
     pub party: Option<PartyState>,
+    pub party_name_results: BTreeMap<Vec<u16>, PartyNameLookup>,
+    pub party_match_factions: Option<BTreeMap<u32, i64>>,
+    pub party_match_queue_result: Gate,
+    pub party_match_queued: Vec<(u32, u64)>,
     pub party_result: Option<i32>,
     pub party_result_sequence: std::collections::VecDeque<Option<i32>>,
     pub party_leader: PartyLeaderLookup,
@@ -923,6 +946,10 @@ impl Default for MemoryServices {
     fn default() -> Self {
         Self {
             party: None,
+            party_name_results: BTreeMap::new(),
+            party_match_factions: None,
+            party_match_queue_result: Gate::Unknown,
+            party_match_queued: vec![],
             party_result: None,
             party_result_sequence: std::collections::VecDeque::new(),
             party_leader: PartyLeaderLookup::Unknown,
@@ -1108,6 +1135,19 @@ impl Services for MemoryServices {
     }
     fn party_state(&mut self) -> Option<&mut PartyState> {
         self.party.as_mut()
+    }
+    fn party_name_lookup(&mut self, name: &[u16]) -> PartyNameLookup {
+        self.party_name_results
+            .get(name)
+            .copied()
+            .unwrap_or_default()
+    }
+    fn party_match_faction(&mut self, selector: u32) -> Option<Option<i64>> {
+        Some(self.party_match_factions.as_ref()?.get(&selector).copied())
+    }
+    fn queue_party_match(&mut self, selector: u32, pc: &Pc) -> Gate {
+        self.party_match_queued.push((selector, pc.object_id));
+        self.party_match_queue_result
     }
     fn party_operation(&mut self, operation: PartyOperation) -> Option<i32> {
         self.party_calls.push(operation);
