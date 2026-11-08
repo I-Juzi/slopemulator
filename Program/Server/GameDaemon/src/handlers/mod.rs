@@ -23,6 +23,7 @@ mod items2;
 mod items3;
 mod items4;
 mod items5;
+mod market;
 mod mentoring;
 mod misc;
 mod post;
@@ -38,6 +39,7 @@ pub use items2::*;
 pub use items3::*;
 pub use items4::*;
 pub use items5::*;
+pub use market::*;
 pub use mentoring::*;
 pub use misc::*;
 pub use post::*;
@@ -634,6 +636,10 @@ pub trait Services {
     fn mentoring_registry(&mut self, _mentor: u64, _mentee: u64, _max: i8) -> MentoringRegistry {
         MentoringRegistry::Unknown
     }
+    /// Doc 24: market configuration, agent sends and account transactions.
+    fn market(&mut self, _check: &MarketCheck) -> Gate {
+        Gate::Unknown
+    }
     /// Doc 23: cached post requests and account transactions. Unknown is never approval.
     fn post(&mut self, _operation: &PostOperation) -> PostResult {
         PostResult::Unknown
@@ -774,6 +780,7 @@ pub struct MemoryServices {
     pub chat_result: Gate,
     pub chat_calls: Vec<ChatRequest>,
     pub mentoring_registry_result: MentoringRegistry,
+    pub market: MemoryMarket,
     pub post: MemoryPost,
     pub shop: MemoryShop,
     pub quest: MemoryQuest,
@@ -890,6 +897,7 @@ impl Default for MemoryServices {
             chat_result: Gate::Unknown,
             chat_calls: vec![],
             mentoring_registry_result: MentoringRegistry::Unknown,
+            market: MemoryMarket::default(),
             post: MemoryPost::default(),
             shop: MemoryShop::default(),
             quest: MemoryQuest::default(),
@@ -899,6 +907,9 @@ impl Default for MemoryServices {
     }
 }
 impl Services for MemoryServices {
+    fn market(&mut self, check: &MarketCheck) -> Gate {
+        self.market.check(check)
+    }
     fn post(&mut self, operation: &PostOperation) -> PostResult {
         self.post.check(operation)
     }
@@ -1133,6 +1144,7 @@ fn dispatch_inner(ctx: &mut Context<'_>, command: u16, req: &[u8]) -> Outcome {
         && !SOCIAL_COMMANDS.contains(&command)
         && !MENTORING_COMMANDS.contains(&command)
         && !MISC_COMMANDS.contains(&command)
+        && !MARKET_COMMANDS.contains(&command)
         && !POST_COMMANDS.contains(&command)
         && !SHOP_COMMANDS.contains(&command)
         && !QUEST_COMMANDS.contains(&command)
@@ -1201,6 +1213,9 @@ fn dispatch_inner(ctx: &mut Context<'_>, command: u16, req: &[u8]) -> Outcome {
     }
     if MISC_COMMANDS.contains(&command) {
         return misc::dispatch_misc(ctx, command, req);
+    }
+    if MARKET_COMMANDS.contains(&command) {
+        return market::dispatch_market(ctx, command, req);
     }
     if POST_COMMANDS.contains(&command) {
         return post::dispatch_post(ctx, command, req);
