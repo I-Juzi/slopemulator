@@ -15,7 +15,7 @@ use tokio::{net::TcpListener, sync::watch};
 fn usage() -> io::Error {
     io::Error::new(
         io::ErrorKind::InvalidInput,
-        "usage: lobbyd-sts --lobbyd-port <port> <sts-local options>",
+        "usage: lobbyd-sts --lobbyd-port <port> [--world <id>,<cluster>,<name>,<ip>,<port>]... <sts-local options>",
     )
 }
 
@@ -27,11 +27,34 @@ async fn main() -> io::Result<()> {
     }
     let port: u16 = args[1].parse().map_err(|_| usage())?;
     args.drain(..2);
+    // Optional fixture worlds: --world <id>,<cluster>,<name>,<public-ip>,<port>
+    let mut settings = Settings::default();
+    while args.first().is_some_and(|a| a == "--world") {
+        let spec = args.get(1).ok_or_else(usage)?.clone();
+        args.drain(..2);
+        let parts: Vec<&str> = spec.split(',').collect();
+        let [id, cluster, name, ip, port] = parts[..] else {
+            return Err(usage());
+        };
+        let ip: Ipv4Addr = ip.parse().map_err(|_| usage())?;
+        settings.worlds.push(lobbydaemon::protocol::WorldInfo {
+            id: id.parse().map_err(|_| usage())?,
+            cluster: cluster.parse().map_err(|_| usage())?,
+            name: name.into(),
+            public_ip: ip,
+            internal_ip: ip,
+            public_port: port.parse().map_err(|_| usage())?,
+            world_type: 0,
+            play_type: 0,
+        });
+        if settings.worlds.len() > 16 {
+            return Err(usage());
+        }
+    }
     let (config, store) =
         listener::load(args).map_err(|e| io::Error::new(io::ErrorKind::InvalidInput, e))?;
     let authority = Arc::new(
-        TokenAuthority::new(config.token_lifetime, config.token_capacity)
-            .map_err(|_| usage())?,
+        TokenAuthority::new(config.token_lifetime, config.token_capacity).map_err(|_| usage())?,
     );
     let np = AuthorityNp::new(authority.clone(), config.binding.clone(), StubNp::default())
         .map_err(|_| usage())?;
@@ -47,7 +70,7 @@ async fn main() -> io::Result<()> {
         "lobbyd-sts: sts on {sts_addr}, lobbyd on {}",
         lobby.local_addr()?
     );
-    let server = Arc::new(Server::new(MemoryStore::default(), np, Settings::default())?);
+    let server = Arc::new(Server::new(MemoryStore::default(), np, settings)?);
     let (stop, shutdown) = watch::channel(false);
     let mut task = tokio::spawn(server.serve(lobby, shutdown));
     tokio::select! {

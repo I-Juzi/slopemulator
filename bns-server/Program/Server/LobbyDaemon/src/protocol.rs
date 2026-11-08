@@ -92,12 +92,60 @@ pub fn kick(key: u64, reason: i8) -> io::Result<Vec<u8>> {
     packet("hqQ", &[Value::I16(22), Value::U64(key), Value::I8(reason)])
 }
 /// Local empty world/schedule snapshot. No live world or charge service is claimed.
-pub fn hello() -> io::Result<Vec<Vec<u8>>> {
+/// One world row of HelloOk (D2). Field order: LobbyGate spec 05 §2.2.
+/// Local fixture only: the original builds rows from the world registry.
+#[derive(Clone, Debug, PartialEq, Eq)]
+pub struct WorldInfo {
+    pub id: i16,
+    pub cluster: i16,
+    /// At most 16 UTF-16 units (LobbyGate decode limit).
+    pub name: String,
+    pub public_ip: std::net::Ipv4Addr,
+    pub internal_ip: std::net::Ipv4Addr,
+    pub public_port: u16,
+    /// ❓ worldType/playType values are not established; 0 is a local choice.
+    pub world_type: u8,
+    pub play_type: u8,
+}
+impl WorldInfo {
+    fn row(&self) -> io::Result<Vec<Value>> {
+        let name: Vec<u16> = self.name.encode_utf16().collect();
+        if name.is_empty() || name.len() > 16 {
+            return Err(invalid("world name must have 1..=16 UTF-16 units"));
+        }
+        let flag = |v: bool| Value::I8(v as i8);
+        Ok(vec![
+            Value::I16(self.id),
+            Value::I16(self.cluster),
+            Value::String(name),
+            Value::I8(self.world_type as i8),
+            Value::I8(self.play_type as i8),
+            // Raw in_addr bytes, as LobbyGate writes client IPs (server.rs).
+            Value::U32(u32::from_le_bytes(self.public_ip.octets())),
+            Value::U32(u32::from_le_bytes(self.internal_ip.octets())),
+            Value::U16(self.public_port),
+            Value::U16(0),
+            Value::I32(0),
+            flag(true),   // worldLive
+            flag(true),   // entrance
+            flag(true),   // characterCreation
+            flag(false),  // characterCreationLimitedOnNewAccount
+            flag(false),  // recommend
+            flag(false),  // brandnew
+            Value::I8(0), // crowdness
+        ])
+    }
+}
+pub fn hello(worlds: &[WorldInfo]) -> io::Result<Vec<Vec<u8>>> {
+    let rows = worlds
+        .iter()
+        .map(WorldInfo::row)
+        .collect::<io::Result<Vec<_>>>()?;
     compose_fragments(
         2,
         HELLO,
         &[
-            Value::Repeat(vec![]),
+            Value::Repeat(rows),
             Value::I8(0),
             Value::I8(0),
             Value::U64(0),

@@ -29,3 +29,18 @@ R13: D12/D15 support same-gate-link retained sessions. The local `retain` contro
 R14: D24 needs an explicit positive `world_token_lifetime`, generated internal eligibility, and an explicit NP world decision. Unknown metadata and NP answers reject. The GameDaemon trait has cancellation-safe restore/admit calls and an owned admission guard. The local world timeout is five seconds; it is not a recovered value. Restoration requires an explicit Store fixture and commits once before later NP checks. Any pending service blocks entry in this milestone. D25 uses an unverified local zero trailing short. D27 fields are opaque generated fixture data. Queueing emits D26/107 then D27. Queue promotion is an explicit local control. Queued and ready sessions expire at the configured token deadline and release admission. World-ready D19 is absorbed. Token consumption verifies identity before consumption, then checks world. A wrong world consumes the token, releases admission and restores Lobby under a local failure-hook policy. Success releases local admission and enters local World state. No real enter-world job or world listener is claimed.
 
 No DB driver, platform transport, licence or anti-cheat adapter is included.
+
+## Real-client lobby entry fixes (2026-11-08)
+
+A real 381 client (Client.exe 381.8884) logged in through STS and LobbyGate. It then stayed on "Connecting". The LobbyGate debug log showed this order: C106, C3 (login), C24 (world list), C56/C65/C59 relayed as D64/D73/D67, C103, then only C9 pings. The client never sent C27 (characters).
+
+| Gap | Fix | Source |
+| --- | --- | --- |
+| HelloOk (D2) had an empty world list. | `protocol::WorldInfo`, `Settings::worlds`, `lobbyd-sts --world <id>,<cluster>,<name>,<ip>,<port>`. Default stays empty. | Row layout: LobbyGate spec 05 §2.2. ❓ worldType/playType 0 and the flag values are local choices. The original builds rows from `config/LobbyDaemon/config/gamed-list.config.xml` and from live GameDaemons. |
+| D64/D67/D70/D73/D76 (goods) had no handler and no reply. | `Jobs::goods_unavailable`: Fail reply with reason 7 (account inventory not available), 4 (no session), 5 (not in lobby). Malformed requests are dropped. | Build 307: the jobs log "init fail; account-inventory N/A" and send reason 7. GetGoodsCount 0x1400C3550/0x14004FB70 → D66 `hqE`; ListGoods 0x1400C37E0/0x140053C40 → D69 `hqE`; TakeGoods 0x140079130 → D72 `hqE` (sender 0x1400BA2B0); ListLobbyServiceItemInfo 0x1400C3D40/0x1400548A0 → D75 `hqQE` (sender 0x1400BA610, `mov r9d, 7` at 0x140054AB7); GetLobbyServiceItemInfo 0x140050780 → D78 `hqqE` (sender 0x1400BA830). The 2020 config has `use-account-inventory = no`. |
+
+❓ Build 307 accepts client states 0x20000 and 0x10003 for these jobs. Only `State::Lobby` is mapped.
+
+Still without a handler (the client did not send them in this test): D28, D31, D57, D60, D79, D82–D100, D106. The 307 inventory jobs for D82–D100 also check account-inventory N/A; AddSlot uses reason 234, ChangeUserName 219, ExtendJumpingCharacterCreationQuota 7.
+
+LobbyGate: `LOBBYGATE_DEBUG=1` sets the log level to DEBUG and logs each client and lobbyd command number.

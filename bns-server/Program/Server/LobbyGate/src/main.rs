@@ -62,6 +62,12 @@ fn run() -> Result<(), Box<dyn std::error::Error + Send + Sync>> {
     tracing_subscriber::fmt()
         .with_ansi(false)
         .with_writer(Mutex::new(log))
+        // Local diagnostic switch: LOBBYGATE_DEBUG=1 logs each command number.
+        .with_max_level(if std::env::var_os("LOBBYGATE_DEBUG").is_some() {
+            tracing::Level::DEBUG
+        } else {
+            tracing::Level::INFO
+        })
         .try_init()?;
     tracing::info!(
         dump_type = config.gate.dump_type,
