@@ -233,12 +233,29 @@ In all three, a decode failure only logs and returns true (no reply, keep).
 - Verify (shared by COMDAT folding): tid != 0, playerId != 0, 0 < playerType < 3.
 - The default failReason is 1.
 
-## 6. Phase 1 gaps
+## 6. Ranking board (SkipListExManager)
+
+| Function | Address | Rule |
+| --- | --- | --- |
+| Init | 0x14002FDB0 | fail when maxLevel ≥ 16, prob > 100, maxNodeCount ≤ 0, maxIndex outside 1..=14; lists 0..=maxIndex |
+| searchKey | 0x14002F7E0 | rank = 1 + nodes with a strictly greater key; missing key → 0 |
+| Insert | 0x140030050 | index 1..=maxIndex; list 0 first, then list[index]; a failed second insert rolls back list 0 |
+| insertNode | 0x140030E70 | full list: key < tail → rank 0, OK, not stored; key == tail → duplicate error; key > tail → evict tail of that list only |
+| SkipListEx::InsertNode | 0x14002E7E0 | duplicate key → OVERLAPPED_KEY, rank 0 |
+| Remove | 0x1400302D0 | completeSearchNode (list[index], then list 0); out of both lists; missing key is OK |
+| Update | 0x140030410 | take the old node out (or make one), set the new key, insert into list 0 then list[index] |
+| Search | 0x140030790 | ranks in list 0 and list[index] |
+| LookUp | 0x140030A10 | index 0..=maxIndex, startRank > 0, count > 0; start past the end → OK, empty |
+
+- Key = (key1, key2, key3) u64, compared in that order. A larger key ranks higher.
+- The skip-list levels change speed only. The port keeps sorted vectors (`board.rs`).
+
+## 6b. Phase 1 gaps
 
 | Gap | Phase |
 | --- | --- |
 | RankingDB (insert, load, black list persist) | 2 |
-| Ranking boards: skip list insert/update/delete, update period | 2b |
+| Ranking boards: RankingBoardManager score insert/update/delete on top of `board.rs`, update period | 2b |
 | Result schedules from RankingDB (AddResultSchedule), current week index, season state timers | 2 |
 | InfoGate ranking list composition (RankingListMaker, FetchRankingList) | 2b |
 
@@ -249,5 +266,6 @@ In all three, a decode failure only logs and returns true (no reply, keep).
 | RankingConfig, list loaders, season data | `config.rs` |
 | Commands, reasons, decode helpers | `protocol.rs` |
 | Session managers, handlers, black list | `service.rs` (pure) |
+| SkipListExManager | `board.rs` (pure) |
 | Ports | `server.rs` (tokio) |
-| Tests | `tests/service.rs`, `tests/network.rs` |
+| Tests | `tests/service.rs`, `tests/network.rs`, `tests/board.rs` |
