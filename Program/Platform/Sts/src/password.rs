@@ -1,5 +1,5 @@
-//! Password-path orchestration. No cryptographic implementation is supplied.
-//! Records below are semantic inputs, not recovered XML schemas.
+//! Password-path orchestration for the 2020 SRP profile in section 07.
+//! The backend trait remains available for explicit trusted integrations.
 use crate::tokens::TokenAuthority;
 use rand::{CryptoRng, RngCore};
 use std::{collections::HashMap, sync::Arc, time::Instant};
@@ -45,7 +45,7 @@ pub struct Grant {
     pub game_alias: String,
 }
 
-/// An audited backend must define and validate the named verifier scheme.
+/// The selected backend must define and validate the named verifier scheme.
 /// No Debug: verifier records are sensitive account data.
 #[derive(Clone)]
 pub struct VerifierRecord {
@@ -89,8 +89,8 @@ impl Account {
 }
 
 /// Trusted extension point, not a peer-provided authentication result.
-/// Implement this only with an audited standard implementation. Validate the
-/// scheme, verifier, peer public value and proof. Never log inputs or outputs.
+/// Validate the scheme, verifier, public value and proof. Never log these data.
+/// The bundled SRP backend implements section 07. It is not independently audited.
 pub trait PasswordBackend: Send + Sync {
     fn start(
         &self,
@@ -103,10 +103,75 @@ pub struct Challenge {
     pub public: Vec<u8>,
     pub exchange: Box<dyn PasswordExchange>,
 }
+pub struct ExchangeResult {
+    pub proof: Vec<u8>,
+    pub key: Option<[u8; 64]>,
+}
 pub trait PasswordExchange: Send {
     fn verify(self: Box<Self>, public: &[u8], proof: &[u8]) -> Result<Vec<u8>, LoginError>;
+    /// Legacy injected backends can verify proofs but cannot open an encrypted wire session.
+    fn verify_with_key(
+        self: Box<Self>,
+        public: &[u8],
+        proof: &[u8],
+    ) -> Result<ExchangeResult, LoginError> {
+        self.verify(public, proof)
+            .map(|proof| ExchangeResult { proof, key: None })
+    }
 }
-/// Default backend: reject all authentication until the audit boundary is resolved.
+pub struct SrpPasswordBackend;
+impl PasswordBackend for SrpPasswordBackend {
+    fn start(
+        &self,
+        login: &str,
+        record: &VerifierRecord,
+        entropy: &[u8; 64],
+    ) -> Result<Challenge, LoginError> {
+        if record.scheme != crate::srp6::SCHEME {
+            return Err(LoginError::Unavailable);
+        }
+        let random: &[u8; 32] = entropy[..32]
+            .try_into()
+            .map_err(|_| LoginError::Unavailable)?;
+        let exchange =
+            crate::srp6::ServerExchange::start(login, &record.salt, &record.verifier, random)
+                .map_err(|_| LoginError::Authentication)?;
+        Ok(Challenge {
+            public: exchange.public().to_vec(),
+            exchange: Box::new(exchange),
+        })
+    }
+}
+impl PasswordExchange for crate::srp6::ServerExchange {
+    fn verify(self: Box<Self>, public: &[u8], proof: &[u8]) -> Result<Vec<u8>, LoginError> {
+        crate::srp6::ServerExchange::verify(*self, public, proof)
+            .map(|result| result.proof.to_vec())
+            .map_err(|_| LoginError::Authentication)
+    }
+    fn verify_with_key(
+        self: Box<Self>,
+        public: &[u8],
+        proof: &[u8],
+    ) -> Result<ExchangeResult, LoginError> {
+        crate::srp6::ServerExchange::verify(*self, public, proof)
+            .map(|result| ExchangeResult {
+                proof: result.proof.to_vec(),
+                key: Some(result.key),
+            })
+            .map_err(|_| LoginError::Authentication)
+    }
+}
+impl VerifierRecord {
+    pub fn enroll<R: RngCore + CryptoRng>(login: &str, password: &[u8], rng: &mut R) -> Self {
+        let record = crate::srp6::enroll(login, password, rng);
+        Self {
+            scheme: crate::srp6::SCHEME.into(),
+            salt: record.salt,
+            verifier: record.verifier,
+        }
+    }
+}
+/// Explicit fail-closed backend for callers that disable password login.
 pub struct UnavailablePasswordBackend;
 impl PasswordBackend for UnavailablePasswordBackend {
     fn start(&self, _: &str, _: &VerifierRecord, _: &[u8; 64]) -> Result<Challenge, LoginError> {
@@ -152,7 +217,7 @@ impl std::fmt::Display for LoginError {
 }
 impl std::error::Error for LoginError {}
 
-/// No password field. The audited backend must define and verify the proof.
+/// No password field. The selected backend defines and verifies the proof.
 pub enum Request {
     Connect(Binding),
     LoginStart { login_name: String },
@@ -215,6 +280,7 @@ pub struct Session {
     authority: Arc<TokenAuthority>,
     owner: [u8; 16],
     backend: Arc<dyn PasswordBackend>,
+    session_key: Option<[u8; 64]>,
 }
 impl Session {
     pub fn new<R: RngCore + CryptoRng>(
@@ -222,14 +288,9 @@ impl Session {
         authority: Arc<TokenAuthority>,
         rng: &mut R,
     ) -> Result<Self, LoginError> {
-        Self::with_backend(
-            binding,
-            authority,
-            rng,
-            Arc::new(UnavailablePasswordBackend),
-        )
+        Self::with_backend(binding, authority, rng, Arc::new(SrpPasswordBackend))
     }
-    /// Explicit trusted backend injection. No working password backend ships here.
+    /// Explicit trusted backend injection. Wire sessions require a session key.
     pub fn with_backend<R: RngCore + CryptoRng>(
         binding: Binding,
         authority: Arc<TokenAuthority>,
@@ -249,10 +310,29 @@ impl Session {
             authority,
             owner,
             backend,
+            session_key: None,
         })
     }
     pub fn state(&self) -> State {
         self.state
+    }
+    /// Move K to the transport exactly once after the KeyData reply.
+    pub fn take_session_key(&mut self) -> Option<[u8; 64]> {
+        self.session_key.take()
+    }
+    pub fn identity(&self) -> Option<&Identity> {
+        if self.state == State::Authenticated {
+            self.account.as_ref().map(|a| &a.identity)
+        } else {
+            None
+        }
+    }
+    pub fn binding(&self) -> &Binding {
+        &self.binding
+    }
+    /// Close on framing, XML, transport or authorization errors too.
+    pub fn abort(&mut self) {
+        self.close();
     }
     pub fn handle<R: RngCore + CryptoRng>(
         &mut self,
@@ -321,16 +401,19 @@ impl Session {
                     return Err(LoginError::Authentication);
                 }
                 let pending = self.pending.take().ok_or(LoginError::WrongOrder)?;
-                let proof = pending
+                let verified = pending
                     .exchange
-                    .verify(&public, &proof)
+                    .verify_with_key(&public, &proof)
                     .map_err(|_| LoginError::Authentication)?;
-                if proof.is_empty() || proof.len() > 1024 {
+                if verified.proof.is_empty() || verified.proof.len() > 1024 {
                     return Err(LoginError::Unavailable);
                 }
+                self.session_key = verified.key;
                 self.account = Some(pending.account);
                 self.state = State::AwaitFinish;
-                Ok(Reply::KeyData { proof })
+                Ok(Reply::KeyData {
+                    proof: verified.proof,
+                })
             }
             (State::AwaitFinish, Request::LoginFinish { language }) => {
                 if language > 10 {
@@ -370,6 +453,7 @@ impl Session {
     fn close(&mut self) {
         self.pending = None;
         self.account = None;
+        self.session_key = None;
         self.state = State::Closed;
         self.authority.revoke(self.owner);
     }

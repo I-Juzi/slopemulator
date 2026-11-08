@@ -1,10 +1,19 @@
-//! Bounded STS framing and a separate local password-login test profile.
-//! See `spec/sts/06-password-login.md`. No build-381 login compatibility claim.
+//! Bounded STS framing and the local 2020 client SRP login profile.
+//! See Docs/Platform/Sts/07-client-login-wire.md. Real-client validation is pending.
+pub mod key_data;
+#[cfg(any(feature = "listener", test))]
+pub mod listener;
 pub mod messages;
 #[cfg(feature = "np-adapter")]
 pub mod np_adapter;
 pub mod password;
+pub mod rc4;
+pub mod srp6;
+#[cfg(test)]
+#[path = "../tests/common/mod.rs"]
+mod test_client;
 pub mod tokens;
+pub mod wire;
 
 use std::{collections::HashSet, fmt};
 

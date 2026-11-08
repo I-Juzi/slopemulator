@@ -129,3 +129,54 @@ A local server cannot pass step 3 without the vendor's signing key, or without a
 Verifier enrollment: v = g^x mod N with the x formula above. The server stores only s and v.
 
 No key material from any vendor is needed. N and g are a public standard group. Every secret (s, v, b, K) belongs to the local server.
+
+## st3 — Local Rust implementation
+
+Source: `Program/Platform/Sts`, implemented from this document. Build target: source C64 above (2020-01-14). No binary was opened in st3.
+
+| Part | Local implementation | Scope |
+| --- | --- | --- |
+| SRP | `src/srp6.rs`; `password::SrpPasswordBackend` | SHA-256, public RFC 5054 group, word encoding, enrollment, both server steps. The server stores no password. |
+| KeyData | `src/key_data.rs` | Base64 and LE length fields. Reject truncated fields and trailing bytes. Check B range and exact 32-byte proofs. |
+| XML | `src/messages/client.rs` | All seven request bodies and the documented reply fields. GUID bytes use Windows memory order. Text uses registry order. |
+| Stream cipher | `src/rc4.rs`; `src/wire.rs` | Two continuous RC4 states. Each uses K directly. No initial bytes are discarded. Reply 3102 stays plaintext. |
+| Game token | `src/tokens.rs`; `src/wire.rs` | Check GameCode and AccountAlias before issue. Keep the existing single-use authority and binding checks. |
+| App token | `wire::AppTokenIssuer` | An explicit backend must check the AppId grant. Without that backend, RequestToken fails closed. Do not return a game GUID as AuthnToken. |
+| Listener | `src/listener.rs`; `src/bin/sts-local.rs` | Blocking std::net binary behind feature `listener`. Accept only an explicit loopback bind address. |
+
+### Local policies and open checks
+
+- ❓ Check SRP number encoding, hash-to-number word reversal and K against one real login. The independent test client checks the transcription, not vendor interoperability.
+- ❓ The interleave removes low-end zero bytes while more than four bytes remain. It removes one more low-end byte if the length is odd. The final rule follows RFC 2945. The client source description above does not confirm that odd-length rule alone.
+- ❓ `CipherScope::WholeMessage` and `CipherScope::BodyOnly` form one switch for both directions. Select it explicitly. Confirm the scope and the exact switch boundary with the client.
+- ❓ The local XML serializer uses `<Reply>` and success status `200 OK`. The source above does not establish the reply-root name or the success status.
+- ❓ Logout uses an empty `<Reply/>`. Its reply ID and original reply fields remain unknown.
+- ❓ UserCenter, roles, AuthType, Status and PcCafe values are local policy. The session returns configured UserCenter, no roles, AuthType 0 and Status 0. Confirm which values the client needs.
+- ❓ UTF-8 is the local XML encoding. Confirm non-ASCII AccountAlias and AppId text with the client.
+- Local XML policy rejects DTDs, unknown entities, attributes, duplicate scalar fields, unexpected elements, extra roots and nesting deeper than eight elements. Local limits are 64 KiB per XML body and 128 elements. These are not claims about the original parser.
+- Local KeyData limits allow a salt of up to 1024 bytes and a public number of up to 128 bytes. Number fields contain whole u32 words. The enrolled salt and verifier use canonical word form.
+- BigUint arithmetic is variable-time. This implementation has no independent audit. Use it for the local test service only.
+
+### Listener configuration
+
+The listener has no address or account defaults. Every flag below is required.
+
+| Flag | Value |
+| --- | --- |
+| `--bind` | An explicit loopback SocketAddr. No remote bind is accepted. |
+| `--program` | A positive local program ID. |
+| `--game-code` | The granted game code, 1..8 ASCII letters or digits. |
+| `--user-center` | The local UserCenter value. |
+| `--accounts` | A local verifier TSV file. See the columns below. |
+| `--token-seconds` | A positive game-token lifetime. |
+| `--token-capacity` | A positive token entry limit. |
+| `--session-seconds` | A positive absolute connection lifetime, including partial input. |
+| `--min-accept-ms` | A positive global interval between accepted login attempts. |
+| `--cipher-scope` | `whole` or `body`. ❓ Select after a client check. |
+| `--connect-mode` | `login-start` or `unverified-connect`. See below. |
+
+❓ The client Connect body remains unspecified. `login-start` expects another caller to handle Connect. `unverified-connect` accepts the command `Sts/Connect` without body checks. It returns an empty local reply. This is an explicit test mode, not a recovered Connect implementation. The service still uses its configured program/game binding. The game-token request must match the configured game code and the account grant.
+
+The TSV has nine columns: LoginName, UserName, portal GUID, account GUID, slot ID, AccountAlias, salt Base64, verifier Base64, scheme. Use `password::VerifierRecord::enroll` to make local records. The scheme is `sts-2020-sha256-word-srp6a`. Do not add a password column. Do not commit the file.
+
+The listener serves one connection at a time. It sets read and write timeouts from an absolute deadline. It rejects new connections inside the configured global accept interval. Session errors, disconnect and drop revoke unused game tokens. The stand-alone listener has no AppTokenIssuer and no game-server token-consume transport. An embedding caller can share TokenAuthority with the existing NP adapter. The default workspace checks compile the listener module in the library test target. The binary still requires feature `listener`.

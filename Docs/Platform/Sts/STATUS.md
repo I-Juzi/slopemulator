@@ -1,3 +1,24 @@
+# st3 — 2020 client-login implementation
+
+**Result:** The server path is implemented from `07-client-login-wire.md`. ❓ A real-client login has not run. Checks need the generated workspace lockfile update noted below.
+
+| Part | State | Evidence |
+| --- | --- | --- |
+| 1. SRP-6a variant | implemented; check pending | `src/srp6.rs`: public RFC 5054 group, word encoding, enrollment, server challenge, M1 check, M2 and 64-byte K. Independent client model exists only in test code. |
+| 2. KeyData codec | implemented; check pending | `src/key_data.rs`: Base64, LE lengths, bounds, full payload use, B range and exact proof lengths. |
+| 3. Client XML | implemented; check pending | `src/messages/client.rs`: seven commands, required and optional reply fields, registry GUID text. |
+| 4. RC4 session | implemented; check pending | RFC 6229 test vectors. Independent send/receive states switch after plaintext 3102. One switch selects cipher scope. |
+| 5. Backend and tokens | implemented; check pending | `Session::new` selects SRP. Keep the backend traits and existing token tests. Wire requests check GameCode and alias. App tokens require an explicit grant-checking issuer. |
+| 6. Blocking listener | implemented; check pending | Feature `listener`, std::net, explicit loopback configuration, verifier file, absolute deadline and global accept interval. A generated TCP login test covers the local Connect policy. |
+
+**Checks:** STS formatting passed. Workspace tests and Clippy have not run. The new dependencies require Cargo to update `bns-server/Cargo.lock`. This path is outside the stated write scope. Approval was requested. No network is needed; all selected crates are cached.
+
+**Open checks:** ❓ SRP word/hash encoding and interleave; RC4 scope and switch boundary; reply root and success status; client Connect fields; Logout reply; local identity/status values; non-ASCII alias/AppId encoding. One real-client login must confirm these points. See the implementation notes in section 07.
+
+**Boundaries:** No IDA, network access, vendor key material or git commands. No Server source or Server docs were edited. The old reports below record the earlier state. Section 07 replaces their missing-wire assumptions for this job.
+
+---
+
 # STS step 2 report
 
 **Result:** The password path is partial. Real password authentication remains blocked. The default backend rejects login.

@@ -1,5 +1,6 @@
-//! Names and records from the STS DLL/PDB. Records are not XML serializers.
-//! Client-auth API fields do not establish their wire fields or state order.
+//! STS names and records. Client XML follows section 07 for the 2020 DLL.
+//! Numeric reply IDs identify library parsers, not STS status codes.
+pub mod client;
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum AuthCommand {
