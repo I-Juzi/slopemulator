@@ -152,7 +152,7 @@ DbSrv --config Db.ini --db AcctDb [--db GameDb …] [--listen 127.0.0.1:10900] [
 | Values | int decimal; bit 1/0; decimal `.50`; money 4 decimals; datetime `.fff`; datetime2/time n digits; datetimeoffset `+hh:mm`; GUID and binary upper case | float text ❓ |
 | Info messages | not seen by tiberius | ❓ SUCCESS_WITH_INFO text |
 | Several `--db` | one process, several logical DBs | deviation |
-| Route registration | direct STS listener only; RouteSrv provider registration comes with the RouteSrv port | gap |
+| Route registration | direct STS listener only; RouteSrv provider registration comes with the RouteSrv port | not ported yet |
 | EncryptedPassword | not supported; use `Password=keyhere` | deviation |
 | Shutdown | queued calls get line 921, code 1 ❓ | |
 
@@ -161,12 +161,14 @@ empty-set aux dropped (3010), missing procedure → 977, error after a set → 1
 NULL body → module 1 line 71, 32 params → 977 without text, ExecBatched → `r1`, `r2`, `R3`
 with 58981-byte partials.
 
-### Gap check against the shipped config and the SQL dump (8 Nov 2026)
+### Check against the shipped config and the SQL dump (8 Nov 2026)
 
-| Gap | Check | Effect on build 381 |
+"Not ported yet" = the original has it and the port will get it. "None" = the shipped setup does not use it.
+
+| Item | Check | Effect on build 381 |
 | --- | --- | --- |
-| RouteSrv registration | DbSrv.c ~178913 looks up `RouteSrv` / `RouteSrv.<name>` and connects (`Can't find RouteSrv(%s) for %s(%u)`) | original services cannot reach the port until RouteSrv is ported |
-| `Storage` protocol | `Storage.ini` `[Storage] DbSrv = StorageDb` is present, so the DbSrv Storage path is on | port answers line 101; needs the StorageSrv analysis |
+| RouteSrv registration | DbSrv.c ~178913 looks up `RouteSrv` / `RouteSrv.<name>` and connects (`Can't find RouteSrv(%s) for %s(%u)`) | not ported yet: original services cannot reach the port until RouteSrv is ported |
+| `Storage` protocol | sub_1400C5B40: the path is on only if `[Storage] DbSrv` equals this process's own DB name (word_1402216B0, set from `--db`, used in `Db.%S`). `Storage.ini` names `StorageDb`. `StServer.ini` starts no DbSrv for `StorageDb`, `Db.ini` has no `[Sql.StorageDb]`, the dump has no StorageDb, and `MongoDbSrv` is commented out | none: the path is off in all 33 shipped DbSrv processes. Port it with StorageSrv (Redis + Mongo) only if a deployment needs it |
 | EncryptedPassword, Mirror, Driver | shipped `Db.ini`: 33 sections, keys Address, Database, Username, Password only | none |
 | float / real / money columns | `columns.txt` of PlatformAcctDb, GameDb, SlotDb, SessionDb: 0 | none for these DBs |
 | PRINT / RAISERROR (info messages) | `modules.sql` of the same DBs: 0 | none for these DBs |
