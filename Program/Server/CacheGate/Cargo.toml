@@ -1,0 +1,12 @@
+[package]
+name = "cachegate"
+version = "0.1.0"
+edition = "2021"
+publish = false
+
+[dependencies]
+quick-xml = "0.38"
+tokio = { version = "1", features = ["rt-multi-thread", "net", "io-util", "sync", "time", "macros"] }
+
+[dev-dependencies]
+tokio = { version = "1", features = ["test-util"] }
