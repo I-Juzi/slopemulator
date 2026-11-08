@@ -16,6 +16,7 @@ pub use guild::*;
 pub use party::*;
 pub use party_model::*;
 pub use party_tasks::execute_party_task;
+mod arena_event;
 mod arena_lobby;
 mod challenge;
 mod chat;
@@ -34,6 +35,7 @@ mod shop;
 mod skills;
 mod skills2;
 mod social;
+pub use arena_event::*;
 pub use arena_lobby::*;
 pub use challenge::*;
 pub use chat::*;
@@ -272,6 +274,8 @@ pub struct Pc {
     pub object_id: u64,
     /// PC word +20672. Model default 6 passes lookup mask 6 for existing fixtures.
     pub rights: u16,
+    /// Doc 26: PC byte +532. Arena-event GM commands need 1..=7.
+    pub gm_grade: u8,
     pub db_id: u64,
     pub name: Vec<u16>,
     /// PC +20752 and user +120, separate from user presence.
@@ -351,6 +355,7 @@ impl Default for Pc {
         Self {
             object_id: 0,
             rights: 6,
+            gm_grade: 0,
             db_id: 0,
             name: vec![],
             party_user_blocked: false,
@@ -501,6 +506,8 @@ pub struct World {
     pub mentoring: MentoringWorld,
     /// Doc 19 misc fields.
     pub misc: MiscWorld,
+    /// Doc 26 shared fields.
+    pub arena_event: ArenaEventWorld,
     /// Doc 18: global byte +1982.
     pub challenge_party_enabled: bool,
     /// Doc 18: shared PC name lookup, daemon +5824.
@@ -645,6 +652,10 @@ pub trait Services {
     /// Doc 25: server-owned arena state, packet builders and backend sends.
     fn arena_lobby(&mut self, _operation: &ArenaLobbyOperation) -> ArenaLobbyResult {
         ArenaLobbyResult::Unknown
+    }
+    /// Doc 26: arena portal records, geo zones and arena-event sends.
+    fn arena_event(&mut self, _operation: &ArenaEventOperation) -> Gate {
+        Gate::Unknown
     }
     /// Doc 24: market configuration, agent sends and account transactions.
     fn market(&mut self, _check: &MarketCheck) -> Gate {
@@ -791,6 +802,7 @@ pub struct MemoryServices {
     pub chat_calls: Vec<ChatRequest>,
     pub mentoring_registry_result: MentoringRegistry,
     pub arena_lobby: MemoryArenaLobby,
+    pub arena_event: MemoryArenaEvent,
     pub market: MemoryMarket,
     pub post: MemoryPost,
     pub shop: MemoryShop,
@@ -909,6 +921,7 @@ impl Default for MemoryServices {
             chat_calls: vec![],
             mentoring_registry_result: MentoringRegistry::Unknown,
             arena_lobby: MemoryArenaLobby::default(),
+            arena_event: MemoryArenaEvent::default(),
             market: MemoryMarket::default(),
             post: MemoryPost::default(),
             shop: MemoryShop::default(),
@@ -921,6 +934,9 @@ impl Default for MemoryServices {
 impl Services for MemoryServices {
     fn arena_lobby(&mut self, operation: &ArenaLobbyOperation) -> ArenaLobbyResult {
         self.arena_lobby.check(operation)
+    }
+    fn arena_event(&mut self, operation: &ArenaEventOperation) -> Gate {
+        self.arena_event.check(operation)
     }
     fn market(&mut self, check: &MarketCheck) -> Gate {
         self.market.check(check)
@@ -1160,6 +1176,7 @@ fn dispatch_inner(ctx: &mut Context<'_>, command: u16, req: &[u8]) -> Outcome {
         && !MENTORING_COMMANDS.contains(&command)
         && !MISC_COMMANDS.contains(&command)
         && !ARENA_LOBBY_COMMANDS.contains(&command)
+        && !ARENA_EVENT_COMMANDS.contains(&command)
         && !MARKET_COMMANDS.contains(&command)
         && !POST_COMMANDS.contains(&command)
         && !SHOP_COMMANDS.contains(&command)
@@ -1232,6 +1249,9 @@ fn dispatch_inner(ctx: &mut Context<'_>, command: u16, req: &[u8]) -> Outcome {
     }
     if ARENA_LOBBY_COMMANDS.contains(&command) {
         return arena_lobby::dispatch_arena_lobby(ctx, command, req);
+    }
+    if ARENA_EVENT_COMMANDS.contains(&command) {
+        return arena_event::dispatch_arena_event(ctx, command, req);
     }
     if MARKET_COMMANDS.contains(&command) {
         return market::dispatch_market(ctx, command, req);

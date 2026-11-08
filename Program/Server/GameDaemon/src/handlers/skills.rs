@@ -48,37 +48,58 @@ pub enum SkillTaskKind {
         modifiers: SkillModifiers,
     },
     /// 1229: option DWORD +144.
-    CancelAction { option: u8 },
+    CancelAction {
+        option: u8,
+    },
     /// 1231, kind 13. The task is a no-op in this build.
-    SkillTrigger { trigger: u8 },
+    SkillTrigger {
+        trigger: u8,
+    },
     /// 1270, action class 15.
-    Gather { target: u64 },
+    Gather {
+        target: u64,
+    },
     /// 77, kind 76.
     GatherCancel,
     /// 1272, action class 14.
-    Loot { target: u64 },
+    Loot {
+        target: u64,
+    },
     /// 71, action class 50 in the summon zone. Yaw is not copied.
-    RecallSummon { position: [u16; 3] },
+    RecallSummon {
+        position: [u16; 3],
+    },
     /// 134, kind 11.
-    SelectTarget { target: u64 },
+    SelectTarget {
+        target: u64,
+    },
     /// 135, kind 15.
     DieInExhaustion,
     /// 137, action class 16.
     RestorationInExhaustion,
     /// 139, action class 17.
-    HelpRestoration { target: u64 },
+    HelpRestoration {
+        target: u64,
+    },
     /// 142, init `0x140291520`.
-    Respawn { option: u8 },
+    Respawn {
+        option: u8,
+    },
     /// 824, kind 119.
     RechargeVitality,
     /// 113, kind 82.
     SkillList,
     /// 117, kind 269.
-    SetMasteryStatPoint { shorts: [i16; 2], bytes: [i8; 5] },
+    SetMasteryStatPoint {
+        shorts: [i16; 2],
+        bytes: [i8; 5],
+    },
     /// 1485, kind 153.
     SkillPageTotal,
     /// 1488, kind 150.
-    ChangeSkillPage { page: u8 },
+    ChangeSkillPage {
+        page: u8,
+    },
     /// 1491, kind 152.
     ExpandSkillPage {
         page: u8,
@@ -86,7 +107,10 @@ pub enum SkillTaskKind {
         pairs: Vec<(u16, u16)>,
     },
     /// 1494, kind 151.
-    RenameSkillPage { page: u8, name: Vec<u16> },
+    RenameSkillPage {
+        page: u8,
+        name: Vec<u16>,
+    },
     /// 1497, kind 128. `build_up[0]` is forced to 1.
     TrainTrait {
         selectors: [u8; 2],
@@ -94,7 +118,9 @@ pub enum SkillTaskKind {
         traits: Vec<(u32, i8)>,
     },
     /// 1389, action class 29.
-    UnlockMasteryLevel { pairs: Vec<(u16, u16)> },
+    UnlockMasteryLevel {
+        pairs: Vec<(u16, u16)>,
+    },
     /// Doc 13 part 2 (`skills2.rs`).
     Combat(CombatTask),
     /// Doc 16 chat/social zone tasks.
@@ -107,6 +133,7 @@ pub enum SkillTaskKind {
     Misc(MiscTask),
     /// Doc 25 arena lobby zone tasks.
     ArenaLobby(ArenaLobbyTask),
+    ArenaEvent(ArenaEventTask),
     /// Doc 24 market zone actions and tasks.
     Market(MarketTask),
     /// Doc 23 post task type. Reserved: native post entries use account transactions.
