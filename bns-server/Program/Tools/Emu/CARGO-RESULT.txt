@@ -1,0 +1,93 @@
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.04s
+     Running unittests src/lib.rs (bns-server/target/debug/deps/lobbygate_proto-a86ecda4a4686392)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/crypto.rs (bns-server/target/debug/deps/crypto-03ed423c78a6bf73)
+
+running 13 tests
+test dh_rejects_bad_layout_lengths_and_modulus ... ok
+test aes_known_answer_padding_slots_and_alias_codes ... ok
+test dh_rejects_modulus_not_larger_than_generator ... ok
+test dh_short_shared_secret_expands_cyclically ... ok
+test oaep_exact_label_mask_counter_and_reversal ... ok
+test dh_agreement_field_order_exponent_bits_and_reply ... ok
+test ripemd128_known_answers ... ok
+test rsa_blob_validation ... ok
+test dh_long_shared_secret_is_truncated ... ok
+test oaep_permissive_leading_byte_and_label_hash ... ok
+test oaep_rejects_missing_or_non_one_delimiter ... ok
+test oaep_round_trips_and_capacity ... ok
+test rsa_chunking_in_both_directions_and_fixed_width ... ok
+
+test result: ok. 13 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 1.71s
+
+     Running tests/emu_381.rs (bns-server/target/debug/deps/emu_381-6b4f0a20cba5c81a)
+
+running 19 tests
+test original_381_oaep_encode ... ok
+test original_381_oaep_decode ... ok
+test original_381_ripemd128_differences ... ok
+test original_381_session_automatic_key_change ... ignored, Rust SessionCrypt has no pending key change or send/receive state; only explicit slot selection matches
+test original_381_mgf_through_production_oaep ... ok
+test original_381_dh_exchange ... ok
+test original_381_dh_reject_modulus ... ok
+test original_381_session_size_limit ... ignored, Original rejects padded size >4000 with error 8; Rust SessionCrypt has no packet size limit
+test original_381_session_small_buffer ... ignored, Original returns error 9 for capacity 18 and 17 input bytes; Rust allocates 32 output bytes and has no capacity argument
+test original_381_session_wrong_active_slot ... ignored, Original rejects tag 9 while send=receive=0; Rust uses explicit slot 1 with no active-slot check
+test original_381_ripemd128_empty ... ok
+test original_381_session_encrypt_explicit_slots ... ok
+test original_381_session_errors ... ok
+test original_381_session_decrypt_explicit_slots ... ok
+test session_gap_outputs ... ok
+test original_381_rsa_bad_oaep ... ok
+test rust_only_rsa_zero_ciphertext ... ok
+test original_381_rsa_encrypt ... ok
+test original_381_rsa_decrypt ... ok
+
+test result: ok. 15 passed; 0 failed; 4 ignored; 0 measured; 0 filtered out; finished in 0.10s
+
+     Running tests/frames.rs (bns-server/target/debug/deps/frames-e1dde2dffe1dd03b)
+
+running 8 tests
+test trusted_errors ... ok
+test client_inner_size_and_encode_errors ... ok
+test trusted_round_trip_stream_boundaries_and_minimum ... ok
+test session_round_trip_padding_codes_and_stream_boundaries ... ok
+test all_header_lengths_and_limits ... ok
+test client_plain_mode_and_code_errors_in_receive_order ... ok
+test client_crypto_errors ... ok
+test handshake_frames_in_all_rsa_directions ... ok
+
+test result: ok. 8 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 1.39s
+
+     Running tests/phase2.rs (bns-server/target/debug/deps/phase2-869033b073a728db)
+
+running 16 tests
+test compose_limits_and_typed_errors ... ok
+test byte_exact_all_seventeen_codes ... ok
+test empty_fragment_round_trip ... ok
+test every_decompose_check ... ok
+test float_narrows_and_integer_aliases_keep_bits ... ok
+test count_moves_to_new_fragment_and_nested_counts_survive ... ok
+test fragment_reader_every_table_row_and_failure ... ok
+test field_aligned_fragments_counts_marks_and_round_trip ... ok
+test section6_character_list_example ... ok
+test dispatch_all_data_and_quirks ... ok
+test section6_nested_example ... ok
+test each_fragment_is_an_independent_client_frame ... ok
+test section6_sequential_groups_example ... ok
+test relay_byte_exact_both_directions_and_limits ... ok
+test tables_startup_once_and_replacement_data ... ok
+test repeat_depth_empty_skip_and_unsigned_read_signed_write ... ok
+
+test result: ok. 16 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.03s
+
+   Doc-tests lobbygate_proto
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+

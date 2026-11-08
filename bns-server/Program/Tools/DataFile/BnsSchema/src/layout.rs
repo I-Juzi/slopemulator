@@ -1,0 +1,217 @@
+//! Exact offsets from `spec/datafile/client-exe/exportdefs.py`.
+use crate::Width32or64;
+#[derive(Debug)]
+pub struct Table {
+    pub name: usize,
+    pub kind: usize,
+    pub major: usize,
+    pub minor: usize,
+    pub el: usize,
+    pub elcount: usize,
+    pub maxid: usize,
+    pub autokey: usize,
+    pub module: usize,
+}
+#[derive(Debug)]
+pub struct Element {
+    pub stride: usize,
+    pub name: usize,
+    pub kind: usize,
+    pub body: usize,
+    pub child: usize,
+}
+#[derive(Debug)]
+pub struct Body {
+    pub stride: usize,
+    pub attr: usize,
+    pub sub: usize,
+    pub defrec: usize,
+    pub attrcount: usize,
+    pub subcount: usize,
+    pub size: usize,
+    pub keyoffset: usize,
+}
+#[derive(Debug)]
+pub struct Sub {
+    pub stride: usize,
+    pub name: usize,
+    pub attr: usize,
+    pub defrec: usize,
+    pub attrcount: usize,
+    pub size: usize,
+}
+#[derive(Debug)]
+pub struct Attr {
+    pub stride: usize,
+    pub name: usize,
+    pub namehash: usize,
+    pub kind: usize,
+    pub key: usize,
+    pub repeat: usize,
+    pub required: usize,
+    pub defvalue: usize,
+    pub min: usize,
+    pub max: usize,
+    pub fmin: usize,
+    pub fmax: usize,
+    pub seq: usize,
+    pub seqcount: usize,
+    pub reftable: usize,
+    pub refel: usize,
+    pub deprecated: usize,
+    pub hidden: usize,
+    pub offset: usize,
+    pub size: usize,
+    pub propfield: usize,
+}
+#[derive(Debug)]
+pub struct NameHash {
+    pub hash: usize,
+    pub name: usize,
+}
+#[derive(Debug)]
+pub struct Layout {
+    pub name: &'static str,
+    pub p: usize,
+    pub td: Table,
+    pub el: Element,
+    pub body: Body,
+    pub sub: Sub,
+    pub attr: Attr,
+    pub nh: NameHash,
+}
+
+pub const X86: Layout = Layout {
+    name: "x86",
+    p: 4,
+    td: Table {
+        name: 0,
+        kind: 4,
+        major: 6,
+        minor: 8,
+        el: 12,
+        elcount: 16,
+        maxid: 20,
+        autokey: 28,
+        module: 32,
+    },
+    el: Element {
+        stride: 44,
+        name: 0,
+        kind: 4,
+        body: 8,
+        child: 12,
+    },
+    body: Body {
+        stride: 20,
+        attr: 0,
+        sub: 4,
+        defrec: 8,
+        attrcount: 12,
+        subcount: 14,
+        size: 16,
+        keyoffset: 18,
+    },
+    sub: Sub {
+        stride: 16,
+        name: 0,
+        attr: 4,
+        defrec: 8,
+        attrcount: 12,
+        size: 14,
+    },
+    attr: Attr {
+        stride: 64,
+        name: 0,
+        namehash: 4,
+        kind: 8,
+        key: 9,
+        repeat: 10,
+        required: 11,
+        defvalue: 12,
+        min: 16,
+        max: 24,
+        fmin: 32,
+        fmax: 36,
+        seq: 40,
+        seqcount: 44,
+        reftable: 46,
+        refel: 48,
+        deprecated: 49,
+        hidden: 50,
+        offset: 52,
+        size: 54,
+        propfield: 56,
+    },
+    nh: NameHash { hash: 0, name: 4 },
+};
+pub const X64P4: Layout = Layout {
+    name: "x64p4",
+    p: 8,
+    td: Table {
+        name: 0,
+        kind: 8,
+        major: 10,
+        minor: 12,
+        el: 16,
+        elcount: 24,
+        maxid: 28,
+        autokey: 36,
+        module: 40,
+    },
+    el: Element {
+        stride: 52,
+        name: 0,
+        kind: 8,
+        body: 12,
+        child: 20,
+    },
+    body: Body {
+        stride: 32,
+        attr: 0,
+        sub: 8,
+        defrec: 16,
+        attrcount: 24,
+        subcount: 26,
+        size: 28,
+        keyoffset: 30,
+    },
+    sub: Sub {
+        stride: 28,
+        name: 0,
+        attr: 8,
+        defrec: 16,
+        attrcount: 24,
+        size: 26,
+    },
+    attr: Attr {
+        stride: 84,
+        name: 0,
+        namehash: 8,
+        kind: 16,
+        key: 17,
+        repeat: 18,
+        required: 19,
+        defvalue: 20,
+        min: 28,
+        max: 36,
+        fmin: 44,
+        fmax: 48,
+        seq: 52,
+        seqcount: 60,
+        reftable: 62,
+        refel: 64,
+        deprecated: 65,
+        hidden: 66,
+        offset: 68,
+        size: 70,
+        propfield: 72,
+    },
+    nh: NameHash { hash: 0, name: 4 },
+};
+pub fn for_width(width: Width32or64) -> &'static Layout {
+    match width {
+        Width32or64::Width32 => &X86,
+        Width32or64::Width64 => &X64P4,
+    }
+}

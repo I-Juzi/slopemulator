@@ -1,0 +1,42 @@
+{
+  "build": "0.0.381.572",
+  "version": 58,
+  "any_max": 109,
+  "client_max": 110,
+  "ping": 9,
+  "any_authed": {"9":"PingReq", "106":"ContentsRuleListReq"},
+  "not_authed": {"1":"HelloReq", "3":"LoginWithNPTokenReq", "6":"LoginWithLobbyTokenReq"},
+  "authed": {
+    "24":"GetWorldInfoListReq", "103":"GetPcCafeMileageFeverTimeScheduleListReq",
+    "12":"relay", "13":"relay", "17":"relay", "20":"relay", "27":"relay", "30":"relay", "33":"relay", "36":"relay",
+    "39":"relay", "43":"relay", "46":"relay", "49":"relay", "52":"relay", "56":"relay", "59":"relay", "62":"relay",
+    "65":"relay", "68":"relay", "71":"relay", "74":"relay", "77":"relay", "80":"relay", "83":"relay", "86":"relay",
+    "89":"relay", "92":"relay", "95":"relay", "98":"relay"
+  },
+  "lobbyd": {
+    "2":{"handler":"HelloOk","fragment":true},
+    "3":{"handler":"HelloFail","fragment":false},
+    "4":{"handler":"UpdateWorldInfoListNotify","fragment":true},
+    "5":{"handler":"AnnounceNotify","fragment":false},
+    "7":{"handler":"InitSessionWithNPTokenOk","fragment":false},
+    "8":{"handler":"InitSessionWithNPTokenFail","fragment":false},
+    "10":{"handler":"StartSessionWithNPTokenOk","fragment":true},
+    "11":{"handler":"StartSessionWithNPTokenFail","fragment":false},
+    "13":{"handler":"InitSessionWithLobbyTokenOk","fragment":false},
+    "14":{"handler":"InitSessionWithLobbyTokenFail","fragment":false},
+    "16":{"handler":"StartSessionWithLobbyTokenOk","fragment":true},
+    "17":{"handler":"StartSessionWithLobbyTokenFail","fragment":false},
+    "20":{"handler":"CloseAnonymousSessionNotify","fragment":false},
+    "21":{"handler":"CloseSessionNotify","fragment":false},
+    "22":{"handler":"KickNotify","fragment":false},
+    "25":{"handler":"GetEnterWorldTokenOk","fragment":false},
+    "36":{"handler":"GetCharacterInfoListOk","fragment":true},
+    "68":{"handler":"ListGoodsOk","fragment":true},
+    "71":{"handler":"TakeGoodsOk","fragment":true},
+    "74":{"handler":"ListLobbyServiceItemInfoOk","fragment":true},
+    "80":{"handler":"GetServiceEntryListOk","fragment":true}
+  },
+  "bypass": [26,27,29,30,32,33,34,37,39,40,42,43,45,46,48,49,50,52,53,55,56,58,59,61,62,63,65,66,69,72,75,77,78,81,83,84,86,87,89,90,92,93,95,96,98,99,101,102,104,105,107,108,109,110],
+  "c2d": [[12,23],[13,24],[17,28],[20,31],[27,35],[30,38],[36,44],[39,47],[41,41],[43,51],[46,54],[49,57],[52,60],[56,64],[59,67],[62,70],[65,73],[68,76],[71,79],[74,82],[77,85],[80,88],[83,91],[86,94],[89,97],[92,100],[95,103],[98,106]],
+  "d2c": [[26,15],[27,16],[29,18],[30,19],[32,21],[33,22],[34,23],[37,29],[39,31],[40,32],[45,37],[46,38],[48,40],[49,41],[50,42],[52,44],[53,45],[55,47],[56,48],[58,50],[59,51],[61,53],[62,54],[63,55],[65,57],[66,58],[69,61],[72,64],[75,67],[77,69],[78,70],[81,73],[83,75],[84,76],[86,78],[87,79],[89,81],[90,82],[92,84],[93,85],[95,87],[96,88],[98,90],[99,91],[101,93],[102,94],[104,96],[105,97],[107,99],[108,100],[109,101],[110,102]]
+}

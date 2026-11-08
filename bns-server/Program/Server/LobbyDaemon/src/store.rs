@@ -1,0 +1,482 @@
+//! Local persistence boundary. No SQL connection or sample data is used.
+use std::{collections::HashMap, io};
+mod characters;
+
+pub use shared::np_channel::AccountId;
+pub const RESULT_BLOB_CAPACITY: usize = 512;
+
+#[derive(Clone, Debug, PartialEq, Eq)]
+pub struct Character {
+    pub pcid: u64,
+    pub slot: [u8; 16],
+    pub world: i16,
+    pub name: Vec<u16>,
+    pub showcase: Vec<u8>,
+    pub deletion_time: u64,
+    pub state: i8,
+    pub jumping_state: i8,
+    pub last_play_end: u32,
+}
+#[derive(Clone, Debug, PartialEq, Eq)]
+pub struct IncompleteService {
+    pub id: u64,
+    pub kind: i8,
+    pub item_instance: u64,
+    pub item_data: u32,
+    pub state: i8,
+}
+#[derive(Clone, Debug, PartialEq, Eq)]
+pub struct Account {
+    pub id: AccountId,
+    pub name: Vec<u16>,
+    pub right: i8,
+    pub representative_pcid: u64,
+    pub representative_world: i16,
+    pub bot_score: i32,
+}
+
+/// Typed local fixtures, not a claim that the original wrapper returns every field.
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub enum ServiceKind {
+    SlotAddition,
+    Cosmesis,
+    Rename,
+    Sex,
+    Race,
+}
+#[derive(Clone, Debug, PartialEq, Eq)]
+pub enum ServiceDetail {
+    SlotAddition {
+        slot: [u8; 16],
+    },
+    Cosmesis {
+        pcid: u64,
+        appearance: Vec<u8>,
+    },
+    Rename {
+        pcid: u64,
+        old_name: Vec<u16>,
+        new_name: Vec<u16>,
+    },
+    Sex {
+        pcid: u64,
+        sex: u16,
+        appearance: Vec<u8>,
+    },
+    Race {
+        pcid: u64,
+        race: u16,
+        sex: u16,
+        appearance: Vec<u8>,
+    },
+}
+impl ServiceDetail {
+    pub fn kind(&self) -> ServiceKind {
+        match self {
+            Self::SlotAddition { .. } => ServiceKind::SlotAddition,
+            Self::Cosmesis { .. } => ServiceKind::Cosmesis,
+            Self::Rename { .. } => ServiceKind::Rename,
+            Self::Sex { .. } => ServiceKind::Sex,
+            Self::Race { .. } => ServiceKind::Race,
+        }
+    }
+    fn validate(&self) -> io::Result<()> {
+        match self {
+            Self::Cosmesis { appearance, .. }
+            | Self::Sex { appearance, .. }
+            | Self::Race { appearance, .. } => check_blob(appearance),
+            Self::Rename {
+                old_name, new_name, ..
+            } if old_name.len() > 32 || new_name.len() > 32 => {
+                Err(invalid_data("service name exceeds capacity"))
+            }
+            _ => Ok(()),
+        }
+    }
+}
+#[derive(Clone, Debug, PartialEq, Eq)]
+pub struct AccountExp {
+    pub exp: i64,
+    pub quota_per_day: i32,
+    pub last_update: i64,
+}
+#[derive(Clone, Debug, PartialEq, Eq)]
+pub struct JumpingCreationQuota {
+    pub quota: i32,
+    pub count: i32,
+}
+/// Preserve SQL timestamp components. No epoch or time-zone conversion is assumed.
+#[derive(Clone, Debug, PartialEq, Eq)]
+pub struct SqlTimestamp {
+    pub year: i16,
+    pub month: u16,
+    pub day: u16,
+    pub hour: u16,
+    pub minute: u16,
+    pub second: u16,
+    pub fraction: u32,
+}
+#[derive(Clone, Debug, PartialEq, Eq)]
+pub struct TimeBasedPlayInfo {
+    pub schedule: i32,
+    pub target_type: u8,
+    pub expire: Option<SqlTimestamp>,
+    pub duration: i64,
+    pub last_update: Option<SqlTimestamp>,
+}
+fn unsupported() -> io::Error {
+    io::Error::new(io::ErrorKind::Unsupported, "Store operation unsupported")
+}
+fn absent() -> io::Error {
+    io::Error::new(io::ErrorKind::NotFound, "explicit Store fixture absent")
+}
+fn invalid_data(message: &'static str) -> io::Error {
+    io::Error::new(io::ErrorKind::InvalidData, message)
+}
+fn check_blob(bytes: &[u8]) -> io::Result<()> {
+    if bytes.len() > RESULT_BLOB_CAPACITY {
+        Err(invalid_data("result blob exceeds 512 bytes"))
+    } else {
+        Ok(())
+    }
+}
+
+/// Updates are best-effort in Jobs. Required load failures block fresh login.
+/// Optional methods reject by default. They do not enable optional login features.
+pub trait Store: Send + 'static {
+    fn check_character_name(&mut self, _name: &[u16]) -> io::Result<()> {
+        Err(unsupported())
+    }
+    fn try_character_creation(
+        &mut self,
+        _request: crate::character::CreateCharacter,
+    ) -> io::Result<u64> {
+        Err(unsupported())
+    }
+    fn finish_character_creation(
+        &mut self,
+        _pcid: u64,
+        _created: crate::character::CreatedCharacter,
+    ) -> io::Result<()> {
+        Err(unsupported())
+    }
+    fn cancel_character_creation(&mut self, _pcid: u64) -> io::Result<()> {
+        Err(unsupported())
+    }
+    fn try_character_deletion(&mut self, _pcid: u64) -> io::Result<()> {
+        Err(unsupported())
+    }
+    fn finish_character_deletion(
+        &mut self,
+        _pcid: u64,
+        _seconds: u32,
+    ) -> io::Result<Option<SqlTimestamp>> {
+        Err(unsupported())
+    }
+    fn cancel_character_deletion(&mut self, _pcid: u64) -> io::Result<()> {
+        Err(unsupported())
+    }
+    fn try_character_restoration(&mut self, _pcid: u64) -> io::Result<()> {
+        Err(unsupported())
+    }
+    fn load_service_detail(&mut self, _id: u64, _kind: ServiceKind) -> io::Result<ServiceDetail> {
+        Err(unsupported())
+    }
+    fn load_account_exp(&mut self, _id: AccountId) -> io::Result<Option<AccountExp>> {
+        Err(unsupported())
+    }
+    fn insert_account_exp(&mut self, _id: AccountId, _row: AccountExp) -> io::Result<()> {
+        Err(unsupported())
+    }
+    fn load_time_based_play_info(&mut self, _id: AccountId) -> io::Result<Vec<TimeBasedPlayInfo>> {
+        Err(unsupported())
+    }
+    fn load_jumping_creation_quota(
+        &mut self,
+        _id: AccountId,
+    ) -> io::Result<Option<JumpingCreationQuota>> {
+        Err(unsupported())
+    }
+    fn finish_character_restoration(&mut self, _pcid: u64) -> io::Result<()> {
+        Err(unsupported())
+    }
+    fn load_game_account(&mut self, id: AccountId) -> io::Result<Option<Account>>;
+    fn register_game_account(&mut self, account: Account, ipv4: u32) -> io::Result<()>;
+    fn update_last_login(&mut self, id: AccountId, ipv4: u32) -> io::Result<()>;
+    fn update_last_logout(&mut self, id: AccountId, bot_score: i32) -> io::Result<()>;
+    fn load_character_list(&mut self, id: AccountId) -> io::Result<Vec<Character>>;
+    fn load_incomplete_lobby_service(
+        &mut self,
+        id: AccountId,
+    ) -> io::Result<Vec<IncompleteService>>;
+}
+
+// Share short synchronous Store calls, never an NP wait.
+impl<S: Store> Store for std::sync::Arc<std::sync::Mutex<S>> {
+    fn check_character_name(&mut self, name: &[u16]) -> io::Result<()> {
+        self.lock().unwrap().check_character_name(name)
+    }
+    fn try_character_creation(
+        &mut self,
+        request: crate::character::CreateCharacter,
+    ) -> io::Result<u64> {
+        self.lock().unwrap().try_character_creation(request)
+    }
+    fn finish_character_creation(
+        &mut self,
+        pcid: u64,
+        created: crate::character::CreatedCharacter,
+    ) -> io::Result<()> {
+        self.lock()
+            .unwrap()
+            .finish_character_creation(pcid, created)
+    }
+    fn cancel_character_creation(&mut self, pcid: u64) -> io::Result<()> {
+        self.lock().unwrap().cancel_character_creation(pcid)
+    }
+    fn try_character_deletion(&mut self, pcid: u64) -> io::Result<()> {
+        self.lock().unwrap().try_character_deletion(pcid)
+    }
+    fn finish_character_deletion(
+        &mut self,
+        pcid: u64,
+        seconds: u32,
+    ) -> io::Result<Option<SqlTimestamp>> {
+        self.lock()
+            .unwrap()
+            .finish_character_deletion(pcid, seconds)
+    }
+    fn cancel_character_deletion(&mut self, pcid: u64) -> io::Result<()> {
+        self.lock().unwrap().cancel_character_deletion(pcid)
+    }
+    fn try_character_restoration(&mut self, pcid: u64) -> io::Result<()> {
+        self.lock().unwrap().try_character_restoration(pcid)
+    }
+    fn load_service_detail(&mut self, id: u64, kind: ServiceKind) -> io::Result<ServiceDetail> {
+        self.lock().unwrap().load_service_detail(id, kind)
+    }
+    fn load_account_exp(&mut self, id: AccountId) -> io::Result<Option<AccountExp>> {
+        self.lock().unwrap().load_account_exp(id)
+    }
+    fn insert_account_exp(&mut self, id: AccountId, row: AccountExp) -> io::Result<()> {
+        self.lock().unwrap().insert_account_exp(id, row)
+    }
+    fn load_time_based_play_info(&mut self, id: AccountId) -> io::Result<Vec<TimeBasedPlayInfo>> {
+        self.lock().unwrap().load_time_based_play_info(id)
+    }
+    fn load_jumping_creation_quota(
+        &mut self,
+        id: AccountId,
+    ) -> io::Result<Option<JumpingCreationQuota>> {
+        self.lock().unwrap().load_jumping_creation_quota(id)
+    }
+    fn finish_character_restoration(&mut self, pcid: u64) -> io::Result<()> {
+        self.lock().unwrap().finish_character_restoration(pcid)
+    }
+    fn load_game_account(&mut self, id: AccountId) -> io::Result<Option<Account>> {
+        self.lock().unwrap().load_game_account(id)
+    }
+    fn register_game_account(&mut self, account: Account, ipv4: u32) -> io::Result<()> {
+        self.lock().unwrap().register_game_account(account, ipv4)
+    }
+    fn update_last_login(&mut self, id: AccountId, ipv4: u32) -> io::Result<()> {
+        self.lock().unwrap().update_last_login(id, ipv4)
+    }
+    fn update_last_logout(&mut self, id: AccountId, bot_score: i32) -> io::Result<()> {
+        self.lock().unwrap().update_last_logout(id, bot_score)
+    }
+    fn load_character_list(&mut self, id: AccountId) -> io::Result<Vec<Character>> {
+        self.lock().unwrap().load_character_list(id)
+    }
+    fn load_incomplete_lobby_service(
+        &mut self,
+        id: AccountId,
+    ) -> io::Result<Vec<IncompleteService>> {
+        self.lock().unwrap().load_incomplete_lobby_service(id)
+    }
+}
+
+#[derive(Default)]
+pub struct MemoryStore {
+    pub accounts: HashMap<AccountId, Account>,
+    pub character_states: HashMap<u64, crate::character::InternalState>,
+    pub limited_names: std::collections::HashSet<Vec<u16>>,
+    /// One-shot operation failures for generated tests. Values are procedure returns.
+    pub character_failures: HashMap<&'static str, i32>,
+    pub restoration_allowed: std::collections::HashSet<u64>,
+    pub restored: Vec<u64>,
+    pub characters: HashMap<AccountId, Vec<Character>>,
+    pub services: HashMap<AccountId, Vec<IncompleteService>>,
+    pub service_details: HashMap<u64, ServiceDetail>,
+    /// Missing key is unsupported; None is an explicit successful no-row result.
+    pub account_exp: HashMap<AccountId, Option<AccountExp>>,
+    pub time_based_play_info: HashMap<AccountId, Vec<TimeBasedPlayInfo>>,
+    pub jumping_creation_quota: HashMap<AccountId, Option<JumpingCreationQuota>>,
+    pub login_updates: Vec<(AccountId, u32)>,
+    pub logout_updates: Vec<(AccountId, i32)>,
+}
+impl Store for MemoryStore {
+    fn check_character_name(&mut self, name: &[u16]) -> io::Result<()> {
+        self.check_name(name)
+    }
+    fn try_character_creation(
+        &mut self,
+        request: crate::character::CreateCharacter,
+    ) -> io::Result<u64> {
+        self.create(request)
+    }
+    fn finish_character_creation(
+        &mut self,
+        pcid: u64,
+        created: crate::character::CreatedCharacter,
+    ) -> io::Result<()> {
+        self.finish_create(pcid, created)
+    }
+    fn cancel_character_creation(&mut self, pcid: u64) -> io::Result<()> {
+        self.cancel_create(pcid)
+    }
+    fn try_character_deletion(&mut self, pcid: u64) -> io::Result<()> {
+        self.transition(
+            "try_delete",
+            pcid,
+            crate::character::InternalState::Normal,
+            crate::character::InternalState::Deleting,
+        )
+    }
+    fn finish_character_deletion(
+        &mut self,
+        pcid: u64,
+        seconds: u32,
+    ) -> io::Result<Option<SqlTimestamp>> {
+        self.finish_delete(pcid, seconds)?;
+        Ok(None)
+    }
+    fn cancel_character_deletion(&mut self, pcid: u64) -> io::Result<()> {
+        self.transition(
+            "cancel_delete",
+            pcid,
+            crate::character::InternalState::Deleting,
+            crate::character::InternalState::Normal,
+        )
+    }
+    fn try_character_restoration(&mut self, pcid: u64) -> io::Result<()> {
+        self.transition(
+            "try_restore",
+            pcid,
+            crate::character::InternalState::Waiting,
+            crate::character::InternalState::Restoring,
+        )?;
+        self.characters
+            .values_mut()
+            .flatten()
+            .filter(|c| c.pcid == pcid)
+            .for_each(|c| c.last_play_end = 0);
+        Ok(())
+    }
+    fn load_service_detail(&mut self, id: u64, kind: ServiceKind) -> io::Result<ServiceDetail> {
+        let row = self.service_details.get(&id).ok_or_else(absent)?;
+        if row.kind() != kind {
+            return Err(invalid_data("service detail kind mismatch"));
+        }
+        row.validate()?;
+        Ok(row.clone())
+    }
+    fn load_account_exp(&mut self, id: AccountId) -> io::Result<Option<AccountExp>> {
+        self.account_exp.get(&id).cloned().ok_or_else(absent)
+    }
+    fn insert_account_exp(&mut self, id: AccountId, row: AccountExp) -> io::Result<()> {
+        let fixture = self.account_exp.get_mut(&id).ok_or_else(absent)?;
+        if fixture.is_some() {
+            return Err(io::Error::new(
+                io::ErrorKind::AlreadyExists,
+                "EXP row exists",
+            ));
+        }
+        *fixture = Some(row);
+        Ok(())
+    }
+    fn load_time_based_play_info(&mut self, id: AccountId) -> io::Result<Vec<TimeBasedPlayInfo>> {
+        self.time_based_play_info
+            .get(&id)
+            .cloned()
+            .ok_or_else(absent)
+    }
+    fn load_jumping_creation_quota(
+        &mut self,
+        id: AccountId,
+    ) -> io::Result<Option<JumpingCreationQuota>> {
+        self.jumping_creation_quota
+            .get(&id)
+            .cloned()
+            .ok_or_else(absent)
+    }
+    fn finish_character_restoration(&mut self, pcid: u64) -> io::Result<()> {
+        if self.character_states.contains_key(&pcid) {
+            self.transition(
+                "finish_restore",
+                pcid,
+                crate::character::InternalState::Restoring,
+                crate::character::InternalState::Normal,
+            )?;
+            self.characters
+                .values_mut()
+                .flatten()
+                .filter(|c| c.pcid == pcid)
+                .for_each(|c| c.last_play_end = 0);
+            return Ok(());
+        }
+        if pcid == 0 || self.restored.contains(&pcid) || !self.restoration_allowed.remove(&pcid) {
+            return Err(absent());
+        }
+        for row in self
+            .characters
+            .values_mut()
+            .flatten()
+            .filter(|row| row.pcid == pcid)
+        {
+            row.state = 2;
+        }
+        self.restored.push(pcid);
+        Ok(())
+    }
+    fn load_game_account(&mut self, id: AccountId) -> io::Result<Option<Account>> {
+        Ok(self.accounts.get(&id).cloned())
+    }
+    fn register_game_account(&mut self, account: Account, ipv4: u32) -> io::Result<()> {
+        if self.accounts.contains_key(&account.id) {
+            return Err(io::Error::new(
+                io::ErrorKind::AlreadyExists,
+                "account exists",
+            ));
+        }
+        self.login_updates.push((account.id, ipv4));
+        self.accounts.insert(account.id, account);
+        Ok(())
+    }
+    fn update_last_login(&mut self, id: AccountId, ipv4: u32) -> io::Result<()> {
+        if !self.accounts.contains_key(&id) {
+            return Err(absent());
+        }
+        self.login_updates.push((id, ipv4));
+        Ok(())
+    }
+    fn update_last_logout(&mut self, id: AccountId, bot_score: i32) -> io::Result<()> {
+        let account = self.accounts.get_mut(&id).ok_or_else(absent)?;
+        account.bot_score = bot_score;
+        self.logout_updates.push((id, bot_score));
+        Ok(())
+    }
+    fn load_character_list(&mut self, id: AccountId) -> io::Result<Vec<Character>> {
+        let rows = self.characters.get(&id).cloned().unwrap_or_default();
+        for row in &rows {
+            check_blob(&row.showcase)?;
+        }
+        Ok(rows)
+    }
+    fn load_incomplete_lobby_service(
+        &mut self,
+        id: AccountId,
+    ) -> io::Result<Vec<IncompleteService>> {
+        Ok(self.services.get(&id).cloned().unwrap_or_default())
+    }
+}

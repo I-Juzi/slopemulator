@@ -1,0 +1,11 @@
+[package]
+name = "bnsmodel"
+version = "0.1.0"
+edition = "2021"
+publish = false
+
+[dependencies]
+bnsdata = { path = "../BnsData" }
+
+[dev-dependencies]
+serde_json = "1"

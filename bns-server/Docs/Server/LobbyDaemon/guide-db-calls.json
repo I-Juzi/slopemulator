@@ -1,0 +1,18 @@
+{
+  "build": "0.0.348",
+  "status": "\u2753 guide only; checked examples, not a complete list",
+  "calls": [
+    {
+      "function": "0x14009fe00",
+      "sql": "{?=CALL dbo.usp_LoadGameAccount(?)}"
+    },
+    {
+      "function": "0x1400a03e0",
+      "sql": "{?=CALL dbo.usp_LoadGameAccountTimeBasedPlayInfo(?)}"
+    },
+    {
+      "function": "0x1400a0a40",
+      "sql": "{?=CALL dbo.usp_UpdateGameAccountTimeBasedPlayInfo(?, ?, ?, ?, ?, ?)}"
+    }
+  ]
+}

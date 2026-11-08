@@ -1,0 +1,21 @@
+{
+  "build": "0.0.381",
+  "version": 1278,
+  "client": {
+    "11": {"handler":"GameHelloReq", "fragment":false, "format":"hhqsqb"},
+    "16": {"handler":"GamePingReq", "fragment":false, "format":"h"},
+    "18": {"handler":"GamePingEcho", "fragment":false, "format":"hqq"},
+    "23": {"handler":"LobbyTokenAuthReq", "fragment":false, "format":"hhqq"},
+    "31": {"handler":"EnterWorldReq", "fragment":false, "format":"hic"},
+    "42": {"handler":"EnterZoneReq", "fragment":false, "format":"hiuuuh"},
+    "929": {"handler":"UnknownAfterHello", "fragment":false, "format":null}
+  },
+  "server": {
+    "12": {"handler":"GameHelloOk", "fragment":false, "format":"hb"},
+    "17": {"handler":"GamePing", "fragment":false, "format":"hqq"},
+    "24": {"handler":"LobbyTokenAuthOk", "fragment":false, "format":null},
+    "32": {"handler":"EnterWorldOk", "fragment":true, "format":null},
+    "41": {"handler":"PrepareEnterZone", "fragment":false, "format":"hqhiiccKuuuhhh"},
+    "43": {"handler":"EnterZoneOk", "fragment":false, "format":"hq"}
+  }
+}

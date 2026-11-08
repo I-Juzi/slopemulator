@@ -1,0 +1,20 @@
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.03s
+     Running tests/emu_381.rs (bns-server/target/debug/deps/emu_381-6b4f0a20cba5c81a)
+
+running 1 test
+
+thread 'original_381_rsa_encrypt' (4031152) panicked at Program/Server/BloodLib/tests/emu_381.rs:167:5:
+assertion `left == right` failed
+  left: 0
+ right: 2
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+test original_381_rsa_encrypt ... FAILED
+
+failures:
+
+failures:
+    original_381_rsa_encrypt
+
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 6 filtered out; finished in 0.00s
+
+error: test failed, to rerun pass `--test emu_381`

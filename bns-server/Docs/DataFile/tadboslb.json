@@ -1,0 +1,51 @@
+{
+  "format": "TADBOSLB",
+  "version": 5,
+  "version_width": 1,
+  "byte_order": "little",
+  "scope": "GameDaemon build 348 server reader; client body not validated",
+  "layout64": {
+    "verified": true,
+    "header_size": 119,
+    "fields": [
+      {"name": "magic", "offset": 0, "width": 8},
+      {"name": "version", "offset": 8, "width": 1},
+      {"name": "game_version", "offset": 9, "width": 8},
+      {"name": "total_table_size", "offset": 17, "width": 8},
+      {"name": "total_table_count", "offset": 25, "width": 8},
+      {"name": "alias_size", "offset": 33, "width": 8},
+      {"name": "alias_count", "offset": 41, "width": 8},
+      {"name": "max_buffer_size", "offset": 49, "width": 8},
+      {"name": "save_time", "offset": 57, "width": 4},
+      {"name": "compressed", "offset": 61, "width": 1},
+      {"name": "encrypted", "offset": 62, "width": 1},
+      {"name": "reserved", "offset": 63, "width": 56}
+    ]
+  },
+  "layout32": {
+    "verified": false,
+    "header_size": 99,
+    "game_version": {"offset": 9, "width": 8},
+    "size_count_fields": {"first_offset": 17, "width": 4, "count": 5},
+    "save_time": {"offset": 37, "width": 4},
+    "compressed_offset": 41,
+    "encrypted_offset": 42,
+    "reserved": {"offset": 43, "width": 56}
+  },
+  "body": ["alias block of alias_size bytes", "sequential table records"],
+  "table_header": [
+    {"name": "kind", "offset": 0, "width": 1},
+    {"name": "data_type", "offset": 1, "width": 2},
+    {"name": "major", "offset": 3, "width": 2},
+    {"name": "minor", "offset": 5, "width": 2},
+    {"name": "body_size", "offset": 7, "width": 4}
+  ],
+  "table_kinds": {"1": "auto-key", "2": "multi-key"},
+  "named_archive_index": false,
+  "inner_lmxboslb_in_inspected_path": false,
+  "compression": {"verified": false},
+  "encryption": {"verified": false, "key_source": null, "required_runtime_source": "BNSDATA_KEY_FILE"},
+  "writer": {"implemented_in_build": false, "vtable_slot": "0x140723db0", "target": "0x140455420", "return": false},
+  "sources": ["0x1406fa370", "0x1406fa7b0", "0x1406fc640", "0x1406fe7f0", "0x1406f5fa0", "0x1406f3900"],
+  "open": ["32-bit confirmation", "real client header and index checks", "client body variant", "working packer", "container key provenance", "checksum coverage", "alias representation selection", "client acceptance boundary"]
+}

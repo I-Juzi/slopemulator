@@ -1,0 +1,24 @@
+[workspace]
+members = [
+    "Program/Server/BloodLib",
+    "Program/Server/Packet",
+    "Program/Server/GameDaemon",
+    "Program/Server/Shared",
+    "Program/Server/LobbyGate",
+    "Program/Server/LobbyDaemon",
+    "Program/Server/Data/Lmxb",
+    "Program/Server/Data/GameData",
+    "Program/Platform/Sts",
+    "Program/Tools/DataFile/BnsData",
+    "Program/Tools/DataFile/BnsModel",
+    "Program/Tools/DataFile/BnsSchema",
+    "Program/Tools/ClientKey",
+]
+exclude = ["Program/Tools/BnsEdit"]
+resolver = "2"
+
+# RSA-2048 key generation (STS token login, spec 09) is very slow unoptimised.
+[profile.dev.package.num-bigint-dig]
+opt-level = 3
+[profile.dev.package.rsa]
+opt-level = 3

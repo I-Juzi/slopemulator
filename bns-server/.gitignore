@@ -1,0 +1,14 @@
+# Build output
+/Program/output/
+target/
+# Local tools
+/.venv/
+__pycache__/
+# Never commit: keys, secrets, IDA databases, game data
+*.key
+*.pem
+*.url
+*.i64
+*.idb
+*.dat
+*.bin

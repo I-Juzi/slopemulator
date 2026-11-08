@@ -1,0 +1,2936 @@
+{
+  "build": "348.8349",
+  "dispatcher": "0x14007DA70",
+  "limit": 1544,
+  "stride": 8,
+  "tables": [
+    {
+      "base": "0x140e833c0",
+      "name": "?AnyAuthedGamePacketHandlerList@@3PAP6A_NPEBVSession@@PEBVPacket@@@ZA",
+      "entries": [
+        {
+          "id348": 14,
+          "slot": "0x140e83430",
+          "target": "0x14036df20",
+          "name": "?HandleGame_PingReq@@YA_NPEBVSession@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 895,
+          "slot": "0x140e84fb8",
+          "target": "0x14036df60",
+          "name": "?HandleGame_ContentsRuleListReq@@YA_NPEBVSession@@PEBVPacket@@@Z"
+        }
+      ]
+    },
+    {
+      "base": "0x140e86400",
+      "name": "?NotAuthedGamePacketHandlerList@@3PAP6A_NPEBVSession@@PEBVPacket@@@ZA",
+      "entries": [
+        {
+          "id348": 9,
+          "slot": "0x140e86448",
+          "target": "0x14036e100",
+          "name": "?HandleGame_HelloReq@@YA_NPEBVSession@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 11,
+          "slot": "0x140e86458",
+          "target": "0x14036e510",
+          "name": "?HandleGame_MobileHelloReq@@YA_NPEBVSession@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 17,
+          "slot": "0x140e86488",
+          "target": "0x14068f080",
+          "name": "?CheckToChangeStance@ThundererRule@@UEAA_ND@Z"
+        },
+        {
+          "id348": 20,
+          "slot": "0x140e864a0",
+          "target": "0x14068f080",
+          "name": "?CheckToChangeStance@ThundererRule@@UEAA_ND@Z"
+        },
+        {
+          "id348": 21,
+          "slot": "0x140e864a8",
+          "target": "0x14036ede0",
+          "name": "?HandleGame_LobbyTokenAuthReq@@YA_NPEBVSession@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 679,
+          "slot": "0x140e87938",
+          "target": "0x1403b67a0",
+          "name": "?HandleGame_EnterArenaReq@@YA_NPEBVSession@@PEBVPacket@@@Z"
+        }
+      ]
+    },
+    {
+      "base": "0x140e89440",
+      "name": "?AuthedGamePacketHandlerList@@3PAP6A_NPEAVPc@@PEBVPacket@@@ZA",
+      "entries": [
+        {
+          "id348": 16,
+          "slot": "0x140e894c0",
+          "target": "0x14036ebc0",
+          "name": "?HandleGame_ServerPingReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 24,
+          "slot": "0x140e89500",
+          "target": "0x14036f0f0",
+          "name": "?HandleGame_ReturnToLobbyReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 27,
+          "slot": "0x140e89518",
+          "target": "0x14036f360",
+          "name": "?HandleGame_CleanUserConnectionInfoInCligateReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 29,
+          "slot": "0x140e89528",
+          "target": "0x14036f470",
+          "name": "?HandleGame_EnterWorldReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 32,
+          "slot": "0x140e89540",
+          "target": "0x14068f080",
+          "name": "?CheckToChangeStance@ThundererRule@@UEAA_ND@Z"
+        },
+        {
+          "id348": 36,
+          "slot": "0x140e89560",
+          "target": "0x14068f080",
+          "name": "?CheckToChangeStance@ThundererRule@@UEAA_ND@Z"
+        },
+        {
+          "id348": 40,
+          "slot": "0x140e89580",
+          "target": "0x14036faa0",
+          "name": "?HandleGame_EnterZoneReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 48,
+          "slot": "0x140e895c0",
+          "target": "0x14036feb0",
+          "name": "?HandleGame_GodSay@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 49,
+          "slot": "0x140e895c8",
+          "target": "0x140389ab0",
+          "name": "?HandleGame_MessageReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 53,
+          "slot": "0x140e895e8",
+          "target": "0x140389dc0",
+          "name": "?HandleGame_MessageByItemReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 56,
+          "slot": "0x140e89600",
+          "target": "0x14038a100",
+          "name": "?HandleGame_MessageByDiceReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 59,
+          "slot": "0x140e89618",
+          "target": "0x140370b30",
+          "name": "?HandleGame_TalkSessionCloseReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 62,
+          "slot": "0x140e89630",
+          "target": "0x1403887c0",
+          "name": "?HandleGame_MoveReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 64,
+          "slot": "0x140e89640",
+          "target": "0x14038af50",
+          "name": "?HandleGame_TurnReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 66,
+          "slot": "0x140e89650",
+          "target": "0x14038b240",
+          "name": "?HandleGame_SetPcSocialReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 69,
+          "slot": "0x140e89668",
+          "target": "0x140389580",
+          "name": "?HandleGame_RecallSummonReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 72,
+          "slot": "0x140e89680",
+          "target": "0x140389850",
+          "name": "?HandleGame_SpecialSkillGaugeFullReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 75,
+          "slot": "0x140e89698",
+          "target": "0x140373290",
+          "name": "?HandleGame_GatherCancelReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 78,
+          "slot": "0x140e896b0",
+          "target": "0x140374ba0",
+          "name": "?HandleGame_RebuyItemListReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 81,
+          "slot": "0x140e896c8",
+          "target": "0x140374d50",
+          "name": "?HandleGame_ExchangeFactionScoreReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 84,
+          "slot": "0x140e896e0",
+          "target": "0x140380d00",
+          "name": "?HandleGame_QuestListReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 87,
+          "slot": "0x140e896f8",
+          "target": "0x140380ea0",
+          "name": "?HandleGame_QuestCompleteListReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 91,
+          "slot": "0x140e89718",
+          "target": "0x140381040",
+          "name": "?HandleGame_DiscoveryAreaListReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 94,
+          "slot": "0x140e89730",
+          "target": "0x1403811e0",
+          "name": "?HandleGame_AddDiscoveryAreaReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 97,
+          "slot": "0x140e89748",
+          "target": "0x1403813a0",
+          "name": "?HandleGame_ActivatedTeleportListReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 100,
+          "slot": "0x140e89760",
+          "target": "0x140381540",
+          "name": "?HandleGame_DetectTeleportSwitchReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 103,
+          "slot": "0x140e89778",
+          "target": "0x140384b10",
+          "name": "?HandleGame_InitializeSeasonContentsInfoReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 106,
+          "slot": "0x140e89790",
+          "target": "0x140384dc0",
+          "name": "?HandleGame_SeasonContentsInfoReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 111,
+          "slot": "0x140e897b8",
+          "target": "0x140384fb0",
+          "name": "?HandleGame_SkillList2Req@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 115,
+          "slot": "0x140e897d8",
+          "target": "0x140386850",
+          "name": "?HandleGame_SetMasteryStatPointReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 119,
+          "slot": "0x140e897f8",
+          "target": "0x14068f080",
+          "name": "?CheckToChangeStance@ThundererRule@@UEAA_ND@Z"
+        },
+        {
+          "id348": 121,
+          "slot": "0x140e89808",
+          "target": "0x14068f080",
+          "name": "?CheckToChangeStance@ThundererRule@@UEAA_ND@Z"
+        },
+        {
+          "id348": 123,
+          "slot": "0x140e89818",
+          "target": "0x140386ac0",
+          "name": "?HandleGame_JoinFactionReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 125,
+          "slot": "0x140e89828",
+          "target": "0x140386da0",
+          "name": "?HandleGame_LeaveFactionReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 127,
+          "slot": "0x140e89838",
+          "target": "0x140387050",
+          "name": "?HandleGame_TransferFactionReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 129,
+          "slot": "0x140e89848",
+          "target": "0x140387350",
+          "name": "?HandleGame_RetrieveFactionStatisticsReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 132,
+          "slot": "0x140e89860",
+          "target": "0x14038a270",
+          "name": "?HandleGame_SelectTargetReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 133,
+          "slot": "0x140e89868",
+          "target": "0x14038a620",
+          "name": "?HandleGame_DieInExhaustionReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 135,
+          "slot": "0x140e89878",
+          "target": "0x14038a870",
+          "name": "?HandleGame_RestorationInExhaustionReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 137,
+          "slot": "0x140e89888",
+          "target": "0x14038aa50",
+          "name": "?HandleGame_HelpRestorationReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 140,
+          "slot": "0x140e898a0",
+          "target": "0x14038a410",
+          "name": "?HandleGame_RespawnReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 143,
+          "slot": "0x140e898b8",
+          "target": "0x14038ad80",
+          "name": "?HandleGame_ReturnToBaseCampReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 145,
+          "slot": "0x140e898c8",
+          "target": "0x14038b4c0",
+          "name": "?HandleGame_SuggestPartyReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 149,
+          "slot": "0x140e898e8",
+          "target": "0x14038bcd0",
+          "name": "?HandleGame_RejectSuggestPartyReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 153,
+          "slot": "0x140e89908",
+          "target": "0x14038c070",
+          "name": "?HandleGame_CreatePartyReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 155,
+          "slot": "0x140e89918",
+          "target": "0x14038c0e0",
+          "name": "?HandleGame_InvitePartyReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 159,
+          "slot": "0x140e89938",
+          "target": "0x14038cc10",
+          "name": "?HandleGame_JoinPartyReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 161,
+          "slot": "0x140e89948",
+          "target": "0x14038dad0",
+          "name": "?HandleGame_RejectPartyReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 163,
+          "slot": "0x140e89958",
+          "target": "0x14038dd60",
+          "name": "?HandleGame_StopCinematicReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 166,
+          "slot": "0x140e89970",
+          "target": "0x14038d060",
+          "name": "?HandleGame_LeavePartyReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 168,
+          "slot": "0x140e89980",
+          "target": "0x14038d230",
+          "name": "?HandleGame_DelegatePartyLeaderReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 170,
+          "slot": "0x140e89990",
+          "target": "0x14038d440",
+          "name": "?HandleGame_BanishPartyReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 172,
+          "slot": "0x140e899a0",
+          "target": "0x14038d6a0",
+          "name": "?HandleGame_ClearLogoutPartyMemberReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 174,
+          "slot": "0x140e899b0",
+          "target": "0x14038d850",
+          "name": "?HandleGame_ChangePartyPickupRuleReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 177,
+          "slot": "0x140e899c8",
+          "target": "0x14038df70",
+          "name": "?HandleGame_ChangePartyDifficultyTypeReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 180,
+          "slot": "0x140e899e0",
+          "target": "0x14038e260",
+          "name": "?HandleGame_ChangePartyInviteAuthReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 200,
+          "slot": "0x140e89a80",
+          "target": "0x14038ee80",
+          "name": "?HandleGame_FinishPartyAuctionReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 203,
+          "slot": "0x140e89a98",
+          "target": "0x14038ebb0",
+          "name": "?HandleGame_BidCurrentAuctionItemReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 206,
+          "slot": "0x140e89ab0",
+          "target": "0x14038e960",
+          "name": "?HandleGame_GiveUpCurrentAuctionItemReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 209,
+          "slot": "0x140e89ac8",
+          "target": "0x14038e730",
+          "name": "?HandleGame_DistributionCurrentAuctionItemReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 212,
+          "slot": "0x140e89ae0",
+          "target": "0x14038e500",
+          "name": "?HandleGame_PassPartyAuctionReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 214,
+          "slot": "0x140e89af0",
+          "target": "0x14038f0d0",
+          "name": "?HandleGame_PartyVoteCastReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 218,
+          "slot": "0x140e89b10",
+          "target": "0x14038f3f0",
+          "name": "?HandleGame_PartyVoteCancelCastReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 222,
+          "slot": "0x140e89b30",
+          "target": "0x14038f590",
+          "name": "?HandleGame_PartyVoteResetReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 224,
+          "slot": "0x140e89b40",
+          "target": "0x14038f640",
+          "name": "?HandleGame_SuggestTeamReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 228,
+          "slot": "0x140e89b60",
+          "target": "0x14038fe40",
+          "name": "?HandleGame_RejectSuggestTeamReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 232,
+          "slot": "0x140e89b80",
+          "target": "0x140390210",
+          "name": "?HandleGame_InviteTeamReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 237,
+          "slot": "0x140e89ba8",
+          "target": "0x140391420",
+          "name": "?HandleGame_JoinTeamReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 239,
+          "slot": "0x140e89bb8",
+          "target": "0x140391d30",
+          "name": "?HandleGame_RejectTeamReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 241,
+          "slot": "0x140e89bc8",
+          "target": "0x1403918f0",
+          "name": "?HandleGame_LeaveTeamReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 243,
+          "slot": "0x140e89bd8",
+          "target": "0x140391f50",
+          "name": "?HandleGame_BanishTeamReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 245,
+          "slot": "0x140e89be8",
+          "target": "0x140392230",
+          "name": "?HandleGame_TeamMemberPartyChangeReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 248,
+          "slot": "0x140e89c00",
+          "target": "0x1403926a0",
+          "name": "?HandleGame_DelegateTeamLeaderReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 251,
+          "slot": "0x140e89c18",
+          "target": "0x140392940",
+          "name": "?HandleGame_NominatePartyLeaderReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 254,
+          "slot": "0x140e89c30",
+          "target": "0x140392be0",
+          "name": "?HandleGame_ChangeTeamInviteAuthReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 257,
+          "slot": "0x140e89c48",
+          "target": "0x140392ed0",
+          "name": "?HandleGame_ChangeTeamPartyDifficultyTypeReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 260,
+          "slot": "0x140e89c60",
+          "target": "0x1403931a0",
+          "name": "?HandleGame_ClearLogoutTeamMemberReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 275,
+          "slot": "0x140e89cd8",
+          "target": "0x140393370",
+          "name": "?HandleGame_DuelChooseDuelOrderReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 278,
+          "slot": "0x140e89cf0",
+          "target": "0x140393590",
+          "name": "?HandleGame_DuelReadyRoundReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 281,
+          "slot": "0x140e89d08",
+          "target": "0x140393700",
+          "name": "?HandleGame_DuelTakeTagTokenReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 287,
+          "slot": "0x140e89d38",
+          "target": "0x140393870",
+          "name": "?HandleGame_PartyBattleReadyReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 290,
+          "slot": "0x140e89d50",
+          "target": "0x140393a00",
+          "name": "?HandleGame_PartyBattleStartReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 294,
+          "slot": "0x140e89d70",
+          "target": "0x140393dd0",
+          "name": "?HandleGame_EnterPortalReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 296,
+          "slot": "0x140e89d80",
+          "target": "0x140393fd0",
+          "name": "?HandleGame_TurnBackFromPortalReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 298,
+          "slot": "0x140e89d90",
+          "target": "0x140394200",
+          "name": "?HandleGame_ChannelListReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 301,
+          "slot": "0x140e89da8",
+          "target": "0x140394480",
+          "name": "?HandleGame_ChangeChannelReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 303,
+          "slot": "0x140e89db8",
+          "target": "0x140394750",
+          "name": "?HandleGame_SaveClientOptionReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 305,
+          "slot": "0x140e89dc8",
+          "target": "0x14068f080",
+          "name": "?CheckToChangeStance@ThundererRule@@UEAA_ND@Z"
+        },
+        {
+          "id348": 309,
+          "slot": "0x140e89de8",
+          "target": "0x140394920",
+          "name": "?HandleGame_InviteTradeReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 312,
+          "slot": "0x140e89e00",
+          "target": "0x140394c70",
+          "name": "?HandleGame_JoinTradeReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 315,
+          "slot": "0x140e89e18",
+          "target": "0x140394fd0",
+          "name": "?HandleGame_DeclineTradeReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 318,
+          "slot": "0x140e89e30",
+          "target": "0x140395360",
+          "name": "?HandleGame_CancelTradeReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 322,
+          "slot": "0x140e89e50",
+          "target": "0x140395670",
+          "name": "?HandleGame_AppendTradeSuggestionReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 325,
+          "slot": "0x140e89e68",
+          "target": "0x140395990",
+          "name": "?HandleGame_RemoveTradeSuggestionReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 328,
+          "slot": "0x140e89e80",
+          "target": "0x140395c80",
+          "name": "?HandleGame_SuggestTradeMoneyReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 331,
+          "slot": "0x140e89e98",
+          "target": "0x140395f70",
+          "name": "?HandleGame_SubmitTradeReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 334,
+          "slot": "0x140e89eb0",
+          "target": "0x140396240",
+          "name": "?HandleGame_RetractTradeReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 337,
+          "slot": "0x140e89ec8",
+          "target": "0x140396510",
+          "name": "?HandleGame_ConfirmTradeReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 340,
+          "slot": "0x140e89ee0",
+          "target": "0x1403967e0",
+          "name": "?HandleGame_JoinChattingChannelReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 343,
+          "slot": "0x140e89ef8",
+          "target": "0x140396960",
+          "name": "?HandleGame_LeaveChattingChannelReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 347,
+          "slot": "0x140e89f18",
+          "target": "0x140396ac0",
+          "name": "?HandleGame_GameGuardAuthAnswerReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 349,
+          "slot": "0x140e89f28",
+          "target": "0x1403bab00",
+          "name": "?HandleGame_NCGuardMessage@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 350,
+          "slot": "0x140e89f30",
+          "target": "0x1403bad30",
+          "name": "?HandleGame_XIGNCode3Message@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 352,
+          "slot": "0x140e89f40",
+          "target": "0x1403bc420",
+          "name": "?HandleGame_AntibotClientToServerReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 354,
+          "slot": "0x140e89f50",
+          "target": "0x14068f080",
+          "name": "?CheckToChangeStance@ThundererRule@@UEAA_ND@Z"
+        },
+        {
+          "id348": 356,
+          "slot": "0x140e89f60",
+          "target": "0x14068f080",
+          "name": "?CheckToChangeStance@ThundererRule@@UEAA_ND@Z"
+        },
+        {
+          "id348": 357,
+          "slot": "0x140e89f68",
+          "target": "0x14068f080",
+          "name": "?CheckToChangeStance@ThundererRule@@UEAA_ND@Z"
+        },
+        {
+          "id348": 358,
+          "slot": "0x140e89f70",
+          "target": "0x14068f080",
+          "name": "?CheckToChangeStance@ThundererRule@@UEAA_ND@Z"
+        },
+        {
+          "id348": 360,
+          "slot": "0x140e89f80",
+          "target": "0x14068f080",
+          "name": "?CheckToChangeStance@ThundererRule@@UEAA_ND@Z"
+        },
+        {
+          "id348": 366,
+          "slot": "0x140e89fb0",
+          "target": "0x140396c70",
+          "name": "?HandleGame_RetrievePostCountReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 369,
+          "slot": "0x140e89fc8",
+          "target": "0x140396e10",
+          "name": "?HandleGame_RetrievePostBriefListReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 372,
+          "slot": "0x140e89fe0",
+          "target": "0x140396fd0",
+          "name": "?HandleGame_RetrievePostReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 376,
+          "slot": "0x140e8a000",
+          "target": "0x1403998c0",
+          "name": "?HandleGame_RetrieveSaleListReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 379,
+          "slot": "0x140e8a018",
+          "target": "0x14039a3b0",
+          "name": "?HandleGame_RetrieveBidListReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 382,
+          "slot": "0x140e8a030",
+          "target": "0x14039a4d0",
+          "name": "?HandleGame_RetrieveBidRankStatusReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 385,
+          "slot": "0x140e8a048",
+          "target": "0x14039f790",
+          "name": "?HandleGame_ChattingServerLoginSignatureReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 388,
+          "slot": "0x140e8a060",
+          "target": "0x14039b040",
+          "name": "?HandleGame_CurrentPetitionReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 391,
+          "slot": "0x140e8a078",
+          "target": "0x14039b9a0",
+          "name": "?HandleGame_EndPetitionNotifyReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 393,
+          "slot": "0x140e8a088",
+          "target": "0x14039b970",
+          "name": "?HandleGame_SendPetitionChatNotifyReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 396,
+          "slot": "0x140e8a0a0",
+          "target": "0x14039ba40",
+          "name": "?HandleGame_RegisterSurveyReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 399,
+          "slot": "0x140e8a0b8",
+          "target": "0x14039be40",
+          "name": "?HandleGame_AnswerSurveyReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 402,
+          "slot": "0x140e8a0d0",
+          "target": "0x14039c0d0",
+          "name": "?HandleGame_AnswerExtraSurveyReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 405,
+          "slot": "0x140e8a0e8",
+          "target": "0x14039c230",
+          "name": "?HandleGame_WriteClientLogReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 409,
+          "slot": "0x140e8a108",
+          "target": "0x14039c730",
+          "name": "?HandleGame_AutoLogoutCheckReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 412,
+          "slot": "0x140e8a120",
+          "target": "0x14039c8e0",
+          "name": "?HandleGame_CheckRoundTripTimeReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 414,
+          "slot": "0x140e8a130",
+          "target": "0x14039c980",
+          "name": "?HandleGame_WriteLatencyLogReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 417,
+          "slot": "0x140e8a148",
+          "target": "0x14039cc00",
+          "name": "?HandleGame_ReportBotSpammerReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 420,
+          "slot": "0x140e8a160",
+          "target": "0x14039fc00",
+          "name": "?HandleGame_CurrentUTCTimeReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 422,
+          "slot": "0x140e8a170",
+          "target": "0x14039fc10",
+          "name": "?HandleGame_RegisterPartyMatchReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 427,
+          "slot": "0x140e8a198",
+          "target": "0x14039fd60",
+          "name": "?HandleGame_RejectPartyMatchReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 429,
+          "slot": "0x140e8a1a8",
+          "target": "0x14039fe50",
+          "name": "?HandleGame_CreateGuildReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 432,
+          "slot": "0x140e8a1c0",
+          "target": "0x1403a02f0",
+          "name": "?HandleGame_RenameGuildReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 435,
+          "slot": "0x140e8a1d8",
+          "target": "0x1403a13c0",
+          "name": "?HandleGame_DestroyGuildReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 438,
+          "slot": "0x140e8a1f0",
+          "target": "0x1403a1770",
+          "name": "?HandleGame_RetrieveGuildInfoReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 441,
+          "slot": "0x140e8a208",
+          "target": "0x1403a74f0",
+          "name": "?HandleGame_GuildLevelUpReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 443,
+          "slot": "0x140e8a218",
+          "target": "0x1403a7820",
+          "name": "?HandleGame_DepositInGuildBankReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 445,
+          "slot": "0x140e8a228",
+          "target": "0x1403a8190",
+          "name": "?HandleGame_ContractGuildCraftReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 447,
+          "slot": "0x140e8a238",
+          "target": "0x1403a8f40",
+          "name": "?HandleGame_AssentGuildCraftReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 449,
+          "slot": "0x140e8a248",
+          "target": "0x1403a9330",
+          "name": "?HandleGame_DonateGuildCraftNormalMaterialReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 451,
+          "slot": "0x140e8a258",
+          "target": "0x1403a9a60",
+          "name": "?HandleGame_DonateGuildCraftBrandMaterialReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 453,
+          "slot": "0x140e8a268",
+          "target": "0x1403aa1b0",
+          "name": "?HandleGame_MakeGuildCraftReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 455,
+          "slot": "0x140e8a278",
+          "target": "0x1403aa5e0",
+          "name": "?HandleGame_TakeGuildCraftReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 457,
+          "slot": "0x140e8a288",
+          "target": "0x1403aa8e0",
+          "name": "?HandleGame_AbandonGuildCraftReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 459,
+          "slot": "0x140e8a298",
+          "target": "0x1403aac60",
+          "name": "?HandleGame_ContractGuildUniformReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 461,
+          "slot": "0x140e8a2a8",
+          "target": "0x1403ab9f0",
+          "name": "?HandleGame_DonateGuildUniformMaterialReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 463,
+          "slot": "0x140e8a2b8",
+          "target": "0x1403ac130",
+          "name": "?HandleGame_AbandonGuildUniformReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 465,
+          "slot": "0x140e8a2c8",
+          "target": "0x1403ac4b0",
+          "name": "?HandleGame_MakeGuildUniformReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 467,
+          "slot": "0x140e8a2d8",
+          "target": "0x1403ac7b0",
+          "name": "?HandleGame_RegisterGuildUniformReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 469,
+          "slot": "0x140e8a2e8",
+          "target": "0x1403acb30",
+          "name": "?HandleGame_PutOnGuildUniformReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 471,
+          "slot": "0x140e8a2f8",
+          "target": "0x1403aceb0",
+          "name": "?HandleGame_RegisterGuildUniformWithDeletionReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 473,
+          "slot": "0x140e8a308",
+          "target": "0x1403ad240",
+          "name": "?HandleGame_IncreaseUniformRegistrationQuotaReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 475,
+          "slot": "0x140e8a318",
+          "target": "0x1403a1980",
+          "name": "?HandleGame_RetrieveGuildMembersReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 478,
+          "slot": "0x140e8a330",
+          "target": "0x1403a1b80",
+          "name": "?HandleGame_EditGuildNotificationMessageReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 481,
+          "slot": "0x140e8a348",
+          "target": "0x1403a1ff0",
+          "name": "?HandleGame_RetrieveGuildMemberPermissionReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 484,
+          "slot": "0x140e8a360",
+          "target": "0x1403a22f0",
+          "name": "?HandleGame_EditGuildMemberPermissionReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 487,
+          "slot": "0x140e8a378",
+          "target": "0x1403a27e0",
+          "name": "?HandleGame_ChangeGuildFlagBearerReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 489,
+          "slot": "0x140e8a388",
+          "target": "0x1403a2c50",
+          "name": "?HandleGame_ChangeGuildMemberGradeReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 492,
+          "slot": "0x140e8a3a0",
+          "target": "0x1403a30e0",
+          "name": "?HandleGame_DelegateGuildLeaderReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 497,
+          "slot": "0x140e8a3c8",
+          "target": "0x1403a3510",
+          "name": "?HandleGame_ConfirmGuildLeaderReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 499,
+          "slot": "0x140e8a3d8",
+          "target": "0x1403a3770",
+          "name": "?HandleGame_RejectGuildLeaderReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 501,
+          "slot": "0x140e8a3e8",
+          "target": "0x1403a39d0",
+          "name": "?HandleGame_InviteGuildReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 504,
+          "slot": "0x140e8a400",
+          "target": "0x1403a3e90",
+          "name": "?HandleGame_ConfirmInvitationGuildReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 506,
+          "slot": "0x140e8a410",
+          "target": "0x1403a41f0",
+          "name": "?HandleGame_RejectInvitationGuildReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 507,
+          "slot": "0x140e8a418",
+          "target": "0x1403a4490",
+          "name": "?HandleGame_JoinGuildReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 509,
+          "slot": "0x140e8a428",
+          "target": "0x1403a49c0",
+          "name": "?HandleGame_LeaveGuildReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 511,
+          "slot": "0x140e8a438",
+          "target": "0x1403a4c60",
+          "name": "?HandleGame_BanishGuildMemberReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 513,
+          "slot": "0x140e8a448",
+          "target": "0x1403a5010",
+          "name": "?HandleGame_QueryGuildInfoReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 516,
+          "slot": "0x140e8a460",
+          "target": "0x1403a5840",
+          "name": "?HandleGame_QueryGuildInfoToGamedReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 555,
+          "slot": "0x140e8a598",
+          "target": "0x1403ad970",
+          "name": "?HandleGame_RetrieveGuildJoinTicketListPerGuildReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 558,
+          "slot": "0x140e8a5b0",
+          "target": "0x1403ae050",
+          "name": "?HandleGame_RetrieveGuildJoinTicketListPerPcReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 561,
+          "slot": "0x140e8a5c8",
+          "target": "0x1403ae440",
+          "name": "?HandleGame_SendGuildApplicationReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 565,
+          "slot": "0x140e8a5e8",
+          "target": "0x1403aeb80",
+          "name": "?HandleGame_CancelGuildApplicationReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 569,
+          "slot": "0x140e8a608",
+          "target": "0x1403af190",
+          "name": "?HandleGame_RejectGuildApplicationReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 573,
+          "slot": "0x140e8a628",
+          "target": "0x1403af790",
+          "name": "?HandleGame_AcceptGuildApplicationReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 577,
+          "slot": "0x140e8a648",
+          "target": "0x1403afd90",
+          "name": "?HandleGame_SendGuildInvitationReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 581,
+          "slot": "0x140e8a668",
+          "target": "0x1403b0390",
+          "name": "?HandleGame_SendGuildInvitation2Req@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 582,
+          "slot": "0x140e8a670",
+          "target": "0x1403b0c60",
+          "name": "?HandleGame_CancelGuildInvitationReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 586,
+          "slot": "0x140e8a690",
+          "target": "0x1403b1260",
+          "name": "?HandleGame_RejectGuildInvitationReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 590,
+          "slot": "0x140e8a6b0",
+          "target": "0x1403b1850",
+          "name": "?HandleGame_AcceptGuildInvitationReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 594,
+          "slot": "0x140e8a6d0",
+          "target": "0x1403b1e60",
+          "name": "?HandleGame_UpdateGuildApplicationRefusalReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 598,
+          "slot": "0x140e8a6f0",
+          "target": "0x1403b2470",
+          "name": "?HandleGame_UpdateGuildInvitationRefusalReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 604,
+          "slot": "0x140e8a720",
+          "target": "0x1403b2ab0",
+          "name": "?HandleGame_ChangeSummonedReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 607,
+          "slot": "0x140e8a738",
+          "target": "0x1403b2e60",
+          "name": "?HandleGame_ChangeSummonedNameReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 610,
+          "slot": "0x140e8a750",
+          "target": "0x14039c580",
+          "name": "?HandleGame_KillSummonedReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 613,
+          "slot": "0x140e8a768",
+          "target": "0x1403b32e0",
+          "name": "?HandleGame_ReserveArenaLobbyReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 616,
+          "slot": "0x140e8a780",
+          "target": "0x1403b3e90",
+          "name": "?HandleGame_EnterArenaLobbyReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 619,
+          "slot": "0x140e8a798",
+          "target": "0x1403b40a0",
+          "name": "?HandleGame_LeaveArenaLobbyReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 622,
+          "slot": "0x140e8a7b0",
+          "target": "0x1403baa30",
+          "name": "?HandleGame_ReturnToGameReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 625,
+          "slot": "0x140e8a7c8",
+          "target": "0x1403b41d0",
+          "name": "?HandleGame_ExitFromArenaLobbyRoomReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 628,
+          "slot": "0x140e8a7e0",
+          "target": "0x1403b4300",
+          "name": "?HandleGame_SetArenaLobbyRoomMatchOptionReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 631,
+          "slot": "0x140e8a7f8",
+          "target": "0x1403b47c0",
+          "name": "?HandleGame_DelegateArenaLobbyRoomTeamLeaderReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 634,
+          "slot": "0x140e8a810",
+          "target": "0x1403b4970",
+          "name": "?HandleGame_SetArenaLobbyRoomPasswordReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 637,
+          "slot": "0x140e8a828",
+          "target": "0x1403b4b00",
+          "name": "?HandleGame_InviteArenaLobbyRoomReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 640,
+          "slot": "0x140e8a840",
+          "target": "0x1403b4f20",
+          "name": "?HandleGame_BroadcastArenaLobbyRoomUnratedInvitationReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 643,
+          "slot": "0x140e8a858",
+          "target": "0x1403b5200",
+          "name": "?HandleGame_JoinArenaLobbyRoomReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 646,
+          "slot": "0x140e8a870",
+          "target": "0x1403b5450",
+          "name": "?HandleGame_BanishFromArenaLobbyReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 649,
+          "slot": "0x140e8a888",
+          "target": "0x1403b5610",
+          "name": "?HandleGame_ReadyToMatchArenaLobbyRoomReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 652,
+          "slot": "0x140e8a8a0",
+          "target": "0x1403b5840",
+          "name": "?HandleGame_UnReadyToMatchArenaLobbyRoomReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 655,
+          "slot": "0x140e8a8b8",
+          "target": "0x1403b5970",
+          "name": "?HandleGame_MatchArenaLobbyRoomReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 658,
+          "slot": "0x140e8a8d0",
+          "target": "0x1403b5c40",
+          "name": "?HandleGame_SkipArenaLobbyMatchReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 661,
+          "slot": "0x140e8a8e8",
+          "target": "0x1403b5ec0",
+          "name": "?HandleGame_CancelArenaLobbyMatchingReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 664,
+          "slot": "0x140e8a900",
+          "target": "0x1403b6050",
+          "name": "?HandleGame_CancelArenaLobbyMatchReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 667,
+          "slot": "0x140e8a918",
+          "target": "0x1403b6180",
+          "name": "?HandleGame_ReadyToGoToArenaReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 670,
+          "slot": "0x140e8a930",
+          "target": "0x1403b6460",
+          "name": "?HandleGame_DecideToGoToArenaReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 673,
+          "slot": "0x140e8a948",
+          "target": "0x1403b6700",
+          "name": "?HandleGame_RetrieveArenaLobbyWaitingNumberReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 676,
+          "slot": "0x140e8a960",
+          "target": "0x1403b65f0",
+          "name": "?HandleGame_CancelArenaLobbyWaitingReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 682,
+          "slot": "0x140e8a990",
+          "target": "0x1403b6d30",
+          "name": "?HandleGame_ReturnToArenaLobbyFromDuelReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 685,
+          "slot": "0x140e8a9a8",
+          "target": "0x1403b7060",
+          "name": "?HandleGame_ReturnToArenaLobbyFromDungeonReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 688,
+          "slot": "0x140e8a9c0",
+          "target": "0x1403b7360",
+          "name": "?HandleGame_ArenaSpectateGameReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 691,
+          "slot": "0x140e8a9d8",
+          "target": "0x1403b8b30",
+          "name": "?HandleGame_ArenaSpectateReturnToArenaLobbyReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 694,
+          "slot": "0x140e8a9f0",
+          "target": "0x1403b8e20",
+          "name": "?HandleGame_ListArenaSpectateGameReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 697,
+          "slot": "0x140e8aa08",
+          "target": "0x1403b76d0",
+          "name": "?HandleGame_ArenaEventTeleportToReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 700,
+          "slot": "0x140e8aa20",
+          "target": "0x1403b7e10",
+          "name": "?HandleGame_ArenaEventRecallReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 703,
+          "slot": "0x140e8aa38",
+          "target": "0x1403b7ab0",
+          "name": "?HandleGame_ArenaEventWarpToPosReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 706,
+          "slot": "0x140e8aa50",
+          "target": "0x1403b8320",
+          "name": "?HandleGame_ArenaEventDuelGameStartReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 707,
+          "slot": "0x140e8aa58",
+          "target": "0x1403b8590",
+          "name": "?HandleGame_ArenaEventFindArenaSessionReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 710,
+          "slot": "0x140e8aa70",
+          "target": "0x1403b8820",
+          "name": "?HandleGame_ArenaEventMoveToArenaReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 713,
+          "slot": "0x140e8aa88",
+          "target": "0x1403b9330",
+          "name": "?HandleGame_ArenaEventReturnToArenaLobbyReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 716,
+          "slot": "0x140e8aaa0",
+          "target": "0x1403b9650",
+          "name": "?HandleGame_ArenaEventReturnToArenaLobbyAllPcReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 719,
+          "slot": "0x140e8aab8",
+          "target": "0x1403b9980",
+          "name": "?HandleGame_ArenaEventRetreivePcAssetReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 722,
+          "slot": "0x140e8aad0",
+          "target": "0x1403b9db0",
+          "name": "?HandleGame_ArenaEventWarpToDuelRoundStartPcSpawnReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 725,
+          "slot": "0x140e8aae8",
+          "target": "0x1403ba100",
+          "name": "?HandleGame_ArenaEventSetBattleRoyalStateReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 728,
+          "slot": "0x140e8ab00",
+          "target": "0x1403ba470",
+          "name": "?HandleGame_ArenaEventInZonePcLocReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 731,
+          "slot": "0x140e8ab18",
+          "target": "0x1403ba750",
+          "name": "?HandleGame_ArenaEventBattleRoyalScoreReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 735,
+          "slot": "0x140e8ab38",
+          "target": "0x1403b3800",
+          "name": "?HandleGame_ReserveArenaLobbyPartyAgreementReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 737,
+          "slot": "0x140e8ab48",
+          "target": "0x1403b3b80",
+          "name": "?HandleGame_ReserveArenaLobbyPartyFinalDecisionReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 759,
+          "slot": "0x140e8abf8",
+          "target": "0x1403baaf0",
+          "name": "?HandleGame_RetrievePcDbIdReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 762,
+          "slot": "0x140e8ac10",
+          "target": "0x14039c3d0",
+          "name": "?HandleGame_SkillScoreReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 766,
+          "slot": "0x140e8ac30",
+          "target": "0x1403bf9b0",
+          "name": "?HandleGame_TestBotAnswerReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 767,
+          "slot": "0x140e8ac38",
+          "target": "0x1403baf60",
+          "name": "?HandleGame_GetGoodsCountFromAccountInventoryReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 770,
+          "slot": "0x140e8ac50",
+          "target": "0x1403bb180",
+          "name": "?HandleGame_ListGoodsFromAccountInventoryReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 773,
+          "slot": "0x140e8ac68",
+          "target": "0x1403bb460",
+          "name": "?HandleGame_TakeGoodsFromAccountInventoryReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 776,
+          "slot": "0x140e8ac80",
+          "target": "0x1403bb6d0",
+          "name": "?HandleGame_RetrieveWarehouseLobbyServiceItemListReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 779,
+          "slot": "0x140e8ac98",
+          "target": "0x1403bb9f0",
+          "name": "?HandleGame_RetrieveWarehouseItemListReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 783,
+          "slot": "0x140e8acb8",
+          "target": "0x1403bc2e0",
+          "name": "?HandleGame_ExtendJumpingCharacterCreationQuotaWithWarehouseItemReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 786,
+          "slot": "0x140e8acd0",
+          "target": "0x1403bc3b0",
+          "name": "?HandleGame_UpgradeJumpingCharacterStateWithCreationQuotaReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 794,
+          "slot": "0x140e8ad10",
+          "target": "0x1403bc5d0",
+          "name": "?HandleGame_TraceRouteIPReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 795,
+          "slot": "0x140e8ad18",
+          "target": "0x1403bc9f0",
+          "name": "?HandleGame_SaveVitalityReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 798,
+          "slot": "0x140e8ad30",
+          "target": "0x1403bca20",
+          "name": "?HandleGame_RechargeVitalityReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 801,
+          "slot": "0x140e8ad48",
+          "target": "0x1403bcd00",
+          "name": "?HandleGame_RestoreVitalityReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 804,
+          "slot": "0x140e8ad60",
+          "target": "0x1403bdec0",
+          "name": "?HandleGame_PassingItemAbilityReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 807,
+          "slot": "0x140e8ad78",
+          "target": "0x1403be660",
+          "name": "?HandleGame_PickGemCardReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 810,
+          "slot": "0x140e8ad90",
+          "target": "0x1400dfe50",
+          "name": "?HandleGame_QQGroupUnbindingReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 815,
+          "slot": "0x140e8adb8",
+          "target": "0x1400dfe50",
+          "name": "?HandleGame_QQGroupUnbindingReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 818,
+          "slot": "0x140e8add0",
+          "target": "0x1400dfe50",
+          "name": "?HandleGame_QQGroupUnbindingReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 821,
+          "slot": "0x140e8ade8",
+          "target": "0x1400dfe50",
+          "name": "?HandleGame_QQGroupUnbindingReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 823,
+          "slot": "0x140e8adf8",
+          "target": "0x1400dfe50",
+          "name": "?HandleGame_QQGroupUnbindingReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 826,
+          "slot": "0x140e8ae10",
+          "target": "0x1400dfe50",
+          "name": "?HandleGame_QQGroupUnbindingReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 829,
+          "slot": "0x140e8ae28",
+          "target": "0x1400dfe50",
+          "name": "?HandleGame_QQGroupUnbindingReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 832,
+          "slot": "0x140e8ae40",
+          "target": "0x1400dfe50",
+          "name": "?HandleGame_QQGroupUnbindingReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 835,
+          "slot": "0x140e8ae58",
+          "target": "0x1400dfe50",
+          "name": "?HandleGame_QQGroupUnbindingReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 839,
+          "slot": "0x140e8ae78",
+          "target": "0x1400dfe50",
+          "name": "?HandleGame_QQGroupUnbindingReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 843,
+          "slot": "0x140e8ae98",
+          "target": "0x1400dfe50",
+          "name": "?HandleGame_QQGroupUnbindingReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 847,
+          "slot": "0x140e8aeb8",
+          "target": "0x1400dfe50",
+          "name": "?HandleGame_QQGroupUnbindingReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 850,
+          "slot": "0x140e8aed0",
+          "target": "0x1400dfe50",
+          "name": "?HandleGame_QQGroupUnbindingReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 853,
+          "slot": "0x140e8aee8",
+          "target": "0x1400dfe50",
+          "name": "?HandleGame_QQGroupUnbindingReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 856,
+          "slot": "0x140e8af00",
+          "target": "0x1400dfe50",
+          "name": "?HandleGame_QQGroupUnbindingReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 859,
+          "slot": "0x140e8af18",
+          "target": "0x1400dfe50",
+          "name": "?HandleGame_QQGroupUnbindingReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 862,
+          "slot": "0x140e8af30",
+          "target": "0x1403bfa60",
+          "name": "?HandleGame_AchievementCompleteReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 864,
+          "slot": "0x140e8af40",
+          "target": "0x1403c0560",
+          "name": "?HandleGame_AchievementTitleInstallReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 867,
+          "slot": "0x140e8af58",
+          "target": "0x1403c0940",
+          "name": "?HandleGame_AchievementAbilityInstallReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 870,
+          "slot": "0x140e8af70",
+          "target": "0x1403c0d80",
+          "name": "?HandleGame_ActivateGameGradeReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 879,
+          "slot": "0x140e8afb8",
+          "target": "0x1403c0ea0",
+          "name": "?HandleGame_RetrieveBoundRaidDungeonInfoReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 882,
+          "slot": "0x140e8afd0",
+          "target": "0x1403c11a0",
+          "name": "?HandleGame_UnbindRaidDungeonReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 887,
+          "slot": "0x140e8aff8",
+          "target": "0x1403c1900",
+          "name": "?HandleGame_RaidDungeonOnlinePlayerInfoReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 890,
+          "slot": "0x140e8b010",
+          "target": "0x1403c1b60",
+          "name": "?HandleGame_RaidDungeonExpirationReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 900,
+          "slot": "0x140e8b060",
+          "target": "0x1403c5170",
+          "name": "?HandleGame_PutItemIntoClosetReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 903,
+          "slot": "0x140e8b078",
+          "target": "0x1403c5410",
+          "name": "?HandleGame_TakeItemFromClosetReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 906,
+          "slot": "0x140e8b090",
+          "target": "0x1403c56f0",
+          "name": "?HandleGame_DepositMileageReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 910,
+          "slot": "0x140e8b0b0",
+          "target": "0x1403c5e30",
+          "name": "?HandleGame_RetrieveMysteriousStoreReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 913,
+          "slot": "0x140e8b0c8",
+          "target": "0x1403c6020",
+          "name": "?HandleGame_ChangeWeaponAppearanceReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 918,
+          "slot": "0x140e8b0f0",
+          "target": "0x1403c64a0",
+          "name": "?HandleGame_FeedPetFoodReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 921,
+          "slot": "0x140e8b108",
+          "target": "0x1403c66f0",
+          "name": "?HandleGame_ChoiceReturnToArenaLobbyReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 925,
+          "slot": "0x140e8b128",
+          "target": "0x1403c70c0",
+          "name": "?HandleGame_PublishRecruitArenaDungeonMemberReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 929,
+          "slot": "0x140e8b148",
+          "target": "0x1403c7460",
+          "name": "?HandleGame_CancelRecruitArenaDungeonMemberReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 934,
+          "slot": "0x140e8b170",
+          "target": "0x1403c7f40",
+          "name": "?HandleGame_DuelBotChallengeCombatStartReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 939,
+          "slot": "0x140e8b198",
+          "target": "0x1403c8130",
+          "name": "?HandleGame_DuelBotChallengePickStrategicToolReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 943,
+          "slot": "0x140e8b1b8",
+          "target": "0x1403c8320",
+          "name": "?HandleGame_DuelBotChallengeUseStrategicToolReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 946,
+          "slot": "0x140e8b1d0",
+          "target": "0x1403c8510",
+          "name": "?HandleGame_ReviveByAttractionRuleReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 947,
+          "slot": "0x140e8b1d8",
+          "target": "0x1403c8750",
+          "name": "?HandleGame_EnterAttractionZoneReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 950,
+          "slot": "0x140e8b1f0",
+          "target": "0x1403c8cd0",
+          "name": "?HandleGame_LeaveAttractionZoneReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 951,
+          "slot": "0x140e8b1f8",
+          "target": "0x1403c8e70",
+          "name": "?HandleGame_TakeAttractionRewardReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 955,
+          "slot": "0x140e8b218",
+          "target": "0x1403c9100",
+          "name": "?HandleGame_RetrieveSeasonContentsScheduleReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 958,
+          "slot": "0x140e8b230",
+          "target": "0x1403c9910",
+          "name": "?HandleGame_RetrieveMyRankingInfoReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 961,
+          "slot": "0x140e8b248",
+          "target": "0x1403c93f0",
+          "name": "?HandleGame_RetrieveGuildRankingInfoReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 964,
+          "slot": "0x140e8b260",
+          "target": "0x1403c9cf0",
+          "name": "?HandleGame_RetrieveRankingRewardListReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 967,
+          "slot": "0x140e8b278",
+          "target": "0x1403c9e80",
+          "name": "?HandleGame_TakeRankingRewardReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 974,
+          "slot": "0x140e8b2b0",
+          "target": "0x1403ca700",
+          "name": "?HandleGame_SellOldItemReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 976,
+          "slot": "0x140e8b2c0",
+          "target": "0x1403cad70",
+          "name": "?HandleGame_ExchangeItemReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 979,
+          "slot": "0x140e8b2d8",
+          "target": "0x1403cb2f0",
+          "name": "?HandleGame_NPAuctionBidReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 983,
+          "slot": "0x140e8b2f8",
+          "target": "0x1403cbb00",
+          "name": "?HandleGame_RefreshSimpleQuestPackReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 988,
+          "slot": "0x140e8b320",
+          "target": "0x140393ba0",
+          "name": "?HandleGame_PartyBattleVoteCastReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 992,
+          "slot": "0x140e8b340",
+          "target": "0x1403cbe00",
+          "name": "?HandleGame_SkillTrainingRoomCombatStartReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 995,
+          "slot": "0x140e8b358",
+          "target": "0x1403cc060",
+          "name": "?HandleGame_SkillTrainingRoomCombatStopReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 998,
+          "slot": "0x140e8b370",
+          "target": "0x1403cc300",
+          "name": "?HandleGame_SkillTrainingRoomCombatRestartReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 1001,
+          "slot": "0x140e8b388",
+          "target": "0x1403cc5a0",
+          "name": "?HandleGame_SkillTrainingRoomInitCreatureStateReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 1004,
+          "slot": "0x140e8b3a0",
+          "target": "0x1403cc840",
+          "name": "?HandleGame_EnterSkillTrainingRoomReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 1007,
+          "slot": "0x140e8b3b8",
+          "target": "0x14036ff30",
+          "name": "?HandleGame_TakeAchievementRewardReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 1010,
+          "slot": "0x140e8b3d0",
+          "target": "0x140370290",
+          "name": "?HandleGame_TimeBasedPlayInfoReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 1013,
+          "slot": "0x140e8b3e8",
+          "target": "0x140370530",
+          "name": "?HandleGame_TakeTimeBasedPlayRewardReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 1016,
+          "slot": "0x140e8b400",
+          "target": "0x1403ccae0",
+          "name": "?HandleGame_MakeCustomDressReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 1019,
+          "slot": "0x140e8b418",
+          "target": "0x1403cd100",
+          "name": "?HandleGame_ResetCombatModeReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 1025,
+          "slot": "0x140e8b448",
+          "target": "0x1403cd3a0",
+          "name": "?HandleGame_PublicRaidEventAddScoreReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 1028,
+          "slot": "0x140e8b460",
+          "target": "0x1403cd640",
+          "name": "?HandleGame_SkillSkinAcquiredListReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 1031,
+          "slot": "0x140e8b478",
+          "target": "0x1403cd8a0",
+          "name": "?HandleGame_ApplySkillSkinReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 1034,
+          "slot": "0x140e8b490",
+          "target": "0x1403cdc60",
+          "name": "?HandleGame_CreateChallengePartyReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 1037,
+          "slot": "0x140e8b4a8",
+          "target": "0x1403ce260",
+          "name": "?HandleGame_InviteChallengePartyReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 1041,
+          "slot": "0x140e8b4c8",
+          "target": "0x1403ce760",
+          "name": "?HandleGame_ConfirmInvitationChallengePartyReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 1044,
+          "slot": "0x140e8b4e0",
+          "target": "0x1403ceb60",
+          "name": "?HandleGame_RejectInvitationChallengePartyReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 1046,
+          "slot": "0x140e8b4f0",
+          "target": "0x1403cee80",
+          "name": "?HandleGame_LeaveChallengePartyReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 1054,
+          "slot": "0x140e8b530",
+          "target": "0x1403cf250",
+          "name": "?HandleGame_RetrieveChallengePartyRankingInfoReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 1064,
+          "slot": "0x140e8b580",
+          "target": "0x1403cf780",
+          "name": "?HandleGame_ChangeMentoringTypeReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 1066,
+          "slot": "0x140e8b590",
+          "target": "0x1403cfb40",
+          "name": "?HandleGame_InviteMentoringReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 1069,
+          "slot": "0x140e8b5a8",
+          "target": "0x1403d0220",
+          "name": "?HandleGame_ConfirmInvitationMentoringReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 1071,
+          "slot": "0x140e8b5b8",
+          "target": "0x1403d0b70",
+          "name": "?HandleGame_RejectInvitationMentoringReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 1073,
+          "slot": "0x140e8b5c8",
+          "target": "0x1403d0eb0",
+          "name": "?HandleGame_LeaveMentoringReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 1077,
+          "slot": "0x140e8b5e8",
+          "target": "0x1403d11e0",
+          "name": "?HandleGame_CallMentoringMemberReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 1081,
+          "slot": "0x140e8b608",
+          "target": "0x1403d15f0",
+          "name": "?HandleGame_WarpToMentoringMemberReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 1084,
+          "slot": "0x140e8b620",
+          "target": "0x1403d1e90",
+          "name": "?HandleGame_SetClosetItemUsedReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 1087,
+          "slot": "0x140e8b638",
+          "target": "0x1403d2060",
+          "name": "?HandleGame_CollectingListReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 1091,
+          "slot": "0x140e8b658",
+          "target": "0x1403d2400",
+          "name": "?HandleGame_FishingListReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 1096,
+          "slot": "0x140e8b680",
+          "target": "0x1403d25d0",
+          "name": "?HandleGame_ChallengeListsReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 1100,
+          "slot": "0x140e8b6a0",
+          "target": "0x1403d2770",
+          "name": "?HandleGame_SetPvPModeReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 1103,
+          "slot": "0x140e8b6b8",
+          "target": "0x1403d29b0",
+          "name": "?HandleGame_SecretTreasureExpirationTimeReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 1106,
+          "slot": "0x140e8b6d0",
+          "target": "0x1403d2c40",
+          "name": "?HandleGame_ChangeBadgeEquipPageReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 1109,
+          "slot": "0x140e8b6e8",
+          "target": "0x1403d2e90",
+          "name": "?HandleGame_SynthesisBadgeReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 1112,
+          "slot": "0x140e8b700",
+          "target": "0x1403d3570",
+          "name": "?HandleGame_SynthesisBadgeRecipeDataReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 1115,
+          "slot": "0x140e8b718",
+          "target": "0x1403d3600",
+          "name": "?HandleGame_UseJumpingCharacterTicketReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 1118,
+          "slot": "0x140e8b730",
+          "target": "0x1403d3ad0",
+          "name": "?HandleGame_BoardGachaRetrieveSeasonReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 1126,
+          "slot": "0x140e8b770",
+          "target": "0x1403d3c80",
+          "name": "?HandleGame_BoardGachaSessionOpenReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 1128,
+          "slot": "0x140e8b780",
+          "target": "0x1403d3e20",
+          "name": "?HandleGame_BoardGachaSessionCloseReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 1131,
+          "slot": "0x140e8b798",
+          "target": "0x1403d3fd0",
+          "name": "?HandleGame_BoardGachaBoardInfoReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 1133,
+          "slot": "0x140e8b7a8",
+          "target": "0x1403d4180",
+          "name": "?HandleGame_BoardGachaGetParticipationCountPerSeasonReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 1136,
+          "slot": "0x140e8b7c0",
+          "target": "0x1403d4380",
+          "name": "?HandleGame_BoardGachaRetrieveParticipationInfoPerPcReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 1139,
+          "slot": "0x140e8b7d8",
+          "target": "0x1403d4580",
+          "name": "?HandleGame_BoardGachaRetrieveParticipationInfoAllReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 1142,
+          "slot": "0x140e8b7f0",
+          "target": "0x1403d4730",
+          "name": "?HandleGame_BoardGachaDrawByItemReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 1145,
+          "slot": "0x140e8b808",
+          "target": "0x1403d4ea0",
+          "name": "?HandleGame_BoardGachaDrawByInstantPaymentReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 1148,
+          "slot": "0x140e8b820",
+          "target": "0x1403d52d0",
+          "name": "?HandleGame_BoardGachaRetrieveParticipationRewardStateReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 1151,
+          "slot": "0x140e8b838",
+          "target": "0x1403d54d0",
+          "name": "?HandleGame_BoardGachaTakeParticipationRewardReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 1154,
+          "slot": "0x140e8b850",
+          "target": "0x1403d57e0",
+          "name": "?HandleGame_SetSlateAmpSlotReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 1157,
+          "slot": "0x140e8b868",
+          "target": "0x1403d5ba0",
+          "name": "?HandleGame_DrawSlateNewStoneReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 1160,
+          "slot": "0x140e8b880",
+          "target": "0x1403d6200",
+          "name": "?HandleGame_SetSlateNewStoneReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 1163,
+          "slot": "0x140e8b898",
+          "target": "0x1403d65c0",
+          "name": "?HandleGame_GiveUpSlateNewStoneReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 1166,
+          "slot": "0x140e8b8b0",
+          "target": "0x1403d6980",
+          "name": "?HandleGame_ChangeSlatePageReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 1170,
+          "slot": "0x140e8b8d0",
+          "target": "0x140370980",
+          "name": "?HandleGame_TalkSessionOpenReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 1173,
+          "slot": "0x140e8b8e8",
+          "target": "0x140389400",
+          "name": "?HandleGame_AirDashReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 1175,
+          "slot": "0x140e8b8f8",
+          "target": "0x14068f080",
+          "name": "?CheckToChangeStance@ThundererRule@@UEAA_ND@Z"
+        },
+        {
+          "id348": 1177,
+          "slot": "0x140e8b908",
+          "target": "0x140381700",
+          "name": "?HandleGame_UseTeleportReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 1180,
+          "slot": "0x140e8b920",
+          "target": "0x140370c80",
+          "name": "?HandleGame_UseSkillReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 1182,
+          "slot": "0x140e8b930",
+          "target": "0x140371950",
+          "name": "?HandleGame_UseSkillToGroundReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 1183,
+          "slot": "0x140e8b938",
+          "target": "0x140372650",
+          "name": "?HandleGame_CancelActionReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 1185,
+          "slot": "0x140e8b948",
+          "target": "0x1403728f0",
+          "name": "?HandleGame_SkillTriggerReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 1187,
+          "slot": "0x140e8b958",
+          "target": "0x1403763a0",
+          "name": "?HandleGame_UseGroceryReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 1188,
+          "slot": "0x140e8b960",
+          "target": "0x140376830",
+          "name": "?HandleGame_UseGroceryToGroundReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 1190,
+          "slot": "0x140e8b970",
+          "target": "0x140376a10",
+          "name": "?HandleGame_UseEquippedReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 1191,
+          "slot": "0x140e8b978",
+          "target": "0x140376bd0",
+          "name": "?HandleGame_UseEquippedToGroundReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 1193,
+          "slot": "0x140e8b988",
+          "target": "0x140376580",
+          "name": "?HandleGame_UseCaveEscapeReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 1196,
+          "slot": "0x140e8b9a0",
+          "target": "0x140376da0",
+          "name": "?HandleGame_UseFieldItemReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 1197,
+          "slot": "0x140e8b9a8",
+          "target": "0x140376fb0",
+          "name": "?HandleGame_UseFieldItemToGroundReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 1199,
+          "slot": "0x140e8b9b8",
+          "target": "0x1403771d0",
+          "name": "?HandleGame_ThrowFieldItemReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 1201,
+          "slot": "0x140e8b9c8",
+          "target": "0x140377440",
+          "name": "?HandleGame_PickupFieldItemReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 1203,
+          "slot": "0x140e8b9d8",
+          "target": "0x140377670",
+          "name": "?HandleGame_PutdownFieldItemReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 1205,
+          "slot": "0x140e8b9e8",
+          "target": "0x140377900",
+          "name": "?HandleGame_PickupDeadBodyReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 1207,
+          "slot": "0x140e8b9f8",
+          "target": "0x1403873f0",
+          "name": "?HandleGame_ManipulateReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 1209,
+          "slot": "0x140e8ba08",
+          "target": "0x140387f00",
+          "name": "?HandleGame_GiveFactionScoreToRefinerReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 1212,
+          "slot": "0x140e8ba20",
+          "target": "0x140388090",
+          "name": "?HandleGame_TakeRefinerRewardReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 1218,
+          "slot": "0x140e8ba50",
+          "target": "0x140388250",
+          "name": "?HandleGame_NpcManipulateReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 1220,
+          "slot": "0x140e8ba60",
+          "target": "0x140387980",
+          "name": "?HandleGame_FishManipulateReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 1224,
+          "slot": "0x140e8ba80",
+          "target": "0x140372fc0",
+          "name": "?HandleGame_GatherReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 1226,
+          "slot": "0x140e8ba90",
+          "target": "0x140372de0",
+          "name": "?HandleGame_LootReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 1228,
+          "slot": "0x140e8baa0",
+          "target": "0x1403a6030",
+          "name": "?HandleGame_WarpToGuildMemberReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 1231,
+          "slot": "0x140e8bab8",
+          "target": "0x1403a68a0",
+          "name": "?HandleGame_CallGuildMemberReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 1234,
+          "slot": "0x140e8bad0",
+          "target": "0x1403a7000",
+          "name": "?HandleGame_WarpToGuildMeetingPlaceReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 1241,
+          "slot": "0x140e8bb08",
+          "target": "0x14037c350",
+          "name": "?HandleGame_OpenItemPouchReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 1244,
+          "slot": "0x140e8bb20",
+          "target": "0x14037c4e0",
+          "name": "?HandleGame_PrivateItemPouchListReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 1248,
+          "slot": "0x140e8bb40",
+          "target": "0x14037c6a0",
+          "name": "?HandleGame_CloseItemPouchReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 1251,
+          "slot": "0x140e8bb58",
+          "target": "0x14037c830",
+          "name": "?HandleGame_PickupItemReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 1256,
+          "slot": "0x140e8bb80",
+          "target": "0x14037cd80",
+          "name": "?HandleGame_TakeContributionRewardReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 1261,
+          "slot": "0x140e8bba8",
+          "target": "0x14037cfc0",
+          "name": "?HandleGame_DistributeItemReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 1266,
+          "slot": "0x140e8bbd0",
+          "target": "0x14037d5b0",
+          "name": "?HandleGame_CompleteDistributionReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 1270,
+          "slot": "0x140e8bbf0",
+          "target": "0x14068f080",
+          "name": "?CheckToChangeStance@ThundererRule@@UEAA_ND@Z"
+        },
+        {
+          "id348": 1273,
+          "slot": "0x140e8bc08",
+          "target": "0x14037d8f0",
+          "name": "?HandleGame_ExpandInventoryReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 1276,
+          "slot": "0x140e8bc20",
+          "target": "0x140372bc0",
+          "name": "?HandleGame_InventoryItemListReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 1279,
+          "slot": "0x140e8bc38",
+          "target": "0x140373520",
+          "name": "?HandleGame_DisposeItemReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 1281,
+          "slot": "0x140e8bc48",
+          "target": "0x1403736f0",
+          "name": "?HandleGame_MoveItemReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 1283,
+          "slot": "0x140e8bc58",
+          "target": "0x140373900",
+          "name": "?HandleGame_MoveItemListReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 1286,
+          "slot": "0x140e8bc70",
+          "target": "0x140373f80",
+          "name": "?HandleGame_BuyReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 1288,
+          "slot": "0x140e8bc80",
+          "target": "0x140375340",
+          "name": "?HandleGame_Buy2Req@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 1290,
+          "slot": "0x140e8bc90",
+          "target": "0x1403758b0",
+          "name": "?HandleGame_MysteriousBuyReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 1293,
+          "slot": "0x140e8bca8",
+          "target": "0x140374590",
+          "name": "?HandleGame_SellReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 1295,
+          "slot": "0x140e8bcb8",
+          "target": "0x140375080",
+          "name": "?HandleGame_RebuyReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 1297,
+          "slot": "0x140e8bcc8",
+          "target": "0x140375de0",
+          "name": "?HandleGame_TradeWithNpcReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 1299,
+          "slot": "0x140e8bcd8",
+          "target": "0x140377b30",
+          "name": "?HandleGame_EquipItemReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 1301,
+          "slot": "0x140e8bce8",
+          "target": "0x140377dc0",
+          "name": "?HandleGame_EquipItemListReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 1304,
+          "slot": "0x140e8bd00",
+          "target": "0x1403781f0",
+          "name": "?HandleGame_UnequipItemReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 1306,
+          "slot": "0x140e8bd10",
+          "target": "0x140378480",
+          "name": "?HandleGame_UnequipItemListReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 1309,
+          "slot": "0x140e8bd28",
+          "target": "0x1403788d0",
+          "name": "?HandleGame_AttachGemToWeaponReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 1312,
+          "slot": "0x140e8bd40",
+          "target": "0x140378e80",
+          "name": "?HandleGame_DetachGemFromWeaponReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 1314,
+          "slot": "0x140e8bd50",
+          "target": "0x140379d20",
+          "name": "?HandleGame_OpenWeaponGemSlotReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 1317,
+          "slot": "0x140e8bd68",
+          "target": "0x140379210",
+          "name": "?HandleGame_ExpandWeaponGemSlotReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 1320,
+          "slot": "0x140e8bd80",
+          "target": "0x140379520",
+          "name": "?HandleGame_AddWeaponGemSlotReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 1323,
+          "slot": "0x140e8bd98",
+          "target": "0x140379780",
+          "name": "?HandleGame_DeleteWeaponGemSlotReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 1326,
+          "slot": "0x140e8bdb0",
+          "target": "0x14037a260",
+          "name": "?HandleGame_IdentifyItemReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 1328,
+          "slot": "0x140e8bdc0",
+          "target": "0x14037a9a0",
+          "name": "?HandleGame_UnsealItem2Req@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 1330,
+          "slot": "0x140e8bdd0",
+          "target": "0x14037aef0",
+          "name": "?HandleGame_RepairReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 1332,
+          "slot": "0x140e8bde0",
+          "target": "0x14037b420",
+          "name": "?HandleGame_RepairWithCampfireReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 1334,
+          "slot": "0x140e8bdf0",
+          "target": "0x14037a4e0",
+          "name": "?HandleGame_UnlockMasteryLevelReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 1337,
+          "slot": "0x140e8be08",
+          "target": "0x14037b640",
+          "name": "?HandleGame_SealItemReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 1340,
+          "slot": "0x140e8be20",
+          "target": "0x14037bb50",
+          "name": "?HandleGame_DecomposeItem2Req@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 1343,
+          "slot": "0x140e8be38",
+          "target": "0x14037ddb0",
+          "name": "?HandleGame_RevealItemAbilityReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 1345,
+          "slot": "0x140e8be48",
+          "target": "0x14037e300",
+          "name": "?HandleGame_AttachEquipGemPieceReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 1347,
+          "slot": "0x140e8be58",
+          "target": "0x14037f780",
+          "name": "?HandleGame_GrowthItemReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 1350,
+          "slot": "0x140e8be70",
+          "target": "0x14037fda0",
+          "name": "?HandleGame_AwakeningItemReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 1353,
+          "slot": "0x140e8be88",
+          "target": "0x140380550",
+          "name": "?HandleGame_FeedingRandomStatEquipGemReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 1356,
+          "slot": "0x140e8bea0",
+          "target": "0x1403bbd60",
+          "name": "?HandleGame_TakeWarehouseItemReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 1359,
+          "slot": "0x140e8beb8",
+          "target": "0x1403c4680",
+          "name": "?HandleGame_LockItemReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 1361,
+          "slot": "0x140e8bec8",
+          "target": "0x1403c4960",
+          "name": "?HandleGame_UnlockItemReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 1363,
+          "slot": "0x140e8bed8",
+          "target": "0x1403c4c70",
+          "name": "?HandleGame_SetItemLockExpirationTimeReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 1365,
+          "slot": "0x140e8bee8",
+          "target": "0x1403c4f50",
+          "name": "?HandleGame_ChangeToReplayQuestReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 1368,
+          "slot": "0x140e8bf00",
+          "target": "0x1403848a0",
+          "name": "?HandleGame_ChallengeListTakeRewardReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 1371,
+          "slot": "0x140e8bf18",
+          "target": "0x1403d1a50",
+          "name": "?HandleGame_SetItemUsedReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 1373,
+          "slot": "0x140e8bf28",
+          "target": "0x1403d2230",
+          "name": "?HandleGame_CompleteClosetCollectingReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 1375,
+          "slot": "0x140e8bf38",
+          "target": "0x14037e820",
+          "name": "?HandleGame_R_EnchantToItemReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 1378,
+          "slot": "0x140e8bf50",
+          "target": "0x14037ea70",
+          "name": "?HandleGame_R_ResetEnchantItemInfoReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 1381,
+          "slot": "0x140e8bf68",
+          "target": "0x14037ef50",
+          "name": "?HandleGame_R_RestoreEnchantFailedItemReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 1384,
+          "slot": "0x140e8bf80",
+          "target": "0x14037ece0",
+          "name": "?HandleGame_R_ResetEnchantRestoreInfoReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 1387,
+          "slot": "0x140e8bf98",
+          "target": "0x14037f190",
+          "name": "?HandleGame_R_PolishToItemReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 1390,
+          "slot": "0x140e8bfb0",
+          "target": "0x1403d6d40",
+          "name": "?HandleGame_ProcessItemFusionReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 1393,
+          "slot": "0x140e8bfc8",
+          "target": "0x140381ab0",
+          "name": "?HandleGame_AcquireQuestReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 1395,
+          "slot": "0x140e8bfd8",
+          "target": "0x1403822c0",
+          "name": "?HandleGame_ProgressMissionReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 1397,
+          "slot": "0x140e8bfe8",
+          "target": "0x140382c70",
+          "name": "?HandleGame_ProgressMissionAllReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 1399,
+          "slot": "0x140e8bff8",
+          "target": "0x1403b2850",
+          "name": "?HandleGame_ProgressMissionByAcquireSummonedReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 1401,
+          "slot": "0x140e8c008",
+          "target": "0x140383120",
+          "name": "?HandleGame_DungeonProgressToStepReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 1403,
+          "slot": "0x140e8c018",
+          "target": "0x140383550",
+          "name": "?HandleGame_DisposeQuestReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 1410,
+          "slot": "0x140e8c050",
+          "target": "0x140383910",
+          "name": "?HandleGame_MissionStepRollbackReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 1412,
+          "slot": "0x140e8c060",
+          "target": "0x140383b30",
+          "name": "?HandleGame_MissionStepTimeExpiredReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 1414,
+          "slot": "0x140e8c070",
+          "target": "0x140383d70",
+          "name": "?HandleGame_ResetQuestCompletionTimeReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 1417,
+          "slot": "0x140e8c088",
+          "target": "0x140384270",
+          "name": "?HandleGame_AcquireRenewalQuestReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 1420,
+          "slot": "0x140e8c0a0",
+          "target": "0x140384560",
+          "name": "?HandleGame_ChallengeListAcquireQuestReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 1423,
+          "slot": "0x140e8c0b8",
+          "target": "0x1403842d0",
+          "name": "?HandleGame_ProgressSkipMissionStepReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 1430,
+          "slot": "0x140e8c0f0",
+          "target": "0x140385350",
+          "name": "?HandleGame_SkillPageTotalReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 1433,
+          "slot": "0x140e8c108",
+          "target": "0x140385150",
+          "name": "?HandleGame_ChangeSkillPageReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 1436,
+          "slot": "0x140e8c120",
+          "target": "0x140385790",
+          "name": "?HandleGame_ExpandSkillPageReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 1439,
+          "slot": "0x140e8c138",
+          "target": "0x140385530",
+          "name": "?HandleGame_RenameSkillPageReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 1442,
+          "slot": "0x140e8c150",
+          "target": "0x140385cd0",
+          "name": "?HandleGame_TrainTraitReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 1445,
+          "slot": "0x140e8c168",
+          "target": "0x1403971e0",
+          "name": "?HandleGame_ArchivePostReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 1448,
+          "slot": "0x140e8c180",
+          "target": "0x1403982e0",
+          "name": "?HandleGame_MarkExpressPostReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 1451,
+          "slot": "0x140e8c198",
+          "target": "0x140397f20",
+          "name": "?HandleGame_DetachPostAttachmentReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 1454,
+          "slot": "0x140e8c1b0",
+          "target": "0x140397420",
+          "name": "?HandleGame_DeliverPostReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 1457,
+          "slot": "0x140e8c1c8",
+          "target": "0x140398630",
+          "name": "?HandleGame_RetrieveCraftListReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 1460,
+          "slot": "0x140e8c1e0",
+          "target": "0x140398640",
+          "name": "?HandleGame_RegisterCraftReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 1463,
+          "slot": "0x140e8c1f8",
+          "target": "0x140398880",
+          "name": "?HandleGame_TakeCraftReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 1466,
+          "slot": "0x140e8c210",
+          "target": "0x140398a90",
+          "name": "?HandleGame_AbortCraftReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 1469,
+          "slot": "0x140e8c228",
+          "target": "0x140398c40",
+          "name": "?HandleGame_JoinCraftUnionReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 1472,
+          "slot": "0x140e8c240",
+          "target": "0x140398f00",
+          "name": "?HandleGame_LeaveCraftUnionReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 1475,
+          "slot": "0x140e8c258",
+          "target": "0x140399170",
+          "name": "?HandleGame_RegisterSaleReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 1478,
+          "slot": "0x140e8c270",
+          "target": "0x140399740",
+          "name": "?HandleGame_AbandonSaleReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 1481,
+          "slot": "0x140e8c288",
+          "target": "0x140399540",
+          "name": "?HandleGame_UpdateSalePriceReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 1484,
+          "slot": "0x140e8c2a0",
+          "target": "0x140399a60",
+          "name": "?HandleGame_RegisterBidReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 1487,
+          "slot": "0x140e8c2b8",
+          "target": "0x14039a220",
+          "name": "?HandleGame_AbandonBidReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 1490,
+          "slot": "0x140e8c2d0",
+          "target": "0x140399e40",
+          "name": "?HandleGame_UpdateBidPriceReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 1493,
+          "slot": "0x140e8c2e8",
+          "target": "0x14039a8a0",
+          "name": "?HandleGame_RegisterPurchaseReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 1496,
+          "slot": "0x140e8c300",
+          "target": "0x14039ac20",
+          "name": "?HandleGame_MarketSearchItemReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 1499,
+          "slot": "0x140e8c318",
+          "target": "0x14039af00",
+          "name": "?HandleGame_RetrieveInstantSaleItemLowestPriceReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 1502,
+          "slot": "0x140e8c330",
+          "target": "0x14039b080",
+          "name": "?HandleGame_SubmitPetitionReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 1505,
+          "slot": "0x140e8c348",
+          "target": "0x14039b3e0",
+          "name": "?HandleGame_CancelPetitionReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 1508,
+          "slot": "0x140e8c360",
+          "target": "0x14039b500",
+          "name": "?HandleGame_FeedbackPetitionReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 1511,
+          "slot": "0x140e8c378",
+          "target": "0x1403c1de0",
+          "name": "?HandleGame_RandomStoreInfoReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 1514,
+          "slot": "0x140e8c390",
+          "target": "0x1403c1fd0",
+          "name": "?HandleGame_RandomStoreDrawReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 1517,
+          "slot": "0x140e8c3a8",
+          "target": "0x1403c2cc0",
+          "name": "?HandleGame_ExpandRandomStoreSlotReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 1520,
+          "slot": "0x140e8c3c0",
+          "target": "0x1403c3bd0",
+          "name": "?HandleGame_BuyRandomStoreItemReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 1523,
+          "slot": "0x140e8c3d8",
+          "target": "0x1403c4280",
+          "name": "?HandleGame_TakeRandomStoreDrawRewardReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 1526,
+          "slot": "0x140e8c3f0",
+          "target": "0x1403bcd30",
+          "name": "?HandleGame_TransformItemReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 1529,
+          "slot": "0x140e8c408",
+          "target": "0x1403be6b0",
+          "name": "?HandleGame_BuyCollectionItemsReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 1532,
+          "slot": "0x140e8c420",
+          "target": "0x1403c7800",
+          "name": "?HandleGame_DuelBotTrainingRoomPickDuelBotReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 1535,
+          "slot": "0x140e8c438",
+          "target": "0x1403c7a60",
+          "name": "?HandleGame_DuelBotTrainingRoomCombatStartReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        },
+        {
+          "id348": 1539,
+          "slot": "0x140e8c458",
+          "target": "0x1403c7d20",
+          "name": "?HandleGame_DuelBotTrainingRoomRewardReq@@YA_NPEAVPc@@PEBVPacket@@@Z"
+        }
+      ]
+    }
+  ]
+}
