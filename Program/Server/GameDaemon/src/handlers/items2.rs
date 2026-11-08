@@ -156,7 +156,7 @@ const UNCHECKED_DECODE: &str = "❓ unchecked item decode (short body, field not
 
 /// What a wrong PC kind (+46 ≠ 1) does at entry.
 #[derive(Clone, Copy, PartialEq, Eq)]
-enum KindCheck {
+pub(super) enum KindCheck {
     /// No PC kind test in the entry.
     None,
     /// Log/assert without a reply; the task is not posted.
@@ -166,7 +166,7 @@ enum KindCheck {
 }
 /// How the task is posted.
 #[derive(Clone, Copy, PartialEq, Eq)]
-enum Post {
+pub(super) enum Post {
     /// Part-1 queue `0x140254FD0`; a failed queue sends the entry failure.
     Queue,
     /// `0x140603BD0`; the entry does not test the result.
@@ -174,13 +174,13 @@ enum Post {
 }
 
 /// Entry tail: zone, PC kind, then post.
-fn post(
+pub(super) fn post(
     ctx: &mut Context<'_>,
     command: u16,
     fail: Outcome,
     kind_check: KindCheck,
     mode: Post,
-    task: InventoryTask,
+    task: impl Into<ItemTaskKind>,
 ) -> Outcome {
     let pc = ctx.pc().clone();
     let Some(zone) = pc.zone else {
@@ -198,7 +198,7 @@ fn post(
         command,
         caster: pc.object_id,
         zone,
-        kind: ItemTaskKind::Inventory(task),
+        kind: task.into(),
     };
     if mode == Post::Dispatch {
         return craft_dispatch(ctx, task);
@@ -217,25 +217,25 @@ fn post(
 }
 
 /// U0: PC +20696 user (only when PC +20752 = 0), non-null, user +120 = 0.
-fn u0_passes(ctx: &Context<'_>) -> bool {
+pub(super) fn u0_passes(ctx: &Context<'_>) -> bool {
     let pc = ctx.pc();
     pc.user_present && !pc.party_user_blocked
 }
 
 /// Signed-short count with an unsigned comparison `min..=max` (negative
 /// counts fail). A missing count also fails.
-fn count(r: &mut Reader<'_>, min: u16, max: u16) -> Option<u16> {
+pub(super) fn count(r: &mut Reader<'_>, min: u16, max: u16) -> Option<u16> {
     r.short().filter(|c| (min..=max).contains(c))
 }
 /// Counted short pairs. Err(true): count failure. Err(false): entry decode failure.
-fn pairs(r: &mut Reader<'_>, min: u16, max: u16) -> Result<Vec<(u16, u16)>, bool> {
+pub(super) fn pairs(r: &mut Reader<'_>, min: u16, max: u16) -> Result<Vec<(u16, u16)>, bool> {
     let n = count(r, min, max).ok_or(true)?;
     (0..n)
         .map(|_| Some((r.short()?, r.short()?)))
         .collect::<Option<_>>()
         .ok_or(false)
 }
-fn pair_fail(err: bool, command: u16, count_reason: u16, decode_reason: u16) -> Outcome {
+pub(super) fn pair_fail(err: bool, command: u16, count_reason: u16, decode_reason: u16) -> Outcome {
     Outcome::reason(command, if err { count_reason } else { decode_reason })
 }
 
@@ -837,4 +837,10 @@ pub fn handle_seal_item(ctx: &mut Context<'_>, req: &[u8]) -> Outcome {
         Post::Queue,
         task,
     )
+}
+
+impl From<InventoryTask> for ItemTaskKind {
+    fn from(task: InventoryTask) -> Self {
+        ItemTaskKind::Inventory(task)
+    }
 }

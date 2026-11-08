@@ -54,6 +54,8 @@ pub enum ItemTaskKind {
     SetUsed { entries: Vec<(u8, u16)> },
     /// Doc 12b part 2 (closet, inventory, repair, decompose, gem, seal).
     Inventory(InventoryTask),
+    /// Doc 12c part 1 (badge, slate).
+    BadgeSlate(BadgeSlateTask),
 }
 #[derive(Clone, Debug, PartialEq, Eq)]
 pub struct ItemTask {

@@ -963,6 +963,23 @@ Release local references. All entry paths return true.
 No direct inventory/money mutation, distance or cooldown check appears in this target.
 ❓ `Q`/blob codec and trailing destination mapping, task initializer/action, transaction/operation state machine, recipe table/field names, consumption/output/rollback, success/broadcasts, daemon command/DB procedure, timeout and callback kick paths remain open. Do not truncate pointers or recipe keys from decompiler casts.
 
+## Rust port status (part 1)
+
+Source: `Program/Server/GameDaemon/src/handlers/items3.rs`, tests `tests/gi4_badge_slate.rs`.
+
+| Command | Rust | Boundary that stops the port |
+| --- | --- | --- |
+| 1152, 1160, 1162, 1165, 1173 | partial | Entry ported: gates, manager task kinds 56..60, submit. Manager runners not ported. |
+| 1167, 1170, 1182 | partial | Entry ported: gates, user check, transaction start event and initial DWORD. Transaction runners not ported. |
+| 1140 | partial | Entry ported. Task action `0x1402D2860` needs PC badge fields and `tm[3352]`. |
+| 1143 | partial | Entry ported. Task action unread. |
+| 1146 | partial | Gate ported. The cached recipe packet at table-manager +82176 is unread. |
+| 1191 | partial | Shared slate gates ported. Decoder destinations, blob capacity and initializer are unread. |
+| 1194, 1197, 1200 | partial | Entry ported. Task actions need PC slate state (+20616..+20632, +891). |
+
+- BoardGacha uses the new `Services::board_gacha` boundary. Both global gates are modelled by `World::board_gacha_enabled`.
+- 1140 does not zero-initialize the page, so a short body stops at a boundary.
+
 ## Coverage limits
 
 All 48 selected entry functions were read. Command 833 is a complete log-only handler.

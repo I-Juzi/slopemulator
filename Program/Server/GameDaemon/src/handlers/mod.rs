@@ -18,7 +18,9 @@ pub use party_model::*;
 pub use party_tasks::execute_party_task;
 mod items;
 mod items2;
+mod items3;
 pub use items2::*;
+pub use items3::*;
 mod token;
 mod trade;
 pub use items::*;
@@ -382,6 +384,12 @@ pub struct World {
     pub item_lock_enabled: bool,
     /// Daemon +2744 byte +935 ≠ 0: unseal feature (doc 12b 1383).
     pub unseal_enabled: bool,
+    /// Doc 12c: global byte +2088 and cfg byte +404 both ≠ 0 (BoardGacha).
+    pub board_gacha_enabled: bool,
+    /// Doc 12c: global bytes +2040 and +2008 both ≠ 0 (badge).
+    pub badge_enabled: bool,
+    /// Doc 12c: signed global DWORD +2092 (slate page count).
+    pub slate_pages: i32,
     /// cfg DWORD +248 when cfg byte +237 ≠ 0, else 0 (backend 367 restriction value).
     pub arena_value: u32,
     pub channel_type_87_restricted: bool,
@@ -494,6 +502,11 @@ pub trait Services {
     }
     /// Doc 12b item task allocation, PC-kind init and queue/dispatch.
     fn queue_item(&mut self, _task: &ItemTask) -> Gate {
+        Gate::Unknown
+    }
+    /// Doc 12c BoardGacha manager submit (`0x1403FB2D0`) or user
+    /// transaction registration (`0x1400D4FE0`).
+    fn board_gacha(&mut self, _request: &BoardGachaRequest) -> Gate {
         Gate::Unknown
     }
     /// `tm[603]` virtual +168 recipe lookup.
@@ -622,6 +635,8 @@ pub struct MemoryTrade {
     pub item_tasks: Vec<ItemTask>,
     pub recipe_exists: Option<bool>,
     pub crafts: Option<Vec<Option<CraftRecord>>>,
+    pub board_gacha_result: Gate,
+    pub board_gacha: Vec<BoardGachaRequest>,
 }
 impl Default for MemoryTrade {
     fn default() -> Self {
@@ -635,6 +650,8 @@ impl Default for MemoryTrade {
             item_tasks: vec![],
             recipe_exists: None,
             crafts: None,
+            board_gacha_result: Gate::Unknown,
+            board_gacha: vec![],
         }
     }
 }
@@ -722,6 +739,12 @@ impl Services for MemoryServices {
     }
     fn trade_state(&mut self) -> Option<&mut TradeState> {
         self.trade.state.as_mut()
+    }
+    fn board_gacha(&mut self, request: &BoardGachaRequest) -> Gate {
+        if self.trade.board_gacha_result == Gate::Pass {
+            self.trade.board_gacha.push(request.clone());
+        }
+        self.trade.board_gacha_result
     }
     fn queue_item(&mut self, task: &ItemTask) -> Gate {
         if self.trade.item_queue_result == Gate::Pass {
@@ -892,6 +915,7 @@ fn dispatch_inner(ctx: &mut Context<'_>, command: u16, req: &[u8]) -> Outcome {
         && !ITEM_COMMANDS.contains(&command)
         && !ITEM2_COMMANDS.contains(&command)
         && !ITEM3_COMMANDS.contains(&command)
+        && !ITEM4_COMMANDS.contains(&command)
     {
         return Outcome::log("unknown command");
     }
@@ -931,6 +955,9 @@ fn dispatch_inner(ctx: &mut Context<'_>, command: u16, req: &[u8]) -> Outcome {
     }
     if ITEM3_COMMANDS.contains(&command) {
         return items2::dispatch_item3(ctx, command, req);
+    }
+    if ITEM4_COMMANDS.contains(&command) {
+        return items3::dispatch_item4(ctx, command, req);
     }
     match command {
         11 => handle_hello(ctx, req),
