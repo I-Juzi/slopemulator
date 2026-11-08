@@ -111,3 +111,63 @@ fn dp_arena_stub_does_nothing() {
     assert!(out.replies.is_empty());
     assert!(h.services.skill_tasks.is_empty());
 }
+
+#[test]
+fn duel_bot_challenge() {
+    let mut h = H::new();
+    h.session.pc.as_mut().unwrap().gm_grade = 1;
+    assert_eq!(replies(&h.run(968, &7u64.to_le_bytes())), r(970, 2));
+    h.session.pc.as_mut().unwrap().gm_grade = 0x80; // signed: not > 0
+    assert!(h.run(968, &7u64.to_le_bytes()).replies.is_empty());
+    assert_eq!(h.last(), DuelTask::DuelBotChallengeStart { bot: 7 });
+    assert_eq!(replies(&h.run(968, &[1])), r(970, 2));
+    assert!(h.run(973, &[4]).replies.is_empty());
+    assert_eq!(
+        h.last(),
+        DuelTask::StrategicTool {
+            op: 0,
+            tool: 0,
+            slot: 4
+        }
+    );
+    assert!(h.run(977, &9u64.to_le_bytes()).replies.is_empty());
+    assert_eq!(
+        h.last(),
+        DuelTask::StrategicTool {
+            op: 1,
+            tool: 9,
+            slot: 0
+        }
+    );
+    assert_eq!(replies(&h.run(973, &[])), r(975, 2));
+    h.services.skill_queue_result = Gate::Fail;
+    assert_eq!(replies(&h.run(977, &9u64.to_le_bytes())), r(979, 2));
+}
+
+fn pick(bot: u32, level: u8) -> Vec<u8> {
+    let mut v = bot.to_le_bytes().to_vec();
+    v.push(level);
+    v
+}
+
+#[test]
+fn training_room() {
+    let mut h = H::new();
+    assert_eq!(replies(&h.run(1587, &[1, 0])), r(1589, 2251));
+    assert_eq!(replies(&h.run(1587, &pick(0, 1))), r(1589, 2));
+    assert_eq!(replies(&h.run(1587, &pick(15, 1))), r(1589, 2));
+    assert_eq!(replies(&h.run(1587, &pick(14, 11))), r(1589, 2));
+    assert!(h.run(1587, &pick(14, 10)).replies.is_empty());
+    assert_eq!(h.last(), DuelTask::TrainingRoomPick { bot: 14, level: 10 });
+    let bot = (240u64 << 48) | 3;
+    assert_eq!(replies(&h.run(1590, &3u64.to_le_bytes())), r(1592, 2));
+    assert!(h.run(1590, &bot.to_le_bytes()).replies.is_empty());
+    assert_eq!(h.last(), DuelTask::TrainingRoomStart { bot });
+    h.session.pc.as_mut().unwrap().gm_grade = 2;
+    assert_eq!(replies(&h.run(1590, &bot.to_le_bytes())), r(1592, 2));
+    assert!(h.run(1594, &[1, 2, 3]).replies.is_empty());
+    assert_eq!(h.last(), DuelTask::TrainingRoomReward { a: 1, b: 2, c: 3 });
+    assert_eq!(replies(&h.run(1594, &[1, 2])), r(1596, 2));
+    h.session.pc.as_mut().unwrap().zone = None;
+    assert_eq!(replies(&h.run(1587, &pick(1, 1))), r(1589, 2));
+}
