@@ -1,3 +1,5 @@
+Step 5: movement, skills, distance and failure/kick rules in `07-server-validation.md` are partial and address-backed. Specs only. No live test.
+
 # GameDaemon world entry: step 4 report
 
 Specs: `bns-server/Docs/Server/GameDaemon/`.
