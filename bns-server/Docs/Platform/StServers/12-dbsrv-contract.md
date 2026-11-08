@@ -170,4 +170,4 @@ with 58981-byte partials.
 | EncryptedPassword, Mirror, Driver | shipped `Db.ini`: 33 sections, keys Address, Database, Username, Password only | none |
 | float / real / money columns | `columns.txt` of PlatformAcctDb, GameDb, SlotDb, SessionDb: 0 | none for these DBs |
 | PRINT / RAISERROR (info messages) | `modules.sql` of the same DBs: 0 | none for these DBs |
-| varchar columns | AcctDb 16, GameDb 13, SlotDb 5, SessionDb 2 | same text for ASCII data; non-ASCII data ❓ |
+| varchar columns | AcctDb 16, GameDb 13, SlotDb 5, SessionDb 2; collation `Chinese_Simplified_Stroke_Order_100_CI_AS` (code page 936). bns-mssql scan, `LIKE '%[^ -~]%'` (binary collation): 0 non-ASCII values in every column. The columns hold IPs, hashes, salts, codes and IDs | none: the text is ASCII, and ASCII is the same in CP936 and UTF-8 |
