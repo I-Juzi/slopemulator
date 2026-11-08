@@ -95,6 +95,8 @@ pub enum SkillTaskKind {
     },
     /// 1389, action class 29.
     UnlockMasteryLevel { pairs: Vec<(u16, u16)> },
+    /// Doc 13 part 2 (`skills2.rs`).
+    Combat(CombatTask),
 }
 
 #[derive(Clone, Debug, PartialEq, Eq)]
@@ -143,7 +145,8 @@ pub(super) fn dispatch_skill(ctx: &mut Context<'_>, command: u16, req: &[u8]) ->
     }
 }
 
-const UNCHECKED_DECODE: &str = "❓ unchecked skill decode (short body, field not zero-initialized)";
+pub(super) const UNCHECKED_DECODE: &str =
+    "❓ unchecked skill decode (short body, field not zero-initialized)";
 
 /// Selected creature for a control selector (doc 13, 1226 rule).
 #[derive(Clone, Copy)]
@@ -180,7 +183,7 @@ fn reason_selector(command: u16, reason: u16, selector: u8) -> Outcome {
 }
 
 /// Queue a task; `fail` on adapter failure, unsupported on Unknown.
-fn queue(ctx: &mut Context<'_>, task: SkillTask, fail: Outcome) -> Outcome {
+pub(super) fn queue(ctx: &mut Context<'_>, task: SkillTask, fail: Outcome) -> Outcome {
     match ctx.services.queue_skill(&task) {
         Gate::Pass => Outcome {
             changes: vec![StateChange::Queued(task.command)],
@@ -194,7 +197,7 @@ fn queue(ctx: &mut Context<'_>, task: SkillTask, fail: Outcome) -> Outcome {
 }
 
 /// PC task: zone, PC kind 1 (assert then reply), queue. One reason for all.
-fn pc_task(
+pub(super) fn pc_task(
     ctx: &mut Context<'_>,
     command: u16,
     failure: u16,
@@ -222,7 +225,7 @@ fn pc_task(
 
 // ---- Skill use, cancel, trigger ---------------------------------------------------
 
-fn counted<T>(
+pub(super) fn counted<T>(
     r: &mut Reader<'_>,
     max: u16,
     item: impl Fn(&mut Reader<'_>) -> Option<T>,

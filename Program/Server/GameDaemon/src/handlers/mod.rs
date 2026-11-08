@@ -22,11 +22,13 @@ mod items3;
 mod items4;
 mod items5;
 mod skills;
+mod skills2;
 pub use items2::*;
 pub use items3::*;
 pub use items4::*;
 pub use items5::*;
 pub use skills::*;
+pub use skills2::*;
 mod token;
 mod trade;
 pub use items::*;
@@ -61,6 +63,8 @@ pub enum StateChange {
     Queued(u16),
     /// Doc 13 1497: rate timestamp set before decoding.
     TraitTrainTick(u64),
+    /// Doc 13 131: global DWORD `0x140FFDCDC` after the request.
+    FactionStatisticsCalls(u32),
     /// Dispatch retains the input for each queued task/action. No body is lost.
     QueuedRequest {
         command: u16,
@@ -300,6 +304,10 @@ pub struct Pc {
     pub short_96: i16,
     /// Doc 13 1497: session object qword +8, last train-trait tick.
     pub trait_train_tick: u64,
+    /// Doc 13: PC job byte +100 (630/633 require 6).
+    pub job: u8,
+    /// Doc 13 1065: current skill skin, PC short +776.
+    pub current_skin: i16,
 }
 impl Default for Pc {
     fn default() -> Self {
@@ -348,6 +356,8 @@ impl Default for Pc {
             guild_invitation_refusal: false,
             short_96: 0,
             trait_train_tick: 0,
+            job: 0,
+            current_skin: 0,
         }
     }
 }
@@ -413,6 +423,22 @@ pub struct World {
     pub vitality_recharge_enabled: bool,
     /// Doc 13: rule config qword +1264, 1497 rate interval (ticks).
     pub trait_train_interval: u64,
+    /// Doc 13: global config byte +2105 ≠ 0 (125/127/129).
+    pub faction_enabled: bool,
+    /// Doc 13: global config byte +2001 ≠ 0 (1266).
+    pub fish_enabled: bool,
+    /// Doc 13: global config byte +200 ≠ 0 (633).
+    pub summon_rename_enabled: bool,
+    /// Doc 13: DataManager byte +82480 ≠ 0 (837/840).
+    pub energy_enabled: bool,
+    /// Doc 13 837: qword +40 of the DataManager slot-10309 object. None: not loaded.
+    pub energy_multiple_mask: Option<u64>,
+    /// Doc 13: global config byte +1980 ≠ 0 (1062/1065).
+    pub skill_skin_enabled: bool,
+    /// Doc 13 131: daemon qwords +6032/+6040/+6048, raw.
+    pub faction_statistics: [u64; 3],
+    /// Doc 13 131: global DWORD `0x140FFDCDC`.
+    pub faction_statistics_calls: u32,
     /// cfg DWORD +248 when cfg byte +237 ≠ 0, else 0 (backend 367 restriction value).
     pub arena_value: u32,
     pub channel_type_87_restricted: bool,
@@ -965,6 +991,7 @@ fn dispatch_inner(ctx: &mut Context<'_>, command: u16, req: &[u8]) -> Outcome {
         && !ITEM5_COMMANDS.contains(&command)
         && !ITEM6_COMMANDS.contains(&command)
         && !SKILL_COMMANDS.contains(&command)
+        && !SKILL2_COMMANDS.contains(&command)
     {
         return Outcome::log("unknown command");
     }
@@ -1016,6 +1043,9 @@ fn dispatch_inner(ctx: &mut Context<'_>, command: u16, req: &[u8]) -> Outcome {
     }
     if SKILL_COMMANDS.contains(&command) {
         return skills::dispatch_skill(ctx, command, req);
+    }
+    if SKILL2_COMMANDS.contains(&command) {
+        return skills2::dispatch_skill2(ctx, command, req);
     }
     match command {
         11 => handle_hello(ctx, req),

@@ -689,6 +689,26 @@ Source: `Program/Server/GameDaemon/src/handlers/skills.rs`, tests `tests/gs1_ski
 | 1497 | Rate gate, all reasons in spec order, trait table through `Services::trait_max_level` | Train action |
 | 1389 | 470, T2 → 7, zone → 1, wrong kind logs only | Unlock action |
 
+## Rust port status (part 2)
+
+Source: `Program/Server/GameDaemon/src/handlers/skills2.rs`, tests `tests/gs2_combat.rs`.
+
+| Command | Rust state | Boundary |
+| --- | --- | --- |
+| 83, 125, 127, 129 | T1 → 5, config +2105 (not 83), U0 → 336 (83), zone/kind with log, queue | Faction tasks |
+| 131 | Full: raw qwords, call counter with overflow log | — |
+| 1253, 1264 | U0 → 676 (1264), records 0..16 with duplicate check, target kind 32/4, queue | Manipulate actions |
+| 1255, 1258 | Zone, PC kind, target kind 32, queue | Refiner action/task |
+| 1266 | Config, full decode, action 0 / 1–2 / other (log only) | Fish action/task |
+| 630 | Decode 1331, count 1342/1337, zone 1, job 1332, queue | Change task |
+| 633 | Config, name, count 1346, pairs, zone, life, job | Name service and `0x14012F9F0` → unsupported |
+| 636, 788 | Zone, PC kind, queue | Task bodies |
+| 837 | Config, range, mask from `World::energy_multiple_mask` | Missing table → unsupported |
+| 840 | Config, decode, option, value, zone, queue | Code 2 framed; 842 encoder for 2618–2620 → unsupported |
+| 952, 1208, 1209 | Scheduler return ignored (952) or logged (1208/1209) | Scheduler `0x140603BD0` |
+| 1026–1038, 1053 | Checked decode reasons, zone, PC kind with log, queue | Room tasks, 1053 task |
+| 1062, 1065 | Config, skin checks, zone, queue | Skin tasks, permission `0x1405E8A10` |
+
 ## Coverage and remaining work
 
 All 51 requested receive wrappers were read.
