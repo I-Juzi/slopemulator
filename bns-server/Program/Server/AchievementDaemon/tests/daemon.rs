@@ -11,7 +11,7 @@ use std::net::Ipv4Addr;
 use std::sync::atomic::Ordering;
 
 const REGISTERS: &str = r#"<table type="achievement-register" version="0.42">
-  <record alias="1_kill" id="1" job="job-none" max-value="10" persistant="y" type="kill-npc"/>
+  <record alias="1_kill" id="1" job="job-none" max-value="10" persistant="y" progress-show="y" type="kill-npc"/>
   <record alias="2_temp" id="2" job="job-none" max-value="0" type="kill-npc"/>
   <record alias="3_bits" id="3" job="job-none" max-value="0" persistant="y" type="kill-npc"/>
   <record alias="4_level" id="4" job="job-none" max-value="0" persistant="y" type="pc-level"/>
@@ -26,8 +26,8 @@ const ACHIEVEMENTS: &str = r#"<table type="achievement" version="0.19">
   <record alias="bits" current-step-score="5" id="101" job="job-none" register-ref-1="3_bits" register-type-1="bits-on" register-value-1="3" step="1"/>
   <record alias="lvl" current-step-score="1" id="102" job="job-none" register-ref-1="4_level" register-type-1="above" register-value-1="10" step="1"/>
   <record alias="cfc" current-step-score="3" id="103" job="job-none" complete-from-client="y" step="1"/>
-  <record alias="dep" current-step-score="3" id="104" job="job-none" deprecated="y" register-ref-1="1_kill" register-value-1="1" step="1"/>
-  <record alias="two" current-step-score="7" id="105" job="job-none" register-ref-1="1_kill" register-value-1="3" register-ref-2="5_client" register-value-2="1" step="1"/>
+  <record alias="dep" current-step-score="3" id="104" job="job-none" deprecated="y" register-ref-1="1_kill" register-type-1="above" register-value-1="1" step="1"/>
+  <record alias="two" current-step-score="7" id="105" job="job-none" register-ref-1="1_kill" register-type-1="above" register-value-1="3" register-ref-2="5_client" register-type-2="above" register-value-2="1" step="1"/>
 </table>"#;
 
 const IP: Ipv4Addr = Ipv4Addr::new(10, 0, 0, 1);
@@ -62,6 +62,10 @@ fn connected(d: &Daemon<MemoryStore>) -> GameConn {
 }
 
 fn event(id: u16, values: Vec<u64>) -> Vec<u8> {
+    internal_event(id, values).encode()
+}
+
+fn internal_event(id: u16, values: Vec<u64>) -> Event {
     let schema = achievementdaemon::schema::schema(id).unwrap();
     let values = schema
         .fields
@@ -83,7 +87,6 @@ fn event(id: u16, values: Vec<u64>) -> Vec<u8> {
         cluster_id: 1,
         values,
     }
-    .encode()
 }
 
 /// PcLogin with job, level, inventory.
@@ -171,7 +174,7 @@ fn rules_parse_and_ops() {
     assert_eq!(r.register(6, 1).unwrap().job, 1);
     assert!(r.register(6, 2).is_none());
     assert!(r.register(5, 3).unwrap().increment_from_client);
-    assert_eq!(r.linked(1), &[100, 104, 105]);
+    assert_eq!(r.linked(1, 0), &[(100, 1, 0), (100, 2, 0), (105, 1, 0)]);
     assert_eq!(r.record(100, 2, 7).unwrap().score, 20);
     assert_eq!(job_from_name("궁사"), Some(12));
     assert!(Op::BitsOn.holds(0b0111, 3));
@@ -305,16 +308,14 @@ fn job_filter_and_bits_and_two_conditions() {
     assert_eq!(d.pc(PC).unwrap().completed_step(101), 1);
     d.game_packet(&mut c, &event(id::DEBUG_SET_REGISTER, vec![1, 3]), 0);
     assert_eq!(d.pc(PC).unwrap().completed_step(105), 0);
-    d.game_packet(
-        &mut c,
-        &event(id::INCREMENT_REGISTER_FROM_CLIENT, vec![5, 1]),
+    d.post(
+        internal_event(id::INCREMENT_REGISTER_FROM_CLIENT, vec![5, 1]),
         0,
     );
     assert_eq!(d.pc(PC).unwrap().completed_step(105), 1);
     // IncrementFromClient is refused for a register without the flag.
-    d.game_packet(
-        &mut c,
-        &event(id::INCREMENT_REGISTER_FROM_CLIENT, vec![3, 1]),
+    d.post(
+        internal_event(id::INCREMENT_REGISTER_FROM_CLIENT, vec![3, 1]),
         0,
     );
     assert_eq!(d.pc(PC).unwrap().register(3), 0b111);
@@ -360,7 +361,7 @@ fn take_reward_reasons_and_replies() {
     assert_eq!(cmd(&r), game_cmd::TAKE_REWARD_FAIL);
     assert_eq!(
         protocol::fields("hEqqhh", &r).unwrap()[1],
-        Value::I16(take::NOT_COMPLETED)
+        Value::I16(take::NOT_AVAILABLE)
     );
     let r = reply(d.game_packet(&mut c, &take_req(1, 999, 1), 0));
     assert_eq!(
@@ -383,7 +384,7 @@ fn take_reward_reasons_and_replies() {
             protocol::i16_at(&v, 3),
             protocol::i16_at(&v, 4)
         ),
-        (5, PC, 1, 100)
+        (5, PC, 100, 1)
     );
     let r = reply(d.game_packet(&mut c, &take_req(5, 100, 1), 0));
     assert_eq!(
@@ -407,7 +408,7 @@ fn tick_writes_store_and_sends_changed_data() {
     assert_eq!(packets.len(), 1);
     assert_eq!(packets[0][38], 1); // changed flag after tid/pcdbid/hint/score/cluster
     let rows = d.store.rows(PC);
-    assert_eq!(rows.registers.get(&1), Some(&2));
+    assert_eq!(rows.registers.get(&1), Some(&(1, 2)));
     assert_eq!(rows.registers.get(&2), None); // not persistant
     assert_eq!(rows.completed.get(&100).map(|c| c.0), Some(1));
     assert!(d.tick().is_empty());
@@ -417,7 +418,7 @@ fn tick_writes_store_and_sends_changed_data() {
     d.tick();
     d.store.fail.store(false, Ordering::Relaxed);
     assert!(!d.tick().is_empty());
-    assert_eq!(d.store.rows(PC).registers.get(&1), Some(&3));
+    assert_eq!(d.store.rows(PC).registers.get(&1), Some(&(1, 3)));
 }
 
 #[test]
@@ -460,7 +461,7 @@ fn disconnect_drops_cluster_pcs() {
     d.game_packet(&mut c, &event(id::DEBUG_SET_REGISTER, vec![1, 4]), 0);
     d.game_disconnect(&c, 0);
     assert!(d.pc(PC).is_none());
-    assert_eq!(d.store.rows(PC).registers.get(&1), Some(&4));
+    assert_eq!(d.store.rows(PC).registers.get(&1), Some(&(1, 4)));
     // The cluster id is free again.
     let _again = connected(&d);
 }

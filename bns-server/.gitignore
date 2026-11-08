@@ -31,3 +31,4 @@ __pycache__/
 .env
 *worker-api-key*
 ida/
+logs/

@@ -6,11 +6,11 @@ use std::sync::Mutex;
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub struct StoreError;
 
-/// Rows of one Pc: registers (id → value), completed (id → (step, time)),
+/// Rows of one Pc: registers (id → (version, value)), completed (id → (step, time)),
 /// rewards (id → reward step).
 #[derive(Debug, Clone, Default, PartialEq, Eq)]
 pub struct PcRows {
-    pub registers: BTreeMap<u16, i64>,
+    pub registers: BTreeMap<u16, (u16, i64)>,
     pub completed: BTreeMap<u16, (u16, i64)>,
     pub rewards: BTreeMap<u16, u16>,
 }
@@ -18,8 +18,8 @@ pub struct PcRows {
 pub trait Store: Send + Sync + 'static {
     /// LoadRegisters + LoadCompleted.
     fn load(&self, pcdbid: i64) -> Result<PcRows, StoreError>;
-    fn insert_registers(&self, pcdbid: i64, rows: &[(u16, i64)]) -> Result<(), StoreError>;
-    fn update_registers(&self, pcdbid: i64, rows: &[(u16, i64)]) -> Result<(), StoreError>;
+    fn insert_registers(&self, pcdbid: i64, rows: &[(u16, u16, i64)]) -> Result<(), StoreError>;
+    fn update_registers(&self, pcdbid: i64, rows: &[(u16, u16, i64)]) -> Result<(), StoreError>;
     fn insert_completed(&self, pcdbid: i64, rows: &[(u16, u16, i64)]) -> Result<(), StoreError>;
     fn update_completed(&self, pcdbid: i64, rows: &[(u16, u16, i64)]) -> Result<(), StoreError>;
     fn take_step_reward(&self, pcdbid: i64, rows: &[(u16, u16)]) -> Result<(), StoreError>;
@@ -57,10 +57,15 @@ impl Store for MemoryStore {
     fn load(&self, pcdbid: i64) -> Result<PcRows, StoreError> {
         self.with(pcdbid, |r| r.clone())
     }
-    fn insert_registers(&self, pcdbid: i64, rows: &[(u16, i64)]) -> Result<(), StoreError> {
-        self.with(pcdbid, |r| r.registers.extend(rows.iter().copied()))
+    fn insert_registers(&self, pcdbid: i64, rows: &[(u16, u16, i64)]) -> Result<(), StoreError> {
+        self.with(pcdbid, |r| {
+            r.registers.extend(
+                rows.iter()
+                    .map(|&(id, version, value)| (id, (version, value))),
+            )
+        })
     }
-    fn update_registers(&self, pcdbid: i64, rows: &[(u16, i64)]) -> Result<(), StoreError> {
+    fn update_registers(&self, pcdbid: i64, rows: &[(u16, u16, i64)]) -> Result<(), StoreError> {
         self.insert_registers(pcdbid, rows)
     }
     fn insert_completed(&self, pcdbid: i64, rows: &[(u16, u16, i64)]) -> Result<(), StoreError> {

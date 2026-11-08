@@ -1,4 +1,4 @@
-//! Tokio listeners: game port (GameDaemons), manage port, update timer.
+//! Tokio listeners and the independent update/Ping timers.
 use crate::protocol;
 use crate::service::{Daemon, GameConn, ManagerConn, Out};
 use crate::store::Store;
@@ -6,29 +6,40 @@ use std::collections::HashMap;
 use std::io;
 use std::net::{IpAddr, Ipv4Addr};
 use std::sync::atomic::{AtomicU64, Ordering};
-use std::sync::{Arc, Mutex};
-use std::time::{Duration, SystemTime, UNIX_EPOCH};
+use std::sync::{Arc, Mutex, OnceLock};
+use std::time::{Duration, Instant, SystemTime, UNIX_EPOCH};
 use tokio::io::AsyncWriteExt;
 use tokio::net::{TcpListener, TcpStream};
-use tokio::sync::mpsc;
+use tokio::sync::{mpsc, watch};
 
 type Sink = mpsc::UnboundedSender<Vec<u8>>;
+/// CheckPingTimer::HandleEvent rearms after each check (0x140002650).
+pub const PING_CHECK_INTERVAL: Duration = Duration::from_millis(3000);
+
+struct ChannelSink {
+    token: u64,
+    sink: Sink,
+    close: watch::Sender<bool>,
+}
 
 pub fn now() -> i64 {
     SystemTime::now()
         .duration_since(UNIX_EPOCH)
         .map_or(0, |d| d.as_secs() as i64)
 }
+fn clock_ms() -> u64 {
+    static START: OnceLock<Instant> = OnceLock::new();
+    START.get_or_init(Instant::now).elapsed().as_millis() as u64
+}
 
 pub struct Server<S> {
     pub daemon: Arc<Daemon<S>>,
-    clusters: Mutex<HashMap<i16, Sink>>,
+    clusters: Mutex<HashMap<i16, ChannelSink>>,
     managers: Mutex<HashMap<u64, Sink>>,
     next_id: AtomicU64,
 }
 
 impl<S: Store> Server<S> {
-    /// Create the server and start the `update-cycle` timer.
     pub fn start(daemon: Arc<Daemon<S>>) -> Arc<Self> {
         let server = Arc::new(Self {
             daemon,
@@ -43,11 +54,24 @@ impl<S: Store> Server<S> {
             timer.tick().await;
             loop {
                 timer.tick().await;
-                let Some(server) = weak.upgrade() else { break };
-                let out = server.daemon.tick();
-                server.route(out, None);
+                let Some(server) = weak.upgrade() else {
+                    break;
+                };
+                server.route(server.daemon.tick(), None);
             }
         });
+        if server.daemon.config.ping_enable {
+            let weak = Arc::downgrade(&server);
+            tokio::spawn(async move {
+                loop {
+                    tokio::time::sleep(PING_CHECK_INTERVAL).await;
+                    let Some(server) = weak.upgrade() else {
+                        break;
+                    };
+                    server.route(server.daemon.check_ping(clock_ms()), None);
+                }
+            });
+        }
         server
     }
 
@@ -61,14 +85,28 @@ impl<S: Store> Server<S> {
                 }
                 Out::Cluster(c, p) => {
                     let clusters = self.clusters.lock().unwrap_or_else(|e| e.into_inner());
-                    if let Some(sink) = clusters.get(&c) {
-                        let _ = sink.send(p);
+                    if let Some(channel) = clusters.get(&c) {
+                        let _ = channel.sink.send(p);
                     }
                 }
                 Out::Managers(p) => {
                     let managers = self.managers.lock().unwrap_or_else(|e| e.into_inner());
                     for sink in managers.values() {
                         let _ = sink.send(p.clone());
+                    }
+                }
+                Out::Expired {
+                    cluster,
+                    token,
+                    close,
+                } => {
+                    let mut clusters = self.clusters.lock().unwrap_or_else(|e| e.into_inner());
+                    if clusters.get(&cluster).is_some_and(|c| c.token == token) {
+                        if let Some(channel) = clusters.remove(&cluster) {
+                            if close {
+                                let _ = channel.close.send(true);
+                            }
+                        }
                     }
                 }
             }
@@ -85,7 +123,6 @@ impl<S: Store> Server<S> {
             tokio::spawn(self.clone().game_connection(stream, GameConn::new(ip)));
         }
     }
-
     pub async fn serve_managers(self: Arc<Self>, listener: TcpListener) -> io::Result<()> {
         loop {
             let (stream, _) = listener.accept().await?;
@@ -97,27 +134,47 @@ impl<S: Store> Server<S> {
     async fn game_connection(self: Arc<Self>, stream: TcpStream, mut conn: GameConn) {
         let (mut reader, writer) = stream.into_split();
         let (out, writer_task) = spawn_writer(writer);
-        while let Ok(Some(packet)) = protocol::read(&mut reader).await {
+        let (close, mut closing) = watch::channel(false);
+        // Keep a local sender so removal without socket closure does not wake this branch.
+        loop {
+            let packet = tokio::select! {
+                _ = closing.changed() => break,
+                packet = protocol::read(&mut reader) => packet,
+            };
+            let Ok(Some(packet)) = packet else {
+                break;
+            };
             let had_cluster = conn.cluster.is_some();
-            let result = self.daemon.game_packet(&mut conn, &packet, now());
-            if !had_cluster {
-                if let Some(c) = conn.cluster {
-                    self.clusters
-                        .lock()
-                        .unwrap_or_else(|e| e.into_inner())
-                        .insert(c, out.clone());
+            // Match the lock order used by the Ping timer. Register the output sink
+            // atomically with Hello so a timeout cannot leave a stale sink behind.
+            let result = {
+                let mut clusters = self.clusters.lock().unwrap_or_else(|e| e.into_inner());
+                let result = self
+                    .daemon
+                    .game_packet_at(&mut conn, &packet, now(), clock_ms());
+                if !had_cluster {
+                    if let Some(c) = conn.cluster {
+                        clusters.insert(
+                            c,
+                            ChannelSink {
+                                token: conn.token,
+                                sink: out.clone(),
+                                close: close.clone(),
+                            },
+                        );
+                    }
                 }
-            }
+                result
+            };
             self.route(result, Some(&out));
         }
         if let Some(c) = conn.cluster {
-            self.clusters
-                .lock()
-                .unwrap_or_else(|e| e.into_inner())
-                .remove(&c);
+            let mut clusters = self.clusters.lock().unwrap_or_else(|e| e.into_inner());
+            if clusters.get(&c).is_some_and(|s| s.token == conn.token) {
+                clusters.remove(&c);
+            }
         }
-        let result = self.daemon.game_disconnect(&conn, now());
-        self.route(result, None);
+        self.route(self.daemon.game_disconnect(&conn, now()), None);
         drop(out);
         let _ = writer_task.await;
     }

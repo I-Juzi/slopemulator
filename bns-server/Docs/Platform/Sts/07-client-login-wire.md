@@ -5,7 +5,8 @@
 Source C64: `StsMsgCli64.dll` from the 2020 UE4 client (BNSR), file date 2020-01-14, 488 960 bytes.
 Local copy: `ida/sts-client/cli64/StsMsgCli64.dll`. Image base `0x180000000`. No PDB (own PDB path: `StsMsgCli64.pdb`, GUID e977af1a847f44579f9cbef2c054c4af, not available).
 Source file names in the DLL: `StsMsgCli.cpp`, `Services/Srp/Srp.cpp`, `Services/SrpWrapper/SrpWrapper.cpp`, `Services/Crypt/CptRc4.cpp`, `Services/Base64/Base64.cpp`.
-❓ The 32-bit `StsMsgCli32.dll` of the 2020 UE3 client is not checked yet. Compare it when the operator has it.
+`StsMsgCli32.dll` (UE3 client, operator copy `~/Downloads/stuff/`, 395 776 bytes, version 0.122, PE timestamp `0x5EB3B1C6`): token verify key is the same RSA-2048 key as in `StsMsgCli64.dll`, at file offset `0x4A088` (360 Base64 chars, type 4, e 65537). ❓ The wire code is not compared yet.
+The operator's UE3 `StsMsgCli64.dll` (PE timestamp `0x5EB3B23C`) is a later build than the local copy (`0x5E140714`). Same version 0.122, same key at `0x58D60`. ❓ Code differences are not checked.
 
 This closes the main gaps of `06-password-login.md`: the request bodies, the reply fields and the password-proof exchange.
 Framing (`POST /Auth/<Command> STS/1.0`, headers `l` and `s`) is the same library code as in `01-transport.md`.

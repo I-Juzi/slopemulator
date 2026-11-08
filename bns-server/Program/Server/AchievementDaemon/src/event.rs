@@ -50,6 +50,12 @@ pub enum ParseError {
 pub const HEADER_BYTES: usize = 4 + 8 * 4 + 2 + 2;
 pub const MAX_EVENT_ID: u16 = 0x770;
 
+/// Command 6 accepts 48 classes. Metadata also contains seven internal classes.
+/// Native parser: 0x140013770.
+pub fn wire_event_allowed(id: u16) -> bool {
+    id <= MAX_EVENT_ID && schema(id).is_some() && !matches!(id, 1013 | 1014 | 1803..=1807)
+}
+
 struct Cursor<'a> {
     data: &'a [u8],
     at: usize,
@@ -103,7 +109,7 @@ impl Event {
         let id = c.u16()?;
         let cluster_id = c.u16()? as i16;
         let schema = match schema(id) {
-            Some(s) if id <= MAX_EVENT_ID => s,
+            Some(s) if wire_event_allowed(id) => s,
             _ => return Err(ParseError::UnknownEvent(id)),
         };
         let mut values = Vec::with_capacity(schema.fields.len());
