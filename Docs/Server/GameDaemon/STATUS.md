@@ -1,4 +1,30 @@
+GP1: `parity-ledger.tsv` and `09-parity.md` record 1598 commands: 502 c2s, 152 s2c, 944 unknown; 9 rows are out of scope within those totals. 41 specs are partial. Specs only. No live test.
 Step 5: movement, skills, distance and failure/kick rules in `07-server-validation.md` are partial and address-backed. Specs only. No live test.
+
+## Rust gr1 — 2026-11-08
+
+New crate: `Program/Server/GameDaemon` (`gamedaemon`). It has no dependencies or sockets. Each check cites Step 5 in `07-server-validation.md` and a build-381 address. Geometry and skill data use traits. Tests use generated fixtures only.
+
+| Rule | State | Spec section |
+| --- | --- | --- |
+| Walk2 handler/action limits, cell records, endpoint layers and start tolerance | Ported subset | Step 5 part 1, Input limits / Cell pseudo-steps |
+| Speed sources, squared limits and optional duration-history comparison | Ported subset | Step 5 part 1, Speed and duration sources |
+| Server height/state checks and correction plans | Partial | Step 5 part 1, Height/state / Failure result |
+| UseSkill group limits, deduplication, data dependencies and ordered gates | Partial | Step 5 part 2 |
+| Strict global recycle boundary | Ported | Step 5 part 2, Verified check order |
+| Trade/NPC/quest distance and stated bypass helpers | Ported subset | Step 5 part 3 |
+| Skill cylinder and ordinary target-check order | Partial | Step 5 part 2, Target/range |
+| Backend reason conversion and ordered BoardGachaDraw failure plan | Ported subset | Step 5 part 4 |
+
+**Checks:** 55 new tests passed; 0 failed; 0 ignored. Strict Clippy passed after one needless-borrow fix. Formatting passed. The plain commands `cargo test --workspace` and `cargo clippy --workspace --all-targets -- -D warnings` ran in the dependency-free check harness at `Program/Server/GameDaemon/target/standalone`. It points to the actual new source and tests. These are **not full source-workspace results**. The source-workspace baseline of 308 passed / 6 ignored was not rerun. Existing tests were not changed.
+
+The full-workspace copy commands required approval and did not run. `tools/check_workspace.py` provides an offline copy procedure for an approved run. The root lock file was not edited. Cargo inherited the existing root target directory and wrote build artifacts to `Program/output`. No network or git command ran. The parity ledger and `09-parity.md` were not changed.
+
+**TODO ❓:** Complete movement transitions (`0x14048C0B0`), geometry loading, duration-ring updates, jump tracking, rising-fall predicate (`0x14048BF70`), summoned rules and unknown correction reasons. Pending height branches do not approve movement. State-only results do not invent transition side effects.
+
+**TODO ❓:** Full skill parsing/dispatch, table-field mappings, server formulas, cast/resource/acquired predicates, later castability checks and local recycle expression. Trait gates preserve the verified order, but do not implement unknown predicates. A passed castability prefix does not prove complete castability. Full skill integration remains blocked.
+
+**TODO ❓:** Quest configuration/caller mapping, unknown outer replies, target-filter/LOS internals, kick identity/reason, transaction +252 provenance and final close. No generic validation kick was added. Restricted hooks remain comments only. No live acceptance test ran.
 
 # GameDaemon world entry: step 4 report
 

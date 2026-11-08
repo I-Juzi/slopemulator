@@ -377,6 +377,10 @@ dependencies = [
 ]
 
 [[package]]
+name = "gamedaemon"
+version = "0.1.0"
+
+[[package]]
 name = "gamedata"
 version = "0.1.0"
 dependencies = [
