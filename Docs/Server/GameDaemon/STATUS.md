@@ -147,3 +147,26 @@ No game records were added. No IDA or network tools were used. Downloads and `Pr
 ## Next job
 
 Write a data-loader specification from decoded table metadata. Start with zone and quest tables. Define typed Rust records and reference checks. Keep plain XML handling separate from this binary codec.
+
+## Rust gr2 — 2026-11-08
+
+Build: GameDaemon 381.8867. Sources: docs 04–07, 09–11. Code: `Program/Server/GameDaemon/src/handlers/`. Each of the 43 handler functions has a `parity:` comment. The dispatcher checks route membership and PC presence. Unknown commands log only. Unmapped packet-right and product-type checks return `Unsupported`. The caller must resolve these checks from server state.
+
+| IDs | State |
+| --- | --- |
+| 13, 16, 19, 22, 29, 34, 38, 307, 414, 416, 422, 812, 1221 | Ported receive logic |
+| 11, 18, 23, 26, 31, 42, 64, 66, 99, 102, 145, 174, 262, 296, 298, 300, 303, 305, 411, 648, 809, 887, 929, 981, 984, 1149, 1210, 1219, 1223, 1239 | Partial; explicit `Unsupported` boundaries |
+
+`Session`, `Pc` and `World` hold server state. `Outcome` lists replies, broadcast plans, state changes, daemon requests and kick actions. No handler adds a generic kick. Native false returns do not close a connection. The queue and transaction adapter uses `Services`. `MemoryServices` is an in-memory fake. Unknown adapter results do not approve a task. The dispatcher retains raw input for queued continuations. A queued task does not prove completed travel or a completed save.
+
+Command 64 reuses `validation::movement` for control selection, creature selection, handler counts and initializer limits. It stops before incomplete duration-history and action-start integration. It does not replace speed, height or transition checks with a distance check. Switch detection includes the verified table and squared-radius failure checks. Air dash includes the verified prepare-check order. Channel change preserves signed channels and the cooldown boundary. Portal state 2 stops before its unmapped mutation.
+
+New codecs: `Program/Server/Packet/src/game_requests.rs`. This separate API covers all 43 requests. It uses the full verified descriptors and the existing BloodLib format codec. It keeps unused bodies opaque. It permits trailing input in handler-prefix decoding. It preserves the third qword in command 1149. Existing `game::GamePacket` behavior and table rows are unchanged. Backend codec plans cover Lobby command 17 (`hqQQ`), cached command 271 (`hQqq`) and the one-record client-option command 17 (`hQCqqchb;`). No backend completion is claimed.
+
+**Tests written:** 80 new tests: 43 per-handler tests, 22 shared handler tests, 8 edge tests and 7 codec tests. Each handler test includes a malformed or unused-body request. Other tests cover ordered failure checks, counts, state latches, signed fields, pending backend work and codec round trips. Existing tests were not changed. Deferred paths behind `Unsupported` do not have full success/failure coverage.
+
+**Execution:** Workspace tests and strict Clippy did not run. The tool returned `This command requires approval`. Requested commands included `cargo test --workspace` and `cargo clippy --workspace --all-targets -- -D warnings`, with offline mode and a target directory under GameDaemon. Compilation and formatting are not verified. The supplied baseline remains 363 passed / 6 ignored; it is not a new result. No new pass total is claimed.
+
+**TODO ❓:** Full handshake acceptance and command 24; complete command 32; world-entry destination and failure cleanup; all EnterZoneTask effects; movement duration history, speed/height/transition integration and broadcasts; turn bounds and unknown wrapper failure arguments; activated-property metadata and mutation; base-camp helper; party manager predicates and notifications; channel restriction branches and LeaveAction routing; cached option persistence; auto-logout report destination; unchecked malformed echo bits; QQ interface effects; contents-cache construction; direct-zone tasks; jumping-ticket transaction; ClientRun reports; air-dash start/effect helpers; teleport event/table/cost/travel chain; cave-escape reservation/disposal and destination chain. These paths remain unsupported. No incomplete command 32, arbitrary-coordinate warp or synthetic broadcast command was added.
+
+Restricted hooks remain address comments only: `0x1403710A5` / `0x14036DE10`, `0x140371AC8`, `0x1403721D5`, `0x1405DF767`, `0x140394181`, `0x140394427` / `0x14060E280`, `0x1403895C7` / `0x1403EAB50`. The private-object boundary `0x1406E3100` remains excluded. No anti-cheat, licence, socket, network or Git operation ran. No other Docs file was changed. No live-client acceptance test ran.

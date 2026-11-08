@@ -6,6 +6,7 @@
 //! Restricted hooks: 381 0x1405DF767 and 0x14036DE10. No implementation.
 //! Restricted private-object boundary: 381 0x1406E3100. No implementation.
 
+pub mod handlers;
 pub mod kick;
 pub mod validation;
 

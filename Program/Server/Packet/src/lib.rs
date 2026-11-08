@@ -5,3 +5,4 @@
 pub mod dispatch;
 pub mod fragments;
 pub mod game;
+pub mod game_requests;
