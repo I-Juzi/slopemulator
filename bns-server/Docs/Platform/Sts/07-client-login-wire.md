@@ -219,3 +219,15 @@ Local server policy:
 
 - `GameAccount/ListMyAccounts`: check `GameCode` against the binding. Reply with the aliases of the account grants for the binding.
 - `Auth/RequestToken`: `sts-local --app-ids <list|*>` issues a random 64-hex opaque token and logs the AppId. ❓ The AppId values of build 381 and the vendor token format are not known. Nothing consumes the token yet.
+
+### VirtualCurrency/GetBalance (2026-11-08)
+
+| Item | Value | Source |
+| --- | --- | --- |
+| Request | `VirtualCurrency/GetBalance`, sent after LoginFinish | live login 20:08:50, sts-local log |
+| Library IDs | 3957, 3970, 3981 | StsMsgCli32.dll 0.122 builders `sub_10019A30`, `sub_1001A690`, `sub_1001B740` |
+| Request body | `UserId`, `CurrencyGroupId`/`CurrencyGroupUnit` or `CurrencyId`, optional `ClientNetAddress` | same builders |
+| Reply body | `BalanceInfoListCount`; if > 0, `BalanceInfoList/BalanceInfo{CurrencyGroupId, CurrencyId, Balance, Expired}` with exactly that many entries | parser `sub_10008270` (3957); `sub_10009960`, `sub_10009EE0` read the same names |
+| Local policy | Reply `BalanceInfoListCount` = 0. The local server keeps no wallet. | `wire.rs` |
+
+❓ Which of the three IDs the game uses is not known. The reply is matched by transaction, so the local reply does not depend on it.
