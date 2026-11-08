@@ -997,6 +997,20 @@ Source: `Program/Server/GameDaemon/src/handlers/items4.rs`, tests `tests/gi5_ite
 | 1296, 1299, 1303 | Decode, queue | Initializer `0x1405188C0`, list builder |
 | 1306, 1311, 1316, 1321 | Decode, object-kind checks with both replies, queue | Actions |
 
+## Rust port status (part 3)
+
+Source: `Program/Server/GameDaemon/src/handlers/items5.rs`, tests `tests/gi6_ability.rs`.
+
+| Command | Rust state | Boundary |
+| --- | --- | --- |
+| 1398, 1400 | U0, decode, zone, queue (wrong PC kind logs only) | Factory kinds 27/28 actions |
+| 1430, 1433 | Decode, slot check (1430), queue | Actions |
+| 1442 | Decode, byte range and duplicate checks, queue | Action |
+| 1402, 1405, 1408 | Feature byte, decode, container-2 alias checks, queue | Actions |
+| 1445 | U0, zone, decode, queue | Fusion action |
+| 1411 | Config, arena, user, zone, value range | Short body, `tm[1455]` and transaction → unsupported |
+| 1581 | U0, zone, full decode with all reasons | Initializer `0x14052CBF0` and mode-1 transaction → unsupported |
+
 ## Coverage limits
 
 All 48 selected entry functions were read. Command 833 is a complete log-only handler.

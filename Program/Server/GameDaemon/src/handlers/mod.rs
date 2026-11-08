@@ -20,9 +20,11 @@ mod items;
 mod items2;
 mod items3;
 mod items4;
+mod items5;
 pub use items2::*;
 pub use items3::*;
 pub use items4::*;
+pub use items5::*;
 mod token;
 mod trade;
 pub use items::*;
@@ -398,6 +400,8 @@ pub struct World {
     pub weapon_appearance_enabled: bool,
     /// Doc 12c: global byte +1981 ≠ 0 (1050 custom dress).
     pub custom_dress_enabled: bool,
+    /// Doc 12c: cfg byte +720 ≠ 0 (1402, 1405, 1408 growth/awakening/feeding).
+    pub item_growth_enabled: bool,
     /// cfg DWORD +248 when cfg byte +237 ≠ 0, else 0 (backend 367 restriction value).
     pub arena_value: u32,
     pub channel_type_87_restricted: bool,
@@ -925,6 +929,7 @@ fn dispatch_inner(ctx: &mut Context<'_>, command: u16, req: &[u8]) -> Outcome {
         && !ITEM3_COMMANDS.contains(&command)
         && !ITEM4_COMMANDS.contains(&command)
         && !ITEM5_COMMANDS.contains(&command)
+        && !ITEM6_COMMANDS.contains(&command)
     {
         return Outcome::log("unknown command");
     }
@@ -970,6 +975,9 @@ fn dispatch_inner(ctx: &mut Context<'_>, command: u16, req: &[u8]) -> Outcome {
     }
     if ITEM5_COMMANDS.contains(&command) {
         return items4::dispatch_item5(ctx, command, req);
+    }
+    if ITEM6_COMMANDS.contains(&command) {
+        return items5::dispatch_item6(ctx, command, req);
     }
     match command {
         11 => handle_hello(ctx, req),

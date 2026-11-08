@@ -58,6 +58,8 @@ pub enum ItemTaskKind {
     BadgeSlate(BadgeSlateTask),
     /// Doc 12c part 2 (item use, field items, pouches, crafting entries).
     Use(ItemUseTask),
+    /// Doc 12c part 3 (ability modification entries).
+    Ability(AbilityTask),
 }
 #[derive(Clone, Debug, PartialEq, Eq)]
 pub struct ItemTask {
