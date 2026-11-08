@@ -16,6 +16,7 @@ pub use guild::*;
 pub use party::*;
 pub use party_model::*;
 pub use party_tasks::execute_party_task;
+mod challenge;
 mod chat;
 mod items;
 mod items2;
@@ -26,6 +27,7 @@ mod mentoring;
 mod skills;
 mod skills2;
 mod social;
+pub use challenge::*;
 pub use chat::*;
 pub use items2::*;
 pub use items3::*;
@@ -470,6 +472,10 @@ pub struct World {
     pub time_play_schedules: [Option<(i64, i64)>; 2],
     /// Doc 17 mentoring fields.
     pub mentoring: MentoringWorld,
+    /// Doc 18: global byte +1982.
+    pub challenge_party_enabled: bool,
+    /// Doc 18: shared PC name lookup, daemon +5824.
+    pub party: PartyState,
     /// Doc 13 131: global DWORD `0x140FFDCDC`.
     pub faction_statistics_calls: u32,
     /// cfg DWORD +248 when cfg byte +237 ≠ 0, else 0 (backend 367 restriction value).
@@ -607,6 +613,10 @@ pub trait Services {
     fn mentoring_registry(&mut self, _mentor: u64, _mentee: u64, _max: i8) -> MentoringRegistry {
         MentoringRegistry::Unknown
     }
+    /// Doc 18: opaque season and name checks. Unknown is never approval.
+    fn challenge_party(&mut self, _check: &ChallengeCheck) -> Gate {
+        Gate::Unknown
+    }
     /// `tm[603]` virtual +168 recipe lookup.
     fn craft_recipe_exists(&mut self, _recipe: i32) -> Option<bool> {
         None
@@ -727,6 +737,7 @@ pub struct MemoryServices {
     pub chat_result: Gate,
     pub chat_calls: Vec<ChatRequest>,
     pub mentoring_registry_result: MentoringRegistry,
+    pub challenge: MemoryChallenge,
 }
 /// Test/default doc 12 boundary results. Unknown is never approval.
 #[derive(Clone, Debug)]
@@ -838,6 +849,7 @@ impl Default for MemoryServices {
             chat_result: Gate::Unknown,
             chat_calls: vec![],
             mentoring_registry_result: MentoringRegistry::Unknown,
+            challenge: MemoryChallenge::default(),
         }
     }
 }
@@ -848,6 +860,14 @@ impl Services for MemoryServices {
     }
     fn mentoring_registry(&mut self, _: u64, _: u64, _: i8) -> MentoringRegistry {
         self.mentoring_registry_result
+    }
+    fn challenge_party(&mut self, check: &ChallengeCheck) -> Gate {
+        self.challenge.calls.push(check.clone());
+        match check {
+            ChallengeCheck::SeasonOpen => self.challenge.season,
+            ChallengeCheck::NameValid { .. } => self.challenge.name_rules,
+            ChallengeCheck::NameAllowed { .. } => self.challenge.name_filter,
+        }
     }
     fn queue_skill(&mut self, task: &SkillTask) -> Gate {
         if self.skill_queue_result == Gate::Pass {
@@ -1051,6 +1071,7 @@ fn dispatch_inner(ctx: &mut Context<'_>, command: u16, req: &[u8]) -> Outcome {
         && !QQ_COMMANDS.contains(&command)
         && !SOCIAL_COMMANDS.contains(&command)
         && !MENTORING_COMMANDS.contains(&command)
+        && !CHALLENGE_COMMANDS.contains(&command)
     {
         return Outcome::log("unknown command");
     }
@@ -1111,6 +1132,9 @@ fn dispatch_inner(ctx: &mut Context<'_>, command: u16, req: &[u8]) -> Outcome {
     }
     if MENTORING_COMMANDS.contains(&command) {
         return mentoring::dispatch_mentoring(ctx, command, req);
+    }
+    if CHALLENGE_COMMANDS.contains(&command) {
+        return challenge::dispatch_challenge(ctx, command, req);
     }
     if SOCIAL_COMMANDS.contains(&command) {
         return social::dispatch_social(ctx, command, req);

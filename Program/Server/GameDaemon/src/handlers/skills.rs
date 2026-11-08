@@ -101,6 +101,8 @@ pub enum SkillTaskKind {
     Chat(ChatTask),
     /// Doc 17 mentoring zone tasks.
     Mentoring(MentoringTask),
+    /// Doc 18 challenge-party zone tasks.
+    ChallengeParty(ChallengeTask),
 }
 
 #[derive(Clone, Debug, PartialEq, Eq)]

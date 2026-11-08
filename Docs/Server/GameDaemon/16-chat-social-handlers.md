@@ -399,4 +399,4 @@ Shared fields for part 2:
 
 ## Coverage and remaining work
 
-Mentoring (1098–1115) is in doc 17. Challenge party (1068–1080) is not read yet.
+Mentoring (1098–1115) is in doc 17. Challenge party (1068–1080) is in doc 18.
