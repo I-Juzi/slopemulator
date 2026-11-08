@@ -99,6 +99,8 @@ pub enum SkillTaskKind {
     Combat(CombatTask),
     /// Doc 16 chat/social zone tasks.
     Chat(ChatTask),
+    /// Doc 17 mentoring zone tasks.
+    Mentoring(MentoringTask),
 }
 
 #[derive(Clone, Debug, PartialEq, Eq)]

@@ -282,6 +282,99 @@ Shared fields:
 
 - **381:** `0x1400DE550`. See the QQ group above.
 
+# Part 2 — achievement and time-based play
+
+Shared fields for part 2:
+
+| Field | Source | Use |
+| --- | --- | --- |
+| Achievement rule | cfg (daemon +2736) byte +436 ≠ 0 | 896, 898, 901 run only when set. 1041 needs it. |
+| Achievement service | daemon +5472, `0x140021340` true | 1041. |
+| Achievement table | DataManager `qword_140F77978` slot 39, vfunc +168, key (id h, step h, job c) | 898, 901. A miss retries with job 0. |
+| Record deprecated | record byte +24 ≠ 0 | 898 → 2091, 901 → 2095. |
+| Record completed effect | record qword +176 | 901: 0 → 2096. |
+| Time-based play rule | global `qword_140EE58A0` byte +1946 ≠ 0 | 1044, 1047. |
+| Time-based schedule | daemon +3200 + 160·type: DWORD exists, qwords +3216 start, +3224 end | 1047, type 0 or 1. |
+
+## 896 — G_AchievementCompleteReqCmd — partial
+
+- **381:** `0x1403C47A0`. **348:** `HandleGame_AchievementCompleteReq`.
+- **Wire:** `hChh;Chh;`: two counted lists of (register id h, value h).
+- **Checks/order:** Achievement rule clear → nothing. A negative count → log "invalid repeatCount". A decode failure → log "cannot decompose". Each register is checked ("invalid register id", "cannot increment register from client"); invalid records are skipped with a log. At most 1100 records are kept. The handler then composes `hqqqqhchhChh;…` (db_id, PC +37352, world short +5512, time64) and sends it to the achievement service (daemon +5472).
+- **Failure/output:** no client reply on any path.
+- **❓ Missing:** the register table checks and the achievement service send.
+
+## 898 — G_AchievementTitleInstallReqCmd — partial
+
+- **381:** `0x1403C5190`. **348:** `HandleGame_AchievementTitleInstallReq`.
+- **Wire:** `hhh`: id, step.
+- **Checks/order:**
+  1. Achievement rule clear → nothing.
+  2. Decode failure → 900/2.
+  3. When id ≠ 0 and step ≠ 0: table miss (job, then job 0) → 900/2090. Deprecated → 900/2091.
+     Otherwise id and step become 0.
+  4. No zone → 900/2.
+  5. Task kind 146, vtable `0x140BA00D8`, id +144, step +146. Queue failure → 900/2.
+- **Failure/output:** 900, `hh`.
+- **❓ Missing:** the task body.
+
+## 901 — G_AchievementAbilityInstallReqCmd — partial
+
+- **381:** `0x1403C5510`. **348:** `HandleGame_AchievementAbilityInstallReq`.
+- **Wire:** `hhh`: id, step.
+- **Checks/order:** As 898 with reply 903: miss → 2094, deprecated → 2095, completed effect 0 → 2096. Task kind 225, vtable `0x140B95610`.
+- **Failure/output:** 903, `hh`.
+- **❓ Missing:** the task body.
+
+## 904 — G_ActivateGameGradeReqCmd — partial
+
+- **381:** `0x1403C58E0`. **348:** `HandleGame_ActivateGameGradeReq`.
+- **Wire:** `hQi`: key type, grade.
+- **Checks/order:**
+  1. Decode failure → log only.
+  2. Arena form B (config, or PC +37520 state 2, 3, 5 or 6) → 906 `hEQi` (5, key type, grade) and log.
+  3. Lobby channel (daemon +4928 `0x140149830`) to world short_96: request `hqqQi` (97, 0, db_id, key type, grade). A compose failure logs only.
+- **❓ Missing:** the lobby channel.
+
+## 1041 — G_TakeAchievementRewardReqCmd — partial
+
+- **381:** `0x140372300`. **348:** `HandleGame_TakeAchievementRewardReq`.
+- **Wire:** `hhh`: id, step.
+- **Checks/order:**
+  1. Decode failure → log only.
+  2. No user → log only.
+  3. No zone → 1043/2.
+  4. Achievement rule clear or service not usable → 1043/2260.
+  5. Task (0x1A8 bytes, `0x1402C13F0`) allocation failure → 1043/2.
+  6. Initialize `0x1402C15A0(task, zone, pc, db_id, id, step)` false → 1043/2.
+  7. Queue failure → 1043/1 and log.
+- **❓ Missing:** the task initializer and body.
+
+## 1044 — G_TimeBasedPlayInfoReqCmd — partial
+
+- **381:** `0x140372610`. **348:** `HandleGame_TimeBasedPlayInfoReq`.
+- **Checks/order:**
+  1. Time-based play rule clear → 1046/2274.
+  2. Arena config → 1046/2274.
+  3. No user → log only.
+  4. Build reply 1045 (`hcqiqqihcccc` nested) from user +1288 with `0x1403E8E40`. Send it through vtable +584. Log the play info.
+- **❓ Missing:** the user play-state record and the reply body.
+
+## 1047 — G_TakeTimeBasedPlayRewardReqCmd — partial
+
+- **381:** `0x140372C50`. **348:** `HandleGame_TakeTimeBasedPlayRewardReq`.
+- **Wire:** `hQ`: target type.
+- **Checks/order:**
+  1. Time-based play rule clear → 1049/2275.
+  2. Arena config → 1049/2275.
+  3. Decode failure → log only.
+  4. No user → log only.
+  5. Target type > 1 → 1049/2276.
+  6. No schedule for the type → 1049/2277.
+  7. Now (time64) before start or after end → 1049/2278.
+  8. User transaction (0x68 bytes, DWORD +8 = 0x3F210A). Register failure → 1049/1. Start with event 376 (0x178).
+- **❓ Missing:** the transaction runner and the start payload.
+
 ## Rust port status (part 1)
 
 | Ids | Rust | State |
@@ -294,6 +387,16 @@ Shared fields:
 | 1185 | `chat.rs` | gates ported; transaction through `Services::board_gacha` |
 | QQ group | `session.rs` `handle_qq_logout` | shared with 887 |
 
+## Rust port status (part 2)
+
+| Ids | Rust | State |
+| --- | --- | --- |
+| 896 | `social.rs` | rule gate; register checks and service send → unsupported |
+| 898, 901 | `social.rs` | ported to the queue; table from `World::achievements` |
+| 904, 1041 | `social.rs` | gates; lobby and initializer through `Services::chat` |
+| 1044 | `social.rs` | gates; reply body → unsupported |
+| 1047 | `social.rs` | gates; transaction through `Services::chat` |
+
 ## Coverage and remaining work
 
-Other social handlers (achievement, mentoring: 896, 898, 901, 904, 1041, 1098–1115) are not read yet.
+Mentoring (1098–1115) is in doc 17. Challenge party (1068–1080) is not read yet.

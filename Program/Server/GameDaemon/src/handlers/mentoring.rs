@@ -1,0 +1,369 @@
+//! Doc 17: mentoring entry functions. Build 381.8867.
+//!
+//! Zone tasks queue a `SkillTask` with a `MentoringTask` kind through
+//! `Services::queue_skill`. The mentoring registry (daemon +6200) goes
+//! through `Services::mentoring_registry`. Task bodies are boundaries.
+use super::skills::queue;
+use super::*;
+
+pub const MENTORING_COMMANDS: &[u16] = &[1098, 1100, 1103, 1105, 1107, 1111, 1115];
+
+/// Doc 17 shared fields.
+#[derive(Clone, Debug, Default)]
+pub struct MentoringWorld {
+    /// DataManager signed short +32896 > 0.
+    pub enabled: bool,
+    /// DataManager qword +32888 record with short +8 > 0: byte +25 maximum mentee count.
+    pub max_mentees: Option<i8>,
+    /// `0x1403F7D20(daemon +5824, q, 6)`: object ID → PC.
+    pub players: BTreeMap<u64, Pc>,
+    /// `0x1403F7EF0(daemon +5824, name, 6)`: name → object ID.
+    pub names: BTreeMap<Vec<u16>, u64>,
+}
+
+#[derive(Clone, Debug, PartialEq, Eq)]
+pub enum MentoringTask {
+    /// 1098, kind 304, vtable `0x140B9A840`. Type +144.
+    ChangeType { mentoring_type: u8 },
+    /// 1100, kind 305, vtable `0x140C39BB0`, attached to the target.
+    /// +144 inviter DB ID, +152 inviter object ID, +160 type.
+    Invite {
+        target: u64,
+        target_zone: u64,
+        inviter_db_id: u64,
+        inviter_object_id: u64,
+        mentoring_type: u8,
+    },
+    /// 1103, kind 309, vtable `0x140C413F8`, attached to the mentee.
+    Confirm {
+        inviter_object_id: u64,
+        inviter_db_id: u64,
+        mentor_db_id: u64,
+        mentee_db_id: u64,
+        max_mentees: i8,
+    },
+    /// 1105, kind 307, vtable `0x140BC1930`. +144, +152, +160 = 0.
+    Reject { first: u64, second: u64 },
+    /// 1111, kind 310, vtable `0x140BC29E8`. Target +144, +152 = 0.
+    Call { target: u64 },
+    /// 1115, kind 311, vtable `0x140B98E58`. Target +144, +152 = 0.
+    Warp { target: u64 },
+}
+impl From<MentoringTask> for SkillTaskKind {
+    fn from(task: MentoringTask) -> Self {
+        SkillTaskKind::Mentoring(task)
+    }
+}
+
+/// Result of the 1103 registry checks (daemon +6200).
+#[derive(Clone, Copy, Debug, Default, PartialEq, Eq)]
+pub enum MentoringRegistry {
+    /// Neither check rejects.
+    Clear,
+    /// The mentee already has a mentoring (2452).
+    AlreadyMentored,
+    /// The mentor count reached the maximum (2453).
+    MentorFull,
+    #[default]
+    Unknown,
+}
+
+pub(super) fn dispatch_mentoring(ctx: &mut Context<'_>, command: u16, req: &[u8]) -> Outcome {
+    match command {
+        1098 => handle_change_mentoring_type(ctx, req),
+        1100 => handle_invite_mentoring(ctx, req),
+        1103 => handle_confirm_invitation_mentoring(ctx, req),
+        1105 => handle_reject_invitation_mentoring(ctx, req),
+        1107 => handle_leave_mentoring(ctx, req),
+        1111 => handle_call_mentoring_member(ctx, req),
+        1115 => handle_warp_to_mentoring_member(ctx, req),
+        _ => unreachable!("membership checked"),
+    }
+}
+
+fn arena_b(ctx: &Context<'_>) -> bool {
+    ctx.world.arena || session::arena_blocked(ctx.pc())
+}
+
+fn target_arena_c(ctx: &Context<'_>, pc: &Pc) -> bool {
+    // cfg +237 ≠ 0 and +248 = 0, and target arena state 2/3/5/6.
+    ctx.world.party_config.arena_enabled && !ctx.world.arena && session::arena_blocked(pc)
+}
+
+fn task(ctx: &Context<'_>, command: u16, zone: u64, task: MentoringTask) -> SkillTask {
+    SkillTask {
+        command,
+        caster: ctx.pc().object_id,
+        summon: false,
+        zone,
+        kind: task.into(),
+    }
+}
+
+fn logged(mut out: Outcome, text: &'static str) -> Outcome {
+    out.logs.push(text);
+    out
+}
+
+/// parity: 1098 17-mentoring-handlers.md#1098--g_changementoringtypereqcmd--partial partial
+pub fn handle_change_mentoring_type(ctx: &mut Context<'_>, req: &[u8]) -> Outcome {
+    const F: u16 = 1099;
+    if !ctx.world.mentoring.enabled {
+        return Outcome::reason(F, 2436);
+    }
+    if arena_b(ctx) {
+        return Outcome::reason(F, 5);
+    }
+    let Some(mentoring_type) = Reader(req).byte() else {
+        return Outcome::reason(F, 2);
+    };
+    if mentoring_type > 2 {
+        return Outcome::reason(F, 2435);
+    }
+    if ctx.pc().mentoring_type == mentoring_type {
+        return Outcome::reason(F, 2434);
+    }
+    let Some(zone) = ctx.pc().zone else {
+        return Outcome::reason(F, 2);
+    };
+    let t = task(
+        ctx,
+        1098,
+        zone,
+        MentoringTask::ChangeType { mentoring_type },
+    );
+    queue(ctx, t, Outcome::reason(F, 2))
+}
+
+/// parity: 1100 17-mentoring-handlers.md#1100--g_invitementoringreqcmd--partial partial
+pub fn handle_invite_mentoring(ctx: &mut Context<'_>, req: &[u8]) -> Outcome {
+    const F: u16 = 1102;
+    if !ctx.world.mentoring.enabled {
+        return Outcome::reason(F, 2446);
+    }
+    if arena_b(ctx) {
+        return Outcome::reason(F, 5);
+    }
+    let mut r = Reader(req);
+    let (Some(mentoring_type), Some(name)) = (r.byte(), r.string(33)) else {
+        return Outcome::reason(F, 2);
+    };
+    if !(1..=2).contains(&mentoring_type) {
+        return Outcome::reason(F, 3);
+    }
+    let world = ctx.world;
+    let Some(target) = world
+        .mentoring
+        .names
+        .get(&name)
+        .and_then(|id| world.mentoring.players.get(id))
+    else {
+        return Outcome::reason(F, 2447);
+    };
+    let (object_id, db_id) = (ctx.pc().object_id, ctx.pc().db_id);
+    if target.object_id == object_id || target.db_id == db_id {
+        return Outcome::reason(F, 2447);
+    }
+    if target_arena_c(ctx, target) {
+        return Outcome::reason(F, 2448);
+    }
+    let Some(target_zone) = target.zone else {
+        return Outcome::reason(F, 2449);
+    };
+    let Some(zone) = ctx.pc().zone else {
+        return Outcome::reason(F, 2);
+    };
+    if target.native_kind != 1 {
+        return logged(Outcome::reason(F, 2), "crash: mentoring invite target kind");
+    }
+    let t = task(
+        ctx,
+        1100,
+        zone,
+        MentoringTask::Invite {
+            target: target.object_id,
+            target_zone,
+            inviter_db_id: db_id,
+            inviter_object_id: object_id,
+            mentoring_type,
+        },
+    );
+    queue(ctx, t, Outcome::reason(F, 2))
+}
+
+/// parity: 1103 17-mentoring-handlers.md#1103--g_confirminvitationmentoringreqcmd--partial partial
+pub fn handle_confirm_invitation_mentoring(ctx: &mut Context<'_>, req: &[u8]) -> Outcome {
+    const F: u16 = 1104;
+    let Some(max_mentees) = ctx.world.mentoring.max_mentees else {
+        return Outcome::reason(F, 2454);
+    };
+    if arena_b(ctx) {
+        return Outcome::reason(F, 5);
+    }
+    let mut r = Reader(req);
+    let (Some(inviter_object_id), Some(inviter_db_id)) = (r.quad(), r.quad()) else {
+        return Outcome::reason(F, 2);
+    };
+    let world = ctx.world;
+    let Some(inviter) = world.mentoring.players.get(&inviter_object_id) else {
+        return Outcome::reason(F, 2);
+    };
+    let pc = ctx.pc();
+    if inviter.db_id != inviter_db_id
+        || inviter.object_id == pc.object_id
+        || inviter.db_id == pc.db_id
+    {
+        return Outcome::reason(F, 2);
+    }
+    let (mentor, mentee) = match pc.mentoring_type {
+        2 => (pc, inviter),
+        1 => (inviter, pc),
+        _ => return Outcome::reason(F, 2),
+    };
+    let (mentor_db_id, mentee_db_id) = (mentor.db_id, mentee.db_id);
+    let (mentee_zone, mentee_kind) = (mentee.zone, mentee.native_kind);
+    match ctx
+        .services
+        .mentoring_registry(mentor_db_id, mentee_db_id, max_mentees)
+    {
+        MentoringRegistry::Clear => {}
+        MentoringRegistry::AlreadyMentored => return Outcome::reason(F, 2452),
+        MentoringRegistry::MentorFull => return Outcome::reason(F, 2453),
+        MentoringRegistry::Unknown => {
+            return Outcome::unsupported("❓ mentoring registry (daemon +6200)")
+        }
+    }
+    let Some(zone) = mentee_zone else {
+        return Outcome::reason(F, 2);
+    };
+    if mentee_kind != 1 || inviter_db_id == 0 {
+        return Outcome::reason(F, 2);
+    }
+    let t = task(
+        ctx,
+        1103,
+        zone,
+        MentoringTask::Confirm {
+            inviter_object_id,
+            inviter_db_id,
+            mentor_db_id,
+            mentee_db_id,
+            max_mentees,
+        },
+    );
+    queue(ctx, t, Outcome::reason(F, 2))
+}
+
+/// parity: 1105 17-mentoring-handlers.md#1105--g_rejectinvitationmentoringreqcmd--partial partial
+pub fn handle_reject_invitation_mentoring(ctx: &mut Context<'_>, req: &[u8]) -> Outcome {
+    if !ctx.world.mentoring.enabled {
+        return Outcome::log("RejectInvitationMentoring; invalid mentoring");
+    }
+    if arena_b(ctx) {
+        // The native handler uses the confirm failure command.
+        return Outcome::reason(1104, 5);
+    }
+    let mut r = Reader(req);
+    let (Some(first), Some(second)) = (r.quad(), r.quad()) else {
+        return Outcome::log("RejectInvitationMentoring; packet decompose failed");
+    };
+    let Some(zone) = ctx.pc().zone else {
+        return Outcome::log("RejectInvitationMentoring; pc has no zone");
+    };
+    if ctx.pc().native_kind != 1 {
+        return Outcome::log("RejectInvitationMentoring; invalid pc kind");
+    }
+    let t = task(ctx, 1105, zone, MentoringTask::Reject { first, second });
+    queue(
+        ctx,
+        t,
+        Outcome::log("RejectInvitationMentoring; queue failed"),
+    )
+}
+
+/// parity: 1107 17-mentoring-handlers.md#1107--g_leavementoringreqcmd--partial partial
+pub fn handle_leave_mentoring(ctx: &mut Context<'_>, req: &[u8]) -> Outcome {
+    const F: u16 = 1109;
+    if !ctx.world.mentoring.enabled {
+        return Outcome::reason(F, 2455);
+    }
+    if arena_b(ctx) {
+        return Outcome::reason(F, 5);
+    }
+    let mut r = Reader(req);
+    if r.byte().is_none() || r.byte().is_none() || r.quad().is_none() {
+        return Outcome::reason(F, 3);
+    }
+    if ctx.pc().zone.is_none() {
+        return Outcome::reason(F, 2);
+    }
+    Outcome::unsupported("❓ leave task 308 initializer vfunc +88 and field mapping")
+}
+
+fn call_or_warp(ctx: &mut Context<'_>, req: &[u8], warp: bool) -> Outcome {
+    let (command, fail) = if warp { (1115, 1117) } else { (1111, 1113) };
+    let mut r = Reader(req);
+    let (target, decoded) = match (r.quad(), r.short()) {
+        (Some(t), Some(_)) => (t, true),
+        (t, _) => (t.unwrap_or(0), false),
+    };
+    let reply = |reason: u16| {
+        let mut body = reason.to_le_bytes().to_vec();
+        body.extend(target.to_le_bytes());
+        body.extend([0, 0]);
+        Outcome::reply(fail, body)
+    };
+    if !decoded {
+        return reply(3);
+    }
+    if !ctx.world.mentoring.enabled {
+        return reply(2455);
+    }
+    if arena_b(ctx) {
+        return reply(5);
+    }
+    if warp {
+        let pc = ctx.pc();
+        if pc.achievement_reward || pc.jumping_ticket {
+            return logged(reply(2), "WarpToMentoringMember; taking achievement reward");
+        }
+        if pc.instant_payment {
+            return logged(reply(2), "WarpToMentoringMember; try instant payment");
+        }
+    }
+    let world = ctx.world;
+    let found = if target == 0 {
+        None
+    } else {
+        world.mentoring.players.get(&target)
+    };
+    let Some(member) = found else {
+        return reply(2458);
+    };
+    if target_arena_c(ctx, member) {
+        return reply(6);
+    }
+    let Some(zone) = ctx.pc().zone else {
+        return reply(2);
+    };
+    if ctx.pc().native_kind != 1 {
+        return reply(2);
+    }
+    let kind = if warp {
+        MentoringTask::Warp { target }
+    } else {
+        MentoringTask::Call { target }
+    };
+    let t = task(ctx, command, zone, kind);
+    queue(ctx, t, reply(2))
+}
+
+/// parity: 1111 17-mentoring-handlers.md#1111--g_callmentoringmemberreqcmd--partial partial
+pub fn handle_call_mentoring_member(ctx: &mut Context<'_>, req: &[u8]) -> Outcome {
+    call_or_warp(ctx, req, false)
+}
+
+/// parity: 1115 17-mentoring-handlers.md#1115--g_warptomentoringmemberreqcmd--partial partial
+pub fn handle_warp_to_mentoring_member(ctx: &mut Context<'_>, req: &[u8]) -> Outcome {
+    call_or_warp(ctx, req, true)
+}

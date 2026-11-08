@@ -22,15 +22,19 @@ mod items2;
 mod items3;
 mod items4;
 mod items5;
+mod mentoring;
 mod skills;
 mod skills2;
+mod social;
 pub use chat::*;
 pub use items2::*;
 pub use items3::*;
 pub use items4::*;
 pub use items5::*;
+pub use mentoring::*;
 pub use skills::*;
 pub use skills2::*;
+pub use social::*;
 mod token;
 mod trade;
 pub use items::*;
@@ -314,6 +318,8 @@ pub struct Pc {
     pub chat_state: u32,
     /// Doc 16 1185: PC byte +13740 = 1 (trial jumping character).
     pub trial_jumping: bool,
+    /// Doc 17: PC byte +36746 (mentoring type 0, 1 or 2).
+    pub mentoring_type: u8,
 }
 impl Default for Pc {
     fn default() -> Self {
@@ -330,6 +336,7 @@ impl Default for Pc {
             routing: 0,
             zone: None,
             native_kind: 1,
+            mentoring_type: 0,
             position: Position::default(),
             yaw: 0,
             user_available: false,
@@ -451,6 +458,18 @@ pub struct World {
     pub item_message_enabled: bool,
     /// Doc 16 51/55: text filter service, daemon +2728 qword +48 ≠ 0.
     pub text_filter_present: bool,
+    /// Doc 16 896/898/901/1041: cfg (daemon +2736) byte +436 ≠ 0.
+    pub achievement_enabled: bool,
+    /// Doc 16 1041: achievement service (daemon +5472) usable, `0x140021340`.
+    pub achievement_service_usable: bool,
+    /// Doc 16 898/901: achievement table by (id, step, job). None: not loaded.
+    pub achievements: Option<BTreeMap<(u16, u16, u8), AchievementRecord>>,
+    /// Doc 16 1044/1047: global byte +1946 ≠ 0.
+    pub time_play_enabled: bool,
+    /// Doc 16 1047: daemon +3200 + 160·type: (start +3216, end +3224) when set.
+    pub time_play_schedules: [Option<(i64, i64)>; 2],
+    /// Doc 17 mentoring fields.
+    pub mentoring: MentoringWorld,
     /// Doc 13 131: global DWORD `0x140FFDCDC`.
     pub faction_statistics_calls: u32,
     /// cfg DWORD +248 when cfg byte +237 ≠ 0, else 0 (backend 367 restriction value).
@@ -584,6 +603,10 @@ pub trait Services {
     fn chat(&mut self, _request: &ChatRequest) -> Gate {
         Gate::Unknown
     }
+    /// Doc 17 1103: registry checks (daemon +6200) for (mentor, mentee, maximum).
+    fn mentoring_registry(&mut self, _mentor: u64, _mentee: u64, _max: i8) -> MentoringRegistry {
+        MentoringRegistry::Unknown
+    }
     /// `tm[603]` virtual +168 recipe lookup.
     fn craft_recipe_exists(&mut self, _recipe: i32) -> Option<bool> {
         None
@@ -703,6 +726,7 @@ pub struct MemoryServices {
     /// Doc 16 chat/petition boundary result and recorded requests.
     pub chat_result: Gate,
     pub chat_calls: Vec<ChatRequest>,
+    pub mentoring_registry_result: MentoringRegistry,
 }
 /// Test/default doc 12 boundary results. Unknown is never approval.
 #[derive(Clone, Debug)]
@@ -813,6 +837,7 @@ impl Default for MemoryServices {
             trait_levels: None,
             chat_result: Gate::Unknown,
             chat_calls: vec![],
+            mentoring_registry_result: MentoringRegistry::Unknown,
         }
     }
 }
@@ -820,6 +845,9 @@ impl Services for MemoryServices {
     fn chat(&mut self, request: &ChatRequest) -> Gate {
         self.chat_calls.push(request.clone());
         self.chat_result
+    }
+    fn mentoring_registry(&mut self, _: u64, _: u64, _: i8) -> MentoringRegistry {
+        self.mentoring_registry_result
     }
     fn queue_skill(&mut self, task: &SkillTask) -> Gate {
         if self.skill_queue_result == Gate::Pass {
@@ -1021,6 +1049,8 @@ fn dispatch_inner(ctx: &mut Context<'_>, command: u16, req: &[u8]) -> Outcome {
         && !SKILL2_COMMANDS.contains(&command)
         && !CHAT_COMMANDS.contains(&command)
         && !QQ_COMMANDS.contains(&command)
+        && !SOCIAL_COMMANDS.contains(&command)
+        && !MENTORING_COMMANDS.contains(&command)
     {
         return Outcome::log("unknown command");
     }
@@ -1078,6 +1108,12 @@ fn dispatch_inner(ctx: &mut Context<'_>, command: u16, req: &[u8]) -> Outcome {
     }
     if CHAT_COMMANDS.contains(&command) {
         return chat::dispatch_chat(ctx, command, req);
+    }
+    if MENTORING_COMMANDS.contains(&command) {
+        return mentoring::dispatch_mentoring(ctx, command, req);
+    }
+    if SOCIAL_COMMANDS.contains(&command) {
+        return social::dispatch_social(ctx, command, req);
     }
     if QQ_COMMANDS.contains(&command) {
         // parity: QQ group shares 0x1400DE550 with 887 (doc 16).

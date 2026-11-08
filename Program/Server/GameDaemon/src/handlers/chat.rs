@@ -43,6 +43,12 @@ pub enum ChatTask {
     TalkSessionOpen { session: u64 },
     /// 68, kind 19. Social +144.
     SetPcSocial { social: i16 },
+    /// 898, kind 146, vtable `0x140BA00D8`. id +144, step +146.
+    AchievementTitleInstall { id: u16, step: u16 },
+    /// 901, kind 225, vtable `0x140B95610`.
+    AchievementAbilityInstall { id: u16, step: u16 },
+    /// 1041, 0x1A8-byte task `0x1402C13F0`.
+    TakeAchievementReward { id: u16, step: u16 },
 }
 impl From<ChatTask> for SkillTaskKind {
     fn from(task: ChatTask) -> Self {
@@ -64,6 +70,22 @@ pub enum ChatRequest {
     CurrentPetition { world: i16, db_id: u64 },
     /// 1560: petition backend request 154 (`u1s2i8s2i8`, PC +194 block).
     CancelPetition { world: i16 },
+    /// 904: lobby request 97 `hqqQi` (0, db_id, key type, grade) to world short_96.
+    ActivateGameGrade {
+        world: i16,
+        db_id: u64,
+        key_type: u8,
+        grade: i32,
+    },
+    /// 1041: initializer `0x1402C15A0(task, zone, pc, db_id, id, step)`.
+    AchievementRewardInit {
+        zone: u64,
+        db_id: u64,
+        id: u16,
+        step: u16,
+    },
+    /// 1047: user transaction (DWORD +8 = 0x3F210A), started with event 376.
+    TimeBasedPlayReward { db_id: u64, target: u8 },
 }
 
 pub(super) fn dispatch_chat(ctx: &mut Context<'_>, command: u16, req: &[u8]) -> Outcome {
