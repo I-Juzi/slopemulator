@@ -308,7 +308,10 @@ pub fn serve_connection(
         }
         let replies = session
             .receive(input, store, &mut rng, Instant::now())
-            .map_err(|_| Error::Protocol)?;
+            .map_err(|error| {
+                eprintln!("sts-local: session closed: {error}");
+                Error::Protocol
+            })?;
         connect.clear();
         for reply in replies {
             set_deadline(&stream, deadline)?;
