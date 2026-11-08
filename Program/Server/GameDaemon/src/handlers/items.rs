@@ -56,6 +56,8 @@ pub enum ItemTaskKind {
     Inventory(InventoryTask),
     /// Doc 12c part 1 (badge, slate).
     BadgeSlate(BadgeSlateTask),
+    /// Doc 12c part 2 (item use, field items, pouches, crafting entries).
+    Use(ItemUseTask),
 }
 #[derive(Clone, Debug, PartialEq, Eq)]
 pub struct ItemTask {

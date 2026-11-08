@@ -980,6 +980,23 @@ Source: `Program/Server/GameDaemon/src/handlers/items3.rs`, tests `tests/gi4_bad
 - BoardGacha uses the new `Services::board_gacha` boundary. Both global gates are modelled by `World::board_gacha_enabled`.
 - 1140 does not zero-initialize the page, so a short body stops at a boundary.
 
+## Rust port status (part 2)
+
+Source: `Program/Server/GameDaemon/src/handlers/items4.rs`, tests `tests/gi5_item_use.rs`.
+
+| Command | Rust state | Boundary |
+| --- | --- | --- |
+| 830 | Gates, decode, queue | Initializer `0x140534270` and action |
+| 833 | Ported (log only) | — |
+| 947 | Gates and decode | Validator `0x1402B8C80` → unsupported |
+| 1010 | Gates, decode, PC kind | Recipe table `tm[1479]` → unsupported |
+| 1050 | Gates, decode, queue | Action |
+| 1233, 1234, 1236, 1237, 1242 | Decode, queue | Short body → unsupported (fields not zero-initialized) |
+| 1243, 1245, 1249 | — | Lowercase `u` codec → unsupported |
+| 1247, 1251 | Decode, PC kind, queue | Inventory factory actions |
+| 1296, 1299, 1303 | Decode, queue | Initializer `0x1405188C0`, list builder |
+| 1306, 1311, 1316, 1321 | Decode, object-kind checks with both replies, queue | Actions |
+
 ## Coverage limits
 
 All 48 selected entry functions were read. Command 833 is a complete log-only handler.
