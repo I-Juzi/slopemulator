@@ -1,5 +1,6 @@
 //! Tokio network layer: game, InfoGate and manage listen ports
 //! (RankingDaemon::openListenPort @0x14001DC90 opens manage, infogate, game).
+use crate::boards::RankingBoards;
 use crate::protocol;
 use crate::service::{Daemon, Flow, Out, Peer};
 use std::collections::HashMap;
@@ -7,7 +8,7 @@ use std::io;
 use std::net::{IpAddr, Ipv4Addr};
 use std::sync::atomic::{AtomicU64, Ordering};
 use std::sync::{Arc, Mutex};
-use std::time::{SystemTime, UNIX_EPOCH};
+use std::time::{Duration, Instant, SystemTime, UNIX_EPOCH};
 use tokio::io::AsyncWriteExt;
 use tokio::net::{TcpListener, TcpStream};
 use tokio::sync::{mpsc, Notify};
@@ -60,6 +61,34 @@ impl Server {
                     }
                 }
             }
+        }
+    }
+
+    /// RankingListMaker (RankingList.cpp): first run 1000 ms after load
+    /// (loadAllDataFromDB @0x14001D910), then every `period_ms` aligned to
+    /// the build time (RankingListMaker::HandleEvent @0x1400271B0). The
+    /// task ends when the step says not to add the timer again.
+    pub async fn run_ranking_list_maker(
+        self: Arc<Self>,
+        boards: Arc<Mutex<RankingBoards>>,
+        period_ms: i32,
+    ) {
+        let mut delay = crate::service::RANKING_LIST_MAKER_FIRST_DELAY_MS;
+        loop {
+            tokio::time::sleep(Duration::from_millis(delay.max(0) as u64)).await;
+            let started = Instant::now();
+            let (out, rearm) = {
+                let boards = boards.lock().unwrap();
+                let mut daemon = self.daemon.lock().unwrap();
+                let activated = daemon.activated_ranking_lists(now());
+                daemon.ranking_list_maker_step(Some(&boards), &activated, false)
+            };
+            self.route(out);
+            if !rearm {
+                return;
+            }
+            let duration = started.elapsed().as_millis() as i64;
+            delay = crate::service::next_ranking_list_delay(period_ms, duration);
         }
     }
 

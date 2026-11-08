@@ -7,7 +7,8 @@ use rankingdaemon::config::{
 };
 use rankingdaemon::protocol::{fields, game_cmd, infogate_cmd, manage_cmd, packet};
 use rankingdaemon::service::{
-    max_ranking_list_index, pc_job_to_board_index, Daemon, Flow, Out, Peer, RankedPlayer,
+    max_ranking_list_index, next_ranking_list_delay, pc_job_to_board_index, Daemon, Flow,
+    ListBuildError, Out, Peer, RankedPlayer,
 };
 use std::net::Ipv4Addr;
 
@@ -945,9 +946,12 @@ fn make_ranking_lists_builds_every_list_index() {
     d.set_player(1, 2, ranked("B", 2, 6, 222));
     b.insert_score(&score(6, 1, 1, 50)).unwrap();
     b.insert_score(&score(6, 2, 2, 70)).unwrap();
-    assert_eq!(d.make_ranking_lists(&b, &[]), None);
-    assert_eq!(d.make_ranking_lists(&b, &[(2, 1)]), None);
-    assert_eq!(d.make_ranking_lists(&b, &[(6, 99)]), Some(vec![(6, 99)]));
+    assert_eq!(d.make_ranking_lists(&b, &[]), Err(ListBuildError::Fetch));
+    assert_eq!(
+        d.make_ranking_lists(&b, &[(2, 1)]),
+        Err(ListBuildError::Fetch)
+    );
+    assert_eq!(d.make_ranking_lists(&b, &[(6, 99)]), Ok(vec![(6, 99)]));
 
     let (frames, _) = ig(
         &mut d,
@@ -994,9 +998,12 @@ fn make_ranking_lists_needs_players_and_sends_party_ids() {
     let mut d = authed_infogate();
     let mut b = RankingBoards::new(15, 36, 100);
     b.insert_score(&score(13, 7, 1, 50)).unwrap();
-    assert_eq!(d.make_ranking_lists(&b, &[(13, 1)]), None);
+    assert_eq!(
+        d.make_ranking_lists(&b, &[(13, 1)]),
+        Err(ListBuildError::Make)
+    );
     d.set_player(1, 7, ranked("P", 1, 13, 3));
-    assert!(d.make_ranking_lists(&b, &[(13, 1)]).is_some());
+    assert!(d.make_ranking_lists(&b, &[(13, 1)]).is_ok());
     let (frames, _) = ig(
         &mut d,
         packet("hcc", &[Value::I16(5), Value::U8(13), Value::U8(0)]),
@@ -1005,4 +1012,55 @@ fn make_ranking_lists_needs_players_and_sends_party_ids() {
         panic!()
     };
     assert_eq!(rows[0][6], Value::U64(7));
+}
+
+#[test]
+fn ranking_list_maker_step_broadcasts_and_rearms() {
+    let mut d = authed_infogate();
+    let mut b = RankingBoards::new(15, 36, 100);
+    d.set_player(1, 1, ranked("A", 1, 6, 111));
+    b.insert_score(&score(6, 1, 1, 50)).unwrap();
+
+    // Cmd 4 `hcq` to every connected InfoGate.
+    let (out, rearm) = d.ranking_list_maker_step(Some(&b), &[(6, 0x1234)], false);
+    assert!(rearm);
+    assert_eq!(
+        out,
+        vec![Out::Send(
+            Peer::InfoGate(1),
+            packet("hcq", &[Value::I16(4), Value::U8(6), Value::U64(0x1234)])
+        )]
+    );
+
+    // Make failure (missing player): no broadcast, timer stays.
+    b.insert_score(&score(6, 9, 1, 60)).unwrap();
+    assert_eq!(
+        d.ranking_list_maker_step(Some(&b), &[(6, 1)], false),
+        (vec![], true)
+    );
+    // Fetch failure (no activated type, no board) stops the timer.
+    assert_eq!(
+        d.ranking_list_maker_step(Some(&b), &[], false),
+        (vec![], false)
+    );
+    assert_eq!(
+        d.ranking_list_maker_step(Some(&b), &[(2, 1)], false),
+        (vec![], false)
+    );
+    assert_eq!(
+        d.ranking_list_maker_step(None, &[(6, 1)], false),
+        (vec![], false)
+    );
+    // Cooldown and stop states: no work, no new timer.
+    assert_eq!(
+        d.ranking_list_maker_step(Some(&b), &[(6, 1)], true),
+        (vec![], false)
+    );
+}
+
+#[test]
+fn ranking_list_maker_delay_aligns_to_period() {
+    assert_eq!(next_ranking_list_delay(60_000, 0), 60_000);
+    assert_eq!(next_ranking_list_delay(60_000, 1_500), 58_500);
+    assert_eq!(next_ranking_list_delay(60_000, 61_000), 59_000);
 }

@@ -3,6 +3,7 @@
 //! and InfoGate lists from config-path, and SeasonContentsScheduleData.xml
 //! from data-path. Season times are local: set RANKINGD_UTC_OFFSET_MINUTES
 //! (for example 540 for KST). No RankingDB: jobs that need the DB fail with reason 4.
+use rankingdaemon::boards::RankingBoards;
 use rankingdaemon::config::{
     load_result_schedules, parse_game_list, parse_infogate_list, parse_season_data_at,
     RankingConfig, CONFIG_FILE, GAME_LIST_FILE, INFOGATE_LIST_FILE, SEASON_DATA_FILE,
@@ -10,6 +11,7 @@ use rankingdaemon::config::{
 use rankingdaemon::server::{Port, Server};
 use rankingdaemon::service::Daemon;
 use std::path::{Path, PathBuf};
+use std::sync::{Arc, Mutex};
 use tokio::net::TcpListener;
 
 fn read(path: &Path) -> Result<String, Box<dyn std::error::Error>> {
@@ -44,6 +46,18 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         config.service_mode
     );
     let server = Server::new(daemon);
+    // RankingBoardManager::Initialize: one board per contents type. No
+    // RankingDB yet, so the boards start empty ❓.
+    let boards = Arc::new(Mutex::new(RankingBoards::new(
+        config.skip_list_ex_max_level,
+        config.skip_list_ex_prob,
+        config.skip_list_ex_max_node_count,
+    )));
+    tokio::spawn(
+        server
+            .clone()
+            .run_ranking_list_maker(boards, config.ranking_list_update_period),
+    );
     let manage = TcpListener::bind(("0.0.0.0", config.manage_listen_port)).await?;
     let infogate = TcpListener::bind(("0.0.0.0", config.infogate_listen_port)).await?;
     let game = TcpListener::bind(("0.0.0.0", config.world_listen_port)).await?;
