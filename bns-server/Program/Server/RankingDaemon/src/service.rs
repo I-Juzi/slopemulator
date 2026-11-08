@@ -110,7 +110,10 @@ impl Daemon {
             managers: HashSet::new(),
             seasons: seasons
                 .into_iter()
-                .filter(|s| s.service_mode == config.service_mode)
+                // modifyActivatedSeason @0x14002B540 / modifyFutureSeason
+                // @0x14002B8C0: a forced-termination record that is not in
+                // the list is not inserted.
+                .filter(|s| s.service_mode == config.service_mode && !s.forced_termination)
                 .collect(),
             black_list: BTreeSet::new(),
         }

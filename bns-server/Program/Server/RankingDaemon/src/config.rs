@@ -350,12 +350,14 @@ pub fn parse_infogate_list(xml: &str) -> Result<Vec<InfoGateInfo>, ConfigError> 
         .collect())
 }
 
-/// One season result schedule (RankingSeasonResultScheduleInfo).
+/// One season result schedule (RankingSeasonResultScheduleInfo, 64 bytes).
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub struct ResultSchedule {
     pub number: u8,
     pub ranking_result_start_time: i64,
     pub closing_noti_time: i64,
+    /// Not sent in FetchSeasonList; kept for the DB and the accumulate task.
+    pub determine_time: i64,
     pub reward_start_time: i64,
     pub result_expiration_time: i64,
     pub is_finality_result: bool,
@@ -376,8 +378,30 @@ pub struct Season {
     pub reward_group_id: i16,
     pub default_rating_score: i32,
     pub ranking_minimum_score: i64,
+    /// closing-notice-period (record +64), minutes.
+    pub closing_notice_period: i16,
+    /// accumulation-period (record +66), minutes.
+    pub accumulation_period: i16,
+    /// enable-weekly-ending-schedule (+68), weekly-ending-day (+69, sun = 0),
+    /// weekly-ending-hour (+70).
+    pub weekly_ending: bool,
+    pub weekly_ending_day: u8,
+    pub weekly_ending_hour: u8,
+    /// enable-weekly-ending-schedule-for-qa (+80) and
+    /// weekly-ending-schedule-for-qa-1..20 (+88).
+    pub weekly_ending_for_qa: bool,
+    pub qa_schedule: Vec<i64>,
+    /// forced-termination (+249).
+    pub forced_termination: bool,
     pub results: Vec<ResultSchedule>,
 }
+
+/// SEASONCONTENTSSCHEDULE weekly-ending-day names (0x1400E1560), same
+/// order as `tm_wday`.
+pub const WEEKDAY_NAMES: [&str; 7] = ["sun", "mon", "tue", "wed", "thu", "fri", "sat"];
+/// weekly-ending-schedule-for-qa-1..20.
+pub const MAX_QA_SCHEDULE: usize = 20;
+const WEEK: i64 = 604_800;
 
 /// Days from 1970-01-01 to a civil date (proleptic Gregorian).
 fn days_from_civil(y: i64, m: i64, d: i64) -> i64 {
@@ -390,8 +414,9 @@ fn days_from_civil(y: i64, m: i64, d: i64) -> i64 {
     era * 146_097 + doe - 719_468
 }
 
-/// `YYYY-MM-DD H:MM:SS` as seconds. Native converts local time; this port
-/// reads it as UTC ❓.
+/// `YYYY-MM-DD H:MM:SS` as seconds, read as UTC. Native reads local time
+/// (`_localtime64_s` in loadHiddenFieldFromSeasonContentsSchedule
+/// @0x140004480); [`parse_season_data_at`] subtracts the local offset.
 pub fn parse_time(text: &str) -> Option<i64> {
     let (date, time) = text.trim().split_once(' ')?;
     let mut d = date.split('-').map(|p| p.parse::<i64>().ok());
@@ -408,13 +433,19 @@ pub fn parse_time(text: &str) -> Option<i64> {
 }
 
 /// Parse SeasonContentsScheduleData.xml (`table` of `record` rows).
-/// Result schedules are not derived yet (phase 2: loadHiddenFieldFromSeasonContentsSchedule). The exporter leaves out attributes that hold
+/// Result schedules come from [`load_result_schedules`]. The exporter leaves out attributes that hold
 /// their default, so a missing number or time is 0 and a missing name is index 0 ❓.
 /// A time that is present but does not parse fails the load.
 /// A record with a name the 348 enums do not know (newer data, for example
 /// `mastery-exp-best-record`) is skipped ❓ (native DrDataReader path not
 /// traced).
 pub fn parse_season_data(xml: &str) -> Result<Vec<Season>, ConfigError> {
+    parse_season_data_at(xml, 0)
+}
+
+/// [`parse_season_data`] with the server local time offset (seconds east
+/// of UTC). Every time becomes `wall clock - utc_offset`.
+pub fn parse_season_data_at(xml: &str, utc_offset: i64) -> Result<Vec<Season>, ConfigError> {
     let root = parse_limited(xml, MAX_DATA_BYTES)?;
     if root.name != "table" {
         return Err(error("root element must be table"));
@@ -428,22 +459,35 @@ pub fn parse_season_data(xml: &str) -> Result<Vec<Season>, ConfigError> {
         };
         let time = |k: &str| match get(k) {
             None => Ok(0),
-            Some(v) => parse_time(v).ok_or_else(|| error(format!("bad {k}"))),
+            Some(v) => parse_time(v)
+                .map(|t| t - utc_offset)
+                .ok_or_else(|| error(format!("bad {k}"))),
         };
+        let flag = |k: &str| get(k).is_some_and(|v| v.trim().eq_ignore_ascii_case("y"));
         let num = |k: &str| -> Result<i64, ConfigError> {
             match get(k) {
                 None => Ok(0),
                 Some(v) => v.trim().parse().map_err(|_| error(format!("bad {k}"))),
             }
         };
-        let (Some(service_mode), Some(contents), Some(season_type), Some(player_type)) = (
+        let (Some(service_mode), Some(contents), Some(season_type), Some(player_type), Some(day)) = (
             named("service-mode", &SERVICE_MODE_NAMES),
             named("season-contents-type", &SEASON_CONTENTS_TYPE_NAMES),
             named("season-type", &SEASON_TYPE_NAMES),
             named("player-type", &PLAYER_TYPE_NAMES),
+            named("weekly-ending-day", &WEEKDAY_NAMES),
         ) else {
             continue;
         };
+        // The QA list count (+248) is the number of filled entries from
+        // qa-1 up ❓ (count field set by the generic reader, not traced).
+        let mut qa_schedule = Vec::new();
+        for n in 1..=MAX_QA_SCHEDULE {
+            if get(&format!("weekly-ending-schedule-for-qa-{n}")).is_none() {
+                break;
+            }
+            qa_schedule.push(time(&format!("weekly-ending-schedule-for-qa-{n}"))?);
+        }
         seasons.push(Season {
             service_mode: service_mode as i32,
             season_contents_type: contents as u8,
@@ -457,8 +501,122 @@ pub fn parse_season_data(xml: &str) -> Result<Vec<Season>, ConfigError> {
             reward_group_id: num("reward-group-data")? as i16,
             default_rating_score: num("default-rating-score")? as i32,
             ranking_minimum_score: num("ranking-minimum-score")?,
+            closing_notice_period: num("closing-notice-period")? as i16,
+            accumulation_period: num("accumulation-period")? as i16,
+            weekly_ending: flag("enable-weekly-ending-schedule"),
+            weekly_ending_day: day as u8,
+            weekly_ending_hour: num("weekly-ending-hour")? as u8,
+            weekly_ending_for_qa: flag("enable-weekly-ending-schedule-for-qa"),
+            qa_schedule,
+            forced_termination: flag("forced-termination"),
             results: Vec::new(),
         });
     }
     Ok(seasons)
+}
+
+/// Week day (0 = sunday) and hour of an epoch time in local time.
+fn local_wday_hour(time: i64, utc_offset: i64) -> (i64, i64) {
+    let local = time + utc_offset;
+    let days = local.div_euclid(86_400);
+    ((days + 4).rem_euclid(7), local.rem_euclid(86_400) / 3600)
+}
+
+/// Data::DataManager::loadHiddenFieldFromSeasonContentsSchedule @0x140004480:
+/// the reward times (record +256, count +250). A free season also moves
+/// its result expiration (+56) to end + 3600.
+pub fn result_times(season: &mut Season, utc_offset: i64) -> Result<Vec<i64>, ConfigError> {
+    let fail = |what: &str| {
+        error(format!(
+            "season {}/{}: {what}",
+            season.season_contents_type, season.schedule_number
+        ))
+    };
+    match season.season_type {
+        // normal
+        2 if season.weekly_ending => {
+            let (wday, hour) = local_wday_hour(season.start_time, utc_offset);
+            let day = i64::from(season.weekly_ending_day);
+            let h = i64::from(season.weekly_ending_hour);
+            let first = if wday == day {
+                season.start_time + 3600 * (h - hour + 168)
+            } else if wday > day {
+                season.start_time + 86_400 * (day - wday + 7) + 3600 * (h - hour)
+            } else {
+                season.start_time + 3600 * (h + 24 * (day - wday) - hour)
+            };
+            if wday < day && first > season.end_time {
+                // DataManager.cpp line 581: validation failure.
+                return Err(fail("first weekly ending is after the season end"));
+            }
+            let mut times = Vec::new();
+            let mut t = first;
+            while t < season.end_time {
+                times.push(t);
+                t += WEEK;
+            }
+            times.push(season.end_time);
+            Ok(times)
+        }
+        2 => Ok(vec![season.end_time]),
+        // free
+        1 => {
+            season.result_expiration_time = season.end_time + 3600;
+            Ok(vec![season.end_time])
+        }
+        _ => Err(fail("season type is not free or normal")),
+    }
+}
+
+/// convertSeasonDataToRankingSeason @0x14002A7E0 result schedule rows.
+/// The QA list (+88) replaces the derived list when its flag (+80) is set.
+/// Expiration: GetWeeklyResultExpirationTime @0x140007AA0.
+pub fn result_schedules(season: &Season, derived: &[i64]) -> Vec<ResultSchedule> {
+    let times = if season.weekly_ending_for_qa {
+        &season.qa_schedule[..]
+    } else {
+        derived
+    };
+    let acc = 60 * i64::from(season.accumulation_period);
+    let notice = 60 * i64::from(season.closing_notice_period);
+    let n = times.len();
+    times
+        .iter()
+        .enumerate()
+        .map(|(i, &reward)| ResultSchedule {
+            number: (i + 1) as u8,
+            ranking_result_start_time: if i == 0 {
+                season.start_time
+            } else {
+                times[i - 1]
+            },
+            closing_noti_time: reward - acc - notice,
+            determine_time: reward - acc,
+            reward_start_time: reward,
+            result_expiration_time: if i + 1 == n {
+                season.result_expiration_time
+            } else {
+                times[i + 1] - acc
+            },
+            is_finality_result: i + 1 == n,
+        })
+        .collect()
+}
+
+/// Derive the result schedules of every season in `service_mode`
+/// (loadHiddenFieldFromSeasonContentsSchedule runs only on those). A
+/// validation failure fails the load, as in native.
+pub fn load_result_schedules(
+    seasons: &mut [Season],
+    service_mode: i32,
+    utc_offset: i64,
+) -> Result<(), ConfigError> {
+    for season in seasons
+        .iter_mut()
+        .filter(|s| s.service_mode == service_mode)
+    {
+        let derived = result_times(season, utc_offset)?;
+        season.results = result_schedules(season, &derived);
+    }
+    Ok(())
 }
