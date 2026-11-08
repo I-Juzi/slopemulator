@@ -38,6 +38,7 @@ pub mod infogate_cmd {
     pub const HELLO_ACK: i16 = 2;
     pub const HELLO_FAIL: i16 = 3;
     pub const RETRIEVE_RANKING_LIST_REQ: i16 = 5;
+    pub const RETRIEVE_RANKING_LIST_ACK: i16 = 6;
     pub const RETRIEVE_RANKING_LIST_FAIL: i16 = 7;
     pub const RETRIEVE_TIME_ATTACK_BEST_RECORD_REQ: i16 = 8;
     pub const RETRIEVE_TIME_ATTACK_BEST_RECORD_OK: i16 = 9;

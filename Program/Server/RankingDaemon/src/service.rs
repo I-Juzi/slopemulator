@@ -33,6 +33,13 @@ pub enum Flow {
 
 /// FetchSeasonList format (game HelloAck, fragment cmd 2).
 pub const SEASON_LIST_FORMAT: &str = "hiCcischqqqhiCcqqqqQ;;CcischqqqhiCcqqqqQ;;";
+/// RankingList fragment format (MakeRankingList @0x140026B90, cmd 6):
+/// seasonContentsType, listIndex, makeTime, then per ranker: rank, job,
+/// name, worldId, guildId, guildName, playerId (type 13 only, else 0),
+/// key1, lastModificationTime twice.
+pub const RANKING_LIST_FORMAT: &str = "hiccqCicshqsqqqq;";
+/// FetchRankingList LookUp count per list.
+pub const RANKING_LIST_LOOKUP_COUNT: i32 = 1000;
 /// FetchCurrentSeasonContentsList format (InfoGate HelloAck, cmd 2).
 pub const CURRENT_SEASON_FORMAT: &str = "hCcc;";
 
@@ -84,9 +91,20 @@ pub struct Daemon {
 pub struct RankedPlayer {
     pub name: String,
     pub log_summaries: BTreeMap<i8, String>,
+    /// Player::GetJobW.
+    pub job: i16,
+    pub world_id: i16,
+    pub guild_id: u64,
+    pub guild_name: String,
+    /// Player::GetLastModificationTime per season contents type.
+    pub last_modification: BTreeMap<i8, i64>,
 }
 
 impl RankedPlayer {
+    pub fn last_modification_time(&self, kind: i8) -> i64 {
+        self.last_modification.get(&kind).copied().unwrap_or(0)
+    }
+
     /// Player::GetLogSummary @0x1400173C0: empty when unset.
     pub fn log_summary(&self, kind: i8) -> &str {
         self.log_summaries.get(&kind).map_or("", String::as_str)
@@ -193,6 +211,66 @@ impl Daemon {
             lists.resize(index as usize + 1, Vec::new());
         }
         lists[index as usize] = rankers;
+    }
+
+    /// RankingBoardManager::FetchRankingList @0x14001B360 and
+    /// RankingListManager::MakeRankingList @0x140026B90 for the activated
+    /// season types (`(seasonContentsType, makeTime)`). Each list index
+    /// 0..=max gets LookUp(start 1, count 1000) and one cmd 6 fragment set.
+    /// The new set replaces all lists. Returns the types to broadcast
+    /// (InfoGateChannelMgr::BroadcastChangedRankingList), or None when
+    /// native fails (no activated type, missing board, missing player).
+    pub fn make_ranking_lists(
+        &mut self,
+        boards: &crate::boards::RankingBoards,
+        activated: &[(u8, i64)],
+    ) -> Option<Vec<(u8, i64)>> {
+        if activated.is_empty() {
+            return None;
+        }
+        let mut lists = BTreeMap::new();
+        for &(kind, make_time) in activated {
+            let board = boards.board(kind as i16)?;
+            for index in 0..=max_ranking_list_index(kind) {
+                let entries = board.look_up(index, 1, RANKING_LIST_LOOKUP_COUNT).ok()?;
+                let mut rows = Vec::with_capacity(entries.len());
+                for (rank, (key, who)) in entries.iter().enumerate() {
+                    let p = self.players.get(who)?;
+                    let modified = p.last_modification_time(kind as i8);
+                    let player_id = if kind as i8 == SEASON_CONTENTS_CHALLENGE_PARTY {
+                        who.1
+                    } else {
+                        0
+                    };
+                    rows.push(vec![
+                        Value::U32(rank as u32 + 1),
+                        Value::U8(p.job as u8),
+                        wide(&p.name),
+                        Value::I16(p.world_id),
+                        Value::U64(p.guild_id),
+                        wide(&p.guild_name),
+                        Value::U64(player_id),
+                        Value::U64(key.0),
+                        Value::U64(modified as u64),
+                        Value::U64(modified as u64),
+                    ]);
+                }
+                let frames = ::packet::fragments::compose_fragments(
+                    infogate_cmd::RETRIEVE_RANKING_LIST_ACK,
+                    RANKING_LIST_FORMAT,
+                    &[
+                        Value::U8(kind),
+                        Value::U8(index),
+                        Value::U64(make_time as u64),
+                        Value::Repeat(rows),
+                    ],
+                )
+                .ok()?;
+                lists.insert((kind, index), frames);
+            }
+        }
+        self.ranking_lists = lists;
+        Some(activated.to_vec())
     }
 
     /// Phase 2b feed: RankingListMaker output for one list.
