@@ -80,7 +80,7 @@ Shared task attachment (431, 434) uses `0x14025DB30` (zone), `0x14069BF60` (PC c
 - **381:** `0x1403A2310`. **PDB hint:** `HandleGame_RenameGuildReq`.
 - **Wire:** `hQsChh;`: rename type (u8), new name (string, 33 units), then a counted list (≤ 16) of dispose-item records `hh` (slot, count).
 - **Checks/order (reply 436, default reason 2):**
-  1. Arena form B → 2.
+  1. Arena form B → 5.
   2. Config +244 byte = 0 (rename disabled) → 1363.
   3. PC +336 = 0 → 2.
   4. Guild lookup fails → 2.
@@ -186,15 +186,15 @@ Shared task attachment (431, 434) uses `0x14025DB30` (zone), `0x14069BF60` (PC c
 
 - **381:** `0x1403A6760`. **PDB hint:** `HandleGame_LeaveGuildReq`.
 - **Wire:** No body decoder.
-- **Checks/order (reply 512):** Arena form A → 5. PC +336 = 0 → 1459. Guild lookup fails → 2. Action row 11 not enabled → 2. `0x1400E6970(guild, runtimeId, PC+194 name, &reason)` fails → reply (❓ 2 or the returned reason).
+- **Checks/order (reply 512):** Arena form A → 5. PC +336 = 0 → 1459. Guild lookup fails → 2. Action row 11 not enabled → 2. `0x1400E6970(guild, runtimeId, PC+194 name, &reason)` fails → 2 (the helper's reason output is logged only).
 - **Output:** Success: no reply here. ❓ `0x1400E6970` (member removal, broadcasts, DB) not read.
 
 ## 513 — G_BanishGuildMemberReqCmd — partial
 
 - **381:** `0x1403A6A40`. **PDB hint:** `HandleGame_BanishGuildMemberReq`.
 - **Wire:** `hcs` (2 fields): target index (i8), target name (33 units).
-- **Checks/order (reply 514):** Arena form A → 5. Decode fails → 1420. Index < 0 → 1420. PC +336 = 0 → 1422. Guild lookup fails → 2. Action row 12 not enabled → 2. `0x1400E5890(guild, runtimeId, index, name, &reason, 33)` fails → 2 (❓ the reason value is logged; whether it is sent is unclear).
-- **Output:** The handler **always** sends 514 at the end, also on success (❓ reason value on success).
+- **Checks/order (reply 514):** Arena form A → 5. Decode fails → 1420. Index < 0 → 1420. PC +336 = 0 → 1422. Guild lookup fails → 2. Action row 12 not enabled → 2. `0x1400E5890(guild, runtimeId, index, name, &reason, 33)` fails → reply 514 with the helper's `reason` output.
+- **Output:** Success: no reply. ❓ `0x1400E5890` (removal, broadcasts, DB) not read.
 
 ## 515 — G_QueryGuildInfoReqCmd — partial
 

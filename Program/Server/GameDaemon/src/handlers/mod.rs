@@ -6,11 +6,13 @@
 //! 0x140394427 -> 0x14060E280, 0x1403895C7 -> 0x1403EAB50.
 //! Private-object boundary: 0x1406E3100. No implementation.
 
+mod guild;
 mod movement;
 mod party;
 mod party_model;
 mod party_tasks;
 mod session;
+pub use guild::*;
 pub use party::*;
 pub use party_model::*;
 pub use party_tasks::execute_party_task;
@@ -55,6 +57,19 @@ pub enum StateChange {
     RemovePendingTokenUser(u64),
     TokenAuthFinished(u64),
     PartyTaskQueued(PartyTask),
+    /// Doc 15: a guild work object was posted to the guild manager.
+    GuildWorkPosted(GuildWork),
+    GuildTaskQueued(GuildTask),
+    /// `0x1400F9B80` under the guild lock after a failed 506/508 post.
+    GuildInviteeRemoved {
+        guild_id: u64,
+        db_id: u64,
+    },
+    /// `0x1400F37C0(guild, runtime ID, 2)` after a failed 499/501 post.
+    GuildLeaderVoteCleanup {
+        guild_id: u64,
+        requester: u64,
+    },
 }
 
 /// Ordered session operations. The adapter must send before it switches processors.
@@ -224,6 +239,12 @@ pub struct Pc {
     pub life_state: u8,
     pub spawn_state: u8,
     pub spawn_correlation: u32,
+    /// PC +336 guild ID; signed > 0 means in a guild.
+    pub guild_id: u64,
+    /// PC +20760 pending invitation guild ID.
+    pub pending_guild_id: u64,
+    /// PC +328 faction (signed byte).
+    pub faction: i8,
 }
 impl Default for Pc {
     fn default() -> Self {
@@ -261,6 +282,9 @@ impl Default for Pc {
             life_state: 0,
             spawn_state: 0,
             spawn_correlation: 0,
+            guild_id: 0,
+            pending_guild_id: 0,
+            faction: 0,
         }
     }
 }
@@ -318,6 +342,7 @@ pub struct World {
     pub switches: BTreeMap<(u64, u16), TeleportSwitch>,
     pub teleports: BTreeMap<u64, TeleportRecord>,
     pub air_dash: BTreeMap<(u64, i32), AirDashEnvironment>,
+    pub guild: GuildWorld,
 }
 #[derive(Clone, Debug)]
 pub struct TeleportSwitch {
@@ -396,6 +421,43 @@ pub trait Services {
     fn activated_teleport(&mut self) -> PackedProperty {
         PackedProperty::Unknown
     }
+    /// Doc 15 guild boundaries. None / Unknown is never approval.
+    fn guild_post(&mut self, _work: &GuildWork) -> Gate {
+        Gate::Unknown
+    }
+    fn queue_guild(&mut self, _task: &GuildTask) -> Gate {
+        Gate::Unknown
+    }
+    /// UIC user lookup for the PC.
+    fn guild_user_found(&mut self, _pc: &Pc) -> Option<bool> {
+        None
+    }
+    /// Name filter (PC world +2728, virtual +48).
+    fn guild_name_forbidden(&mut self, _name: &[u16]) -> Option<bool> {
+        None
+    }
+    /// Rename type 2 time limit has passed.
+    fn guild_rename_time_passed(&mut self, _guild_id: u64) -> Option<bool> {
+        None
+    }
+    /// The PC holds a live guild-join renewal ticket.
+    fn guild_join_ticket(&mut self, _db_id: u64) -> Option<bool> {
+        None
+    }
+    /// Opaque `0x1400E6970`. Err carries the helper's reason output.
+    fn guild_leave(&mut self, _guild_id: u64, _pc: &Pc) -> Option<Result<(), u16>> {
+        None
+    }
+    /// Opaque `0x1400E5890`. Err carries the helper's reason output.
+    fn guild_banish(
+        &mut self,
+        _guild_id: u64,
+        _pc: &Pc,
+        _index: u8,
+        _name: &[u16],
+    ) -> Option<Result<(), u16>> {
+        None
+    }
     fn queue(&mut self, command: u16) -> Gate;
     fn logout(&mut self) -> Gate;
     fn available_channel(&mut self, channel: i16) -> Gate;
@@ -419,6 +481,37 @@ pub struct MemoryServices {
     pub attraction_result: Option<Result<(), Option<u16>>>,
     pub queued: Vec<u16>,
     pub logout_calls: usize,
+    pub guild: MemoryGuild,
+}
+/// Test/default guild boundary results.
+#[derive(Clone, Debug)]
+pub struct MemoryGuild {
+    pub post_result: Gate,
+    pub queue_result: Gate,
+    pub user_found: Option<bool>,
+    pub name_forbidden: Option<bool>,
+    pub rename_time_passed: Option<bool>,
+    pub join_ticket: Option<bool>,
+    pub leave_result: Option<Result<(), u16>>,
+    pub banish_result: Option<Result<(), u16>>,
+    pub posted: Vec<GuildWork>,
+    pub tasks: Vec<GuildTask>,
+}
+impl Default for MemoryGuild {
+    fn default() -> Self {
+        Self {
+            post_result: Gate::Unknown,
+            queue_result: Gate::Unknown,
+            user_found: None,
+            name_forbidden: None,
+            rename_time_passed: None,
+            join_ticket: None,
+            leave_result: None,
+            banish_result: None,
+            posted: vec![],
+            tasks: vec![],
+        }
+    }
 }
 impl Default for MemoryServices {
     fn default() -> Self {
@@ -438,10 +531,37 @@ impl Default for MemoryServices {
             attraction_result: None,
             queued: vec![],
             logout_calls: 0,
+            guild: MemoryGuild::default(),
         }
     }
 }
 impl Services for MemoryServices {
+    fn guild_post(&mut self, work: &GuildWork) -> Gate {
+        self.guild.posted.push(work.clone());
+        self.guild.post_result
+    }
+    fn queue_guild(&mut self, task: &GuildTask) -> Gate {
+        self.guild.tasks.push(task.clone());
+        self.guild.queue_result
+    }
+    fn guild_user_found(&mut self, _: &Pc) -> Option<bool> {
+        self.guild.user_found
+    }
+    fn guild_name_forbidden(&mut self, _: &[u16]) -> Option<bool> {
+        self.guild.name_forbidden
+    }
+    fn guild_rename_time_passed(&mut self, _: u64) -> Option<bool> {
+        self.guild.rename_time_passed
+    }
+    fn guild_join_ticket(&mut self, _: u64) -> Option<bool> {
+        self.guild.join_ticket
+    }
+    fn guild_leave(&mut self, _: u64, _: &Pc) -> Option<Result<(), u16>> {
+        self.guild.leave_result
+    }
+    fn guild_banish(&mut self, _: u64, _: &Pc, _: u8, _: &[u16]) -> Option<Result<(), u16>> {
+        self.guild.banish_result
+    }
     fn party_state(&mut self) -> Option<&mut PartyState> {
         self.party.as_mut()
     }
@@ -534,7 +654,10 @@ pub fn dispatch(ctx: &mut Context<'_>, command: u16, req: &[u8]) -> Outcome {
 // Individual handlers require dispatch's PC/rights preconditions. They return
 // inert plans; dispatch retains raw request input for queued continuations.
 fn dispatch_inner(ctx: &mut Context<'_>, command: u16, req: &[u8]) -> Outcome {
-    if !COMMANDS.contains(&command) && !PARTY_COMMANDS.contains(&command) {
+    if !COMMANDS.contains(&command)
+        && !PARTY_COMMANDS.contains(&command)
+        && !GUILD_COMMANDS.contains(&command)
+    {
         return Outcome::log("unknown command");
     }
     let any = matches!(command, 16 | 929);
@@ -561,6 +684,9 @@ fn dispatch_inner(ctx: &mut Context<'_>, command: u16, req: &[u8]) -> Outcome {
     }
     if PARTY_COMMANDS.contains(&command) {
         return dispatch_party(ctx, command, req);
+    }
+    if GUILD_COMMANDS.contains(&command) {
+        return guild::dispatch_guild(ctx, command, req);
     }
     match command {
         11 => handle_hello(ctx, req),
