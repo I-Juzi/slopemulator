@@ -114,6 +114,15 @@ pub fn ack(cmd: i16) -> Vec<u8> {
 pub fn hello_fail(cmd: i16, reason: i16) -> Vec<u8> {
     packet("hh", &[Value::I16(cmd), Value::I16(reason)])
 }
+/// The tid the native decoder already wrote when a later field is short
+/// (0x140008360, 0x140008E80, 0x14000F2F0): the decoder fills fields in
+/// order, so a complete 8-byte tid after the 4-byte header survives.
+pub fn partial_tid(packet: &[u8]) -> i64 {
+    packet
+        .get(4..12)
+        .map_or(0, |b| i64::from_le_bytes(b.try_into().unwrap_or([0; 8])))
+}
+
 pub fn tid_ok(cmd: i16, tid: i64, value: i64) -> Vec<u8> {
     packet(
         "hqq",

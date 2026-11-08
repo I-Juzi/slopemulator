@@ -245,27 +245,25 @@ impl GameEventConfig {
                 continue;
             }
             for event in &group.children {
-                let get = |key: &str| {
-                    event
-                        .attrs
-                        .get(key)
-                        .filter(|v| !v.is_empty())
-                        .ok_or_else(|| error(format!("event needs {key}")))
+                // LoadGameEventConfig @0x140002C80: only `event` children
+                // (case-insensitive); a bad entry is logged and skipped.
+                if !event.name.eq_ignore_ascii_case("event") {
+                    continue;
+                }
+                let get = |key: &str| event.attrs.get(key).filter(|v| !v.is_empty());
+                let (Some(id), Some(name), Some(event_type), Some(enable)) =
+                    (get("id"), get("name"), get("type"), get("enable"))
+                else {
+                    continue;
                 };
-                let id = get("id")?;
-                let name = get("name")?;
-                let event_type = get("type")?;
-                let enable = get("enable")?;
                 if name.encode_utf16().count() >= MAX_EVENT_NAME {
                     return Err(error("event name too long"));
                 }
+                // _wtoi for id and type.
                 let info = GameEventInfo {
-                    id: id.trim().parse().map_err(|_| error("bad event id"))?,
+                    id: crate::np::wtoi64(id) as i32,
                     name: name.clone(),
-                    event_type: event_type
-                        .trim()
-                        .parse()
-                        .map_err(|_| error("bad event type"))?,
+                    event_type: crate::np::wtoi64(event_type) as i32,
                     daemon_type: kind,
                     enable: enable.eq_ignore_ascii_case("true"),
                 };

@@ -204,7 +204,11 @@ impl<S: Store, N: Np> Daemon<S, N> {
     /// HandleSmartCoupon_GameEventByCharacterReq @0x140008360.
     fn by_character(&self, conn: &DaemonConn, packet: &[u8]) -> Handled {
         let Some(v) = p::fields("hqiohq", packet) else {
-            return Handled::reply(p::tid_fail(d::BY_CHARACTER_FAIL, 0, reason::SYSTEM));
+            return Handled::reply(p::tid_fail(
+                d::BY_CHARACTER_FAIL,
+                p::partial_tid(packet),
+                reason::SYSTEM,
+            ));
         };
         let channel = conn.authed.expect("authed");
         let (tid, event_id, account, world, pcdbid) = (
@@ -234,7 +238,11 @@ impl<S: Store, N: Np> Daemon<S, N> {
     /// HandleSmartCoupon_GameEventByAccountReq @0x140008E80.
     fn by_account(&self, conn: &DaemonConn, packet: &[u8]) -> Handled {
         let Some(v) = p::fields("hqio", packet) else {
-            return Handled::reply(p::tid_fail(d::BY_ACCOUNT_FAIL, 0, reason::SYSTEM));
+            return Handled::reply(p::tid_fail(
+                d::BY_ACCOUNT_FAIL,
+                p::partial_tid(packet),
+                reason::SYSTEM,
+            ));
         };
         let channel = conn.authed.expect("authed");
         let (tid, event_id, account) = (p::i64_at(&v, 1), p::i32_at(&v, 2), p::id_at(&v, 3));
@@ -422,7 +430,9 @@ impl<S: Store, N: Np> Daemon<S, N> {
 /// HandleManager_HelloReq @0x14000EF40.
 fn manager_hello(conn: &mut ManagerConn, packet: &[u8]) -> Handled {
     let fail = |r| Handled::close_with(Some(p::hello_fail(m::HELLO_FAIL, r)));
-    if conn.hello {
+    // The guard tests the channel id (GetId() != 0), so a channel that
+    // said hello with manager wid 0 can say hello again.
+    if conn.hello && conn.manager_wid != 0 {
         return fail(reason::STATE);
     }
     let Some(v) = p::fields("hhh", packet) else {
@@ -439,7 +449,11 @@ fn manager_hello(conn: &mut ManagerConn, packet: &[u8]) -> Handled {
 /// HandleManager_RetryCouponPublicationReq @0x14000F2F0.
 fn retry(packet: &[u8]) -> Handled {
     let Some(v) = p::fields("hqoq", packet) else {
-        return Handled::reply(p::tid_fail(m::RETRY_FAIL, 0, reason::SYSTEM));
+        return Handled::reply(p::tid_fail(
+            m::RETRY_FAIL,
+            p::partial_tid(packet),
+            reason::SYSTEM,
+        ));
     };
     let (tid, account, publication_id) = (p::i64_at(&v, 1), p::id_at(&v, 2), p::i64_at(&v, 3));
     if tid <= 0 || account == [0; 16] || publication_id <= 0 {

@@ -141,7 +141,7 @@ fn manager_retry_parameter_checks() {
     }
     assert_eq!(
         d.manager_packet(&mut m, &hq(4, 1)).replies,
-        vec![hqe(6, 0, 2)]
+        vec![hqe(6, 1, 2)]
     );
     assert_eq!(
         d.manager_packet(&mut m, &hq(7, 0)).replies,
@@ -179,10 +179,20 @@ fn np_response_classification() {
         Some(NpReply::Success { accept_tid: -5 })
     );
     assert_eq!(classify(200, "", 1, "1", 0), None);
+    // 5809 takes the success path; the phrase test ignores case (0x14000A310).
     assert_eq!(
-        classify(400, "Fail", 2851, "", 5809),
-        Some(NpReply::Error { code: 5809 })
+        classify(400, "Fail", 2851, "7", 5809),
+        Some(NpReply::Success { accept_tid: 7 })
     );
+    assert_eq!(
+        classify(400, "success", 2851, "8", 0),
+        Some(NpReply::Success { accept_tid: 8 })
+    );
+    assert_eq!(
+        classify(400, "Fail", 2851, "", 5812),
+        Some(NpReply::Error { code: 5812 })
+    );
+    assert!(!smartcoupondaemon::np::keeps_publication_status(5809));
     assert_eq!(wtoi64("+42abc"), 42);
     assert!(smartcoupondaemon::np::keeps_publication_status(30002));
     assert!(!smartcoupondaemon::np::keeps_publication_status(1));

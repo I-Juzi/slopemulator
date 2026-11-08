@@ -21,9 +21,16 @@ fn none_group_is_skipped_and_type_is_case_insensitive() {
 }
 
 #[test]
-fn event_needs_all_attributes() {
-    let xml = "<l><gamed><event id='1' name='a' type='1'/></gamed></l>";
-    assert!(GameEventConfig::parse(xml).is_err());
+fn bad_events_are_skipped() {
+    // LoadGameEventConfig @0x140002C80: log and skip, keep loading; only
+    // `event` children; id and type use _wtoi.
+    let xml = "<l><gamed><event id='1' name='a' type='1'/>\
+               <other id='2' name='b' type='1' enable='true'/>\
+               <EVENT id='3tail' name='c' type='2x' enable='true'/></gamed></l>";
+    let c = GameEventConfig::parse(xml).unwrap();
+    assert!(c.get(1).is_none());
+    assert!(c.get(2).is_none());
+    assert_eq!(c.get(3).unwrap().event_type, 2);
 }
 
 #[test]
