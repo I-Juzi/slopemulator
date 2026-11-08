@@ -67,7 +67,7 @@ console library, so small servers are mostly that library.
 | `ChannelChattingServer.exe` | Channel chat (different code base, no shared library) | 29 | 1087 KB | — | 0 | `░░░░░░░░░░` 0 % |
 | `DuelBotDaemon.exe` | Duel bot matches (+ `AIAgentDLL`) | 23 | 529 KB | — | 0 | `░░░░░░░░░░` 0 % |
 | `RankingDaemon.exe` | Rankings and leaderboards | 16 | 535 KB | — | 0 | `░░░░░░░░░░` 0 % |
-| `CacheGate.exe` | Gate in front of CacheDaemon | 9 | 231 KB | — | 0 | `░░░░░░░░░░` 0 % |
+| `CacheGate.exe` | Gate in front of CacheDaemon | 9 | 231 KB | `cachegate` (348) | 9 / 9 handlers, cached-list reload, reconnect | `██████████` **100 %** handlers ❓ |
 | `AchievementDaemon.exe` | Achievements: GameDaemon events → registers, steps, rewards | 7 | 448 KB | `achievementdaemon` (348) | 7 / 7 handlers; gameplay event rules phase 2 (MSSQL not started) | `███████░░░` **70 %** ❓ |
 | `SmartCouponDaemon.exe` | Game-event coupons: GameDaemon events → NP coupon publication | 6 | 327 KB | `smartcoupondaemon` (348) | 6 / 6 handlers (MSSQL + NP transport not started) | `██████████` **100 %** handlers ❓ |
 | `ArenaDaemon` | Arena match server. It runs the same `GameDaemon.exe` and `GameDaemon.pdb` | (GameDaemon) | (GameDaemon) | — | 0 | `░░░░░░░░░░` 0 % |
