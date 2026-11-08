@@ -10,12 +10,9 @@ use crate::{
 use rand::{CryptoRng, RngCore};
 use std::{sync::Arc, time::Instant};
 
-/// ❓ One switch controls the unverified encryption scope in both directions.
-#[derive(Clone, Copy, Debug, PartialEq, Eq)]
-pub enum CipherScope {
-    WholeMessage,
-    BodyOnly,
-}
+// RC4 covers the whole message stream (request line, headers and body) in both
+// directions, per 07-client-login-wire.md (confirmed in StsMsgCli64: send
+// sub_18001C300/sub_180018780, receive sub_1800196A0). There is no body-only mode.
 /// An explicit local app-token backend must check the AppId grant itself.
 /// Authentication-token strings remain distinct from single-use game GUIDs.
 pub trait AppTokenIssuer: Send + Sync {
@@ -38,7 +35,6 @@ impl std::error::Error for Error {}
 pub struct Session {
     login: password::Session,
     codec: Codec,
-    scope: CipherScope,
     send: Option<Rc4>,
     receive: Option<Rc4>,
     staged: Vec<u8>,
@@ -47,11 +43,7 @@ pub struct Session {
     app_tokens: Option<Arc<dyn AppTokenIssuer>>,
 }
 impl Session {
-    pub fn new(
-        login: password::Session,
-        scope: CipherScope,
-        user_center: String,
-    ) -> Result<Self, Error> {
+    pub fn new(login: password::Session, user_center: String) -> Result<Self, Error> {
         if login.state() != State::Connected || user_center.len() > 256 {
             return Err(Error::Login(LoginError::InvalidInput));
         }
@@ -61,7 +53,6 @@ impl Session {
                 max_header_bytes: 32_767,
                 max_body_bytes: 65_536,
             },
-            scope,
             send: None,
             receive: None,
             staged: Vec::new(),
@@ -116,10 +107,8 @@ impl Session {
             if self.total.is_none() {
                 let mut byte = [input[0]];
                 input = &input[1..];
-                if self.scope == CipherScope::WholeMessage {
-                    if let Some(cipher) = &mut self.receive {
-                        cipher.apply(&mut byte);
-                    }
+                if let Some(cipher) = &mut self.receive {
+                    cipher.apply(&mut byte);
                 }
                 self.staged.push(byte[0]);
                 if self.staged.len() > self.codec.max_header_bytes {
@@ -193,6 +182,11 @@ impl Session {
                 }
                 self.send = Rc4::new(&key);
                 self.receive = Rc4::new(&key);
+            } else if self.state() == State::AwaitFinish && self.send.is_none() {
+                // The exchange completed without a session key. 07 requires RC4
+                // both ways after 3102; continuing would leave the session in
+                // plaintext. Close it instead.
+                return Err(Error::Login(LoginError::Unavailable));
             }
             if self.state() == State::Closed {
                 if !input.is_empty() {
@@ -206,17 +200,7 @@ impl Session {
     fn encode(&mut self, frame: &Frame) -> Result<Vec<u8>, Error> {
         let mut bytes = self.codec.encode(frame).map_err(|_| Error::Framing)?;
         if let Some(cipher) = &mut self.send {
-            let offset = match self.scope {
-                CipherScope::WholeMessage => 0,
-                CipherScope::BodyOnly => {
-                    bytes
-                        .windows(4)
-                        .position(|w| w == b"\r\n\r\n")
-                        .ok_or(Error::Framing)?
-                        + 4
-                }
-            };
-            cipher.apply(&mut bytes[offset..]);
+            cipher.apply(&mut bytes);
         }
         Ok(bytes)
     }

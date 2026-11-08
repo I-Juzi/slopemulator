@@ -8,7 +8,7 @@ use crate::{
     },
     srp6,
     tokens::TokenAuthority,
-    wire::{self, CipherScope},
+    wire::{self},
     Codec, Frame, StartLine, Transaction,
 };
 use base64::{engine::general_purpose::STANDARD, Engine};
@@ -53,7 +53,6 @@ pub struct Config {
     pub token_capacity: usize,
     pub session_lifetime: Duration,
     pub min_accept_interval: Duration,
-    pub scope: CipherScope,
     pub connect_mode: ConnectMode,
 }
 fn positive(value: String) -> Result<u64, Error> {
@@ -103,11 +102,6 @@ impl Config {
             .map_err(|_| Error::Configuration)?;
         let session_lifetime = Duration::from_secs(positive(get("--session-seconds")?)?);
         let min_accept_interval = Duration::from_millis(positive(get("--min-accept-ms")?)?);
-        let scope = match get("--cipher-scope")?.as_str() {
-            "whole" => CipherScope::WholeMessage,
-            "body" => CipherScope::BodyOnly,
-            _ => return Err(Error::Configuration),
-        };
         let connect_mode = match get("--connect-mode")?.as_str() {
             "login-start" => ConnectMode::LoginStart,
             "unverified-connect" => ConnectMode::UnverifiedConnect,
@@ -129,7 +123,6 @@ impl Config {
             token_capacity,
             session_lifetime,
             min_accept_interval,
-            scope,
             connect_mode,
         })
     }
@@ -245,8 +238,8 @@ pub fn serve_connection(
             start,
         )
         .map_err(|_| Error::Protocol)?;
-    let mut session = wire::Session::new(login, config.scope, config.user_center.clone())
-        .map_err(|_| Error::Configuration)?;
+    let mut session =
+        wire::Session::new(login, config.user_center.clone()).map_err(|_| Error::Configuration)?;
     let mut connected = config.connect_mode == ConnectMode::LoginStart;
     let mut connect = Vec::new();
     let codec = Codec {
@@ -356,8 +349,6 @@ mod tests {
             "10",
             "--min-accept-ms",
             "25",
-            "--cipher-scope",
-            "whole",
             "--connect-mode",
             "login-start",
         ]

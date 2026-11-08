@@ -10,7 +10,7 @@ use sts::{
     password::{self, *},
     rc4::Rc4,
     tokens::TokenAuthority,
-    wire::{self, CipherScope},
+    wire::{self},
     Codec,
 };
 
@@ -26,8 +26,39 @@ struct Fixture {
     alias: String,
     portal: [u8; 16],
 }
+/// A backend that proves the password (via SRP) but yields no session key, like
+/// a legacy injected verifier. Exercises the SR1-01 guard in `wire::Session`.
+struct KeylessBackend(SrpPasswordBackend);
+impl PasswordBackend for KeylessBackend {
+    fn start(
+        &self,
+        login: &str,
+        record: &VerifierRecord,
+        entropy: &[u8; 64],
+    ) -> Result<Challenge, LoginError> {
+        let inner = self.0.start(login, record, entropy)?;
+        Ok(Challenge {
+            public: inner.public,
+            exchange: Box::new(KeylessExchange(inner.exchange)),
+        })
+    }
+}
+struct KeylessExchange(Box<dyn PasswordExchange>);
+impl PasswordExchange for KeylessExchange {
+    // No verify_with_key override, so the default returns key: None.
+    fn verify(self: Box<Self>, public: &[u8], proof: &[u8]) -> Result<Vec<u8>, LoginError> {
+        self.0.verify(public, proof)
+    }
+}
+
 impl Fixture {
-    fn new(scope: CipherScope) -> Self {
+    fn new() -> Self {
+        Self::build(None)
+    }
+    fn new_keyless() -> Self {
+        Self::build(Some(Arc::new(KeylessBackend(SrpPasswordBackend))))
+    }
+    fn build(backend: Option<Arc<dyn PasswordBackend>>) -> Self {
         let mut rng = StdRng::seed_from_u64(411);
         let login = generated(&mut rng);
         let password = generated(&mut rng);
@@ -59,12 +90,20 @@ impl Fixture {
         store.insert(account).unwrap();
         let authority = Arc::new(TokenAuthority::new(Duration::from_secs(60), 16).unwrap());
         let now = Instant::now();
-        let mut session =
-            password::Session::new(binding.clone(), authority.clone(), &mut rng).unwrap();
+        let mut session = match backend {
+            Some(backend) => password::Session::with_backend(
+                binding.clone(),
+                authority.clone(),
+                &mut rng,
+                backend,
+            )
+            .unwrap(),
+            None => password::Session::new(binding.clone(), authority.clone(), &mut rng).unwrap(),
+        };
         session
             .handle(Request::Connect(binding.clone()), &store, &mut rng, now)
             .unwrap();
-        let wire = wire::Session::new(session, scope, generated(&mut rng)).unwrap();
+        let wire = wire::Session::new(session, generated(&mut rng)).unwrap();
         Self {
             wire,
             store,
@@ -114,19 +153,15 @@ fn parse(bytes: &[u8], reply_id: u32, transaction: u32) -> V {
     assert_eq!(frame.headers[0].value, format!("{transaction}R"));
     V::parse(reply_id, &frame.body).unwrap()
 }
-fn crypt(cipher: &mut Rc4, scope: CipherScope, bytes: &mut [u8]) {
-    let start = if scope == CipherScope::BodyOnly {
-        bytes.windows(4).position(|w| w == b"\r\n\r\n").unwrap() + 4
-    } else {
-        0
-    };
-    cipher.apply(&mut bytes[start..]);
+fn crypt(cipher: &mut Rc4, bytes: &mut [u8]) {
+    cipher.apply(bytes);
 }
 #[test]
 fn plaintext_proof_then_encrypted_finish_and_single_use_game_guid() {
-    for scope in [CipherScope::WholeMessage, CipherScope::BodyOnly] {
-        for fragment in [1, 7, 4096] {
-            let mut f = Fixture::new(scope);
+    for fragment in [1, 7, 4096] {
+        for rep in 0..1 {
+            let _ = rep;
+            let mut f = Fixture::new();
             let client = f.challenge();
             let mut send = Rc4::new(&client.key).unwrap();
             let mut receive = Rc4::new(&client.key).unwrap();
@@ -138,7 +173,7 @@ fn plaintext_proof_then_encrypted_finish_and_single_use_game_guid() {
                 2,
             );
             let mut finish = encode(&W::LoginFinish { language: 0 }, 3);
-            crypt(&mut send, scope, &mut finish);
+            crypt(&mut send, &mut finish);
             bytes.extend(finish);
             let mut replies = Vec::new();
             for part in bytes.chunks(fragment) {
@@ -149,7 +184,7 @@ fn plaintext_proof_then_encrypted_finish_and_single_use_game_guid() {
                 panic!("M2")
             };
             assert_eq!(proof.as_slice(), client.server_proof);
-            crypt(&mut receive, scope, &mut replies[1]);
+            crypt(&mut receive, &mut replies[1]);
             assert!(matches!(parse(&replies[1], 3103, 3), V::LoginFinish(_)));
             assert_eq!(f.wire.state(), State::Authenticated);
             let mut game = encode(
@@ -159,14 +194,14 @@ fn plaintext_proof_then_encrypted_finish_and_single_use_game_guid() {
                 },
                 4,
             );
-            crypt(&mut send, scope, &mut game);
+            crypt(&mut send, &mut game);
             let mut info = encode(&W::GetMyUserInfo, 5);
-            crypt(&mut send, scope, &mut info);
+            crypt(&mut send, &mut info);
             game.extend(info);
             let mut replies = f.receive(&game).unwrap();
             assert_eq!(replies.len(), 2);
-            crypt(&mut receive, scope, &mut replies[0]);
-            crypt(&mut receive, scope, &mut replies[1]);
+            crypt(&mut receive, &mut replies[0]);
+            crypt(&mut receive, &mut replies[1]);
             let V::GameToken { token } = parse(&replies[0], 3107, 4) else {
                 panic!("token")
             };
@@ -210,7 +245,7 @@ fn authenticate(f: &mut Fixture) -> (Rc4, Rc4) {
 }
 #[test]
 fn wrong_game_code_is_terminal_and_revokes_issued_tokens() {
-    let mut f = Fixture::new(CipherScope::WholeMessage);
+    let mut f = Fixture::new();
     let (mut send, mut receive) = authenticate(&mut f);
     let mut bytes = encode(
         &W::RequestGameToken {
@@ -250,11 +285,11 @@ fn malformed_xml_frames_and_bad_m1_close_the_session() {
         b"POST /Auth/LoginStart STS/1.0\r\nl:99999999\r\n\r\n".to_vec(),
         vec![b'x'; 32_768],
     ] {
-        let mut f = Fixture::new(CipherScope::WholeMessage);
+        let mut f = Fixture::new();
         assert!(f.receive(&bytes).is_err());
         assert_eq!(f.wire.state(), State::Closed);
     }
-    let mut f = Fixture::new(CipherScope::WholeMessage);
+    let mut f = Fixture::new();
     let client = f.challenge();
     let mut proof = client.proof;
     proof[0] ^= 1;
@@ -278,7 +313,7 @@ fn requests_before_authentication_fail_closed() {
         },
         W::LoginFinish { language: 0 },
     ] {
-        let mut f = Fixture::new(CipherScope::WholeMessage);
+        let mut f = Fixture::new();
         assert!(f.receive(&encode(&request, 1)).is_err());
         assert_eq!(f.wire.state(), State::Closed);
     }
@@ -298,7 +333,7 @@ impl wire::AppTokenIssuer for Issuer {
 }
 #[test]
 fn request_token_uses_explicit_app_grant_backend() {
-    let mut f = Fixture::new(CipherScope::WholeMessage);
+    let mut f = Fixture::new();
     let app = generated(&mut f.rng);
     let token = generated(&mut f.rng);
     f.wire = f.wire.with_app_tokens(Arc::new(Issuer {
@@ -327,7 +362,7 @@ fn request_token_uses_explicit_app_grant_backend() {
 }
 #[test]
 fn missing_app_token_backend_fails_without_issuing_a_game_token() {
-    let mut f = Fixture::new(CipherScope::WholeMessage);
+    let mut f = Fixture::new();
     let (mut send, _) = authenticate(&mut f);
     let mut bytes = encode(
         &W::RequestToken {
@@ -343,7 +378,7 @@ fn missing_app_token_backend_fails_without_issuing_a_game_token() {
 }
 #[test]
 fn reply_metadata_is_not_accepted_on_requests() {
-    let mut f = Fixture::new(CipherScope::WholeMessage);
+    let mut f = Fixture::new();
     let mut frame = W::LoginStart {
         login_name: f.login.clone(),
     }
@@ -357,4 +392,23 @@ fn reply_metadata_is_not_accepted_on_requests() {
 #[test]
 fn xml_error_does_not_expose_inputs() {
     assert!(!client::Error::KeyData.to_string().contains("password"));
+}
+
+#[test]
+fn keydata_without_session_key_closes_the_session() {
+    // SR1-01: a backend can prove the password yet yield no K. 07 requires RC4
+    // both ways after reply 3102, so the wire layer must refuse rather than
+    // continue the session in plaintext.
+    let mut f = Fixture::new_keyless();
+    let client = f.challenge();
+    let bytes = encode(
+        &W::KeyData {
+            public: client.public.clone(),
+            proof: client.proof.clone(),
+        },
+        2,
+    );
+    assert!(f.receive(&bytes).is_err());
+    // The session is closed: any further input is rejected.
+    assert!(f.receive(&bytes).is_err());
 }
