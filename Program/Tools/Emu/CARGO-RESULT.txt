@@ -1,11 +1,11 @@
     Finished `test` profile [unoptimized + debuginfo] target(s) in 0.04s
-     Running unittests src/lib.rs (lobbygate-rs/target/debug/deps/lobbygate_proto-a86ecda4a4686392)
+     Running unittests src/lib.rs (bns-server/target/debug/deps/lobbygate_proto-a86ecda4a4686392)
 
 running 0 tests
 
 test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
 
-     Running tests/crypto.rs (lobbygate-rs/target/debug/deps/crypto-03ed423c78a6bf73)
+     Running tests/crypto.rs (bns-server/target/debug/deps/crypto-03ed423c78a6bf73)
 
 running 13 tests
 test dh_rejects_bad_layout_lengths_and_modulus ... ok
@@ -24,7 +24,7 @@ test rsa_chunking_in_both_directions_and_fixed_width ... ok
 
 test result: ok. 13 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 1.71s
 
-     Running tests/emu_381.rs (lobbygate-rs/target/debug/deps/emu_381-6b4f0a20cba5c81a)
+     Running tests/emu_381.rs (bns-server/target/debug/deps/emu_381-6b4f0a20cba5c81a)
 
 running 19 tests
 test original_381_oaep_encode ... ok
@@ -49,7 +49,7 @@ test original_381_rsa_decrypt ... ok
 
 test result: ok. 15 passed; 0 failed; 4 ignored; 0 measured; 0 filtered out; finished in 0.10s
 
-     Running tests/frames.rs (lobbygate-rs/target/debug/deps/frames-e1dde2dffe1dd03b)
+     Running tests/frames.rs (bns-server/target/debug/deps/frames-e1dde2dffe1dd03b)
 
 running 8 tests
 test trusted_errors ... ok
@@ -63,7 +63,7 @@ test handshake_frames_in_all_rsa_directions ... ok
 
 test result: ok. 8 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 1.39s
 
-     Running tests/phase2.rs (lobbygate-rs/target/debug/deps/phase2-869033b073a728db)
+     Running tests/phase2.rs (bns-server/target/debug/deps/phase2-869033b073a728db)
 
 running 16 tests
 test compose_limits_and_typed_errors ... ok

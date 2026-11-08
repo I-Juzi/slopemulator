@@ -1,5 +1,5 @@
     Finished `test` profile [unoptimized + debuginfo] target(s) in 0.03s
-     Running tests/emu_381.rs (lobbygate-rs/target/debug/deps/emu_381-6b4f0a20cba5c81a)
+     Running tests/emu_381.rs (bns-server/target/debug/deps/emu_381-6b4f0a20cba5c81a)
 
 running 1 test
 OAEP mismatch: case="k128_empty" input="" seed="d4b37e24cc0b637b97e178b068011e85" original=8849d39d351830f0fceac7305103cd5d8949d39d351830f0fceac7305103cd5d8949d39d351830f0fceac7305103cd5d8949d39d351830f0fceac7305103cd5d8949d39d351830f0fceac7305103cd5d8949d39d351830f0fceac7305103cd9e050ef7bcc414097fc1abbb5962c0b9b003650bbbf5de1b7ac8f5954b2fda5a00 rust=8849d39d351830f0fceac7305103cd5d8949d39d351830f0fceac7305103cd5d8949d39d351830f0fceac7305103cd5d8949d39d351830f0fceac7305103cd5d8949d39d351830f0fceac7305103cd5d8949d39d351830f0fceac7305103cdd8b287cfb67ea18c1f9e4131d5b500174e4ab29518c34fc170d0d0adca463d9a00
@@ -9,7 +9,7 @@ OAEP mismatch: case="k64_empty" input="" seed="a9e6be57bbdb2ddcd6ebb5e23c08dbc1"
 OAEP mismatch: case="k64_short" input="333831204f414550" seed="470eb9f954c831fdad10b95fa12b255c" original=dccef040b9074025ad9c779e0dd6b3a28c8bb10f99367816ac9c779e0dd6b36100cc952e683a419991dd0bf73e15c726f65d0195932ec11faa73e4a971c8a600 rust=dccef040b9074025ad9c779e0dd6b3a28c8bb10f99367816ac9c779e0dd6b327b745ad24d28fc4f9ce37817be9d56924c3ced382bae344d93063ee63b43bf900
 OAEP mismatch: case="k64_capacity" input="000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d" seed="041243f0eb2f5182ed59b70518a56f89" original=1bc1367457231d91a14cb0691696d7bc0bd1266447330d81b15ca0790686d9718a9a094fbf3733088919df123445acf82873c0b6c7eb9c4c579a4e3eddc5c400 rust=1bc1367457231d91a14cb0691696d7bc0bd1266447330d81b15ca0790686d9373d1331450582b668d6f3559ee38502e6bf79ab0cc360859b4a59c8e960ab8700
 
-thread 'original_381_oaep_encode' (4030340) panicked at crates/proto/tests/emu_381.rs:152:5:
+thread 'original_381_oaep_encode' (4030340) panicked at Program/Server/BloodLib/tests/emu_381.rs:152:5:
 assertion `left == right` failed: 381 OAEP encode differences
   left: 6
  right: 0

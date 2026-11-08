@@ -39,9 +39,9 @@ Speed fixes:
 - `bnsdata::table::Record::set_scalar(...)`: write checked scalar storage through `ScalarValue`.
 
 Open: compilation and formatting; Cargo.lock refresh outside this job's write scope; client acceptance; outer size rules. `references_to` is deferred. No game files were read.
-Files, relative to `lobbygate-rs/`: `Cargo.toml`; `crates/bnsmodel/{Cargo.toml,src/{lib,edits,files,tests}.rs,tests/real_files.rs}`; `crates/bnsdata/src/{tabledef.rs,table.rs,table/{scalar,tests,strings_tests}.rs}`; `spec/datafile/{09-model,STATUS-model}.md`.
+Files, relative to `bns-server/`: `Cargo.toml`; `Program/Tools/DataFile/BnsModel/{Cargo.toml,src/{lib,edits,files,tests}.rs,tests/real_files.rs}`; `Program/Tools/DataFile/BnsData/src/{tabledef.rs,table.rs,table/{scalar,tests,strings_tests}.rs}`; `Docs/DataFile/{09-model,STATUS-model}.md`.
 ```sh
-BNSDATA_CLIENT_DAT='/path/datafile.bin' BNSDATA_DAT_WIDTH=32 BNSDATA_DAT_ROLE=main BNSDATA_TABLEDEFS='/path/TableDefs_x86' CARGO_NET_OFFLINE=true cargo test --manifest-path lobbygate-rs/Cargo.toml -p bnsmodel --test real_files model_open_search_pack -- --ignored --exact --nocapture
+BNSDATA_CLIENT_DAT='/path/datafile.bin' BNSDATA_DAT_WIDTH=32 BNSDATA_DAT_ROLE=main BNSDATA_TABLEDEFS='/path/TableDefs_x86' CARGO_NET_OFFLINE=true cargo test --manifest-path bns-server/Cargo.toml -p bnsmodel --test real_files model_open_search_pack -- --ignored --exact --nocapture
 ```
 
 ---

@@ -18,7 +18,7 @@ Both Clippy checks pass with `-D warnings`: workspace/all-targets and lobbyd/mss
 The latter compiles SQL integration targets. It does not execute them.
 The added wrong-link test first failed with `Hello required`. The fixture now sends Hello. All final tests pass.
 
-**Spec:** `spec/lobbyd/11-character-select.md` §15 records R15 and these build-307 sources:
+**Spec:** `Docs/Server/LobbyDaemon/11-character-select.md` §15 records R15 and these build-307 sources:
 Create `0x140042610`/`0x140042CA0`; delete `0x140046C30`/`0x140046DB0`;
 restore `0x1400189B0`, `0x1400191F0`, `0x140019670`, `0x140019B20`;
 D54 `0x140065270`; D103 `0x14002EF50`/`0x14002FAB0`. ❓ D103 assembly check remains open.
@@ -31,9 +31,9 @@ Existing five-second NP/world waits, ten-second SQL wait, opt-in INIT expiry, po
 D103 needs an explicit local initial-name control. Optional production paths stay disabled.
 
 **Operator tests:** ❓ The unset-variable skip command required approval and did not run. Live SQL and cleanup were not run.
-With `LOBBYD_MSSQL_URL` unset, run `cargo test --manifest-path lobbygate-rs/Cargo.toml -p lobbyd --features mssql --test mssql -- --nocapture`; expect SKIP messages and no SQL connection.
+With `LOBBYD_MSSQL_URL` unset, run `cargo test --manifest-path bns-server/Cargo.toml -p lobbyd --features mssql --test mssql -- --nocapture`; expect SKIP messages and no SQL connection.
 On an approved disposable SQL instance, run the same command with the variable set. Expect state cycles, both outputs and generated-row cleanup to pass.
-**Boundaries:** No dependency, proto/server behavior, binary, IDB or `tools/emu/` change. No external service call or excluded component analysis. IDA closed without saving.
+**Boundaries:** No dependency, proto/server behavior, binary, IDB or `Program/Tools/Emu/` change. No external service call or excluded component analysis. IDA closed without saving.
 ❓ Final git diff/status checks were not run. No commit was made.
 **Next job:** Verify remaining 307 maps and name/config rules. Add persisted lifecycle metadata and SQL time conversion. Then run approved SQL integration tests.
 
@@ -45,7 +45,7 @@ Stopped at the budget limit. Step 10 is partial.
 
 | Part | State | Test evidence |
 | --- | --- | --- |
-| Character-screen spec | partial | `spec/lobbyd/11-character-select.md` covers all seven commands and D57/D79. ❓ Some errors, name rules, config bindings and time/state conversions remain open. |
+| Character-screen spec | partial | `Docs/Server/LobbyDaemon/11-character-select.md` covers all seven commands and D57/D79. ❓ Some errors, name rules, config bindings and time/state conversions remain open. |
 | Gate check | done | No gate change is required for the checked relays. Encrypted D38 success/error checks pass. C41 stays blocked. |
 | Rust handlers | partial | D38 uses the local cache. D41 is a no-op. Five new rule tests pass. D44/D47/D51/D54/D103 remain unimplemented. |
 | Store / GameDaemon / SQL extensions | not started | No new methods or bindings. No dependency changes. |
@@ -65,7 +65,7 @@ D51 uses TryRestoration → GameDaemon restore → FinishRestoration, not Cancel
 
 **Retained policies:** Five-second local NP/world waits, opt-in INIT expiry, positive token lifetimes and same-link retention stay in place.
 SQL keeps its ten-second local timeout, timestamp refusal and no-retry policy. Optional paths stay disabled.
-Proto/server behavior, existing tests and `tools/emu/` were not changed. IDA closed without saving.
+Proto/server behavior, existing tests and `Program/Tools/Emu/` were not changed. IDA closed without saving.
 No external service call or excluded licence/anti-cheat analysis was made. The spec records the boundaries.
 
 **Operator tests:** ❓ Live SQL, cleanup and the unset-variable skip run remain unverified. The safe-unset command required approval and did not run.
@@ -103,13 +103,13 @@ Optional NP refresh, optional login data, detail-dependent recovery and real wor
 Blobs above 512 bytes reject. The other 72 procedure templates remain outside Store.
 
 **Operator:** Set LOBBYD_MSSQL_URL in the environment for a disposable recreated LobbyDB.
-Run `cargo test --manifest-path lobbygate-rs/Cargo.toml -p lobbyd --features mssql --test mssql -- --nocapture --test-threads=1`.
+Run `cargo test --manifest-path bns-server/Cargo.toml -p lobbyd --features mssql --test mssql -- --nocapture --test-threads=1`.
 Expect three SQL tests to pass and remove their generated rows. The helper import also repeats the memory gate test.
 Expect 0/511/512-byte blobs to pass and 513/4096-byte blobs to reject. Retained login must reuse cache; restoration must set state 2; kick must persist score 29.
 **Next job:** Run these SQL tests. Check cleanup. Resolve timestamp units and representative-world derivation before broader SQL use.
 Then address async Store scheduling, remaining caller maps and retained NP refresh. Do not replace unknown checks with success.
 
-Only `lobbygate-rs/` was written. Proto/server behavior/tests, tools/emu and both parallel spec files stayed unchanged.
+Only `bns-server/` was written. Proto/server behavior/tests, tools/emu and both parallel spec files stayed unchanged.
 No SQL Server or external service was called. No dependency changed. No IDA database was opened or saved.
 Licence, BNSHelper and anti-cheat work stayed excluded. TSS boundaries remain `0x140175FC8` / `0x140175FD8`.
 GameGuard sources remain `ggauth64_27.dll` / `csauth3.cfg` directory entries. ❓ Their EXE addresses remain unknown.
@@ -135,9 +135,9 @@ GameGuard sources remain `ggauth64_27.dll` / `csauth3.cfg` directory entries. �
 | Store growth, local scope | done | 12 methods cover 16 templates. Four new tests failed to compile first, then passed. All four blob fields cover lengths 0, 511, 512, 513 and 4096. |
 | NP/INIT timers and retained refresh | partial | Registration/index and callback paths checked. Existing retained/world tests pass. ❓ Timer registration, descriptors and complete grade fields remain open. Refresh stays disabled. |
 
-**Validation:** `cargo test --manifest-path lobbygate-rs/Cargo.toml`: **148 passed, 0 failed, 0 ignored**.
+**Validation:** `cargo test --manifest-path bns-server/Cargo.toml`: **148 passed, 0 failed, 0 ignored**.
 Total: **102 proto/server tests + 46 lobbyd tests**.
-`cargo clippy --manifest-path lobbygate-rs/Cargo.toml --workspace --all-targets -- -D warnings`: **PASS**.
+`cargo clippy --manifest-path bns-server/Cargo.toml --workspace --all-targets -- -D warnings`: **PASS**.
 Lobbyd formatting check: **PASS**. No dependency was added.
 
 **Spec changes, build 0.0.307:** `08-db-binding.md` and `db-binding.json` add caller and fetch rules.
@@ -159,7 +159,7 @@ Rust rejects blobs above 512 bytes. ❓ This does not prove original ODBC trunca
 Resolve NP/INIT registration and config descriptors. Complete grade fields and D16 selection before retained refresh.
 Then use the parallel GameDaemon spec for later world entry. Do not replace unknown checks with success.
 
-Only `lobbygate-rs/` was written. Proto/server behavior/tests, `tools/emu`, and both parallel spec files stayed unchanged.
+Only `bns-server/` was written. Proto/server behavior/tests, `tools/emu`, and both parallel spec files stayed unchanged.
 No SQL Server or external service was called. Tests use generated data. Target IDA closed without a save request; guide not opened.
 Python helper execution required approval and did not run; jq validated JSON. The retained helper only validates files.
 TSS boundaries stay `0x140175FC8` / `0x140175FD8`. GameGuard sources stay the `ggauth64_27.dll` / `csauth3.cfg` directory entries.
@@ -185,9 +185,9 @@ TSS boundaries stay `0x140175FC8` / `0x140175FD8`. GameGuard sources stay the `g
 | Store trait check | done | Seven methods cover seven templates; 81 operations are absent. Two new tests failed first, then passed after the MemoryStore fixes. All 42 lobbyd tests pass. |
 | Timer/config and retained refresh | partial | World-channel lifetime binding and grade-cache writers checked. Existing retained tests pass. ❓ NP/INIT timer registration and refresh runtime remain open. |
 
-**Validation:** `cargo test --manifest-path lobbygate-rs/Cargo.toml`: **144 passed, 0 failed, 0 ignored**.
+**Validation:** `cargo test --manifest-path bns-server/Cargo.toml`: **144 passed, 0 failed, 0 ignored**.
 Total: **102 existing proto/server tests + 42 lobbyd tests**.
-`cargo clippy --manifest-path lobbygate-rs/Cargo.toml --workspace --all-targets -- -D warnings`: **PASS**.
+`cargo clippy --manifest-path bns-server/Cargo.toml --workspace --all-targets -- -D warnings`: **PASS**.
 Lobbyd formatting check: **PASS**. No dependency was added.
 
 **Spec changes, build 0.0.307:** `08-db-binding.md` and `db-binding.json` cover all 88 templates.
@@ -207,7 +207,7 @@ Optional retained refresh stays disabled. Kind-6 recovery and world-entry fixtur
 Then resolve NP/INIT timer registration and config descriptors. Specify grade fields before adding retained refresh.
 Use the parallel GameDaemon spec for later world entry. Do not replace unknown checks with success.
 
-Only `lobbygate-rs/` was written. Proto/server behavior and tests, `tools/emu`, and both parallel-job files stayed unchanged.
+Only `bns-server/` was written. Proto/server behavior and tests, `tools/emu`, and both parallel-job files stayed unchanged.
 No SQL Server or external NP service was called. Tests use generated data. Target IDA closed without a save request; guide not opened.
 TSS boundaries remain `0x140175FC8` / `0x140175FD8`. GameGuard boundaries remain `ggauth64_27.dll` / `csauth3.cfg` directory entries.
 ❓ GameGuard EXE addresses remain unknown. Licence, BNSHelper and anti-cheat work stayed excluded.
@@ -234,9 +234,9 @@ DB research stopped at its ten-turn budget. No SQL connection or IDB save reques
 | D24 local Rust milestone | done | Eight new world tests pass. They cover success, rejection, restoration, timeout, cancellation, queueing, expiry and cleanup. Encrypted C13 → D24 → D25 → C14 passes through the unchanged gate. |
 | Timer/config bindings and retained refresh | not started | Existing login and retained-session tests still pass. No new binding or refresh behavior is claimed. |
 
-**Validation:** `cargo test --manifest-path lobbygate-rs/Cargo.toml`: **142 passed, 0 failed, 0 ignored**.
+**Validation:** `cargo test --manifest-path bns-server/Cargo.toml`: **142 passed, 0 failed, 0 ignored**.
 Total: **102 existing proto/server tests + 40 lobbyd tests**.
-`cargo clippy --manifest-path lobbygate-rs/Cargo.toml --workspace --all-targets -- -D warnings`: **PASS**.
+`cargo clippy --manifest-path bns-server/Cargo.toml --workspace --all-targets -- -D warnings`: **PASS**.
 Lobbyd formatting check: **PASS**.
 
 **Spec changes, build 0.0.307:** `06-world-entry.md` adds NP commands 1711/2711/1502/2901 and their checked decisions at `0x14007C080`–`0x14007DF70`.
@@ -253,7 +253,7 @@ Existing same-link, IPv4, capacity, kind-6 recovery and empty optional-data poli
 
 **Next job:** resolve timer/config bindings and retained NP refresh. Use the parallel GameDaemon spec to extend post-consumption entry and queue promotion. Do not replace unknown checks with success.
 An unused `tools/step6_update.py` remains. It was not executed. Execution and removal required approval.
-Only `lobbygate-rs/` was written. Proto/server behavior and tests, `tools/emu`, and the two parallel-job files were not changed by this job.
+Only `bns-server/` was written. Proto/server behavior and tests, `tools/emu`, and the two parallel-job files were not changed by this job.
 Tests use generated data. No external service was called. Target IDA closed without a save request. Guide not opened.
 TSS boundaries remain `0x140175FC8` / `0x140175FD8`. GameGuard boundaries remain the `ggauth64_27.dll` / `csauth3.cfg` directory entries.
 ❓ GameGuard EXE addresses remain unknown. Licence, BNSHelper and anti-cheat work stayed excluded.
@@ -283,16 +283,16 @@ Feature work stopped at the turn-20 limit. Step 5 is partial.
 | 3. World entry | partial | Spec records guards, states, failures and GameDaemon messages. No D24 implementation, GameDaemon trait or deterministic world stub was added. No D24 test is claimed. |
 
 **Validation:** **134 passed, 0 failed, 0 ignored**: 102 existing proto/server tests + 32 lobbyd tests.
-`cargo test --manifest-path lobbygate-rs/Cargo.toml`: PASS.
-`cargo clippy --manifest-path lobbygate-rs/Cargo.toml --workspace --all-targets -- -D warnings`: PASS.
+`cargo test --manifest-path bns-server/Cargo.toml`: PASS.
+`cargo clippy --manifest-path bns-server/Cargo.toml --workspace --all-targets -- -D warnings`: PASS.
 Lobbyd formatting check: PASS. Seven rule tests are new. The existing encrypted test now also checks reconnect and cache retention.
 The first crate-wide run found one stale D22 socket expectation. The corrected fixture and final workspace run pass.
 
 **Spec evidence, build 0.0.307:**
-- `lobbygate-rs/spec/lobbyd/04-login.md:86`: D22 map `0x1400933D0`; service recovery `0x1400336F0`, `0x14006DC10`, `0x140035D20`.
+- `bns-server/Docs/Server/LobbyDaemon/04-login.md:86`: D22 map `0x1400933D0`; service recovery `0x1400336F0`, `0x14006DC10`, `0x140035D20`.
 - Retained init `0x1400535C0` / `0x140053720`; start `0x140075440`–`0x1400768C0`; return `0x140086980`; token verify/expiry `0x140093EB0` / `0x140094140`.
 - Startup `0x140097EB0` passes config +252 to token-desk constructor `0x140093B80`. ❓ XML name and numeric default remain open.
-- `lobbygate-rs/spec/lobbyd/06-world-entry.md:1`: entry `0x14007AC90`, admission `0x14007EB90`, token `0x14007EF80`; D25/D26/D27 senders `0x1400B8C60` / `0x1400B8B90` / `0x1400B8D40`.
+- `bns-server/Docs/Server/LobbyDaemon/06-world-entry.md:1`: entry `0x14007AC90`, admission `0x14007EB90`, token `0x14007EF80`; D25/D26/D27 senders `0x1400B8C60` / `0x1400B8B90` / `0x1400B8D40`.
 
 **Local policies:** NP deadline is five seconds. INIT expiry is opt-in, disabled by default. Scheduler resolution is 10 ms.
 Retained tokens require an explicit positive lifetime. IPv4 checks default to enabled. Sessions stay on their gate link. D15 uses cached data with empty optional charge/EXP fields and no optional NP refresh.
@@ -303,7 +303,7 @@ Only kind-6 service recovery is supported. Other nonempty kinds fail explicitly.
 Then implement D24 with a GameDaemon trait and deterministic fixtures. Test rejection, restoration, timeout, queueing and token cleanup. Keep the real GameDaemon transport deferred.
 Resolve the remaining timer/config bindings and retained refresh rules. Do not replace unknown platform checks with unconditional success.
 
-Only `lobbygate-rs/` was written. Proto/server behavior and tests, and `tools/emu`, stay unchanged. Tests use generated data. No external service was called.
+Only `bns-server/` was written. Proto/server behavior and tests, and `tools/emu`, stay unchanged. Tests use generated data. No external service was called.
 Target IDA closed without a save request. Guide not opened. Licence and anti-cheat work stayed excluded.
 TSS boundaries: `0x140175FC8` / `0x140175FD8`. GameGuard boundaries: directory entries `ggauth64_27.dll` / `csauth3.cfg`. ❓ GameGuard EXE source addresses remain unknown.
 
@@ -330,9 +330,9 @@ TSS boundaries: `0x140175FC8` / `0x140175FD8`. GameGuard boundaries: directory e
 | Gate integration | done | Generated encrypted clients complete login and fragmented character load, then kick and logout through the unchanged gate. |
 | Clippy fix | done | Both proto test loops use `as_chunks`. Complete-block checks stay the same. Workspace Clippy passes with `-D warnings`. |
 
-**Validation:** `cargo test --manifest-path lobbygate-rs/Cargo.toml`: **127 passed, 0 failed, 0 ignored**.
+**Validation:** `cargo test --manifest-path bns-server/Cargo.toml`: **127 passed, 0 failed, 0 ignored**.
 Total: **102 existing proto/server tests + 25 lobbyd tests**. Five lobbyd tests are new.
-`cargo clippy --manifest-path lobbygate-rs/Cargo.toml --workspace --all-targets -- -D warnings`: **PASS**.
+`cargo clippy --manifest-path bns-server/Cargo.toml --workspace --all-targets -- -D warnings`: **PASS**.
 The first extended gate run failed with `Packet(InvalidSize)`: its helper treated C10 as fragmented. The corrected helper passes.
 
 **Spec changes, build 0.0.307:** `04-login.md` records kick branches at `0x140084F50` / `0x1400850D0`, world-kick outcomes at `0x140085B00`–`0x140086070`, anonymous D20 at `0x140038DB0`, and close cleanup at `0x140032A10`.
@@ -344,7 +344,7 @@ Ownership checks, capacity/queue bounds, empty optional login data and synchrono
 
 **Next job:** find NP request and INIT timer registration. Bind world-kick timeout and token-desk lifetime to config fields. Verify D22 reason conversion. Specify and implement nonempty-service recovery. Keep D12/D15 and D24 out of scope.
 
-Only `lobbygate-rs/` was written. Server behavior and `tools/emu` stay unchanged. No sample secret or external service was used.
+Only `bns-server/` was written. Server behavior and `tools/emu` stay unchanged. No sample secret or external service was used.
 Target IDA closed without a save request. Guide not opened. Excluded work stayed excluded.
 TSS boundaries: `0x140175FC8` / `0x140175FD8`. GameGuard: directory entries `ggauth64_27.dll` / `csauth3.cfg`. ❓ GameGuard EXE source addresses remain unknown.
 
@@ -368,13 +368,13 @@ Boundaries unchanged: TSS `0x140175FC8` / `0x140175FD8`; GameGuard directory ent
 | Part | State | Test evidence |
 | --- | --- | --- |
 | Login spec gaps | partial | ✅ Target checks cover NP init, lobby-token init, kick dispatch and both required DB loader bindings. ❓ Original timer durations and full kick branches remain. |
-| Rust milestone | done | ✅ New `crates/lobbyd` binary and library. Protocol, jobs, Store and NP modules. 17 rule tests and two socket tests pass. |
+| Rust milestone | done | ✅ New `Program/Server/LobbyDaemon` binary and library. Protocol, jobs, Store and NP modules. 17 rule tests and two socket tests pass. |
 | Real LobbyGate integration | done | ✅ One generated encrypted client logs in through the existing gate and receives ten characters across fragments. |
 | Original timer and full kick scheduler | not started | ❓ Only explicit local notification controls and local NP deadlines are implemented. |
 
-**Validation:** `cargo test --manifest-path lobbygate-rs/Cargo.toml`: **122 passed, 0 failed, 0 ignored**.
+**Validation:** `cargo test --manifest-path bns-server/Cargo.toml`: **122 passed, 0 failed, 0 ignored**.
 The total includes **102 unchanged tests + 20 new tests**.
-Clippy passes: `cargo clippy --manifest-path lobbygate-rs/Cargo.toml -p lobbyd --all-targets -- -D warnings`.
+Clippy passes: `cargo clippy --manifest-path bns-server/Cargo.toml -p lobbyd --all-targets -- -D warnings`.
 The new-crate formatting check passes.
 
 **Spec changes — build 0.0.307:**

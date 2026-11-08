@@ -11,7 +11,7 @@ Shell verification is blocked. No build or test result is claimed.
 | Part | State | Evidence |
 | --- | --- | --- |
 | Reference review | Complete | Read `07-client-exe-tabledefs.md`, `exportdefs.py`, `pe.py`, `findarr.py`, and `arr64.py`. |
-| Workspace | Updated | Added `crates/bnsschema` to the member list. No other crate was changed. |
+| Workspace | Updated | Added `Program/Tools/DataFile/BnsSchema` to the member list. No other crate was changed. |
 | PE parser | Written; not compiled | `src/pe.rs`: DOS and PE signatures, machine, width, image base, entry point, section fields, full-section entropy, and checked VA reads. |
 | Protection gate | Written; not tested | `src/protect.rs`: all listed names, entry-point rules, high entropy, and virtual-only executable sections. |
 | Layouts | Written; not tested | `src/layout.rs`: `x86` and `x64p4` const structs from the Python reference. |
@@ -81,7 +81,7 @@ The write scope excludes `notes/client-datafiles.md`. No change was made there.
 
 ## Main-session verification
 
-Run from `lobbygate-rs`:
+Run from `bns-server`:
 
 ```sh
 CARGO_NET_OFFLINE=true cargo build

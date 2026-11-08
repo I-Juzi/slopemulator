@@ -4,10 +4,10 @@
 
 | Source | Build | Use |
 | --- | --- | --- |
-| `spec/lobbyd/04-login.md` | 0.0.307 | Existing target login specification. Read first. Not re-derived here. |
+| `Docs/Server/LobbyDaemon/04-login.md` | 0.0.307 | Existing target login specification. Read first. Not re-derived here. |
 | `ida/delegate/LobbyDaemon_348_copy.i64` | Guide labelled 348 | Named NPChannel / NPGameServiceChannel functions. Addresses below use this guide image. ❓ Exact file version was not checked. |
 | `ida/delegate/sts/StsMsgSrv64.dll` plus PDB | ❓ Release identity unchecked | STS request builder, reply parser, API types |
-| `crates/lobbyd/src/np.rs` | Local Rust code | Transport-free `Np` trait and deterministic `StubNp` |
+| `Program/Server/LobbyDaemon/src/np.rs` | Local Rust code | Transport-free `Np` trait and deterministic `StubNp` |
 
 Do not transfer a guide address to the build-307 image. Do not claim that the guide establishes all build-381 client behavior.
 
@@ -43,7 +43,7 @@ No original token lifetime or server-side replay rule was established. Single us
 
 ## Integration with the Rust stub
 
-The local trait is [`Np`](../../crates/lobbyd/src/np.rs):
+The local trait is [`Np`](../../../Program/Server/LobbyDaemon/src/np.rs):
 
 ```rust
 fn consume(&self, token: [u8; 16], portal: [u8; 16]) -> NpFuture<'_, Identity>;

@@ -1,9 +1,9 @@
     Finished `test` profile [unoptimized + debuginfo] target(s) in 0.03s
-     Running tests/emu_381.rs (lobbygate-rs/target/debug/deps/emu_381-6b4f0a20cba5c81a)
+     Running tests/emu_381.rs (bns-server/target/debug/deps/emu_381-6b4f0a20cba5c81a)
 
 running 1 test
 
-thread 'original_381_rsa_encrypt' (4031152) panicked at crates/proto/tests/emu_381.rs:167:5:
+thread 'original_381_rsa_encrypt' (4031152) panicked at Program/Server/BloodLib/tests/emu_381.rs:167:5:
 assertion `left == right` failed
   left: 0
  right: 2

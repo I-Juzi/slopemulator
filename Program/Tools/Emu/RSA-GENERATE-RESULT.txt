@@ -32,4 +32,4 @@ rsa_encrypt: multi_chunk: original returned through sentinel
 rsa_decrypt: short: original returned through sentinel
 rsa_decrypt: multi_chunk: original returned through sentinel
 rsa_decrypt: incomplete: original returned through sentinel
-Wrote 31 cases to lobbygate-rs/crates/proto/tests/vectors/emu_381.json
+Wrote 31 cases to bns-server/Program/Server/BloodLib/tests/vectors/emu_381.json

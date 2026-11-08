@@ -24,11 +24,11 @@ Both flags, short-block zero padding, the 4000-byte limit, and both key slots we
 | `wrong_active_slot`: tag 9; send=receive=0; both generated keys set | Error 7; no plaintext | Ok: `269ce958a1de85bd5c099eccdd8e276e` | Rust selects the explicit slot without an active-slot check |
 | `rotate_send_new`: `381 rotation rotate_send_new`; flag true; previous slot 0 | 34-byte packet; header `08b0` | Without caller slot change: 34-byte packet; header `08a0`; different ciphertext | Rust has no pending/send/receive state |
 
-Exact mismatch inputs, generated keys, and both outputs: `lobbygate-rs/tools/emu/SESSION-DIFFERENCES.json`.
+Exact mismatch inputs, generated keys, and both outputs: `bns-server/Program/Tools/Emu/SESSION-DIFFERENCES.json`.
 The four mismatch tests stay `#[ignore]` with reasons. Their deliberate run failed all four checks, as expected; see `IGNORED-RESULT.txt` in the same directory.
 **Start-up:** the harness sets limit 4000 from `0x140021087` and the original software AES pointers from `0x140066DB0`. These globals have no loaded file bytes. It uses the real factory, key setter, and GenerateKey.
 **Stubs that can change results:** controlled TLS PRNG; controlled CRT rand; memcpy/memmove/memset/memcmp; zero-filled allocation; no-op free/HeapFree; fixed GetProcessHeap. Only the two random stubs, memcpy, and memset ran.
 **Open:** original zero-ciphertext return and cause are ❓ unverified; the prior trace ended at `0x14006E734` with return address 0. Rust cannot represent unconfigured slot 0. The hardware AES branch is not tested. Four packet/state gaps remain.
-`cargo test --manifest-path lobbygate-rs/Cargo.toml`: **PASS — 52 passed, 0 failed, 4 ignored**. Full output: `lobbygate-rs/tools/emu/CARGO-RESULT.txt`.
-`--through 6 --reuse-rsa` and the evidence audit pass. Sources and test limits: `lobbygate-rs/tools/emu/SESSION-NOTES.md`.
+`cargo test --manifest-path bns-server/Cargo.toml`: **PASS — 52 passed, 0 failed, 4 ignored**. Full output: `bns-server/Program/Tools/Emu/CARGO-RESULT.txt`.
+`--through 6 --reuse-rsa` and the evidence audit pass. Sources and test limits: `bns-server/Program/Tools/Emu/SESSION-NOTES.md`.
 `crypto.rs`, the spec, and the built-in RSA protection are unchanged. No binary or IDA patch/save command was used. IDA is closed.

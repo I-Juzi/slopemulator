@@ -61,8 +61,8 @@ These tables cover the selected spatial chain. They do not resolve all spatial l
 ## Reproduction
 
 ```sh
-cargo run --release --manifest-path lobbygate-rs/Cargo.toml -p lmxb --example tables --config 'env.BNS_GAMEDATA="/home/ubuntu/Downloads/BnS_2020/GameDaemon/data"' -- --out lobbygate-rs/spec/gamed/02-tables.md
-cargo test --release --manifest-path lobbygate-rs/Cargo.toml -p gamedata --test real_data --config 'env.BNS_GAMEDATA="/home/ubuntu/Downloads/BnS_2020/GameDaemon/data"' -- --nocapture
+cargo run --release --manifest-path bns-server/Cargo.toml -p lmxb --example tables --config 'env.BNS_GAMEDATA="/home/ubuntu/Downloads/BnS_2020/GameDaemon/data"' -- --out bns-server/Docs/Server/GameDaemon/02-tables.md
+cargo test --release --manifest-path bns-server/Cargo.toml -p gamedata --test real_data --config 'env.BNS_GAMEDATA="/home/ubuntu/Downloads/BnS_2020/GameDaemon/data"' -- --nocapture
 ```
 
 Without `BNS_GAMEDATA`, both entry points print `SKIP`. Tests must create their fixtures with `lmxb::encode`. Do not store game records in the repository.

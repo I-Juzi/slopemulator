@@ -22,9 +22,9 @@
 - ❓ Socket tests do not capture idle log counts. Watcher source: `0x140036950`. Original-client interoperability remains untested.
 
 ## Verification
-- `cargo test --manifest-path lobbygate-rs/Cargo.toml`: **102 passed, 0 failed, 0 ignored**. All 93 baseline tests pass.
-- `cargo clippy --manifest-path lobbygate-rs/Cargo.toml -p lobbygate-server --all-targets -- -D warnings`: **pass**.
-- `cargo fmt --manifest-path lobbygate-rs/Cargo.toml --all`: **pass**. The optional repeat/check command did not run because it required approval.
+- `cargo test --manifest-path bns-server/Cargo.toml`: **102 passed, 0 failed, 0 ignored**. All 93 baseline tests pass.
+- `cargo clippy --manifest-path bns-server/Cargo.toml -p lobbygate-server --all-targets -- -D warnings`: **pass**.
+- `cargo fmt --manifest-path bns-server/Cargo.toml --all`: **pass**. The optional repeat/check command did not run because it required approval.
 - Initial compile/test issues were corrected: a borrow, new fragment-size arithmetic, and a TCP-ACK timing assumption. No existing test was weakened.
 - IDA is closed. Emulator vectors were not edited. No built-in RSA key or licence logic was used.
 
@@ -45,8 +45,8 @@
 | 4: idle watcher sockets | not started | Existing paused-time unit tests pass. No new socket coverage. |
 
 ## Verification
-- `cargo test --manifest-path lobbygate-rs/Cargo.toml`: **93 passed, 0 failed, 0 ignored**. All 85 baseline tests pass.
-- `cargo clippy --manifest-path lobbygate-rs/Cargo.toml -p lobbygate-server --all-targets -- -D warnings`: **pass**.
+- `cargo test --manifest-path bns-server/Cargo.toml`: **93 passed, 0 failed, 0 ignored**. All 85 baseline tests pass.
+- `cargo clippy --manifest-path bns-server/Cargo.toml -p lobbygate-server --all-targets -- -D warnings`: **pass**.
 - Rust formatting passes. No existing test was weakened. Emulator vectors remain unchanged.
 - No IDA database was opened. No built-in RSA key, licence check, or goods handler was added.
 
@@ -77,8 +77,8 @@
 | 5: remaining config semantics | not started | TODOs remain. |
 
 ## Verification
-- `cargo test --manifest-path lobbygate-rs/Cargo.toml`: **85 passed, 0 failed, 0 ignored**. All 81 baseline tests pass.
-- `cargo clippy --manifest-path lobbygate-rs/Cargo.toml -p lobbygate-server --all-targets -- -D warnings`: **pass**.
+- `cargo test --manifest-path bns-server/Cargo.toml`: **85 passed, 0 failed, 0 ignored**. All 81 baseline tests pass.
+- `cargo clippy --manifest-path bns-server/Cargo.toml -p lobbygate-server --all-targets -- -D warnings`: **pass**.
 - No existing test was changed. No emulator vector was changed.
 - IDA is closed. No built-in RSA key, licence check, or goods handler was added.
 
@@ -111,8 +111,8 @@
 | 5: timers | partial | Close deadline queue works in the kick test. Idle watcher and config-driven timer cadence remain TODO. |
 
 ## Verification
-- `cargo test --manifest-path lobbygate-rs/Cargo.toml`: **81 passed, 0 failed, 0 ignored**. All 77 baseline tests pass.
-- `cargo clippy --manifest-path lobbygate-rs/Cargo.toml -p lobbygate-server --all-targets -- -D warnings`: **pass**.
+- `cargo test --manifest-path bns-server/Cargo.toml`: **81 passed, 0 failed, 0 ignored**. All 77 baseline tests pass.
+- `cargo clippy --manifest-path bns-server/Cargo.toml -p lobbygate-server --all-targets -- -D warnings`: **pass**.
 - No existing test was weakened. Login rejection checks remain on both paths. A third session tests kick and close.
 - IDA is closed. No built-in RSA key, licence check, goods handler, or emulator-vector change was added.
 - ❓ Original-client compatibility, broadcast socket delivery, D20/D21, timeout zero, and timer ordering lack direct tests.

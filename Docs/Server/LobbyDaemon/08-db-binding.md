@@ -145,7 +145,7 @@ Rust rejects generated blobs above 512 bytes. It does not reproduce unsafe copie
 
 ## Step 9 — optional SQL Server Store
 
-`crates/lobbyd/src/mssql.rs` implements the current 12 Store methods.
+`Program/Server/LobbyDaemon/src/mssql.rs` implements the current 12 Store methods.
 They select 16 of the 88 procedure contracts. The other 72 stay outside Store.
 No SQL Server connection was made during this job.
 
@@ -181,7 +181,7 @@ Jobs still does not enable detail-dependent service recovery or optional login d
 Run only against the recreated, disposable LobbyDB. Set `LOBBYD_MSSQL_URL`
 in the operator environment. Do not write its value into this repository.
 
-`cargo test --manifest-path lobbygate-rs/Cargo.toml -p lobbyd --features mssql --test mssql -- --nocapture --test-threads=1`
+`cargo test --manifest-path bns-server/Cargo.toml -p lobbyd --features mssql --test mssql -- --nocapture --test-threads=1`
 
 | SQL test | Expected result |
 | --- | --- |

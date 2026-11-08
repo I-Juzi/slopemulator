@@ -102,7 +102,7 @@ Reject at the exact expiry deadline. Consume a valid token once under one lock.
 Wrong binding must not consume a token.
 Logout, protocol failure and Session drop revoke unconsumed tokens from that session.
 The authority has an explicit positive lifetime and entry limit.
-The adapter lives in `crates/sts/src/lobbyd_adapter.rs`, behind feature `lobbyd-adapter`.
+The adapter lives in `Program/Platform/Sts/src/lobbyd_adapter.rs`, behind feature `lobbyd-adapter`.
 It implements `lobbyd::np::Np`. It consumes tokens only from this authority.
 It maps generated identity fields to LobbyDaemon Identity.
 It delegates presence, name and world operations to an explicit backend.

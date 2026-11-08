@@ -1,6 +1,6 @@
-   Compiling lobbygate-proto v0.1.0 (/home/ubuntu/Documents/Codex/private-project/lobbygate-rs/crates/proto)
+   Compiling lobbygate-proto v0.1.0 (/home/ubuntu/Documents/Codex/private-project/bns-server/Program/Server/BloodLib)
     Finished `test` profile [unoptimized + debuginfo] target(s) in 0.49s
-     Running tests/emu_381.rs (lobbygate-rs/target/debug/deps/emu_381-6b4f0a20cba5c81a)
+     Running tests/emu_381.rs (bns-server/target/debug/deps/emu_381-6b4f0a20cba5c81a)
 
 running 10 tests
 test original_381_rsa_bad_oaep ... ignored, Original zero-ciphertext RSA path has no sentinel return (RIP=0); error 17 is unverified
@@ -18,7 +18,7 @@ failures:
 
 ---- original_381_dh_exchange stdout ----
 
-thread 'original_381_dh_exchange' (4042501) panicked at crates/proto/tests/emu_381.rs:229:5:
+thread 'original_381_dh_exchange' (4042501) panicked at Program/Server/BloodLib/tests/emu_381.rs:229:5:
 assertion `left == right` failed
   left: 0
  right: 3
@@ -26,7 +26,7 @@ note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
 
 ---- original_381_dh_reject_modulus stdout ----
 
-thread 'original_381_dh_reject_modulus' (4042502) panicked at crates/proto/tests/emu_381.rs:264:5:
+thread 'original_381_dh_reject_modulus' (4042502) panicked at Program/Server/BloodLib/tests/emu_381.rs:264:5:
 assertion `left == right` failed
   left: 0
  right: 2

@@ -4,7 +4,7 @@
 | --- | --- | --- |
 | Survey | done | `02-tables.md`: 252 types, 21,062 table files, 1,018,183 direct elements; attribute types and reference candidates. |
 | Minimum-world chain | partial | `03-minimum-world.md`: spatial chain specified. All 30 level-one settings resolve to zone 1101 and terrain 1001. ❓ Full gameplay dependencies remain open. |
-| Typed loader | done | `crates/gamedata`: 12 types; id/alias indexes; initial-setting keys; unknown attributes and children retained; reference diagnostics. |
+| Typed loader | done | `Program/Server/Data/GameData`: 12 types; id/alias indexes; initial-setting keys; unknown attributes and children retained; reference diagnostics. |
 | Tests | done | 14 generated tests; separate real-folder test passes; unset `BNS_GAMEDATA` prints `SKIP`. |
 | Workspace checks | done | 290 passed, 0 failed, 6 ignored. Clippy passes with `--workspace --all-targets -- -D warnings`. |
 
@@ -30,7 +30,7 @@ Reference checks report **8,500 unresolved candidate links**: 6,217 script, 1,97
 Three extra script-table elements remain in file metadata. The survey counts them; the script index does not.
 ❓ Open questions: missing-link causes, placement scope, initial spawn selection, zero defaults, coordinate units, and terrain geometry.
 Next job: resolve reference naming and scope from bytes. Extend dependency checks. Specify initial spawn selection before server integration.
-No game records were added. No IDA or network tools were used. Downloads and `tools/emu/` were not changed.
+No game records were added. No IDA or network tools were used. Downloads and `Program/Tools/Emu/` were not changed.
 
 ## Step 1 evidence
 
@@ -38,7 +38,7 @@ No game records were added. No IDA or network tools were used. Downloads and `to
 
 | Part | State | Evidence |
 | --- | --- | --- |
-| Header | done | 21,064 v3 files; exact size fields; 64 zero reserved bytes. See lobbygate-rs/spec/gamed/01-lmxboslb.md:1. |
+| Header | done | 21,064 v3 files; exact size fields; 64 zero reserved bytes. See bns-server/Docs/Server/GameDaemon/01-lmxboslb.md:1. |
 | Body | done | 1,786,132 elements; 2,202,819 text nodes; maximum depth 7. Strings use UTF-16LE and a repeating 16-byte XOR. |
 | Decoder and encoder | done | New dependency-free `lmxb` crate. Bounds checks, metadata retention, XML escaping, and malformed-input tests pass. |
 | Round trip | done | Generated data and all 21,064 binary files pass byte-exact round trips. |
@@ -60,7 +60,7 @@ No game records were added. No IDA or network tools were used. Downloads and `to
 - ❓ The source-line field meaning is inferred. No source XML pair was available.
 - ❓ Other format versions and node kinds were not verified.
 - The decoder accepts version 3 and at most 128 node levels. Encoded documents must fit a u32 file size.
-- No game data was added to the repository. `lobbygate-rs/tools/emu/` was not changed.
+- No game data was added to the repository. `bns-server/Program/Tools/Emu/` was not changed.
 
 ## Next job
 

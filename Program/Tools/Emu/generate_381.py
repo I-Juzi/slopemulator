@@ -1,8 +1,8 @@
 """Generate 381 oracle vectors, one item at a time. No crypto is translated.
 
 Commands (from the project root):
-  lobbygate-rs/.venv/bin/python lobbygate-rs/tools/emu/generate_381.py --through 1
-  cargo test --manifest-path lobbygate-rs/Cargo.toml --test emu_381
+  bns-server/.venv/bin/python bns-server/Program/Tools/Emu/generate_381.py --through 1
+  cargo test --manifest-path bns-server/Cargo.toml --test emu_381
 
 Only after that item passes, raise --through. All data in these vectors is public
 synthetic test material. A PRNG stream is supplied at its virtual-call boundary.

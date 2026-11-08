@@ -1,6 +1,6 @@
 """Read-only 381 black-box runner. No host code from the PE is executed.
 
-Run from the project root with lobbygate-rs/.venv/bin/python.
+Run from the project root with bns-server/.venv/bin/python.
 The built-in RSA range is skipped during file reads, then zeroed in Unicorn.
 Only ABI, object setup and external dependencies are supplied by this runner.
 """

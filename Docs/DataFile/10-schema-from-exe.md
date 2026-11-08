@@ -19,7 +19,7 @@ A protection refusal is a normal result. There is no bypass option.
 | `client-exe/exportdefs.py` | Layouts, reads, type codes, and JSON fields | `Client.exe` x86 and `BNSR_116.exe` x64p4. |
 | `client-exe/pe.py` | PE header and section fields | Both reference files. |
 | `client-exe/findarr.py`, `client-exe/arr64.py` | Null slot and consecutive table IDs | x86 and x64 reference arrays. |
-| `crates/bnsdata/src/tabledef.rs` | Output consumer and count checks | Current Rust workspace. |
+| `Program/Tools/DataFile/BnsData/src/tabledef.rs` | Output consumer and count checks | Current Rust workspace. |
 
 No new real-file result is claimed here. See `STATUS-schema.md` for command results.
 The Rust port has not established the build number of any executable.
@@ -258,7 +258,7 @@ No real test runs without explicit operator paths.
 
 ## Offline verification
 
-Run these commands from `lobbygate-rs`:
+Run these commands from `bns-server`:
 
 ```sh
 CARGO_NET_OFFLINE=true cargo build

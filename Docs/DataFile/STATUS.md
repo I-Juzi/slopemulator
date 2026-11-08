@@ -28,16 +28,16 @@ The unit test `rejects_field_extent_overflow_and_wrong_scalar_width` was updated
 
 **Checks:** Shell approval blocked the requested offline test/Clippy commands and rustfmt. No real client file was read. No dependencies were added.
 **Open:** Native word `a`; client acceptance of edited tables; outer total-size/max-buffer rules. Plain rebuilds relocate all known text offsets; unedited text values stay intact. Unreferenced pool bytes remain only when no text changes.
-**Files written:** `crates/bnsdata/src/table.rs`, `src/table/{fields,text,strings_tests}.rs`, `tests/real_files.rs`; `spec/datafile/{08-strings,STATUS}.md`. Source/test paths after the first are relative to `crates/bnsdata/`.
+**Files written:** `Program/Tools/DataFile/BnsData/src/table.rs`, `src/table/{fields,text,strings_tests}.rs`, `tests/real_files.rs`; `Docs/DataFile/{08-strings,STATUS}.md`. Source/test paths after the first are relative to `Program/Tools/DataFile/BnsData/`.
 
 Run from `/home/ubuntu/Documents/Codex/private-project`:
 ```sh
-CARGO_NET_OFFLINE=true cargo test --manifest-path lobbygate-rs/Cargo.toml
-CARGO_NET_OFFLINE=true cargo clippy --manifest-path lobbygate-rs/Cargo.toml --workspace --all-targets -- -D warnings
-BNSDATA_CLIENT_DAT='/home/ubuntu/Downloads/Bin/datafile.bin' BNSDATA_DAT_WIDTH=32 BNSDATA_DAT_ROLE=main BNSDATA_TABLEDEFS='/home/ubuntu/Downloads/TableDefs_0.0.381.8876_x86 KR TEST' CARGO_NET_OFFLINE=true cargo test --manifest-path lobbygate-rs/Cargo.toml -p bnsdata --test real_files client_strings_resolve -- --ignored --exact --nocapture
-BNSDATA_CLIENT_DAT='/home/ubuntu/Downloads/Bin/datafile64.bin' BNSDATA_DAT_WIDTH=64 BNSDATA_DAT_ROLE=main BNSDATA_TABLEDEFS='/home/ubuntu/Downloads/TableDefs_0.0.381.8876_x64 KR TEST' CARGO_NET_OFFLINE=true cargo test --manifest-path lobbygate-rs/Cargo.toml -p bnsdata --test real_files client_strings_resolve -- --ignored --exact --nocapture
-BNSDATA_CLIENT_DAT='/home/ubuntu/Downloads/Bin/localfile.bin' BNSDATA_DAT_WIDTH=32 BNSDATA_DAT_ROLE=local BNSDATA_TABLEDEFS='/home/ubuntu/Downloads/TableDefs_0.0.381.8876_x86 KR TEST' CARGO_NET_OFFLINE=true cargo test --manifest-path lobbygate-rs/Cargo.toml -p bnsdata --test real_files client_strings_resolve -- --ignored --exact --nocapture
-BNSDATA_CLIENT_DAT='/home/ubuntu/Downloads/Bin/localfile64.bin' BNSDATA_DAT_WIDTH=64 BNSDATA_DAT_ROLE=local BNSDATA_TABLEDEFS='/home/ubuntu/Downloads/TableDefs_0.0.381.8876_x64 KR TEST' CARGO_NET_OFFLINE=true cargo test --manifest-path lobbygate-rs/Cargo.toml -p bnsdata --test real_files client_strings_resolve -- --ignored --exact --nocapture
+CARGO_NET_OFFLINE=true cargo test --manifest-path bns-server/Cargo.toml
+CARGO_NET_OFFLINE=true cargo clippy --manifest-path bns-server/Cargo.toml --workspace --all-targets -- -D warnings
+BNSDATA_CLIENT_DAT='/home/ubuntu/Downloads/Bin/datafile.bin' BNSDATA_DAT_WIDTH=32 BNSDATA_DAT_ROLE=main BNSDATA_TABLEDEFS='/home/ubuntu/Downloads/TableDefs_0.0.381.8876_x86 KR TEST' CARGO_NET_OFFLINE=true cargo test --manifest-path bns-server/Cargo.toml -p bnsdata --test real_files client_strings_resolve -- --ignored --exact --nocapture
+BNSDATA_CLIENT_DAT='/home/ubuntu/Downloads/Bin/datafile64.bin' BNSDATA_DAT_WIDTH=64 BNSDATA_DAT_ROLE=main BNSDATA_TABLEDEFS='/home/ubuntu/Downloads/TableDefs_0.0.381.8876_x64 KR TEST' CARGO_NET_OFFLINE=true cargo test --manifest-path bns-server/Cargo.toml -p bnsdata --test real_files client_strings_resolve -- --ignored --exact --nocapture
+BNSDATA_CLIENT_DAT='/home/ubuntu/Downloads/Bin/localfile.bin' BNSDATA_DAT_WIDTH=32 BNSDATA_DAT_ROLE=local BNSDATA_TABLEDEFS='/home/ubuntu/Downloads/TableDefs_0.0.381.8876_x86 KR TEST' CARGO_NET_OFFLINE=true cargo test --manifest-path bns-server/Cargo.toml -p bnsdata --test real_files client_strings_resolve -- --ignored --exact --nocapture
+BNSDATA_CLIENT_DAT='/home/ubuntu/Downloads/Bin/localfile64.bin' BNSDATA_DAT_WIDTH=64 BNSDATA_DAT_ROLE=local BNSDATA_TABLEDEFS='/home/ubuntu/Downloads/TableDefs_0.0.381.8876_x64 KR TEST' CARGO_NET_OFFLINE=true cargo test --manifest-path bns-server/Cargo.toml -p bnsdata --test real_files client_strings_resolve -- --ignored --exact --nocapture
 ```
 
 ---
@@ -79,14 +79,14 @@ BNSDATA_CLIENT_DAT='/home/ubuntu/Downloads/Bin/localfile64.bin' BNSDATA_DAT_WIDT
 **Checks:** Tests, strict Clippy, and rustfmt did not run. Shell calls require approval. No real client file was read.
 **Open:** Record index-key derivation for changed compressed blocks (table keys, not crypto); string/native encoding; changed-file acceptance; outer header size rules.
 **Next:** Refresh the workspace lockfile's bnsdata dependency list. That file is outside this job's write scope. Run rustfmt, offline workspace tests, and strict Clippy. Then run the four checks below.
-**Files written:** `crates/bnsdata/Cargo.toml`, `src/{lib,tabledef,table}.rs`, `src/table/{fields,tests}.rs`, `tests/real_files.rs`; `spec/datafile/{06-client-body,STATUS}.md`. Source and test paths are relative to `crates/bnsdata/`.
+**Files written:** `Program/Tools/DataFile/BnsData/Cargo.toml`, `src/{lib,tabledef,table}.rs`, `src/table/{fields,tests}.rs`, `tests/real_files.rs`; `Docs/DataFile/{06-client-body,STATUS}.md`. Source and test paths are relative to `Program/Tools/DataFile/BnsData/`.
 
 Run from `/home/ubuntu/Documents/Codex/private-project`:
 ```sh
-BNSDATA_CLIENT_DAT='/home/ubuntu/Downloads/Bin/datafile.bin' BNSDATA_DAT_WIDTH=32 BNSDATA_DAT_ROLE=main BNSDATA_TABLEDEFS='/home/ubuntu/Downloads/TableDefs_0.0.381.8876_x86 KR TEST' CARGO_NET_OFFLINE=true cargo test --manifest-path lobbygate-rs/Cargo.toml -p bnsdata --test real_files client_table_bodies_roundtrip -- --ignored --exact --nocapture
-BNSDATA_CLIENT_DAT='/home/ubuntu/Downloads/Bin/datafile64.bin' BNSDATA_DAT_WIDTH=64 BNSDATA_DAT_ROLE=main BNSDATA_TABLEDEFS='/home/ubuntu/Downloads/TableDefs_0.0.381.8876_x64 KR TEST' CARGO_NET_OFFLINE=true cargo test --manifest-path lobbygate-rs/Cargo.toml -p bnsdata --test real_files client_table_bodies_roundtrip -- --ignored --exact --nocapture
-BNSDATA_CLIENT_DAT='/home/ubuntu/Downloads/Bin/localfile.bin' BNSDATA_DAT_WIDTH=32 BNSDATA_DAT_ROLE=local BNSDATA_TABLEDEFS='/home/ubuntu/Downloads/TableDefs_0.0.381.8876_x86 KR TEST' CARGO_NET_OFFLINE=true cargo test --manifest-path lobbygate-rs/Cargo.toml -p bnsdata --test real_files client_table_bodies_roundtrip -- --ignored --exact --nocapture
-BNSDATA_CLIENT_DAT='/home/ubuntu/Downloads/Bin/localfile64.bin' BNSDATA_DAT_WIDTH=64 BNSDATA_DAT_ROLE=local BNSDATA_TABLEDEFS='/home/ubuntu/Downloads/TableDefs_0.0.381.8876_x64 KR TEST' CARGO_NET_OFFLINE=true cargo test --manifest-path lobbygate-rs/Cargo.toml -p bnsdata --test real_files client_table_bodies_roundtrip -- --ignored --exact --nocapture
+BNSDATA_CLIENT_DAT='/home/ubuntu/Downloads/Bin/datafile.bin' BNSDATA_DAT_WIDTH=32 BNSDATA_DAT_ROLE=main BNSDATA_TABLEDEFS='/home/ubuntu/Downloads/TableDefs_0.0.381.8876_x86 KR TEST' CARGO_NET_OFFLINE=true cargo test --manifest-path bns-server/Cargo.toml -p bnsdata --test real_files client_table_bodies_roundtrip -- --ignored --exact --nocapture
+BNSDATA_CLIENT_DAT='/home/ubuntu/Downloads/Bin/datafile64.bin' BNSDATA_DAT_WIDTH=64 BNSDATA_DAT_ROLE=main BNSDATA_TABLEDEFS='/home/ubuntu/Downloads/TableDefs_0.0.381.8876_x64 KR TEST' CARGO_NET_OFFLINE=true cargo test --manifest-path bns-server/Cargo.toml -p bnsdata --test real_files client_table_bodies_roundtrip -- --ignored --exact --nocapture
+BNSDATA_CLIENT_DAT='/home/ubuntu/Downloads/Bin/localfile.bin' BNSDATA_DAT_WIDTH=32 BNSDATA_DAT_ROLE=local BNSDATA_TABLEDEFS='/home/ubuntu/Downloads/TableDefs_0.0.381.8876_x86 KR TEST' CARGO_NET_OFFLINE=true cargo test --manifest-path bns-server/Cargo.toml -p bnsdata --test real_files client_table_bodies_roundtrip -- --ignored --exact --nocapture
+BNSDATA_CLIENT_DAT='/home/ubuntu/Downloads/Bin/localfile64.bin' BNSDATA_DAT_WIDTH=64 BNSDATA_DAT_ROLE=local BNSDATA_TABLEDEFS='/home/ubuntu/Downloads/TableDefs_0.0.381.8876_x64 KR TEST' CARGO_NET_OFFLINE=true cargo test --manifest-path bns-server/Cargo.toml -p bnsdata --test real_files client_table_bodies_roundtrip -- --ignored --exact --nocapture
 ```
 
 ---
@@ -141,7 +141,7 @@ The loader keeps schema metadata only. No operator definition was copied into th
 
 **Checks:** Cargo tests and strict workspace Clippy were requested with offline mode. Both commands require approval and did not run in this job. No Rust source or dependencies changed. The prior 155-test result is not a new verification result.
 
-**Files written in `spec/datafile/`:** `export_tabledefs_2020.py`, `tabledefs-2020.json`, `client381-2020-comparison.json`, `04-tabledefs-2020.md`, `05-tablebody.md`, and `STATUS.md`.
+**Files written in `Docs/DataFile/`:** `export_tabledefs_2020.py`, `tabledefs-2020.json`, `client381-2020-comparison.json`, `04-tabledefs-2020.md`, `05-tablebody.md`, and `STATUS.md`.
 
 No key bytes or XOR table values were written anywhere. No default-value contents or real game-data bodies were exported. Both IDA databases were closed without a save request. The operator research notes and all crate source files were left unchanged.
 
@@ -179,10 +179,10 @@ No key bytes or XOR table values were written anywhere. No default-value content
 
 **Next step:** Run the ignored read-only round-trip tests. Then obtain build 381 definitions for both widths before adding XML-to-table conversion.
 
-**Files written under `lobbygate-rs/`:**
-- `crates/bnsdata/src/{lib,lmx,dat}.rs`; `crates/bnsdata/tests/real_files.rs`.
-- `spec/datafile/{01-lmxboslb,02-tadboslb,03-tabledefs}.md`; `spec/datafile/STATUS.md`.
-- `spec/datafile/tabledefs.json`; `spec/datafile/export_tabledefs.py`.
+**Files written under `bns-server/`:**
+- `Program/Tools/DataFile/BnsData/src/{lib,lmx,dat}.rs`; `Program/Tools/DataFile/BnsData/tests/real_files.rs`.
+- `Docs/DataFile/{01-lmxboslb,02-tadboslb,03-tabledefs}.md`; `Docs/DataFile/STATUS.md`.
+- `Docs/DataFile/tabledefs.json`; `Docs/DataFile/export_tabledefs.py`.
 
 No game key bytes or XOR table values were read or written anywhere. Tests use generated keys only. The research notes were not changed. The IDA database was closed without a save request.
 
@@ -194,7 +194,7 @@ The ignored tests compare bytes in memory. They do not write files or dump game 
 
 ## Step 2 checkpoint — LMX module
 
-✅ `crates/bnsdata/src/lmx.rs` now parses and writes the specified tree. It preserves raw UTF-16, ordered attributes, flags, line numbers, padding, and reserved bytes. The key-free walker checks tags, counts, and exact size. Nesting is limited to 256 levels. Runtime keys use `BNSDATA_KEY_FILE`; absent keys produce a clear error. Three synthetic tests pass. Real files were not opened. DAT framing and table definitions are next.
+✅ `Program/Tools/DataFile/BnsData/src/lmx.rs` now parses and writes the specified tree. It preserves raw UTF-16, ordered attributes, flags, line numbers, padding, and reserved bytes. The key-free walker checks tags, counts, and exact size. Nesting is limited to 256 levels. Runtime keys use `BNSDATA_KEY_FILE`; absent keys produce a clear error. Three synthetic tests pass. Real files were not opened. DAT framing and table definitions are next.
 
 ## Step 2 checkpoint — DAT module
 

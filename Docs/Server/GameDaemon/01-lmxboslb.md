@@ -100,11 +100,11 @@ XML output is semantic XML, not the original source text. Attribute order and te
 Run commands from the project directory. The examples read data only. Their output is not a repository fixture.
 
 ```sh
-cargo run --manifest-path lobbygate-rs/Cargo.toml -p lmxb --example inspect -- <file-or-folder>
-cargo run --release --manifest-path lobbygate-rs/Cargo.toml -p lmxb --example survey -- <data-folder>
-cargo test --manifest-path lobbygate-rs/Cargo.toml -p lmxb -- --nocapture
-cargo test --release --manifest-path lobbygate-rs/Cargo.toml -p lmxb --test real_data --config 'env.BNS_GAMEDATA="/home/ubuntu/Downloads/BnS_2020/GameDaemon/data"' -- --nocapture
-cargo run --manifest-path lobbygate-rs/Cargo.toml -p lmxb --bin lmxb-dump -- <file>
+cargo run --manifest-path bns-server/Cargo.toml -p lmxb --example inspect -- <file-or-folder>
+cargo run --release --manifest-path bns-server/Cargo.toml -p lmxb --example survey -- <data-folder>
+cargo test --manifest-path bns-server/Cargo.toml -p lmxb -- --nocapture
+cargo test --release --manifest-path bns-server/Cargo.toml -p lmxb --test real_data --config 'env.BNS_GAMEDATA="/home/ubuntu/Downloads/BnS_2020/GameDaemon/data"' -- --nocapture
+cargo run --manifest-path bns-server/Cargo.toml -p lmxb --bin lmxb-dump -- <file>
 ```
 
 Without `BNS_GAMEDATA`, the real-data test prints `SKIP`. It follows no directory symlinks. It reports nonbinary XML paths separately. A folder with no binary files fails the opt-in test.

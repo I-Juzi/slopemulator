@@ -85,7 +85,7 @@ Each block:
 
 ## Rust API — step 4 (2026-11-07)
 
-The code is in `crates/bnsdata/`. It uses fresh Rust code and the layout above.
+The code is in `Program/Tools/DataFile/BnsData/`. It uses fresh Rust code and the layout above.
 No operator definitions or record content are embedded.
 
 | API | Function |
@@ -161,11 +161,11 @@ It reads only paths from the four specified environment variables.
 It writes no files. It prints counts only.
 The dat4 job did not run it. ✅ The main session ran it on 2026-11-07: all four files pass (see `STATUS.md`, "dat4 verification").
 
-Run these commands from `lobbygate-rs`'s parent directory:
+Run these commands from `bns-server`'s parent directory:
 
 ```sh
-BNSDATA_CLIENT_DAT='/home/ubuntu/Downloads/Bin/datafile.bin' BNSDATA_DAT_WIDTH=32 BNSDATA_DAT_ROLE=main BNSDATA_TABLEDEFS='/home/ubuntu/Downloads/TableDefs_0.0.381.8876_x86 KR TEST' CARGO_NET_OFFLINE=true cargo test --manifest-path lobbygate-rs/Cargo.toml -p bnsdata --test real_files client_table_bodies_roundtrip -- --ignored --exact --nocapture
-BNSDATA_CLIENT_DAT='/home/ubuntu/Downloads/Bin/datafile64.bin' BNSDATA_DAT_WIDTH=64 BNSDATA_DAT_ROLE=main BNSDATA_TABLEDEFS='/home/ubuntu/Downloads/TableDefs_0.0.381.8876_x64 KR TEST' CARGO_NET_OFFLINE=true cargo test --manifest-path lobbygate-rs/Cargo.toml -p bnsdata --test real_files client_table_bodies_roundtrip -- --ignored --exact --nocapture
-BNSDATA_CLIENT_DAT='/home/ubuntu/Downloads/Bin/localfile.bin' BNSDATA_DAT_WIDTH=32 BNSDATA_DAT_ROLE=local BNSDATA_TABLEDEFS='/home/ubuntu/Downloads/TableDefs_0.0.381.8876_x86 KR TEST' CARGO_NET_OFFLINE=true cargo test --manifest-path lobbygate-rs/Cargo.toml -p bnsdata --test real_files client_table_bodies_roundtrip -- --ignored --exact --nocapture
-BNSDATA_CLIENT_DAT='/home/ubuntu/Downloads/Bin/localfile64.bin' BNSDATA_DAT_WIDTH=64 BNSDATA_DAT_ROLE=local BNSDATA_TABLEDEFS='/home/ubuntu/Downloads/TableDefs_0.0.381.8876_x64 KR TEST' CARGO_NET_OFFLINE=true cargo test --manifest-path lobbygate-rs/Cargo.toml -p bnsdata --test real_files client_table_bodies_roundtrip -- --ignored --exact --nocapture
+BNSDATA_CLIENT_DAT='/home/ubuntu/Downloads/Bin/datafile.bin' BNSDATA_DAT_WIDTH=32 BNSDATA_DAT_ROLE=main BNSDATA_TABLEDEFS='/home/ubuntu/Downloads/TableDefs_0.0.381.8876_x86 KR TEST' CARGO_NET_OFFLINE=true cargo test --manifest-path bns-server/Cargo.toml -p bnsdata --test real_files client_table_bodies_roundtrip -- --ignored --exact --nocapture
+BNSDATA_CLIENT_DAT='/home/ubuntu/Downloads/Bin/datafile64.bin' BNSDATA_DAT_WIDTH=64 BNSDATA_DAT_ROLE=main BNSDATA_TABLEDEFS='/home/ubuntu/Downloads/TableDefs_0.0.381.8876_x64 KR TEST' CARGO_NET_OFFLINE=true cargo test --manifest-path bns-server/Cargo.toml -p bnsdata --test real_files client_table_bodies_roundtrip -- --ignored --exact --nocapture
+BNSDATA_CLIENT_DAT='/home/ubuntu/Downloads/Bin/localfile.bin' BNSDATA_DAT_WIDTH=32 BNSDATA_DAT_ROLE=local BNSDATA_TABLEDEFS='/home/ubuntu/Downloads/TableDefs_0.0.381.8876_x86 KR TEST' CARGO_NET_OFFLINE=true cargo test --manifest-path bns-server/Cargo.toml -p bnsdata --test real_files client_table_bodies_roundtrip -- --ignored --exact --nocapture
+BNSDATA_CLIENT_DAT='/home/ubuntu/Downloads/Bin/localfile64.bin' BNSDATA_DAT_WIDTH=64 BNSDATA_DAT_ROLE=local BNSDATA_TABLEDEFS='/home/ubuntu/Downloads/TableDefs_0.0.381.8876_x64 KR TEST' CARGO_NET_OFFLINE=true cargo test --manifest-path bns-server/Cargo.toml -p bnsdata --test real_files client_table_bodies_roundtrip -- --ignored --exact --nocapture
 ```

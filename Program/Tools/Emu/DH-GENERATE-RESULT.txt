@@ -34,4 +34,4 @@ dh: short_shared: original returned through sentinel
 dh: exponent_64_bits: original returned through sentinel
 dh_reject: p_equal_g: original returned through sentinel
 dh_reject: p_less_g: original returned through sentinel
-Wrote 36 cases to lobbygate-rs/crates/proto/tests/vectors/emu_381.json
+Wrote 36 cases to bns-server/Program/Server/BloodLib/tests/vectors/emu_381.json

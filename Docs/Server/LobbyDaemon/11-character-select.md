@@ -450,7 +450,7 @@ No SQL connection was made in this pass.
 ## 13. Unchanged gate check
 
 Evidence: `spec/04-dispatch.md`, `spec/05-handlers.md`,
-`crates/proto/src/dispatch.rs`, `crates/server/src/server.rs`.
+`Program/Server/BloodLib/src/dispatch.rs`, `Program/Server/LobbyGate/src/server.rs`.
 
 | Client request | Daemon request | Daemon replies → client replies |
 | --- | --- | --- |
@@ -478,7 +478,7 @@ Keep existing five-second local NP/world deadlines until a verified config repla
 INIT expiry stays opt-in. Positive token lifetimes and same-link retention stay required.
 Keep the SQL ten-second local timeout and no-retry policy for uncertain writes.
 Keep disabled optional login/NP refresh paths disabled.
-Do not add dependencies or change proto/server behavior or `tools/emu/`.
+Do not add dependencies or change proto/server behavior or `Program/Tools/Emu/`.
 Use generated fixtures and the local deterministic NP stub only.
 SQL integration execution must skip when `LOBBYD_MSSQL_URL` is unset.
 Live SQL validation and generated-row cleanup require a separate permitted operator run.

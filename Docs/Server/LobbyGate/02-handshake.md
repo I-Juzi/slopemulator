@@ -241,8 +241,8 @@ The IDB has incorrect automatic names on the middle two functions.
 
 ## 12. Stateful session packet rules (381 emulator evidence)
 
-Source: `tools/emu/SESSION-NOTES.md`, `SESSION-DIFFERENCES.json`, and the saved
-`crates/proto/tests/vectors/emu_381.json` cases. Build: `0.0.381.572`.
+Source: `Program/Tools/Emu/SESSION-NOTES.md`, `SESSION-DIFFERENCES.json`, and the saved
+`Program/Server/BloodLib/tests/vectors/emu_381.json` cases. Build: `0.0.381.572`.
 Original methods: SetKey `0x14005F1E0`, GenerateKey `0x14005F240`,
 Encrypt `0x14005F3B0`, Decrypt `0x14005F4D0`.
 

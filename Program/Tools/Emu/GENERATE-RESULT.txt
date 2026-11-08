@@ -60,4 +60,4 @@ session_decrypt: wrong_active_slot: original returned through sentinel
 session_encrypt: too_large: original returned through sentinel
 session_encrypt: small_buffer: original returned through sentinel
 session_decrypt: truncated: original returned through sentinel
-Wrote 62 cases to lobbygate-rs/crates/proto/tests/vectors/emu_381.json
+Wrote 62 cases to bns-server/Program/Server/BloodLib/tests/vectors/emu_381.json

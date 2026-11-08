@@ -62,6 +62,6 @@ Client acceptance of changed output is not verified.
 ## Sources
 
 Storage contracts: `06-client-body.md` and `08-strings.md`, client build 0.0.381.8884.
-Model implementation: `crates/bnsmodel/src/{lib,edits,files}.rs`.
-Synthetic tests: `crates/bnsmodel/src/tests.rs`.
+Model implementation: `Program/Tools/DataFile/BnsModel/src/{lib,edits,files}.rs`.
+Synthetic tests: `Program/Tools/DataFile/BnsModel/src/tests.rs`.
 No new client-format fact was inferred from game data in this job.
