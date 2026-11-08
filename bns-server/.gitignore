@@ -5,6 +5,8 @@ target/
 /.venv/
 __pycache__/
 # Never commit: keys, secrets, IDA databases, game data
+/secrets/*
+!/secrets/README.md
 *.key
 *.pem
 *.url
