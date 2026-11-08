@@ -4,6 +4,7 @@
 pub mod conn;
 pub mod connect;
 pub mod error;
+pub mod ini;
 pub mod route;
 pub mod xml;
 

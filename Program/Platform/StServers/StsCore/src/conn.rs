@@ -70,6 +70,17 @@ pub fn reply_ok(id: u32, body: Option<&Element>) -> Frame {
     f
 }
 
+/// Reply with a raw body. `complete = false` gives a partial reply `s:<id>r<seq>`;
+/// a final reply after partials carries `R<seq>` (StsInetSocket sub_1400DF2D0,
+/// sequence counter in sub_1400EC5D0: partials 1, 2, …; final = count + 1).
+pub fn reply_raw(id: u32, status: u32, reason: &str, body: Vec<u8>, complete: bool, sequence: u32) -> Frame {
+    let mut f = Frame { start: StartLine::Response { status, reason: reason.into() }, headers: vec![], body };
+    if id != 0 {
+        f.headers.push(Transaction { id, complete: Some(complete), sequence }.to_header().expect("id != 0"));
+    }
+    f
+}
+
 pub fn reply_error(id: u32, err: &StsError, local_server: u32) -> Frame {
     let mut f = Frame {
         start: StartLine::Response { status: 400, reason: err.name().into() },
@@ -143,7 +154,8 @@ pub async fn write_frame<W: AsyncWrite + Unpin>(w: &mut W, f: &Frame) -> std::io
     w.write_all(&bytes).await
 }
 
-type Pending = Arc<Mutex<HashMap<u32, oneshot::Sender<Frame>>>>;
+/// Waiting request: reply channel and the bodies of partial replies so far.
+type Pending = Arc<Mutex<HashMap<u32, (oneshot::Sender<Frame>, Vec<u8>)>>>;
 
 /// A connection that can send requests and receive incoming requests.
 /// Cloning shares the same socket.
@@ -183,6 +195,12 @@ impl Incoming {
             self.peer.send(reply_error(self.id(), err, local_server));
         }
     }
+    /// Partial reply number `sequence` (1, 2, …).
+    pub fn reply_partial(&self, body: Vec<u8>, sequence: u32) {
+        if self.id() != 0 {
+            self.peer.send(reply_raw(self.id(), 200, "OK", body, false, sequence));
+        }
+    }
 }
 
 impl Peer {
@@ -218,12 +236,23 @@ impl Peer {
     fn dispatch(&self, frame: Frame, in_tx: &mpsc::UnboundedSender<Incoming>) {
         if let StartLine::Response { .. } = frame.start {
             if let Some(t) = transaction(&frame) {
+                let mut pending = self.pending.lock().unwrap();
                 if t.complete == Some(true) {
-                    if let Some(tx) = self.pending.lock().unwrap().remove(&t.id) {
+                    if let Some((tx, mut acc)) = pending.remove(&t.id) {
+                        let mut frame = frame;
+                        if !acc.is_empty() {
+                            acc.extend_from_slice(&frame.body);
+                            frame.body = acc;
+                        }
                         let _ = tx.send(frame);
                     }
+                } else if t.complete == Some(false) {
+                    // Partial reply (DbSrv ExecBatched): the bodies are joined ❓
+                    // (receiver side not traced).
+                    if let Some((_, acc)) = pending.get_mut(&t.id) {
+                        acc.extend_from_slice(&frame.body);
+                    }
                 }
-                // Partial replies (`r`) are not used by the ported services ❓.
             }
             return;
         }
@@ -249,7 +278,7 @@ impl Peer {
         };
         set_header(&mut f, "s", id.to_string());
         let (tx, rx) = oneshot::channel();
-        self.pending.lock().unwrap().insert(id, tx);
+        self.pending.lock().unwrap().insert(id, (tx, Vec::new()));
         self.send(f);
         match tokio::time::timeout(timeout, rx).await {
             Ok(Ok(reply)) => Ok(reply),
@@ -288,5 +317,21 @@ mod tests {
         assert_eq!(r.text, "7");
         let e = client.call_xml(request("Test", "Bad", None), DEFAULT_TIMEOUT).await.unwrap_err();
         assert_eq!((e.code, e.server, e.module, e.line), (10, 9, 2, 1115));
+    }
+
+    #[tokio::test]
+    async fn partial_replies_are_joined() {
+        let (a, b) = tokio::io::duplex(4096);
+        let (client, _) = Peer::spawn(a);
+        let (_server, mut rx) = Peer::spawn(b);
+        tokio::spawn(async move {
+            while let Some(req) = rx.recv().await {
+                req.reply_partial(b"<V>1".to_vec(), 1);
+                req.reply_partial(b"2".to_vec(), 2);
+                req.peer.send(reply_raw(req.id(), 200, "OK", b"3</V>\n".to_vec(), true, 3));
+            }
+        });
+        let r = client.call_xml(request("Test", "P", None), DEFAULT_TIMEOUT).await.unwrap().unwrap();
+        assert_eq!(r.text, "123");
     }
 }

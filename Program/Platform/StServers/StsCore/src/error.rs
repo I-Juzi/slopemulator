@@ -28,6 +28,9 @@ pub struct StsError {
     pub module: u32,
     pub line: u32,
     pub text: String,
+    /// Child elements of `<Error>` (auxiliary data, for example the DbSrv
+    /// `<Response>` of a failed procedure; sub_1400E7150).
+    pub extra: Vec<Element>,
 }
 
 impl StsError {
@@ -55,7 +58,13 @@ impl StsError {
         if !self.text.is_empty() {
             e = e.attr("text", self.text.clone());
         }
+        e.children.extend(self.extra.iter().cloned());
         e
+    }
+
+    pub fn with_extra(mut self, extra: Element) -> Self {
+        self.extra.push(extra);
+        self
     }
 
     pub fn from_element(e: &Element) -> Self {
@@ -65,6 +74,7 @@ impl StsError {
             module: e.attr_u32("module", 0),
             line: e.attr_u32("line", 0),
             text: e.attr_value("text").unwrap_or_default().to_owned(),
+            extra: e.children.clone(),
         }
     }
 }
