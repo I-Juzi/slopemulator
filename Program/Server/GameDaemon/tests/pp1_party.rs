@@ -1451,3 +1451,156 @@ fn shared_clear_member_task_keeps_175_for_team_missing_membership() {
         },
     ); // Existing doc-10 plan API.
 }
+
+#[test]
+fn team_suggestion_unknown_membership_state_is_not_reason_822() {
+    struct LookupOnly {
+        inner: MemoryServices,
+        reads: usize,
+        available: usize,
+    }
+    impl Services for LookupOnly {
+        fn party_state(&mut self) -> Option<&mut PartyState> {
+            self.reads += 1;
+            if self.reads <= self.available {
+                self.inner.party.as_mut()
+            } else {
+                None
+            }
+        }
+        fn party_operation(&mut self, operation: PartyOperation) -> Option<i32> {
+            self.inner.party_operation(operation)
+        }
+        fn queue(&mut self, command: u16) -> Gate {
+            self.inner.queue(command)
+        }
+        fn logout(&mut self) -> Gate {
+            self.inner.logout()
+        }
+        fn available_channel(&mut self, channel: i16) -> Gate {
+            self.inner.available_channel(channel)
+        }
+        fn attraction_channel(&mut self, channel: i16) -> Option<Result<(), Option<u16>>> {
+            self.inner.attraction_channel(channel)
+        }
+    }
+    for available in 1..=3 {
+        let mut h = Harness::default();
+        h.services.party_result = Some(0);
+        let mut services = LookupOnly {
+            inner: h.services,
+            reads: 0,
+            available,
+        };
+        let out = dispatch(
+            &mut Context {
+                session: &mut h.session,
+                world: &h.world,
+                services: &mut services,
+            },
+            226,
+            &request(226),
+        );
+        assert_eq!(services.reads, available + 1);
+        assert!(matches!(out.status, Status::Unsupported(_)));
+        assert!(out.replies.is_empty());
+        assert!(out.broadcasts.is_empty());
+        assert_eq!(services.inner.party_calls.len(), usize::from(available > 1));
+    }
+}
+
+#[test]
+fn missing_party_adapter_is_unknown_at_read_and_task_boundaries() {
+    for command in [147, 151, 157, 226, 230, 234, 429] {
+        let mut h = Harness::default();
+        h.services.party = None;
+        let out = h.run(command, &request(command));
+        assert!(matches!(out.status, Status::Unsupported(_)), "{command}");
+        assert!(out.replies.is_empty(), "{command}");
+        assert!(out.broadcasts.is_empty());
+        assert!(out.changes.is_empty());
+    }
+    for command in [170, 176, 179, 182, 250, 253, 256] {
+        let mut h = Harness::default();
+        let task = h.task(command, &request(command));
+        h.services.party = None;
+        let out = h.execute(&task);
+        assert!(matches!(out.status, Status::Unsupported(_)), "{command}");
+        assert!(out.replies.is_empty(), "{command}");
+        assert!(out.broadcasts.is_empty());
+        assert!(h.services.party_calls.is_empty());
+    }
+}
+
+#[test]
+fn party_delegation_runs_party_mutation_before_team_transfer_failure() {
+    let location = PartyLocation {
+        team: 1,
+        party: 0,
+        member: 0,
+    };
+    let first = PartyOperation::DelegateParty {
+        location,
+        target_db: 20,
+        target_runtime: TARGET,
+    };
+    for (second, reason) in [(Some(0), Some(886u16)), (None, None)] {
+        let mut h = Harness::default();
+        h.services.party_result_sequence = [Some(1), second].into();
+        let out = h.full(170, &q(TARGET));
+        assert_eq!(
+            h.services.party_calls,
+            vec![
+                first.clone(),
+                PartyOperation::TransferTeamLeader {
+                    team: 1,
+                    target_db: 20,
+                    target_runtime: TARGET,
+                },
+            ]
+        );
+        if let Some(reason) = reason {
+            only(&out, expected(170, reason));
+        } else {
+            assert!(matches!(out.status, Status::Unsupported(_)));
+            assert!(out.replies.is_empty());
+            assert!(out.broadcasts.is_empty());
+        }
+    }
+    let mut h = Harness::default();
+    h.services.party_result_sequence = [Some(0), Some(1)].into();
+    only(&h.full(170, &q(TARGET)), expected(170, 779));
+    assert_eq!(h.services.party_calls, vec![first]);
+    assert_eq!(h.services.party_result_sequence.len(), 1);
+}
+
+#[test]
+fn party_match_unknown_manager_and_each_user_gate_do_not_approve() {
+    let mut h = Harness::default();
+    let out = h.run(424, &request(424));
+    assert!(matches!(out.status, Status::Unsupported(_)));
+    assert!(out.replies.is_empty());
+    assert!(out.broadcasts.is_empty());
+    assert_eq!(
+        h.services.party_calls,
+        vec![PartyOperation::RegisterMatch(123)]
+    );
+    for case in 0..3 {
+        let mut h = Harness::default();
+        h.services.party_result = Some(0);
+        match case {
+            0 => h.pc().user_available = false,
+            1 => h.pc().party_user_blocked = true,
+            2 => h.pc().party_user_state = 1,
+            _ => unreachable!(),
+        }
+        only(
+            &h.run(424, &request(424)),
+            Message {
+                command: 426,
+                body: 1320u16.to_le_bytes().to_vec(),
+            },
+        );
+        assert!(h.services.party_calls.is_empty());
+    }
+}

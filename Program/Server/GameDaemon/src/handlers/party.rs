@@ -769,13 +769,11 @@ pub fn handle_suggest_team(ctx: &mut Context<'_>, req: &[u8]) -> Outcome {
     if !peer.team_member || peer.team_id == 0 {
         return error(822);
     }
-    let location = match ctx
-        .services
-        .party_state()
-        .and_then(|s| s.resolve(peer.db_id, peer.object_id))
-    {
-        Some(v) => v,
-        None => return error(822),
+    let Some(state) = ctx.services.party_state() else {
+        return boundary("❓ PARTY state adapter");
+    };
+    let Some(location) = state.resolve(peer.db_id, peer.object_id) else {
+        return error(822);
     };
     let permission = if (1..=3).contains(&mode) { mode + 1 } else { 0 };
     let Some(allowed) = ctx
@@ -793,12 +791,14 @@ pub fn handle_suggest_team(ctx: &mut Context<'_>, req: &[u8]) -> Outcome {
     let recipient = if allowed != 0 {
         peer
     } else {
-        let leader = ctx.services.party_state().and_then(|s| {
-            s.teams
-                .get(location.team)?
-                .as_ref()
-                .map(|t| t.leader_runtime_id)
-        });
+        let Some(state) = ctx.services.party_state() else {
+            return boundary("❓ PARTY state adapter");
+        };
+        let leader = state
+            .teams
+            .get(location.team)
+            .and_then(|team| team.as_ref())
+            .map(|team| team.leader_runtime_id);
         match leader {
             Some(id) => match target(ctx, id, &[]) {
                 Ok(Some(pc)) => pc,

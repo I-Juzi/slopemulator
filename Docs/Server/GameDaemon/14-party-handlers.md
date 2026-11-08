@@ -381,6 +381,46 @@ Shared task attachment uses `0x14025DB30` (zone), task +128 (caster runtime ID),
 - **Checks/order:** PC dispatch. If rule config +513 is zero, log only. Otherwise call existing assertion/report helper `0x14069CB70` and write a log.
 - **State/output:** Return true. No vote reset, task, reply, broadcast, party mutation, table lookup, daemon request, DB procedure or connection kick occurs in this function. Do not implement a reset from the request name.
 
+## Rust port status
+
+Source: the build-381.8867 paths and missing items in the sections above.
+`partial` does not mean that a queued task completed its operation.
+The parity tags use the section state in their anchors.
+They use `ported` for the existing `done` sections, as in doc 19.
+
+| IDs | Spec | Rust | Open boundary |
+| --- | --- | --- | --- |
+| 155, 220, 224, 256 | done | ported | No unread game-logic path is listed. |
+| 147 | partial | partial | Suggestion task and notification policy. |
+| 151 | partial | partial | Name resolver comparator and unchecked decode values. |
+| 157 | partial | partial | Excluded restriction call; cleanup and invitation task. |
+| 161 | partial | partial | Invitation match, insertion, sync and backend work. |
+| 163, 241 | partial | partial | Shared rejection task, match, notification and timeout. |
+| 168, 243 | partial | partial | Removal, leader replacement, notifications and backend work. |
+| 170 | partial | partial | Party-leader mutation and team-leader transfer. |
+| 172 | partial | partial | Ban task, target checks, removal and notifications. |
+| 174, 262 | partial | partial | Shared expired-member removal manager. |
+| 176 | partial | partial | Field names, report sink and downstream effects. |
+| 179 | partial | partial | Difficulty resize, PC metadata, report and downstream effects. |
+| 182 | partial | partial | The section still lists resolver and recipient checks as missing. See the shared contracts above. |
+| 202, 205, 208, 211, 214 | partial | partial | Auction task checks, transitions, item, money and persistence. |
+| 216 | partial | partial | Vote target, stored state, timing and notifications. |
+| 226 | partial | partial | Permission predicate and resolver gaps. An absent state adapter is unknown, not reason 822. |
+| 230 | partial | partial | Mode/options, resolver gaps and unchecked decode values. |
+| 234 | partial | partial | Excluded restriction call; leader lookup and invitation task. |
+| 239 | partial | partial | Invitation, mode, merge, member changes and backend work. |
+| 245 | partial | partial | Team-ban manager checks, removal and notifications. |
+| 247 | partial | partial | Member move/swap, leader rules and sync. |
+| 250, 253 | partial | partial | Leader-manager checks, mutation and notifications. |
+| 259 | partial | partial | Team-party difficulty manager and sync. |
+| 424 | partial | partial | Match-registration manager. An unknown result sends no success reply. |
+| 429 | partial | partial | Correlation meaning and unchecked decode values. |
+
+The Rust files are `src/handlers/party.rs`, `party_model.rs` and `party_tasks.rs`.
+The tests are in `tests/pp1_party.rs`.
+The tests check unknown adapters, command-170 helper order and command-424 user gates.
+They do not verify the unread native paths.
+
 
 
 
