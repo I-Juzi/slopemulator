@@ -16,6 +16,7 @@ pub use guild::*;
 pub use party::*;
 pub use party_model::*;
 pub use party_tasks::execute_party_task;
+mod chat;
 mod items;
 mod items2;
 mod items3;
@@ -23,6 +24,7 @@ mod items4;
 mod items5;
 mod skills;
 mod skills2;
+pub use chat::*;
 pub use items2::*;
 pub use items3::*;
 pub use items4::*;
@@ -308,6 +310,10 @@ pub struct Pc {
     pub job: u8,
     /// Doc 13 1065: current skill skin, PC short +776.
     pub current_skin: i16,
+    /// Doc 16: PC DWORD +12560 (1 = chat allowed).
+    pub chat_state: u32,
+    /// Doc 16 1185: PC byte +13740 = 1 (trial jumping character).
+    pub trial_jumping: bool,
 }
 impl Default for Pc {
     fn default() -> Self {
@@ -358,6 +364,8 @@ impl Default for Pc {
             trait_train_tick: 0,
             job: 0,
             current_skin: 0,
+            chat_state: 0,
+            trial_jumping: false,
         }
     }
 }
@@ -437,6 +445,12 @@ pub struct World {
     pub skill_skin_enabled: bool,
     /// Doc 13 131: daemon qwords +6032/+6040/+6048, raw.
     pub faction_statistics: [u64; 3],
+    /// Doc 16 51: rule config DWORD +216 ≠ 0 (chat without chat state 1).
+    pub chat_rule: bool,
+    /// Doc 16 55: rule config byte +1021 ≠ 0.
+    pub item_message_enabled: bool,
+    /// Doc 16 51/55: text filter service, daemon +2728 qword +48 ≠ 0.
+    pub text_filter_present: bool,
     /// Doc 13 131: global DWORD `0x140FFDCDC`.
     pub faction_statistics_calls: u32,
     /// cfg DWORD +248 when cfg byte +237 ≠ 0, else 0 (backend 367 restriction value).
@@ -566,6 +580,10 @@ pub trait Services {
     fn board_gacha(&mut self, _request: &BoardGachaRequest) -> Gate {
         Gate::Unknown
     }
+    /// Doc 16 chatting-channel manager submit and petition backend requests.
+    fn chat(&mut self, _request: &ChatRequest) -> Gate {
+        Gate::Unknown
+    }
     /// `tm[603]` virtual +168 recipe lookup.
     fn craft_recipe_exists(&mut self, _recipe: i32) -> Option<bool> {
         None
@@ -682,6 +700,9 @@ pub struct MemoryServices {
     pub skill_queue_result: Gate,
     pub skill_tasks: Vec<SkillTask>,
     pub trait_levels: Option<BTreeMap<u32, i8>>,
+    /// Doc 16 chat/petition boundary result and recorded requests.
+    pub chat_result: Gate,
+    pub chat_calls: Vec<ChatRequest>,
 }
 /// Test/default doc 12 boundary results. Unknown is never approval.
 #[derive(Clone, Debug)]
@@ -790,10 +811,16 @@ impl Default for MemoryServices {
             skill_queue_result: Gate::Unknown,
             skill_tasks: vec![],
             trait_levels: None,
+            chat_result: Gate::Unknown,
+            chat_calls: vec![],
         }
     }
 }
 impl Services for MemoryServices {
+    fn chat(&mut self, request: &ChatRequest) -> Gate {
+        self.chat_calls.push(request.clone());
+        self.chat_result
+    }
     fn queue_skill(&mut self, task: &SkillTask) -> Gate {
         if self.skill_queue_result == Gate::Pass {
             self.skill_tasks.push(task.clone());
@@ -992,6 +1019,8 @@ fn dispatch_inner(ctx: &mut Context<'_>, command: u16, req: &[u8]) -> Outcome {
         && !ITEM6_COMMANDS.contains(&command)
         && !SKILL_COMMANDS.contains(&command)
         && !SKILL2_COMMANDS.contains(&command)
+        && !CHAT_COMMANDS.contains(&command)
+        && !QQ_COMMANDS.contains(&command)
     {
         return Outcome::log("unknown command");
     }
@@ -1046,6 +1075,13 @@ fn dispatch_inner(ctx: &mut Context<'_>, command: u16, req: &[u8]) -> Outcome {
     }
     if SKILL2_COMMANDS.contains(&command) {
         return skills2::dispatch_skill2(ctx, command, req);
+    }
+    if CHAT_COMMANDS.contains(&command) {
+        return chat::dispatch_chat(ctx, command, req);
+    }
+    if QQ_COMMANDS.contains(&command) {
+        // parity: QQ group shares 0x1400DE550 with 887 (doc 16).
+        return handle_qq_logout(ctx, req);
     }
     match command {
         11 => handle_hello(ctx, req),

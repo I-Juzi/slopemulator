@@ -97,6 +97,8 @@ pub enum SkillTaskKind {
     UnlockMasteryLevel { pairs: Vec<(u16, u16)> },
     /// Doc 13 part 2 (`skills2.rs`).
     Combat(CombatTask),
+    /// Doc 16 chat/social zone tasks.
+    Chat(ChatTask),
 }
 
 #[derive(Clone, Debug, PartialEq, Eq)]

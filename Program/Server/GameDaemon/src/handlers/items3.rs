@@ -33,6 +33,13 @@ pub enum BoardGachaRequest {
         initial: u32,
         object_id: u64,
     },
+    /// Doc 16 1185: 0x68-byte user transaction, DWORD +8 = 0x4F210A,
+    /// qword +96 = 0; start event 69 with the count as payload.
+    RewardTransaction {
+        command: u16,
+        count: i16,
+        object_id: u64,
+    },
 }
 
 #[derive(Clone, Debug, PartialEq, Eq)]
@@ -85,7 +92,8 @@ fn board_gacha_submit(ctx: &mut Context<'_>, failure: u16, request: BoardGachaRe
         Gate::Pass => {
             let command = match request {
                 BoardGachaRequest::Manager { command, .. }
-                | BoardGachaRequest::Transaction { command, .. } => command,
+                | BoardGachaRequest::Transaction { command, .. }
+                | BoardGachaRequest::RewardTransaction { command, .. } => command,
             };
             Outcome {
                 changes: vec![StateChange::Queued(command)],
