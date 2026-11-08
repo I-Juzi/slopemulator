@@ -217,6 +217,8 @@ pub struct Outcome {
     pub party_effects: Vec<PartyEffect>,
     /// Ordered trade task sends and state effects.
     pub trade_effects: Vec<TradeEffect>,
+    /// Doc 13 action-buffer and cancellation effects. These are not sends.
+    pub skill_effects: Vec<SkillEffect>,
 }
 impl Default for Outcome {
     fn default() -> Self {
@@ -232,6 +234,7 @@ impl Default for Outcome {
             session_effects: vec![],
             party_effects: vec![],
             trade_effects: vec![],
+            skill_effects: vec![],
         }
     }
 }
@@ -657,6 +660,25 @@ pub trait Services {
     fn queue_skill(&mut self, _task: &SkillTask) -> Gate {
         Gate::Unknown
     }
+    /// Doc 13: PC scheduler 0x140603BD0, separate from the zone queue.
+    fn schedule_skill(&mut self, _task: &SkillTask) -> Gate {
+        Gate::Unknown
+    }
+    /// Exclusive live state for the task currently being executed. The adapter
+    /// resolves its attached caster and current operation, not a receive snapshot.
+    /// None means unknown, never an approval.
+    fn skill_completion_state(&mut self) -> Option<&mut SkillCompletionState> {
+        None
+    }
+    /// 0x1405F5140 at the time of each call. None means unknown.
+    fn skill_gauge_value(&mut self, _task: &SkillTask) -> Option<i32> {
+        None
+    }
+    /// Property-226 schema check, Boolean setter and its callbacks; append
+    /// the delta only if changed, then flush. Fail precedes the flush.
+    fn set_skill_gauge_full(&mut self, _task: &SkillTask) -> Gate {
+        Gate::Unknown
+    }
     /// Doc 13 manager slot 2379: Some(None) = no record, Some(Some(max level)).
     fn trait_max_level(&mut self, _id: u32) -> Option<Option<i8>> {
         None
@@ -842,6 +864,7 @@ pub struct MemoryServices {
     pub trade: MemoryTrade,
     pub skill_queue_result: Gate,
     pub skill_tasks: Vec<SkillTask>,
+    pub skill_completion: MemorySkillCompletion,
     pub trait_levels: Option<BTreeMap<u32, i8>>,
     /// Doc 16 chat/petition boundary result and recorded requests.
     pub chat_result: Gate,
@@ -968,6 +991,7 @@ impl Default for MemoryServices {
             trade: MemoryTrade::default(),
             skill_queue_result: Gate::Unknown,
             skill_tasks: vec![],
+            skill_completion: MemorySkillCompletion::default(),
             trait_levels: None,
             chat_result: Gate::Unknown,
             chat_calls: vec![],
@@ -1043,6 +1067,25 @@ impl Services for MemoryServices {
             self.skill_tasks.push(task.clone());
         }
         self.skill_queue_result
+    }
+    fn schedule_skill(&mut self, task: &SkillTask) -> Gate {
+        if self.skill_completion.schedule_result == Gate::Pass {
+            self.skill_completion.scheduled.push(task.clone());
+        }
+        self.skill_completion.schedule_result
+    }
+    fn skill_completion_state(&mut self) -> Option<&mut SkillCompletionState> {
+        self.skill_completion.state.as_mut()
+    }
+    fn skill_gauge_value(&mut self, task: &SkillTask) -> Option<i32> {
+        self.skill_completion.gauge_reads.push(task.clone());
+        self.skill_completion.gauge_values.pop_front()
+    }
+    fn set_skill_gauge_full(&mut self, task: &SkillTask) -> Gate {
+        self.skill_completion
+            .gauge_property_calls
+            .push(task.clone());
+        self.skill_completion.gauge_property_result
     }
     fn trait_max_level(&mut self, id: u32) -> Option<Option<i8>> {
         Some(self.trait_levels.as_ref()?.get(&id).copied())
