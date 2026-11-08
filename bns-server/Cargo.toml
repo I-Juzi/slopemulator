@@ -9,6 +9,7 @@ members = [
     "Program/Server/SmartCouponDaemon",
     "Program/Server/AchievementDaemon",
     "Program/Server/CacheGate",
+    "Program/Server/RankingDaemon",
     "Program/Server/Data/Lmxb",
     "Program/Server/Data/GameData",
     "Program/Platform/Sts",
