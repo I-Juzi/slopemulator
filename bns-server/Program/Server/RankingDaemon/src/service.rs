@@ -69,6 +69,65 @@ pub struct Daemon {
     seasons: Vec<Season>,
     /// RankingDB black list: (playerType, playerId). In memory ❓.
     black_list: BTreeSet<(i8, u64)>,
+    /// PlayerManager: (playerType, playerId) -> player. Filled by phase 2b ❓.
+    players: HashMap<(i8, u64), RankedPlayer>,
+    /// RankingBoardManager::_rankingBoardList: contents type -> list index
+    /// -> players in rank order (rank 1 first).
+    boards: HashMap<u8, Vec<Vec<(i8, u64)>>>,
+    /// RankingListManager::_currentList: (contents type, list index) ->
+    /// the composed reply frames.
+    ranking_lists: BTreeMap<(u8, u8), Vec<Vec<u8>>>,
+}
+
+/// Player name and per-contents log summaries (`Player::_logSummary`).
+#[derive(Debug, Clone, Default, PartialEq, Eq)]
+pub struct RankedPlayer {
+    pub name: String,
+    pub log_summaries: BTreeMap<i8, String>,
+}
+
+impl RankedPlayer {
+    /// Player::GetLogSummary @0x1400173C0: empty when unset.
+    pub fn log_summary(&self, kind: i8) -> &str {
+        self.log_summaries.get(&kind).map_or("", String::as_str)
+    }
+}
+
+/// InfoGate failure reasons (InfoGatePacketHandler.cpp).
+pub mod info_reason {
+    pub const PARAMETER: i16 = 15;
+    pub const SERVICE: i16 = 14;
+    pub const NO_LOG_SUMMARY: i16 = 16;
+    pub const NO_GUILD_MEMBER: i16 = 17;
+    pub const PARTY_PARAMETER: i16 = 19;
+    pub const NO_PARTY: i16 = 20;
+}
+
+pub const SEASON_CONTENTS_TIME_ATTACK: i8 = 6;
+pub const SEASON_CONTENTS_CHALLENGE_PARTY: i8 = 13;
+pub const PLAYER_TYPE_PC: i8 = 1;
+/// PlayerManager::GetPlayer type for a challenge party ❓ (only seen here).
+pub const PLAYER_TYPE_PARTY: i8 = 3;
+/// rankerName buffer: wcsncpy 0x21.
+pub const RANKER_NAME_CHARS: usize = 0x21;
+/// bestRecord / logSummary buffer: wcsncpy 0x191.
+pub const LOG_SUMMARY_CHARS: usize = 0x191;
+
+/// RankingBoardManager::convertPcJobToBoardIndex @0x14001BB60.
+pub fn pc_job_to_board_index(job: i16) -> u8 {
+    match job {
+        1..=3 => job as u8,
+        4 => 10,
+        5..=10 => job as u8 - 1,
+        11..=14 => job as u8,
+        _ => 0,
+    }
+}
+
+/// wcsncpy into a fixed buffer, then read as a C string. A full buffer has
+/// no terminator; the port keeps one less char ❓.
+fn clip(text: &str, chars: usize) -> Vec<u16> {
+    text.encode_utf16().take(chars - 1).collect()
 }
 
 impl Daemon {
@@ -116,7 +175,29 @@ impl Daemon {
                 .filter(|s| s.service_mode == config.service_mode && !s.forced_termination)
                 .collect(),
             black_list: BTreeSet::new(),
+            players: HashMap::new(),
+            boards: HashMap::new(),
+            ranking_lists: BTreeMap::new(),
         }
+    }
+
+    /// Phase 2b feed: PlayerManager entry.
+    pub fn set_player(&mut self, player_type: i8, player_id: u64, player: RankedPlayer) {
+        self.players.insert((player_type, player_id), player);
+    }
+
+    /// Phase 2b feed: one board list in rank order.
+    pub fn set_board_list(&mut self, kind: u8, index: u8, rankers: Vec<(i8, u64)>) {
+        let lists = self.boards.entry(kind).or_default();
+        if lists.len() <= index as usize {
+            lists.resize(index as usize + 1, Vec::new());
+        }
+        lists[index as usize] = rankers;
+    }
+
+    /// Phase 2b feed: RankingListMaker output for one list.
+    pub fn set_ranking_list(&mut self, kind: u8, index: u8, frames: Vec<Vec<u8>>) {
+        self.ranking_lists.insert((kind, index), frames);
     }
 
     pub fn seasons(&self) -> &[Season] {
@@ -568,62 +649,179 @@ impl Daemon {
             };
         }
         match cmd {
-            RETRIEVE_RANKING_LIST_REQ => {
-                let Some(v) = fields("hcc", frame) else {
-                    return Flow::Close;
-                };
-                // No cached ranking list packet yet ❓.
-                out.push(Out::Send(
-                    me,
-                    packet(
-                        "hccE",
-                        &[
-                            Value::I16(RETRIEVE_RANKING_LIST_FAIL),
-                            v[1].clone(),
-                            v[2].clone(),
-                            Value::I16(job_reason::NO_BOARD),
-                        ],
-                    ),
-                ));
-                Flow::Keep
-            }
-            RETRIEVE_TIME_ATTACK_BEST_RECORD_REQ => {
-                let Some(v) = fields("hocciq", frame) else {
-                    return Flow::Close;
-                };
-                out.push(Out::Send(
-                    me,
-                    packet(
-                        "hoE",
-                        &[
-                            Value::I16(RETRIEVE_TIME_ATTACK_BEST_RECORD_FAIL),
-                            v[1].clone(),
-                            Value::I16(job_reason::NO_BOARD),
-                        ],
-                    ),
-                ));
-                Flow::Keep
-            }
+            RETRIEVE_RANKING_LIST_REQ => self.retrieve_ranking_list(me, frame, out),
+            RETRIEVE_TIME_ATTACK_BEST_RECORD_REQ => self.time_attack_best_record(me, frame, out),
             RETRIEVE_CHALLENGE_PARTY_LOG_SUMMARY_REQ => {
-                let Some(v) = fields("hocq", frame) else {
-                    return Flow::Close;
-                };
-                out.push(Out::Send(
-                    me,
-                    packet(
-                        "hoE",
-                        &[
-                            Value::I16(RETRIEVE_CHALLENGE_PARTY_LOG_SUMMARY_FAIL),
-                            v[1].clone(),
-                            Value::I16(job_reason::NO_BOARD),
-                        ],
-                    ),
-                ));
-                Flow::Keep
+                self.challenge_party_log_summary(me, frame, out)
             }
             // HELLO_REQ while authed returns 0.
             _ => Flow::Close,
         }
+    }
+
+    /// HandleRankingInfoGate_RetrieveRankingListReq @0x14000E630 (`hcc`).
+    /// A decode failure only logs. A cached list goes out unchanged
+    /// (RankingListManager::AcquireRankingList @0x1400270A0).
+    fn retrieve_ranking_list(&mut self, me: Peer, frame: &[u8], out: &mut Vec<Out>) -> Flow {
+        let Some(v) = fields("hcc", frame) else {
+            return Flow::Keep;
+        };
+        let (Value::U8(kind), Value::U8(index)) = (&v[1], &v[2]) else {
+            return Flow::Keep;
+        };
+        match self.ranking_lists.get(&(*kind, *index)) {
+            Some(frames) => {
+                for f in frames {
+                    out.push(Out::Send(me, f.clone()));
+                }
+            }
+            None => out.push(Out::Send(
+                me,
+                packet(
+                    "hccE",
+                    &[
+                        Value::I16(infogate_cmd::RETRIEVE_RANKING_LIST_FAIL),
+                        Value::U8(*kind),
+                        Value::U8(*index),
+                        Value::I16(job_reason::NO_BOARD),
+                    ],
+                ),
+            )),
+        }
+        Flow::Keep
+    }
+
+    /// HandleRankingInfoGate_RetrieveTimeAttackBestRecordReq @0x14000E9A0
+    /// (`hocciq`: tid, seasonContentsType, job, rankingPerJob, guildMemberPcId).
+    fn time_attack_best_record(&mut self, me: Peer, frame: &[u8], out: &mut Vec<Out>) -> Flow {
+        use infogate_cmd::*;
+        let Some(v) = fields("hocciq", frame) else {
+            return Flow::Keep;
+        };
+        let (Value::Id(tid), Value::U8(kind), Value::U8(job), Value::U32(rank), Value::U64(pc)) =
+            (&v[1], &v[2], &v[3], &v[4], &v[5])
+        else {
+            return Flow::Keep;
+        };
+        let (kind, job, rank, pc) = (*kind as i8, *job as i8, *rank as i32, *pc);
+        let fail = |code: i16| {
+            packet(
+                "hoE",
+                &[
+                    Value::I16(RETRIEVE_TIME_ATTACK_BEST_RECORD_FAIL),
+                    Value::Id(*tid),
+                    Value::I16(code),
+                ],
+            )
+        };
+        if *tid == [0; 16] || job <= 0 || (rank <= 0 && pc == 0) {
+            out.push(Out::Send(me, fail(info_reason::PARAMETER)));
+            return Flow::Keep;
+        }
+        if kind != SEASON_CONTENTS_TIME_ATTACK {
+            out.push(Out::Send(me, fail(info_reason::PARAMETER)));
+            return Flow::Keep;
+        }
+        let found = if rank <= 0 {
+            match self.players.get(&(PLAYER_TYPE_PC, pc)) {
+                Some(p) => p,
+                None => {
+                    out.push(Out::Send(me, fail(info_reason::NO_GUILD_MEMBER)));
+                    return Flow::Keep;
+                }
+            }
+        } else {
+            match self.ranker(kind, job, rank) {
+                Some(p) => p,
+                None => {
+                    out.push(Out::Send(me, fail(info_reason::NO_LOG_SUMMARY)));
+                    return Flow::Keep;
+                }
+            }
+        };
+        let name = clip(&found.name, RANKER_NAME_CHARS);
+        let record = clip(found.log_summary(kind), LOG_SUMMARY_CHARS);
+        out.push(Out::Send(
+            me,
+            packet(
+                "hocciqss",
+                &[
+                    Value::I16(RETRIEVE_TIME_ATTACK_BEST_RECORD_OK),
+                    Value::Id(*tid),
+                    Value::U8(kind as u8),
+                    Value::U8(job as u8),
+                    Value::I32(rank),
+                    Value::U64(pc),
+                    Value::String(name),
+                    Value::String(record),
+                ],
+            ),
+        ));
+        Flow::Keep
+    }
+
+    /// RankingBoardManager::GetRankingLogSummary @0x14001AE60 and
+    /// SkipListExManager::LookUp @0x140030A10: the player at `rank` in the
+    /// job list of the contents board.
+    fn ranker(&self, kind: i8, job: i8, rank: i32) -> Option<&RankedPlayer> {
+        if !(kind == SEASON_CONTENTS_TIME_ATTACK || kind == SEASON_CONTENTS_CHALLENGE_PARTY)
+            || !(1..15).contains(&job)
+            || rank <= 0
+        {
+            return None;
+        }
+        let index = pc_job_to_board_index(job as i16);
+        let board = self.boards.get(&(kind as u8))?;
+        if index > max_ranking_list_index(kind as u8) {
+            return None;
+        }
+        let key = board.get(index as usize)?.get(rank as usize - 1)?;
+        self.players.get(key)
+    }
+
+    /// HandleRankingInfoGate_RetrieveChallengePartyLogSummaryReq @0x14000F620
+    /// (`hocq`: tid, seasonContentsType, playerId).
+    fn challenge_party_log_summary(&mut self, me: Peer, frame: &[u8], out: &mut Vec<Out>) -> Flow {
+        use infogate_cmd::*;
+        let Some(v) = fields("hocq", frame) else {
+            return Flow::Keep;
+        };
+        let (Value::Id(tid), Value::U8(kind), Value::U64(player)) = (&v[1], &v[2], &v[3]) else {
+            return Flow::Keep;
+        };
+        let (kind, player) = (*kind as i8, *player);
+        let fail = |code: i16| {
+            packet(
+                "hoE",
+                &[
+                    Value::I16(RETRIEVE_CHALLENGE_PARTY_LOG_SUMMARY_FAIL),
+                    Value::Id(*tid),
+                    Value::I16(code),
+                ],
+            )
+        };
+        if *tid == [0; 16] || (player as i64) <= 0 || kind != SEASON_CONTENTS_CHALLENGE_PARTY {
+            out.push(Out::Send(me, fail(info_reason::PARTY_PARAMETER)));
+            return Flow::Keep;
+        }
+        let Some(p) = self.players.get(&(PLAYER_TYPE_PARTY, player)) else {
+            out.push(Out::Send(me, fail(info_reason::NO_PARTY)));
+            return Flow::Keep;
+        };
+        out.push(Out::Send(
+            me,
+            packet(
+                "hocqs",
+                &[
+                    Value::I16(RETRIEVE_CHALLENGE_PARTY_LOG_SUMMARY_OK),
+                    Value::Id(*tid),
+                    Value::U8(kind as u8),
+                    Value::U64(player),
+                    Value::String(clip(p.log_summary(kind), LOG_SUMMARY_CHARS)),
+                ],
+            ),
+        ));
+        Flow::Keep
     }
 
     /// HandleRankingInfoGate_HelloReq @0x14000DF60 (`hhhh`).

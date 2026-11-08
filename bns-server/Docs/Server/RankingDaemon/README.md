@@ -1,7 +1,7 @@
 # RankingDaemon (build 348)
 
 Source: `RankingDaemon.exe` + PDB (IDA, names present). Config module `rankingd`.
-Rust port: `Program/Server/RankingDaemon` (crate `rankingdaemon`). Phase 1.
+Rust port: `Program/Server/RankingDaemon` (crate `rankingdaemon`). Phase 1 + InfoGate handlers (phase 2a).
 
 RankingDaemon keeps the season list and the ranking boards. GameDaemons
 send scores; InfoGates read ranking lists; an operator tool manages the
@@ -192,7 +192,34 @@ results `Cc qqqq Q;`.
 | duplicate wid | 11 (old session closes) |
 | OK | HelloAck cmd 2 `hCcc;`: active seasons {type, maxIndex + 1} |
 
-Cmds 5, 8, 11 need a hello. Phase 1 replies Fail (7, 10, 13) with reason 2 ❓.
+Cmds 5, 8, 11 need a hello. Without a channel the handler returns false (close).
+In all three, a decode failure only logs and returns true (no reply, keep).
+
+| Cmd | Handler | Check | Reply |
+| --- | --- | --- | --- |
+| 5 RetrieveRankingListReq `hcc` | @0x14000E630 | RankingListManager null, or no list for (contentsType, index) in `_currentList` (key = type \| index << 8, @0x1400270A0) | Fail 7 `hccE` (type, index, 2) |
+| 5 | | list found | the cached list packet, unchanged |
+| 8 RetrieveTimeAttackBestRecordReq `hocciq` (tid, contentsType, job, rankingPerJob, guildMemberPcId) | @0x14000E9A0 | tid == 0, job <= 0, or (rankingPerJob <= 0 and pcId == 0) | Fail 10 `hoE` (tid, 15) |
+| 8 | | contentsType != 6 | Fail 10, 15 |
+| 8 | | rankingPerJob <= 0: PlayerManager::GetPlayer(1, pcId) missing | Fail 10, 17 |
+| 8 | | rankingPerJob > 0: board manager null | Fail 10, 14 (Rust: never null) |
+| 8 | | rankingPerJob > 0: GetRankingLogSummary fails | Fail 10, 16 |
+| 8 | | OK | cmd 9 `hocciqss` (request fields, rankerName, bestRecord) |
+| 11 RetrieveChallengePartyLogSummaryReq `hocq` (tid, contentsType, playerId) | @0x14000F620 | tid == 0, playerId <= 0, or contentsType != 13 | Fail 13 `hoE` (tid, 19) |
+| 11 | | GetPlayer(3, playerId) missing | Fail 13, 20 |
+| 11 | | OK | cmd 12 `hocqs` (tid, type, playerId, logSummary) |
+
+- GetRankingLogSummary @0x14001AE60: contentsType 6 or 13, job 1..14, rank > 0.
+  Board index = convertPcJobToBoardIndex(job) @0x14001BB60 (1→1, 2→2, 3→3,
+  4→10, 5..10→job−1, 11..14→job, else 0). The board for (contentsType − 1)
+  must exist. SkipListExManager::LookUp @0x140030A10 fails when index > maxIndex.
+  A rank past the list size returns OK with a null value → 16.
+- Names: wcsncpy 0x21 chars. Log summaries: wcsncpy 0x191 chars
+  (Player::GetLogSummary @0x1400173C0; an unset summary stays empty).
+  Rust keeps one char less than the buffer ❓.
+- Player type 3 = challenge party ❓ (only seen in cmd 11).
+- Rust: `Daemon::set_player`, `set_board_list` and `set_ranking_list` take the
+  data. Phase 2b fills them from RankingDB and the boards.
 
 ## 5. Manage port
 
@@ -211,9 +238,9 @@ Cmds 5, 8, 11 need a hello. Phase 1 replies Fail (7, 10, 13) with reason 2 ❓.
 | Gap | Phase |
 | --- | --- |
 | RankingDB (insert, load, black list persist) | 2 |
-| Ranking boards, skip list, update period | 2 |
+| Ranking boards: skip list insert/update/delete, update period | 2b |
 | Result schedules from RankingDB (AddResultSchedule), current week index, season state timers | 2 |
-| InfoGate ranking list replies | 2 |
+| InfoGate ranking list composition (RankingListMaker, FetchRankingList) | 2b |
 
 ## 7. Rust port map
 
