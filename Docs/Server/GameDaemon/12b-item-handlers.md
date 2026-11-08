@@ -1042,6 +1042,28 @@ Source: `Program/Server/GameDaemon/src/handlers/items.rs`, tests `tests/gi2_item
 - Short-body decode for 1518/1521/1524/1527 uses the zero-initialized value, as the entry functions do.
 - 1354/1359 do not initialize the decoded fields, so a short body stops at a boundary.
 
+## Rust port status (part 2)
+
+Source: `Program/Server/GameDaemon/src/handlers/items2.rs`, tests `tests/gi3_inventory.rs`.
+All 23 entries queue an `ItemTaskKind::Inventory` task. No runner is ported.
+
+| Command | Rust | Boundary that stops the port |
+| --- | --- | --- |
+| 934, 937, 1118 | partial | Entry ported (dispatch `0x140603BD0`). Closet runners unread. |
+| 1121, 1125 | partial | Entry ported. Serializers `0x14007F250` and `0x1400B8E90` unread. |
+| 1428 | partial | Success path queues. Every entry failure is a boundary: the 1429 trailing integer is not recovered. |
+| 1331 | partial | Entry ported. Batch item serialization unread. |
+| 1334, 1336, 1338 | partial | Entry ported. Inventory helpers `0x1404D84E0`, `0x1404D8660`, `0x1404F55C0` and validators unread. |
+| 1328 | partial | Entry ported, with the 1344 failures. Action `0x14053B0A0` needs NPC and `0x1404E41C0` adapters. |
+| 1385, 1387 | partial | Entry ported. Runners need item record and durability adapters. |
+| 1395 | partial | Entry ported. Helper `0x14050E7C0` unread. |
+| 1364 | partial | Success path queues. Every entry failure is a boundary: the `hEc` index is not recovered. |
+| 1367, 1369, 1372, 1375, 1378 | partial | Entry ported. Gem helpers unread. The daemon +2744 byte +933 test is in the runners. |
+| 1381, 1383, 1392 | partial | Entry ported. Identify, seal and unseal helpers unread. |
+
+- 1334, 1336, 1372, 1375, 1381 and 1387 do not zero-initialize their fields, so a short body stops at a boundary.
+- 1367 zero-initializes only the socket kind. A body without it decodes as kind 0.
+
 ## Coverage limit
 
 This file covers 38 of the 89 selected commands.

@@ -52,6 +52,8 @@ pub enum ItemTaskKind {
     SetLockExpiration { container: u8, slot: u16 },
     /// Kind 315. Entries in request order (1..16, duplicates allowed).
     SetUsed { entries: Vec<(u8, u16)> },
+    /// Doc 12b part 2 (closet, inventory, repair, decompose, gem, seal).
+    Inventory(InventoryTask),
 }
 #[derive(Clone, Debug, PartialEq, Eq)]
 pub struct ItemTask {
@@ -223,7 +225,7 @@ fn reason_i32(command: u16, reason: u16, value: i32) -> Outcome {
     body.extend(value.to_le_bytes());
     Outcome::reply(command, body)
 }
-fn reason_u64(command: u16, reason: u16, value: u64) -> Outcome {
+pub(super) fn reason_u64(command: u16, reason: u16, value: u64) -> Outcome {
     let mut body = reason.to_le_bytes().to_vec();
     body.extend(value.to_le_bytes());
     Outcome::reply(command, body)
@@ -235,7 +237,7 @@ fn reason_byte(command: u16, reason: u16, value: i8) -> Outcome {
 }
 /// Craft tasks dispatch through `0x140603BD0`. Its result is not tested at
 /// entry, so anything but Pass is a boundary.
-fn craft_dispatch(ctx: &mut Context<'_>, task: ItemTask) -> Outcome {
+pub(super) fn craft_dispatch(ctx: &mut Context<'_>, task: ItemTask) -> Outcome {
     match ctx.services.queue_item(&task) {
         Gate::Pass => Outcome {
             changes: vec![

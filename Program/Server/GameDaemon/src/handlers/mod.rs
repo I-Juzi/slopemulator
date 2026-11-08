@@ -17,6 +17,8 @@ pub use party::*;
 pub use party_model::*;
 pub use party_tasks::execute_party_task;
 mod items;
+mod items2;
+pub use items2::*;
 mod token;
 mod trade;
 pub use items::*;
@@ -378,6 +380,8 @@ pub struct World {
     pub account_inventory_enabled: bool,
     /// Daemon +2744 byte +909 ≠ 0: item lock feature (doc 12b 1414–1418).
     pub item_lock_enabled: bool,
+    /// Daemon +2744 byte +935 ≠ 0: unseal feature (doc 12b 1383).
+    pub unseal_enabled: bool,
     /// cfg DWORD +248 when cfg byte +237 ≠ 0, else 0 (backend 367 restriction value).
     pub arena_value: u32,
     pub channel_type_87_restricted: bool,
@@ -887,6 +891,7 @@ fn dispatch_inner(ctx: &mut Context<'_>, command: u16, req: &[u8]) -> Outcome {
         && !GUILD_COMMANDS.contains(&command)
         && !ITEM_COMMANDS.contains(&command)
         && !ITEM2_COMMANDS.contains(&command)
+        && !ITEM3_COMMANDS.contains(&command)
     {
         return Outcome::log("unknown command");
     }
@@ -923,6 +928,9 @@ fn dispatch_inner(ctx: &mut Context<'_>, command: u16, req: &[u8]) -> Outcome {
     }
     if ITEM2_COMMANDS.contains(&command) {
         return items::dispatch_item2(ctx, command, req);
+    }
+    if ITEM3_COMMANDS.contains(&command) {
+        return items2::dispatch_item3(ctx, command, req);
     }
     match command {
         11 => handle_hello(ctx, req),
