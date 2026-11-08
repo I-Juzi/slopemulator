@@ -71,7 +71,7 @@ pub(crate) fn field(out: &mut String, name: &str, value: &str) -> Result<(), Err
     out.push_str(&quick_xml::escape::escape(value));
     out.push_str("</");
     out.push_str(name);
-    out.push('>');
+    out.push_str(">\n");
     Ok(())
 }
 #[derive(Default)]
@@ -252,7 +252,7 @@ impl Request {
         }
     }
     pub fn body(&self) -> Result<Vec<u8>, Error> {
-        let mut out = String::from("<Request>");
+        let mut out = String::from("<Request>\n");
         match self {
             Self::LoginStart { login_name } => field(&mut out, "LoginName", login_name)?,
             Self::KeyData { public, proof } => field(
@@ -271,7 +271,7 @@ impl Request {
             Self::RequestToken { app_id } => field(&mut out, "AppId", app_id)?,
             Self::LogoutMyClient | Self::GetMyUserInfo => return Ok(b"<Request/>".to_vec()),
         }
-        out.push_str("</Request>");
+        out.push_str("</Request>\n");
         Ok(out.into_bytes())
     }
     pub fn parse(command: &str, body: &[u8]) -> Result<Self, Error> {
@@ -390,7 +390,7 @@ pub enum Reply {
 }
 impl Reply {
     pub fn body(&self) -> Result<Vec<u8>, Error> {
-        let mut out = String::from("<Reply>");
+        let mut out = String::from("<Reply>\n");
         match self {
             Self::LoginStart { salt, public } => field(
                 &mut out,
@@ -410,11 +410,11 @@ impl Reply {
                     field(&mut out, "UserCenter", center)?;
                 }
                 if !info.roles.is_empty() {
-                    out.push_str("<Roles>");
+                    out.push_str("<Roles>\n");
                     for role in &info.roles {
                         field(&mut out, "RoleId", &role.to_string())?;
                     }
-                    out.push_str("</Roles>");
+                    out.push_str("</Roles>\n");
                 }
                 if let Some(v) = info.auth_type {
                     field(&mut out, "AuthType", &v.to_string())?;
@@ -423,9 +423,9 @@ impl Reply {
                     field(&mut out, "Status", &v.to_string())?;
                 }
                 if let Some(v) = &info.pc_cafe_code {
-                    out.push_str("<PcCafe>");
+                    out.push_str("<PcCafe>\n");
                     field(&mut out, "PcCafeCode", v)?;
-                    out.push_str("</PcCafe>");
+                    out.push_str("</PcCafe>\n");
                 }
             }
             Self::GameToken { token } => field(&mut out, "Token", &guid_text(*token))?,
@@ -441,16 +441,16 @@ impl Reply {
                     if info.external_account.len() > 4 {
                         return Err(Error::Field);
                     }
-                    out.push_str("<ExternalAccount>");
+                    out.push_str("<ExternalAccount>\n");
                     for (name, value) in &info.external_account {
                         field(&mut out, name, value)?;
                     }
-                    out.push_str("</ExternalAccount>");
+                    out.push_str("</ExternalAccount>\n");
                 }
             }
             Self::LoggedOut => return Ok(b"<Reply/>".to_vec()),
         }
-        out.push_str("</Reply>");
+        out.push_str("</Reply>\n");
         Ok(out.into_bytes())
     }
     pub fn parse(id: u32, body: &[u8]) -> Result<Self, Error> {

@@ -171,6 +171,7 @@ Source: `Program/Platform/Sts`, implemented from this document. Build target: so
 - The interleave rule is verified against the 32-bit client DLL. See the K input rule above (non-zero skip, not zero removal).
 - ❓ `CipherScope::WholeMessage` and `CipherScope::BodyOnly` form one switch for both directions. Select it explicitly. Confirm the scope and the exact switch boundary with the client.
 - ❓ The local XML serializer uses `<Reply>` and success status `200 OK`. The source above does not establish the reply-root name or the success status.
+- XML layout (verified, `StsMsgCli32.dll` 0.122): write one element per line, as the DLL's own writer does (`<Reply>\n<KeyData>..</KeyData>\n</Reply>\n`). The DLL does not find `<KeyData>` directly after `<Reply>` without a newline: parser `sub_10003B90` returns 6, the SRP step does not run, and the game sends no KeyData. It then only sends `Sts/Ping`. Found by emulating the DLL on the captured reply of the 2026-11-08 19:46 login; the same reply with newlines parses and the DLL builds `Auth/KeyData`.
 - ❓ Logout uses an empty `<Reply/>`. Its reply ID and original reply fields remain unknown.
 - ❓ UserCenter, roles, AuthType, Status and PcCafe values are local policy. The session returns configured UserCenter, no roles, AuthType 0 and Status 0. Confirm which values the client needs.
 - ❓ UTF-8 is the local XML encoding. Confirm non-ASCII AccountAlias and AppId text with the client.

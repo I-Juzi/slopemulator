@@ -165,3 +165,19 @@ fn xml_entities_cdata_and_empty_values_parse() {
             }
     );
 }
+
+/// StsMsgCli32.dll 0.122 does not find `<KeyData>` directly after `<Reply>`
+/// (`sub_10003B90` returns 6). Write one element per line, as the DLL's own
+/// writer does. Verified by emulating the DLL on a captured reply, 2026-11-08.
+#[test]
+fn reply_puts_each_element_on_its_own_line() {
+    let body = Reply::LoginStart {
+        salt: vec![1; 32],
+        public: vec![2; 128],
+    }
+    .body()
+    .unwrap();
+    let text = String::from_utf8(body).unwrap();
+    assert!(text.starts_with("<Reply>\n<KeyData>"), "{text}");
+    assert!(text.ends_with("</KeyData>\n</Reply>\n"), "{text}");
+}
