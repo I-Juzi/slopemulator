@@ -158,6 +158,17 @@ Codes that RouteSrv.exe uses: `c` 99, `e` 101, `l` 108, `o` 111, `p` 112, `r` 11
 | Deliver | `sub_1400CD6C0` | Local provider: the frame is copied (`sub_140102570`, `CInetMsgOut`) and sent on the provider connection (network vtable +32). Each send increments the connection counter at +180. A failed send increments stat 6. |
 | Forward scope | `sub_1400F7BC0` / `sub_1400F8220` | Saves `protocol`, `protocolVersion` and `command` in an `r` header, and sets the command to `Forward`. The pop restores the original request line. Used for `@scope` targets through ForwardSrv. |
 
-❓ Reply return: the frame copy keeps the request unchanged. The mapping of the provider's
-reply back to the caller is in the STS socket layer (`StsInetSocket`, `sub_1401221A0`,
-"invalid transaction reply" → error 4, module 9001, line 3488). Not traced yet.
+### 8.1 Reply return (partly traced)
+
+| Fact | Source |
+| --- | --- |
+| A request carries its origin in header `p` (with attribute `protocol`). A reply carries it in header `t`. | message trace `sub_1400F35B0` ("Origin": `t` when the frame is a reply, else `p`) |
+| An error reply 400 made by RouteSrv copies the request's `p` value into the reply's `t` header. | `sub_1400C4190` |
+| On a socket with flag 0x100, an incoming request with a transaction id gets a new local id. The socket stores (`p` value, `protocol`, original id) with a 25000 ms timeout. | `sub_140121E90` → `sub_140121C20` |
+| When the reply goes out, the stored entry is found. Header `s` gets the original id, and `p` is written back when it is missing. | `sub_140120F90` → `sub_140125A60`, `sub_140103930`, `sub_140125E30` |
+| `s` header text: `<id>`, then `r` (partial) or `R` (final), then `<seq>` | `sub_140103930` |
+| A reply with a bad `s` value gives error 4, module 9001, line 3488 ("StsInetSocket: invalid transaction reply"). | `sub_1401221A0` |
+
+So the reply is routed back like a Direct target (`t` = origin location).
+The transaction id is mapped in the shared STS socket layer, not in RouteSrv's own code.
+❓ Which side sets socket flag 0x100 (RouteSrv, the provider, or both) is not verified.
