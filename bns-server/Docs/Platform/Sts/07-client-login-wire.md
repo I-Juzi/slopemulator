@@ -231,3 +231,16 @@ Local server policy:
 | Local policy | Reply `BalanceInfoListCount` = 0. The local server keeps no wallet. | `wire.rs` |
 
 ❓ Which of the three IDs the game uses is not known. The reply is matched by transaction, so the local reply does not depend on it.
+
+### Slot/ListSlots and unknown requests (2026-11-08)
+
+| Item | Value | Source |
+| --- | --- | --- |
+| `Slot/ListSlots` request | `UserId`, `SlotType`; library ID 1501 | StsMsgCli32.dll 0.122 builder `sub_10017B60`; live login 20:14:15 |
+| `ListSlots` reply | repeated `Slot{SlotId, SlotType, SystemSlot, SlotData, Changed, Registered}`; zero `Slot` is valid | parser `sub_10005B40` |
+| Local `ListSlots` policy | reply `<Reply/>` (no slots) | `wire.rs` |
+| Error replies | the client reads `Error/@code` when status >= 400, and still passes the reply to the game | `sub_100039A0` |
+| Status table | `200`; `400 ErrBadData` code 4 | table at 0x100582D4 (`sub_10017F40`) |
+| Local policy for unknown requests | after login: `STS/1.0 400 ErrBadData`, body `<Error code="4"/>`, session stays open, log `sts-local: X not supported`. Before login: close the session. | `wire.rs`, `listener.rs` |
+
+❓ How the game reacts to a 400 reply for each request is not verified.
