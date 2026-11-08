@@ -1,3 +1,19 @@
+## Handler coverage — 2026-11-08
+
+Every c2s handler in build 381 now has a spec section and a Rust entry. The 5 anti-cheat ids (349, 351, 352, 354, 792) are out of scope.
+
+| Spec | Rust | Handlers |
+| --- | --- | --- |
+| done | ported | 63 |
+| partial | ported | 10 |
+| done or partial | partial | 424 |
+| none (out of scope) | none | 5 |
+| **Total** | | **502** |
+
+- Latest docs: `28-season-ranking-handlers.md` (17 ids) and `29-npc-trade-handlers.md` (8 ids). Arena 705 and 955 are ported from doc 26.
+- Next work: make the partial handlers complete. Biggest groups: skill-combat (doc 13, 48), items (docs 12b/12c, 83), party (doc 14, 30), guild (doc 15, 28).
+- No live client test has run.
+
 GP1: `parity-ledger.tsv` and `09-parity.md` record 1598 commands: 502 c2s, 152 s2c, 944 unknown; 9 rows are out of scope within those totals. 41 specs are partial. Specs only. No live test.
 Step 5: movement, skills, distance and failure/kick rules in `07-server-validation.md` are partial and address-backed. Specs only. No live test.
 
