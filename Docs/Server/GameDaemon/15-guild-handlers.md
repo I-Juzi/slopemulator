@@ -300,11 +300,11 @@ Shared task attachment (431, 434) uses `0x14025DB30` (zone), `0x14069BF60` (PC c
   2. T2 → 7.
   3. CS fails → 1.
   4. No guild → 2. Lookup fails → 2. Action row 7 not enabled → 2.
-  5. Header `iqs` decode fails → 1553.
+  5. Header `iQs` decode fails → 1553. `Q` reads one byte. `q` reads eight bytes. Sources: descriptor at `0x1403AB192`; decoder `0x1406AA7B0`, build 381.8867.
   6. List A count > 5, or a record fails → 1553.
   7. List B count > 5, or a record fails → 1553.
-  8. A slot repeats in list A, a list A slot is also in list B, or a slot repeats in list B → 1553.
-  9. Both counts are 1 and the two slots are equal → 1553.
+  8. A slot repeats in list A or list B → 1553. Compare each list-A slot except the last with all list-B slots. A match → 1553. Source: duplicate loops in `0x1403AAF20`, build 381.8867.
+  9. Both counts are 1 and the two slots are equal → 1553. No other cross-list check applies to the last A record. For example, A = `[(1, 1)]` and B = `[(1, 1), (2, 1)]` pass these checks.
   10. No zone → 1553.
   11. Build a 0x158 object (`0x14002F440(obj, CS object)`, vtable `off_1409CEEF8`, id 1843466, +24 = World +5128 call). Try the World +5080 lock (`0x1400D4FE0`). Fail → 1553. Success → `0x1400D4A80`, log, no reply.
 - **❓ Missing:** The decompile does not show the decoded fields stored in the object. The object's later work is not read.
@@ -552,15 +552,15 @@ Shared task attachment (431, 434) uses `0x14025DB30` (zone), `0x14069BF60` (PC c
 
 ## 596 — G_UpdateGuildApplicationRefusalReqCmd — done
 
-- **381:** `0x1403B3E90`. **Wire:** `hq` (value; 1 = refuse).
-- **Checks/order (reply 598):** J → 2. Arena B → 5. Decode fails → 2. No guild → 2. Lookup fails → 2. Row 18 off → 2. `(q == 1)` = guild byte +32784 → 2 ("already updated"). Zone null → 2. PC kind (+46) ≠ 1 → 2.
-- **Output:** Task `new(0xE8)`, +68 = 326, vtable `off_140BB6DA8`: +144 guild ID, +152 DB ID, +160 PC name (PC +194, 33 units), +226 byte `q`. It queues. No reply.
+- **381:** `0x1403B3E90`. **Wire:** `hQ` (one-byte value; 1 = refuse). Sources: descriptor at `0x1403B3EC6`; decoder `0x1406AA7B0`, build 381.8867.
+- **Checks/order (reply 598):** J → 2. Arena B → 5. Decode fails → 2. No guild → 2. Lookup fails → 2. Row 18 off → 2. `(Q == 1)` = guild byte +32784 → 2 ("already updated"). Zone null → 2. PC kind (+46) ≠ 1 → 2.
+- **Output:** Task `new(0xE8)`, +68 = 326, vtable `off_140BB6DA8`: +144 guild ID, +152 DB ID, +160 PC name (PC +194, 33 units), +226 byte `Q`. Keep the raw byte value. It queues. No reply.
 
 ## 600 — G_UpdateGuildInvitationRefusalReqCmd — done
 
-- **381:** `0x1403B4410`. **Wire:** `hq`.
-- **Checks/order (reply 602):** J → 2. Arena B → 5. Decode fails → 2. `(PC +890 & 2 ≠ 0)` = `(q == 1)` → 2 ("already set"). Zone null → 2. PC kind ≠ 1 → 2.
-- **Output:** Task `new(0xA0)`, +68 = 327, vtable `off_140C408C0`: +144 DB ID, +152 byte `q`. It queues. No reply.
+- **381:** `0x1403B4410`. **Wire:** `hQ` (one-byte value). Sources: descriptor at `0x1403B4433`; decoder `0x1406AA7B0`, build 381.8867.
+- **Checks/order (reply 602):** J → 2. Arena B → 5. Decode fails → 2. `(PC +890 & 2 ≠ 0)` = `(Q == 1)` → 2 ("already set"). Zone null → 2. PC kind ≠ 1 → 2.
+- **Output:** Task `new(0xA0)`, +68 = 327, vtable `off_140C408C0`: +144 DB ID, +152 byte `Q`. Keep the raw byte value. It queues. No reply.
 
 ## 518 — G_QueryGuildInfoToGamedReqCmd — partial
 

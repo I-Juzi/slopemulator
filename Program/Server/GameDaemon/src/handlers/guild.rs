@@ -1170,7 +1170,7 @@ pub fn handle_contract_guild_craft(ctx: &mut Context<'_>, req: &[u8]) -> Outcome
     };
     let mut r = Reader(req);
     // ❓ Name decode capacity is not read; 33 units as the other guild names.
-    let (Some(amount), Some(value), Some(name)) = (r.int(), r.quad(), r.string(NAME_UNITS)) else {
+    let (Some(amount), Some(value), Some(name)) = (r.int(), r.byte(), r.string(NAME_UNITS)) else {
         return Outcome::reason(R, 1553);
     };
     let Some(list_a) = craft_records(&mut r) else {
@@ -1179,9 +1179,12 @@ pub fn handle_contract_guild_craft(ctx: &mut Context<'_>, req: &[u8]) -> Outcome
     let Some(list_b) = craft_records(&mut r) else {
         return Outcome::reason(R, 1553);
     };
+    // Build 381 excludes the last A record from the general cross-list loop.
     let crossed = list_a
         .iter()
-        .any(|(s, _)| list_b.iter().any(|(o, _)| o == s));
+        .take(list_a.len().saturating_sub(1))
+        .any(|(s, _)| list_b.iter().any(|(o, _)| o == s))
+        || (list_a.len() == 1 && list_b.len() == 1 && list_a[0].0 == list_b[0].0);
     if has_duplicate_slot(&list_a) || crossed || has_duplicate_slot(&list_b) {
         return Outcome::reason(R, 1553);
     }
@@ -1192,7 +1195,7 @@ pub fn handle_contract_guild_craft(ctx: &mut Context<'_>, req: &[u8]) -> Outcome
         guild_id: id,
         requester: ctx.pc().object_id,
         amount,
-        value,
+        value: u64::from(value),
         name,
         list_a,
         list_b,
@@ -1603,9 +1606,10 @@ fn row18(ctx: &Context<'_>, id: u64) -> bool {
         .get(&id)
         .is_some_and(|g| ctx.world.guild.action_enabled(g, JOIN_ROW))
 }
-/// Queue a join-ticket task. `stamp` = new PC +20880 on success (563, 579).
+/// Queue a join-ticket task. `stamp` = new PC +20880 on success (563, 579, 583).
 fn ticket_task(
     ctx: &mut Context<'_>,
+    command: u16,
     reply: u16,
     op: u8,
     abc: (u64, u64, u64),
@@ -1616,7 +1620,7 @@ fn ticket_task(
         return Outcome::reason(reply, 2);
     };
     let task = GuildTask {
-        command: reply - 2,
+        command,
         caster: pc.object_id,
         zone,
         guild_id: pc.guild_id,
@@ -1720,12 +1724,13 @@ pub fn handle_send_guild_application(ctx: &mut Context<'_>, req: &[u8]) -> Outco
         return Outcome::reason(R, 2);
     }
     let db_id = ctx.pc().db_id;
-    ticket_task(ctx, R, 1, (db_id, db_id, id), Some(now))
+    ticket_task(ctx, 563, R, 1, (db_id, db_id, id), Some(now))
 }
 
 /// Shared shape of 567, 588 and 592: (q) names a guild; values (dbid, dbid, q).
 fn pc_side_ticket(
     ctx: &mut Context<'_>,
+    command: u16,
     reply: u16,
     op: u8,
     guildless: bool,
@@ -1745,13 +1750,14 @@ fn pc_side_ticket(
         return Outcome::reason(reply, 2);
     }
     let db_id = ctx.pc().db_id;
-    ticket_task(ctx, reply, op, (db_id, db_id, target), None)
+    ticket_task(ctx, command, reply, op, (db_id, db_id, target), None)
 }
 
 /// Shared shape of 571, 575, 579 and 584: (q) names a PC DB ID; values
 /// (dbid, q, own guild).
 fn guild_side_ticket(
     ctx: &mut Context<'_>,
+    command: u16,
     reply: u16,
     op: u8,
     req: &[u8],
@@ -1779,24 +1785,24 @@ fn guild_side_ticket(
         return Outcome::reason(reply, 2);
     }
     let db_id = ctx.pc().db_id;
-    ticket_task(ctx, reply, op, (db_id, target, id), stamp)
+    ticket_task(ctx, command, reply, op, (db_id, target, id), stamp)
 }
 
 /// parity: 567 15-guild-handlers.md#567--g_cancelguildapplicationreqcmd--partial partial
 pub fn handle_cancel_guild_application(ctx: &mut Context<'_>, req: &[u8]) -> Outcome {
-    pc_side_ticket(ctx, 569, 2, true, req)
+    pc_side_ticket(ctx, 567, 569, 2, true, req)
 }
 /// parity: 571 15-guild-handlers.md#571--g_rejectguildapplicationreqcmd--partial partial
 pub fn handle_reject_guild_application(ctx: &mut Context<'_>, req: &[u8]) -> Outcome {
-    guild_side_ticket(ctx, 573, 3, req, None)
+    guild_side_ticket(ctx, 571, 573, 3, req, None)
 }
 /// parity: 575 15-guild-handlers.md#575--g_acceptguildapplicationreqcmd--partial partial
 pub fn handle_accept_guild_application(ctx: &mut Context<'_>, req: &[u8]) -> Outcome {
-    guild_side_ticket(ctx, 577, 4, req, None)
+    guild_side_ticket(ctx, 575, 577, 4, req, None)
 }
 /// parity: 579 15-guild-handlers.md#579--g_sendguildinvitationreqcmd--partial partial
 pub fn handle_send_guild_invitation(ctx: &mut Context<'_>, req: &[u8]) -> Outcome {
-    guild_side_ticket(ctx, 581, 5, req, Some(1644))
+    guild_side_ticket(ctx, 579, 581, 5, req, Some(1644))
 }
 
 /// parity: 583 15-guild-handlers.md#583--g_sendguildinvitation2reqcmd--partial partial
@@ -1836,7 +1842,7 @@ pub fn handle_send_guild_invitation2(ctx: &mut Context<'_>, req: &[u8]) -> Outco
     let mismatch = guild.faction != target.faction;
     let mut out = if row18(ctx, id) {
         let db_id = ctx.pc().db_id;
-        ticket_task(ctx, R, 5, (db_id, target.db_id, id), Some(now))
+        ticket_task(ctx, 583, R, 5, (db_id, target.db_id, id), Some(now))
     } else {
         Outcome::reason(R, 2)
     };
@@ -1849,15 +1855,15 @@ pub fn handle_send_guild_invitation2(ctx: &mut Context<'_>, req: &[u8]) -> Outco
 
 /// parity: 584 15-guild-handlers.md#584--g_cancelguildinvitationreqcmd--partial partial
 pub fn handle_cancel_guild_invitation(ctx: &mut Context<'_>, req: &[u8]) -> Outcome {
-    guild_side_ticket(ctx, 586, 6, req, None)
+    guild_side_ticket(ctx, 584, 586, 6, req, None)
 }
 /// parity: 588 15-guild-handlers.md#588--g_rejectguildinvitationreqcmd--partial partial
 pub fn handle_reject_guild_invitation(ctx: &mut Context<'_>, req: &[u8]) -> Outcome {
-    pc_side_ticket(ctx, 590, 7, false, req)
+    pc_side_ticket(ctx, 588, 590, 7, false, req)
 }
 /// parity: 592 15-guild-handlers.md#592--g_acceptguildinvitationreqcmd--partial partial
 pub fn handle_accept_guild_invitation(ctx: &mut Context<'_>, req: &[u8]) -> Outcome {
-    pc_side_ticket(ctx, 594, 8, true, req)
+    pc_side_ticket(ctx, 592, 594, 8, true, req)
 }
 
 /// parity: 596 15-guild-handlers.md#596--g_updateguildapplicationrefusalreqcmd--done ported
@@ -1869,7 +1875,7 @@ pub fn handle_update_guild_application_refusal(ctx: &mut Context<'_>, req: &[u8]
     if arena_b(ctx) {
         return Outcome::reason(R, 5);
     }
-    let Some(value) = Reader(req).quad() else {
+    let Some(value) = Reader(req).byte().map(u64::from) else {
         return Outcome::reason(R, 2);
     };
     let id = guild_id(ctx.pc());
@@ -1911,7 +1917,7 @@ pub fn handle_update_guild_invitation_refusal(ctx: &mut Context<'_>, req: &[u8])
     if arena_b(ctx) {
         return Outcome::reason(R, 5);
     }
-    let Some(value) = Reader(req).quad() else {
+    let Some(value) = Reader(req).byte().map(u64::from) else {
         return Outcome::reason(R, 2);
     };
     let pc = ctx.pc().clone();
@@ -2341,7 +2347,13 @@ pub fn handle_warp_to_guild_member2(ctx: &mut Context<'_>, req: &[u8]) -> Outcom
     let Some(guild) = ctx.world.guild.guilds.get(&id) else {
         return Outcome::reason(R, 2);
     };
-    let Some(&member) = ctx.world.guild.member_slots.get(&(id, u32::from(index))) else {
+    let Some(&member) = ctx
+        .world
+        .guild
+        .member_slots
+        .get(&(id, u32::from(index)))
+        .filter(|&&member| member != 0)
+    else {
         return Outcome::reason(R, 1500);
     };
     if !ctx.world.guild.action_enabled(guild, 14) || member == ctx.pc().object_id {

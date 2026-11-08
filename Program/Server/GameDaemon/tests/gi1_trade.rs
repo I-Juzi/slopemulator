@@ -277,6 +277,75 @@ fn join_and_decline() {
 }
 
 #[test]
+fn decline_clears_guest_link_to_another_trade() {
+    let mut h = H::new();
+    h.task(A, TradeTaskKind::Invite { guest: B });
+    let t = h.st().next_trade;
+    let u = t + 1;
+    let other = h.st().trades[&t].clone();
+    h.st().trades.insert(u, other);
+    h.p(B).trade = Some(u);
+    let out = h.task(
+        B,
+        TradeTaskKind::Decline {
+            inviter: A,
+            decline: 200,
+        },
+    );
+    assert!(out.replies.is_empty());
+    let body = [q(A), q(B), vec![200]].concat();
+    assert_eq!(sends(&out), vec![(A, 319, body.clone()), (B, 319, body)]);
+    assert_eq!(
+        out.trade_effects.last(),
+        Some(&TradeEffect::Unlinked { trade: t })
+    );
+    assert!(!h.st().trades.contains_key(&t));
+    assert!(h.st().trades.contains_key(&u));
+    assert_eq!(h.p(A).trade, None);
+    assert_eq!(h.p(B).trade, None);
+}
+
+#[test]
+fn suggestions_allow_inviter_link_to_another_trade() {
+    let mut h = H::new();
+    let t = h.open();
+    let u = t + 1;
+    let other = h.st().trades[&t].clone();
+    h.st().trades.insert(u, other);
+    h.p(A).trade = Some(u);
+    assert_eq!(h.p(B).trade, Some(t));
+    let out = h.task(B, TradeTaskKind::Money { amount: 500 });
+    assert!(out.replies.is_empty());
+    assert!(out.logs.is_empty());
+    assert_eq!(h.st().trades[&t].offers, [0, 500]);
+    assert_eq!(h.st().trades[&u].offers, [0, 0]);
+    assert_eq!(
+        sends(&out),
+        vec![(B, 332, q(500)), (A, 331, [q(B), q(500)].concat())]
+    );
+    // Append and remove must also pass the suggestion link gate.
+    assert_eq!(
+        reason(&h.task(B, TradeTaskKind::Append { slot: 3, count: 0 })),
+        Some((323, 926))
+    );
+    assert_eq!(
+        reason(&h.task(B, TradeTaskKind::Remove { slot: 1 })),
+        Some((323, 931))
+    );
+    // Automatic retract keeps its stronger equality check.
+    h.st().trades.get_mut(&t).unwrap().states = [2, 1];
+    let out = h.task(B, TradeTaskKind::Money { amount: 0 });
+    assert_eq!(h.st().trades[&t].states, [2, 1]);
+    assert!(sends(&out).iter().all(|(_, command, _)| *command != 338));
+    // A null inviter link still fails the suggestion check.
+    h.p(A).trade = None;
+    let out = h.task(B, TradeTaskKind::Money { amount: 1 });
+    assert!(sends(&out).is_empty());
+    assert!(!out.logs.is_empty());
+    assert_eq!(h.st().trades[&t].offers, [0, 0]);
+}
+
+#[test]
 fn money_submit_retract_confirm_money_only() {
     let mut h = H::new();
     h.open();

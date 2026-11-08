@@ -620,7 +620,7 @@ fn contract_guild_craft() {
     let body = |a: &[(u16, u16)], b: &[(u16, u16)]| {
         [
             5u32.to_le_bytes().to_vec(),
-            q(9),
+            vec![9],
             s("Item"),
             recs(a),
             recs(b),
@@ -630,7 +630,10 @@ fn contract_guild_craft() {
     let mut h = H::new();
     assert!(h.run(447, &body(&[(1, 1)], &[(2, 1)])).replies.is_empty());
     let c = h.services.guild.contracts.last().unwrap().clone();
-    assert_eq!((c.amount, c.value, c.list_a.len()), (5, 9, 1));
+    assert_eq!((c.amount, c.value), (5, 9));
+    assert_eq!(c.name, name("Item"));
+    assert_eq!(c.list_a, vec![(1, 1)]);
+    assert_eq!(c.list_b, vec![(2, 1)]);
     assert_eq!(reason(&h.run(447, &[1, 0])), Some((448, 1553)));
     let six: Vec<_> = (1..=6).map(|i| (i, 1)).collect();
     assert_eq!(reason(&h.run(447, &body(&six, &[]))), Some((448, 1553)));
@@ -660,6 +663,41 @@ fn contract_guild_craft() {
     assert_eq!(reason(&h.run(447, &[])), Some((448, 7)));
     h.pc().arena_state = 2;
     assert_eq!(reason(&h.run(447, &[])), Some((448, 5)));
+}
+
+#[test]
+fn contract_guild_craft_cross_list_bounds() {
+    let mut h = H::new();
+    let body = |a: &[(u16, u16)], b: &[(u16, u16)]| {
+        [
+            5u32.to_le_bytes().to_vec(),
+            vec![9],
+            s("Item"),
+            recs(a),
+            recs(b),
+        ]
+        .concat()
+    };
+    // The general cross-list loop excludes the last A record.
+    for a in [vec![(1, 1)], vec![(3, 1), (1, 1)]] {
+        let b = vec![(1, 1), (2, 1)];
+        let out = h.run(447, &body(&a, &b));
+        assert_eq!(out, Outcome::default());
+        let contract = h.services.guild.contracts.last().unwrap();
+        assert_eq!(contract.list_a, a);
+        assert_eq!(contract.list_b, b);
+    }
+    // An earlier A record still rejects a shared slot.
+    assert_eq!(
+        reason(&h.run(447, &body(&[(1, 1), (3, 1)], &[(1, 1), (2, 1)]))),
+        Some((448, 1553))
+    );
+    // The separate one-record check applies only when both counts are one.
+    assert_eq!(
+        reason(&h.run(447, &body(&[(1, 1)], &[(1, 1)]))),
+        Some((448, 1553))
+    );
+    assert_eq!(h.services.guild.contracts.len(), 2);
 }
 
 #[test]
@@ -990,7 +1028,7 @@ fn refusal_flags() {
     let mut h = jr();
     h.pc().native_kind = 1;
     h.pc().name = name("Me");
-    assert!(h.run(596, &q(1)).replies.is_empty());
+    assert!(h.run(596, &[1]).replies.is_empty());
     assert_eq!(
         last_task(&h),
         &GuildTaskKind::ApplicationRefusal {
@@ -999,12 +1037,12 @@ fn refusal_flags() {
             value: 1
         }
     );
-    assert_eq!(reason(&h.run(596, &q(0))), Some((598, 2)));
+    assert_eq!(reason(&h.run(596, &[0])), Some((598, 2)));
     assert_eq!(reason(&h.run(596, &[])), Some((598, 2)));
     h.pc().native_kind = 0;
-    assert_eq!(reason(&h.run(596, &q(1))), Some((598, 2)));
+    assert_eq!(reason(&h.run(596, &[1])), Some((598, 2)));
     h.pc().native_kind = 1;
-    assert!(h.run(600, &q(1)).replies.is_empty());
+    assert!(h.run(600, &[1]).replies.is_empty());
     assert_eq!(
         last_task(&h),
         &GuildTaskKind::InvitationRefusal {
@@ -1012,12 +1050,30 @@ fn refusal_flags() {
             value: 1
         }
     );
+    assert_eq!(reason(&h.run(600, &[])), Some((602, 2)));
     h.pc().guild_invitation_refusal = true;
-    assert_eq!(reason(&h.run(600, &q(1))), Some((602, 2)));
-    assert!(h.run(600, &q(0)).replies.is_empty());
+    assert_eq!(reason(&h.run(600, &[1])), Some((602, 2)));
+    assert!(h.run(600, &[0]).replies.is_empty());
+    // Non-boolean bytes use the same comparison but keep their raw value.
+    h.world
+        .guild
+        .guilds
+        .get_mut(&GUILD)
+        .unwrap()
+        .application_refusal = true;
+    assert!(h.run(596, &[200]).replies.is_empty());
+    assert!(matches!(
+        last_task(&h),
+        GuildTaskKind::ApplicationRefusal { value: 200, .. }
+    ));
+    assert!(h.run(600, &[200]).replies.is_empty());
+    assert!(matches!(
+        last_task(&h),
+        GuildTaskKind::InvitationRefusal { value: 200, .. }
+    ));
     h.world.arena = true;
-    assert_eq!(reason(&h.run(596, &q(1))), Some((598, 5)));
-    assert_eq!(reason(&h.run(600, &q(1))), Some((602, 5)));
+    assert_eq!(reason(&h.run(596, &[1])), Some((598, 5)));
+    assert_eq!(reason(&h.run(600, &[1])), Some((602, 5)));
 }
 
 #[test]
@@ -1033,7 +1089,22 @@ fn send_guild_invitation2() {
         },
     );
     let body = [s("Bob"), q(0x42)].concat();
-    assert!(h.run(583, &body).replies.is_empty());
+    let out = h.run(583, &body);
+    assert!(out.replies.is_empty());
+    assert_eq!(h.services.guild.tasks.last().unwrap().command, 583);
+    assert!(out.changes.iter().any(|change| matches!(
+        change,
+        StateChange::GuildTaskQueued(task) if task.command == 583
+    )));
+    let queued: Vec<_> = out
+        .changes
+        .iter()
+        .filter_map(|change| match change {
+            StateChange::QueuedRequest { command, body } => Some((*command, body.clone())),
+            _ => None,
+        })
+        .collect();
+    assert_eq!(queued, vec![(583, body.clone())]);
     assert_eq!(ticket(&h), (5, DB_ID, 0x8800, GUILD));
     assert_eq!(h.pc().join_request_tick, 100_000);
     assert_eq!(reason(&h.run(583, &body)), Some((581, 1644)));
@@ -1393,6 +1464,19 @@ fn warp_to_guild_member2() {
     assert_eq!(reason(&h.run(1283, &body(3, 0, 1))), Some((1285, 1509)));
     h.world.guild.config.warp_v2 = false;
     assert_eq!(reason(&h.run(1283, &body(3, 0, 1))), Some((1285, 2)));
+}
+
+#[test]
+fn warp_to_guild_member2_zero_member_is_null() {
+    let mut h = wp(true);
+    h.world.guild.member_slots.insert((GUILD, 3), 0);
+    let body = [vec![3], recs16(0, 1)].concat();
+    assert_eq!(reason(&h.run(1283, &body)), Some((1285, 1500)));
+    // The null-member gate runs before the row and target-PC checks.
+    h.world.guild.actions.remove(&14);
+    h.world.guild.players.clear();
+    assert_eq!(reason(&h.run(1283, &body)), Some((1285, 1500)));
+    assert!(h.services.guild.tasks.is_empty());
 }
 
 #[test]

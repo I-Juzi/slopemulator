@@ -210,7 +210,7 @@ No direct kick call appears. See doc 07 part 4 for why transaction failure is no
 6. Require caller == stored guest, then inviter participant state ==0. Either failure sends 318 reason 919.
 7. Send command 319, `hqqc`, to inviter and guest. Body: inviter ID, guest ID, supplied decline byte. No decline-byte range check appears.
 8. If config byte +537 !=0, call audit helper `0x14036A3F0` with operation 2.
-9. On helper success, task calls unlink helper `0x1403E3B40`. It clears both PCs' trade links, releases those trade references, copies participant states to trade +136/+248, sets states +40/+152 to 0, and clears PC pointers +32/+144.
+9. On helper success, task calls unlink helper `0x1403E3B40` (build 381.8867). For each stored PC, it clears the current non-null trade link and releases that reference. It does not require the link to equal this trade. It copies participant states to trade +136/+248, sets states +40/+152 to 0, and clears PC pointers +32/+144.
 
 No distance, dead-state, inventory-slot, money, cooldown or item-table check appears after task resolution.
 No item transfer, DB procedure or direct kick call appears in this recovered path.
@@ -286,7 +286,10 @@ It sets both states to 1 and sends command 338, literal format `hqQ`, to both PC
 Body: caller ID, constant 1 in the `Q` field.
 ❓ The width/encoding of uppercase `Q` needs decoder/composer proof. It is not lowercase `q`.
 
-The three operation helpers start with `0x1403E3CA0`.
+The three operation helpers start with `0x1403E3CA0` (build 381.8867).
+It requires caller.trade == trade, a stored inviter, a non-null inviter.trade, and a stored guest.
+It does not require inviter.trade == trade or guest.trade == trade.
+Thus, a guest can change an offer when the inviter points to another non-null trade.
 Its invariant failures assert/log and return false without their own packet.
 They then require caller membership (reason 924), equal participant zones (923), and caller state ==1 (925), in that order.
 All these operation failures send 323, `hh`, to caller only.

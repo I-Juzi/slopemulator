@@ -402,6 +402,18 @@ fn linked(state: &TradeState, caller: u64, trade_id: u64) -> Option<Trade> {
     has(trade.guest)?;
     Some(trade)
 }
+/// `0x1403E3CA0`: caller.trade == trade, inviter.trade non-null, guest present.
+/// Unlike automatic retract, suggestions do not require inviter.trade == trade.
+fn suggestion_linked(state: &TradeState, caller: u64, trade_id: u64) -> Option<Trade> {
+    let trade = state.trades.get(&trade_id)?.clone();
+    if state.players.get(&caller)?.trade != Some(trade_id)
+        || state.players.get(&trade.inviter)?.trade.is_none()
+    {
+        return None;
+    }
+    state.players.get(&trade.guest)?;
+    Some(trade)
+}
 fn member(trade: &Trade, caller: u64) -> Option<usize> {
     trade.ids().iter().position(|id| *id == caller)
 }
@@ -424,9 +436,7 @@ fn unlink(state: &mut TradeState, trade_id: u64, out: &mut Outcome) {
     if let Some(trade) = state.trades.remove(&trade_id) {
         for id in trade.ids() {
             if let Some(p) = state.players.get_mut(&id) {
-                if p.trade == Some(trade_id) {
-                    p.trade = None;
-                }
+                p.trade = None;
             }
         }
     }
@@ -696,7 +706,7 @@ fn suggestion(state: &mut TradeState, caller: u64, t: u64, kind: &TradeTaskKind)
     let mut out = Outcome::default();
     auto_retract(state, caller, t, &mut out);
     // `0x1403E3CA0` then membership 924, zone 923 (pointer compare), state 925.
-    let Some(trade) = linked(state, caller, t) else {
+    let Some(trade) = suggestion_linked(state, caller, t) else {
         out.logs.push("trade: link invariant failed");
         return out;
     };
