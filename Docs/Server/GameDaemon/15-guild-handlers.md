@@ -39,6 +39,7 @@ This file covers the 17 core guild commands: create, rename, destroy, info, memb
 | 12 | 513 Banish |
 | 13 | 480 Edit notice |
 | 17 | 434 Rename |
+| 18 | 557, 563, 567, 571, 575, 579, 584, 588, 592, 596 Join renewal (on the looked-up guild) |
 
 ### WSO operations posted here
 
@@ -456,6 +457,105 @@ Shared task attachment (431, 434) uses `0x14025DB30` (zone), `0x14069BF60` (PC c
   5. Count = 0 → 2. A record with slot 0 or amount 0 → 2.
 - **Output:** Task (+144 = 1, +148 flag, +150 count, records from +152/+162) queues. No reply.
 
+## Guild join-renewal group (557–600): shared facts
+
+- **Source:** GameDaemon 381.8867, `ida/delegate/gamed/GameDaemon.exe`. All logs start with `[guild-join-renewal], HandleGame_<Name>Req`.
+- **Renewal gate (J):** Config byte `qword_140EE58A0 + 2041` = 0 → reply 2 ("guild join renewal is disabled"). All 13 handlers test it first. Rust: `GuildConfig::join_renewal` (also used by 509).
+- **Arena:** 557 and 560 use form A. All others use form B. Both → 5.
+- **Cooldown (K):** `GetTickCount64() - base < PC +20880 + 1000 × config dword +2044` → reject ("too frequent request"). 563 → 1624. 579 and 583 → 1644. Only 563 and 579 write PC +20880, and only after the task queues. Rust: `GuildConfig::join_request_cooldown_secs`, `Pc::join_request_tick`, `World::tick`.
+- **Row 18:** Action row 18 must be enabled for the type of the looked-up guild (+16 normal, +17 open). Otherwise → 2 ("guild action disabled").
+- **Ticket task (T):** `new(0xB0)`, ctor `0x14036D550`, init `0x140297680(task, zone, PC, op, a, b, c)`, queue `0x140603BD0`. Allocation failure, zone (PC +2224) null and init failure all → 2. ❓ The body of `0x140297680` and the task's later replies are not read.
+- **Ticket manager:** World +6392, a map under an SRW lock (+48). Key = guild ID (557) or PC DB ID (560). Entry +368 count, +32 ticket pointers, +376 list timestamp, lock +392. Ticket getters `0x140113160` (q), `0x140113240` (q), `0x140113320` (h type), `0x140113400` (h), `0x140113680` (q expiry). 557/560 skip expired tickets and types 4 and 9.
+
+| Cmd | Op | a | b | c | Guild rule | Reply |
+| --- | --- | --- | --- | --- | --- | --- |
+| 563 Send application | 1 | PC DB ID | PC DB ID | guild found by name | PC has no guild (else 1626) | 565 |
+| 567 Cancel application | 2 | PC DB ID | PC DB ID | `q` guild ID | PC has no guild | 569 |
+| 571 Reject application | 3 | PC DB ID | `q` PC DB ID | own guild | PC has a guild | 573 |
+| 575 Accept application | 4 | PC DB ID | `q` | own guild | PC has a guild | 577 |
+| 579 Send invitation | 5 | PC DB ID | `q` | own guild | PC has a guild | 581 |
+| 584 Cancel invitation | 6 | PC DB ID | `q` | own guild | PC has a guild | 586 |
+| 588 Reject invitation | 7 | PC DB ID | PC DB ID | `q` guild ID | none | 590 |
+| 592 Accept invitation | 8 | PC DB ID | PC DB ID | `q` guild ID | PC has no guild | 594 |
+
+## 557 — G_RetrieveGuildJoinTicketListPerGuildReqCmd — partial
+
+- **381:** `0x1403B0450`. **Wire:** `hq` (list timestamp).
+- **Checks/order (reply 559):** J → 2. Arena form A → 5. No guild → 2. Decode fails → 2. Lookup `0x1403FA7D0` fails → 2. Row 18 off → 2. Permission `0x1400FCD00(guild, DB ID, 5)` and `(…, 17)` both false → 2.
+- **Output:** Command 558, format `hiqCqqhhq;` (`aHiqcqqhhq`). Records = (q, q, h type, h, q expiry). If the request timestamp equals the entry +376, the list is empty. A compose failure → 559 reason 2.
+- **❓ Missing:** The leading `i` value (`sub_140017510(&p, 1, stamp, v33)`). Rust stops at a boundary after the gates.
+
+## 560 — G_RetrieveGuildJoinTicketListPerPcReqCmd — partial
+
+- **381:** `0x1403B0DB0`. **Wire:** `h` (no body).
+- **Checks/order (reply 562):** J → 2. Arena form A → 5. PC has a guild → 2. PC DB ID 0 → empty list.
+- **Output:** Command 561, format `hiCqqhhq;`, keyed by PC DB ID.
+- **❓ Missing:** As 557. Rust stops at a boundary.
+
+## 563 — G_SendGuildApplicationReqCmd — partial
+
+- **381:** `0x1403B13F0`. **Wire:** `hs` (guild name).
+- **Checks/order (reply 565):**
+  1. J → 2. Arena form B → 5.
+  2. K → 1624.
+  3. PC has a guild → 1626 ("already joined").
+  4. Decode fails → 2. Name empty → 2.
+  5. Lookup by name `0x1403FA8E0` (World +5824) fails → 2.
+  6. Guild +32417 ≠ PC +328 → 1625 ("faction mismatch").
+  7. Guild type (+32416) = 2 → 1623 ("guild type is open").
+  8. Row 18 off → 2.
+  9. T (op 1, c = guild +32408) fails → 2.
+- **Output:** Task queues. PC +20880 = now. No reply.
+
+## 567 — G_CancelGuildApplicationReqCmd — partial
+
+- **381:** `0x1403B1990`. **Wire:** `hq`.
+- **Checks/order (reply 569):** J → 2. Arena B → 5. PC has a guild → 2. Decode fails → 2. `q` = 0 → 2. Lookup of guild `q` fails → 2. Row 18 off → 2. T (op 2) fails → 2.
+
+## 571 — G_RejectGuildApplicationReqCmd — partial
+
+- **381:** `0x1403B1DE0`. **Wire:** `hq` (applicant DB ID).
+- **Checks/order (reply 573):** J → 2. Arena B → 5. No guild → 2. Decode fails → 2. `q` = 0 → 2. Own guild lookup fails → 2. Row 18 off → 2. T (op 3) fails → 2.
+
+## 575 — G_AcceptGuildApplicationReqCmd — partial
+
+- **381:** `0x1403B2240`. As 571, reply 577, op 4.
+
+## 579 — G_SendGuildInvitationReqCmd — partial
+
+- **381:** `0x1403B26A0`. **Wire:** `hq` (target DB ID).
+- **Checks/order (reply 581):** J → 2. Arena B → 5. K → 1644. Then as 571 with op 5. Success writes PC +20880.
+
+## 583 — G_SendGuildInvitation2ReqCmd — done
+
+- **381:** `0x1403B2B70`. **Wire:** `hsq`. The reply command is **581**, not 585.
+- **Checks/order:** J → 2. Arena B → 5. K → 1644. No guild → 2. Decode fails → 2 ("packet decompose failed"). Decode succeeds → 2 ("invalid parameter").
+- **Output:** Build 381 rejects every request. No task.
+
+## 584 — G_CancelGuildInvitationReqCmd — partial
+
+- **381:** `0x1403B31B0`. As 571, reply 586, op 6.
+
+## 588 — G_RejectGuildInvitationReqCmd — partial
+
+- **381:** `0x1403B3610`. As 567 without the guild check, reply 590, op 7.
+
+## 592 — G_AcceptGuildInvitationReqCmd — partial
+
+- **381:** `0x1403B3A40`. As 567, reply 594, op 8.
+
+## 596 — G_UpdateGuildApplicationRefusalReqCmd — done
+
+- **381:** `0x1403B3E90`. **Wire:** `hq` (value; 1 = refuse).
+- **Checks/order (reply 598):** J → 2. Arena B → 5. Decode fails → 2. No guild → 2. Lookup fails → 2. Row 18 off → 2. `(q == 1)` = guild byte +32784 → 2 ("already updated"). Zone null → 2. PC kind (+46) ≠ 1 → 2.
+- **Output:** Task `new(0xE8)`, +68 = 326, vtable `off_140BB6DA8`: +144 guild ID, +152 DB ID, +160 PC name (PC +194, 33 units), +226 byte `q`. It queues. No reply.
+
+## 600 — G_UpdateGuildInvitationRefusalReqCmd — done
+
+- **381:** `0x1403B4410`. **Wire:** `hq`.
+- **Checks/order (reply 602):** J → 2. Arena B → 5. Decode fails → 2. `(PC +890 & 2 ≠ 0)` = `(q == 1)` → 2 ("already set"). Zone null → 2. PC kind ≠ 1 → 2.
+- **Output:** Task `new(0xA0)`, +68 = 327, vtable `off_140C408C0`: +144 DB ID, +152 byte `q`. It queues. No reply.
+
 ## Status
 
 | Id | State |
@@ -497,3 +597,16 @@ Shared task attachment (431, 434) uses `0x14025DB30` (zone), `0x14069BF60` (PC c
 | 511 | partial |
 | 513 | partial |
 | 515 | partial |
+| 557 | partial |
+| 560 | partial |
+| 563 | partial |
+| 567 | partial |
+| 571 | partial |
+| 575 | partial |
+| 579 | partial |
+| 583 | done |
+| 584 | partial |
+| 588 | partial |
+| 592 | partial |
+| 596 | done |
+| 600 | done |

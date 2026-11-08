@@ -46,6 +46,8 @@ impl H {
                 rename_in_progress: false,
                 leader_db_id: DB_ID,
                 craft_active: true,
+                faction: 1,
+                application_refusal: false,
             },
         );
         world.guild.guilds.insert(
@@ -56,6 +58,8 @@ impl H {
                 rename_in_progress: false,
                 leader_db_id: DB_ID,
                 craft_active: true,
+                faction: 1,
+                application_refusal: false,
             },
         );
         for row in [1, 2, 3, 4, 5, 6, 7, 8, 9, 11, 12, 13, 17] {
@@ -861,4 +865,157 @@ fn uniform_helper_handlers() {
     assert!(h.run(473, &[q(1), q(2)].concat()).replies.is_empty());
     assert_eq!(h.services.guild.uniform_ops.last(), Some(&(473, 1, 2)));
     assert_eq!(reason(&h.run(473, &q(1))), Some((474, 1553)));
+}
+
+fn unsupported(out: &Outcome) -> bool {
+    matches!(out.status, Status::Unsupported(_))
+}
+fn ticket(h: &H) -> (u8, u64, u64, u64) {
+    match last_task(h) {
+        GuildTaskKind::JoinTicket { op, a, b, c } => (*op, *a, *b, *c),
+        other => panic!("not a join ticket: {other:?}"),
+    }
+}
+fn jr() -> H {
+    let mut h = H::new();
+    h.world.guild.config.join_renewal = true;
+    h.world.guild.config.join_request_cooldown_secs = 10;
+    h.world.tick = 100_000;
+    h.world.guild.actions.insert(
+        18,
+        GuildActionRow {
+            normal: true,
+            open: false,
+        },
+    );
+    h
+}
+
+#[test]
+fn join_ticket_lists() {
+    let mut h = jr();
+    h.services.guild.permission = Some(false);
+    assert_eq!(reason(&h.run(557, &q(0))), Some((559, 2)));
+    h.services.guild.permission = Some(true);
+    assert!(unsupported(&h.run(557, &q(0))));
+    assert_eq!(reason(&h.run(557, &[])), Some((559, 2)));
+    h.pc().guild_id = OPEN; // row 18 off for open guilds
+    assert_eq!(reason(&h.run(557, &q(0))), Some((559, 2)));
+    h.pc().guild_id = 0;
+    assert_eq!(reason(&h.run(557, &q(0))), Some((559, 2)));
+    assert!(unsupported(&h.run(560, &[])));
+    h.pc().guild_id = GUILD;
+    assert_eq!(reason(&h.run(560, &[])), Some((562, 2)));
+    h.world.arena = true;
+    assert_eq!(reason(&h.run(557, &q(0))), Some((559, 5)));
+    assert_eq!(reason(&h.run(560, &[])), Some((562, 5)));
+    h.world.guild.config.join_renewal = false;
+    assert_eq!(reason(&h.run(557, &q(0))), Some((559, 2)));
+    assert_eq!(reason(&h.run(560, &[])), Some((562, 2)));
+}
+
+#[test]
+fn send_guild_application() {
+    let mut h = jr();
+    h.pc().guild_id = 0;
+    let body = s("[Old]Guild");
+    assert!(h.run(563, &body).replies.is_empty());
+    assert_eq!(ticket(&h), (1, DB_ID, DB_ID, GUILD));
+    assert_eq!(h.pc().join_request_tick, 100_000);
+    assert_eq!(reason(&h.run(563, &body)), Some((565, 1624)));
+    h.world.tick = 110_000;
+    h.pc().faction = 2;
+    assert_eq!(reason(&h.run(563, &body)), Some((565, 1625)));
+    h.pc().faction = 1;
+    assert_eq!(reason(&h.run(563, &s("Open"))), Some((565, 1623)));
+    assert_eq!(reason(&h.run(563, &s("Nobody"))), Some((565, 2)));
+    assert_eq!(reason(&h.run(563, &s(""))), Some((565, 2)));
+    h.services.guild.queue_result = Gate::Fail;
+    assert_eq!(reason(&h.run(563, &body)), Some((565, 2)));
+    assert_eq!(h.pc().join_request_tick, 100_000);
+    h.pc().guild_id = GUILD;
+    assert_eq!(reason(&h.run(563, &body)), Some((565, 1626)));
+}
+
+#[test]
+fn application_and_invitation_tickets() {
+    // (command, reply, op, needs guild)
+    for (cmd, rep, op) in [
+        (571u16, 573u16, 3u8),
+        (575, 577, 4),
+        (579, 581, 5),
+        (584, 586, 6),
+    ] {
+        let mut h = jr();
+        assert!(h.run(cmd, &q(0x99)).replies.is_empty());
+        assert_eq!(ticket(&h), (op, DB_ID, 0x99, GUILD));
+        h.world.tick += 20_000;
+        assert_eq!(reason(&h.run(cmd, &q(0))), Some((rep, 2)));
+        h.pc().guild_id = 0;
+        assert_eq!(reason(&h.run(cmd, &q(0x99))), Some((rep, 2)));
+    }
+    let mut h = jr();
+    assert!(h.run(579, &q(0x99)).replies.is_empty());
+    assert_eq!(reason(&h.run(579, &q(0x99))), Some((581, 1644)));
+    assert_eq!(reason(&h.run(583, &[])), Some((581, 1644)));
+    h.world.tick += 20_000;
+    assert_eq!(
+        reason(&h.run(583, &[s("x"), q(1)].concat())),
+        Some((581, 2))
+    );
+    for (cmd, rep, op, guildless) in [
+        (567u16, 569u16, 2u8, true),
+        (588, 590, 7, false),
+        (592, 594, 8, true),
+    ] {
+        let mut h = jr();
+        h.pc().guild_id = 0;
+        assert!(h.run(cmd, &q(GUILD)).replies.is_empty());
+        assert_eq!(ticket(&h), (op, DB_ID, DB_ID, GUILD));
+        assert_eq!(reason(&h.run(cmd, &q(OPEN))), Some((rep, 2)));
+        assert_eq!(reason(&h.run(cmd, &q(0))), Some((rep, 2)));
+        h.pc().guild_id = GUILD;
+        let out = h.run(cmd, &q(GUILD));
+        assert_eq!(out.replies.is_empty(), !guildless);
+        h.pc().zone = None;
+        h.pc().guild_id = 0;
+        assert_eq!(reason(&h.run(cmd, &q(GUILD))), Some((rep, 2)));
+        h.world.arena = true;
+        assert_eq!(reason(&h.run(cmd, &q(GUILD))), Some((rep, 5)));
+    }
+}
+
+#[test]
+fn refusal_flags() {
+    let mut h = jr();
+    h.pc().native_kind = 1;
+    h.pc().name = name("Me");
+    assert!(h.run(596, &q(1)).replies.is_empty());
+    assert_eq!(
+        last_task(&h),
+        &GuildTaskKind::ApplicationRefusal {
+            db_id: DB_ID,
+            name: name("Me"),
+            value: 1
+        }
+    );
+    assert_eq!(reason(&h.run(596, &q(0))), Some((598, 2)));
+    assert_eq!(reason(&h.run(596, &[])), Some((598, 2)));
+    h.pc().native_kind = 0;
+    assert_eq!(reason(&h.run(596, &q(1))), Some((598, 2)));
+    h.pc().native_kind = 1;
+    assert!(h.run(600, &q(1)).replies.is_empty());
+    assert_eq!(
+        last_task(&h),
+        &GuildTaskKind::InvitationRefusal {
+            db_id: DB_ID,
+            value: 1
+        }
+    );
+    h.pc().guild_invitation_refusal = true;
+    assert_eq!(reason(&h.run(600, &q(1))), Some((602, 2)));
+    assert!(h.run(600, &q(0)).replies.is_empty());
+    h.world.arena = true;
+    assert_eq!(reason(&h.run(596, &q(1))), Some((598, 5)));
+    assert_eq!(reason(&h.run(600, &q(1))), Some((602, 5)));
 }

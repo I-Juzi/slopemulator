@@ -251,6 +251,10 @@ pub struct Pc {
     pub user_present: bool,
     /// PC byte +344 ≠ 0 (461 → 1600, log "invalid activated faction"). ❓ Meaning not proven.
     pub uniform_faction_blocked: bool,
+    /// PC +20880: tick of the last accepted 563/579 request.
+    pub join_request_tick: u64,
+    /// PC +890 bit 1: guild invitation refusal.
+    pub guild_invitation_refusal: bool,
 }
 impl Default for Pc {
     fn default() -> Self {
@@ -294,6 +298,8 @@ impl Default for Pc {
             t2_blocked: false,
             user_present: false,
             uniform_faction_blocked: false,
+            join_request_tick: 0,
+            guild_invitation_refusal: false,
         }
     }
 }
@@ -509,6 +515,10 @@ pub trait Services {
     ) -> Option<u16> {
         None
     }
+    /// `0x1400FCD00(guild, db_id, bit)`: the member holds the permission.
+    fn guild_permission(&mut self, _guild_id: u64, _db_id: u64, _bit: u8) -> Option<bool> {
+        None
+    }
     fn queue(&mut self, command: u16) -> Gate;
     fn logout(&mut self) -> Gate;
     fn available_channel(&mut self, channel: i16) -> Gate;
@@ -555,6 +565,7 @@ pub struct MemoryGuild {
     pub uniform_op_result: Option<u16>,
     pub uniform_contracts: Vec<GuildUniformContract>,
     pub uniform_ops: Vec<(u16, u64, u64)>,
+    pub permission: Option<bool>,
     pub posted: Vec<GuildWork>,
     pub tasks: Vec<GuildTask>,
 }
@@ -578,6 +589,7 @@ impl Default for MemoryGuild {
             uniform_op_result: None,
             uniform_contracts: vec![],
             uniform_ops: vec![],
+            permission: None,
             contracts: vec![],
             posted: vec![],
             tasks: vec![],
@@ -652,6 +664,9 @@ impl Services for MemoryServices {
     fn guild_uniform_contract(&mut self, contract: &GuildUniformContract) -> Option<u16> {
         self.guild.uniform_contracts.push(contract.clone());
         self.guild.uniform_contract_result
+    }
+    fn guild_permission(&mut self, _: u64, _: u64, _: u8) -> Option<bool> {
+        self.guild.permission
     }
     fn guild_uniform_op(&mut self, command: u16, _: u64, _: &Pc, a: u64, b: u64) -> Option<u16> {
         self.guild.uniform_ops.push((command, a, b));

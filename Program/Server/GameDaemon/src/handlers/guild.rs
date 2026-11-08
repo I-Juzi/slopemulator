@@ -5,7 +5,8 @@ use super::*;
 
 pub const GUILD_COMMANDS: &[u16] = &[
     431, 434, 437, 440, 443, 445, 447, 449, 451, 453, 455, 457, 459, 461, 463, 465, 467, 469, 471,
-    473, 475, 477, 480, 483, 486, 489, 491, 494, 499, 501, 503, 506, 508, 509, 511, 513, 515,
+    473, 475, 477, 480, 483, 486, 489, 491, 494, 499, 501, 503, 506, 508, 509, 511, 513, 515, 557,
+    560, 563, 567, 571, 575, 579, 583, 584, 588, 592, 596, 600,
 ];
 
 /// Server config read by the guild handlers (`qword_140EE58A0`, World +6208).
@@ -39,6 +40,8 @@ pub struct GuildConfig {
     pub permission_limits: [[u32; 4]; 2],
     /// `qword_140EE58A0 + 152`: guild uniform is in use (0 → reply 1568).
     pub uniform_enabled: bool,
+    /// Config +2044 dword: seconds between 563/579/583 requests.
+    pub join_request_cooldown_secs: u32,
 }
 /// Guild +32416 type, +32418 name, +32771 rename-in-progress.
 #[derive(Clone, Debug, Default)]
@@ -50,6 +53,10 @@ pub struct Guild {
     pub leader_db_id: u64,
     /// A guild craft object exists (`0x140105E30` under lock +34456).
     pub craft_active: bool,
+    /// Guild +32417 faction byte (563 compares it with PC +328).
+    pub faction: i8,
+    /// Guild +32784 byte: guild refuses applications.
+    pub application_refusal: bool,
 }
 /// Guild action table row: byte +16 (normal guild) and +17 (open guild).
 #[derive(Clone, Copy, Debug, Default)]
@@ -174,6 +181,17 @@ pub enum GuildTaskKind {
     UniformDonate { value: u64, items: Vec<(u16, u16)> },
     /// 475 task (`0x14053FE40`): +148 flag, records.
     UniformQuota { flag: u8, items: Vec<(u16, u16)> },
+    /// Join-ticket task (`0x14036D550`, size 0xB0) set up by `0x140297680`
+    /// with an op code and three values. ❓ Init body and its results unread.
+    JoinTicket { op: u8, a: u64, b: u64, c: u64 },
+    /// 596 task (+68 = 326, size 0xE8): +152 DB ID, +160 name, +226 raw value.
+    ApplicationRefusal {
+        db_id: u64,
+        name: Vec<u16>,
+        value: u64,
+    },
+    /// 600 task (+68 = 327, size 0xA0): +144 DB ID, +152 raw value.
+    InvitationRefusal { db_id: u64, value: u64 },
 }
 /// 461 decoded request. ❓ The helper outputs (Destination +148…) are not read.
 #[derive(Clone, Debug, PartialEq, Eq)]
@@ -249,6 +267,19 @@ pub(super) fn dispatch_guild(ctx: &mut Context<'_>, command: u16, req: &[u8]) ->
         511 => handle_leave_guild(ctx, req),
         513 => handle_banish_guild_member(ctx, req),
         515 => handle_query_guild_info(ctx, req),
+        557 => handle_retrieve_guild_join_ticket_list_per_guild(ctx, req),
+        560 => handle_retrieve_guild_join_ticket_list_per_pc(ctx, req),
+        563 => handle_send_guild_application(ctx, req),
+        567 => handle_cancel_guild_application(ctx, req),
+        571 => handle_reject_guild_application(ctx, req),
+        575 => handle_accept_guild_application(ctx, req),
+        579 => handle_send_guild_invitation(ctx, req),
+        583 => handle_send_guild_invitation2(ctx, req),
+        584 => handle_cancel_guild_invitation(ctx, req),
+        588 => handle_reject_guild_invitation(ctx, req),
+        592 => handle_accept_guild_invitation(ctx, req),
+        596 => handle_update_guild_application_refusal(ctx, req),
+        600 => handle_update_guild_invitation_refusal(ctx, req),
         _ => unreachable!("guild command table"),
     }
 }
@@ -1447,6 +1478,324 @@ pub fn handle_increase_uniform_registration_quota(ctx: &mut Context<'_>, req: &[
         zone,
         guild_id: pc.guild_id,
         kind: GuildTaskKind::UniformQuota { flag, items },
+    };
+    queue_shared(ctx, task, R)
+}
+
+/// Join-renewal row 18 on the looked-up guild.
+const JOIN_ROW: u32 = 18;
+fn trimmed(name: &[u16]) -> &[u16] {
+    let end = name.iter().position(|u| *u == 0).unwrap_or(name.len());
+    &name[..end]
+}
+/// Config +2044 seconds × 1000 against PC +20880. Some(now) when allowed.
+fn join_cooldown(ctx: &Context<'_>) -> Option<u64> {
+    let now = ctx.world.tick;
+    let wait = u64::from(ctx.world.guild.config.join_request_cooldown_secs) * 1000;
+    (ctx.pc().join_request_tick + wait <= now).then_some(now)
+}
+fn row18(ctx: &Context<'_>, id: u64) -> bool {
+    ctx.world
+        .guild
+        .guilds
+        .get(&id)
+        .is_some_and(|g| ctx.world.guild.action_enabled(g, JOIN_ROW))
+}
+/// Queue a join-ticket task. `stamp` = new PC +20880 on success (563, 579).
+fn ticket_task(
+    ctx: &mut Context<'_>,
+    reply: u16,
+    op: u8,
+    abc: (u64, u64, u64),
+    stamp: Option<u64>,
+) -> Outcome {
+    let pc = ctx.pc().clone();
+    let Some(zone) = pc.zone else {
+        return Outcome::reason(reply, 2);
+    };
+    let task = GuildTask {
+        command: reply - 2,
+        caster: pc.object_id,
+        zone,
+        guild_id: pc.guild_id,
+        kind: GuildTaskKind::JoinTicket {
+            op,
+            a: abc.0,
+            b: abc.1,
+            c: abc.2,
+        },
+    };
+    let out = queue_shared(ctx, task, reply);
+    if let (Some(now), Some(StateChange::Queued(_))) = (stamp, out.changes.first()) {
+        if let Some(pc) = ctx.session.pc.as_mut() {
+            pc.join_request_tick = now;
+        }
+    }
+    out
+}
+
+/// parity: 557 15-guild-handlers.md#557--g_retrieveguildjointicketlistperguildreqcmd--partial partial
+pub fn handle_retrieve_guild_join_ticket_list_per_guild(
+    ctx: &mut Context<'_>,
+    req: &[u8],
+) -> Outcome {
+    // ❓ 558 `hiqCqqhhq;` leading `i` field is not read; the list is not composed.
+    const R: u16 = 559;
+    if !ctx.world.guild.config.join_renewal {
+        return Outcome::reason(R, 2);
+    }
+    if arena_a(ctx) {
+        return Outcome::reason(R, 5);
+    }
+    let id = guild_id(ctx.pc());
+    if id == 0 || Reader(req).quad().is_none() || !row18(ctx, id) {
+        return Outcome::reason(R, 2);
+    }
+    let db_id = ctx.pc().db_id;
+    for bit in [5, 17] {
+        match ctx.services.guild_permission(id, db_id, bit) {
+            None => return boundary("❓ guild permission helper 0x1400FCD00"),
+            Some(true) => return boundary("❓ 558 join ticket list compose"),
+            Some(false) => {}
+        }
+    }
+    Outcome::reason(R, 2)
+}
+
+/// parity: 560 15-guild-handlers.md#560--g_retrieveguildjointicketlistperpcreqcmd--partial partial
+pub fn handle_retrieve_guild_join_ticket_list_per_pc(ctx: &mut Context<'_>, _: &[u8]) -> Outcome {
+    // ❓ 561 `hiCqqhhq;` leading `i` field is not read; the list is not composed.
+    const R: u16 = 562;
+    if !ctx.world.guild.config.join_renewal {
+        return Outcome::reason(R, 2);
+    }
+    if arena_a(ctx) {
+        return Outcome::reason(R, 5);
+    }
+    if guild_id(ctx.pc()) != 0 {
+        return Outcome::reason(R, 2);
+    }
+    boundary("❓ 561 join ticket list compose")
+}
+
+/// parity: 563 15-guild-handlers.md#563--g_sendguildapplicationreqcmd--partial partial
+pub fn handle_send_guild_application(ctx: &mut Context<'_>, req: &[u8]) -> Outcome {
+    const R: u16 = 565;
+    if !ctx.world.guild.config.join_renewal {
+        return Outcome::reason(R, 2);
+    }
+    if arena_b(ctx) {
+        return Outcome::reason(R, 5);
+    }
+    let Some(now) = join_cooldown(ctx) else {
+        return Outcome::reason(R, 1624);
+    };
+    if guild_id(ctx.pc()) != 0 {
+        return Outcome::reason(R, 1626);
+    }
+    let Some(name) = Reader(req).string(NAME_UNITS) else {
+        return Outcome::reason(R, 2);
+    };
+    if !nonempty(&name) {
+        return Outcome::reason(R, 2);
+    }
+    let found = ctx
+        .world
+        .guild
+        .guilds
+        .iter()
+        .find(|(_, g)| trimmed(&g.name) == trimmed(&name));
+    let Some((&id, guild)) = found else {
+        return Outcome::reason(R, 2);
+    };
+    if guild.faction != ctx.pc().faction {
+        return Outcome::reason(R, 1625);
+    }
+    if guild.guild_type == 2 {
+        return Outcome::reason(R, 1623);
+    }
+    if !row18(ctx, id) {
+        return Outcome::reason(R, 2);
+    }
+    let db_id = ctx.pc().db_id;
+    ticket_task(ctx, R, 1, (db_id, db_id, id), Some(now))
+}
+
+/// Shared shape of 567, 588 and 592: (q) names a guild; values (dbid, dbid, q).
+fn pc_side_ticket(
+    ctx: &mut Context<'_>,
+    reply: u16,
+    op: u8,
+    guildless: bool,
+    req: &[u8],
+) -> Outcome {
+    if !ctx.world.guild.config.join_renewal {
+        return Outcome::reason(reply, 2);
+    }
+    if arena_b(ctx) {
+        return Outcome::reason(reply, 5);
+    }
+    if guildless && guild_id(ctx.pc()) != 0 {
+        return Outcome::reason(reply, 2);
+    }
+    let target = Reader(req).quad().unwrap_or(0);
+    if target == 0 || !row18(ctx, target) {
+        return Outcome::reason(reply, 2);
+    }
+    let db_id = ctx.pc().db_id;
+    ticket_task(ctx, reply, op, (db_id, db_id, target), None)
+}
+
+/// Shared shape of 571, 575, 579 and 584: (q) names a PC DB ID; values
+/// (dbid, q, own guild).
+fn guild_side_ticket(
+    ctx: &mut Context<'_>,
+    reply: u16,
+    op: u8,
+    req: &[u8],
+    cooldown: Option<u16>,
+) -> Outcome {
+    if !ctx.world.guild.config.join_renewal {
+        return Outcome::reason(reply, 2);
+    }
+    if arena_b(ctx) {
+        return Outcome::reason(reply, 5);
+    }
+    let mut stamp = None;
+    if let Some(reason) = cooldown {
+        let Some(now) = join_cooldown(ctx) else {
+            return Outcome::reason(reply, reason);
+        };
+        stamp = Some(now);
+    }
+    let id = guild_id(ctx.pc());
+    if id == 0 {
+        return Outcome::reason(reply, 2);
+    }
+    let target = Reader(req).quad().unwrap_or(0);
+    if target == 0 || !row18(ctx, id) {
+        return Outcome::reason(reply, 2);
+    }
+    let db_id = ctx.pc().db_id;
+    ticket_task(ctx, reply, op, (db_id, target, id), stamp)
+}
+
+/// parity: 567 15-guild-handlers.md#567--g_cancelguildapplicationreqcmd--partial partial
+pub fn handle_cancel_guild_application(ctx: &mut Context<'_>, req: &[u8]) -> Outcome {
+    pc_side_ticket(ctx, 569, 2, true, req)
+}
+/// parity: 571 15-guild-handlers.md#571--g_rejectguildapplicationreqcmd--partial partial
+pub fn handle_reject_guild_application(ctx: &mut Context<'_>, req: &[u8]) -> Outcome {
+    guild_side_ticket(ctx, 573, 3, req, None)
+}
+/// parity: 575 15-guild-handlers.md#575--g_acceptguildapplicationreqcmd--partial partial
+pub fn handle_accept_guild_application(ctx: &mut Context<'_>, req: &[u8]) -> Outcome {
+    guild_side_ticket(ctx, 577, 4, req, None)
+}
+/// parity: 579 15-guild-handlers.md#579--g_sendguildinvitationreqcmd--partial partial
+pub fn handle_send_guild_invitation(ctx: &mut Context<'_>, req: &[u8]) -> Outcome {
+    guild_side_ticket(ctx, 581, 5, req, Some(1644))
+}
+
+/// parity: 583 15-guild-handlers.md#583--g_sendguildinvitation2reqcmd--done ported
+pub fn handle_send_guild_invitation2(ctx: &mut Context<'_>, _: &[u8]) -> Outcome {
+    // Build 381 rejects every path; the reply goes to 581 (not 585).
+    const R: u16 = 581;
+    if ctx.world.guild.config.join_renewal && arena_b(ctx) {
+        return Outcome::reason(R, 5);
+    }
+    if ctx.world.guild.config.join_renewal && join_cooldown(ctx).is_none() {
+        return Outcome::reason(R, 1644);
+    }
+    Outcome::reason(R, 2)
+}
+
+/// parity: 584 15-guild-handlers.md#584--g_cancelguildinvitationreqcmd--partial partial
+pub fn handle_cancel_guild_invitation(ctx: &mut Context<'_>, req: &[u8]) -> Outcome {
+    guild_side_ticket(ctx, 586, 6, req, None)
+}
+/// parity: 588 15-guild-handlers.md#588--g_rejectguildinvitationreqcmd--partial partial
+pub fn handle_reject_guild_invitation(ctx: &mut Context<'_>, req: &[u8]) -> Outcome {
+    pc_side_ticket(ctx, 590, 7, false, req)
+}
+/// parity: 592 15-guild-handlers.md#592--g_acceptguildinvitationreqcmd--partial partial
+pub fn handle_accept_guild_invitation(ctx: &mut Context<'_>, req: &[u8]) -> Outcome {
+    pc_side_ticket(ctx, 594, 8, true, req)
+}
+
+/// parity: 596 15-guild-handlers.md#596--g_updateguildapplicationrefusalreqcmd--done ported
+pub fn handle_update_guild_application_refusal(ctx: &mut Context<'_>, req: &[u8]) -> Outcome {
+    const R: u16 = 598;
+    if !ctx.world.guild.config.join_renewal {
+        return Outcome::reason(R, 2);
+    }
+    if arena_b(ctx) {
+        return Outcome::reason(R, 5);
+    }
+    let Some(value) = Reader(req).quad() else {
+        return Outcome::reason(R, 2);
+    };
+    let id = guild_id(ctx.pc());
+    if id == 0 || !row18(ctx, id) {
+        return Outcome::reason(R, 2);
+    }
+    if (value == 1) == ctx.world.guild.guilds[&id].application_refusal {
+        return Outcome::reason(R, 2);
+    }
+    let pc = ctx.pc().clone();
+    let Some(zone) = pc.zone else {
+        return Outcome::reason(R, 2);
+    };
+    if pc.native_kind != 1 {
+        return Outcome::reason(R, 2);
+    }
+    let mut name = pc.name.clone();
+    name.truncate(NAME_UNITS);
+    let task = GuildTask {
+        command: 596,
+        caster: pc.object_id,
+        zone,
+        guild_id: id,
+        kind: GuildTaskKind::ApplicationRefusal {
+            db_id: pc.db_id,
+            name,
+            value,
+        },
+    };
+    queue_shared(ctx, task, R)
+}
+
+/// parity: 600 15-guild-handlers.md#600--g_updateguildinvitationrefusalreqcmd--done ported
+pub fn handle_update_guild_invitation_refusal(ctx: &mut Context<'_>, req: &[u8]) -> Outcome {
+    const R: u16 = 602;
+    if !ctx.world.guild.config.join_renewal {
+        return Outcome::reason(R, 2);
+    }
+    if arena_b(ctx) {
+        return Outcome::reason(R, 5);
+    }
+    let Some(value) = Reader(req).quad() else {
+        return Outcome::reason(R, 2);
+    };
+    let pc = ctx.pc().clone();
+    if pc.guild_invitation_refusal == (value == 1) {
+        return Outcome::reason(R, 2);
+    }
+    let Some(zone) = pc.zone else {
+        return Outcome::reason(R, 2);
+    };
+    if pc.native_kind != 1 {
+        return Outcome::reason(R, 2);
+    }
+    let task = GuildTask {
+        command: 600,
+        caster: pc.object_id,
+        zone,
+        guild_id: pc.guild_id,
+        kind: GuildTaskKind::InvitationRefusal {
+            db_id: pc.db_id,
+            value,
+        },
     };
     queue_shared(ctx, task, R)
 }
