@@ -7,7 +7,7 @@
 | 1. Password protocol map | partial | `06-password-login.md`: command map `0x180028020`; dispatcher `0x180016D70` has no password handlers. PDB records establish API fields, not wire bodies. |
 | 2. Program/game binding | partial | Connect carries Program at `0x1800010F0`. ConsumeGameToken carries GameCode at `0x180001400`. ❓ Client GameCode carrier remains unknown. |
 | 3. State machine/accounts | partial | `Program/Platform/Sts/src/password.rs`: semantic records, pure states, verifier store and backend interface. Tests use generated accept/reject fixtures, not real password proofs. |
-| 4. Token authority/adapter | done | Local single-use tokens check portal/program/game binding and expiry. Tests cover replay, concurrent consumption and revocation. Feature `lobbyd-adapter` implements `lobbyd::np::Np`. |
+| 4. Token authority/adapter | done | Local single-use tokens check portal/program/game binding and expiry. Tests cover replay, concurrent consumption and revocation. Feature `np-adapter` implements `shared::np_channel::Np`. |
 | 5. TCP listener | not started | No verified login body schema or working audited password backend. |
 | 6. Tests and Clippy | done | Required workspace commands passed. STS feature checks also passed. |
 

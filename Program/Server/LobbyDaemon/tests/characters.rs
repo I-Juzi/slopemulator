@@ -1,3 +1,7 @@
+use bloodlib::{
+    fragments::FragmentReader,
+    packet::{decode_fields, Value},
+};
 use lobbydaemon::{
     character::{
         CharacterPolicy, CreateCharacter, CreatedCharacter, InternalState, ProcedureError,
@@ -7,10 +11,6 @@ use lobbydaemon::{
     np::{initial_name_reason, StubNp},
     protocol as w,
     store::{Account, MemoryStore, Store},
-};
-use bloodlib::{
-    fragments::FragmentReader,
-    packet::{decode_fields, Value},
 };
 use std::{sync::Arc, time::Duration};
 type Rig = Jobs<MemoryStore, StubNp>;

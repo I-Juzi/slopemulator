@@ -1,4 +1,11 @@
 //! Real in-process LobbyGate, real lobbyd listener, generated encrypted client.
+use bloodlib::{
+    crypto::RsaKey,
+    fragments::FragmentReader,
+    frames::{decode_client, encode_client, ClientDecrypt, ClientEncrypt},
+    packet::{compose, decode_fields, decompose, Value},
+    session::SessionPacketCrypt,
+};
 use lobbydaemon::{
     gamed::{ChargeMode, Eligibility, StubGameDaemon, WorldFixture},
     jobs::Settings,
@@ -6,13 +13,6 @@ use lobbydaemon::{
     protocol,
     store::{Account, Character, MemoryStore},
     Server as Lobby,
-};
-use bloodlib::{
-    crypto::RsaKey,
-    fragments::FragmentReader,
-    frames::{decode_client, encode_client, ClientDecrypt, ClientEncrypt},
-    packet::{compose, decode_fields, decompose, Value},
-    session::SessionPacketCrypt,
 };
 use lobbygate::{
     config::GateConfig,

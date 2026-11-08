@@ -4,10 +4,7 @@ use crate::{
     password::{Binding, LoginError},
     tokens::TokenAuthority,
 };
-use lobbydaemon::{
-    np::{Identity, Np, NpError, NpFuture},
-    store::AccountId,
-};
+use shared::np_channel::{AccountId, ChargeMode, GameFuture, Identity, Np, NpError, NpFuture};
 use std::{sync::Arc, time::Instant};
 
 pub struct AuthorityNp<N> {
@@ -52,11 +49,7 @@ impl<N: Np> Np for AuthorityNp<N> {
             })
         })
     }
-    fn create_initial_user_name(
-        &self,
-        account: AccountId,
-        name: Vec<u16>,
-    ) -> lobbydaemon::gamed::GameFuture<'_, ()> {
+    fn create_initial_user_name(&self, account: AccountId, name: Vec<u16>) -> GameFuture<'_, ()> {
         self.backend.create_initial_user_name(account, name)
     }
     fn login_presence(&self, account: AccountId, owner: u64) -> NpFuture<'_, ()> {
@@ -71,7 +64,7 @@ impl<N: Np> Np for AuthorityNp<N> {
         pcid: u64,
         slot: [u8; 16],
         ipv4: u32,
-    ) -> lobbydaemon::gamed::GameFuture<'_, lobbydaemon::gamed::ChargeMode> {
+    ) -> GameFuture<'_, ChargeMode> {
         self.backend.world_entry(account, pcid, slot, ipv4)
     }
     fn expire(&self) {

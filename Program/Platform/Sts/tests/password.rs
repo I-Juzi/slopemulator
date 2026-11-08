@@ -421,10 +421,10 @@ fn concurrent_consume_has_one_winner() {
         1
     );
 }
-#[cfg(feature = "lobbyd-adapter")]
+#[cfg(feature = "np-adapter")]
 #[test]
 fn adapter_consumes_once_without_fallback() {
-    use lobbydaemon::np::{Np, NpError, StubNp};
+    use shared::np_channel::{Np, NpError, StubNp};
     use std::{
         future::Future,
         task::{Context, Poll, Waker},
@@ -443,7 +443,7 @@ fn adapter_consumes_once_without_fallback() {
     f.authenticate();
     let token = f.token();
     let adapter =
-        sts::lobbyd_adapter::AuthorityNp::new(f.authority.clone(), binding(), StubNp::default())
+        sts::np_adapter::AuthorityNp::new(f.authority.clone(), binding(), StubNp::default())
             .unwrap();
     // Dropping an unpolled future must not consume the token.
     drop(adapter.consume(token, [1; 16]));

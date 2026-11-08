@@ -1,14 +1,14 @@
 //! Character lifecycle through the unchanged encrypted LobbyGate.
 #[path = "end_to_end.rs"]
 mod helpers;
+use bloodlib::{
+    packet::{compose, Value},
+    session::SessionPacketCrypt,
+};
 use helpers::{config, connect_client, keys, receive, send};
 use lobbydaemon::{
     character::CharacterPolicy, jobs::Settings, np::StubNp, protocol, store::MemoryStore,
     Server as Lobby,
-};
-use bloodlib::{
-    packet::{compose, Value},
-    session::SessionPacketCrypt,
 };
 use lobbygate::{
     daemon::TcpLobbyDaemon,

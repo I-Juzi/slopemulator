@@ -6,6 +6,7 @@ publish = false
 
 [dependencies]
 bloodlib = { path = "../BloodLib" }
+shared = { path = "../Shared" }
 tokio = { version = "1", features = ["rt-multi-thread", "net", "io-util", "sync", "time", "macros", "signal"] }
 
 tiberius = { version = "0.12", default-features = false, features = ["tds73", "rustls", "chrono"], optional = true }

@@ -2,7 +2,7 @@
 use std::{collections::HashMap, io};
 mod characters;
 
-pub type AccountId = [u8; 16];
+pub use shared::np_channel::AccountId;
 pub const RESULT_BLOB_CAPACITY: usize = 512;
 
 #[derive(Clone, Debug, PartialEq, Eq)]

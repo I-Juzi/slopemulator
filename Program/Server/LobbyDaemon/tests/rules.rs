@@ -1,12 +1,12 @@
+use bloodlib::{
+    fragments::FragmentReader,
+    packet::{decode_fields, Value},
+};
 use lobbydaemon::{
     jobs::{Jobs, Settings, State},
     np::{Np, NpError, StubNp},
     protocol as w,
     store::{Account, AccountId, Character, IncompleteService, MemoryStore, Store},
-};
-use bloodlib::{
-    fragments::FragmentReader,
-    packet::{decode_fields, Value},
 };
 use std::{io, time::Duration};
 

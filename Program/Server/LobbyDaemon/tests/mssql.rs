@@ -4,6 +4,7 @@
 #[path = "end_to_end.rs"]
 mod existing_gate;
 
+use bloodlib::packet::{compose, Value};
 use lobbydaemon::{
     gamed::{ChargeMode, Eligibility, StubGameDaemon, WorldFixture},
     jobs::{Jobs, Settings, State},
@@ -13,7 +14,6 @@ use lobbydaemon::{
     store::{Account, AccountExp, AccountId, ServiceDetail, ServiceKind, Store},
     Server,
 };
-use bloodlib::packet::{compose, Value};
 use lobbygate::{daemon::TcpLobbyDaemon, server::Server as Gate, wire::read_frame};
 use std::{net::Ipv4Addr, sync::Arc, time::Duration};
 use tiberius::{Client, Config, Row, ToSql, Uuid};

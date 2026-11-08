@@ -455,6 +455,7 @@ dependencies = [
  "num-bigint",
  "rand",
  "rsa",
+ "shared",
  "tiberius",
  "tokio",
  "tokio-util",
@@ -904,6 +905,13 @@ dependencies = [
 ]
 
 [[package]]
+name = "shared"
+version = "0.1.0"
+dependencies = [
+ "tokio",
+]
+
+[[package]]
 name = "shlex"
 version = "2.0.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -983,8 +991,8 @@ dependencies = [
 name = "sts"
 version = "0.1.0"
 dependencies = [
- "lobbydaemon",
  "rand",
+ "shared",
 ]
 
 [[package]]

@@ -1,8 +1,8 @@
 //! Bounded STS framing and a separate local password-login test profile.
 //! See `spec/sts/06-password-login.md`. No build-381 login compatibility claim.
-#[cfg(feature = "lobbyd-adapter")]
-pub mod lobbyd_adapter;
 pub mod messages;
+#[cfg(feature = "np-adapter")]
+pub mod np_adapter;
 pub mod password;
 pub mod tokens;
 

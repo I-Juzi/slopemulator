@@ -1,3 +1,4 @@
+use bloodlib::packet::Value;
 use lobbydaemon::{
     gamed::{ChargeMode, Eligibility, StubGameDaemon, WaitInfo, WorldFixture},
     jobs::{Jobs, Settings, State},
@@ -5,7 +6,6 @@ use lobbydaemon::{
     protocol as w,
     store::{Character, MemoryStore},
 };
-use bloodlib::packet::Value;
 use std::{sync::Arc, time::Duration};
 
 type Rig = Jobs<MemoryStore, StubNp>;

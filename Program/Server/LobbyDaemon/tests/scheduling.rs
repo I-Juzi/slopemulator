@@ -1,3 +1,4 @@
+use bloodlib::packet::Value;
 use lobbydaemon::{
     jobs::Settings,
     np::{Identity, Np, NpFuture, StubNp},
@@ -5,7 +6,6 @@ use lobbydaemon::{
     store::{AccountId, MemoryStore},
     Server,
 };
-use bloodlib::packet::Value;
 use std::{net::Ipv4Addr, sync::Arc, time::Duration};
 use tokio::{
     io::AsyncWriteExt,

@@ -2,13 +2,11 @@
 use crate::store::Character;
 use std::{
     collections::HashMap,
-    future::Future,
-    pin::Pin,
     sync::{Arc, Mutex},
     time::Duration,
 };
 
-pub type GameFuture<'a, T> = Pin<Box<dyn Future<Output = Result<T, i16>> + Send + 'a>>;
+pub use shared::np_channel::{ChargeMode, GameFuture};
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum Eligibility {
     Ready,
@@ -67,12 +65,6 @@ pub trait GameDaemon: Send + Sync + 'static {
         pcid: u64,
         charge: ChargeMode,
     ) -> GameFuture<'_, Admission>;
-}
-#[derive(Clone, Copy, Debug, PartialEq, Eq)]
-pub enum ChargeMode {
-    Paid,
-    Trial,
-    Free,
 }
 #[derive(Clone, Debug)]
 pub struct WorldFixture {
