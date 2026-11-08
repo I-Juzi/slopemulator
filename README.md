@@ -40,6 +40,46 @@ slopemulator/
 └── dist/bnsedit-v1/            BnsEdit v1 builds (Linux, Windows)
 ```
 
+## Server parity
+
+How much of each original NCSoft server binary is ported to Rust.
+The original binaries come from the `Service_348_8349` server set (not in this repository).
+**Ported %** = handlers implemented / handlers in the original dispatch tables.
+
+| Original binary | What it does | Rust crate | Build | Handlers ported | Ported % |
+| --- | --- | --- | --- | --- | --- |
+| `LobbyGate.exe` | Client entry gate: handshake, login, world list, relay to LobbyDaemon | `lobbygate` | 381 | 56 / 56 | `██████████` **100 %** |
+| `LobbyDaemon.exe` | Account sessions, character list, create / delete / restore, enter-world token | `lobbydaemon` | 307 | 18 / 118 | `█▌░░░░░░░░` **15 %** |
+| `GameDaemon.exe` | World server: movement, skills, items, party, guild, chat, quests, shop, post, market | `gamedaemon` | 381 | 72 / 1598 (+365 partial) | `▌░░░░░░░░░` **4.5 %** (27 % started) |
+| STS / NP login (`StsMsgSrv64.dll` peer) | Platform login: SRP-6a password login, RC4 session, game tokens | `sts` | 2020 client | 7 / 7 client commands | `██████████` **100 %** ❓ |
+| `CacheDaemon.exe` | Shared character / world data cache | — | — | 0 | `░░░░░░░░░░` 0 % |
+| `CacheGate.exe` | Gate in front of CacheDaemon | — | — | 0 | `░░░░░░░░░░` 0 % |
+| `InfoGateDaemon.exe` | Info gate for LobbyDaemon and GameDaemon | — | — | 0 | `░░░░░░░░░░` 0 % |
+| `AccountInventoryDaemon.exe` | Account-wide inventory (wardrobe, account storage) | — | — | 0 | `░░░░░░░░░░` 0 % |
+| `AchievementDaemon.exe` | Achievements | — | — | 0 | `░░░░░░░░░░` 0 % |
+| `ArenaLobby.exe` | Arena matchmaking lobby | — | — | 0 | `░░░░░░░░░░` 0 % |
+| `ArenaDaemon` | Arena match server | — | — | 0 | `░░░░░░░░░░` 0 % |
+| `DuelBotDaemon.exe` | Duel bot matches | — | — | 0 | `░░░░░░░░░░` 0 % |
+| `MarketDealerDaemon.exe` | Marketplace back end | — | — | 0 | `░░░░░░░░░░` 0 % |
+| `MarketAgent.exe` | Marketplace agent between GameDaemon and MarketDealerDaemon | — | — | 0 | `░░░░░░░░░░` 0 % |
+| `PostOfficeDaemon.exe` | In-game mail | — | — | 0 | `░░░░░░░░░░` 0 % |
+| `RankingDaemon.exe` | Rankings and leaderboards | — | — | 0 | `░░░░░░░░░░` 0 % |
+| `SmartCouponDaemon.exe` | Coupon codes | — | — | 0 | `░░░░░░░░░░` 0 % |
+| `ChannelChattingServer.exe` | Channel chat | — | — | 0 | `░░░░░░░░░░` 0 % |
+
+Not counted: `ncgagent.exe`, `ncguardserver64.dll` and `ggauth64_27.dll` (anti-cheat, left out on purpose), `bsw.exe` and `StartServer` (service tools).
+
+How each number was measured:
+
+| Server | Source of the count |
+| --- | --- |
+| LobbyGate | All 56 commands in `Program/Server/Packet/tables/381.json` (client: not-authed 3, any-authed 2, authed 2 + 28 relayed; LobbyDaemon side 21) have a Rust handler in `Program/Server/LobbyGate/src/`. |
+| LobbyDaemon | `Docs/Server/LobbyDaemon/command-tables.json` lists 118 handler rows in 5 tables. Rust handles 18 rows of the LobbyGate-side table (35 rows). The Manage (6), InfoGate (3), Game (51) and AccountInventory (23) tables have no Rust handlers yet; GameDaemon is a local stub. |
+| GameDaemon | `Docs/Server/GameDaemon/parity-ledger.tsv`: 1598 commands; `rust` column = 72 ported, 365 partial, 1161 none. |
+| STS | `Docs/Platform/Sts/STATUS.md`: 7 client XML commands are implemented. ❓ No real-client login has run yet. |
+
+Descriptions of the servers with 0 % come from the binary names only. ❓ They are not verified.
+
 ## Rust crates (`bns-server/`)
 
 | Crate path | Contents | In workspace |
