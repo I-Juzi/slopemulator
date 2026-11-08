@@ -238,8 +238,19 @@ pub enum Request {
     },
     LogoutMyClient,
     GetMyUserInfo,
+    /// `GameAccount/ListMyAccounts` (library ID 3106). Builder
+    /// StsMsgCli32.dll 0.122 `sub_10023F10`: one `GameCode` element.
+    ListMyAccounts {
+        game_code: String,
+    },
 }
 impl Request {
+    pub fn protocol(&self) -> &'static str {
+        match self {
+            Self::ListMyAccounts { .. } => "GameAccount",
+            _ => "Auth",
+        }
+    }
     pub fn command(&self) -> &'static str {
         match self {
             Self::LoginStart { .. } => "LoginStart",
@@ -249,6 +260,7 @@ impl Request {
             Self::RequestToken { .. } => "RequestToken",
             Self::LogoutMyClient => "LogoutMyClient",
             Self::GetMyUserInfo => "GetMyUserInfo",
+            Self::ListMyAccounts { .. } => "ListMyAccounts",
         }
     }
     pub fn body(&self) -> Result<Vec<u8>, Error> {
@@ -269,6 +281,7 @@ impl Request {
                 field(&mut out, "AccountAlias", account_alias)?;
             }
             Self::RequestToken { app_id } => field(&mut out, "AppId", app_id)?,
+            Self::ListMyAccounts { game_code } => field(&mut out, "GameCode", game_code)?,
             Self::LogoutMyClient | Self::GetMyUserInfo => return Ok(b"<Request/>".to_vec()),
         }
         out.push_str("</Request>\n");
@@ -316,13 +329,19 @@ impl Request {
                 n.only(&[])?;
                 Self::GetMyUserInfo
             }
+            "ListMyAccounts" => {
+                n.only(&["GameCode"])?;
+                Self::ListMyAccounts {
+                    game_code: n.value("GameCode")?.into(),
+                }
+            }
             _ => return Err(Error::Field),
         })
     }
     pub fn frame(&self, transaction: Option<u32>) -> Result<Frame, Error> {
         Ok(Frame {
             start: StartLine::Request {
-                protocol: "Auth".into(),
+                protocol: self.protocol().into(),
                 command: self.command().into(),
             },
             headers: transaction
@@ -343,7 +362,10 @@ impl Request {
     }
     pub fn from_frame(frame: &Frame) -> Result<Self, Error> {
         match &frame.start {
-            StartLine::Request { protocol, command } if protocol == "Auth" => {
+            StartLine::Request { protocol, command }
+                if (protocol == "GameAccount") == (command == "ListMyAccounts")
+                    && (protocol == "Auth" || protocol == "GameAccount") =>
+            {
                 Self::parse(command, &frame.body)
             }
             _ => Err(Error::Frame),
@@ -385,6 +407,11 @@ pub enum Reply {
         authentication_token: String,
     },
     UserInfo(UserInfo),
+    /// Reply 3106. Parser StsMsgCli32.dll 0.122 `sub_10004360` reads only
+    /// `GameAccount/Alias` for each repeated `GameAccount` element.
+    GameAccountList {
+        aliases: Vec<String>,
+    },
     /// ❓ Logout reply fields and its library ID are not established.
     LoggedOut,
 }
@@ -448,6 +475,16 @@ impl Reply {
                     out.push_str("</ExternalAccount>\n");
                 }
             }
+            Self::GameAccountList { aliases } => {
+                if aliases.len() > 32 {
+                    return Err(Error::Field);
+                }
+                for alias in aliases {
+                    out.push_str("<GameAccount>\n");
+                    field(&mut out, "Alias", alias)?;
+                    out.push_str("</GameAccount>\n");
+                }
+            }
             Self::LoggedOut => return Ok(b"<Reply/>".to_vec()),
         }
         out.push_str("</Reply>\n");
@@ -504,6 +541,20 @@ impl Reply {
                     status: n.optional("Status")?.map(signed).transpose()?,
                     pc_cafe_code,
                 })
+            }
+            3106 => {
+                if !n.text.trim().is_empty() {
+                    return Err(Error::Field);
+                }
+                let mut aliases = Vec::new();
+                for account in &n.children {
+                    if account.name != "GameAccount" {
+                        return Err(Error::Field);
+                    }
+                    account.only(&["Alias"])?;
+                    aliases.push(account.value("Alias")?.into());
+                }
+                Self::GameAccountList { aliases }
             }
             3107 => {
                 n.only(&["Token"])?;

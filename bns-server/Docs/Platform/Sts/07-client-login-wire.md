@@ -202,3 +202,20 @@ The listener has no address or account defaults. Every flag below is required.
 The TSV has nine columns: LoginName, UserName, portal GUID, account GUID, slot ID, AccountAlias, salt Base64, verifier Base64, scheme. Use `password::VerifierRecord::enroll` to make local records. The scheme is `sts-2020-sha256-word-srp6a`. Do not add a password column. Do not commit the file.
 
 The listener serves one connection at a time. It sets read and write timeouts from an absolute deadline. It rejects new connections inside the configured global accept interval. Session errors, disconnect and drop revoke unused game tokens. The stand-alone listener has no AppTokenIssuer and no game-server token-consume transport. An embedding caller can share TokenAuthority with the existing NP adapter. The default workspace checks compile the listener module in the library test target. The binary still requires feature `listener`.
+
+## After LoginFinish (game side, 2026-11-08)
+
+`NPSession::ReceiveLoginFinishSuccess` (`Client.exe` 2020 PDB build, 0xC24D80) sends three requests in this order on the normal path. ❓ Order not yet confirmed on the laptop build wire.
+
+| Order | Game sender | Game ECommand | Wire request | Reply parser (`StsMsgCli32.dll` 0.122) | Reply body |
+| --- | --- | --- | --- | --- | --- |
+| 1 | `sub_C06D60` | 0xC22 = 3106 | `POST /GameAccount/ListMyAccounts`, body `GameCode` (builder `sub_10023F10`) | `sub_10004360` | Repeated `GameAccount`, each with `Alias`. Only `Alias` is read. |
+| 2 | `sub_C072A0` | 0xC2A = 3114 | `POST /Auth/GetMyUserInfo`, empty `Request` (builder `sub_10016F80`) | `sub_10004130` | See 3114 above. |
+| 3 | `NPSession::SendTokenRequest` (0xC24710) | 0xC26 = 3110 | `POST /Auth/RequestToken`, body `AppId` (builder `sub_100172A0`) | `sub_10004660` | `AuthnToken` (required). Missing → result 6. |
+
+The live login of 19:56 closed with `Login(Unavailable)` after LoginFinish. `sts-local` then had no ListMyAccounts handler and no AppId token issuer.
+
+Local server policy:
+
+- `GameAccount/ListMyAccounts`: check `GameCode` against the binding. Reply with the aliases of the account grants for the binding.
+- `Auth/RequestToken`: `sts-local --app-ids <list|*>` issues a random 64-hex opaque token and logs the AppId. ❓ The AppId values of build 381 and the vendor token format are not known. Nothing consumes the token yet.

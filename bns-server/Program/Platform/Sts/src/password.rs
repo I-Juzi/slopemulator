@@ -330,6 +330,21 @@ impl Session {
     pub fn binding(&self) -> &Binding {
         &self.binding
     }
+    /// Game aliases granted for this binding. Only after authentication.
+    pub fn game_aliases(&self) -> Option<Vec<String>> {
+        if self.state != State::Authenticated {
+            return None;
+        }
+        let account = self.account.as_ref()?;
+        Some(
+            account
+                .grants
+                .iter()
+                .filter(|g| g.binding == self.binding)
+                .map(|g| g.game_alias.clone())
+                .collect(),
+        )
+    }
     /// Token login (spec 09): the launcher token replaces LoginStart/KeyData.
     /// The account must match the token identity and hold a grant for this binding.
     pub(crate) fn accept_token_login(
