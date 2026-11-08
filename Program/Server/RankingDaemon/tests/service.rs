@@ -5,7 +5,9 @@ use rankingdaemon::config::{
     parse_season_data_at, parse_time, RankingConfig, ResultSchedule,
 };
 use rankingdaemon::protocol::{fields, game_cmd, infogate_cmd, manage_cmd, packet};
-use rankingdaemon::service::{max_ranking_list_index, Daemon, Flow, Out, Peer};
+use rankingdaemon::service::{
+    max_ranking_list_index, pc_job_to_board_index, Daemon, Flow, Out, Peer, RankedPlayer,
+};
 use std::net::Ipv4Addr;
 
 const CONFIG: &str = r#"<config module='rankingd'>
@@ -682,4 +684,212 @@ fn forced_termination_seasons_are_not_loaded() {
     load_result_schedules(&mut s, 6, 0).unwrap();
     let d = Daemon::new(&config, &[], &[], s);
     assert!(d.seasons().is_empty());
+}
+
+fn authed_infogate() -> Daemon {
+    let mut d = daemon();
+    infogate_hello(&mut d, 1, 22100);
+    d
+}
+
+fn ig(d: &mut Daemon, p: Vec<u8>) -> (Vec<Vec<u8>>, Flow) {
+    let (out, flow) = d.handle(Peer::InfoGate(1), INFOGATE_IP, &p, 0);
+    (sent(&out), flow)
+}
+
+const TID: [u8; 16] = [7; 16];
+
+fn ta_req(tid: [u8; 16], kind: u8, job: u8, rank: i32, pc: u64) -> Vec<u8> {
+    packet(
+        "hocciq",
+        &[
+            Value::I16(8),
+            Value::Id(tid),
+            Value::U8(kind),
+            Value::U8(job),
+            Value::I32(rank),
+            Value::U64(pc),
+        ],
+    )
+}
+
+fn hoe(cmd: i16, code: i16) -> Vec<u8> {
+    hoe_tid(cmd, TID, code)
+}
+
+fn hoe_tid(cmd: i16, tid: [u8; 16], code: i16) -> Vec<u8> {
+    packet("hoE", &[Value::I16(cmd), Value::Id(tid), Value::I16(code)])
+}
+
+fn player(name: &str, kind: i8, summary: &str) -> RankedPlayer {
+    let mut p = RankedPlayer {
+        name: name.into(),
+        ..RankedPlayer::default()
+    };
+    p.log_summaries.insert(kind, summary.into());
+    p
+}
+
+fn w(s: &str) -> Value {
+    Value::String(s.encode_utf16().collect())
+}
+
+#[test]
+fn infogate_decode_failures_keep_the_session_silently() {
+    let mut d = authed_infogate();
+    for p in [
+        packet("h", &[Value::I16(5)]),
+        packet("h", &[Value::I16(8)]),
+        packet("h", &[Value::I16(11)]),
+    ] {
+        assert_eq!(ig(&mut d, p), (vec![], Flow::Keep));
+    }
+}
+
+#[test]
+fn infogate_ranking_list_sends_cached_frames() {
+    let mut d = authed_infogate();
+    d.set_ranking_list(6, 3, vec![vec![1, 2, 3, 4], vec![5, 6]]);
+    let req = |i| packet("hcc", &[Value::I16(5), Value::U8(6), Value::U8(i)]);
+    assert_eq!(
+        ig(&mut d, req(3)),
+        (vec![vec![1, 2, 3, 4], vec![5, 6]], Flow::Keep)
+    );
+    let (out, _) = ig(&mut d, req(4));
+    assert_eq!(
+        out,
+        vec![packet(
+            "hccE",
+            &[Value::I16(7), Value::U8(6), Value::U8(4), Value::I16(2)]
+        )]
+    );
+}
+
+#[test]
+fn time_attack_parameter_checks() {
+    let mut d = authed_infogate();
+    assert_eq!(
+        ig(&mut d, ta_req([0; 16], 6, 1, 1, 0)).0,
+        vec![hoe_tid(10, [0; 16], 15)]
+    );
+    for p in [
+        ta_req(TID, 6, 0, 1, 0),
+        ta_req(TID, 6, 1, 0, 0),
+        ta_req(TID, 5, 1, 1, 0),
+    ] {
+        assert_eq!(ig(&mut d, p), (vec![hoe(10, 15)], Flow::Keep));
+    }
+}
+
+#[test]
+fn time_attack_guild_member_path() {
+    let mut d = authed_infogate();
+    assert_eq!(ig(&mut d, ta_req(TID, 6, 2, 0, 900)).0, vec![hoe(10, 17)]);
+    d.set_player(1, 900, player("Hong", 6, "120.5"));
+    let want = packet(
+        "hocciqss",
+        &[
+            Value::I16(9),
+            Value::Id(TID),
+            Value::U8(6),
+            Value::U8(2),
+            Value::I32(0),
+            Value::U64(900),
+            w("Hong"),
+            w("120.5"),
+        ],
+    );
+    assert_eq!(ig(&mut d, ta_req(TID, 6, 2, 0, 900)).0, vec![want]);
+}
+
+#[test]
+fn time_attack_ranker_lookup_uses_job_board_index() {
+    let mut d = authed_infogate();
+    // No board for the season yet.
+    assert_eq!(ig(&mut d, ta_req(TID, 6, 4, 1, 0)).0, vec![hoe(10, 16)]);
+    // Job 4 maps to board index 10.
+    d.set_board_list(6, 10, vec![(1, 31), (1, 32)]);
+    d.set_player(1, 31, player("First", 6, "a"));
+    d.set_player(1, 32, player("Second", 7, "other"));
+    let ok = |rank: i32, name: &str, rec: &str| {
+        packet(
+            "hocciqss",
+            &[
+                Value::I16(9),
+                Value::Id(TID),
+                Value::U8(6),
+                Value::U8(4),
+                Value::I32(rank),
+                Value::U64(0),
+                w(name),
+                w(rec),
+            ],
+        )
+    };
+    assert_eq!(
+        ig(&mut d, ta_req(TID, 6, 4, 2, 0)).0,
+        vec![ok(2, "Second", "")]
+    );
+    assert_eq!(
+        ig(&mut d, ta_req(TID, 6, 4, 1, 0)).0,
+        vec![ok(1, "First", "a")]
+    );
+    // Past the list end: LookUp returns a null value.
+    assert_eq!(ig(&mut d, ta_req(TID, 6, 4, 3, 0)).0, vec![hoe(10, 16)]);
+    // Job 15 is out of range.
+    assert_eq!(ig(&mut d, ta_req(TID, 6, 15, 1, 0)).0, vec![hoe(10, 16)]);
+}
+
+#[test]
+fn ranker_name_is_clipped_to_buffer() {
+    let mut d = authed_infogate();
+    d.set_player(1, 5, player(&"n".repeat(40), 6, ""));
+    let (out, _) = ig(&mut d, ta_req(TID, 6, 1, 0, 5));
+    let v = fields("hocciqss", &out[0]).unwrap();
+    assert_eq!(v[6], w(&"n".repeat(32)));
+}
+
+#[test]
+fn challenge_party_log_summary() {
+    let mut d = authed_infogate();
+    let req = |tid: [u8; 16], kind: u8, id: u64| {
+        packet(
+            "hocq",
+            &[
+                Value::I16(11),
+                Value::Id(tid),
+                Value::U8(kind),
+                Value::U64(id),
+            ],
+        )
+    };
+    assert_eq!(
+        ig(&mut d, req([0; 16], 13, 1)).0,
+        vec![hoe_tid(13, [0; 16], 19)]
+    );
+    for p in [req(TID, 13, 0), req(TID, 6, 1)] {
+        assert_eq!(ig(&mut d, p), (vec![hoe(13, 19)], Flow::Keep));
+    }
+    assert_eq!(ig(&mut d, req(TID, 13, 44)).0, vec![hoe(13, 20)]);
+    d.set_player(3, 44, player("party", 13, "log"));
+    let want = packet(
+        "hocqs",
+        &[
+            Value::I16(12),
+            Value::Id(TID),
+            Value::U8(13),
+            Value::U64(44),
+            w("log"),
+        ],
+    );
+    assert_eq!(ig(&mut d, req(TID, 13, 44)).0, vec![want]);
+}
+
+#[test]
+fn pc_job_board_index_table() {
+    let got: Vec<u8> = (0..16).map(pc_job_to_board_index).collect();
+    assert_eq!(
+        got,
+        vec![0, 1, 2, 3, 10, 4, 5, 6, 7, 8, 9, 11, 12, 13, 14, 0]
+    );
 }
