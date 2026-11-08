@@ -192,7 +192,25 @@ fn target(ctx: &mut Context<'_>, id: u64, name: &[u16]) -> Result<Option<Pc>, &'
     let Some(state) = ctx.services.party_state() else {
         return Err("❓ world PARTY lookup adapter");
     };
-    Ok(state.target(id, name).map(|peer| peer.pc.clone()))
+    if id != 0 {
+        return Ok(state.by_id(id).map(|peer| peer.pc.clone()));
+    }
+    let lookup = state.name_slot(name);
+    let lookup = if lookup == PartyNameLookup::Unknown {
+        ctx.services.party_name_lookup(name_prefix(name))
+    } else {
+        lookup
+    };
+    match lookup {
+        PartyNameLookup::Unknown => Err("❓ CRT wcsicmp locale adapter"),
+        PartyNameLookup::Missing => Ok(None),
+        PartyNameLookup::Slot(slot) => {
+            let Some(state) = ctx.services.party_state() else {
+                return Err("❓ world PARTY lookup adapter");
+            };
+            Ok(state.by_name_slot(slot).map(|peer| peer.pc.clone()))
+        }
+    }
 }
 fn special_zone(ctx: &Context<'_>, pc: &Pc) -> Result<bool, &'static str> {
     let Some(zone) = pc.zone else {
@@ -252,7 +270,7 @@ pub fn handle_banish_party(ctx: &mut Context<'_>, req: &[u8]) -> Outcome {
 }
 /// parity: 176 14-party-handlers.md#176--g_changepartypickuprulereqcmd--partial partial
 pub fn handle_change_party_pickup_rule(ctx: &mut Context<'_>, req: &[u8]) -> Outcome {
-    // ❓ Semantic field/config names, optional report sink and downstream effects.
+    // 0x140213760: rule/grade/member/start-price. Optional report sink is unsupported.
     let mut r = Decode::new(req);
     let (rule, grade, target, money) = (r.byte(), r.byte(), r.quad(), r.quad());
     if !r.ok {
@@ -275,7 +293,7 @@ pub fn handle_change_party_pickup_rule(ctx: &mut Context<'_>, req: &[u8]) -> Out
 }
 /// parity: 179 14-party-handlers.md#179--g_changepartydifficultytypereqcmd--partial partial
 pub fn handle_change_party_difficulty(ctx: &mut Context<'_>, req: &[u8]) -> Outcome {
-    // ❓ Resizing, PC metadata sync, report sink and downstream work.
+    // 0x14021EDE0 dispatches metadata tasks, not a resize. Report sink is unsupported.
     if ctx.world.arena || session::arena_blocked(ctx.pc()) {
         return reply(byte_failure(181, 5));
     }
@@ -292,9 +310,9 @@ pub fn handle_change_party_difficulty(ctx: &mut Context<'_>, req: &[u8]) -> Outc
         byte_failure(181, 2),
     )
 }
-/// parity: 182 14-party-handlers.md#182--g_changepartyinviteauthreqcmd--partial partial
+/// parity: 182 14-party-handlers.md#182--g_changepartyinviteauthreqcmd--done ported
 pub fn handle_change_party_invite_auth(ctx: &mut Context<'_>, req: &[u8]) -> Outcome {
-    // ❓ Spec retains helper gaps; use the explicit shared contracts where read.
+    // 0x1401EC100 uses the shared exact resolver and online recipient contracts.
     let Some(authority) = Reader(req).byte() else {
         return unchecked();
     };
@@ -444,7 +462,7 @@ pub fn handle_join_party(ctx: &mut Context<'_>, req: &[u8]) -> Outcome {
 }
 /// parity: 163 14-party-handlers.md#163--g_rejectpartyreqcmd--partial partial
 pub fn handle_reject_party(ctx: &mut Context<'_>, req: &[u8]) -> Outcome {
-    // ❓ Rejection match, removal, notification and timeout interaction.
+    // 0x1402B1E00 removes the first exact type-1 card. Report sinks stay unsupported.
     let mut r = Decode::new(req);
     let (_, invitation, correlation, kind) = (r.quad(), r.quad(), r.byte(), r.byte());
     let error = |reason: u16| Message {
@@ -592,7 +610,7 @@ pub fn handle_change_team_invite_auth(ctx: &mut Context<'_>, req: &[u8]) -> Outc
 }
 /// parity: 259 14-party-handlers.md#259--g_changeteampartydifficultytypereqcmd--partial partial
 pub fn handle_change_team_party_difficulty(ctx: &mut Context<'_>, req: &[u8]) -> Outcome {
-    // ❓ Manager selector/role/content checks, mutation and synchronization.
+    // 0x1401E1FC0 validates the signed selector and sends a selector-only 260 ack.
     if !ctx.world.team_enabled {
         return Outcome::reason(261, 2);
     }
@@ -615,7 +633,7 @@ pub fn handle_change_team_party_difficulty(ctx: &mut Context<'_>, req: &[u8]) ->
     )
 }
 
-fn suggestion_failure(
+pub(super) fn suggestion_failure(
     command: u16,
     reason: u16,
     mode: Option<u8>,
@@ -632,7 +650,12 @@ fn suggestion_failure(
     body.extend(options);
     Outcome::reply(command, body)
 }
-fn suggestion_notify(command: u16, mode: Option<u8>, name: &[u16], options: &[u8]) -> Message {
+pub(super) fn suggestion_notify(
+    command: u16,
+    mode: Option<u8>,
+    name: &[u16],
+    options: &[u8],
+) -> Message {
     let mut body = vec![];
     if let Some(mode) = mode {
         body.push(mode);
@@ -641,7 +664,7 @@ fn suggestion_notify(command: u16, mode: Option<u8>, name: &[u16], options: &[u8
     body.extend(options);
     Message { command, body }
 }
-fn suggestion_ack(
+pub(super) fn suggestion_ack(
     command: u16,
     mode: Option<u8>,
     id: u64,
@@ -659,7 +682,7 @@ fn suggestion_ack(
 }
 /// parity: 147 14-party-handlers.md#147--g_suggestpartyreqcmd--partial partial
 pub fn handle_suggest_party(ctx: &mut Context<'_>, req: &[u8]) -> Outcome {
-    // ❓ Task execution, option/config names, malformed locals and downstream work.
+    // 0x1402B4350 routes the task. Option bytes remain opaque; short decode is unsupported.
     let mut r = Decode::new(req);
     let (id, name, options) = (r.quad(), r.name(), r.bytes::<6>());
     if !r.ok {
@@ -714,7 +737,7 @@ pub fn handle_suggest_party(ctx: &mut Context<'_>, req: &[u8]) -> Outcome {
 }
 /// parity: 151 14-party-handlers.md#151--g_rejectsuggestpartyreqcmd--partial partial
 pub fn handle_reject_suggest_party(ctx: &mut Context<'_>, req: &[u8]) -> Outcome {
-    // ❓ Native malformed values and name-map comparator remain unspecified.
+    // 0x140433BB0 uses CRT wcsicmp. Short unchecked decode remains unsupported.
     let mut r = Decode::new(req);
     let (id, name, options) = (r.quad(), r.name(), r.bytes::<2>());
     if !r.ok {
@@ -747,7 +770,7 @@ pub fn handle_reject_suggest_party(ctx: &mut Context<'_>, req: &[u8]) -> Outcome
 }
 /// parity: 226 14-party-handlers.md#226--g_suggestteamreqcmd--partial partial
 pub fn handle_suggest_team(ctx: &mut Context<'_>, req: &[u8]) -> Outcome {
-    // ❓ Permission predicate, exact mode/options and malformed locals.
+    // 0x1401F31D0 checks exact leader identities and authority. Options pass through.
     let mut r = Decode::new(req);
     let (mode, mut id, mut name, options) = (r.byte(), r.quad(), r.name(), r.bytes::<5>());
     if !r.ok {
@@ -776,39 +799,17 @@ pub fn handle_suggest_team(ctx: &mut Context<'_>, req: &[u8]) -> Outcome {
         return error(822);
     };
     let permission = if (1..=3).contains(&mode) { mode + 1 } else { 0 };
-    let Some(allowed) = ctx
-        .services
-        .party_operation(PartyOperation::SuggestPermission {
-            team: location.team,
-            mode: permission,
-            party: location.party as u8,
-            db: peer.db_id,
-            runtime: peer.object_id,
-        })
-    else {
-        return boundary("❓ team suggestion permission predicate");
-    };
-    let recipient = if allowed != 0 {
+    let team = state.teams[location.team].as_ref().unwrap();
+    let allowed = team.allows_invite(permission, location.party as u8, peer.db_id, peer.object_id);
+    let recipient = if allowed {
         peer
     } else {
-        let Some(state) = ctx.services.party_state() else {
-            return boundary("❓ PARTY state adapter");
-        };
-        let leader = state
-            .teams
-            .get(location.team)
-            .and_then(|team| team.as_ref())
-            .map(|team| team.leader_runtime_id);
-        match leader {
-            Some(id) => match target(ctx, id, &[]) {
-                Ok(Some(pc)) => pc,
-                Err(why) => return boundary(why),
-                _ => return error(822),
-            },
+        match state.by_id(team.leader_runtime_id) {
+            Some(peer) => peer.pc.clone(),
             None => return error(822),
         }
     };
-    if allowed == 0 {
+    if !allowed {
         name = recipient.name.clone();
     }
     let mut out = Outcome::default();
@@ -826,7 +827,7 @@ pub fn handle_suggest_team(ctx: &mut Context<'_>, req: &[u8]) -> Outcome {
 }
 /// parity: 230 14-party-handlers.md#230--g_rejectsuggestteamreqcmd--partial partial
 pub fn handle_reject_suggest_team(ctx: &mut Context<'_>, req: &[u8]) -> Outcome {
-    // ❓ Exact mode/options, name-map comparator and malformed native values.
+    // Mode/options pass through. CRT locale and short-decode boundaries remain explicit.
     let mut r = Decode::new(req);
     let (mode, id, name, options) = (r.byte(), r.quad(), r.name(), r.bytes::<2>());
     if !r.ok {
@@ -1012,7 +1013,7 @@ pub fn handle_join_team(ctx: &mut Context<'_>, req: &[u8]) -> Outcome {
 }
 /// parity: 241 14-party-handlers.md#241--g_rejectteamreqcmd--partial partial
 pub fn handle_reject_team(ctx: &mut Context<'_>, req: &[u8]) -> Outcome {
-    // ❓ Shared task invitation identity/kind/notification and downstream work.
+    // 0x1402B1E00 removes types 2/3/4 and sends 264 once. Reports stay unsupported.
     let mut r = Decode::new(req);
     let (invitation, kind) = (r.quad(), r.byte());
     if !r.ok {
@@ -1181,28 +1182,28 @@ pub fn handle_give_up_current_auction_item(ctx: &mut Context<'_>, req: &[u8]) ->
 }
 /// parity: 424 14-party-handlers.md#424--g_registerpartymatchreqcmd--partial partial
 pub fn handle_register_party_match(ctx: &mut Context<'_>, req: &[u8]) -> Outcome {
-    // ❓ Manager selector/role/cooldown, registration and downstream effects.
+    // 0x14017E540 checks table/faction, then retains and queues the PC. No role gate.
     let Some(selector) = Reader(req).int() else {
         return unchecked();
     };
     if !user_ok(ctx.pc()) {
         return Outcome::reason(426, 1320);
     }
-    match ctx
-        .services
-        .party_operation(PartyOperation::RegisterMatch(selector))
-    {
-        None => boundary("❓ party match registration manager"),
-        Some(0) => Outcome::reply(425, vec![]),
-        Some(result) => Outcome::reason(
-            426,
-            match result {
-                1 => 1318,
-                2 => 1317,
-                4 => 1319,
-                _ => 2,
-            },
-        ),
+    if selector.wrapping_sub(1) > 94 {
+        return Outcome::reason(426, 1317);
+    }
+    match ctx.services.party_match_faction(selector) {
+        None => return boundary("❓ party match table slot 1983"),
+        Some(None) => return Outcome::reason(426, 1317),
+        Some(Some(faction)) if faction != 0 && faction != i64::from(ctx.pc().faction) => {
+            return Outcome::reason(426, 1319);
+        }
+        Some(Some(_)) => {}
+    }
+    let pc = ctx.pc().clone();
+    match ctx.services.queue_party_match(selector, &pc) {
+        Gate::Pass => Outcome::reply(425, vec![]),
+        Gate::Unknown | Gate::Fail => boundary("❓ party match retained-PC queue adapter"),
     }
 }
 /// parity: 429 14-party-handlers.md#429--g_rejectpartymatchreqcmd--partial partial

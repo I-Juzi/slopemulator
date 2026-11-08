@@ -52,7 +52,7 @@ fn request(command: u16) -> Vec<u8> {
         245 => vec![2, 0, 4],
         247 => [vec![0, 0, 1], q(TARGET), vec![255, 255, 255], q(0)].concat(),
         259 => vec![255, 2],
-        424 => 123u32.to_le_bytes().to_vec(),
+        424 => 23u32.to_le_bytes().to_vec(),
         429 => [q(TARGET), 55u32.to_le_bytes().to_vec()].concat(),
         _ => vec![],
     }
@@ -72,6 +72,7 @@ impl Default for Harness {
             party_id: 1,
             user_available: true,
             team_member: true,
+            party_team_mode: 1,
             team_id: TEAM,
             world_id: 8,
             ..Pc::default()
@@ -89,6 +90,7 @@ impl Default for Harness {
             ..pc.clone()
         };
         let party = Party {
+            runtime_id: 1,
             difficulty: 1,
             members: vec![
                 PartyMember {
@@ -109,6 +111,7 @@ impl Default for Harness {
             ..Party::default()
         };
         let team = Team {
+            runtime_id: TEAM,
             parties: vec![Some(party)],
             indexed_parties: vec![0],
             membership: BTreeMap::from([(10, 0), (20, 0)]),
@@ -144,6 +147,7 @@ impl Default for Harness {
             team_enabled: true,
             party_config: PartyConfig {
                 default_difficulty: 1,
+                trace_report: false, // Config +537: success paths must not cross report sinks.
                 vote_enabled: true,
                 maximum_grade: 7,
                 maximum_bid: 100,
@@ -663,7 +667,8 @@ fn exact_resolver_and_world_lookup_contracts() {
         0x10022
     );
     assert!(s.by_name(&[]).is_none());
-    assert!(s.by_name(&name("TARGET")).is_none());
+    // Build 381.8867, 0x140433BB0: CRT wcsicmp, not case-sensitive equality.
+    assert_eq!(s.by_name(&name("TARGET")).unwrap().pc.object_id, 0x10022);
     s.world_mask = 0xffff_ffff;
     assert!(s.by_id(SELF).is_none()); // Derived index >=20000.
     s.team_mask = 0;
@@ -865,7 +870,20 @@ fn difficulty_success_self_order_and_team_sync() {
         })
         .collect::<Vec<_>>();
     assert_eq!(commands, vec![193, 180, 275, 275]);
-    assert!(matches!(out.status, Status::Unsupported(_))); // No fabricated resize or metadata completion.
+    // Build 381.8867, 0x14021EDE0: queue metadata work, not a party resize.
+    // Config +537 is off. No report adapter blocks the verified success path.
+    assert!(!h.world.party_config.trace_report);
+    assert_eq!(out.status, Status::Handled);
+    let metadata = out
+        .changes
+        .iter()
+        .find_map(|change| match change {
+            StateChange::PartyTaskQueued(task) => Some(task),
+            _ => None,
+        })
+        .unwrap();
+    assert_eq!(metadata.caster, TARGET);
+    assert!(matches!(metadata.kind, PartyTaskKind::UpdatePcInfo { .. }));
 }
 #[test]
 fn difficulty_failure_reasons_truncate_and_still_sync() {
@@ -1170,46 +1188,84 @@ fn team_reject_suggestion_has_no_resolved_self_check() {
 }
 #[test]
 fn team_suggestion_permission_mapping_and_leader_reroute() {
+    // Build 381.8867, 0x1401F31D0: authority and both leader identities
+    // determine permission directly. No opaque permission adapter remains.
     for mode in [0, 1, 2, 3, 255] {
-        for allowed in [0, 1] {
-            let mut h = Harness::default();
-            h.services.party_result = Some(allowed);
-            let out = h.run(
-                226,
-                &target_body(Some(mode), TARGET, "wire", &[7, 8, 9, 10, 11]),
-            );
-            let recipient = if allowed == 0 { SELF } else { TARGET };
-            assert_eq!(destinations(&out, 228), vec![recipient]);
-            assert_eq!(
-                out.replies[0],
-                Message {
-                    command: 227,
-                    body: target_body(
-                        Some(mode),
-                        recipient,
-                        if allowed == 0 { "source" } else { "wire" },
-                        &[7]
-                    )
+        for authority in [0, 1, 2, 3] {
+            for party_leader in [false, true] {
+                let mut h = Harness::default();
+                h.team().invite_authority = authority;
+                if party_leader {
+                    h.party().members.swap(0, 1);
                 }
-            );
-            assert_eq!(
-                h.services.party_calls,
-                vec![PartyOperation::SuggestPermission {
-                    team: 1,
-                    mode: if (1..=3).contains(&mode) { mode + 1 } else { 0 },
-                    party: 0,
-                    db: 20,
-                    runtime: TARGET
-                }]
-            );
+                let allowed = match authority {
+                    1 => party_leader && matches!(mode, 1 | 2),
+                    2 => mode == 1 || (party_leader && mode == 2),
+                    _ => false,
+                };
+                let out = h.run(
+                    226,
+                    &target_body(Some(mode), TARGET, "wire", &[7, 8, 9, 10, 11]),
+                );
+                let recipient = if allowed { TARGET } else { SELF };
+                assert_eq!(destinations(&out, 228), vec![recipient]);
+                assert_eq!(
+                    out.replies,
+                    vec![Message {
+                        command: 227,
+                        body: target_body(
+                            Some(mode),
+                            recipient,
+                            if allowed { "wire" } else { "source" },
+                            &[7]
+                        ),
+                    }]
+                );
+                assert_eq!(
+                    out.broadcasts[0].body,
+                    [vec![mode], wire_name("source"), vec![7, 8, 9, 10, 11]].concat()
+                );
+                assert_eq!(out.status, Status::Handled);
+                assert!(h.services.party_calls.is_empty());
+            }
         }
+    }
+    for mode in [0, 1, 2, 3, 255] {
+        let mut h = Harness::default();
+        h.team().leader_db_id = 20;
+        h.team().leader_runtime_id = TARGET;
+        assert_eq!(
+            destinations(
+                &h.run(
+                    226,
+                    &target_body(Some(mode), TARGET, "wire", &[7, 8, 9, 10, 11])
+                ),
+                228
+            ),
+            vec![TARGET]
+        );
+    }
+    // A partial identity match must not take the team-leader fast path.
+    for (db, runtime) in [(20, SELF), (10, TARGET)] {
+        let mut h = Harness::default();
+        h.team().leader_db_id = db;
+        h.team().leader_runtime_id = runtime;
+        assert!(!h.team().allows_invite(2, 0, 20, TARGET));
+    }
+    // Party-leader permission also requires both identities. Mode 3 makes
+    // authority 2's ordinary-member fallback false.
+    for (db, runtime) in [(20, SELF), (10, TARGET)] {
+        let mut h = Harness::default();
+        h.team().invite_authority = 2;
+        h.party().members[0].db_id = db;
+        h.party().members[0].runtime_id = runtime;
+        assert!(!h.team().allows_invite(3, 0, 20, TARGET));
     }
 }
 #[test]
-fn team_suggestion_failures_and_permission_unknown_do_not_notify() {
+fn team_suggestion_failures_and_missing_state_do_not_notify() {
     for case in 0..7 {
         let mut h = Harness::default();
-        h.services.party_result = Some(0);
         match case {
             0 => h.world.team_enabled = false,
             1 => h.state().world_slots[2] = None,
@@ -1227,8 +1283,12 @@ fn team_suggestion_failures_and_permission_unknown_do_not_notify() {
         assert!(out.broadcasts.is_empty());
     }
     let mut h = Harness::default();
+    // Build 381.8867, 0x1401F31D0: permission is known from team state.
+    // A missing state adapter, not a missing opaque result, is unsupported.
+    h.services.party = None;
     let out = h.run(226, &request(226));
     assert!(matches!(out.status, Status::Unsupported(_)));
+    assert!(out.replies.is_empty());
     assert!(out.broadcasts.is_empty());
 }
 #[test]
@@ -1381,31 +1441,65 @@ fn join_user_gates_and_registration_precede_failed_dispatch() {
     }
 }
 #[test]
-fn match_registration_result_mapping_and_user_gate() {
-    for (result, reason) in [(1, 1318u16), (2, 1317), (4, 1319), (3, 2), (-1, 2)] {
+fn match_registration_table_faction_and_user_gates() {
+    // Build 381.8867, 0x14017E540: selector 1..95, table slot 1983,
+    // signed faction comparison, then retained-PC queue. Null-PC result 1
+    // cannot occur after authenticated-PC dispatch. No arbitrary result adapter.
+    for selector in [0u32, 96, 123, u32::MAX] {
         let mut h = Harness::default();
-        h.services.party_result = Some(result);
         only(
-            &h.run(424, &request(424)),
+            &h.run(424, &selector.to_le_bytes()),
             Message {
                 command: 426,
-                body: reason.to_le_bytes().to_vec(),
+                body: 1317u16.to_le_bytes().to_vec(),
             },
         );
-        assert_eq!(
-            h.services.party_calls,
-            vec![PartyOperation::RegisterMatch(123)]
+        assert!(h.services.party_match_queued.is_empty());
+    }
+    for selector in [1u32, 23, 95] {
+        let mut h = Harness::default();
+        h.services.party_match_factions = Some(BTreeMap::new());
+        only(
+            &h.run(424, &selector.to_le_bytes()),
+            Message {
+                command: 426,
+                body: 1317u16.to_le_bytes().to_vec(),
+            },
         );
+        assert!(h.services.party_match_queued.is_empty());
+        for (required, faction, success) in [
+            (0i64, -1i8, true),
+            (-1, -1, true),
+            (255, -1, false),
+            (2, 1, false),
+            (2, 2, true),
+        ] {
+            h.services.party_match_factions = Some(BTreeMap::from([(selector, required)]));
+            h.services.party_match_queue_result = Gate::Pass;
+            h.pc().faction = faction;
+            h.services.party_match_queued.clear();
+            only(
+                &h.run(424, &selector.to_le_bytes()),
+                Message {
+                    command: if success { 425 } else { 426 },
+                    body: if success {
+                        vec![]
+                    } else {
+                        1319u16.to_le_bytes().to_vec()
+                    },
+                },
+            );
+            assert_eq!(
+                h.services.party_match_queued,
+                if success {
+                    vec![(selector, SELF)]
+                } else {
+                    vec![]
+                }
+            );
+        }
     }
     let mut h = Harness::default();
-    h.services.party_result = Some(0);
-    only(
-        &h.run(424, &request(424)),
-        Message {
-            command: 425,
-            body: vec![],
-        },
-    );
     h.pc().user_available = false;
     only(
         &h.run(424, &request(424)),
@@ -1484,9 +1578,10 @@ fn team_suggestion_unknown_membership_state_is_not_reason_822() {
             self.inner.attraction_channel(channel)
         }
     }
-    for available in 1..=3 {
+    // Build 381.8867, 0x1401F31D0 / 0x14038FC00: the locked team read
+    // now covers permission and recipient lookup. There is no third adapter read.
+    for available in 0..=1 {
         let mut h = Harness::default();
-        h.services.party_result = Some(0);
         let mut services = LookupOnly {
             inner: h.services,
             reads: 0,
@@ -1505,7 +1600,7 @@ fn team_suggestion_unknown_membership_state_is_not_reason_822() {
         assert!(matches!(out.status, Status::Unsupported(_)));
         assert!(out.replies.is_empty());
         assert!(out.broadcasts.is_empty());
-        assert_eq!(services.inner.party_calls.len(), usize::from(available > 1));
+        assert!(services.inner.party_calls.is_empty());
     }
 }
 
@@ -1574,6 +1669,686 @@ fn party_delegation_runs_party_mutation_before_team_transfer_failure() {
     assert_eq!(h.services.party_result_sequence.len(), 1);
 }
 
+fn invitation(kind: u32, db: u64, runtime: u64) -> PartyInvitation {
+    PartyInvitation {
+        kind,
+        inviter_db: db,
+        inviter_runtime: runtime,
+    }
+}
+fn metadata_tasks(out: &Outcome) -> Vec<PartyTask> {
+    out.changes
+        .iter()
+        .filter_map(|change| match change {
+            StateChange::PartyTaskQueued(task) => Some(task.clone()),
+            _ => None,
+        })
+        .collect()
+}
+
+#[test]
+fn rejection_removes_first_exact_card_and_sends_original_bytes() {
+    // Build 381.8867, 0x1402B1E00 / 0x1401F5610.
+    let mut h = Harness::default();
+    let cards = vec![
+        invitation(1, 99, TARGET),
+        invitation(1, 20, OTHER),
+        invitation(2, 20, TARGET),
+        invitation(1, 20, TARGET),
+        invitation(1, 20, TARGET),
+    ];
+    h.state().invitation_boxes = Some(BTreeMap::from([(SELF, cards.clone())]));
+    h.world.party_config.trace_report = false;
+    let out = h.full(163, &[q(u64::MAX), q(TARGET), vec![0xfe, 0xfd]].concat());
+    assert_eq!(out.status, Status::Handled);
+    assert!(out.replies.is_empty());
+    assert_eq!(destinations(&out, 186), vec![TARGET]);
+    assert_eq!(
+        out.broadcasts[0].body,
+        [q(SELF), wire_name("source"), vec![0xfe, 0xfd]].concat()
+    );
+    let mut remaining = cards;
+    remaining.remove(3);
+    assert_eq!(
+        h.state().invitation_boxes.as_ref().unwrap()[&SELF],
+        remaining
+    );
+    assert!(matches!(
+        &out.party_effects[..],
+        [
+            PartyEffect::InvitationRemoved { owner: SELF, .. },
+            PartyEffect::Send { to: TARGET, .. }
+        ]
+    ));
+    assert!(out.daemon_requests.is_empty());
+}
+
+#[test]
+fn team_rejection_removes_one_of_each_type_and_notifies_once_without_team_config() {
+    let mut h = Harness::default();
+    h.world.team_enabled = false;
+    h.world.party_config.trace_report = false;
+    let cards = vec![
+        invitation(4, 20, TARGET),
+        invitation(2, 20, TARGET),
+        invitation(1, 20, TARGET),
+        invitation(3, 20, TARGET),
+        invitation(2, 20, TARGET),
+        invitation(4, 20, TARGET),
+    ];
+    h.state().invitation_boxes = Some(BTreeMap::from([(SELF, cards)]));
+    let out = h.full(241, &[q(TARGET), vec![255]].concat());
+    assert_eq!(out.status, Status::Handled);
+    assert!(out.replies.is_empty());
+    assert_eq!(destinations(&out, 264), vec![TARGET]);
+    assert_eq!(
+        out.broadcasts[0].body,
+        [q(SELF), wire_name("source"), vec![255]].concat()
+    );
+    let removed = out
+        .party_effects
+        .iter()
+        .filter_map(|effect| match effect {
+            PartyEffect::InvitationRemoved { invitation, .. } => Some(invitation.kind),
+            _ => None,
+        })
+        .collect::<Vec<_>>();
+    assert_eq!(removed, vec![2, 3, 4]);
+    assert_eq!(
+        h.state().invitation_boxes.as_ref().unwrap()[&SELF],
+        vec![
+            invitation(1, 20, TARGET),
+            invitation(2, 20, TARGET),
+            invitation(4, 20, TARGET)
+        ]
+    );
+}
+
+#[test]
+fn rejection_missing_inviter_unknown_box_and_no_match_do_not_notify() {
+    for command in [163, 241] {
+        for case in 0..4 {
+            let mut h = Harness::default();
+            match case {
+                0 => h.peer().rights = 0,
+                1 => {} // Unknown card-box adapter.
+                2 => h.state().invitation_boxes = Some(BTreeMap::new()),
+                3 => {
+                    h.state().invitation_boxes = Some(BTreeMap::from([(
+                        SELF,
+                        vec![invitation(1, 99, TARGET), invitation(2, 20, OTHER)],
+                    )]))
+                }
+                _ => unreachable!(),
+            }
+            let out = h.full(command, &request(command));
+            assert!(out.replies.is_empty());
+            assert!(out.broadcasts.is_empty());
+            assert_eq!(matches!(out.status, Status::Unsupported(_)), case == 1);
+            assert!(!out
+                .party_effects
+                .iter()
+                .any(|e| matches!(e, PartyEffect::InvitationRemoved { .. })));
+        }
+    }
+}
+
+#[test]
+fn rejection_reports_remain_boundaries_after_removal_and_even_without_match() {
+    // 0x1402B1E00: both report gates follow removal/notification, not card match.
+    for command in [163, 241] {
+        for matching in [false, true] {
+            for auxiliary in [false, true] {
+                let mut h = Harness::default();
+                h.world.party_config.trace_report = !auxiliary;
+                h.world.party_config.rejection_aux_report = auxiliary;
+                let card = invitation(if command == 163 { 1 } else { 2 }, 20, TARGET);
+                h.state().invitation_boxes = Some(BTreeMap::from([(
+                    SELF,
+                    if matching { vec![card] } else { vec![] },
+                )]));
+                let out = h.full(command, &request(command));
+                assert!(matches!(out.status, Status::Unsupported(_)));
+                assert!(out.replies.is_empty());
+                assert_eq!(out.broadcasts.len(), usize::from(matching));
+                assert!(h.state().invitation_boxes.as_ref().unwrap()[&SELF].is_empty());
+                assert!(matches!(
+                    out.party_effects.last(),
+                    Some(PartyEffect::Boundary(_))
+                ));
+                assert!(out.daemon_requests.is_empty());
+            }
+        }
+    }
+}
+
+#[test]
+fn pickup_report_gate_ignores_dedicated_only_change_and_missing_leader() {
+    // 0x140213760: mutation and command 177 precede the optional report.
+    for case in 0..4 {
+        let mut h = Harness::default();
+        h.world.party_config.trace_report = case != 0;
+        h.party().pickup_rule = 1;
+        h.party().grade = 2;
+        h.party().money = u64::MAX;
+        if case == 3 {
+            h.state().world_slots[1].as_mut().unwrap().rights = 0;
+        }
+        let rule = if case >= 2 { 2 } else { 1 };
+        let out = h.full(176, &[vec![rule, 2], q(TARGET), q(u64::MAX)].concat());
+        assert_eq!(h.party().designated_id, TARGET);
+        assert_eq!(h.party().pickup_rule, i32::from(rule));
+        assert!(out.replies.is_empty());
+        assert_eq!(
+            destinations(&out, 177),
+            if case == 3 {
+                vec![TARGET]
+            } else {
+                vec![SELF, TARGET]
+            }
+        );
+        assert_eq!(matches!(out.status, Status::Unsupported(_)), case == 2);
+        assert!(out.daemon_requests.is_empty());
+    }
+}
+
+#[test]
+fn team_difficulty_success_broadcasts_before_selector_only_ack_and_queues_all_members() {
+    // 0x1401E1FC0, descriptor 0x1408D9508: 260 hc serializes selector only.
+    for mode in [0, 1, 2] {
+        let mut h = Harness::default();
+        h.world.party_config.trace_report = false;
+        h.team().mode = mode;
+        let out = h.full(259, &[0, 2]);
+        assert_eq!(out.status, Status::Handled);
+        assert_eq!(
+            out.replies,
+            vec![Message {
+                command: 260,
+                body: vec![0]
+            }]
+        );
+        assert_eq!(destinations(&out, 275), vec![SELF, TARGET]);
+        assert!(out.broadcasts.iter().all(|m| m.body == [0, 2]));
+        let tasks = metadata_tasks(&out);
+        assert_eq!(
+            tasks.iter().map(|t| t.caster).collect::<Vec<_>>(),
+            vec![SELF, TARGET]
+        );
+        assert!(tasks.iter().all(|t| t.kind
+            == PartyTaskKind::UpdatePcInfo {
+                team: TEAM,
+                party: 1
+            }));
+        assert_eq!(h.pc().party_difficulty, 0); // Queueing does not execute metadata.
+        assert!(matches!(
+            out.party_effects.last(),
+            Some(PartyEffect::Send {
+                to: SELF,
+                message: Message { command: 260, .. }
+            })
+        ));
+    }
+}
+
+#[test]
+fn team_difficulty_failures_have_full_width_reasons_and_no_sync() {
+    for (case, reason) in [
+        (0, 897),
+        (1, 897),
+        (2, 897),
+        (3, 2),
+        (4, 2),
+        (5, 2),
+        (6, 791),
+        (7, 793),
+        (8, 794),
+    ] {
+        let mut h = Harness::default();
+        let mut selector = 0;
+        match case {
+            0 => {
+                h.team().membership.remove(&10);
+            }
+            1 => h.team().leader_db_id = 99,
+            2 => h.team().leader_runtime_id = TARGET,
+            3 => selector = 128,
+            4 => selector = 1,
+            5 => {
+                selector = 1;
+                h.team().parties.push(None);
+            }
+            6 => h.party().difficulty = 2,
+            7 => {
+                h.world.party_config.difficulty_maximum.insert(2, 1);
+            }
+            8 => h.party().difficulty_blockers[1] = 1,
+            _ => unreachable!(),
+        }
+        let old = h.party().difficulty;
+        let out = h.full(259, &[selector, 2]);
+        only(&out, expected(259, reason));
+        assert_eq!(h.party().difficulty, old);
+        assert!(metadata_tasks(&out).is_empty());
+    }
+}
+
+#[test]
+fn team_difficulty_selects_other_party_and_does_not_change_requester_metadata() {
+    let mut h = Harness::default();
+    let other = Party {
+        runtime_id: 2,
+        difficulty: 1,
+        members: vec![PartyMember {
+            db_id: 30,
+            runtime_id: OTHER,
+            state: 3,
+            ..PartyMember::default()
+        }],
+        ..Party::default()
+    };
+    h.team().parties.push(Some(other));
+    h.team().indexed_parties.push(1);
+    let out = h.full(259, &[1, 3]);
+    assert_eq!(
+        out.replies,
+        vec![Message {
+            command: 260,
+            body: vec![1]
+        }]
+    );
+    assert_eq!(destinations(&out, 275), vec![SELF, TARGET, OTHER]);
+    assert!(out.broadcasts.iter().all(|m| m.body == [1, 3]));
+    assert_eq!(
+        metadata_tasks(&out),
+        vec![PartyTask {
+            command: 259,
+            caster: OTHER,
+            zone: 1,
+            kind: PartyTaskKind::UpdatePcInfo {
+                team: TEAM,
+                party: 2
+            }
+        }]
+    );
+    assert_eq!(h.party().difficulty, 1);
+    assert_eq!(h.pc().party_difficulty, 0);
+}
+
+#[test]
+fn difficulty_report_stops_after_mutation_and_metadata_dispatch_before_success_sends() {
+    for command in [179, 259] {
+        let mut h = Harness::default();
+        h.world.party_config.trace_report = true;
+        let body = if command == 179 { vec![2] } else { vec![0, 2] };
+        let out = h.full(command, &body);
+        assert!(matches!(out.status, Status::Unsupported(_)));
+        assert_eq!(h.party().difficulty, 2);
+        assert_eq!(
+            metadata_tasks(&out).len(),
+            if command == 179 { 1 } else { 2 }
+        );
+        assert!(out.replies.is_empty());
+        assert!(out.broadcasts.is_empty());
+        assert_eq!(h.pc().party_difficulty, 0);
+        assert!(out.daemon_requests.is_empty());
+        // A missing leader skips reporting and does not undo the change.
+        let mut h = Harness::default();
+        h.world.party_config.trace_report = true;
+        h.state().world_slots[1].as_mut().unwrap().rights = 0;
+        let out = h.full(command, &body);
+        assert_eq!(out.status, Status::Handled);
+        assert_eq!(
+            out.replies[0].command,
+            if command == 179 { 193 } else { 260 }
+        );
+    }
+}
+
+#[test]
+fn metadata_task_updates_only_matching_pc_ids_and_replies_only_on_changed_byte() {
+    // Build 381.8867, 0x1402B52F0 / 0x1405FAE30.
+    for case in 0..8 {
+        let mut h = Harness::default();
+        h.party().difficulty = 3;
+        h.team().mode = 2;
+        let mut task = PartyTask {
+            command: 179,
+            caster: SELF,
+            zone: 1,
+            kind: PartyTaskKind::UpdatePcInfo {
+                team: TEAM,
+                party: 1,
+            },
+        };
+        match case {
+            0 => {}
+            1 => h.pc().party_difficulty = 3,
+            2 => h.pc().party_id = 0,
+            3 => {
+                h.team().membership.remove(&10);
+            }
+            4 => {
+                task.kind = PartyTaskKind::UpdatePcInfo {
+                    team: TEAM + 1,
+                    party: 1,
+                }
+            }
+            5 => {
+                task.kind = PartyTaskKind::UpdatePcInfo {
+                    team: TEAM,
+                    party: 2,
+                }
+            }
+            6 => h.pc().team_id = TEAM + 1,
+            7 => h.pc().party_id = 2,
+            _ => unreachable!(),
+        }
+        let out = h.execute(&task);
+        assert_eq!(out.status, Status::Handled);
+        assert!(out.broadcasts.is_empty());
+        assert!(metadata_tasks(&out).is_empty());
+        let write = case <= 1;
+        assert_eq!(
+            out.party_effects
+                .iter()
+                .any(|e| matches!(e, PartyEffect::PcInfoChanged { .. })),
+            write
+        );
+        if write {
+            assert_eq!(h.pc().party_difficulty, 3);
+            assert_eq!(h.pc().party_team_mode, 2);
+        }
+        if matches!(case, 0 | 6 | 7) {
+            assert_eq!(
+                out.replies,
+                vec![Message {
+                    command: 193,
+                    body: vec![3]
+                }]
+            );
+        } else {
+            assert!(out.replies.is_empty());
+        }
+    }
+}
+
+#[test]
+fn difficulty_manager_writes_metadata_after_success_or_rejection_without_replacing_ids() {
+    for rejected in [false, true] {
+        let mut h = Harness::default();
+        if rejected {
+            h.party().difficulty_blockers[0] = 1;
+        }
+        let out = h.full(179, &[2]);
+        assert_eq!(h.pc().team_id, TEAM);
+        assert_eq!(h.pc().party_id, 1);
+        assert_eq!(h.pc().party_difficulty, if rejected { 1 } else { 2 });
+        assert_eq!(h.pc().party_team_mode, 1);
+        let effects = &out.party_effects;
+        let write = effects
+            .iter()
+            .position(|e| matches!(e, PartyEffect::PcInfoChanged { .. }))
+            .unwrap();
+        let sync = effects
+            .iter()
+            .position(|e| {
+                matches!(
+                    e,
+                    PartyEffect::Send {
+                        message: Message { command: 275, .. },
+                        ..
+                    }
+                )
+            })
+            .unwrap();
+        assert!(write < sync);
+        assert!(matches!(
+            effects[write - 1],
+            PartyEffect::Send { to: SELF, .. }
+        ));
+    }
+}
+
+#[test]
+fn metadata_dispatch_failures_log_and_continue_without_undoing_difficulty() {
+    for case in 0..4 {
+        let mut h = Harness::default();
+        let task = h.task(179, &[2]);
+        match case {
+            0 => h.peer().rights = 0,
+            1 => h.peer().pc.zone = None,
+            2 => h.peer().pc.native_kind = 2,
+            3 => h.services.queue_result = Gate::Fail,
+            _ => unreachable!(),
+        }
+        let out = h.execute(&task);
+        assert_eq!(out.status, Status::Handled);
+        assert_eq!(h.party().difficulty, 2);
+        assert_eq!(
+            out.replies.iter().map(|m| m.command).collect::<Vec<_>>(),
+            vec![193, 180]
+        );
+        assert!(metadata_tasks(&out).is_empty());
+        assert_eq!(
+            out.party_effects.contains(&PartyEffect::AssertionReport),
+            case == 2
+        );
+        let expected_log = match case {
+            0 => "party metadata task PC missing",
+            1 => "party metadata task zone missing",
+            2 => "party metadata task caster is not PC",
+            3 => "party metadata task dispatch failed",
+            _ => unreachable!(),
+        };
+        assert!(out.logs.contains(&expected_log));
+    }
+}
+
+#[test]
+fn ban_task_missing_party_replies_before_manager_and_other_cases_stay_partial() {
+    let mut h = Harness::default();
+    let task = h.task(172, &[255]);
+    h.pc().party_id = 0;
+    only(&h.execute(&task), expected(172, 781));
+    assert!(h.services.party_calls.is_empty());
+    h.pc().party_id = 1;
+    h.services.party_result = Some(1);
+    let out = h.execute(&task);
+    assert!(matches!(out.status, Status::Unsupported(_)));
+    assert!(out.replies.is_empty());
+    assert!(out.broadcasts.is_empty());
+    assert_eq!(
+        h.services.party_calls,
+        vec![PartyOperation::BanishParty { slot: 255 }]
+    );
+}
+
+#[test]
+fn vote_task_early_membership_and_team_gates_precede_unread_clock() {
+    // Build 381.8867, 0x1402B5540. No clock value is inferred from World::tick.
+    for case in 0..5 {
+        let mut h = Harness::default();
+        h.world.arena = true;
+        h.world.party_config.arena_enabled = true;
+        let task = h.task(216, &[255, 254]);
+        match case {
+            0 => h.pc().party_id = 0,
+            1 => {}
+            2 => h.pc().team_member = false,
+            3 => h.pc().team_id = 0,
+            4 => {
+                h.pc().team_member = false;
+                h.pc().team_id = 0;
+            }
+            _ => unreachable!(),
+        }
+        let out = h.execute(&task);
+        if case < 2 {
+            only(&out, expected(216, if case == 0 { 812 } else { 814 }));
+        } else {
+            assert!(matches!(out.status, Status::Unsupported(_)));
+            assert!(out.replies.is_empty());
+            assert!(out.broadcasts.is_empty());
+        }
+        assert!(h.services.party_calls.is_empty());
+        assert!(h
+            .party()
+            .members
+            .iter()
+            .all(|m| m.voted_for == 255 && m.vote == 0));
+    }
+}
+
+#[test]
+fn non_ascii_name_lookup_requires_crt_adapter_and_preserves_rights_gate() {
+    // 0x140433BB0: do not substitute Unicode lowercasing for CRT wcsicmp.
+    let mut h = Harness::default();
+    let body = target_body(None, 0, "TÄRGET", &[7, 2]);
+    let out = h.run(151, &body);
+    assert!(matches!(out.status, Status::Unsupported(_)));
+    assert!(out.replies.is_empty());
+    h.services
+        .party_name_results
+        .insert(name("TÄRGET"), PartyNameLookup::Slot(2));
+    let out = h.run(151, &body);
+    assert_eq!(out.status, Status::Handled);
+    assert_eq!(destinations(&out, 153), vec![TARGET]);
+    assert_eq!(out.replies[0].body, body);
+    h.peer().rights = 0;
+    let out = h.run(151, &body);
+    assert_eq!(&out.replies[0].body[..2], &742u16.to_le_bytes());
+    assert!(out.broadcasts.is_empty());
+}
+
+#[test]
+fn party_suggestion_task_routes_to_caster_party_leader_or_team_leader() {
+    // Build 381.8867, 0x1402B4350 / 0x1401EBB50 / 0x1402133B0.
+    for route in 0..6 {
+        let mut h = Harness::default();
+        h.world.party_config.suggestion_task = true;
+        // Use a requester outside the destination party. Selecting requester
+        // itself is rejected only by the party-only helper.
+        let task = PartyTask {
+            command: 147,
+            caster: TARGET,
+            zone: 1,
+            kind: PartyTaskKind::SuggestParty {
+                requester: OTHER,
+                options: [7, 2, 3, 4, 5, 6],
+            },
+        };
+        h.session.pc = Some(h.peer().pc.clone());
+        let recipient = match route {
+            0 => {
+                h.pc().party_id = 0;
+                TARGET
+            }
+            1 => SELF, // Party authority 0 selects member index 0.
+            2 => {
+                h.party().invite_authority = 1;
+                TARGET
+            }
+            3 => {
+                h.world.party_config.team_suggestion_routing = true;
+                SELF
+            }
+            4 => {
+                h.world.party_config.team_suggestion_routing = true;
+                h.team().invite_authority = 2;
+                TARGET
+            }
+            5 => {
+                h.world.party_config.team_suggestion_routing = true;
+                h.team().mode = 0;
+                h.party().invite_authority = 1;
+                TARGET
+            }
+            _ => unreachable!(),
+        };
+        let out = h.execute(&task);
+        assert_eq!(out.status, Status::Handled);
+        assert!(out.replies.is_empty());
+        assert_eq!(destinations(&out, 149), vec![recipient]);
+        assert_eq!(destinations(&out, 148), vec![OTHER]);
+        assert_eq!(
+            out.broadcasts[0].body,
+            [wire_name("third"), vec![7, 2, 3, 4, 5, 6]].concat()
+        );
+        assert_eq!(
+            out.broadcasts[1].body,
+            target_body(
+                None,
+                recipient,
+                if recipient == SELF {
+                    "source"
+                } else {
+                    "target"
+                },
+                &[7, 2]
+            )
+        );
+        assert!(h.services.party_calls.is_empty());
+        assert!(out.daemon_requests.is_empty());
+    }
+}
+
+#[test]
+fn party_suggestion_task_failures_notify_requester_or_log_only() {
+    for case in 0..6 {
+        let mut h = Harness::default();
+        h.session.pc = Some(h.peer().pc.clone());
+        let task = PartyTask {
+            command: 147,
+            caster: TARGET,
+            zone: 1,
+            kind: PartyTaskKind::SuggestParty {
+                requester: SELF,
+                options: [7, 2, 3, 4, 5, 6],
+            },
+        };
+        match case {
+            0 => h.state().world_slots[1] = None,
+            1 => {
+                h.team().membership.remove(&20);
+            }
+            2 => {} // Default authority selects requester SELF: 150/740.
+            3 => h.party().invite_authority = 2,
+            4 => {
+                h.world.party_config.team_suggestion_routing = true;
+                h.team().leader_runtime_id = OTHER;
+                h.state().world_slots[3].as_mut().unwrap().rights = 0;
+            }
+            5 => {
+                h.world.party_config.team_suggestion_routing = true;
+                h.world.party_config.arena_enabled = true;
+                h.state().world_slots[1].as_mut().unwrap().pc.arena_state = 2;
+            }
+            _ => unreachable!(),
+        }
+        let out = h.execute(&task);
+        assert_eq!(out.status, Status::Handled);
+        assert!(out.replies.is_empty());
+        if case < 2 {
+            assert!(out.broadcasts.is_empty());
+        } else {
+            assert_eq!(destinations(&out, 150), vec![SELF]);
+            assert_eq!(
+                out.broadcasts[0].body,
+                [
+                    740u16.to_le_bytes().to_vec(),
+                    q(TARGET),
+                    wire_name("target"),
+                    vec![7, 2]
+                ]
+                .concat()
+            );
+        }
+        assert!(destinations(&out, 149).is_empty());
+        assert!(destinations(&out, 148).is_empty());
+    }
+}
+
 #[test]
 fn party_match_unknown_manager_and_each_user_gate_do_not_approve() {
     let mut h = Harness::default();
@@ -1581,13 +2356,22 @@ fn party_match_unknown_manager_and_each_user_gate_do_not_approve() {
     assert!(matches!(out.status, Status::Unsupported(_)));
     assert!(out.replies.is_empty());
     assert!(out.broadcasts.is_empty());
-    assert_eq!(
-        h.services.party_calls,
-        vec![PartyOperation::RegisterMatch(123)]
-    );
+    // Build 381.8867, 0x14017E540: unknown table and queue state
+    // replace the old opaque manager result. Neither permits command 425.
+    assert!(h.services.party_calls.is_empty());
+    assert!(h.services.party_match_queued.is_empty());
+    for gate in [Gate::Unknown, Gate::Fail] {
+        h.services.party_match_factions = Some(BTreeMap::from([(23, 0)]));
+        h.services.party_match_queue_result = gate;
+        let out = h.run(424, &request(424));
+        assert!(matches!(out.status, Status::Unsupported(_)));
+        assert!(out.replies.is_empty());
+        assert!(out.broadcasts.is_empty());
+    }
     for case in 0..3 {
         let mut h = Harness::default();
-        h.services.party_result = Some(0);
+        h.services.party_match_factions = Some(BTreeMap::from([(23, 0)]));
+        h.services.party_match_queue_result = Gate::Pass;
         match case {
             0 => h.pc().user_available = false,
             1 => h.pc().party_user_blocked = true,

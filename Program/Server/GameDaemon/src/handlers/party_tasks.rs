@@ -56,10 +56,7 @@ pub fn execute_party_task(ctx: &mut Context<'_>, task: &PartyTask) -> Outcome {
             if pc.party_id == 0 {
                 return byte_reply(181, 789);
             }
-            let Some(state) = ctx.services.party_state() else {
-                return boundary("❓ PARTY state adapter");
-            };
-            change_difficulty(&pc, state, &ctx.world.party_config, difficulty)
+            change_difficulty(ctx, &pc, difficulty, None)
         }
         PartyTaskKind::LeaveParty => {
             match suppress_leave(ctx, task, true) {
@@ -156,14 +153,7 @@ pub fn execute_party_task(ctx: &mut Context<'_>, task: &PartyTask) -> Outcome {
             if pc.party_id == 0 {
                 return Outcome::reason(261, 897);
             }
-            opaque(
-                ctx,
-                PartyOperation::TeamDifficulty {
-                    selector,
-                    difficulty,
-                },
-                "❓ team party difficulty manager 0x1401E1FC0",
-            )
+            change_difficulty(ctx, &pc, difficulty, Some(selector))
         }
         PartyTaskKind::ClearMembers => {
             if pc.party_id == 0 {
@@ -175,8 +165,17 @@ pub fn execute_party_task(ctx: &mut Context<'_>, task: &PartyTask) -> Outcome {
                 "❓ expired-member manager 0x1401DD540",
             )
         }
-        PartyTaskKind::BanishParty { .. } => {
-            boundary("❓ party ban task role/slot/removal/leader/notifications")
+        PartyTaskKind::UpdatePcInfo { team, party } => update_pc_info(ctx, &pc, team, party),
+        PartyTaskKind::BanishParty { slot } => {
+            // Build 381.8867, 0x1402B4840: no party is 173/781.
+            if pc.party_id == 0 {
+                return Outcome::reason(173, 781);
+            }
+            opaque(
+                ctx,
+                PartyOperation::BanishParty { slot },
+                "❓ party ban manager 0x1401D71D0 removal/leader/notifications",
+            )
         }
         PartyTaskKind::InviteParty { .. } | PartyTaskKind::InviteTeam { .. } => {
             boundary("❓ invitation task execution/timeout/authorization/backend")
@@ -184,15 +183,191 @@ pub fn execute_party_task(ctx: &mut Context<'_>, task: &PartyTask) -> Outcome {
         PartyTaskKind::JoinParty { .. } | PartyTaskKind::JoinTeam { .. } => {
             boundary("❓ join task authorization/insertion/sync/backend")
         }
-        PartyTaskKind::Reject { .. } => boundary("❓ rejection match/notification/timeout task"),
-        PartyTaskKind::SuggestParty { .. } => {
-            boundary("❓ party suggestion task execution/notification policy")
+        PartyTaskKind::Reject {
+            group,
+            invitation,
+            correlation,
+            kind,
+        } => reject_invitation(ctx, &pc, group, invitation, correlation, kind),
+        PartyTaskKind::SuggestParty { requester, options } => {
+            suggest_party_task(ctx, &pc, requester, options)
         }
-        PartyTaskKind::Vote { .. } => boundary("❓ party-ban vote task state/role/tally/timing"),
+        PartyTaskKind::Vote { .. } => {
+            // Build 381.8867, 0x1402B5540: these gates precede the clock read.
+            if pc.party_id == 0 {
+                return Outcome::reason(219, 812);
+            }
+            if pc.team_member && pc.team_id != 0 {
+                return Outcome::reason(219, 814);
+            }
+            boundary("❓ party-ban vote clock 0x1402B5540 and tally/removal continuation")
+        }
         PartyTaskKind::Auction { .. } => {
             boundary("❓ auction task identity/authorization/item/money/persistence")
         }
     }
+}
+
+fn reject_invitation(
+    ctx: &mut Context<'_>,
+    caster: &Pc,
+    group: u8,
+    inviter: u64,
+    correlation: u8,
+    kind: u8,
+) -> Outcome {
+    let Some(state) = ctx.services.party_state() else {
+        return boundary("❓ PARTY state adapter");
+    };
+    let Some(inviter) = state.by_id(inviter).map(|peer| peer.pc.clone()) else {
+        return Outcome::log("party rejection inviter missing");
+    };
+    let Some(boxes) = state.invitation_boxes.as_mut() else {
+        return boundary("❓ party invitation-card box adapter");
+    };
+    let cards = boxes.entry(caster.object_id).or_default();
+    let mut out = Outcome::default();
+    let kinds = if group == 1 { 1..=1 } else { 2..=4 };
+    let mut removed = false;
+    for card_kind in kinds {
+        if let Some(index) = cards.iter().position(|card| {
+            card.kind == card_kind
+                && card.inviter_db == inviter.db_id
+                && card.inviter_runtime == inviter.object_id
+        }) {
+            out.party_effects.push(PartyEffect::InvitationRemoved {
+                owner: caster.object_id,
+                invitation: cards.remove(index),
+            });
+            removed = true;
+        }
+    }
+    if removed {
+        let mut body = caster.object_id.to_le_bytes().to_vec();
+        string_body(&mut body, &caster.name);
+        if group == 1 {
+            body.push(correlation);
+        }
+        body.push(kind);
+        send(
+            &mut out,
+            inviter.object_id,
+            Message {
+                command: if group == 1 { 186 } else { 264 },
+                body,
+            },
+        );
+    }
+    if ctx.world.party_config.trace_report || ctx.world.party_config.rejection_aux_report {
+        out.party_effects.push(PartyEffect::Boundary(
+            "❓ rejection report sinks 0x140203710 / daemon +2728",
+        ));
+        out.status = Status::Unsupported("❓ rejection report adapters");
+    }
+    out
+}
+
+fn suggest_party_task(
+    ctx: &mut Context<'_>,
+    caster: &Pc,
+    requester: u64,
+    options: [u8; 6],
+) -> Outcome {
+    let Some(state) = ctx.services.party_state() else {
+        return boundary("❓ PARTY state adapter");
+    };
+    let Some(requester) = state.by_id(requester).map(|peer| peer.pc.clone()) else {
+        return Outcome::log("party suggestion requester missing");
+    };
+    let fail = || {
+        let message = suggestion_failure(
+            150,
+            740,
+            None,
+            caster.object_id,
+            &caster.name,
+            &options[..2],
+        )
+        .replies
+        .remove(0);
+        let mut out = Outcome::default();
+        send(&mut out, requester.object_id, message);
+        out
+    };
+    let recipient = if caster.party_id == 0 {
+        caster.clone()
+    } else {
+        let Some(location) = state.resolve(caster.db_id, caster.object_id) else {
+            return Outcome::log("party suggestion team missing");
+        };
+        let team = state.teams[location.team].as_ref().unwrap();
+        let party = team.parties[location.party].as_ref().unwrap();
+        let (selected, party_route, direct) = if !ctx.world.party_config.team_suggestion_routing {
+            let selected = match party.invite_authority {
+                0 => party.members[0].runtime_id,
+                1 => party.members[location.member].runtime_id,
+                _ => return fail(),
+            };
+            (selected, true, false)
+        } else {
+            let permitted = if team.mode == 1 {
+                team.allows_invite(2, location.party as u8, caster.db_id, caster.object_id)
+            } else {
+                match party.invite_authority {
+                    0 => location.member == 0,
+                    1 => true,
+                    _ => false,
+                }
+            };
+            (
+                if permitted {
+                    caster.object_id
+                } else {
+                    team.leader_runtime_id
+                },
+                false,
+                permitted,
+            )
+        };
+        if selected == 0 || (party_route && selected == requester.object_id) {
+            return fail();
+        }
+        let recipient = if direct {
+            caster.clone()
+        } else {
+            let Some(peer) = state.by_id(selected) else {
+                return fail();
+            };
+            peer.pc.clone()
+        };
+        // Direct team-aware notification to the caster has no second arena gate.
+        if !direct
+            && ctx.world.party_config.arena_enabled
+            && !ctx.world.arena
+            && session::arena_blocked(&recipient)
+        {
+            return fail();
+        }
+        recipient
+    };
+    let mut out = Outcome::default();
+    send(
+        &mut out,
+        recipient.object_id,
+        suggestion_notify(149, None, &requester.name, &options),
+    );
+    send(
+        &mut out,
+        requester.object_id,
+        suggestion_ack(
+            148,
+            None,
+            recipient.object_id,
+            &recipient.name,
+            &options[..2],
+        ),
+    );
+    out
 }
 
 fn byte_reply(command: u16, reason: u16) -> Outcome {
@@ -320,7 +495,10 @@ fn change_pickup(
     {
         return Outcome::reason(178, 786);
     }
-    if rule == 3 && config.rule_three_mode != 2 {
+    let old = (party.pickup_rule as u8, party.grade, party.money);
+    let report_pc = party.members[location.member].runtime_id;
+    let clamped = rule == 3 && config.rule_three_mode != 2;
+    if clamped {
         rule = 0;
     }
     party.pickup_rule = i32::from(rule as i8);
@@ -335,25 +513,54 @@ fn change_pickup(
         .unwrap();
     let recipients = state.recipients(party);
     let mut out = Outcome::default();
+    if clamped {
+        out.party_effects.push(PartyEffect::AssertionReport);
+    }
     out.party_effects
         .push(PartyEffect::PickupChanged { location });
     fanout(&mut out, recipients, Message { command: 177, body });
-    out.party_effects.push(PartyEffect::Boundary(
-        "❓ optional pickup report/downstream effects",
-    ));
-    out.status =
-        Status::Unsupported("❓ pickup field/config names and optional report/downstream effects");
+    if config.trace_report && old != (rule, grade, money) && state.by_id(report_pc).is_some() {
+        out.party_effects.push(PartyEffect::Boundary(
+            "❓ pickup LogArchive report 0x140203F80, operation 1",
+        ));
+        out.status = Status::Unsupported("❓ pickup LogArchive report adapter");
+    }
     out
 }
 fn change_difficulty(
+    ctx: &mut Context<'_>,
     pc: &Pc,
-    state: &mut PartyState,
-    config: &PartyConfig,
     difficulty: u8,
+    selector: Option<u8>,
 ) -> Outcome {
-    let Some(location) = state.resolve(pc.db_id, pc.object_id) else {
-        return byte_reply(181, 2);
+    let config = &ctx.world.party_config;
+    let Some(state) = ctx.services.party_state() else {
+        return boundary("❓ PARTY state adapter");
     };
+    let Some(mut location) = state.resolve(pc.db_id, pc.object_id) else {
+        return if selector.is_some() {
+            Outcome::reason(261, 897)
+        } else {
+            byte_reply(181, 2)
+        };
+    };
+    if let Some(selector) = selector {
+        let team = state.teams[location.team].as_ref().unwrap();
+        if team.leader_db_id != pc.db_id || team.leader_runtime_id != pc.object_id {
+            return Outcome::reason(261, 897);
+        }
+        if (selector as i8) < 0
+            || team
+                .parties
+                .get(usize::from(selector))
+                .and_then(|p| p.as_ref())
+                .is_none()
+        {
+            return Outcome::reason(261, 2);
+        }
+        location.party = usize::from(selector);
+        location.member = 0;
+    }
     let party = state.teams[location.team].as_mut().unwrap().parties[location.party]
         .as_mut()
         .unwrap();
@@ -373,6 +580,9 @@ fn change_difficulty(
     } else {
         0
     };
+    if selector.is_some() && reason != 0 {
+        return Outcome::reason(261, reason);
+    }
     let mut out = Outcome::default();
     if reason == 0 {
         party.difficulty = difficulty;
@@ -380,9 +590,186 @@ fn change_difficulty(
             location,
             difficulty,
         });
+    }
+    let team = state.teams[location.team].as_ref().unwrap();
+    let party = team.parties[location.party].as_ref().unwrap();
+    let (team_id, party_id, mode, current) = (
+        team.runtime_id,
+        party.runtime_id,
+        team.mode,
+        party.difficulty,
+    );
+    let recipients = state.team_recipients(team);
+    let tasks: Vec<_> = if reason == 0 {
+        party
+            .members
+            .iter()
+            .enumerate()
+            .filter(|(index, member)| member.state == 3 && (selector.is_some() || *index != 0))
+            .map(|(_, member)| state.by_id(member.runtime_id).map(|peer| peer.pc.clone()))
+            .collect()
+    } else {
+        vec![]
+    };
+    let report = reason == 0
+        && config.trace_report
+        && party
+            .members
+            .first()
+            .and_then(|m| state.by_id(m.runtime_id))
+            .is_some();
+    for peer in tasks {
+        // 0x14021EDE0 logs each failed lookup and continues with later members.
+        let Some(peer) = peer else {
+            out.logs.push("party metadata task PC missing");
+            continue;
+        };
+        let Some(zone) = peer.zone else {
+            out.logs.push("party metadata task zone missing");
+            continue;
+        };
+        if peer.native_kind != 1 {
+            out.logs.push("party metadata task caster is not PC");
+            out.party_effects.push(PartyEffect::AssertionReport);
+            continue;
+        }
+        let task = PartyTask {
+            command: if selector.is_some() { 259 } else { 179 },
+            caster: peer.object_id,
+            zone,
+            kind: PartyTaskKind::UpdatePcInfo {
+                team: team_id,
+                party: party_id,
+            },
+        };
+        match ctx.services.queue_party(&task) {
+            Gate::Pass => out.changes.push(StateChange::PartyTaskQueued(task)),
+            Gate::Fail => out.logs.push("party metadata task dispatch failed"),
+            Gate::Unknown => {
+                out.party_effects.push(PartyEffect::Boundary(
+                    "❓ party metadata task dispatch adapter",
+                ));
+                out.status = Status::Unsupported("❓ party metadata task dispatch adapter");
+                return out;
+            }
+        }
+    }
+    if report {
         out.party_effects.push(PartyEffect::Boundary(
-            "❓ difficulty resize/sync 0x14021EDE0",
+            "❓ difficulty LogArchive report 0x140203F80, operation 2",
         ));
+        out.status = Status::Unsupported("❓ difficulty LogArchive report adapter");
+        return out;
+    }
+    if let Some(selector) = selector {
+        fanout(
+            &mut out,
+            recipients,
+            Message {
+                command: 275,
+                body: vec![selector, difficulty],
+            },
+        );
+        // Descriptor hc consumes only the selector. The extra native argument is unused.
+        self_send(
+            &mut out,
+            pc,
+            Message {
+                command: 260,
+                body: vec![selector],
+            },
+        );
+    } else {
+        if reason == 0 {
+            self_send(
+                &mut out,
+                pc,
+                Message {
+                    command: 193,
+                    body: vec![difficulty],
+                },
+            );
+            self_send(
+                &mut out,
+                pc,
+                Message {
+                    command: 180,
+                    body: vec![difficulty],
+                },
+            );
+        } else {
+            self_send(&mut out, pc, byte_failure(181, reason));
+        }
+        apply_pc_info(ctx, &mut out, team_id, party_id, mode, current);
+        if mode != 0 {
+            fanout(
+                &mut out,
+                recipients,
+                Message {
+                    command: 275,
+                    body: vec![location.party as u8, current],
+                },
+            );
+        }
+    }
+    out
+}
+
+fn apply_pc_info(
+    ctx: &mut Context<'_>,
+    out: &mut Outcome,
+    team: u64,
+    party: u64,
+    mode: u8,
+    difficulty: u8,
+) {
+    let pc = ctx.session.pc.as_mut().unwrap();
+    if pc.team_id == team && pc.party_id == party {
+        pc.party_difficulty = difficulty;
+        pc.party_team_mode = mode;
+        pc.team_member = mode != 0;
+        out.party_effects.push(PartyEffect::PcInfoChanged {
+            runtime: pc.object_id,
+            team_mode: mode,
+            difficulty,
+        });
+    } else {
+        out.logs.push("party metadata identity mismatch");
+    }
+}
+
+fn update_pc_info(
+    ctx: &mut Context<'_>,
+    pc: &Pc,
+    expected_team: u64,
+    expected_party: u64,
+) -> Outcome {
+    if pc.party_id == 0 {
+        return Outcome::log("party metadata PC has no party");
+    }
+    let Some(state) = ctx.services.party_state() else {
+        return boundary("❓ PARTY state adapter");
+    };
+    let Some(location) = state.resolve(pc.db_id, pc.object_id) else {
+        return Outcome::log("party metadata team missing");
+    };
+    let team = state.teams[location.team].as_ref().unwrap();
+    let party = team.parties[location.party].as_ref().unwrap();
+    if team.runtime_id != expected_team || party.runtime_id != expected_party {
+        return Outcome::log("party metadata task team changed");
+    }
+    let (mode, difficulty) = (team.mode, party.difficulty);
+    let mut out = Outcome::default();
+    apply_pc_info(
+        ctx,
+        &mut out,
+        expected_team,
+        expected_party,
+        mode,
+        difficulty,
+    );
+    // The native comparison uses the old byte even if the guarded write failed.
+    if pc.party_difficulty != difficulty {
         self_send(
             &mut out,
             pc,
@@ -391,33 +778,7 @@ fn change_difficulty(
                 body: vec![difficulty],
             },
         );
-        self_send(
-            &mut out,
-            pc,
-            Message {
-                command: 180,
-                body: vec![difficulty],
-            },
-        );
-    } else {
-        self_send(&mut out, pc, byte_failure(181, reason));
     }
-    out.party_effects
-        .push(PartyEffect::Boundary("❓ PC metadata update 0x1405FAE30"));
-    let team = state.teams[location.team].as_ref().unwrap();
-    if team.mode != 0 {
-        let current = team.parties[location.party].as_ref().unwrap().difficulty;
-        let recipients = state.team_recipients(team);
-        fanout(
-            &mut out,
-            recipients,
-            Message {
-                command: 275,
-                body: vec![location.party as u8, current],
-            },
-        );
-    }
-    out.status = Status::Unsupported("❓ difficulty resize/metadata/report/downstream effects");
     out
 }
 fn delegate_party(ctx: &mut Context<'_>, pc: &Pc, target: u64) -> Outcome {
