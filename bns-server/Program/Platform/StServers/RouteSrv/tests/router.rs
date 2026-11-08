@@ -299,7 +299,7 @@ async fn set_get_blocks_and_key_block_direct_targets() {
             901,
             "0$alice".to_owned(),
             "Auth",
-            key_block("alice", 2) % 2 == 0,
+            key_block("alice", 2).is_multiple_of(2),
         ),
         (902, format!("*{}", f.p1.location.format(0)), "Auth", false),
         (903, "0#1;protocol=Auth".to_owned(), "NotAuth", false),
