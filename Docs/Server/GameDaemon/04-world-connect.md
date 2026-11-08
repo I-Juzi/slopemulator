@@ -68,12 +68,41 @@ No cryptographic internals or key bytes were inspected for this specification.
 
 | Topic | State |
 | --- | --- |
-| Algorithm families present in client packet library | RSA and AES; symbols `CryptoKey::generateRsaKey` at `0x6081D0`, `Aes128::GetType` at `0x611680`. ❓ Exact game-handshake family chain was not verified. |
-| Secret ownership | ❓ Exact game-channel ownership was not verified. Do not infer it from LobbyGate. No secret material was read or recorded. |
-| Vendor acceptance | ❓ Whether genuine-client acceptance requires an unavailable vendor secret remains open. Stop that path if such a dependency is found. |
+| Algorithm families | RSA handshake → AES-128 session. See the step-4 summary below. ❓ Full native-client acceptance remains unverified. |
+| Secret ownership | GameDaemon constructs an RSA private object from static binary data and installs session-secret state. ❓ Full client ownership remains open. No secret material was read or recorded. |
+| Vendor acceptance | Static private-object loading is a stop boundary at `0x1406E3100`. ❓ Whether genuine-client acceptance requires that unavailable vendor secret remains open. Do not continue key analysis. |
 | Logical packet | Dispatcher reads command at decoded packet +2. Reuse the existing logical size/command codec. Server dispatcher `0x14007BC00`. |
-| Outer game frame | ❓ Full comparison with LobbyGate frame flags, cipher selection and size limits remains open. Reuse of the existing transport needs a focused compatibility check. |
+| Outer game frame | Checked size/tag arithmetic matches `BloodLib/src/frames.rs`. See the step-4 comparison below. ❓ Complete processor compatibility remains open. |
 | Application fragmentation | EnterWorldOk uses fragment mode 2. Reassemble before application dispatch. See `05-enter-world.md`. |
+
+## Step 4 — Outer-frame comparison
+
+Build: client and GameDaemon 381. This is static evidence, not a connection test.
+
+| Rule | Native evidence | Existing Rust | Result |
+| --- | --- | --- | --- |
+| Outer header | Two-byte little-endian header; payload starts at +2. Client `0x60F8A0`; server `0x1406ADD00`. | `frames::payload_len` | Same. |
+| Size arithmetic | If the top two bits are zero, use low 14 bits as bytes. Otherwise use low 12 bits times four. Same sources. | `frames::payload_len` | Same. Encoded maximum is 16380 payload bytes, not the normal packet-buffer limit. |
+| Initial server input | Reject a plain frame. Wait for the complete outer frame before processor checks. Server `0x1406ADD00`. | `frames::decode_client` | Same checked order. ❓ Initial RSA tag validation inside the native processor was not checked in this job. |
+| Session input | Require processor state 5 and tags 8 through 11. Server `0x1406ADD00`. | `frames::decode_client` | Same wrapper checks. |
+| Logical packet | Signed short size must be at least 2 and must fit the decoded output. Server `0x1406ADD00`. Command follows size. | `frames::decode_client`; Packet layer | Same checked layout. |
+| Buffering | Keep incomplete input. Consume complete frames in order. Move remaining bytes to the start. Server `0x1406A5AB0`; receive bound `0x1406A5650`. | Caller must buffer the stream around the frame codec. | Same design. Native receive storage holds at most 4008 bytes in this path. This is not a new payload maximum. |
+| Ordinary sends | Packet composition uses a 4000-byte logical buffer. Server `0x1406A5E00`, `0x1406A5FC0`. | BloodLib `MAX_PACKET=4000`; session `MAX_CIPHERTEXT=4000` | Logical bound matches. ❓ Full native session padding and key-slot behavior were not checked. |
+| Client receive extensions | Game processor also has broadcast and compressed-packet routes. Client `0x608FB0`; external decompression setup `0x5CF287`. | The current frame API covers ordinary session traffic only. | Do not claim complete game-processor support. ❓ Extension use during first entry remains open. |
+
+Reuse the existing ordinary frame codec. Do not use the LobbyGate command table or version.
+Do not treat this comparison as proof of successful native-client acceptance.
+
+### Permitted handshake summary and stop boundary
+
+| Step | Algorithm family / ownership | Evidence |
+| --- | --- | --- |
+| Initial channel exchange | RSA-family handshake processor. GameDaemon constructs public/private RSA objects. | Factory `0x1406E3100`, selected from receive wrapper `0x1406ADD00`. |
+| Hello reply and session setup | AES-128-family session processor. The Hello operation supplies session-secret state on the server side. The client processes the opaque reply. ❓ Full client secret ownership was not traced. | Server `0x1406A65D0` selects factory mode 3, algorithm 1; factory selects `Aes128`. Client callback remains `0xF70280`. |
+| Vendor-secret boundary | The server factory loads an RSA private object from static binary data. No key bytes were read or copied. Stop this path. ❓ Native-client acceptance with a replacement key was not established. | `HandshakePacketCrypt` factory branch in `0x1406E3100`. |
+
+Do not implement key extraction or a vendor-secret substitute.
+No cryptographic algorithm internals are specified here.
 
 ## Restricted boundaries
 
@@ -83,6 +112,7 @@ No cryptographic internals or key bytes were inspected for this specification.
 | Client security-version getter on entry-request construction | Calls at `0xF3B00C` and `0xF3B1F6` | Record the boundary only. Do not inspect the getter. |
 | Server zone-entry anti-cheat hook | Log reference `0x1405DF767`, containing function `0x1405DE040`; string `0x140DA1BF0` | Stop this function path. No authentication implementation. |
 | Server command-18 conditional GameGuard hook | Receive handler `0x140370F10`; hook target `0x14036DE10` | Stop the hook path. Record only the ordinary ping fields. |
+| Server dispatch safe-mode filter | Dispatcher `0x14007BC00` | Do not follow the restricted virtual targets. |
 | Client command-32 security interface | Callback path at `0xEF68C8` | Stop this call path. |
 | Licence code | ❓ No address established in the checked path | No licence analysis. |
 

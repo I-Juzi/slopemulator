@@ -1,3 +1,37 @@
+# GameDaemon world entry: step 4 report
+
+Specs: `bns-server/Docs/Server/GameDaemon/`.
+
+| Part | State | Evidence |
+| --- | --- | --- |
+| Frame comparison | done | `04-world-connect.md`: ordinary size/tag rules match BloodLib. Server `0x1406ADD00`; client `0x60F8A0`. ❓ Compression/broadcast compatibility remains open. |
+| Payload gaps | partial | `05-enter-world.md`: command-32 groups; native K at `0x1406AA7B0`; command-42 correlation/summoned fields at `0x1402912F0`; command 43 is `hq` at `0x1402304A0`. |
+| Rust game layer | partial | Separate `game381.json`; ten structural codecs in `game.rs`. Unknown bodies return unsupported errors with raw bytes. ❓ Compilation unverified. |
+| Checks | not started | Test, Clippy and formatting requests did not run. Tool output: `This command requires approval`. |
+
+Code: `bns-server/Program/Server/Packet/src/game.rs:1`.
+Table: `bns-server/Program/Server/Packet/tables/game381.json:1`.
+Tests: `bns-server/Program/Server/Packet/tests/game381.rs:1`.
+
+**Tests:** 16 new generated tests written; none run. Ten round-trip tests each use 256 generated fixtures.
+**Totals:** no new results. Task baseline only: 292 passed, 6 ignored. Existing tests were not changed.
+**Clippy:** not run; no pass result. Formatting also did not run.
+
+**Boundaries:** RSA handshake → AES-128 session families only. Static RSA private-object loading at `0x1406E3100` is a stop boundary. No secret bytes were read. Restricted hooks were not followed.
+**❓ Open:** command 24; full command 32 and native fragment metadata; command-43 q meaning; appearance IDs/bodies/order; DB mappings; coordinate units; command 929; full client secret ownership and acceptance.
+Appearance queue `0x14024B0C0` runs before command 43. This does not establish wire delivery order.
+`06-minimum-session.md` records the updated standing-session limits. No successful client entry or standing test ran.
+
+**Next build step:** obtain tool approval, then run these checks without network access:
+```sh
+CARGO_NET_OFFLINE=true cargo test --manifest-path bns-server/Cargo.toml
+CARGO_NET_OFFLINE=true cargo clippy --manifest-path bns-server/Cargo.toml --workspace --all-targets -- -D warnings
+```
+Resolve command 24 and the full command-32 contract before server integration. Keep unknown bodies unsupported.
+Both IDA leases are closed. No network, git, binary patches or explicit database saves were used. `Program/Tools/Emu/` is unchanged.
+
+## Step 3 report
+
 # GameDaemon world entry: step 3 report
 
 Specs: `bns-server/Docs/Server/GameDaemon/`.

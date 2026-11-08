@@ -25,9 +25,12 @@ Packet-object offsets are not wire offsets.
 Full format strings include the command `h`. They exclude the outer size field.
 `h/u/E` use 2 bytes; `i` uses 4; `q` uses 8; `c/Q` use 1.
 Scalars use little-endian order. Signedness depends on the field.
-The existing BloodLib codec treats `K` as a u16 byte count followed by bytes.
+The existing BloodLib codec treats `K` as a nonnegative signed-16 byte count followed by bytes.
 Source: `Program/Server/BloodLib/src/packet.rs:171` and `:179`.
-❓ The build-381 native `K` codec was not independently checked. Do not treat the existing codec alone as a compatibility test.
+Step 4 checked native `K` and `b` together in decoder `0x1406AA7B0`.
+Both read a nonnegative signed-16 byte count, then that many bytes.
+The decoder rejects a negative count, a short destination, or short input.
+This matches the existing BloodLib byte-string codec.
 
 ## Ordered path
 
@@ -41,9 +44,9 @@ Source: `Program/Server/BloodLib/src/packet.rs:171` and `:179`.
 | 5 | 31 | Client → GameDaemon | Constructor in callback `0xF3AF90` | `hic` | Entry parameter:i, entry flag:c. Server `0x1403718A0`. |
 | 6 | 32 | GameDaemon → client | Receive slot → `0xEF6860` → `World::EnterWorld`, `0x741A50` | Fragmented; checked prefix `hihqQihhhhhh…` | Initial PC composite. Sender `0x1405F5980`, fragment mode 2. |
 | 7 | 41 | GameDaemon → client | Receive slot → `0xEF67D0` → world-interface prepare target `0x73E6C0` | `hqhiiccKuuuhhh` | Zone identity, destination and load data. Sender `0x1404BEED0`. |
-| 8 | 42 | Client → GameDaemon | `BUiWorld::RequestEnterZone`, `0x7815C0` | `hiuuuh` | Correlation value:i, three 16-bit destination fields, final short. Server `0x140371EE0`. |
-| 9 | 43 | GameDaemon → client | Receive slot → `0xEF6790` → `World::EnterZone`, `0x74C850` | ❓ Not recovered | Client zone-entry completion target is verified. Server sender remains open. |
-| 10 | ❓ | GameDaemon → client | ❓ Spawn/appear handlers not recovered | ❓ Not recovered | ❓ The local-player and nearby-object appearance set remains open. |
+| 8 | 42 | Client → GameDaemon | `BUiWorld::RequestEnterZone`, `0x7815C0` | `hiuuuh` | Spawn correlation:i, summoned-object x/y/z:uuu, summoned yaw:h. Server task `0x1402912F0`. |
+| 9 | 43 | GameDaemon → client | Receive slot → `0xEF6790` → `World::EnterZone`, `0x74C850` | `hq` | Opaque runtime spawn-action value:q. Server sender `0x1402304A0`. |
+| Unresolved order | ❓ | GameDaemon → client | Appearance queue call `0x14024B0C0` | ❓ Not recovered | Queue call precedes command 43. ❓ Packet IDs, bodies and delivery order remain open. |
 
 This is a partial order, not a complete packet capture.
 Command 12 does not prove a direct transition to command 23.
@@ -85,12 +88,40 @@ Do not send this payload as a header-only success.
 | object_id:q | PC +40 | Runtime object identity; not a table ID |
 | byte:Q | PC +13740 | Runtime PC; ❓ semantic name open |
 | integer:i | Configuration +296 | Server configuration; ❓ semantic name open |
-| six shorts | Configuration/session/world-related arguments | ❓ Full field labels and source mapping open |
+| short:h | Configuration +304 | Server configuration; ❓ meaning open |
+| short:h | Runtime/config-selected local value | ❓ Meaning and original source open |
+| short:h | Configuration +152 if +160 is enabled, else zero | Server configuration |
+| short:h | World/daemon +86858 | Runtime world configuration; ❓ meaning open |
+| short:h | Session +238, or zero | Runtime session; ❓ meaning open |
 
-The sender serializes property IDs 1 through `0x1A6` from the PC property container at +48.
-It uses property writer `0x140697E50`.
-❓ The property types, optional groups and total wire layout remain open.
-A PC memory source does not by itself prove a character DB column.
+The descriptor contains six `h` fields after the configuration integer.
+The initial compose call emits only the five independent shorts above.
+❓ The next `h` appears to start the property section. Its property mapping is not verified.
+Do not invent a sixth configuration field.
+
+### Remaining ordered groups
+
+Source: build-381 GameDaemon sender `0x1405F5980`, literal `0x140DAA240`.
+This is a group inventory, not a complete encodable format.
+
+| Order after prefix | Format / checked source | Provenance and limit |
+| ---: | --- | --- |
+| 1 | Property IDs 1..`0x1A6`; PC property container +48; writer `0x140697E50` | 422 property IDs. Descriptor advance is 373, not 422 wire fields. Custom `?` entries occur. ❓ Full dynamic layout and DB columns remain open. |
+| 2 | `b`; helper `0x14025FB20` | Runtime PC byte block. ❓ Content identity open. |
+| 3 | `K`; daemon pointer +3096, length +3104 | Daemon byte block. ❓ Original source and meaning open. |
+| 4 | `C[ci]`; helper `0x140618730`, PC +3912 | Runtime collection. ❓ Element meanings open. |
+| 5 | `C[Qb]`; count 2, tags 1 then 2 | Two property containers at PC +29808, stride 3352; property ID 2. ❓ Nested byte contract open. |
+| 6 | `cccccq` | Four configuration bytes at +704/+708/+712/+716; helper byte `0x1405ED470`; PC q at +20744. ❓ Meanings open. |
+| 7 | `C[Qqq]`; up to nine entries | Session +872/+880, stride 16. Emit nonzero pairs when configuration enables them. ❓ Semantic names open. |
+| 8 | `Q` | Configuration +746 != 0. ❓ Option meaning open. |
+| 9 | `C[ch]`; up to two entries | PC +39784/+39786, stride 4. Include only types 1..14. ❓ Meaning open. |
+| 10 | ❓ `C[Qiqqihcccc]` from descriptor | Helper `0x1403E8C00`, session +1288. Helper-to-field mapping was not checked. |
+| 11 | Final counted group | Helper `0x1401BB5E0`, PC +20616. ❓ Full element mapping remains open. |
+
+A PC memory source does not prove a character DB column.
+Keep the full command-32 body raw and unsupported.
+The generic BloodLib codec cannot encode the custom `?` fields.
+The existing fragment tests do not prove native mode-2 metadata compatibility.
 
 The sender also composes nested data with `hchcccchchchch`.
 A conditional composer uses `hqciqh`.
@@ -140,17 +171,40 @@ That function reaches `BUiWorld::RequestEnterZone` at `0x78EC10` or `0x78EC39`.
 A cinematic branch can defer this request.
 Other checked callers are `0x7DA146` and `0x7DB4C3`.
 
-The request constructor writes one dword and four shorts.
-The server decodes `hiuuuh` in `0x140371EE0` and queues a task using the PC's zone.
-It stores the first decoded dword at task +144.
-❓ The dword is a candidate echo of the prepare correlation key. Exact client-to-server field correspondence remains open.
-The client also calls `PresentationWorld::GetSummonedEnterZoneInfo` during request construction.
-❓ Exact coordinate/counter meanings for all four shorts remain open.
-Do not substitute a character ID for the first dword without further proof.
+The server decodes `hiuuuh` in `0x140371EE0` and queues task `0x1402912F0`.
+
+| Body order | Type | Checked correspondence | Source class |
+| ---: | --- | --- | --- |
+| 1 | i | Task +144 must equal current spawn action +208, in action state 2. A mismatch sends command 44, error 1150. | Echo of command-41 runtime correlation. Not a character DB ID. |
+| 2–4 | uuu | Task +148/+150/+152 pass to `0x1404BF580` for summoned-object x/y/z. | Client summoned-object state; not the local-player destination echo. |
+| 5 | h | Task +154 passes to the same summoned-object branch as yaw. | Client summoned-object state. ❓ Units and valid ranges open. |
+
+Client `0x7815C0` initializes the four shorts to zero and calls
+`PresentationWorld::GetSummonedEnterZoneInfo`, `0xB523E0`.
+The checked ordinary helper branch copies summoned-object shorts +0x94/+0x96/+0x98/+0x9A.
+❓ No-summon and special-mode branches are not fully mapped.
+The server can correct summoned position against terrain and permitted distance.
+Keep raw scalar bits in the codec. Do not enforce an invented coordinate range.
 
 Command 42 is the checked request in the load/enter path.
 ❓ It is not proof of a separate universal loading-finished acknowledgement.
-❓ The final load-screen exit condition, command-43 layout and spawn/appear exchange remain open.
+
+## Command 43 and appearance order
+
+Full format: `hq`. Server sender: `0x1402304A0`.
+The only application field is a q value from spawn-action +184.
+The source chain is `0x1402912F0` → `0x1404BF580` → `0x1404BF1E0` → `0x1402304A0`.
+Use an opaque name, `spawn_context`. ❓ Its exact meaning remains open.
+This is runtime action state, not a verified table key or character DB column.
+
+The sender calls appearance-related queue helper `0x14024B0C0` before it sends command 43.
+It calls event/script helper `0x140254770` after command 43.
+Do not assume the wire order is always command 43 followed by all appearance packets.
+❓ First appearance IDs, body layouts, DB/table inputs and delivery order remain open.
+
+Client slot 43 selects `0xEF6790`, then `World::EnterZone` at `0x74C850`.
+That target requires an existing player and starts installing it in the world object map.
+❓ Final load-screen exit and a standing-client state remain unverified.
 
 ## Table and DB sources
 
@@ -164,6 +218,21 @@ Command 42 is the checked request in the load/enter path.
 | Respawn/reentry | ZoneRespawn → ZoneArea; zone reentry relation | Same standing chain | ❓ Not proven required for first standing entry |
 | Environment and nearby objects | ZoneEnv/ZoneEnv2/ZoneEnv2Place/ZoneEnv2Spawn | [Table scope](03-minimum-world.md#table-scope) | ❓ Appearance commands and mandatory subset open |
 | Initial quests and scripts | PcInitialSetting quest link; script/quest catalogs | Same table scope | ❓ Not proven required or optional for standing |
+
+## Rust codec contract (step 4)
+
+| Item | Contract |
+| --- | --- |
+| Table | `Program/Server/Packet/tables/game381.json`; protocol 1278; separate client/server maps. This is a verified subset, not the complete native table. |
+| Codec | `Program/Server/Packet/src/game.rs`; commands 11/12, 23, 31, 41/42/43, 16/17/18. Formats match the tables above. |
+| Unknown payloads | Commands 24, 32, 929 and unknown IDs return `Error::Unsupported(RawPacket)`. The error retains command and all application bytes. Raw encoding also returns unsupported. |
+| Packet boundary | One logical size/command/body packet; maximum 4000 bytes. No outer-frame crypto, native mode-2 assembly, dispatch authentication or world state machine is added. |
+| Scalars | Unverified signed fields use unsigned raw-bit storage. Text retains UTF-16 units. No coordinate or game-value defaults are added. |
+| Validation | Reject wrong directions, truncation, invalid counts and trailing fields. Generated tests check independent little-endian fixtures and round trips. |
+
+The table has no LobbyGate relay mapping.
+The codec does not verify admission tokens or process handshake secrets.
+Do not infer safe state transitions from a successful codec operation.
 
 No game record, account name, address or secret value is included.
 See [06-minimum-session.md](06-minimum-session.md) for the conservative standing-session limit.

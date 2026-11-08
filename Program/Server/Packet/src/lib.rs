@@ -4,3 +4,4 @@
 
 pub mod dispatch;
 pub mod fragments;
+pub mod game;

@@ -21,13 +21,13 @@ It does not mean that every valid client path was tested.
 
 | Packet or group | Static classification | Standing-session rule | Evidence / gap |
 | --- | --- | --- | --- |
-| Separate game connection and Hello 11/12 | Checked dependency | Use game protocol 1278, not LobbyGate protocol 58. | Client `0xF2C0C0`; server `0x1403703D0`; ❓ outer framing and handshake compatibility open. |
+| Separate game connection and Hello 11/12 | Checked dependency | Use game protocol 1278, not LobbyGate protocol 58. | Client `0xF2C0C0`; server `0x1403703D0`; ordinary outer framing checked in 04. ❓ Full handshake acceptance open. |
 | Client command 929 after HelloOk | Observed, meaning open | Do not silently remove it or invent its response. | Client `0xF70280` calls `0xF2BEF0`; ❓ server handling and relation to token step open. |
 | Token exchange 23/24 | Checked dependency | Consume admission through the lobby link before character entry. | Server `0x140371170`; client command-24 callback `0xF3AF90`; ❓ success body open. |
 | Entry request 31 and PC composite 32 | Checked dependency | Initialize the player before prepare-zone processing. Preserve required fields and fragment structure. | Server `0x1403718A0`, sender `0x1405F5980`; client `0xEF6860`; ❓ full payload open. |
 | Prepare destination 41 | Checked dependency | Supply a consistent zone, correlation key, destination and transition counters. | Server `0x1404BEED0`; client prepare target `0x73E6C0`. |
 | Enter-zone request 42 | Checked dependency | Wait for the client's load/enter request. Do not assume that sending command 41 completes entry. | Client `BUiWorld::RequestEnterZone`, `0x7815C0`; server `0x140371EE0`. |
-| Enter-zone success 43 | Checked completion target | ❓ Exact server emission, payload and final screen-exit conditions remain open. | Client slot → `0xEF6790` → `World::EnterZone`, `0x74C850`. |
+| Enter-zone success 43 | Checked completion target | Format `hq`; opaque runtime spawn-action value. ❓ Final screen-exit conditions remain open. | Server `0x1402304A0`; client slot → `0xEF6790` → `World::EnterZone`, `0x74C850`. |
 | Local-player and nearby-object appearance | Unverified omission | ❓ No safe omission rule. Do not fabricate an appear command ID. | Spawn/appear packet set not recovered. |
 | Inventory | Unverified omission | ❓ Not proved optional. An empty collection still needs a valid encoded layout if present. | Large PC composite and supplementary sends not fully mapped. |
 | Skills | Unverified omission | ❓ Not proved optional. | Same PC-composite gap. |
@@ -110,23 +110,30 @@ A count threshold is not a fixed deadline from TCP accept.
 
 ## Implementation gate
 
+Step-4 update: ordinary framing rules and RSA → AES-128 families are checked.
+See `04-world-connect.md` for the private-object stop boundary and acceptance limits.
+Commands 42 and 43 now have checked structural layouts in `05-enter-world.md`.
+The separate Packet game module supplies codecs, not a successful-entry state machine.
+The checklist below retains the wider standing-session gates from step 3.
+
 Do not claim a working standing session until all rows below have evidence.
 
 | Gate | Required next evidence |
 | --- | --- |
-| Game channel | Verify outer framing against BloodLib. Identify the handshake family and secret ownership at the permitted high level only. Resolve command 929. |
+| Game channel | Ordinary framing and RSA → AES-128 families are checked. ❓ Full processor compatibility and client secret ownership remain open. Observe the private-object stop boundary. Resolve command 929. |
 | Admission | Recover command-24 success layout. Keep the token opaque and single use. |
 | Character initialization | Recover the full command-32 layout, property types, fragment contract and field provenance. |
-| Destination | Match all command-42 fields to command 41 and client state. Resolve initial-spawn selection without a first-record default. |
-| Standing | Recover command-43 emission/layout and spawn/appear packets outside restricted code. Verify final loading-screen exit. |
+| Destination | Command-42 correlation and summoned-object fields are checked. ❓ Coordinate units, special branches and initial-spawn selection remain open. Do not use a first-record default. |
+| Standing | Command 43 is `hq`. ❓ Resolve its q meaning, spawn/appear packets and final loading-screen exit outside restricted code. |
 | Optional data | Prove omission safety for each inventory, skill, quest and social group. Do not infer safety from names. |
 | Liveness | Verify scheduler units, configured ping policy and ordinary timeout behavior. |
 
-First Rust step, after this specification job: add a separate game-protocol dispatch schema and synthetic codec tests for the verified layouts in the existing Packet/BloodLib layers.
+Step 4 adds a separate game-protocol dispatch table and generated codec tests in Packet.
+See `05-enter-world.md#rust-codec-contract-step-4` for the implementation contract.
+❓ Compilation and test results are not available: the execution tool requires approval.
 Keep unknown packet bodies unsupported.
 Do not reuse the LobbyGate dispatch table as a game table.
 Do not implement a successful enter-world path from these partial layouts.
-No Rust file was changed in this job.
 
 ## Restricted boundaries and scope
 
@@ -137,9 +144,10 @@ No Rust file was changed in this job.
 | Client command-32 security interface | `0xEF68C8` | Do not follow the security call. |
 | Server zone-entry anti-cheat hook | `0x1405DF767`, containing function `0x1405DE040` | Do not follow the hook path. |
 | Server ping anti-cheat hook | `0x14036DE10`, from `0x140370F10` | Do not inspect hook internals. |
-| Licence/vendor-secret dependency | ❓ No relevant dependency established | Stop if acceptance requires an unavailable vendor secret. |
+| Licence/vendor-secret dependency | Static RSA private-object load at `0x1406E3100`; ❓ acceptance dependency remains open | Stop this key-analysis path. No secret material was read. No licence work. |
 
 No anti-cheat or licence implementation is specified.
-No prohibited binary, network connection, shell command, git command or Rust test was used.
+No prohibited binary, network connection or git command was used.
 No binary patch or explicit database save was made.
-Only GameDaemon specification files were changed.
+Step 4 also changes the Packet game module, its table and its generated tests.
+Shell execution requests did not run: the tool requires approval.
