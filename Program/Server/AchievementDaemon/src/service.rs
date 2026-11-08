@@ -7,7 +7,7 @@ use crate::protocol::{self, game_cmd, manager_cmd, reason};
 use crate::rules::Rules;
 use crate::store::Store;
 use bloodlib::packet::Value;
-use std::collections::{HashMap, HashSet};
+use std::collections::{BTreeMap, HashMap};
 use std::net::Ipv4Addr;
 use std::sync::Mutex;
 
@@ -19,17 +19,28 @@ pub enum Out {
     Cluster(i16, Vec<u8>),
     /// To every manager session that sent Hello.
     Managers(Vec<u8>),
+    /// Remove this channel from routing. Close its socket only when requested.
+    Expired {
+        cluster: i16,
+        token: u64,
+        close: bool,
+    },
 }
 
 #[derive(Debug, Clone)]
 pub struct GameConn {
     pub ip: Ipv4Addr,
     pub cluster: Option<i16>,
+    pub token: u64,
 }
 
 impl GameConn {
     pub fn new(ip: Ipv4Addr) -> Self {
-        Self { ip, cluster: None }
+        Self {
+            ip,
+            cluster: None,
+            token: 0,
+        }
     }
 }
 
@@ -38,10 +49,19 @@ pub struct ManagerConn {
     pub hello: bool,
 }
 
+#[derive(Debug, Clone)]
+pub struct GameChannel {
+    pub token: u64,
+    pub last_ping_ms: u64,
+}
+
 #[derive(Default)]
 pub struct State {
     pub pcs: HashMap<i64, Pc>,
-    pub clusters: HashSet<i16>,
+    pub clusters: BTreeMap<i16, GameChannel>,
+    next_token: u64,
+    /// Pc routing membership exists before a load completes (0x140009B50).
+    pub routes: HashMap<i64, i16>,
 }
 
 pub struct Daemon<S> {
@@ -78,6 +98,17 @@ impl<S: Store> Daemon<S> {
     // ---- game port -------------------------------------------------------
 
     pub fn game_packet(&self, conn: &mut GameConn, packet: &[u8], now: i64) -> Vec<Out> {
+        self.game_packet_at(conn, packet, now, now.max(0) as u64 * 1000)
+    }
+
+    /// Keep event time (seconds) separate from the monotonic Ping clock (ms).
+    pub fn game_packet_at(
+        &self,
+        conn: &mut GameConn,
+        packet: &[u8],
+        now: i64,
+        clock_ms: u64,
+    ) -> Vec<Out> {
         let Some(cmd) = protocol::command(packet) else {
             return Vec::new();
         };
@@ -85,21 +116,28 @@ impl<S: Store> Daemon<S> {
             return Vec::new();
         }
         if cmd == game_cmd::HELLO_REQ {
-            return self.game_hello(conn, packet, now);
+            return self.game_hello(conn, packet, now, clock_ms);
         }
         let Some(cluster) = conn.cluster else {
             return Vec::new();
         };
         match cmd {
             game_cmd::PING => match protocol::fields("hqh", packet) {
-                Some(v) => vec![Out::Reply(protocol::packet(
-                    "hqh",
-                    &[
-                        Value::I16(game_cmd::PONG),
-                        Value::I64(protocol::i64_at(&v, 1)),
-                        Value::I16(cluster),
-                    ],
-                ))],
+                Some(v) => {
+                    if let Some(channel) = self.lock().clusters.get_mut(&cluster) {
+                        if channel.token == conn.token {
+                            channel.last_ping_ms = clock_ms;
+                        }
+                    }
+                    vec![Out::Reply(protocol::packet(
+                        "hqh",
+                        &[
+                            Value::I16(game_cmd::PONG),
+                            Value::I64(protocol::i64_at(&v, 1)),
+                            Value::I16(protocol::i16_at(&v, 2)),
+                        ],
+                    ))]
+                }
                 None => Vec::new(),
             },
             game_cmd::EVENT_OCCURED_NOTIFY => match Event::parse(packet) {
@@ -113,7 +151,7 @@ impl<S: Store> Daemon<S> {
         }
     }
 
-    fn game_hello(&self, conn: &mut GameConn, packet: &[u8], now: i64) -> Vec<Out> {
+    fn game_hello(&self, conn: &mut GameConn, packet: &[u8], now: i64, clock_ms: u64) -> Vec<Out> {
         let fail = |r| vec![Out::Reply(protocol::hh(game_cmd::HELLO_FAIL, r))];
         let Some(v) = protocol::fields("hiih", packet) else {
             return fail(reason::SYSTEM);
@@ -133,9 +171,18 @@ impl<S: Store> Daemon<S> {
         }
         {
             let mut st = self.lock();
-            if conn.cluster.is_some() || !st.clusters.insert(cluster) {
+            if conn.cluster.is_some() || st.clusters.contains_key(&cluster) {
                 return fail(reason::SYSTEM);
             }
+            st.next_token += 1;
+            conn.token = st.next_token;
+            st.clusters.insert(
+                cluster,
+                GameChannel {
+                    token: conn.token,
+                    last_ping_ms: clock_ms,
+                },
+            );
         }
         conn.cluster = Some(cluster);
         let mut out = vec![Out::Reply(protocol::hh(game_cmd::HELLO_ACK, cluster))];
@@ -157,7 +204,16 @@ impl<S: Store> Daemon<S> {
         let Some(cluster) = conn.cluster else {
             return Vec::new();
         };
-        self.lock().clusters.remove(&cluster);
+        {
+            let mut st = self.lock();
+            if st
+                .clusters
+                .get(&cluster)
+                .is_some_and(|c| c.token == conn.token)
+            {
+                st.clusters.remove(&cluster);
+            }
+        }
         self.post(
             Event::new(
                 id::CLUSTER_DISCONNECTED,
@@ -168,6 +224,35 @@ impl<S: Store> Daemon<S> {
             ),
             now,
         )
+    }
+
+    /// Native CheckPing removes up to 100 expired channels. Expiry is strict >.
+    /// Socket closure causes the ordinary single-cluster disconnect path.
+    pub fn check_ping(&self, clock_ms: u64) -> Vec<Out> {
+        if !self.config.ping_enable {
+            return Vec::new();
+        }
+        let mut st = self.lock();
+        let expired: Vec<_> = st
+            .clusters
+            .iter()
+            .filter(|(_, c)| {
+                clock_ms.saturating_sub(c.last_ping_ms) > self.config.check_ping_time_ms
+            })
+            .take(100)
+            .map(|(&cluster, c)| (cluster, c.token))
+            .collect();
+        expired
+            .into_iter()
+            .map(|(cluster, token)| {
+                st.clusters.remove(&cluster);
+                Out::Expired {
+                    cluster,
+                    token,
+                    close: self.config.disconnect_when_ping_timeout,
+                }
+            })
+            .collect()
     }
 
     /// CompleteFromClientNotify (cmd 8): each register row becomes event 1013,
@@ -214,6 +299,9 @@ impl<S: Store> Daemon<S> {
         let Some(cmd) = protocol::command(packet) else {
             return Vec::new();
         };
+        if cmd != manager_cmd::HELLO_REQ && !conn.hello {
+            return Vec::new();
+        }
         match cmd {
             manager_cmd::HELLO_REQ => {
                 let Some(v) = protocol::fields("hi", packet) else {
@@ -250,8 +338,7 @@ impl<S: Store> Daemon<S> {
                     return Vec::new();
                 };
                 let (pcdbid, tid) = (protocol::i64_at(&v, 1), protocol::i64_at(&v, 2));
-                // ❓ "IsLogined" is taken as: the Pc exists with this tid.
-                let logined = self.lock().pcs.get(&pcdbid).is_some_and(|p| p.tid == tid);
+                let logined = self.lock().routes.contains_key(&pcdbid);
                 vec![Out::Managers(protocol::packet(
                     "hqqc",
                     &[
@@ -283,9 +370,21 @@ impl<S: Store> Daemon<S> {
         let mut st = self.lock();
         match ev.id {
             id::CLUSTER_CONNECTED | id::PC_IS_LOGINED => return Vec::new(),
-            id::CLUSTER_DISCONNECTED => return self.cluster_disconnected(&mut st, ev.cluster_id),
-            id::PC_LOGIN => return self.login(&mut st, &ev, now),
+            id::CLUSTER_DISCONNECTED => {
+                return self.cluster_disconnected(
+                    &mut st,
+                    ev.cluster_id,
+                    ev.int("disconnected_all") != 0,
+                )
+            }
+            id::PC_LOGIN => {
+                st.routes.insert(ev.pcdbid, ev.cluster_id);
+                return self.login(&mut st, &ev, now);
+            }
             _ => {}
+        }
+        if ev.id == id::PC_LOGOUT {
+            st.routes.remove(&ev.pcdbid);
         }
         let Some(pc) = st.pcs.get_mut(&ev.pcdbid) else {
             return Vec::new(); // "pc not found"
@@ -322,11 +421,10 @@ impl<S: Store> Daemon<S> {
                     ev.int("achievement_id") as u16,
                     ev.int("achievement_step") as u16,
                 );
-                if rules
-                    .record(achievement, step, pc.job())
-                    .is_some_and(|r| r.complete_from_client)
-                {
-                    pc.check_complete(rules, achievement, now, &mut packets);
+                if let Some(record) = rules.record(achievement, step, pc.job()) {
+                    if record.complete_from_client {
+                        pc.check_complete(rules, record, now, &mut packets);
+                    }
                 }
             }
             id::COMPLETE_TAKE_REWARD => {
@@ -337,10 +435,10 @@ impl<S: Store> Daemon<S> {
                     ev.int("job") as u8,
                 );
                 let reason = match rules.record(achievement, step, job) {
-                    Some(record) => pc.take_reward(record),
+                    Some(record) => pc.take_reward(rules, record, job),
                     None => take::NOT_FOUND,
                 };
-                if transaction != 0 {
+                if transaction != 0 || reason == take::NOT_FOUND {
                     packets.push(pc.take_reward_reply(transaction, achievement, step, reason));
                 }
             }
@@ -459,7 +557,8 @@ impl<S: Store> Daemon<S> {
         }
         let pc = st.pcs.get_mut(&ev.pcdbid).expect("inserted above");
         pc.hint = ev.hint;
-        let mut packets = pc.data_packets(false);
+        let mut packets = std::mem::take(&mut pc.load_notifications);
+        packets.extend(pc.data_packets(false));
         self.update_profile(
             pc,
             &[
@@ -515,13 +614,14 @@ impl<S: Store> Daemon<S> {
         }
     }
 
-    /// ClusterDisconnected: flush and drop every Pc of that cluster.
-    /// ❓ The 348 handler works per event thread; the effect here is the same.
-    fn cluster_disconnected(&self, st: &mut State, cluster: i16) -> Vec<Out> {
+    /// Native 0x140019990: select one cluster or all Pcs on the event thread.
+    /// This port has one logical event thread.
+    fn cluster_disconnected(&self, st: &mut State, cluster: i16, all: bool) -> Vec<Out> {
+        st.routes.retain(|_, c| !all && *c != cluster);
         let ids: Vec<i64> = st
             .pcs
             .values()
-            .filter(|p| p.cluster_id == cluster)
+            .filter(|p| all || p.cluster_id == cluster)
             .map(|p| p.pcdbid)
             .collect();
         for pcdbid in ids {
@@ -548,23 +648,30 @@ impl<S: Store> Daemon<S> {
             Vec::new()
         };
         let db = &self.store;
+        // Each DB group is independent (0x140008B20).
         if db
             .insert_registers(pc.pcdbid, &changes.insert_registers)
             .is_ok()
-            && db
-                .update_registers(pc.pcdbid, &changes.update_registers)
-                .is_ok()
         {
-            pc.clear_registers();
+            pc.clear_registers(crate::pc::INSERT);
+        }
+        if db
+            .update_registers(pc.pcdbid, &changes.update_registers)
+            .is_ok()
+        {
+            pc.clear_registers(crate::pc::UPDATE);
         }
         if db
             .insert_completed(pc.pcdbid, &changes.insert_completed)
             .is_ok()
-            && db
-                .update_completed(pc.pcdbid, &changes.update_completed)
-                .is_ok()
         {
-            pc.clear_completed();
+            pc.clear_completed(crate::pc::INSERT);
+        }
+        if db
+            .update_completed(pc.pcdbid, &changes.update_completed)
+            .is_ok()
+        {
+            pc.clear_completed(crate::pc::UPDATE);
         }
         if db.take_step_reward(pc.pcdbid, &changes.rewards).is_ok() {
             pc.clear_rewards();

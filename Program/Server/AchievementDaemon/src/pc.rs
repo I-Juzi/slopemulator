@@ -25,6 +25,23 @@ impl<T> Slot<T> {
     }
 }
 
+/// Register row metadata stays with the row, as in the native Pc::Register.
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub struct RegisterSlot {
+    pub value: i64,
+    pub version: u16,
+    pub modified: u8,
+    pub visible: bool,
+}
+
+impl RegisterSlot {
+    fn mark_update(&mut self) {
+        if self.modified != INSERT {
+            self.modified = UPDATE;
+        }
+    }
+}
+
 /// Completed step and its time.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub struct Done {
@@ -60,18 +77,20 @@ pub struct Pc {
     pub hint: i64,
     pub cluster_id: i16,
     pub profile: Profile,
-    pub registers: BTreeMap<u16, Slot<i64>>,
+    pub registers: BTreeMap<u16, RegisterSlot>,
     pub completed: BTreeMap<u16, Slot<Done>>,
     pub rewards: BTreeMap<u16, Slot<u16>>,
-    /// Sum of `current-step-score` of every completed step.
+    /// Sum of the selected completed records' score_sum values.
     pub score: i32,
+    /// LoadRegisters emits these before SendAllData (0x140003D60).
+    pub load_notifications: Vec<Vec<u8>>,
 }
 
 /// Rows with a modified marker, collected by updatePc.
 #[derive(Debug, Clone, Default, PartialEq, Eq)]
 pub struct Changes {
-    pub insert_registers: Vec<(u16, i64)>,
-    pub update_registers: Vec<(u16, i64)>,
+    pub insert_registers: Vec<(u16, u16, i64)>,
+    pub update_registers: Vec<(u16, u16, i64)>,
     pub insert_completed: Vec<(u16, u16, i64)>,
     pub update_completed: Vec<(u16, u16, i64)>,
     pub rewards: Vec<(u16, u16)>,
@@ -113,12 +132,26 @@ impl Pc {
             profile,
             ..Default::default()
         };
-        for (id, value) in rows.registers {
+        for (id, (version, value)) in rows.registers {
+            let Some(register) = rules.register(id, pc.job()) else {
+                continue;
+            };
+            let mismatch = version != register.version;
+            if mismatch {
+                pc.load_notifications.push(pc.register_reset_notify(
+                    id,
+                    version,
+                    register.version,
+                    value,
+                ));
+            }
             pc.registers.insert(
                 id,
-                Slot {
-                    value,
-                    modified: CLEAN,
+                RegisterSlot {
+                    value: if mismatch { 0 } else { value },
+                    version: register.version,
+                    modified: if mismatch { UPDATE } else { CLEAN },
+                    visible: register.visible(),
                 },
             );
         }
@@ -148,17 +181,12 @@ impl Pc {
         self.profile.job
     }
 
-    /// Sum of the step scores of steps 1..=completed for each achievement.
+    /// Use the selected completed record's derived score_sum (0x140016CA0).
     pub fn compute_score(&self, rules: &Rules) -> i32 {
-        let mut score = 0i32;
-        for (&id, done) in &self.completed {
-            for step in 1..=done.value.step {
-                if let Some(r) = rules.record(id, step, self.job()) {
-                    score = score.saturating_add(r.score);
-                }
-            }
-        }
-        score
+        self.completed
+            .iter()
+            .filter_map(|(&id, done)| rules.record(id, done.value.step, self.job()))
+            .fold(0i32, |score, r| score.wrapping_add(r.score_sum))
     }
 
     pub fn register(&self, id: u16) -> i64 {
@@ -186,14 +214,25 @@ impl Pc {
             }
             None => {
                 let modified = if tracked { INSERT } else { CLEAN };
-                self.registers.insert(id, Slot { value, modified });
+                let register = rules.register(id, self.job()).expect("validated register");
+                self.registers.insert(
+                    id,
+                    RegisterSlot {
+                        value,
+                        modified,
+                        version: register.version,
+                        visible: register.visible(),
+                    },
+                );
             }
         }
     }
 
     fn after_change(&mut self, rules: &Rules, id: u16, now: i64, out: &mut Vec<Vec<u8>>) {
-        for &achievement in rules.linked(id) {
-            self.check_complete(rules, achievement, now, out);
+        for key in rules.linked(id, self.job()) {
+            if let Some(record) = rules.achievements.get(key) {
+                self.check_complete(rules, record, now, out);
+            }
         }
     }
 
@@ -258,52 +297,58 @@ impl Pc {
                 .all(|c| c.op.holds(self.register(c.register), c.value))
     }
 
-    /// checkComplete: complete the next step while its conditions hold.
-    /// Each completed step adds its score and sends a CompletedNotify (cmd 11).
-    /// ❓ The daemon may stop after one step; this port repeats until a step fails.
-    pub fn check_complete(&mut self, rules: &Rules, id: u16, now: i64, out: &mut Vec<Vec<u8>>) {
-        loop {
-            let current = self.completed_step(id);
-            let next = current.saturating_add(1);
-            let Some(record) = rules.record(id, next, self.job()) else {
-                return;
-            };
-            if record.deprecated || !self.conditions_hold(record) {
-                return;
+    /// Check one exact record, not a next-step loop (0x140017DD0).
+    pub fn check_complete(
+        &mut self,
+        rules: &Rules,
+        record: &Achievement,
+        now: i64,
+        out: &mut Vec<Vec<u8>>,
+    ) {
+        let id = record.id;
+        let current = self.completed_step(id);
+        if record.deprecated
+            || (self.completed.contains_key(&id) && record.step <= current)
+            || !self.conditions_hold(record)
+        {
+            return;
+        }
+        let done = Done {
+            step: record.step,
+            time: now,
+        };
+        match self.completed.get_mut(&id) {
+            Some(slot) => {
+                slot.value = done;
+                slot.mark_update();
             }
-            let done = Done {
-                step: next,
-                time: now,
-            };
-            match self.completed.get_mut(&id) {
-                Some(slot) => {
-                    slot.value = done;
-                    slot.mark_update();
-                }
-                None => {
-                    self.completed.insert(
-                        id,
-                        Slot {
-                            value: done,
-                            modified: INSERT,
-                        },
-                    );
-                }
-            }
-            self.score = self.score.saturating_add(record.score);
-            let last = rules
-                .record(id, next.saturating_add(1), self.job())
-                .is_none();
-            out.push(self.completed_notify(id, current, next, last));
-            if last {
-                return;
+            None => {
+                self.completed.insert(
+                    id,
+                    Slot {
+                        value: done,
+                        modified: INSERT,
+                    },
+                );
             }
         }
+        self.score = self.compute_score(rules);
+        // SetRegister must run linked completion, even when zero is unchanged.
+        // Store the completed step first to prevent recursive re-completion.
+        for condition in &record.conditions {
+            if condition.clear {
+                self.set_register(rules, condition.register, 0, now, out);
+            }
+        }
+        let last = !rules
+            .achievements
+            .contains_key(&(id, record.step.wrapping_add(1), record.job));
+        out.push(self.completed_notify(id, current, record.step, last));
     }
 
     /// availableTakeReward for an existing record of (id, step).
-    pub fn available_take_reward(&self, record: &Achievement) -> i16 {
-        if !record.has_reward {
+    pub fn available_take_reward(&self, rules: &Rules, record: &Achievement, job: u8) -> i16 {
+        if self.completed_step(record.id) == 0 && !self.rewards.contains_key(&record.id) {
             return take::NOT_AVAILABLE;
         }
         if record.deprecated {
@@ -322,12 +367,22 @@ impl Pc {
         {
             return take::ALREADY_TAKEN;
         }
+        let taken = self.rewards.get(&record.id).map_or(0, |r| r.value);
+        // Native scans backward, so a nearer reward takes priority over a gap.
+        for step in ((taken.saturating_add(1))..record.step).rev() {
+            let Some(previous) = rules.record(record.id, step, job) else {
+                return take::NOT_AVAILABLE;
+            };
+            if previous.has_reward {
+                return take::NOT_COMPLETED;
+            }
+        }
         take::OK
     }
 
-    /// CompleteTakeReward: check, then store the reward step.
-    pub fn take_reward(&mut self, record: &Achievement) -> i16 {
-        let reason = self.available_take_reward(record);
+    /// CompleteTakeReward: check, then store the reward step (0x140017B80).
+    pub fn take_reward(&mut self, rules: &Rules, record: &Achievement, job: u8) -> i16 {
+        let reason = self.available_take_reward(rules, record, job);
         if reason == take::OK {
             match self.rewards.get_mut(&record.id) {
                 Some(slot) => {
@@ -353,8 +408,8 @@ impl Pc {
         let mut c = Changes::default();
         for (&id, s) in &self.registers {
             match s.modified {
-                INSERT => c.insert_registers.push((id, s.value)),
-                UPDATE => c.update_registers.push((id, s.value)),
+                INSERT => c.insert_registers.push((id, s.version, s.value)),
+                UPDATE => c.update_registers.push((id, s.version, s.value)),
                 _ => {}
             }
         }
@@ -373,11 +428,17 @@ impl Pc {
         c
     }
 
-    pub fn clear_registers(&mut self) {
-        self.registers.values_mut().for_each(|s| s.modified = CLEAN);
+    pub fn clear_registers(&mut self, marker: u8) {
+        self.registers
+            .values_mut()
+            .filter(|s| s.modified == marker)
+            .for_each(|s| s.modified = CLEAN);
     }
-    pub fn clear_completed(&mut self) {
-        self.completed.values_mut().for_each(|s| s.modified = CLEAN);
+    pub fn clear_completed(&mut self, marker: u8) {
+        self.completed
+            .values_mut()
+            .filter(|s| s.modified == marker)
+            .for_each(|s| s.modified = CLEAN);
     }
     pub fn clear_rewards(&mut self) {
         self.rewards.values_mut().for_each(|s| s.modified = CLEAN);
@@ -387,13 +448,13 @@ impl Pc {
     /// (only marked rows) instead of SendAllData.
     pub fn data_packets(&self, changed: bool) -> Vec<Vec<u8>> {
         let keep = |m: u8| !changed || m != CLEAN;
-        let registers = self
+        let registers: Vec<_> = self
             .registers
             .iter()
-            .filter(|(_, s)| keep(s.modified))
+            .filter(|(_, s)| s.visible && keep(s.modified))
             .map(|(&id, s)| vec![Value::I16(id as i16), Value::I64(s.value)])
             .collect();
-        let completed = self
+        let completed: Vec<_> = self
             .completed
             .iter()
             .filter(|(_, s)| keep(s.modified))
@@ -405,12 +466,15 @@ impl Pc {
                 ]
             })
             .collect();
-        let rewards = self
+        let rewards: Vec<_> = self
             .rewards
             .iter()
             .filter(|(_, s)| keep(s.modified))
             .map(|(&id, s)| vec![Value::I16(id as i16), Value::I16(s.value as i16)])
             .collect();
+        if changed && registers.is_empty() && completed.is_empty() && rewards.is_empty() {
+            return Vec::new();
+        }
         packet::fragments::compose_fragments(
             game_cmd::DATA,
             "hiqqqihcChq;Chhq;Chh;",
@@ -427,6 +491,25 @@ impl Pc {
             ],
         )
         .unwrap_or_default()
+    }
+
+    /// RegisterResetNotify (cmd 12), native LoadRegisters at 0x140003D60.
+    pub fn register_reset_notify(&self, id: u16, old: u16, new: u16, value: i64) -> Vec<u8> {
+        packet(
+            "hsqqqhhhqq",
+            &[
+                Value::I16(game_cmd::REGISTER_RESET_NOTIFY),
+                Value::String(self.profile.name.clone()),
+                Value::I64(self.pcdbid),
+                Value::I64(self.profile.pcid),
+                Value::I64(self.tid),
+                Value::I16(id as i16),
+                Value::I16(old as i16),
+                Value::I16(new as i16),
+                Value::I64(value),
+                Value::I64(0),
+            ],
+        )
     }
 
     /// CompletedNotify (cmd 11): pcname, pcdbid, pcid, tid, id, old step, new step, isLastStep.
@@ -448,7 +531,7 @@ impl Pc {
     }
 
     /// Take-reward reply: cmd 9 `hqqhh` or cmd 10 `hEqqhh`
-    /// [reason], transaction id, pcdbid, reward step, achievement id.
+    /// [reason], transaction id, pcdbid, achievement id, reward step (0x1400183E0).
     pub fn take_reward_reply(&self, transaction: i64, id: u16, step: u16, reason: i16) -> Vec<u8> {
         if reason == take::OK {
             packet(
@@ -457,8 +540,8 @@ impl Pc {
                     Value::I16(game_cmd::TAKE_REWARD_OK),
                     Value::I64(transaction),
                     Value::I64(self.pcdbid),
-                    Value::I16(step as i16),
                     Value::I16(id as i16),
+                    Value::I16(step as i16),
                 ],
             )
         } else {
@@ -469,8 +552,8 @@ impl Pc {
                     Value::I16(reason),
                     Value::I64(transaction),
                     Value::I64(self.pcdbid),
-                    Value::I16(step as i16),
                     Value::I16(id as i16),
+                    Value::I16(step as i16),
                 ],
             )
         }

@@ -16,6 +16,7 @@ pub mod game_cmd {
     pub const TAKE_REWARD_OK: i16 = 9;
     pub const TAKE_REWARD_FAIL: i16 = 10;
     pub const COMPLETED_NOTIFY: i16 = 11;
+    pub const REGISTER_RESET_NOTIFY: i16 = 12;
     pub const MAX: i16 = 12;
 }
 
