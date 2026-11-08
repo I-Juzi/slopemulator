@@ -231,15 +231,108 @@ It accepts only when both remaining values are >=0.
 - **State/output/calls:** No direct item count, money or gather reward change in wrapper. No immediate success or backend request.
 - **❓ Missing:** GatherAction lifecycle; target ownership, distance, table, tool, resource and cooldown checks; reservation, inventory mutation, success/broadcasts and persistence.
 
-## 77 — G_GatherCancelReqCmd — partial
+## 77 — G_GatherCancelReqCmd — done
 
+- **Completion:** Build 381.8867, `ida/delegate/gamed/GameDaemon.exe.i64`. Read the receive wrapper, task, PC action-manager class-15 branch, cancellation callback, action-buffer routes, timer unlink and parent release. Sources appear below. The gather-start and normal-finish paths belong to command 1270, not this cancellation request.
 - **381:** `0x140375290`. **348:** `HandleGame_GatherCancelReq`.
 - **Wire:** No body decoder. Body bytes are unused by wrapper.
-- **Checks/order:** Require zone. Create task vtable `0x140C39C08`, kind 76. Require PC native kind 1. Use common setup; queue.
-- **Failure:** 78, `hh`, reason 1 to requester for zone/kind/queue failure. Wrong kind also asserts/logs.
-- **State/output/calls:** No direct cancel or success packet in wrapper. No direct DB/daemon/kick call.
-- **Task `0x1405391A0`:** Call PC action-manager +2232 virtual +32 with action class 15. False sends 78/684, `hh`, to requester. True has no direct reply here.
-- **❓ Missing:** Action-manager cancellation predicate and GatherAction cancellation mutation/broadcasts.
+- **Checks/order:** Require zone. Allocate a 0x90-byte task, vtable `0x140C39C08`, kind 76. Require PC native kind 1. Attach zone and PC; store runtime IDs through common setup; queue. No request fields are stored.
+- **Failure:** 78, `hh`, reason 1 to requester for zone/allocation/kind/queue failure. The body is one little-endian reason short. Wrong kind also asserts/logs. There is no immediate success packet.
+- **Task `0x1405391A0`:** Resolve the attached PC. Call its action-manager +2232 virtual +32 with action class 15. False logs and sends 78/684, `hh`, to that PC. True has no task reply. The native task dereferences missing PC/manager/current-operation pointers. The port stops unsupported for an invalid object graph; it does not invent a failure reason.
+
+### Current-operation cancellation
+
+The PC constructor `0x1405DAB60` installs queue vtable `0x140D14850` at PC +2232.
+Its virtual +32 is `0x140473AF0`.
+Read the current operation at queue +24.
+Compare its class short +146 with 15.
+A mismatch returns false without mutation.
+A match calls `0x1404740A0` with cancel=true and returns true.
+
+For class 15, `dword_1407E4DC0[15]` is 1 and action virtual +128 returns false.
+Thus only the ordinary queue +24 branch applies.
+There is no simulated-skill slot scan on this path.
+`0x1404740A0` calls `0x140472220(action,4,0,source,line)`, releases the old operation, then installs the class-1 idle singleton from `0x140472550` at queue +24.
+It installs idle even if the cancellation helper only logs that cancellation already occurred.
+
+| Order | `0x140472220`, class 15 |
+| ---: | --- |
+| 1 | If action byte +148 mask 4 is set, log already cancelled. Skip the callback and parent clear. |
+| 2 | Otherwise set mask 4 before the callback. |
+| 3 | Call virtual +184 with cancellation reason 4. Gather vtable `0x140C79AB0` routes this through `0x1400244C0` to virtual +192, `0x140539120`. |
+| 4 | After the callback, clear the parent through `0x1404723D0` only if flags mask 0xA is zero. Masks 2 and 8 defer this clear. |
+
+`0x1404723D0` unlinks the child and releases the action reference when the parent reference count requires it.
+A missing parent logs at this helper.
+However, the reason-4 gather callback first dereferences the action parent.
+A newly cancelled action with no parent is not a safe native success path.
+Reference release and parent unlink are not connection kicks.
+
+### Gather callback and buffered event
+
+`0x140539120` uses the cancelled action's zone pointer +112, not the cancel task's captured zone.
+For nonzero reason, it reads the attached PC's current server XYZ +268/+270/+272 and runtime ID +40.
+It calls `0x14023BD20` with those values, the gather target ID at action +152, and completion byte 2.
+It does not resolve the target or grant a reward.
+After the event call, it cancels the action timer through `0x140676850` if action +48 exists.
+
+`0x14023BD20` does nothing if the action zone's creature-manager count +8 is zero.
+Otherwise it builds one action event.
+The packet-builder header descriptor is exactly `hiCS;`.
+The event descriptor is exactly `cqqQ`.
+These are string bytes, not IDA symbol spelling.
+
+| Event field | Width | Value |
+| --- | ---: | --- |
+| Kind | 1 byte | 42 |
+| Caster | 8 bytes | Attached PC runtime ID, little-endian |
+| Target | 8 bytes | Gather action +152, little-endian |
+| Completion | 1 byte | 2 |
+
+Resolve the caster by ID in the action zone through `0x140259CA0`.
+Do not assume that this lookup finds the PC.
+Compute the cell from the current PC XYZ through `0x140212720`.
+This uses zone geometry +16224, signed XY differences from origin shorts +8/+10, cell width DWORD +380, row width DWORD +384 and unsigned index bound +396.
+Zero cell width, an out-of-bound index or missing geometry gives cell zero; missing geometry also asserts/logs.
+`0x140257C20` supplies PC byte +39836 as visibility only for a resolved native kind 1; other kinds or a missing caster give zero.
+
+`0x140248A50` uses mode 2 and explicit recipient zero:
+
+1. If config +1530 is nonzero and config +792 equals 1, append a personal action copy for a resolved caster of native kind 1..3.
+2. `0x1405D79D0` appends to its personal buffer +3464. It maintains capacity and repeat count. A null buffer logs; it does not suppress the zone append.
+3. Always append the zone event through `0x140248C40`. The explicit-recipient branch cannot run because recipient is zero.
+
+The zone append copies the 18-byte payload and adds one 16-byte metadata record: cell DWORD, event kind DWORD, payload offset DWORD, payload length WORD and visibility byte.
+It increments metadata count and payload byte count.
+These are buffered action events, not immediate client sends.
+Later buffer delivery is a shared transport operation, not a second success reply for command 77.
+
+### Timer and final state
+
+`0x140676850` returns false without unlink if scheduler DWORD +184 is zero.
+Otherwise it locks the timer queue.
+No action link +72 means no unlink.
+A live link calls `0x140675230`.
+This relinks neighbors, updates head/tail, clears action links +56/+64/+72, releases the timer reference, decrements the queue count and clamps that count to zero.
+It then unlocks.
+The callback does not map timer return values to a reply.
+`0x140674650` stores bounded diagnostic history, not a timer-tree mutation.
+`0x140675370` checks/logs timer-link diagnostics.
+Neither helper adds gameplay output.
+
+The ordered game effects are cancellation bit, personal event if enabled, zone event if nonempty, timer unlink if linked and active, parent clear if not deferred, then idle-operation replacement.
+An already-cancelled action performs only the final replacement and a log.
+There is no direct success packet, immediate broadcast, item, money, cooldown, reward, DB, other-daemon or kick operation on this cancel path.
+
+**Rust contract:** `execute_skill_task` runs only a retained task after successful submit.
+`Services::skill_completion_state` supplies live server state for that task under exclusive access.
+The state retains the cancelled action after idle replacement.
+The adapter supplies the action-zone cell, lookup and buffer metadata; client bytes cannot supply them.
+`Outcome::skill_effects` records the ordered buffer and cancellation operations.
+The adapter must apply these effects in order; they are not `Outcome::broadcasts`.
+Unknown state stops unsupported.
+If metadata is unknown after setting the cancellation bit, keep that completed prefix and stop; do not retry the incomplete task as a fresh cancellation.
+Synthetic tests in `tests/gs3_skill_complete.rs` cover the verified reply and state branches. No live test ran.
 
 ## 1272 — G_LootReqCmd — partial
 
@@ -257,16 +350,53 @@ It accepts only when both remaining values are >=0.
 - **Checks/order:** Require PC summon +36880 with DWORD +6984 in {1,2} (reason 2). Require summon native kind 2 (175). If summon record +6960 exists and record byte +56 ==11, reject (179). Require summon zone (2). Create action class 50. Initialize it with summon as caster. Store XYZ at action +152/+154/+156. The wrapper does not copy yaw. Queue in summon zone.
 - **Failure/output:** 72, `hh`, reason above to requester. Create/queue failure uses 2. No immediate success or direct backend/kick call.
 - **State:** Action setup only. No wrapper distance or ownership check beyond the PC-held controlled summon.
-- **❓ Missing:** Recall action, authoritative position/range checks, final position/yaw, broadcasts and deferred failures.
+- **Action preparation `0x1404888A0`:** Class-50 vtable `0x140D09C08`, virtual +88. Resolve the attached summon. Ask its manager +2232 virtual +88(0) for the current action. Require action class short +146 ==1. Otherwise send 72/178, `hh`, through summon virtual +592. Disassembly supplies the reason omitted by the decompiler.
+- **Action start `0x140488900`, ordered rejection prefix:** Resolve summon and captured zone. Query requested XYZ through geometry helper `0x1400244E0(zone+16224,XYZ,result)`. Lookup failure sends 72/177. Read signed result byte +10. Zero passes. Negative logs and sends 177. Positive requires the zone environment entry at zone +16336 +8*index and its virtual +232 to return zero; otherwise send 177. Then read live summon owner +6968. Compare original requested signed XYZ with that owner's server XYZ, not with the old summon position. Use signed 64-bit squared 3D distance. Only a result >15625 sends 72/176; equality passes. The check occurs before terrain Z replaces the requested Z. Failures end the action through `0x140422850`.
+- **Accepted sequence, read at call level:** Replace action Z +156 with geometry result short +6. Derive yaw from signed-short XY deltas from the old summon position with `atan2`, angle conversion, integer truncation and the low-word sign test. Call `0x14026AC60(summon,yaw,0)`. Call movement helper `0x1402408B0` with old/new XYZ, summon ID, action short +158 and zero flags. Relocate through `0x14026A180`. Clear summon DWORD +2300. Set DWORDs +2252/+2256/+2260/+2288/+2292/+2296 to -32000. Zero the delta header, call summon virtual +536 with zero flags, flush through `0x140260850`, then end through virtual +208.
+- **Reply route and Rust boundary:** Late failures use the live summon-owner route, not an assumed requester route. The port requires that route to equal the task's requesting PC before it sends a late failure. Unknown/changed ownership stops unsupported. Missing native parent/current-action/owner pointers are not new reason codes. The port implements the verified rejection prefix only. Accepted geometry/range stops unsupported before yaw, movement or relocation.
+- **❓ Missing:** Full geometry internals, owner-route changes, yaw-helper semantics, movement event framing and action +158 meaning, relocation and virtual +536 mutations, delta output and remaining lifecycle paths. Keep this section partial. Sources for this extension: build 381.8867, `ida/delegate/gamed/GameDaemon.exe.i64`, functions above.
 
 ## 74 — G_SpecialSkillGaugeFullReqCmd — partial
 
 - **381:** `0x14038A340`. **348:** `HandleGame_SpecialSkillGaugeFullReq`.
 - **Wire:** `h`, decoded command must equal 74.
 - **Checks/order:** Decode success and command equality (1548). Require zone (2). Create task vtable `0x140B9A9A8`, kind 272. Require PC native kind 1. Use common setup, then call `0x140603BD0(parent,task,0,0)`. This wrapper does not use the normal queue call directly.
-- **Failure/output:** 76 with native descriptor `hEh`; parse/command failure supplies 1548, missing zone supplies 2. ❓ The additional h argument and wrong-kind reason are not recovered from decompiler arguments. Do not fabricate them.
-- **State/calls:** No direct gauge assignment, money or cooldown write in wrapper. No direct DB/daemon/kick call.
-- **❓ Missing:** Task scheduler, gauge validation and mutation, full reply layout, success/broadcasts and late errors.
+- **Failure/output:** 76 with native descriptor `hEh`. Parse/command failure supplies 1548. Missing zone and wrong PC kind supply 2. Disassembly proves the wrong-kind reason. These wrapper send sites do not supply the final short argument. Its value is indeterminate; do not invent zero or a gauge value. The Rust dispatcher already supplies command 74, so the command-only decode passes for a framed request. Rust leaves the zone/kind failure sends unsupported because their final short is not supplied.
+- **Scheduler `0x140603BD0`:** Allocate a 0x18-byte list node and retain the task. Lock PC +6944. PC byte +7016 !=0 rejects: unlock, log, free node, release task and return false. Otherwise append to the head/tail list at PC +6984/+7000 and unlock. If the task has a zone, resolve zone queue +16216 and post event 4 through `0x140677890`. A missing queue logs but still returns true. The command-74 wrapper ignores the scheduler return at `0x14038A4ED`. Rust uses `Services::schedule_skill`, not the normal zone queue. A known failed submit produces no reply and no retained task. Unknown submit state stops unsupported.
+- **Task:** Vtable `0x140B9A9A8`, size 0x90, kind 272. Virtual +56 `0x1402C3200` calls virtual +72 `0x1402C3240`, then unlinks/releases the task. A missing attached PC logs only. Read signed minimum-level DWORD at `qword_140EE58A0+2672`. Require it nonzero and signed PC byte +276 >=that value. Failure logs and sends 76/1550 with final short zero.
+
+| Task branch, in order | Exact reply/body after command |
+| --- | --- |
+| Minimum-level gate fails | 76, `hEh`: reason 1550:u16, gauge 0:u16 |
+| First gauge read <10000 | Log, read gauge again, then 76: reason 1549:u16, second value narrowed to u16 |
+| Property schema/setter fails | Log, read gauge again, then 76: reason 2:u16, new value narrowed to u16 |
+| Property operation succeeds | Flush delta, then 75, descriptor `h`, empty body |
+
+**Gauge read `0x1405F5140`:** Repeat the nonzero minimum and signed-level gate; failure returns zero.
+Daemon short +2752 ==2 returns stored signed PC DWORD +12512.
+Otherwise resolve manager slot 2739 by signed PC job byte +100.
+Use record signed short +16 as regeneration rate; a missing record gives zero.
+Use `GetTickCount64()-clock_base[80]`, PC last tick qword +12504 and stored gauge +12512 to add elapsed regeneration divided by 1000, then clamp to 0..10000.
+❓ Exact overflow and signed instruction behavior in this formula remain unproved.
+Rust uses a separate `Services::skill_gauge_value` call for each native read.
+Do not echo the first read when the failure reply uses a later read.
+
+**Property operation:** Zero the delta header.
+Require property metadata type byte at `qword_140EE5418+41588` ==10; wrong type asserts/logs and enters the reason-2 failure path.
+Read old Boolean property 226 through `0x1400243B0`.
+Set it true through `0x140697310` with flag zero and callback argument zero.
+Setter failure enters that same reason-2 path without a flush.
+On success, append property 226 through `0x140273E10` only if old value was not true.
+Flush through `0x140260850`, then send 75.
+No direct gauge-value assignment, resource cost, money, cooldown, DB, other-daemon or kick appears in this task.
+
+The Boolean setter validates descriptor/count, type 10 and write permission, writes the bit when its offset is nonnegative, then calls `0x140697D50`.
+The flush sends positive delta counts through `0x1402386F0` and, for controlled kinds 1..3, through `0x1405D7C20` for the final count.
+Rust keeps the schema check, old-value read, setter callbacks, conditional delta and flush behind `Services::set_skill_gauge_full`.
+Its default is Unknown.
+MemoryServices supplies explicit gauge read values and a mock property result; a mock Pass is not proof of a production property implementation.
+
+- **❓ Missing:** Setter callback `0x140697D50`, complete delta-append `0x140273E10` and downstream delta framing, exact gauge arithmetic, scheduler event continuation and the indeterminate wrapper reply short. Keep this section partial. Sources for this extension: build 381.8867, `ida/delegate/gamed/GameDaemon.exe.i64`, functions above.
 
 ## 134 — G_SelectTargetReqCmd — partial
 
@@ -673,15 +803,16 @@ Do not treat that absence as a bypass of the unread room task.
 
 ## Rust port status (part 1)
 
-Source: `Program/Server/GameDaemon/src/handlers/skills.rs`, tests `tests/gs1_skills.rs`.
+Source: `Program/Server/GameDaemon/src/handlers/skills.rs`, tests `tests/gs1_skills.rs` and `tests/gs3_skill_complete.rs`.
 
 | Command | Rust state | Boundary |
 | --- | --- | --- |
 | 1226, 1228 | Full decode, four modifier groups, caster selector, queue; failure 1227/1229 echoes identity | Skill action |
 | 1229, 1231 | Selector decode, caster, queue | Action |
-| 1270, 77, 1272 | User, zone, PC kind, queue; 1272 sends 537 then 1 for a non-loot target | Gather/loot actions |
-| 71 | Summon checks 2, 175, 179, then queue with summon zone | Recall action |
-| 74 | Unsupported | Gauge state not modeled |
+| 1270, 1272 | User, zone, PC kind, queue; 1272 sends 537 then 1 for a non-loot target | Gather/loot actions |
+| 77 | Done: wrapper 78/1, task 78/684, cancellation flags, exact buffered event, timer, parent and idle replacement | Live adapter state; ordered `skill_effects` are not immediate sends |
+| 71 | Partial: wrapper checks 2, 175, 179; summon-zone queue; late 178, 177 and 176 in native order | Accepted recall mutations, geometry and live owner route |
+| 74 | Partial: PC scheduler; task 1550/1549/2 and empty-body 75; separate live gauge reads | Indeterminate wrapper short, gauge formula, property callbacks and delta adapter |
 | 134, 135, 137, 139, 142 | Zone, caster kind, queue | Actions |
 | 821 | Log only | — |
 | 824 | Feature byte; disabled → 826 reason 1 with UTC | Recharge action |
@@ -709,16 +840,37 @@ Source: `Program/Server/GameDaemon/src/handlers/skills2.rs`, tests `tests/gs2_co
 | 1026–1038, 1053 | Checked decode reasons, zone, PC kind with log, queue | Room tasks, 1053 task |
 | 1062, 1065 | Config, skin checks, zone, queue | Skin tasks, permission `0x1405E8A10` |
 
+## Batch validation — 71, 74, 77
+
+Checks ran on 2026-11-08 with the workspace manifest.
+
+| Check | Result |
+| --- | --- |
+| `cargo fmt -p gamedaemon` | Passed |
+| `cargo test --workspace` | 1133 passed, 0 failed, 6 ignored |
+| New `gs3_skill_complete` suite | 20 passed; included in the workspace count |
+| `cargo clippy --workspace --all-targets -- -D warnings` | Passed |
+
+The first targeted test run passed 16 tests and failed 2 expected-output assertions.
+Dispatch adds `QueuedRequest` audit entries after `Queued`.
+The tests now include those entries.
+No live server test ran.
+
 ## Coverage and remaining work
 
 All 51 requested receive wrappers were read.
-Only commands 131, 821 and 1231 are done.
-The other 48 sections identify unread game paths with ❓.
+Commands 77, 131, 821 and 1231 are done.
+The other 47 sections identify unread game paths with ❓.
+This batch covers 71, 74 and 77 only.
+ID 85 in the requested list is an s2c failure command, `G_ExchangeFactionScoreFailCmd`, not a receive handler.
+The ledger has no build-381 receive address for 85; its send source is `0x140517ED0`.
 No handler is not-started.
 A missing DB procedure or broadcast name in a partial section means unresolved, not absent.
 No anti-cheat or licence implementation was followed.
-No source code, ledger, status file, build file or binary changed.
-No test ran. This document does not establish complete Rust parity.
+The 71/74/77 batch changes this document, `skills.rs`, the minimum service/output lines in `handlers/mod.rs`, and `tests/gs3_skill_complete.rs`.
+It does not change the ledger, build files or binaries.
+Synthetic Rust tests cover this batch; no live server test ran.
+The remaining partial sections do not establish complete Rust parity.
 
 ## Machine-readable state table
 
@@ -726,7 +878,7 @@ No test ran. This document does not establish complete Rust parity.
 | --- | --- |
 | 71 | partial |
 | 74 | partial |
-| 77 | partial |
+| 77 | done |
 | 83 | partial |
 | 113 | partial |
 | 117 | partial |

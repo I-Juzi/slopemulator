@@ -69,6 +69,8 @@ pub enum SkillTaskKind {
     RecallSummon {
         position: [u16; 3],
     },
+    /// 74, kind 272. The PC scheduler ignores the submit result.
+    SpecialSkillGaugeFull,
     /// 134, kind 11.
     SelectTarget {
         target: u64,
@@ -160,6 +162,129 @@ pub struct SkillTask {
     pub summon: bool,
     pub zone: u64,
     pub kind: SkillTaskKind,
+}
+
+/// Server-owned lookup. A missing object is not the same as unknown state.
+#[derive(Clone, Debug, Default, PartialEq, Eq)]
+pub enum SkillLookup<T> {
+    #[default]
+    Unknown,
+    Missing,
+    Found(T),
+}
+
+#[derive(Clone, Debug, PartialEq, Eq)]
+pub struct RecallActionState {
+    /// Current action-manager virtual +88(0), action short +146.
+    pub current_action_class: u16,
+    /// Live summon-owner reply route. None is not an assumed requester route.
+    pub reply_owner: Option<u64>,
+    /// Live owner +6968, not the summon position or the requester's wire data.
+    pub owner_position: Option<[i16; 3]>,
+}
+
+#[derive(Clone, Debug, PartialEq, Eq)]
+pub struct RecallGeometry {
+    /// Signed geometry result byte +10.
+    pub environment: i8,
+    /// Positive environment: the zone pointer must exist and virtual +232
+    /// must return zero. Environment zero does not use these two fields.
+    pub environment_exists: bool,
+    pub environment_blocked: bool,
+    pub ground_z: i16,
+}
+
+#[derive(Clone, Debug, PartialEq, Eq)]
+pub struct SpecialGaugeState {
+    /// Signed PC byte +276 and global signed DWORD +2672.
+    pub level: i8,
+    pub minimum_level: i32,
+}
+
+/// The fields apply to the retired gather action after operation replacement.
+#[derive(Clone, Debug, PartialEq, Eq)]
+pub struct GatherCancelState {
+    /// PC action queue +24, action short +146. Class 1 is the idle singleton.
+    pub operation_class: u16,
+    /// Cancelled action +112. This need not equal the cancel task's zone.
+    pub action_zone: u64,
+    pub action_flags: u8,
+    pub parent_attached: bool,
+    pub timer_present: bool,
+    pub timer_scheduler_active: bool,
+    pub timer_linked: bool,
+    pub target: u64,
+    pub broadcast: SkillLookup<GatherCancelBroadcast>,
+}
+
+#[derive(Clone, Debug, PartialEq, Eq)]
+pub struct GatherCancelBroadcast {
+    pub zone_has_creatures: bool,
+    /// Controlled creature (native kind 1..3) resolved by caster ID in the
+    /// cancelled action's zone. Do not assume that this lookup finds the PC.
+    pub caster_found: bool,
+    /// Config +1530 !=0 and config +792 ==1.
+    pub personal_copy_enabled: bool,
+    pub personal_buffer_present: bool,
+    /// Server geometry-derived broadcast cell and PC byte +39836.
+    pub cell: u32,
+    pub visibility: u8,
+}
+
+/// Buffered native action events. These are not immediate network sends.
+#[derive(Clone, Debug, PartialEq, Eq)]
+pub enum SkillEffect {
+    GatherCancelled,
+    AppendPersonalAction {
+        caster: u64,
+        payload: Vec<u8>,
+    },
+    AppendZoneAction {
+        zone: u64,
+        cell: u32,
+        event_kind: u32,
+        visibility: u8,
+        payload: Vec<u8>,
+    },
+    GatherTimerUnlinked,
+    GatherParentDetached,
+    GatherOperationReplaced,
+}
+
+/// An adapter supplies live state when the task runs, not when it is queued.
+#[derive(Clone, Debug, Default, PartialEq, Eq)]
+pub struct SkillCompletionState {
+    pub recall: SkillLookup<RecallActionState>,
+    /// Missing means that the geometry lookup failed.
+    pub recall_geometry: SkillLookup<RecallGeometry>,
+    pub gauge: SkillLookup<SpecialGaugeState>,
+    pub gather: SkillLookup<GatherCancelState>,
+}
+
+/// Mock results for opaque scheduler, gauge reads and property operations.
+#[derive(Clone, Debug)]
+pub struct MemorySkillCompletion {
+    pub state: Option<SkillCompletionState>,
+    pub schedule_result: Gate,
+    pub scheduled: Vec<SkillTask>,
+    /// Each read can observe a new tick. Two failure paths read twice.
+    pub gauge_values: std::collections::VecDeque<i32>,
+    pub gauge_reads: Vec<SkillTask>,
+    pub gauge_property_result: Gate,
+    pub gauge_property_calls: Vec<SkillTask>,
+}
+impl Default for MemorySkillCompletion {
+    fn default() -> Self {
+        Self {
+            state: None,
+            schedule_result: Gate::Unknown,
+            scheduled: vec![],
+            gauge_values: std::collections::VecDeque::new(),
+            gauge_reads: vec![],
+            gauge_property_result: Gate::Unknown,
+            gauge_property_calls: vec![],
+        }
+    }
 }
 
 /// parity: 135 13-skill-handlers.md#135--g_dieinexhaustionreqcmd--partial partial
@@ -423,7 +548,7 @@ pub fn handle_gather(ctx: &mut Context<'_>, req: &[u8]) -> Outcome {
     pc_task(ctx, 1270, 1271, 1, SkillTaskKind::Gather { target })
 }
 
-/// parity: 77 13-skill-handlers.md#77--g_gathercancelreqcmd--partial partial
+/// parity: 77 13-skill-handlers.md#77--g_gathercancelreqcmd--done done
 pub fn handle_gather_cancel(ctx: &mut Context<'_>, _: &[u8]) -> Outcome {
     pc_task(ctx, 77, 78, 1, SkillTaskKind::GatherCancel)
 }
@@ -473,6 +598,7 @@ pub fn handle_recall_summon(ctx: &mut Context<'_>, req: &[u8]) -> Outcome {
         return Outcome::reason(F, 2);
     };
     let mut r = Reader(req);
+    // The unchecked decoder's yaw destination is not used by the action.
     let (Some(x), Some(y), Some(z)) = (r.short(), r.short(), r.short()) else {
         return Outcome::unsupported(UNCHECKED_DECODE);
     };
@@ -489,10 +615,34 @@ pub fn handle_recall_summon(ctx: &mut Context<'_>, req: &[u8]) -> Outcome {
 }
 
 /// parity: 74 13-skill-handlers.md#74--g_specialskillgaugefullreqcmd--partial partial
-pub fn handle_special_skill_gauge_full(_: &mut Context<'_>, _: &[u8]) -> Outcome {
-    // Failure 76 `hEh`: the extra short is not recovered. Success uses the
-    // `0x140603BD0` scheduler, not the zone queue.
-    Outcome::unsupported("❓ 76 extra reply short and 0x140603BD0 scheduler")
+pub fn handle_special_skill_gauge_full(ctx: &mut Context<'_>, _: &[u8]) -> Outcome {
+    // Dispatch already consumed command 74. The native command-only decoder
+    // succeeds for this framed request. It does not inspect body bytes.
+    let pc = ctx.pc();
+    let Some(zone) = pc.zone else {
+        // Instructions set reason 2 but supply no fifth variadic argument.
+        // Do not send an invented trailing short.
+        return Outcome::unsupported("❓ 74 missing-zone reply reads an unsupplied short");
+    };
+    if pc.native_kind != 1 {
+        return Outcome::unsupported("❓ 74 wrong-kind reason-2 reply reads an unsupplied short");
+    }
+    let task = SkillTask {
+        command: 74,
+        caster: pc.object_id,
+        summon: false,
+        zone,
+        kind: SkillTaskKind::SpecialSkillGaugeFull,
+    };
+    match ctx.services.schedule_skill(&task) {
+        Gate::Pass => Outcome {
+            changes: vec![StateChange::Queued(74)],
+            ..Outcome::default()
+        },
+        // 0x14038A4ED does not test the scheduler result.
+        Gate::Fail => Outcome::default(),
+        Gate::Unknown => Outcome::unsupported("❓ PC skill scheduler 0x140603BD0"),
+    }
 }
 
 /// parity: 134 13-skill-handlers.md#134--g_selecttargetreqcmd--partial partial
@@ -562,6 +712,206 @@ pub fn handle_respawn(ctx: &mut Context<'_>, req: &[u8]) -> Outcome {
         kind: SkillTaskKind::Respawn { option },
     };
     queue(ctx, task, Outcome::reason(144, 1))
+}
+
+// ---- Explicit task execution ----------------------------------------------------
+
+/// Execute only a task that the adapter retained after a successful submit.
+/// Queueing a request never calls this function by itself.
+pub fn execute_skill_task(ctx: &mut Context<'_>, task: &SkillTask) -> Outcome {
+    // This context supplies the original PC reply route. Do not run a stale
+    // task in a different session or reinterpret another task's payload.
+    if task.caster != ctx.pc().object_id {
+        return Outcome::unsupported("❓ skill task reply route does not match this PC");
+    }
+    match (&task.kind, task.command, task.summon) {
+        (SkillTaskKind::RecallSummon { position }, 71, true) => {
+            execute_recall_summon(ctx, task, *position)
+        }
+        (SkillTaskKind::SpecialSkillGaugeFull, 74, false) => execute_special_gauge(ctx, task),
+        (SkillTaskKind::GatherCancel, 77, false) => execute_gather_cancel(ctx, task),
+        _ => Outcome::unsupported("❓ skill task/action continuation"),
+    }
+}
+
+/// parity: 71 13-skill-handlers.md#71--g_recallsummonreqcmd--partial partial
+fn execute_recall_summon(ctx: &mut Context<'_>, task: &SkillTask, position: [u16; 3]) -> Outcome {
+    let Some(state) = ctx.services.skill_completion_state() else {
+        return Outcome::unsupported("❓ recall live action state");
+    };
+    let recall = match &state.recall {
+        SkillLookup::Found(recall) => recall,
+        SkillLookup::Missing | SkillLookup::Unknown => {
+            // Native dereferences the parent/current action. Do not invent
+            // a safe reason for an invalid native object graph.
+            return Outcome::unsupported("❓ recall parent/current action pointer");
+        }
+    };
+    if recall.reply_owner != Some(task.caster) {
+        return Outcome::unsupported("❓ recall live summon-owner reply route changed");
+    }
+    if recall.current_action_class != 1 {
+        return Outcome::reason(72, 178);
+    }
+    let geometry = match &state.recall_geometry {
+        SkillLookup::Unknown => return Outcome::unsupported("❓ recall geometry lookup"),
+        SkillLookup::Missing => return Outcome::reason(72, 177),
+        SkillLookup::Found(geometry) => geometry,
+    };
+    if geometry.environment < 0 {
+        let mut out = Outcome::reason(72, 177);
+        out.logs.push("recall: invalid negative environment");
+        return out;
+    }
+    if geometry.environment > 0 && (!geometry.environment_exists || geometry.environment_blocked) {
+        return Outcome::reason(72, 177);
+    }
+    let Some(owner) = recall.owner_position else {
+        return Outcome::unsupported("❓ recall null owner is dereferenced natively");
+    };
+    // Test the requested signed XYZ before replacing Z with geometry height.
+    let distance_squared: i64 = position
+        .into_iter()
+        .zip(owner)
+        .map(|(requested, owner)| {
+            let delta = i64::from(requested as i16) - i64::from(owner);
+            delta * delta
+        })
+        .sum();
+    if distance_squared > 15_625 {
+        return Outcome::reason(72, 176);
+    }
+    Outcome::unsupported("❓ recall yaw, movement event, relocation and delta mutation")
+}
+
+fn gauge_failure(reason: u16, gauge: i32) -> Outcome {
+    let mut body = reason.to_le_bytes().to_vec();
+    body.extend((gauge as u16).to_le_bytes());
+    Outcome::reply(76, body)
+}
+
+/// parity: 74 13-skill-handlers.md#74--g_specialskillgaugefullreqcmd--partial partial
+fn execute_special_gauge(ctx: &mut Context<'_>, task: &SkillTask) -> Outcome {
+    let Some(state) = ctx.services.skill_completion_state() else {
+        return Outcome::unsupported("❓ special gauge attached PC and level configuration");
+    };
+    let gauge = match &state.gauge {
+        SkillLookup::Unknown => {
+            return Outcome::unsupported("❓ special gauge attached PC and level configuration");
+        }
+        SkillLookup::Missing => return Outcome::log("special gauge task: PC is null"),
+        SkillLookup::Found(gauge) => gauge,
+    };
+    if gauge.minimum_level == 0 || i32::from(gauge.level) < gauge.minimum_level {
+        let mut out = gauge_failure(1550, 0);
+        out.logs.push("special gauge task: level gate failed");
+        return out;
+    }
+    let Some(current) = ctx.services.skill_gauge_value(task) else {
+        return Outcome::unsupported("❓ current special gauge 0x1405F5140");
+    };
+    if current < 10_000 {
+        // Native reads again after its diagnostic log. Do not echo the
+        // first value when a later tick can produce another value.
+        let mut out = match ctx.services.skill_gauge_value(task) {
+            Some(current) => gauge_failure(1549, current),
+            None => Outcome::unsupported("❓ second special gauge read for reply 76"),
+        };
+        out.logs.push("special gauge task: gauge is below 10000");
+        return out;
+    }
+    match ctx.services.set_skill_gauge_full(task) {
+        Gate::Unknown => Outcome::unsupported("❓ property 226 setter, delta and flush adapter"),
+        Gate::Pass => Outcome::reply(75, vec![]),
+        Gate::Fail => {
+            let mut out = match ctx.services.skill_gauge_value(task) {
+                Some(current) => gauge_failure(2, current),
+                None => Outcome::unsupported("❓ special gauge read after property failure"),
+            };
+            out.logs
+                .push("special gauge task: property operation failed");
+            out
+        }
+    }
+}
+
+/// parity: 77 13-skill-handlers.md#77--g_gathercancelreqcmd--done done
+fn execute_gather_cancel(ctx: &mut Context<'_>, task: &SkillTask) -> Outcome {
+    let Some(state) = ctx.services.skill_completion_state() else {
+        return Outcome::unsupported("❓ live PC gather operation state");
+    };
+    let gather = match &mut state.gather {
+        SkillLookup::Found(gather) => gather,
+        SkillLookup::Unknown | SkillLookup::Missing => {
+            return Outcome::unsupported("❓ PC gather action-manager/current-operation pointer");
+        }
+    };
+    if gather.operation_class != 15 {
+        let mut out = Outcome::reason(78, 684);
+        out.logs.push("gather cancel: not gathering");
+        return out;
+    }
+    let mut out = Outcome::default();
+    if gather.action_flags & 4 != 0 {
+        out.logs.push("gather cancel: action is already cancelled");
+    } else {
+        gather.action_flags |= 4;
+        out.skill_effects.push(SkillEffect::GatherCancelled);
+        if !gather.parent_attached {
+            out.status =
+                Status::Unsupported("❓ gather callback dereferences a missing action parent");
+            return out;
+        }
+        // 0x1400244C0 forwards cancellation reason 4 to virtual +192.
+        // The gather callback emits event kind 42 with completion byte 2.
+        let broadcast = match &gather.broadcast {
+            SkillLookup::Found(broadcast) => broadcast,
+            SkillLookup::Unknown | SkillLookup::Missing => {
+                out.status = Status::Unsupported("❓ gather zone action-buffer metadata");
+                return out;
+            }
+        };
+        if broadcast.zone_has_creatures {
+            let mut payload = vec![42];
+            payload.extend(task.caster.to_le_bytes());
+            payload.extend(gather.target.to_le_bytes());
+            payload.push(2);
+            if broadcast.caster_found && broadcast.personal_copy_enabled {
+                if broadcast.personal_buffer_present {
+                    out.skill_effects.push(SkillEffect::AppendPersonalAction {
+                        caster: task.caster,
+                        payload: payload.clone(),
+                    });
+                } else {
+                    out.logs
+                        .push("gather cancel: controlled-creature action buffer is null");
+                }
+            }
+            out.skill_effects.push(SkillEffect::AppendZoneAction {
+                zone: gather.action_zone,
+                cell: broadcast.cell,
+                event_kind: 42,
+                visibility: if broadcast.caster_found {
+                    broadcast.visibility
+                } else {
+                    0
+                },
+                payload,
+            });
+        }
+        if gather.timer_present && gather.timer_scheduler_active && gather.timer_linked {
+            gather.timer_linked = false;
+            out.skill_effects.push(SkillEffect::GatherTimerUnlinked);
+        }
+        if gather.action_flags & 0xA == 0 && gather.parent_attached {
+            gather.parent_attached = false;
+            out.skill_effects.push(SkillEffect::GatherParentDetached);
+        }
+    }
+    // This replacement also runs if the old action was already cancelled.
+    gather.operation_class = 1;
+    out.skill_effects.push(SkillEffect::GatherOperationReplaced);
+    out
 }
 
 // ---- Vitality, skill list, mastery points, pages ----------------------------------
