@@ -256,6 +256,7 @@ In all three, a decode failure only logs and returns true (no reply, keep).
 | --- | --- | --- |
 | InsertScoreForRatingScoreType | 0x140019850 | fail when type outside 1..=15, playerType outside 1..=3, playerId 0, primary 0, requestTime 0, or no board |
 | UpdateScoreForRatingScoreType | 0x140019E20 | fail when type outside 1..=15, old key empty, primary 0, requestTime 0, logId 0, or no board; playerType and job come from the stored Player |
+| GetRankingWithTopRanker | 0x14001A750 | fail when type outside 1..=15, scheduleNumber ≤ 0, playerType outside 1..=3, playerId 0, job > 14, score empty, no board or Search fails; see the top ranker rules below |
 | DeleteScore | 0x14001BC20 | fail when old key empty or playerType outside 1..=3; success resets the Player score to the empty key, time 0 |
 
 - Key: key1 = primary, key2 = requestTime, key3 = logId.
@@ -263,6 +264,9 @@ In all three, a decode failure only logs and returns true (no reply, keep).
 - Board index: playerType 1 → convertPcJobToBoardIndex(job); 2 → job 1 or 2, else 0 (Insert fails); 3 → 1.
 - Type 2 has max list index 0, so its Init fails and it has no board.
 - The empty key is `s_initializedCount` at 0x1400E3D50: uninitialized .data, no write xrefs, all zero.
+- Top ranker: when the job rank is 0, return the ranks only. Read the current season reward group (`GetCurrentSeasonRewardDataId`, then DataManager `_loaderDefs[2]`). When the id is 0 or the row is missing, return the ranks only.
+- The reward group row has min ranks at +16 and max ranks at +96 (20 slots each) and a tier count byte at +336. Find the first tier with min ≤ rank ≤ max. Types 8 and 13..=15 use the list-0 rank; the others use the job rank.
+- The top ranker rank is tier min − 1 (1 when min is 1). LookUp one node at that rank in list 0 (types 8, 13..=15) or the job list. An empty LookUp is a failure (null value, line 517).
 - Player::UpdateScore and Player::UpdatePcInfo run after the board change. The Rust port returns the key; the caller stores it (`boards.rs`).
 
 ## 6b. Phase 1 gaps

@@ -174,3 +174,97 @@ impl RankingBoards {
             .is_some_and(|b| b.remove(score, index).is_ok())
     }
 }
+
+/// One reward tier of the season reward group record
+/// (`_loaderDefs[2]` row: min ranks at +16, max ranks at +96, 20 slots,
+/// tier count byte at +336).
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub struct RewardTier {
+    pub min_rank: i32,
+    pub max_rank: i32,
+}
+
+/// `RankingWithTopRanker` inputs.
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub struct TopRankerQuery {
+    pub season_contents_type: i8,
+    pub schedule_number: i32,
+    pub player_type: i8,
+    pub player_id: u64,
+    pub job: i8,
+    pub score: Key,
+}
+
+/// The ranker that marks the next better reward tier.
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub struct TopRanker {
+    pub ranking: i32,
+    pub player: PlayerKey,
+    pub score: Key,
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub struct RankingWithTopRanker {
+    pub ranks: Ranks,
+    pub top: Option<TopRanker>,
+}
+
+/// Types 8 and 13..=15 rank over list 0; the others use the job rank.
+pub fn ranks_over_all(season_contents_type: i8) -> bool {
+    matches!(season_contents_type, 8 | 13..=15)
+}
+
+impl RankingBoards {
+    /// GetRankingWithTopRanker @0x14001A750. `tiers` is the reward group
+    /// of the current season (None when the reward id is 0 or the row is
+    /// missing: native logs and returns true with ranks only). `None` =
+    /// native false.
+    pub fn ranking_with_top_ranker(
+        &self,
+        q: &TopRankerQuery,
+        tiers: Option<&[RewardTier]>,
+    ) -> Option<RankingWithTopRanker> {
+        if !(1..=15).contains(&q.season_contents_type)
+            || q.schedule_number <= 0
+            || !(1..=3).contains(&q.player_type)
+            || q.player_id == 0
+            || !(0..=14).contains(&q.job)
+            || q.score == EMPTY_KEY
+        {
+            return None;
+        }
+        let index = board_index(q.player_type as i16, q.job as i16);
+        let board = self.board(q.season_contents_type as i16)?;
+        let ranks = board.search(q.score, index).ok()?;
+        let mut out = RankingWithTopRanker { ranks, top: None };
+        // No job rank: done, even for the list-0 types.
+        if ranks[1] == 0 {
+            return Some(out);
+        }
+        let Some(tiers) = tiers else {
+            return Some(out);
+        };
+        let all = ranks_over_all(q.season_contents_type);
+        let rank = if all { ranks[0] } else { ranks[1] };
+        let Some(tier) = tiers
+            .iter()
+            .find(|t| t.min_rank <= rank && t.max_rank >= rank)
+        else {
+            return Some(out);
+        };
+        let start = if tier.min_rank == 1 {
+            1
+        } else {
+            tier.min_rank - 1
+        };
+        let list = if all { 0 } else { index };
+        // LookUp failure or an empty result (null value) is native false.
+        let (score, player) = board.look_up(list, start, 1).ok()?.into_iter().next()?;
+        out.top = Some(TopRanker {
+            ranking: start,
+            player: *player,
+            score,
+        });
+        Some(out)
+    }
+}
