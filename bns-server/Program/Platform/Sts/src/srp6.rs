@@ -74,12 +74,14 @@ fn multiplier(n: &BigUint) -> BigUint {
 fn password_x(login: &str, password: &[u8], salt: &[u8]) -> BigUint {
     hash_number(hash(&[salt, &hash(&[login.as_bytes(), b":", password])]))
 }
-/// RFC 2945 interleave, with the byte traversal stated in section 07.
-/// ❓ Verify low-end zero removal and odd-length handling with a real client.
+/// RFC 2945-style interleave, as StsMsgCli32.dll 0.122 `sub_10031040` does it.
+/// The client skips low-end bytes while they are NOT zero (`0x10031061`:
+/// `cmp byte [eax],0` / `jz` exits the loop), so the hash input starts at the
+/// first zero byte. Checked against the DLL in emulation, 2026-11-08.
 fn session_key(secret: &BigUint) -> [u8; 64] {
     let bytes = number_bytes(secret);
     let mut s = bytes.as_slice();
-    while s.len() > 4 && s[0] == 0 {
+    while s.len() > 4 && s[0] != 0 {
         s = &s[1..];
     }
     if !s.len().is_multiple_of(2) {
@@ -227,11 +229,11 @@ mod tests {
         assert!(read_number(&[1, 2, 3]).is_err());
     }
     #[test]
-    fn interleave_trims_low_zero_bytes_and_handles_odd_length() {
-        let s = BigUint::from_bytes_le(&[0, 0, 0, 5, 6, 7, 8, 9]);
-        // Trim three low zeros, then drop one low byte to get an even length.
-        let e = Sha256::digest([9, 7]);
-        let o = Sha256::digest([8, 6]);
+    fn interleave_skips_to_first_zero_byte_and_handles_odd_length() {
+        let s = BigUint::from_bytes_le(&[5, 0, 7, 8, 9, 10, 11, 12]);
+        // Skip one non-zero low byte, then drop one low byte to get an even length.
+        let e = Sha256::digest([12, 10, 8]);
+        let o = Sha256::digest([11, 9, 7]);
         let expected: Vec<_> = e.iter().zip(o.iter()).flat_map(|(e, o)| [*e, *o]).collect();
         assert_eq!(session_key(&s).as_slice(), expected);
     }

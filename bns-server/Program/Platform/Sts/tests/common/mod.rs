@@ -74,7 +74,7 @@ impl Client {
         let base = (b + &modulus - subtract) % &modulus;
         let secret = base.modpow(&(a + u * x), &modulus);
         let mut bytes = export(&secret);
-        while bytes.len() > 4 && bytes[0] == 0 {
+        while bytes.len() > 4 && bytes[0] != 0 {
             bytes.remove(0);
         }
         if bytes.len() % 2 == 1 {

@@ -73,7 +73,7 @@ The big-number library stores 32-bit little-endian words, least significant word
 
 - On the wire and in every hash input, A, B, s, N and g are **little-endian byte strings, padded to whole 32-bit words, high zero words removed**. g is hashed as 4 bytes (`02 00 00 00`).
 - A hash output becomes a number by reversing its 32-bit word order and reading little-endian (`0x18003F4D0` reorders v21..v28 before import). The N table uses the same form.
-- K input: zero bytes at the **start** of the little-endian S string are skipped while more than 4 bytes remain. The interleave then reads from the end of the string backwards. ❓ Confirm with a test vector against a real client.
+- K input (verified, `StsMsgCli32.dll` 0.122 `sub_10031040`, loop at `0x10031061`): the client skips bytes at the **start** of the little-endian S string while they are **not** zero and more than 4 bytes remain. Hashing starts at the first zero byte. If the remaining length is odd, one more byte is removed. The interleave then reads from the end of the string backwards. This is not RFC 2945. A server that strips leading zeros instead computes a different K, and the client rejects nothing visibly: the server rejects M1. Checked by emulating the DLL against `sts-local` (3 of 3 logins, server accepts M1, DLL accepts M2), 2026-11-08.
 
 ❓ Check all of this section with one recorded real login before shipping. The wire order and the hash-to-number rule are read from code, not from a run.
 
@@ -106,6 +106,8 @@ Source: `ida/sts-client/cli32/StsMsgCli32.dll` (SHA-256 `04b7e557…5433`, the s
 Consequence: a bad reply 3101 does not give a visible error. The client goes idle and later sends `Sts/Ping`.
 
 Live login 2026-11-08 19:07 (wire capture through the forwarder): Connect → `<Reply/>`; LoginStart → KeyData (salt 32 bytes, B 128 bytes, B < N in both byte orders); then only `Sts/Ping` after 8 s. The old local server closed the socket on that Ping. ❓ Not yet known if the client was still about to send KeyData, or if its SRP step failed.
+
+Game side (`Client.exe` 2020 build with PDB, ❓ not the laptop build): the response dispatcher `sub_C25140` handles a reply only with status `200` and reason `OK`. Reply 3101 goes to `sub_C16AF0` → `sub_C074B0`. That function builds an `NPRequestPacket` (command `0xC1E`) and sends it through `[NPSession+0x170]` vt+4. It sends only when the byte `[NPSession+0x174]` is set; `NPSession::OnConnect` sets it. ❓ Not confirmed on the laptop build why no KeyData was sent at 19:27.
 
 ## Session encryption after login
 
@@ -166,7 +168,7 @@ Source: `Program/Platform/Sts`, implemented from this document. Build target: so
 ### Local policies and open checks
 
 - ❓ Check SRP number encoding, hash-to-number word reversal and K against one real login. The independent test client checks the transcription, not vendor interoperability.
-- ❓ The interleave removes low-end zero bytes while more than four bytes remain. It removes one more low-end byte if the length is odd. The final rule follows RFC 2945. The client source description above does not confirm that odd-length rule alone.
+- The interleave rule is verified against the 32-bit client DLL. See the K input rule above (non-zero skip, not zero removal).
 - ❓ `CipherScope::WholeMessage` and `CipherScope::BodyOnly` form one switch for both directions. Select it explicitly. Confirm the scope and the exact switch boundary with the client.
 - ❓ The local XML serializer uses `<Reply>` and success status `200 OK`. The source above does not establish the reply-root name or the success status.
 - ❓ Logout uses an empty `<Reply/>`. Its reply ID and original reply fields remain unknown.
