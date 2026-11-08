@@ -95,7 +95,9 @@ def main():
     if a.ida:
         allowed.append("mcp__ida__*")
     if a.write:
-        allowed += ["Write(bns-server/**)", "Edit(bns-server/**)", "Bash(cargo:*)"]
+        abs_root = f"/{ROOT}/bns-server/**"  # "//" prefix = absolute path rule
+        allowed += ["Write(bns-server/**)", "Edit(bns-server/**)",
+                    f"Write({abs_root})", f"Edit({abs_root})", "Bash(cargo:*)"]
     if a.emu:
         allowed.append("Bash(bns-server/.venv/bin/python bns-server/Program/Tools/Emu/*)")
     cmd += ["--allowedTools", ",".join(allowed)]
