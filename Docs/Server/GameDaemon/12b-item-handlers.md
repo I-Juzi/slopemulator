@@ -1025,6 +1025,23 @@ No U0 gate appears here. Do not add one from the nearby gem handlers.
 
 ❓ Target/material lookup, seal eligibility, seal count, item/money cost, table fields, mutation, success deltas/broadcasts, generic cleanup and daemon/DB path remain unread.
 
+## Rust port status (part 1)
+
+Source: `Program/Server/GameDaemon/src/handlers/items.rs`, tests `tests/gi2_items.rs`.
+
+| Command | Rust | Boundary that stops the port |
+| --- | --- | --- |
+| 1325 | ported | — |
+| 1354, 1356, 1359, 1361 | partial | Entry ported. Equip/unequip execution (`0x140529B10`, `0x14052A250`) and virtual +208 completions are not ported. |
+| 1512 | partial | Builder `0x14060EC20` record fields unread |
+| 1515 | partial | Entry ported. Runner `0x1402C4F20` not ported. |
+| 1518, 1524, 1527 | partial | Entry ported. Runners not ported. |
+| 1521 | ported | Backend 367 response handler is outside this entry |
+| 1414, 1416, 1418, 1426 | partial | Entry ported. Runners need item virtual getters/setters. |
+
+- Short-body decode for 1518/1521/1524/1527 uses the zero-initialized value, as the entry functions do.
+- 1354/1359 do not initialize the decoded fields, so a short body stops at a boundary.
+
 ## Coverage limit
 
 This file covers 38 of the 89 selected commands.

@@ -16,8 +16,10 @@ pub use guild::*;
 pub use party::*;
 pub use party_model::*;
 pub use party_tasks::execute_party_task;
+mod items;
 mod token;
 mod trade;
+pub use items::*;
 pub use trade::*;
 mod wire;
 use crate::{kick::FailureAction, Position};
@@ -64,6 +66,10 @@ pub enum StateChange {
     GuildTaskQueued(GuildTask),
     /// Doc 12: trade task allocated, initialized and queued.
     TradeTaskQueued(TradeTask),
+    /// Doc 12b: item/equipment/craft task queued.
+    ItemTaskQueued(ItemTask),
+    /// Doc 12b 1521: craft record state set to 6 before backend 367.
+    CraftAborting(u64),
     /// Doc 12: account-inventory transaction registered.
     AccountTransactionStarted(AccountTransaction),
     /// `0x1400F9B80` under the guild lock after a failed 506/508 post.
@@ -103,6 +109,18 @@ impl Report {
 }
 #[derive(Clone, Debug, PartialEq, Eq)]
 pub enum DaemonRequest {
+    /// Doc 12b 1521: backend command 367, `hqiiqqq`, via `0x14032AB10`.
+    CraftAbort {
+        /// PC +20664.
+        routing: u64,
+        /// PC signed short +96, promoted.
+        short_96: i32,
+        restriction: u32,
+        object_id: u64,
+        /// PC +20744.
+        db_id: u64,
+        craft_id: u64,
+    },
     /// Lobby command 5, hqqqi. The world selects the route, not a wire field.
     LobbyConsumeToken {
         world: u16,
@@ -266,6 +284,8 @@ pub struct Pc {
     pub guild_point_tick: u64,
     /// PC +890 bit 1: guild invitation refusal.
     pub guild_invitation_refusal: bool,
+    /// PC signed short +96 (doc 05: runtime PC field, ❓ name). Backend 367 field 2.
+    pub short_96: i16,
 }
 impl Default for Pc {
     fn default() -> Self {
@@ -312,6 +332,7 @@ impl Default for Pc {
             join_request_tick: 0,
             guild_point_tick: 0,
             guild_invitation_refusal: false,
+            short_96: 0,
         }
     }
 }
@@ -355,6 +376,10 @@ pub struct World {
     pub game_log_enabled: bool,
     pub team_enabled: bool,
     pub account_inventory_enabled: bool,
+    /// Daemon +2744 byte +909 ≠ 0: item lock feature (doc 12b 1414–1418).
+    pub item_lock_enabled: bool,
+    /// cfg DWORD +248 when cfg byte +237 ≠ 0, else 0 (backend 367 restriction value).
+    pub arena_value: u32,
     pub channel_type_87_restricted: bool,
     pub tick: u64,
     pub utc_seconds: i64,
@@ -461,6 +486,18 @@ pub trait Services {
     }
     /// Adapter-owned trade state. Exclusive during one task call.
     fn trade_state(&mut self) -> Option<&mut TradeState> {
+        None
+    }
+    /// Doc 12b item task allocation, PC-kind init and queue/dispatch.
+    fn queue_item(&mut self, _task: &ItemTask) -> Gate {
+        Gate::Unknown
+    }
+    /// `tm[603]` virtual +168 recipe lookup.
+    fn craft_recipe_exists(&mut self, _recipe: i32) -> Option<bool> {
+        None
+    }
+    /// PC craft record vector (+39760), exclusive under lock +39752.
+    fn craft_records(&mut self) -> Option<&mut Vec<Option<CraftRecord>>> {
         None
     }
     /// Doc 12 account-inventory transaction registration (0x1400D4FE0).
@@ -577,6 +614,10 @@ pub struct MemoryTrade {
     pub state: Option<TradeState>,
     pub tasks: Vec<TradeTask>,
     pub transactions: Vec<AccountTransaction>,
+    pub item_queue_result: Gate,
+    pub item_tasks: Vec<ItemTask>,
+    pub recipe_exists: Option<bool>,
+    pub crafts: Option<Vec<Option<CraftRecord>>>,
 }
 impl Default for MemoryTrade {
     fn default() -> Self {
@@ -586,6 +627,10 @@ impl Default for MemoryTrade {
             state: None,
             tasks: vec![],
             transactions: vec![],
+            item_queue_result: Gate::Unknown,
+            item_tasks: vec![],
+            recipe_exists: None,
+            crafts: None,
         }
     }
 }
@@ -673,6 +718,18 @@ impl Services for MemoryServices {
     }
     fn trade_state(&mut self) -> Option<&mut TradeState> {
         self.trade.state.as_mut()
+    }
+    fn queue_item(&mut self, task: &ItemTask) -> Gate {
+        if self.trade.item_queue_result == Gate::Pass {
+            self.trade.item_tasks.push(task.clone());
+        }
+        self.trade.item_queue_result
+    }
+    fn craft_recipe_exists(&mut self, _recipe: i32) -> Option<bool> {
+        self.trade.recipe_exists
+    }
+    fn craft_records(&mut self) -> Option<&mut Vec<Option<CraftRecord>>> {
+        self.trade.crafts.as_mut()
     }
     fn account_transaction(&mut self, txn: &AccountTransaction) -> Gate {
         if self.trade.account_result == Gate::Pass {
@@ -829,6 +886,7 @@ fn dispatch_inner(ctx: &mut Context<'_>, command: u16, req: &[u8]) -> Outcome {
         && !PARTY_COMMANDS.contains(&command)
         && !GUILD_COMMANDS.contains(&command)
         && !ITEM_COMMANDS.contains(&command)
+        && !ITEM2_COMMANDS.contains(&command)
     {
         return Outcome::log("unknown command");
     }
@@ -862,6 +920,9 @@ fn dispatch_inner(ctx: &mut Context<'_>, command: u16, req: &[u8]) -> Outcome {
     }
     if ITEM_COMMANDS.contains(&command) {
         return trade::dispatch_item(ctx, command, req);
+    }
+    if ITEM2_COMMANDS.contains(&command) {
+        return items::dispatch_item2(ctx, command, req);
     }
     match command {
         11 => handle_hello(ctx, req),
