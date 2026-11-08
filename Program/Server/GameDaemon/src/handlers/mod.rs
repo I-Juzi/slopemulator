@@ -27,6 +27,7 @@ mod mentoring;
 mod misc;
 mod quest;
 mod quest2;
+mod shop;
 mod skills;
 mod skills2;
 mod social;
@@ -40,6 +41,7 @@ pub use mentoring::*;
 pub use misc::*;
 pub use quest::*;
 pub use quest2::*;
+pub use shop::*;
 pub use skills::*;
 pub use skills2::*;
 pub use social::*;
@@ -630,6 +632,10 @@ pub trait Services {
     fn mentoring_registry(&mut self, _mentor: u64, _mentee: u64, _max: i8) -> MentoringRegistry {
         MentoringRegistry::Unknown
     }
+    /// Doc 22: server-owned shop state and tables. Unknown is never approval.
+    fn shop_check(&mut self, _check: &ShopCheck) -> Gate {
+        Gate::Unknown
+    }
     /// Doc 20: server-owned quest configuration. Unknown is never approval.
     fn quest_config(&mut self) -> QuestConfig {
         QuestConfig::Unknown
@@ -762,6 +768,7 @@ pub struct MemoryServices {
     pub chat_result: Gate,
     pub chat_calls: Vec<ChatRequest>,
     pub mentoring_registry_result: MentoringRegistry,
+    pub shop: MemoryShop,
     pub quest: MemoryQuest,
     pub quest_progress: MemoryQuestProgress,
     pub challenge: MemoryChallenge,
@@ -876,6 +883,7 @@ impl Default for MemoryServices {
             chat_result: Gate::Unknown,
             chat_calls: vec![],
             mentoring_registry_result: MentoringRegistry::Unknown,
+            shop: MemoryShop::default(),
             quest: MemoryQuest::default(),
             quest_progress: MemoryQuestProgress::default(),
             challenge: MemoryChallenge::default(),
@@ -889,6 +897,9 @@ impl Services for MemoryServices {
     }
     fn mentoring_registry(&mut self, _: u64, _: u64, _: i8) -> MentoringRegistry {
         self.mentoring_registry_result
+    }
+    fn shop_check(&mut self, check: &ShopCheck) -> Gate {
+        self.shop.check(check)
     }
     fn quest_config(&mut self) -> QuestConfig {
         self.quest.config_reads += 1;
@@ -1111,6 +1122,7 @@ fn dispatch_inner(ctx: &mut Context<'_>, command: u16, req: &[u8]) -> Outcome {
         && !SOCIAL_COMMANDS.contains(&command)
         && !MENTORING_COMMANDS.contains(&command)
         && !MISC_COMMANDS.contains(&command)
+        && !SHOP_COMMANDS.contains(&command)
         && !QUEST_COMMANDS.contains(&command)
         && !QUEST2_COMMANDS.contains(&command)
         && !CHALLENGE_COMMANDS.contains(&command)
@@ -1177,6 +1189,9 @@ fn dispatch_inner(ctx: &mut Context<'_>, command: u16, req: &[u8]) -> Outcome {
     }
     if MISC_COMMANDS.contains(&command) {
         return misc::dispatch_misc(ctx, command, req);
+    }
+    if SHOP_COMMANDS.contains(&command) {
+        return shop::dispatch_shop(ctx, command, req);
     }
     if QUEST_COMMANDS.contains(&command) {
         return quest::dispatch_quest(ctx, command, req);

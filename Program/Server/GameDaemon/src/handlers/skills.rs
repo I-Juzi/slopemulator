@@ -105,6 +105,8 @@ pub enum SkillTaskKind {
     ChallengeParty(ChallengeTask),
     /// Doc 19 misc zone tasks.
     Misc(MiscTask),
+    /// Doc 22 shop and store zone tasks.
+    Shop(ShopTask),
     /// Doc 20 quest, discovery and survey zone tasks.
     Quest(QuestTask),
     /// Doc 21 quest progress zone tasks.
