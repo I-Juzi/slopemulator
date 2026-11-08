@@ -73,7 +73,11 @@ config service-mode stay.
 | player-type | none, pc, guild, challenge-party |
 | service-mode | 0 none … 6 live-rc … 11 addition-2 |
 
-- Times are `YYYY-MM-DD H:MM:SS`. The port reads them as UTC ❓.
+- Times are `YYYY-MM-DD H:MM:SS` in server **local time** (`_localtime64_s`
+  in loadHiddenFieldFromSeasonContentsSchedule @0x140004480 and
+  insertSeasonFromData @0x140029600). The port takes the offset from
+  `RANKINGD_UTC_OFFSET_MINUTES` (default 0, KST = 540). A fixed offset has no
+  DST ❓ (Korea has none).
 - The exporter leaves out attributes at their default (`reward-group-data`
   is missing in 579 of 3012 records; ArenaLobby leaves out
   `season-reward-expiration-time`). The port reads a missing number or time
@@ -86,7 +90,65 @@ config service-mode stay.
   RankingDaemon 2020 table → 3004 seasons; ArenaLobby → 2832.
 - `convertSeasonContentsTypeToMaxRankingListIndex` @0x14001BAE0: types 1,
   3–7, 9–12, 14, 15 → 14; 8 → 2; 13 → 1; else 0.
-- Result schedules come from `loadHiddenField` (phase 2; the list is empty now).
+
+#### Record layout (field table @0x1400E1D38, in order)
+
+| Offset | Attribute | Kind |
+| --- | --- | --- |
+| +8 | service-mode | enum |
+| +9 | season-contents-type | enum |
+| +12 | season-contents-schedule-number | i32 |
+| +16 | season-name | string |
+| +25 / +26 | player-type / season-type | enum |
+| +28 | default-rating-score | i32 |
+| +32 | ranking-minimum-score | i32 (convert: types 8, 13, 15 keep it; others `<< 32`) |
+| +40 / +48 / +56 | season-start-time / season-end-time / season-reward-expiration-time | time |
+| +64 | closing-notice-period | i16 minutes |
+| +66 | accumulation-period | i16 minutes |
+| +68 / +69 / +70 | enable-weekly-ending-schedule / weekly-ending-day (sun = 0, table @0x1400E1560) / weekly-ending-hour | bool / enum / u8 |
+| +72 | reward-group-data | i16 |
+| +80 | enable-weekly-ending-schedule-for-qa | bool |
+| +88 | weekly-ending-schedule-for-qa-1..20 | time[20] |
+| +248 | weekly-ending-schedule-count-for-qa | count ❓ (port: filled entries from qa-1 up) |
+| +249 | forced-termination | bool |
+| +250 / +256 | season-result-schedule-count / season-result-schedule-1.. | hidden, derived |
+
+#### Result times (loadHiddenField @0x140004480)
+
+Only for records of the config service mode. `wday`, `hour` = local time of
+the start. `D`, `H` = weekly-ending-day, weekly-ending-hour.
+
+| Season type | Result times |
+| --- | --- |
+| normal, weekly flag | first ending: wday == D → start + 3600·(H − hour + 168); wday > D → start + 86400·(D − wday + 7) + 3600·(H − hour); wday < D → start + 3600·(H + 24·(D − wday) − hour), and first > end fails the load (log line 581). Then every 604800 s while < end, then end. |
+| normal, no flag | [end] |
+| free | [end]; result expiration (+56) becomes end + 3600 |
+| other | validation failure, the load fails |
+
+#### Result schedule rows (convertSeasonDataToRankingSeason @0x14002A7E0)
+
+The QA list (+88, count +248) replaces the derived list when +80 is set.
+For row i of n with reward time R[i] (acc = accumulation, notice = closing
+notice, in seconds):
+
+| Field | Value |
+| --- | --- |
+| number | i + 1 |
+| rankingResultStartTime | i = 0: season start; else R[i − 1] |
+| rankingClosingNotiTime | R[i] − acc − notice |
+| rankingResultDetermineTime | R[i] − acc (not sent) |
+| rankingRewardStartTime | R[i] |
+| rankingResultExpirationTime | last: +56; else R[i + 1] − acc (GetWeeklyResultExpirationTime @0x140007AA0) |
+| isFinalityResult | i + 1 == n |
+
+- The season "current week" index is the row with start ≤ now < reward start.
+- AddResultSchedule @0x140028A80 (the DB load path) uses the previous row's
+  determine time as the start. The port uses the data path only.
+- forced-termination: modifyActivatedSeason @0x14002B540 and
+  modifyFutureSeason @0x14002B8C0 do not insert a forced record (an existing
+  one ends with RankingDB::EndRankingSeason). The port drops forced records.
+- 2020 table at KST: every service mode derives with no failure
+  (`check_seasons <file> 540`; mode 2: 2272 rows, 51 forced).
 
 ## 3. Game port
 
@@ -150,7 +212,7 @@ Cmds 5, 8, 11 need a hello. Phase 1 replies Fail (7, 10, 13) with reason 2 ❓.
 | --- | --- |
 | RankingDB (insert, load, black list persist) | 2 |
 | Ranking boards, skip list, update period | 2 |
-| Result schedules (`loadHiddenField`) | 2 |
+| Result schedules from RankingDB (AddResultSchedule), current week index, season state timers | 2 |
 | InfoGate ranking list replies | 2 |
 
 ## 7. Rust port map

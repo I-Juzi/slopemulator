@@ -1,7 +1,8 @@
 use bloodlib::packet::{decode_fields, DecodeLimits, Value};
 use packet::fragments::FragmentReader;
 use rankingdaemon::config::{
-    parse_game_list, parse_infogate_list, parse_season_data, parse_time, RankingConfig,
+    load_result_schedules, parse_game_list, parse_infogate_list, parse_season_data,
+    parse_season_data_at, parse_time, RankingConfig, ResultSchedule,
 };
 use rankingdaemon::protocol::{fields, game_cmd, infogate_cmd, manage_cmd, packet};
 use rankingdaemon::service::{max_ranking_list_index, Daemon, Flow, Out, Peer};
@@ -48,11 +49,13 @@ fn t(text: &str) -> i64 {
 
 fn daemon() -> Daemon {
     let config = RankingConfig::parse(CONFIG).unwrap();
+    let mut seasons = parse_season_data(SEASONS).unwrap();
+    load_result_schedules(&mut seasons, config.service_mode, 0).unwrap();
     Daemon::new(
         &config,
         &parse_game_list(GAMES).unwrap(),
         &parse_infogate_list(INFOGATES).unwrap(),
-        parse_season_data(SEASONS).unwrap(),
+        seasons,
     )
 }
 
@@ -215,7 +218,18 @@ fn game_hello_sends_season_list_fragments() {
     assert_eq!(active[0][4], Value::I16(1));
     assert_eq!(active[0][8], Value::I16(14));
     assert_eq!(active[0][9], Value::U32(130000));
-    assert_eq!(active[0][10], Value::Repeat(vec![]));
+    // Normal season without weekly ending: one final result row.
+    assert_eq!(
+        active[0][10],
+        Value::Repeat(vec![vec![
+            Value::U8(1),
+            Value::U64(t("2022-05-21 7:00:00") as u64),
+            Value::U64(t("2022-08-21 7:00:00") as u64),
+            Value::U64(t("2022-08-21 7:00:00") as u64),
+            Value::U64(t("2022-09-18 4:00:00") as u64),
+            Value::I8(1),
+        ]])
+    );
 }
 
 #[test]
@@ -233,7 +247,9 @@ fn game_hello_after_end_moves_season_to_result_list() {
     let Value::Repeat(result) = &v[1] else {
         panic!()
     };
-    assert_eq!(result.len(), 2);
+    // The free season expires at end + 3600, so only the normal one stays.
+    assert_eq!(result.len(), 1);
+    assert_eq!(result[0][1], Value::U32(46));
 }
 
 #[test]
@@ -529,4 +545,141 @@ fn decode_limits_reject_long_strings() {
     let long: Vec<u16> = vec![b'a' as u16; 401];
     let p = packet("hs", &[Value::I16(1), Value::String(long)]);
     assert!(fields("hs", &p).is_none());
+}
+
+fn season_xml(extra: &str, season_type: &str, start: &str, end: &str) -> String {
+    format!(
+        r#"<table><record season-contents-type="duel-death-match-1vs1" season-contents-schedule-number="5" season-type="{season_type}" service-mode="live-rc" player-type="pc" season-start-time="{start}" season-end-time="{end}" season-reward-expiration-time="2020-06-10 15:00:00" closing-notice-period="5" accumulation-period="10" {extra}/></table>"#
+    )
+}
+
+fn schedules(xml: &str, offset: i64) -> Result<Vec<ResultSchedule>, String> {
+    let mut s = parse_season_data_at(xml, offset).map_err(|e| e.0)?;
+    load_result_schedules(&mut s, 6, offset).map_err(|e| e.0)?;
+    Ok(s.remove(0).results)
+}
+
+#[test]
+fn weekly_normal_season_has_one_result_per_week() {
+    // 2020-04-15 is a wednesday; same day and hour jumps one full week.
+    let xml = season_xml(
+        r#"enable-weekly-ending-schedule="y" weekly-ending-day="wed" weekly-ending-hour="10""#,
+        "normal",
+        "2020-04-15 10:00:00",
+        "2020-06-03 10:00:00",
+    );
+    let r = schedules(&xml, 0).unwrap();
+    let weeks: Vec<i64> = r.iter().map(|x| x.reward_start_time).collect();
+    let mut want: Vec<i64> = (0..6)
+        .map(|w| t("2020-04-22 10:00:00") + w * 604_800)
+        .collect();
+    want.push(t("2020-06-03 10:00:00"));
+    assert_eq!(weeks, want);
+    assert_eq!(r[0].ranking_result_start_time, t("2020-04-15 10:00:00"));
+    assert_eq!(r[1].ranking_result_start_time, want[0]);
+    assert_eq!(r[0].closing_noti_time, want[0] - 15 * 60);
+    assert_eq!(r[0].determine_time, want[0] - 10 * 60);
+    assert_eq!(r[0].result_expiration_time, want[1] - 10 * 60);
+    assert_eq!(r[6].result_expiration_time, t("2020-06-10 15:00:00"));
+    assert_eq!(
+        r.iter().map(|x| x.is_finality_result).collect::<Vec<_>>(),
+        [false, false, false, false, false, false, true]
+    );
+    assert_eq!(
+        r.iter().map(|x| x.number).collect::<Vec<_>>(),
+        [1, 2, 3, 4, 5, 6, 7]
+    );
+}
+
+#[test]
+fn weekly_ending_day_before_and_after_start_day() {
+    // Start friday 2020-04-17 12:00, ending wednesday 10:00: wday > day.
+    let xml = season_xml(
+        r#"enable-weekly-ending-schedule="y" weekly-ending-day="wed" weekly-ending-hour="10""#,
+        "normal",
+        "2020-04-17 12:00:00",
+        "2020-05-06 10:00:00",
+    );
+    let r = schedules(&xml, 0).unwrap();
+    assert_eq!(r[0].reward_start_time, t("2020-04-22 10:00:00"));
+    assert_eq!(r.len(), 3);
+    // Start monday 2020-04-13, ending wednesday 10:00: wday < day.
+    let xml = season_xml(
+        r#"enable-weekly-ending-schedule="y" weekly-ending-day="wed" weekly-ending-hour="10""#,
+        "normal",
+        "2020-04-13 9:00:00",
+        "2020-04-29 10:00:00",
+    );
+    let r = schedules(&xml, 0).unwrap();
+    assert_eq!(r[0].reward_start_time, t("2020-04-15 10:00:00"));
+    // wday < day and the first ending is after the end: the load fails.
+    let xml = season_xml(
+        r#"enable-weekly-ending-schedule="y" weekly-ending-day="wed" weekly-ending-hour="10""#,
+        "normal",
+        "2020-04-13 9:00:00",
+        "2020-04-14 9:00:00",
+    );
+    assert!(schedules(&xml, 0).is_err());
+}
+
+#[test]
+fn weekly_ending_uses_local_time() {
+    // 2020-04-15 01:00 KST is tuesday 16:00 UTC. With +540 minutes the
+    // local day is wednesday, so the first ending is one week later.
+    let xml = season_xml(
+        r#"enable-weekly-ending-schedule="y" weekly-ending-day="wed" weekly-ending-hour="1""#,
+        "normal",
+        "2020-04-15 1:00:00",
+        "2020-05-01 0:00:00",
+    );
+    let kst = 540 * 60;
+    let r = schedules(&xml, kst).unwrap();
+    assert_eq!(r[0].reward_start_time, t("2020-04-22 1:00:00") - kst);
+    let utc = schedules(&xml, 0).unwrap();
+    assert_eq!(utc[0].reward_start_time, t("2020-04-22 1:00:00"));
+}
+
+#[test]
+fn free_and_one_week_seasons_and_qa_list() {
+    let xml = season_xml("", "free", "2020-04-15 10:00:00", "2020-04-22 10:00:00");
+    let r = schedules(&xml, 0).unwrap();
+    assert_eq!(r.len(), 1);
+    assert_eq!(r[0].reward_start_time, t("2020-04-22 10:00:00"));
+    assert_eq!(r[0].result_expiration_time, t("2020-04-22 11:00:00"));
+    assert!(r[0].is_finality_result);
+    let xml = season_xml("", "normal", "2020-04-15 10:00:00", "2020-04-22 10:00:00");
+    let r = schedules(&xml, 0).unwrap();
+    assert_eq!(r[0].result_expiration_time, t("2020-06-10 15:00:00"));
+    assert!(schedules(
+        &season_xml("", "none", "2020-04-15 10:00:00", "2020-04-22 10:00:00"),
+        0
+    )
+    .is_err());
+    // QA list replaces the derived list; it stops at the first gap.
+    let xml = season_xml(
+        r#"enable-weekly-ending-schedule-for-qa="y" weekly-ending-schedule-for-qa-1="2020-04-16 10:00:00" weekly-ending-schedule-for-qa-2="2020-04-17 10:00:00" weekly-ending-schedule-for-qa-4="2020-04-19 10:00:00""#,
+        "normal",
+        "2020-04-15 10:00:00",
+        "2020-04-22 10:00:00",
+    );
+    let r = schedules(&xml, 0).unwrap();
+    assert_eq!(r.len(), 2);
+    assert_eq!(r[1].ranking_result_start_time, t("2020-04-16 10:00:00"));
+    assert_eq!(r[0].result_expiration_time, t("2020-04-17 10:00:00") - 600);
+}
+
+#[test]
+fn forced_termination_seasons_are_not_loaded() {
+    let config = RankingConfig::parse(CONFIG).unwrap();
+    let xml = season_xml(
+        r#"forced-termination="y""#,
+        "free",
+        "2020-04-15 10:00:00",
+        "2020-04-22 10:00:00",
+    );
+    let mut s = parse_season_data(&xml).unwrap();
+    assert!(s[0].forced_termination);
+    load_result_schedules(&mut s, 6, 0).unwrap();
+    let d = Daemon::new(&config, &[], &[], s);
+    assert!(d.seasons().is_empty());
 }
