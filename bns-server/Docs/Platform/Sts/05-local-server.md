@@ -94,3 +94,19 @@ All fixtures must be generated.
 ## Next job
 
 Resolve the build-381 token-login wire schema and signature trust from an approved source. Do not add a listener before this check. Then implement the local authority and an `Np` adapter. Keep the original-platform endpoint as a separate compatibility task.
+
+## Is an STS/NP server in the 2020 server package? (checked 2026-11-08)
+
+No. The 2020 package (`~/Downloads/BnS_2020`) does not contain an STS or NP server. A local STS server is therefore required.
+
+| Checked item | Result | Source |
+| --- | --- | --- |
+| `start_servers.bat` | Starts 18 daemons. None is an STS/NP server. | `BnS_2020/start_servers.bat` |
+| Daemon NP config | `np-address 127.0.0.1`, `np-port 6601`, marked `[REQ]`. The daemons are NP *clients*. | `config/bns.common.config.xml`, `config/LobbyDaemon/bin/lobbyd.config.xml` |
+| `StsMsgSrv64.dll` | Contains only `CNpSrpClient` / `CSrpClient`. The objects are `NetSrv2GameAcct`, `NetSrv2World` (server-to-platform). No SRP server. | `InfoGateDaemon/bin/StsMsgSrv64.pdb` |
+| `InfoGateDaemon.exe` | Client port 12100. Handlers: InfoGate, LobbyInfoGate, Ranking, Management. No STS words. | `config/InfoGateDaemon/bin/infogated.config.xml`, strings |
+| `BNSHelper.dll` (5 builds, third party, `EvoExt`) | `SqlHook::Enable`, `SQLGetConnectAttrHook`: rewrites ODBC connection strings to a local SQL Server. No NP or login code. Imported by patched `LobbyGate.exe` and `GameDaemon.exe`. | `BnS_2020/BNSHelper.pdb`, strings of each `bin/BNSHelper.dll` |
+| Lobby options | No option to run without NP. | `lobbyd.config.xml`, LobbyGate config |
+| Other folders in `~/Downloads` | Only `StsMsgCli32/64.dll` (client) match `STS/1.0`. | grep |
+
+The world list in the original comes from `config/LobbyDaemon/config/gamed-list.config.xml` (wid, internal IP, port 20100) and from running GameDaemons.
