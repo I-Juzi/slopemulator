@@ -247,8 +247,8 @@ pub struct Pc {
     pub faction: i8,
     /// PC byte +13768 = 1: the T2 gate of spec 12 (reason 7).
     pub t2_blocked: bool,
-    /// PC +20696 object present and byte +20752 = 0 (doc 15 craft session gate).
-    pub craft_session: bool,
+    /// PC +20696 user object present and byte +20752 = 0 (doc 15 CS gate; logs "user is not found").
+    pub user_present: bool,
 }
 impl Default for Pc {
     fn default() -> Self {
@@ -290,7 +290,7 @@ impl Default for Pc {
             pending_guild_id: 0,
             faction: 0,
             t2_blocked: false,
-            craft_session: false,
+            user_present: false,
         }
     }
 }

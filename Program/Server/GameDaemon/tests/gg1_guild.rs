@@ -34,7 +34,7 @@ impl H {
             zone: Some(9),
             guild_id: GUILD,
             faction: 1,
-            craft_session: true,
+            user_present: true,
             ..Pc::default()
         };
         let mut world = World::default();
@@ -596,7 +596,7 @@ fn change_flag_bearer() {
 }
 
 fn recs(items: &[(u16, u16)]) -> Vec<u8> {
-    let mut b = vec![items.len() as u8];
+    let mut b = (items.len() as u16).to_le_bytes().to_vec();
     for (s, a) in items {
         b.extend(s.to_le_bytes());
         b.extend(a.to_le_bytes());
@@ -646,7 +646,7 @@ fn contract_guild_craft() {
     assert_eq!(reason(&h.run(447, &body(&[], &[]))), Some((448, 2)));
     h.pc().guild_id = 0;
     assert_eq!(reason(&h.run(447, &body(&[], &[]))), Some((448, 2)));
-    h.pc().craft_session = false;
+    h.pc().user_present = false;
     assert_eq!(reason(&h.run(447, &body(&[], &[]))), Some((448, 1)));
     h.pc().t2_blocked = true;
     assert_eq!(reason(&h.run(447, &[])), Some((448, 7)));
@@ -665,12 +665,12 @@ fn assent_and_take_craft() {
         reason(&h.run(449, &[q(4), vec![1]].concat())),
         Some((450, 1553))
     );
-    h.pc().craft_session = false;
+    h.pc().user_present = false;
     assert_eq!(reason(&h.run(449, &[])), Some((450, 1)));
 
     let take = [q(8), vec![0, 0]].concat();
     let mut h = H::new();
-    h.pc().craft_session = false;
+    h.pc().user_present = false;
     assert!(h.run(457, &take).replies.is_empty());
     assert_eq!(last_task(&h), &GuildTaskKind::CraftTake { value: 8 });
     assert_eq!(reason(&h.run(457, &q(8))), Some((458, 1553)));
@@ -691,13 +691,17 @@ fn donate_craft_materials() {
     ));
     assert_eq!(reason(&h.run(451, &[1])), Some((452, 1553)));
     assert_eq!(
+        reason(&h.run(451, &[q(3), vec![1]].concat())),
+        Some((452, 1553))
+    );
+    assert_eq!(
         reason(&h.run(451, &normal(3, &[(1, 2), (1, 3)]))),
         Some((452, 1592))
     );
     assert_eq!(reason(&h.run(451, &normal(0, &[(1, 2)]))), Some((452, 2)));
     assert_eq!(reason(&h.run(451, &normal(3, &[]))), Some((452, 2)));
     assert_eq!(reason(&h.run(451, &normal(3, &[(1, 0)]))), Some((452, 2)));
-    h.pc().craft_session = false;
+    h.pc().user_present = false;
     assert_eq!(reason(&h.run(451, &normal(3, &[(1, 2)]))), Some((452, 1)));
 
     let brand = [q(3), 7u32.to_le_bytes().to_vec(), vec![1], recs(&[(1, 2)])].concat();
@@ -723,7 +727,7 @@ fn make_and_abandon_craft() {
     assert_eq!(reason(&h.run(455, &q(1))), Some((456, 1600)));
     h.pc().guild_id = 0;
     assert_eq!(reason(&h.run(455, &q(1))), Some((456, 1554)));
-    h.pc().craft_session = false;
+    h.pc().user_present = false;
     assert_eq!(reason(&h.run(455, &q(1))), Some((456, 2)));
     assert_eq!(reason(&h.run(455, &[])), Some((456, 1553)));
 

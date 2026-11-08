@@ -283,15 +283,16 @@ Shared task attachment (431, 434) uses `0x14025DB30` (zone), `0x14069BF60` (PC c
 
 ## Guild craft group (447–459): shared facts
 
-- **Craft session gate (CS):** PC +20696 (ref-counted object) is non-null and PC byte +20752 = 0. ❓ The object is probably the craft NPC dialog; the name is not proven. 447, 449, 451 and 453 need it.
-- **Records:** A `c` repeat count read by `0x14069DA00`, then `count` records of (`h` slot, `h` amount). The count test is `(u16)count > 5` → reject, so a negative count also fails.
+- **User gate (CS):** PC +20696 (ref-counted user object) is non-null and PC byte +20752 = 0. The failure logs "user is not found". Rust field: `Pc::user_present`. 447, 449, 451 and 453 need it.
+- **Records:** A `C` (u16) repeat count read by `0x14069DA00`, then `count` records of (`h` slot, `h` amount). The count test is `(u16)count > 5` → reject. Source: format strings `0x140BFFA20` area (`hiQsChh;Chh;`, `hqChh;`, `hqicChh;`); the leading `h` is the opcode.
+- **Log names:** The CS failure logs "user is not found". The T2 failure logs "cannot process in trial play".
 - **Task queue:** These tasks queue with `0x140603BD0(task+32 → +16, task, 0, 0)`, as in 445. That call has no failure branch.
 - **Guild +32488:** leader PC DB ID. **PC +20744:** PC DB ID. **PC +20664:** ❓ unread field passed to the abandon helper.
 
 ## 447 — G_ContractGuildCraftReqCmd — partial
 
 - **381:** `0x1403AAF20`. **PDB hint:** `HandleGame_ContractGuildCraftReq`.
-- **Wire:** `hiqschhChh`: `i`, `q`, `s`, then list A (`c` count, records), then list B (`C` count, records).
+- **Wire:** `hiQsChh;Chh;`: `i`, `Q`, `s`, then list A (contract BM items: `C` count, records), then list B (rent BM items: `C` count, records).
 - **Checks/order (reply 448):**
   1. Arena form B → 5.
   2. T2 → 7.
@@ -316,7 +317,7 @@ Shared task attachment (431, 434) uses `0x14025DB30` (zone), `0x14069BF60` (PC c
 ## 451 — G_DonateGuildCraftNormalMaterialReqCmd — done
 
 - **381:** `0x1403ABD30`. **PDB hint:** `HandleGame_DonateGuildCraftNormalMaterialReq`.
-- **Wire:** `hqchh`: `q`, then records.
+- **Wire:** `hqChh;`: `q`, then records.
 - **Checks/order (reply 452):**
   1. Arena form B → 5. T2 → 7. CS fails → 1.
   2. `q` decode fails → 1553.
@@ -332,7 +333,7 @@ Shared task attachment (431, 434) uses `0x14025DB30` (zone), `0x14069BF60` (PC c
 ## 453 — G_DonateGuildCraftBrandMaterialReqCmd — done
 
 - **381:** `0x1403AC500`. **PDB hint:** `HandleGame_DonateGuildCraftBrandMaterialReq`.
-- **Wire:** `hqicchh`: `q`, `i`, `c`, then records.
+- **Wire:** `hqicChh;`: `q`, `i`, `c`, then records.
 - **Checks/order (reply 454):** As 451. Header `qic` decode fails → 1553. Task `0x14053D830`.
 - **Output:** Task +144 = 1, +152 q, +160 i, +164 c, +166 count, +168 slots, +188 amounts.
 

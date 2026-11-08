@@ -970,10 +970,10 @@ fn queue_shared(ctx: &mut Context<'_>, task: GuildTask, reply: u16) -> Outcome {
         },
     }
 }
-/// `c` count (`(u16)count > 5` rejects) then (slot, amount) records.
+/// `C` (u16) count (`count > 5` rejects) then (slot, amount) records.
 fn craft_records(r: &mut Reader<'_>) -> Option<Vec<(u16, u16)>> {
-    let count = r.byte()? as i8;
-    if !(0..=5).contains(&count) {
+    let count = r.short()?;
+    if count > 5 {
         return None;
     }
     (0..count).map(|_| Some((r.short()?, r.short()?))).collect()
@@ -1002,7 +1002,7 @@ pub fn handle_contract_guild_craft(ctx: &mut Context<'_>, req: &[u8]) -> Outcome
     if let Some(out) = craft_gates(ctx, R) {
         return out;
     }
-    if !ctx.pc().craft_session {
+    if !ctx.pc().user_present {
         return Outcome::reason(R, 1);
     }
     if guild_id(ctx.pc()) == 0 {
@@ -1053,7 +1053,7 @@ pub fn handle_assent_guild_craft(ctx: &mut Context<'_>, req: &[u8]) -> Outcome {
     if let Some(out) = craft_gates(ctx, R) {
         return out;
     }
-    if !ctx.pc().craft_session {
+    if !ctx.pc().user_present {
         return Outcome::reason(R, 1);
     }
     let mut r = Reader(req);
@@ -1086,7 +1086,7 @@ fn donate(
     if let Some(out) = craft_gates(ctx, reply) {
         return out;
     }
-    if !ctx.pc().craft_session {
+    if !ctx.pc().user_present {
         return Outcome::reason(reply, 1);
     }
     let mut r = Reader(req);
@@ -1155,7 +1155,7 @@ pub fn handle_make_guild_craft(ctx: &mut Context<'_>, req: &[u8]) -> Outcome {
     let Some(value) = Reader(req).quad() else {
         return Outcome::reason(R, 1553);
     };
-    if !ctx.pc().craft_session {
+    if !ctx.pc().user_present {
         return Outcome::reason(R, 2);
     }
     let id = guild_id(ctx.pc());
