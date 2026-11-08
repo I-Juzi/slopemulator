@@ -671,6 +671,24 @@ Do not treat that absence as a bypass of the unread room task.
 - **Task `0x1402DCC40`:** Map second byte 2/3/4/5/6 to close reason 1/2/3/4/5; all other values map to zero. Call `0x1402DC440(...,PC,mapped_reason)`. Then clear PC qwords +37448/+37464/+37472 and mode byte +37456. The first request byte is unused in this task. No direct client send appears.
 - **❓ Missing:** Scheduler, close helper and any indirect report/output.
 
+## Rust port status (part 1)
+
+Source: `Program/Server/GameDaemon/src/handlers/skills.rs`, tests `tests/gs1_skills.rs`.
+
+| Command | Rust state | Boundary |
+| --- | --- | --- |
+| 1226, 1228 | Full decode, four modifier groups, caster selector, queue; failure 1227/1229 echoes identity | Skill action |
+| 1229, 1231 | Selector decode, caster, queue | Action |
+| 1270, 77, 1272 | User, zone, PC kind, queue; 1272 sends 537 then 1 for a non-loot target | Gather/loot actions |
+| 71 | Summon checks 2, 175, 179, then queue with summon zone | Recall action |
+| 74 | Unsupported | Gauge state not modeled |
+| 134, 135, 137, 139, 142 | Zone, caster kind, queue | Actions |
+| 821 | Log only | — |
+| 824 | Feature byte; disabled → 826 reason 1 with UTC | Recharge action |
+| 113, 117, 1485, 1488, 1491, 1494 | Decode, range checks, PC kind, queue | Page actions |
+| 1497 | Rate gate, all reasons in spec order, trait table through `Services::trait_max_level` | Train action |
+| 1389 | 470, T2 → 7, zone → 1, wrong kind logs only | Unlock action |
+
 ## Coverage and remaining work
 
 All 51 requested receive wrappers were read.

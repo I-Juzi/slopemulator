@@ -21,10 +21,12 @@ mod items2;
 mod items3;
 mod items4;
 mod items5;
+mod skills;
 pub use items2::*;
 pub use items3::*;
 pub use items4::*;
 pub use items5::*;
+pub use skills::*;
 mod token;
 mod trade;
 pub use items::*;
@@ -57,6 +59,8 @@ pub enum StateChange {
     },
     PingReceived([u64; 2]),
     Queued(u16),
+    /// Doc 13 1497: rate timestamp set before decoding.
+    TraitTrainTick(u64),
     /// Dispatch retains the input for each queued task/action. No body is lost.
     QueuedRequest {
         command: u16,
@@ -294,6 +298,8 @@ pub struct Pc {
     pub guild_invitation_refusal: bool,
     /// PC signed short +96 (doc 05: runtime PC field, ❓ name). Backend 367 field 2.
     pub short_96: i16,
+    /// Doc 13 1497: session object qword +8, last train-trait tick.
+    pub trait_train_tick: u64,
 }
 impl Default for Pc {
     fn default() -> Self {
@@ -341,10 +347,11 @@ impl Default for Pc {
             guild_point_tick: 0,
             guild_invitation_refusal: false,
             short_96: 0,
+            trait_train_tick: 0,
         }
     }
 }
-#[derive(Clone, Debug)]
+#[derive(Clone, Debug, Default)]
 pub struct Summon {
     pub control_state: u8,
     pub native_kind: u8,
@@ -402,6 +409,10 @@ pub struct World {
     pub custom_dress_enabled: bool,
     /// Doc 12c: cfg byte +720 ≠ 0 (1402, 1405, 1408 growth/awakening/feeding).
     pub item_growth_enabled: bool,
+    /// Doc 13: rule config daemon +2744 byte +1045 ≠ 0 (824).
+    pub vitality_recharge_enabled: bool,
+    /// Doc 13: rule config qword +1264, 1497 rate interval (ticks).
+    pub trait_train_interval: u64,
     /// cfg DWORD +248 when cfg byte +237 ≠ 0, else 0 (backend 367 restriction value).
     pub arena_value: u32,
     pub channel_type_87_restricted: bool,
@@ -515,6 +526,14 @@ pub trait Services {
     /// Doc 12b item task allocation, PC-kind init and queue/dispatch.
     fn queue_item(&mut self, _task: &ItemTask) -> Gate {
         Gate::Unknown
+    }
+    /// Doc 13 skill task/action allocation, initialization and queue.
+    fn queue_skill(&mut self, _task: &SkillTask) -> Gate {
+        Gate::Unknown
+    }
+    /// Doc 13 manager slot 2379: Some(None) = no record, Some(Some(max level)).
+    fn trait_max_level(&mut self, _id: u32) -> Option<Option<i8>> {
+        None
     }
     /// Doc 12c BoardGacha manager submit (`0x1403FB2D0`) or user
     /// transaction registration (`0x1400D4FE0`).
@@ -634,6 +653,9 @@ pub struct MemoryServices {
     pub logout_calls: usize,
     pub guild: MemoryGuild,
     pub trade: MemoryTrade,
+    pub skill_queue_result: Gate,
+    pub skill_tasks: Vec<SkillTask>,
+    pub trait_levels: Option<BTreeMap<u32, i8>>,
 }
 /// Test/default doc 12 boundary results. Unknown is never approval.
 #[derive(Clone, Debug)]
@@ -739,10 +761,22 @@ impl Default for MemoryServices {
             logout_calls: 0,
             guild: MemoryGuild::default(),
             trade: MemoryTrade::default(),
+            skill_queue_result: Gate::Unknown,
+            skill_tasks: vec![],
+            trait_levels: None,
         }
     }
 }
 impl Services for MemoryServices {
+    fn queue_skill(&mut self, task: &SkillTask) -> Gate {
+        if self.skill_queue_result == Gate::Pass {
+            self.skill_tasks.push(task.clone());
+        }
+        self.skill_queue_result
+    }
+    fn trait_max_level(&mut self, id: u32) -> Option<Option<i8>> {
+        Some(self.trait_levels.as_ref()?.get(&id).copied())
+    }
     fn queue_trade(&mut self, task: &TradeTask) -> Gate {
         if self.trade.queue_result == Gate::Pass {
             self.trade.tasks.push(task.clone());
@@ -930,6 +964,7 @@ fn dispatch_inner(ctx: &mut Context<'_>, command: u16, req: &[u8]) -> Outcome {
         && !ITEM4_COMMANDS.contains(&command)
         && !ITEM5_COMMANDS.contains(&command)
         && !ITEM6_COMMANDS.contains(&command)
+        && !SKILL_COMMANDS.contains(&command)
     {
         return Outcome::log("unknown command");
     }
@@ -978,6 +1013,9 @@ fn dispatch_inner(ctx: &mut Context<'_>, command: u16, req: &[u8]) -> Outcome {
     }
     if ITEM6_COMMANDS.contains(&command) {
         return items5::dispatch_item6(ctx, command, req);
+    }
+    if SKILL_COMMANDS.contains(&command) {
+        return skills::dispatch_skill(ctx, command, req);
     }
     match command {
         11 => handle_hello(ctx, req),
