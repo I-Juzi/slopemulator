@@ -249,6 +249,8 @@ pub struct Pc {
     pub t2_blocked: bool,
     /// PC +20696 user object present and byte +20752 = 0 (doc 15 CS gate; logs "user is not found").
     pub user_present: bool,
+    /// PC byte +344 ≠ 0 (461 → 1600, log "invalid activated faction"). ❓ Meaning not proven.
+    pub uniform_faction_blocked: bool,
 }
 impl Default for Pc {
     fn default() -> Self {
@@ -291,6 +293,7 @@ impl Default for Pc {
             faction: 0,
             t2_blocked: false,
             user_present: false,
+            uniform_faction_blocked: false,
         }
     }
 }
@@ -486,6 +489,26 @@ pub trait Services {
     fn guild_craft_abandon(&mut self, _guild_id: u64, _pc: &Pc) -> Option<u16> {
         None
     }
+    /// 461 name rules (`0x14012F9F0`) and name filter. false → 1602.
+    fn guild_uniform_name_ok(&mut self, _name: &[u16]) -> Option<bool> {
+        None
+    }
+    /// 461 `0x1400F73E0` then the transaction: 0 = success, else the reason
+    /// (transaction register failure = 2).
+    fn guild_uniform_contract(&mut self, _contract: &GuildUniformContract) -> Option<u16> {
+        None
+    }
+    /// 465–473 opaque guild helper: 0 = success, else the reason.
+    fn guild_uniform_op(
+        &mut self,
+        _command: u16,
+        _guild_id: u64,
+        _pc: &Pc,
+        _a: u64,
+        _b: u64,
+    ) -> Option<u16> {
+        None
+    }
     fn queue(&mut self, command: u16) -> Gate;
     fn logout(&mut self) -> Gate;
     fn available_channel(&mut self, channel: i16) -> Gate;
@@ -527,6 +550,11 @@ pub struct MemoryGuild {
     pub craft_make_result: Option<u16>,
     pub craft_abandon_result: Option<u16>,
     pub contracts: Vec<GuildCraftContract>,
+    pub uniform_name_ok: Option<bool>,
+    pub uniform_contract_result: Option<u16>,
+    pub uniform_op_result: Option<u16>,
+    pub uniform_contracts: Vec<GuildUniformContract>,
+    pub uniform_ops: Vec<(u16, u64, u64)>,
     pub posted: Vec<GuildWork>,
     pub tasks: Vec<GuildTask>,
 }
@@ -545,6 +573,11 @@ impl Default for MemoryGuild {
             craft_contract_result: Gate::Unknown,
             craft_make_result: None,
             craft_abandon_result: None,
+            uniform_name_ok: None,
+            uniform_contract_result: None,
+            uniform_op_result: None,
+            uniform_contracts: vec![],
+            uniform_ops: vec![],
             contracts: vec![],
             posted: vec![],
             tasks: vec![],
@@ -612,6 +645,17 @@ impl Services for MemoryServices {
     }
     fn guild_craft_abandon(&mut self, _: u64, _: &Pc) -> Option<u16> {
         self.guild.craft_abandon_result
+    }
+    fn guild_uniform_name_ok(&mut self, _: &[u16]) -> Option<bool> {
+        self.guild.uniform_name_ok
+    }
+    fn guild_uniform_contract(&mut self, contract: &GuildUniformContract) -> Option<u16> {
+        self.guild.uniform_contracts.push(contract.clone());
+        self.guild.uniform_contract_result
+    }
+    fn guild_uniform_op(&mut self, command: u16, _: u64, _: &Pc, a: u64, b: u64) -> Option<u16> {
+        self.guild.uniform_ops.push((command, a, b));
+        self.guild.uniform_op_result
     }
     fn party_state(&mut self) -> Option<&mut PartyState> {
         self.party.as_mut()

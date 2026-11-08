@@ -33,6 +33,7 @@ This file covers the 17 core guild commands: create, rename, destroy, info, memb
 | 5 | 443 Guild level up |
 | 6 | 445 Deposit in guild bank |
 | 7 | 447 Contract guild craft |
+| 8 | 461 Contract guild uniform |
 | 9 | 494 Delegate leader |
 | 11 | 511 Leave |
 | 12 | 513 Banish |
@@ -371,6 +372,90 @@ Shared task attachment (431, 434) uses `0x14025DB30` (zone), `0x14069BF60` (PC c
 - **Output:** Helper success → no reply.
 - **❓ Missing:** Body of `0x140105BA0`.
 
+## Guild uniform group (461–475): shared facts
+
+- **Uniform gate (U):** Global byte `qword_140EE58A0 + 152` = 0 → reply 1568. The log says "not use guild uniform". All eight handlers test it first. Rust: `GuildConfig::uniform_enabled`.
+- **Then:** Arena form B → 5. T2 → 7. The order is the same in all eight handlers.
+- **Guild:** PC +336 = 0 → 1554 ("is not guild member"). Lookup `0x1403FA7D0` fails → 2.
+- **Records:** As the craft group: a `C` (u16) count, then (`h` slot, `h` amount) records.
+- **Task queue:** 463 and 475 queue with `0x140603BD0`, as 445 and the craft tasks. That call has no failure branch.
+- **Helpers:** 465–473 call one opaque guild helper each. A nonzero result is the reply reason. Zero → no reply.
+
+## 461 — G_ContractGuildUniformReqCmd — partial
+
+- **381:** `0x1403AD830`. **PDB hint:** `HandleGame_ContractGuildUniformReq`.
+- **Wire:** `hqsCc;Ci;` (`0x140BFFA20`): `q`, `s` uniform name (33 units), then param types (`C` count, `c` each), then recipe IDs (`C` count, `i` each).
+- **Checks/order (reply 462):**
+  1. U → 1568. Arena form B → 5. T2 → 7.
+  2. CS (user gate) fails → 1.
+  3. `q` + name decode fails → 1553.
+  4. Param type count > 28 → 1553. A param decode fails → 1553. A param is 0 → 1553.
+  5. Recipe count > 28 → 1553. A recipe decode fails → 1553.
+  6. Name rules: World +2744 config is missing, or `0x14012F9F0(World +2800, name, cfg +588…+608)` is nonzero → 1602.
+  7. Name filter (World +2728 → +48, vtable slot 0) exists and (CS object is gone, or the filter rejects the name) → 1602.
+  8. PC byte +344 ≠ 0 → 1600 ("invalid activated faction"). ❓ The meaning of +344 is not proven.
+  9. No guild → 1554. Lookup fails → 2. Action row 8 not enabled → 2.
+  10. `0x1400F73E0(guild, PC, q, params, recipes, outputs…)` nonzero → reply that reason ("fail to EnableContractGuildUniform").
+  11. Transaction (`new(0x4F0)`, type `0x24210A`) register fails → 2 ("fail to start tran").
+- **Output:** Success → no reply.
+- **❓ Missing:** Body of `0x1400F73E0` and the transaction work.
+
+## 463 — G_DonateGuildUniformMaterialReqCmd — done
+
+- **381:** `0x1403AE3D0`. **PDB hint:** `HandleGame_DonateGuildUniformMaterialReq`.
+- **Wire:** `hqChh;`: `q` uniform ID, then records.
+- **Checks/order (reply 464):**
+  1. U → 1568. Arena form B → 5. T2 → 7. No CS gate.
+  2. `q` decode fails → 1553.
+  3. Count > 5 → 1553. A record decode fails → 1553.
+  4. A record has slot 0 or amount ≤ 0 (signed i16) → 1553. This check runs during decode.
+  5. A slot repeats → 1592.
+  6. No zone (PC +2224) → 2. Task alloc (`new(0x160)`, `0x14053EE50`) fails → 2. PC kind ≠ 1 → assert (14483), then 2.
+  7. `q` = 0 or count = 0 → 2.
+- **Output:** Task (+144 = 1, +152 `q`, +160 count, records from +162/+172) queues. No reply.
+
+## 465 — G_AbandonGuildUniformReqCmd — partial
+
+- **381:** `0x1403AEBD0`. **Wire:** `hq`.
+- **Checks/order (reply 466):** U → 1568. Arena form B → 5. T2 → 7. Decode fails → 1553. No guild → 1554. Lookup fails → 2. `0x1400F7B00(guild, PC +20664, PC DB ID, q)` nonzero → that reason.
+- **❓ Missing:** Body of `0x1400F7B00`.
+
+## 467 — G_MakeGuildUniformReqCmd — partial
+
+- **381:** `0x1403AEF30`. **Wire:** `hq`.
+- **Checks/order (reply 468):** As 465. Helper `0x1400F7D40(guild, PC, q)`.
+- **❓ Missing:** Body of `0x1400F7D40`.
+
+## 469 — G_RegisterGuildUniformReqCmd — partial
+
+- **381:** `0x1403AF230`. **Wire:** `hq`.
+- **Checks/order (reply 470):** As 465. Helper `0x1400F8420(guild, PC, q)`.
+- **❓ Missing:** Body of `0x1400F8420`.
+
+## 471 — G_PutOnGuildUniformReqCmd — partial
+
+- **381:** `0x1403AF590`. **Wire:** `hq`.
+- **Checks/order (reply 472):** As 465. Helper `0x1400F92D0(guild, PC, q)`.
+- **❓ Missing:** Body of `0x1400F92D0`.
+
+## 473 — G_RegisterGuildUniformWithDeletionReqCmd — partial
+
+- **381:** `0x1403AF8F0`. **Wire:** `hqq`.
+- **Checks/order (reply 474):** As 465, but the decode reads two `q`. Helper `0x1400F8920(guild, PC, q1, q2)`.
+- **❓ Missing:** Body of `0x1400F8920`.
+
+## 475 — G_IncreaseUniformRegistrationQuotaReqCmd — done
+
+- **381:** `0x1403AFC90`. **PDB hint:** `HandleGame_IncreaseUniformRegistrationQuotaReq`.
+- **Wire:** `hcChh;`: `c` flag, then records.
+- **Checks/order (reply 476):**
+  1. U → 1568. Arena form B → 5. T2 → 7.
+  2. CS fails → 1.
+  3. `c` decode fails → 1553. Count > 5 → 1553. A record decode fails → 1553. A slot repeats → **1553** (not 1592).
+  4. No zone → 2. Task alloc (`new(0x158)`, `0x14053FE40`) fails → 2. PC kind ≠ 1 → assert (14892), then 2.
+  5. Count = 0 → 2. A record with slot 0 or amount 0 → 2.
+- **Output:** Task (+144 = 1, +148 flag, +150 count, records from +152/+162) queues. No reply.
+
 ## Status
 
 | Id | State |
@@ -388,6 +473,14 @@ Shared task attachment (431, 434) uses `0x14025DB30` (zone), `0x14069BF60` (PC c
 | 455 | partial |
 | 457 | done |
 | 459 | partial |
+| 461 | partial |
+| 463 | done |
+| 465 | partial |
+| 467 | partial |
+| 469 | partial |
+| 471 | partial |
+| 473 | partial |
+| 475 | done |
 | 434 | partial |
 | 437 | done |
 | 440 | done |

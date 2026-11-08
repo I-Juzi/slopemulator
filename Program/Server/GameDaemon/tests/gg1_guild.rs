@@ -58,7 +58,7 @@ impl H {
                 craft_active: true,
             },
         );
-        for row in [1, 2, 3, 4, 5, 6, 7, 9, 11, 12, 13, 17] {
+        for row in [1, 2, 3, 4, 5, 6, 7, 8, 9, 11, 12, 13, 17] {
             world.guild.actions.insert(
                 row,
                 GuildActionRow {
@@ -71,6 +71,7 @@ impl H {
         world.guild.config.rename_prefix = name("[Old]");
         world.guild.config.rename_by_item = true;
         world.guild.config.bank_enabled = true;
+        world.guild.config.uniform_enabled = true;
         world.guild.config.bank_money_limit = 1000;
         world.guild.config.permission_limits = [[0xFF; 4], [0x0F; 4]];
         let mut services = MemoryServices::default();
@@ -86,6 +87,9 @@ impl H {
         services.guild.craft_contract_result = Gate::Pass;
         services.guild.craft_make_result = Some(0);
         services.guild.craft_abandon_result = Some(0);
+        services.guild.uniform_name_ok = Some(true);
+        services.guild.uniform_contract_result = Some(0);
+        services.guild.uniform_op_result = Some(0);
         Self {
             session: Session {
                 authenticated: true,
@@ -744,4 +748,117 @@ fn make_and_abandon_craft() {
     h.pc().guild_id = 0;
     assert_eq!(reason(&h.run(459, &q(1))), Some((460, 1554)));
     assert_eq!(reason(&h.run(459, &[])), Some((460, 1553)));
+}
+
+#[test]
+fn contract_guild_uniform() {
+    let list = |p: &[u8], r: &[u32]| {
+        let mut b = (p.len() as u16).to_le_bytes().to_vec();
+        b.extend(p);
+        b.extend((r.len() as u16).to_le_bytes());
+        for x in r {
+            b.extend(x.to_le_bytes());
+        }
+        b
+    };
+    let body = |p: &[u8], r: &[u32]| [q(6), s("Robe"), list(p, r)].concat();
+    let mut h = H::new();
+    assert!(h.run(461, &body(&[1, 2], &[77])).replies.is_empty());
+    let c = h.services.guild.uniform_contracts.last().unwrap().clone();
+    assert_eq!((c.value, c.params, c.recipes), (6, vec![1, 2], vec![77]));
+    h.services.guild.uniform_contract_result = Some(1610);
+    assert_eq!(reason(&h.run(461, &body(&[], &[]))), Some((462, 1610)));
+    h.world.guild.actions.remove(&8);
+    assert_eq!(reason(&h.run(461, &body(&[], &[]))), Some((462, 2)));
+    h.pc().guild_id = 0;
+    assert_eq!(reason(&h.run(461, &body(&[], &[]))), Some((462, 1554)));
+    h.pc().uniform_faction_blocked = true;
+    assert_eq!(reason(&h.run(461, &body(&[], &[]))), Some((462, 1600)));
+    h.services.guild.uniform_name_ok = Some(false);
+    assert_eq!(reason(&h.run(461, &body(&[], &[]))), Some((462, 1602)));
+    assert_eq!(reason(&h.run(461, &body(&[0], &[]))), Some((462, 1553)));
+    assert_eq!(reason(&h.run(461, &body(&[1; 29], &[]))), Some((462, 1553)));
+    assert_eq!(reason(&h.run(461, &q(6))), Some((462, 1553)));
+    h.pc().user_present = false;
+    assert_eq!(reason(&h.run(461, &[])), Some((462, 1)));
+    h.pc().t2_blocked = true;
+    assert_eq!(reason(&h.run(461, &[])), Some((462, 7)));
+    h.pc().arena_state = 2;
+    assert_eq!(reason(&h.run(461, &[])), Some((462, 5)));
+    h.world.guild.config.uniform_enabled = false;
+    assert_eq!(reason(&h.run(461, &[])), Some((462, 1568)));
+}
+
+#[test]
+fn donate_uniform_and_quota() {
+    let donate = |v: u64, it: &[(u16, u16)]| [q(v), recs(it)].concat();
+    let mut h = H::new();
+    h.pc().user_present = false;
+    assert!(h.run(463, &donate(5, &[(1, 2)])).replies.is_empty());
+    assert_eq!(
+        last_task(&h),
+        &GuildTaskKind::UniformDonate {
+            value: 5,
+            items: vec![(1, 2)]
+        }
+    );
+    assert_eq!(
+        reason(&h.run(463, &donate(5, &[(1, 0xFFFF)]))),
+        Some((464, 1553))
+    );
+    assert_eq!(
+        reason(&h.run(463, &donate(5, &[(0, 1)]))),
+        Some((464, 1553))
+    );
+    assert_eq!(
+        reason(&h.run(463, &donate(5, &[(1, 1), (1, 2)]))),
+        Some((464, 1592))
+    );
+    assert_eq!(reason(&h.run(463, &donate(0, &[(1, 1)]))), Some((464, 2)));
+    assert_eq!(reason(&h.run(463, &donate(5, &[]))), Some((464, 2)));
+    h.world.guild.config.uniform_enabled = false;
+    assert_eq!(reason(&h.run(463, &[])), Some((464, 1568)));
+
+    let quota = |it: &[(u16, u16)]| [vec![3], recs(it)].concat();
+    let mut h = H::new();
+    assert!(h.run(475, &quota(&[(4, 1)])).replies.is_empty());
+    assert_eq!(
+        last_task(&h),
+        &GuildTaskKind::UniformQuota {
+            flag: 3,
+            items: vec![(4, 1)]
+        }
+    );
+    assert_eq!(
+        reason(&h.run(475, &quota(&[(4, 1), (4, 1)]))),
+        Some((476, 1553))
+    );
+    assert_eq!(reason(&h.run(475, &quota(&[]))), Some((476, 2)));
+    assert_eq!(reason(&h.run(475, &quota(&[(4, 0)]))), Some((476, 2)));
+    h.pc().zone = None;
+    assert_eq!(reason(&h.run(475, &quota(&[(4, 1)]))), Some((476, 2)));
+    h.pc().user_present = false;
+    assert_eq!(reason(&h.run(475, &[])), Some((476, 1)));
+}
+
+#[test]
+fn uniform_helper_handlers() {
+    for cmd in [465u16, 467, 469, 471] {
+        let mut h = H::new();
+        assert!(h.run(cmd, &q(9)).replies.is_empty());
+        assert_eq!(h.services.guild.uniform_ops.last(), Some(&(cmd, 9, 0)));
+        h.services.guild.uniform_op_result = Some(1620);
+        assert_eq!(reason(&h.run(cmd, &q(9))), Some((cmd + 1, 1620)));
+        h.pc().guild_id = 0x4242;
+        assert_eq!(reason(&h.run(cmd, &q(9))), Some((cmd + 1, 2)));
+        h.pc().guild_id = 0;
+        assert_eq!(reason(&h.run(cmd, &q(9))), Some((cmd + 1, 1554)));
+        assert_eq!(reason(&h.run(cmd, &[])), Some((cmd + 1, 1553)));
+        h.world.guild.config.uniform_enabled = false;
+        assert_eq!(reason(&h.run(cmd, &[])), Some((cmd + 1, 1568)));
+    }
+    let mut h = H::new();
+    assert!(h.run(473, &[q(1), q(2)].concat()).replies.is_empty());
+    assert_eq!(h.services.guild.uniform_ops.last(), Some(&(473, 1, 2)));
+    assert_eq!(reason(&h.run(473, &q(1))), Some((474, 1553)));
 }

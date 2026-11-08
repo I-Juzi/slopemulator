@@ -4,8 +4,8 @@
 use super::*;
 
 pub const GUILD_COMMANDS: &[u16] = &[
-    431, 434, 437, 440, 443, 445, 447, 449, 451, 453, 455, 457, 459, 477, 480, 483, 486, 489, 491,
-    494, 499, 501, 503, 506, 508, 509, 511, 513, 515,
+    431, 434, 437, 440, 443, 445, 447, 449, 451, 453, 455, 457, 459, 461, 463, 465, 467, 469, 471,
+    473, 475, 477, 480, 483, 486, 489, 491, 494, 499, 501, 503, 506, 508, 509, 511, 513, 515,
 ];
 
 /// Server config read by the guild handlers (`qword_140EE58A0`, World +6208).
@@ -37,6 +37,8 @@ pub struct GuildConfig {
     pub bank_money_limit: i32,
     /// Permission mask limits: [normal (World +6264..), open (World +6304..)].
     pub permission_limits: [[u32; 4]; 2],
+    /// `qword_140EE58A0 + 152`: guild uniform is in use (0 → reply 1568).
+    pub uniform_enabled: bool,
 }
 /// Guild +32416 type, +32418 name, +32771 rename-in-progress.
 #[derive(Clone, Debug, Default)]
@@ -168,6 +170,20 @@ pub enum GuildTaskKind {
     },
     /// 457 task (`0x14027F720`): +152 value.
     CraftTake { value: u64 },
+    /// 463 task (`0x14053EE50`): +152 uniform ID, records.
+    UniformDonate { value: u64, items: Vec<(u16, u16)> },
+    /// 475 task (`0x14053FE40`): +148 flag, records.
+    UniformQuota { flag: u8, items: Vec<(u16, u16)> },
+}
+/// 461 decoded request. ❓ The helper outputs (Destination +148…) are not read.
+#[derive(Clone, Debug, PartialEq, Eq)]
+pub struct GuildUniformContract {
+    pub guild_id: u64,
+    pub requester: u64,
+    pub value: u64,
+    pub name: Vec<u16>,
+    pub params: Vec<u8>,
+    pub recipes: Vec<u32>,
 }
 /// 447 decoded request. ❓ The native copy into the 0x158 object is not seen.
 #[derive(Clone, Debug, PartialEq, Eq)]
@@ -212,6 +228,14 @@ pub(super) fn dispatch_guild(ctx: &mut Context<'_>, command: u16, req: &[u8]) ->
         455 => handle_make_guild_craft(ctx, req),
         457 => handle_take_guild_craft(ctx, req),
         459 => handle_abandon_guild_craft(ctx, req),
+        461 => handle_contract_guild_uniform(ctx, req),
+        463 => handle_donate_guild_uniform_material(ctx, req),
+        465 => handle_abandon_guild_uniform(ctx, req),
+        467 => handle_make_guild_uniform(ctx, req),
+        469 => handle_register_guild_uniform(ctx, req),
+        471 => handle_put_on_guild_uniform(ctx, req),
+        473 => handle_register_guild_uniform_with_deletion(ctx, req),
+        475 => handle_increase_uniform_registration_quota(ctx, req),
         477 => handle_retrieve_guild_members(ctx, req),
         480 => handle_edit_guild_notification_message(ctx, req),
         491 => handle_change_guild_member_grade(ctx, req),
@@ -1229,4 +1253,200 @@ pub fn handle_abandon_guild_craft(ctx: &mut Context<'_>, req: &[u8]) -> Outcome 
         Some(0) => Outcome::default(),
         Some(reason) => Outcome::reason(R, reason),
     }
+}
+
+/// Uniform gate (U → 1568), then arena form B → 5, then T2 → 7.
+fn uniform_gates(ctx: &Context<'_>, reply: u16) -> Option<Outcome> {
+    if !ctx.world.guild.config.uniform_enabled {
+        return Some(Outcome::reason(reply, 1568));
+    }
+    craft_gates(ctx, reply)
+}
+
+/// parity: 461 15-guild-handlers.md#461--g_contractguilduniformreqcmd--partial partial
+pub fn handle_contract_guild_uniform(ctx: &mut Context<'_>, req: &[u8]) -> Outcome {
+    // ❓ 0x1400F73E0 body and the 0x24210A transaction work.
+    const R: u16 = 462;
+    if let Some(out) = uniform_gates(ctx, R) {
+        return out;
+    }
+    if !ctx.pc().user_present {
+        return Outcome::reason(R, 1);
+    }
+    let mut r = Reader(req);
+    let (Some(value), Some(name)) = (r.quad(), r.string(NAME_UNITS)) else {
+        return Outcome::reason(R, 1553);
+    };
+    let params: Option<Vec<u8>> = r
+        .short()
+        .filter(|n| *n <= 28)
+        .and_then(|n| (0..n).map(|_| r.byte().filter(|b| *b != 0)).collect());
+    let Some(params) = params else {
+        return Outcome::reason(R, 1553);
+    };
+    let recipes: Option<Vec<u32>> = r
+        .short()
+        .filter(|n| *n <= 28)
+        .and_then(|n| (0..n).map(|_| r.int()).collect());
+    let Some(recipes) = recipes else {
+        return Outcome::reason(R, 1553);
+    };
+    match ctx.services.guild_uniform_name_ok(&name) {
+        None => return boundary("❓ guild uniform name rules 0x14012F9F0 / name filter"),
+        Some(false) => return Outcome::reason(R, 1602),
+        Some(true) => {}
+    }
+    if ctx.pc().uniform_faction_blocked {
+        return Outcome::reason(R, 1600);
+    }
+    if guild_id(ctx.pc()) == 0 {
+        return Outcome::reason(R, 1554);
+    }
+    let Some(id) = guild_with_action(ctx, 8) else {
+        return Outcome::reason(R, 2);
+    };
+    let contract = GuildUniformContract {
+        guild_id: id,
+        requester: ctx.pc().object_id,
+        value,
+        name,
+        params,
+        recipes,
+    };
+    match ctx.services.guild_uniform_contract(&contract) {
+        None => boundary("❓ guild uniform contract helper 0x1400F73E0 / transaction"),
+        Some(0) => Outcome::default(),
+        Some(reason) => Outcome::reason(R, reason),
+    }
+}
+
+/// parity: 463 15-guild-handlers.md#463--g_donateguilduniformmaterialreqcmd--done ported
+pub fn handle_donate_guild_uniform_material(ctx: &mut Context<'_>, req: &[u8]) -> Outcome {
+    const R: u16 = 464;
+    if let Some(out) = uniform_gates(ctx, R) {
+        return out;
+    }
+    let mut r = Reader(req);
+    let Some(value) = r.quad() else {
+        return Outcome::reason(R, 1553);
+    };
+    let Some(items) = craft_records(&mut r) else {
+        return Outcome::reason(R, 1553);
+    };
+    if items.iter().any(|(s, a)| *s == 0 || (*a as i16) <= 0) {
+        return Outcome::reason(R, 1553);
+    }
+    if has_duplicate_slot(&items) {
+        return Outcome::reason(R, 1592);
+    }
+    let pc = ctx.pc().clone();
+    let Some(zone) = pc.zone else {
+        return Outcome::reason(R, 2);
+    };
+    if pc.native_kind != 1 || value == 0 || items.is_empty() {
+        return Outcome::reason(R, 2);
+    }
+    let task = GuildTask {
+        command: 463,
+        caster: pc.object_id,
+        zone,
+        guild_id: pc.guild_id,
+        kind: GuildTaskKind::UniformDonate { value, items },
+    };
+    queue_shared(ctx, task, R)
+}
+
+/// 465–473: U, B, T2, decode, guild, then one opaque helper.
+fn uniform_op(ctx: &mut Context<'_>, command: u16, req: &[u8], two: bool) -> Outcome {
+    let reply = command + 1;
+    if let Some(out) = uniform_gates(ctx, reply) {
+        return out;
+    }
+    let mut r = Reader(req);
+    let Some(a) = r.quad() else {
+        return Outcome::reason(reply, 1553);
+    };
+    let b = if two {
+        let Some(b) = r.quad() else {
+            return Outcome::reason(reply, 1553);
+        };
+        b
+    } else {
+        0
+    };
+    let id = guild_id(ctx.pc());
+    if id == 0 {
+        return Outcome::reason(reply, 1554);
+    }
+    if !ctx.world.guild.guilds.contains_key(&id) {
+        return Outcome::reason(reply, 2);
+    }
+    let pc = ctx.pc().clone();
+    match ctx.services.guild_uniform_op(command, id, &pc, a, b) {
+        None => boundary("❓ guild uniform helper (0x1400F7B00 / F7D40 / F8420 / F92D0 / F8920)"),
+        Some(0) => Outcome::default(),
+        Some(reason) => Outcome::reason(reply, reason),
+    }
+}
+
+/// parity: 465 15-guild-handlers.md#465--g_abandonguilduniformreqcmd--partial partial
+pub fn handle_abandon_guild_uniform(ctx: &mut Context<'_>, req: &[u8]) -> Outcome {
+    // ❓ 0x1400F7B00 body.
+    uniform_op(ctx, 465, req, false)
+}
+/// parity: 467 15-guild-handlers.md#467--g_makeguilduniformreqcmd--partial partial
+pub fn handle_make_guild_uniform(ctx: &mut Context<'_>, req: &[u8]) -> Outcome {
+    // ❓ 0x1400F7D40 body.
+    uniform_op(ctx, 467, req, false)
+}
+/// parity: 469 15-guild-handlers.md#469--g_registerguilduniformreqcmd--partial partial
+pub fn handle_register_guild_uniform(ctx: &mut Context<'_>, req: &[u8]) -> Outcome {
+    // ❓ 0x1400F8420 body.
+    uniform_op(ctx, 469, req, false)
+}
+/// parity: 471 15-guild-handlers.md#471--g_putonguilduniformreqcmd--partial partial
+pub fn handle_put_on_guild_uniform(ctx: &mut Context<'_>, req: &[u8]) -> Outcome {
+    // ❓ 0x1400F92D0 body.
+    uniform_op(ctx, 471, req, false)
+}
+/// parity: 473 15-guild-handlers.md#473--g_registerguilduniformwithdeletionreqcmd--partial partial
+pub fn handle_register_guild_uniform_with_deletion(ctx: &mut Context<'_>, req: &[u8]) -> Outcome {
+    // ❓ 0x1400F8920 body.
+    uniform_op(ctx, 473, req, true)
+}
+
+/// parity: 475 15-guild-handlers.md#475--g_increaseuniformregistrationquotareqcmd--done ported
+pub fn handle_increase_uniform_registration_quota(ctx: &mut Context<'_>, req: &[u8]) -> Outcome {
+    const R: u16 = 476;
+    if let Some(out) = uniform_gates(ctx, R) {
+        return out;
+    }
+    if !ctx.pc().user_present {
+        return Outcome::reason(R, 1);
+    }
+    let mut r = Reader(req);
+    let Some(flag) = r.byte() else {
+        return Outcome::reason(R, 1553);
+    };
+    let Some(items) = craft_records(&mut r) else {
+        return Outcome::reason(R, 1553);
+    };
+    if has_duplicate_slot(&items) {
+        return Outcome::reason(R, 1553);
+    }
+    let pc = ctx.pc().clone();
+    let Some(zone) = pc.zone else {
+        return Outcome::reason(R, 2);
+    };
+    if pc.native_kind != 1 || items.is_empty() || items.iter().any(|(s, a)| *s == 0 || *a == 0) {
+        return Outcome::reason(R, 2);
+    }
+    let task = GuildTask {
+        command: 475,
+        caster: pc.object_id,
+        zone,
+        guild_id: pc.guild_id,
+        kind: GuildTaskKind::UniformQuota { flag, items },
+    };
+    queue_shared(ctx, task, R)
 }
