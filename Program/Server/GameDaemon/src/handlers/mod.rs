@@ -7,7 +7,13 @@
 //! Private-object boundary: 0x1406E3100. No implementation.
 
 mod movement;
+mod party;
+mod party_model;
+mod party_tasks;
 mod session;
+pub use party::*;
+pub use party_model::*;
+pub use party_tasks::execute_party_task;
 mod token;
 mod wire;
 use crate::{kick::FailureAction, Position};
@@ -48,6 +54,7 @@ pub enum StateChange {
     LobbyTokenAuthQueued(TokenAuthRequest),
     RemovePendingTokenUser(u64),
     TokenAuthFinished(u64),
+    PartyTaskQueued(PartyTask),
 }
 
 /// Ordered session operations. The adapter must send before it switches processors.
@@ -93,6 +100,14 @@ pub enum DaemonRequest {
         db_id: u64,
         object_id: u64,
     },
+    /// Command 493, hQqqs. Destination daemon and callback remain unread.
+    PartyRegistration {
+        world: u16,
+        route: u32,
+        db_id: u64,
+        value: u64,
+        name: Vec<u16>,
+    },
     /// Cached command 17, hQCqqchb; (one record). Completion is unknown.
     SaveClientOption {
         db_id: u64,
@@ -113,6 +128,8 @@ pub struct Outcome {
     /// Redacted log records only. These are not game packets or archive codecs.
     pub reports: Vec<Report>,
     pub session_effects: Vec<SessionEffect>,
+    /// Ordered party sends and state boundaries. Do not also send the summaries.
+    pub party_effects: Vec<PartyEffect>,
 }
 impl Default for Outcome {
     fn default() -> Self {
@@ -126,6 +143,7 @@ impl Default for Outcome {
             logs: vec![],
             reports: vec![],
             session_effects: vec![],
+            party_effects: vec![],
         }
     }
 }
@@ -173,6 +191,13 @@ pub struct Session {
 pub struct Pc {
     pub object_id: u64,
     pub db_id: u64,
+    pub name: Vec<u16>,
+    /// PC +20752 and user +120, separate from user presence.
+    pub party_user_blocked: bool,
+    pub party_user_state: u32,
+    pub team_member: bool,
+    pub team_id: u64,
+    pub party_registration: Option<PartyRegistration>,
     pub world_id: u16,
     pub routing: u64,
     pub zone: Option<u64>,
@@ -205,6 +230,12 @@ impl Default for Pc {
         Self {
             object_id: 0,
             db_id: 0,
+            name: vec![],
+            party_user_blocked: false,
+            party_user_state: 0,
+            team_member: false,
+            team_id: 0,
+            party_registration: None,
             world_id: 0,
             routing: 0,
             zone: None,
@@ -255,6 +286,9 @@ pub enum DirectEntryGeo {
 #[derive(Clone, Debug, Default)]
 pub struct Zone {
     pub channel: i16,
+    pub party_category: u32,
+    pub party_subtype: u32,
+    pub attraction_kind: Option<u32>,
     pub direct_entry_geo: DirectEntryGeo,
     pub channel_list: Option<(u16, [u8; 51])>,
     pub forbidden_channel_destination: bool,
@@ -265,6 +299,7 @@ pub struct Zone {
 }
 #[derive(Clone, Debug, Default)]
 pub struct World {
+    pub party_config: PartyConfig,
     pub arena: bool,
     pub game_log_enabled: bool,
     pub team_enabled: bool,
@@ -332,6 +367,23 @@ pub enum PackedProperty {
     FetchFailed,
 }
 pub trait Services {
+    /// The adapter owns this state exclusively during each handler/task call.
+    fn party_state(&mut self) -> Option<&mut PartyState> {
+        None
+    }
+    /// None is an unread manager result, never an approval.
+    fn party_operation(&mut self, _operation: PartyOperation) -> Option<i32> {
+        None
+    }
+    /// Opaque 0x1401E0900 / 0x1401D4130. Do not infer leader selection.
+    fn party_invite_leader(&mut self, _target: &Pc, _team: bool) -> PartyLeaderLookup {
+        PartyLeaderLookup::Unknown
+    }
+    /// Allocation, PC-kind initialization, attachment, then queue/dispatch.
+    /// The plan retains caster, zone and decoded task fields.
+    fn queue_party(&mut self, task: &PartyTask) -> Gate {
+        self.queue(task.command)
+    }
     /// Opaque boundary 0x1406A65D0. Do not implement key setup here.
     fn hello(&mut self, _input: &[u8]) -> HelloOperation {
         HelloOperation::Unknown
@@ -352,6 +404,12 @@ pub trait Services {
 }
 #[derive(Clone, Debug)]
 pub struct MemoryServices {
+    pub party: Option<PartyState>,
+    pub party_result: Option<i32>,
+    pub party_result_sequence: std::collections::VecDeque<Option<i32>>,
+    pub party_leader: PartyLeaderLookup,
+    pub team_leader: PartyLeaderLookup,
+    pub party_calls: Vec<PartyOperation>,
     pub hello_result: HelloOperation,
     pub initial_world: Option<Box<packet::world_entry::EnterWorldOk>>,
     pub activated_teleport_result: PackedProperty,
@@ -365,6 +423,12 @@ pub struct MemoryServices {
 impl Default for MemoryServices {
     fn default() -> Self {
         Self {
+            party: None,
+            party_result: None,
+            party_result_sequence: std::collections::VecDeque::new(),
+            party_leader: PartyLeaderLookup::Unknown,
+            team_leader: PartyLeaderLookup::Unknown,
+            party_calls: vec![],
             hello_result: HelloOperation::Unknown,
             initial_world: None,
             activated_teleport_result: PackedProperty::Unknown,
@@ -378,6 +442,22 @@ impl Default for MemoryServices {
     }
 }
 impl Services for MemoryServices {
+    fn party_state(&mut self) -> Option<&mut PartyState> {
+        self.party.as_mut()
+    }
+    fn party_operation(&mut self, operation: PartyOperation) -> Option<i32> {
+        self.party_calls.push(operation);
+        self.party_result_sequence
+            .pop_front()
+            .unwrap_or(self.party_result)
+    }
+    fn party_invite_leader(&mut self, _: &Pc, team: bool) -> PartyLeaderLookup {
+        if team {
+            self.team_leader
+        } else {
+            self.party_leader
+        }
+    }
     fn hello(&mut self, _: &[u8]) -> HelloOperation {
         self.hello_result.clone()
     }
@@ -454,7 +534,7 @@ pub fn dispatch(ctx: &mut Context<'_>, command: u16, req: &[u8]) -> Outcome {
 // Individual handlers require dispatch's PC/rights preconditions. They return
 // inert plans; dispatch retains raw request input for queued continuations.
 fn dispatch_inner(ctx: &mut Context<'_>, command: u16, req: &[u8]) -> Outcome {
-    if !COMMANDS.contains(&command) {
+    if !COMMANDS.contains(&command) && !PARTY_COMMANDS.contains(&command) {
         return Outcome::log("unknown command");
     }
     let any = matches!(command, 16 | 929);
@@ -478,6 +558,9 @@ fn dispatch_inner(ctx: &mut Context<'_>, command: u16, req: &[u8]) -> Outcome {
                 }
             }
         }
+    }
+    if PARTY_COMMANDS.contains(&command) {
+        return dispatch_party(ctx, command, req);
     }
     match command {
         11 => handle_hello(ctx, req),

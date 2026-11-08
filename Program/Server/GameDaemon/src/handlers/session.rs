@@ -372,11 +372,11 @@ pub fn handle_contents_rule_list(ctx: &mut Context<'_>, _: &[u8]) -> Outcome {
     out
 }
 
-/// parity: 174 10-session-handlers.md#174--g_clearlogoutpartymemberreqcmd--partial partial
+/// parity: 174 14-party-handlers.md#174--g_clearlogoutpartymemberreqcmd--partial partial
 pub fn handle_clear_logout_party_member(ctx: &mut Context<'_>, _: &[u8]) -> Outcome {
     clear_members(ctx, 174, 175)
 }
-/// parity: 262 10-session-handlers.md#262--g_clearlogoutteammemberreqcmd--partial partial
+/// parity: 262 14-party-handlers.md#262--g_clearlogoutteammemberreqcmd--partial partial
 pub fn handle_clear_logout_team_member(ctx: &mut Context<'_>, _: &[u8]) -> Outcome {
     if !ctx.world.team_enabled {
         return Outcome::reason(263, 2);
@@ -384,7 +384,8 @@ pub fn handle_clear_logout_team_member(ctx: &mut Context<'_>, _: &[u8]) -> Outco
     clear_members(ctx, 262, 263)
 }
 fn clear_members(ctx: &mut Context<'_>, command: u16, failure: u16) -> Outcome {
-    if ctx.pc().zone.is_none() {
+    // ❓ Expiry/removal/leader/disband and downstream effects remain unread.
+    if ctx.pc().zone.is_none() || ctx.pc().native_kind != 1 {
         return Outcome::reason(failure, 2);
     }
     let mut out = ctx.queue(
@@ -393,9 +394,18 @@ fn clear_members(ctx: &mut Context<'_>, command: u16, failure: u16) -> Outcome {
         2,
         "TODO ❓ ClearExpiredPartyMember membership, expiration, mutations and notifications",
     );
-    if out.changes.contains(&StateChange::Queued(command)) && ctx.pc().party_id == 0 {
-        out = Outcome::reason(175, 2); // Shared task uses 175 even for command 262.
-        out.changes.push(StateChange::Queued(command));
+    if out.changes.contains(&StateChange::Queued(command)) {
+        // Retain the existing session-plan task precheck for callers of doc 10.
+        if ctx.pc().party_id == 0 {
+            out = Outcome::reason(175, 2); // Shared task uses 175 even for command 262.
+            out.changes.push(StateChange::Queued(command));
+        }
+        out.changes.push(StateChange::PartyTaskQueued(PartyTask {
+            command,
+            caster: ctx.pc().object_id,
+            zone: ctx.pc().zone.unwrap(),
+            kind: PartyTaskKind::ClearMembers,
+        }));
     }
     out
 }
