@@ -40,6 +40,25 @@ pub const SEASON_LIST_FORMAT: &str = "hiCcischqqqhiCcqqqqQ;;CcischqqqhiCcqqqqQ;;
 pub const RANKING_LIST_FORMAT: &str = "hiccqCicshqsqqqq;";
 /// FetchRankingList LookUp count per list.
 pub const RANKING_LIST_LOOKUP_COUNT: i32 = 1000;
+
+/// First RankingListMaker run after loadAllDataFromDB @0x14001D910, ms.
+pub const RANKING_LIST_MAKER_FIRST_DELAY_MS: i64 = 1000;
+
+/// Which step of the ranking list build failed.
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum ListBuildError {
+    /// RankingBoardManager::FetchRankingList returned false.
+    Fetch,
+    /// RankingListManager::MakeRankingList returned false.
+    Make,
+}
+
+/// RankingListMaker::HandleEvent: next delay (ms) = period − duration % period.
+/// `period` is `ranking-list-update-period` (ms, TimerQueue::Add unit).
+pub fn next_ranking_list_delay(period_ms: i32, duration_ms: i64) -> i64 {
+    let period = i64::from(period_ms.max(1));
+    period - duration_ms.rem_euclid(period)
+}
 /// FetchCurrentSeasonContentsList format (InfoGate HelloAck, cmd 2).
 pub const CURRENT_SEASON_FORMAT: &str = "hCcc;";
 
@@ -218,59 +237,115 @@ impl Daemon {
     /// season types (`(seasonContentsType, makeTime)`). Each list index
     /// 0..=max gets LookUp(start 1, count 1000) and one cmd 6 fragment set.
     /// The new set replaces all lists. Returns the types to broadcast
-    /// (InfoGateChannelMgr::BroadcastChangedRankingList), or None when
-    /// native fails (no activated type, missing board, missing player).
+    /// (InfoGateChannelMgr::BroadcastChangedRankingList). The error tells
+    /// which native step failed: `Fetch` (no activated type, missing board,
+    /// LookUp failure) or `Make` (missing player; the old lists stay).
     pub fn make_ranking_lists(
         &mut self,
         boards: &crate::boards::RankingBoards,
         activated: &[(u8, i64)],
-    ) -> Option<Vec<(u8, i64)>> {
+    ) -> Result<Vec<(u8, i64)>, ListBuildError> {
         if activated.is_empty() {
-            return None;
+            return Err(ListBuildError::Fetch);
         }
-        let mut lists = BTreeMap::new();
+        // FetchRankingList: every LookUp first, then MakeRankingList.
+        let mut fetched = Vec::new();
         for &(kind, make_time) in activated {
-            let board = boards.board(kind as i16)?;
+            let board = boards.board(kind as i16).ok_or(ListBuildError::Fetch)?;
             for index in 0..=max_ranking_list_index(kind) {
-                let entries = board.look_up(index, 1, RANKING_LIST_LOOKUP_COUNT).ok()?;
-                let mut rows = Vec::with_capacity(entries.len());
-                for (rank, (key, who)) in entries.iter().enumerate() {
-                    let p = self.players.get(who)?;
-                    let modified = p.last_modification_time(kind as i8);
-                    let player_id = if kind as i8 == SEASON_CONTENTS_CHALLENGE_PARTY {
-                        who.1
-                    } else {
-                        0
-                    };
-                    rows.push(vec![
-                        Value::U32(rank as u32 + 1),
-                        Value::U8(p.job as u8),
-                        wide(&p.name),
-                        Value::I16(p.world_id),
-                        Value::U64(p.guild_id),
-                        wide(&p.guild_name),
-                        Value::U64(player_id),
-                        Value::U64(key.0),
-                        Value::U64(modified as u64),
-                        Value::U64(modified as u64),
-                    ]);
-                }
-                let frames = ::packet::fragments::compose_fragments(
-                    infogate_cmd::RETRIEVE_RANKING_LIST_ACK,
-                    RANKING_LIST_FORMAT,
-                    &[
-                        Value::U8(kind),
-                        Value::U8(index),
-                        Value::U64(make_time as u64),
-                        Value::Repeat(rows),
-                    ],
-                )
-                .ok()?;
-                lists.insert((kind, index), frames);
+                let entries = board
+                    .look_up(index, 1, RANKING_LIST_LOOKUP_COUNT)
+                    .map_err(|_| ListBuildError::Fetch)?;
+                fetched.push((kind, make_time, index, entries));
             }
         }
+        let mut lists = BTreeMap::new();
+        for (kind, make_time, index, entries) in fetched {
+            let mut rows = Vec::with_capacity(entries.len());
+            for (rank, (key, who)) in entries.iter().enumerate() {
+                let p = self.players.get(who).ok_or(ListBuildError::Make)?;
+                let modified = p.last_modification_time(kind as i8);
+                let player_id = if kind as i8 == SEASON_CONTENTS_CHALLENGE_PARTY {
+                    who.1
+                } else {
+                    0
+                };
+                rows.push(vec![
+                    Value::U32(rank as u32 + 1),
+                    Value::U8(p.job as u8),
+                    wide(&p.name),
+                    Value::I16(p.world_id),
+                    Value::U64(p.guild_id),
+                    wide(&p.guild_name),
+                    Value::U64(player_id),
+                    Value::U64(key.0),
+                    Value::U64(modified as u64),
+                    Value::U64(modified as u64),
+                ]);
+            }
+            let frames = ::packet::fragments::compose_fragments(
+                infogate_cmd::RETRIEVE_RANKING_LIST_ACK,
+                RANKING_LIST_FORMAT,
+                &[
+                    Value::U8(kind),
+                    Value::U8(index),
+                    Value::U64(make_time as u64),
+                    Value::Repeat(rows),
+                ],
+            )
+            .map_err(|_| ListBuildError::Make)?;
+            lists.insert((kind, index), frames);
+        }
         self.ranking_lists = lists;
-        Some(activated.to_vec())
+        Ok(activated.to_vec())
+    }
+
+    /// RankingListMaker::HandleEvent @0x1400271B0. One timer step.
+    /// `stopping` = Daemon state COOLDOWNING, COOLDOWNED, STOPPING or
+    /// STOPPED. Returns the InfoGate broadcasts and whether the timer is
+    /// added again. A failed fetch stops the timer for good (native returns
+    /// false and does not call TimerQueue::Add). A failed make keeps it.
+    pub fn ranking_list_maker_step(
+        &mut self,
+        boards: Option<&crate::boards::RankingBoards>,
+        activated: &[(u8, i64)],
+        stopping: bool,
+    ) -> (Vec<Out>, bool) {
+        if stopping {
+            return (Vec::new(), false);
+        }
+        let Some(boards) = boards else {
+            return (Vec::new(), false);
+        };
+        match self.make_ranking_lists(boards, activated) {
+            Ok(changed) => {
+                let mut out = Vec::new();
+                for (kind, time) in changed {
+                    out.extend(self.broadcast_changed_ranking_list(kind, time));
+                }
+                (out, true)
+            }
+            Err(ListBuildError::Make) => (Vec::new(), true),
+            Err(ListBuildError::Fetch) => (Vec::new(), false),
+        }
+    }
+
+    /// InfoGateChannelMgr::BroadcastChangedRankingList @0x14000C670:
+    /// `hcq` cmd 4 (type, changedTime) to every connected InfoGate.
+    pub fn broadcast_changed_ranking_list(&self, kind: u8, changed_time: i64) -> Vec<Out> {
+        let p = packet(
+            "hcq",
+            &[
+                Value::I16(infogate_cmd::CHANGED_RANKING_LIST_NOTIFY),
+                Value::U8(kind),
+                Value::U64(changed_time as u64),
+            ],
+        );
+        self.infogates
+            .values()
+            .filter_map(|c| c.session)
+            .map(|id| Out::Send(Peer::InfoGate(id), p.clone()))
+            .collect()
     }
 
     /// Phase 2b feed: RankingListMaker output for one list.
@@ -295,6 +370,22 @@ impl Daemon {
     }
 
     /// Seasons with start <= now <= end (GetActivatedSeasonContentsTypeList).
+    /// RankingSeasonManager::GetActivatedSeasonContentsTypeList and
+    /// RankingBoardManager::allocContentsRankingListInfo: one
+    /// `(seasonContentsType, makeTime)` per active season, makeTime = now.
+    /// More than 16 active seasons is an overflow: native returns 0.
+    pub fn activated_ranking_lists(&self, now: i64) -> Vec<(u8, i64)> {
+        let list: Vec<_> = self
+            .active_seasons(now)
+            .map(|s| (s.season_contents_type, now))
+            .collect();
+        if list.len() > 16 {
+            Vec::new()
+        } else {
+            list
+        }
+    }
+
     pub fn active_seasons(&self, now: i64) -> impl Iterator<Item = &Season> {
         self.seasons
             .iter()

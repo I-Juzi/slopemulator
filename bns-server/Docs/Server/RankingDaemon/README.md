@@ -279,7 +279,21 @@ In all three, a decode failure only logs and returns true (no reply, keep).
 
 - A null player value fails the whole build; the old lists stay.
 - Native starts a new packet when less than 0xB0 bytes are free (4000-byte packets). The port uses the shared fragment writer; split points can differ ❓.
-- RankingListMaker::HandleEvent @0x1400271B0 (the timer that calls FetchRankingList) is not ported yet.
+
+### RankingListMaker timer
+
+| Function | Address | Rule |
+| --- | --- | --- |
+| RankingDaemon::loadAllDataFromDB | 0x14001D910 | after the accumulate-score timer starts, add RankingListMaker to the global timer queue with 1000 ms |
+| RankingListMaker::HandleEvent | 0x1400271B0 | Daemon state COOLDOWNING, COOLDOWNED, STOPPING or STOPPED: return true, no new timer. No board manager or FetchRankingList false: return false, no new timer (the maker stops). Else add the timer again with `period − duration % period` ms (`ranking-list-update-period`, ms) |
+| RankingSeasonManager::GetActivatedSeasonContentsTypeList | (by name) | seasons in the activated list with startTime ≤ now ≤ endTime; more than 16 → return 0 |
+| allocContentsRankingListInfo | (by name) | makeTime = `_time64(nullptr)`, one value for all types |
+| InfoGateChannelMgr::BroadcastChangedRankingList | 0x14000C670 | `hcq` cmd 4 (seasonContentsType, changedTime) to every InfoGate channel |
+
+- FetchRankingList returns false on: no activated type, alloc failure, missing board, LookUp failure. A MakeRankingList failure still returns true, so the timer continues.
+- When no season is active, FetchRankingList fails and the maker stops until a restart. The port keeps this.
+- Native starts the maker only when the DB load succeeds. The port has no RankingDB, so `main.rs` starts it with empty boards ❓.
+- Rust: `Daemon::ranking_list_maker_step`, `Daemon::activated_ranking_lists`, `next_ranking_list_delay`, `Server::run_ranking_list_maker`.
 
 ## 6b. Phase 1 gaps
 
@@ -288,7 +302,6 @@ In all three, a decode failure only logs and returns true (no reply, keep).
 | RankingDB (insert, load, black list persist) | 2 |
 | Ranking boards: wire `boards.rs` into Game port score commands, Player score store, update period | 2b |
 | Result schedules from RankingDB (AddResultSchedule), current week index, season state timers | 2 |
-| RankingListMaker timer and InfoGate broadcast of changed lists (composition is `Daemon::make_ranking_lists`) | 2b |
 
 ## 7. Rust port map
 

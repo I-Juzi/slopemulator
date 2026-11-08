@@ -37,6 +37,8 @@ pub mod infogate_cmd {
     pub const HELLO_REQ: i16 = 1;
     pub const HELLO_ACK: i16 = 2;
     pub const HELLO_FAIL: i16 = 3;
+    /// BroadcastChangedRankingList @0x14000C670 (`hcq`: type, changedTime).
+    pub const CHANGED_RANKING_LIST_NOTIFY: i16 = 4;
     pub const RETRIEVE_RANKING_LIST_REQ: i16 = 5;
     pub const RETRIEVE_RANKING_LIST_ACK: i16 = 6;
     pub const RETRIEVE_RANKING_LIST_FAIL: i16 = 7;
