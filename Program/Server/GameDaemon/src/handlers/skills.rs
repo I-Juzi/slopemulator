@@ -131,6 +131,8 @@ pub enum SkillTaskKind {
     ChallengeParty(ChallengeTask),
     /// Doc 19 misc zone tasks.
     Misc(MiscTask),
+    /// Doc 29 NPC trade and dungeon-step zone tasks.
+    NpcTrade(NpcTradeTask),
     Season(SeasonTask),
     /// Doc 25 arena lobby zone tasks.
     ArenaLobby(ArenaLobbyTask),

@@ -29,6 +29,7 @@ mod items5;
 mod market;
 mod mentoring;
 mod misc;
+mod npc_trade;
 mod post;
 mod quest;
 mod quest2;
@@ -49,6 +50,7 @@ pub use items5::*;
 pub use market::*;
 pub use mentoring::*;
 pub use misc::*;
+pub use npc_trade::*;
 pub use post::*;
 pub use quest::*;
 pub use quest2::*;
@@ -657,6 +659,15 @@ pub trait Services {
     fn arena_lobby(&mut self, _operation: &ArenaLobbyOperation) -> ArenaLobbyResult {
         ArenaLobbyResult::Unknown
     }
+    /// Doc 26 705: consume a pending entry under its lock. The adapter also
+    /// owns the pending-to-active manager check (0x1403EEEA0) and failed-add cleanup.
+    fn take_arena_entry(&mut self, _key: &ArenaEntryKey) -> ArenaEntryResult {
+        ArenaEntryResult::Unknown
+    }
+    /// Doc 26 955: session records, last attraction and ordered portal scan.
+    fn arena_choice(&mut self, _query: &ArenaChoiceQuery) -> ArenaChoiceResult {
+        ArenaChoiceResult::Unknown
+    }
     /// Doc 26: arena portal records, geo zones and arena-event sends.
     fn arena_event(&mut self, _operation: &ArenaEventOperation) -> Gate {
         Gate::Unknown
@@ -671,6 +682,10 @@ pub trait Services {
     }
     /// Doc 22: server-owned shop state and tables. Unknown is never approval.
     fn shop_check(&mut self, _check: &ShopCheck) -> Gate {
+        Gate::Unknown
+    }
+    /// Doc 29: NPC trade and board gacha server data. Unknown never approves.
+    fn npc_trade(&mut self, _check: &NpcTradeCheck) -> Gate {
         Gate::Unknown
     }
     /// Doc 20: server-owned quest configuration. Unknown is never approval.
@@ -814,6 +829,7 @@ pub struct MemoryServices {
     pub market: MemoryMarket,
     pub post: MemoryPost,
     pub shop: MemoryShop,
+    pub npc_trade: MemoryNpcTrade,
     pub quest: MemoryQuest,
     pub season: MemorySeason,
     pub quest_progress: MemoryQuestProgress,
@@ -934,6 +950,7 @@ impl Default for MemoryServices {
             market: MemoryMarket::default(),
             post: MemoryPost::default(),
             shop: MemoryShop::default(),
+            npc_trade: MemoryNpcTrade::default(),
             quest: MemoryQuest::default(),
             season: MemorySeason::default(),
             quest_progress: MemoryQuestProgress::default(),
@@ -942,11 +959,20 @@ impl Default for MemoryServices {
     }
 }
 impl Services for MemoryServices {
+    fn npc_trade(&mut self, check: &NpcTradeCheck) -> Gate {
+        self.npc_trade.check(check)
+    }
     fn season_check(&mut self, check: &SeasonCheck) -> Gate {
         self.season.check(check)
     }
     fn arena_lobby(&mut self, operation: &ArenaLobbyOperation) -> ArenaLobbyResult {
         self.arena_lobby.check(operation)
+    }
+    fn take_arena_entry(&mut self, key: &ArenaEntryKey) -> ArenaEntryResult {
+        self.arena_event.take_entry(key)
+    }
+    fn arena_choice(&mut self, query: &ArenaChoiceQuery) -> ArenaChoiceResult {
+        self.arena_event.choice(query)
     }
     fn arena_event(&mut self, operation: &ArenaEventOperation) -> Gate {
         self.arena_event.check(operation)
@@ -1188,6 +1214,7 @@ fn dispatch_inner(ctx: &mut Context<'_>, command: u16, req: &[u8]) -> Outcome {
         && !SOCIAL_COMMANDS.contains(&command)
         && !MENTORING_COMMANDS.contains(&command)
         && !MISC_COMMANDS.contains(&command)
+        && !NPC_TRADE_COMMANDS.contains(&command)
         && !SEASON_COMMANDS.contains(&command)
         && !ARENA_LOBBY_COMMANDS.contains(&command)
         && !ARENA_EVENT_COMMANDS.contains(&command)
@@ -1202,7 +1229,7 @@ fn dispatch_inner(ctx: &mut Context<'_>, command: u16, req: &[u8]) -> Outcome {
         return Outcome::log("unknown command");
     }
     let any = matches!(command, 16 | 929);
-    let unauth = matches!(command, 11 | 13 | 19 | 22 | 23);
+    let unauth = matches!(command, 11 | 13 | 19 | 22 | 23 | 705);
     if !any {
         if unauth {
             if ctx.session.authenticated {
@@ -1261,6 +1288,9 @@ fn dispatch_inner(ctx: &mut Context<'_>, command: u16, req: &[u8]) -> Outcome {
     }
     if MISC_COMMANDS.contains(&command) {
         return misc::dispatch_misc(ctx, command, req);
+    }
+    if NPC_TRADE_COMMANDS.contains(&command) {
+        return npc_trade::dispatch_npc_trade(ctx, command, req);
     }
     if SEASON_COMMANDS.contains(&command) {
         return season::dispatch_season(ctx, command, req);

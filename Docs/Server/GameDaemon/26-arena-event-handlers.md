@@ -10,7 +10,7 @@ the GM arena-event commands (723–757) and the arena dungeon recruit pair
 (959, 963). They stay partial because task bodies, portal records, geo zones,
 pending-entry lists and backend sends are boundaries.
 
-Rust ports 20 of them. 705 and 955 have a spec only. ❓
+Rust ports all 22 of them (partial).
 
 All failure replies are `hE` (2-byte reason). An empty success reply uses
 descriptor `h` (`asc_1408CFBE8`).
@@ -53,8 +53,9 @@ Wire `hqhq` (key A, world, key B).
 7. On success: an anti-cheat probe and a login-history write run. Then
    `0x1405F7150(pc)` enters the world. No reply here.
 
-Rust: not ported. ❓ The pending-entry list and connection attach need a
-session adapter. The anti-cheat probe is out of scope.
+Rust: `handle_enter_arena` (partial). The pending-entry list, connection attach and
+name table go through service adapters. Success stops before the probe and returns
+Unsupported. The anti-cheat probe is out of scope. ❓ Login history and world entry.
 
 ## 708 — G_ReturnToArenaLobbyFromDuelReqCmd — partial
 
@@ -320,14 +321,14 @@ Handler `0x1403CB520`. Wire `hc` (choice).
    5. `CheckArenaPortalUsableTask` `0x14036D670` mode 1.
    6. Queue failure → 958 [2]. Success sends no reply here.
 
-Rust: not ported. ❓ The pending manager, portal table scan and telemetry
-need adapters.
+Rust: `handle_choice_return_to_arena_lobby` (partial). The pending manager, session
+record, last attraction and portal scan go through the `arena_choice` adapter. ❓ Task body.
 
 ## Rust port status
 
 | ID | Rust | Tests | Boundary |
 | --- | --- | --- | --- |
-| 705 | none | — | pending-entry list, connection attach |
+| 705 | `handle_enter_arena` | `ga4_arena_entry` | probe, login history, world entry |
 | 708 | `handle_return_to_arena_lobby_from_duel` | `ga2_arena_event` | portal type, task body |
 | 711 | `handle_return_to_arena_lobby_from_dungeon` | `ga2_arena_event` | portal type, task body |
 | 714 | `handle_arena_spectate_game` | `ga2_arena_event` | cross option, backend send |
@@ -346,7 +347,7 @@ need adapters.
 | 751 | `handle_arena_event_set_battle_royal_state` | `ga2_arena_event` | task body |
 | 754 | `handle_arena_event_in_zone_pc_loc` | `ga2_arena_event` | task body |
 | 757 | `handle_arena_event_battle_royal_score` | `ga2_arena_event` | task body |
-| 955 | none | — | pending manager, portal scan |
+| 955 | `handle_choice_return_to_arena_lobby` | `ga4_arena_entry` | adapters, task body |
 | 959 | `handle_publish_recruit_arena_dungeon_member` | `ga2_arena_event` | portal record, task body |
 | 963 | `handle_cancel_recruit_arena_dungeon_member` | `ga2_arena_event` | portal record, task body |
 

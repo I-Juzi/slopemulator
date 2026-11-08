@@ -8,8 +8,8 @@ use super::skills::queue;
 use super::*;
 
 pub const ARENA_EVENT_COMMANDS: &[u16] = &[
-    708, 711, 714, 717, 720, 723, 726, 729, 732, 733, 736, 739, 742, 745, 748, 751, 754, 757, 959,
-    963,
+    705, 708, 711, 714, 717, 720, 723, 726, 729, 732, 733, 736, 739, 742, 745, 748, 751, 754, 757,
+    955, 959, 963,
 ];
 
 /// Doc 26 shared fields.
@@ -66,6 +66,20 @@ impl From<ArenaEventTask> for SkillTaskKind {
 /// Opaque server operations. Unknown is never approval.
 #[derive(Clone, Debug, PartialEq, Eq)]
 pub enum ArenaEventOperation {
+    /// 705: connection attach (virtual +32), then 0x1405FAD30. No native failure reply.
+    AttachEntry { object_id: u64 },
+    /// 705: 0x1403F4E20, add to the name table. Fail replies 707 [1].
+    RegisterEntryName { object_id: u64 },
+    /// 955: 0x140044850. Pass means an entry is already pending (silent stop).
+    ChoicePending { db_id: u64 },
+    /// 955: 0x1400D0FC0 routes to a destination daemon, not the arena send path.
+    ChoiceStaySend {
+        world: i16,
+        destination: u32,
+        command: u16,
+        descriptor: &'static str,
+        body: Vec<u8>,
+    },
     /// DataManager slot 87 virtual +168. Fail means no portal record.
     PortalExists { portal_key: u64 },
     /// Zone qword +16224 (geo zone). Fail means null.
@@ -89,8 +103,73 @@ pub enum ArenaEventOperation {
     },
 }
 
+/// 705: keys at pending-entry +0/+32/+24. A successful lookup consumes the entry.
+#[derive(Clone, Debug, PartialEq, Eq)]
+pub struct ArenaEntryKey {
+    pub key_a: u64,
+    pub world: u16,
+    pub key_b: u64,
+}
+#[derive(Clone, Debug)]
+pub struct ArenaPendingEntry {
+    pub key: ArenaEntryKey,
+    /// None models a missing +720 object or its byte +1017 being set.
+    pub pc: Option<Box<Pc>>,
+}
+#[derive(Clone, Debug, Default)]
+pub enum ArenaEntryResult {
+    #[default]
+    Unknown,
+    Missing,
+    Found(Option<Box<Pc>>),
+}
+#[derive(Clone, Debug, PartialEq, Eq)]
+pub struct ArenaStayRecord {
+    /// Session record qword +120 and destination DWORD +136.
+    pub route: u64,
+    pub destination: u32,
+}
+#[derive(Clone, Debug, PartialEq, Eq)]
+pub struct ArenaChoicePortal {
+    pub key: u64,
+    pub portal_type: i16,
+}
+#[derive(Clone, Debug, PartialEq, Eq)]
+pub enum ArenaChoiceQuery {
+    Session {
+        db_id: u64,
+    },
+    LastAttraction {
+        db_id: u64,
+    },
+    /// First matching table record; key 0 when no match. Lookup follows the scan.
+    Portal {
+        attraction: u8,
+    },
+}
+#[derive(Clone, Debug, Default, PartialEq, Eq)]
+pub enum ArenaChoiceResult {
+    #[default]
+    Unknown,
+    Missing,
+    Session(ArenaStayRecord),
+    Attraction(u8),
+    PortalKey(u64),
+}
+
 #[derive(Clone, Debug)]
 pub struct MemoryArenaEvent {
+    /// None is unknown. Some(empty) is a known empty pending-entry list.
+    pub pending_entries: Option<Vec<ArenaPendingEntry>>,
+    pub entry_lookups: Vec<ArenaEntryKey>,
+    pub entry_attach: Gate,
+    pub entry_name: Gate,
+    pub choice_pending: Gate,
+    /// Outer None is unknown; inner None is a known absent record.
+    pub choice_session: Option<Option<ArenaStayRecord>>,
+    pub last_attraction: Option<Option<u8>>,
+    pub choice_portals: Option<Vec<ArenaChoicePortal>>,
+    pub choice_queries: Vec<ArenaChoiceQuery>,
     pub portal: Gate,
     /// Portal type word +2. None = Unknown.
     pub portal_type: Option<i16>,
@@ -103,6 +182,15 @@ pub struct MemoryArenaEvent {
 impl Default for MemoryArenaEvent {
     fn default() -> Self {
         Self {
+            pending_entries: None,
+            entry_lookups: vec![],
+            entry_attach: Gate::Unknown,
+            entry_name: Gate::Unknown,
+            choice_pending: Gate::Unknown,
+            choice_session: None,
+            last_attraction: None,
+            choice_portals: None,
+            choice_queries: vec![],
             portal: Gate::Unknown,
             portal_type: None,
             cross_option: Gate::Unknown,
@@ -114,9 +202,51 @@ impl Default for MemoryArenaEvent {
     }
 }
 impl MemoryArenaEvent {
+    pub fn take_entry(&mut self, key: &ArenaEntryKey) -> ArenaEntryResult {
+        self.entry_lookups.push(key.clone());
+        let Some(entries) = self.pending_entries.as_mut() else {
+            return ArenaEntryResult::Unknown;
+        };
+        match entries.iter().position(|entry| entry.key == *key) {
+            Some(index) => ArenaEntryResult::Found(entries.swap_remove(index).pc),
+            None => ArenaEntryResult::Missing,
+        }
+    }
+    pub fn choice(&mut self, query: &ArenaChoiceQuery) -> ArenaChoiceResult {
+        self.choice_queries.push(query.clone());
+        match query {
+            ArenaChoiceQuery::Session { .. } => match &self.choice_session {
+                Some(Some(record)) => ArenaChoiceResult::Session(record.clone()),
+                Some(None) => ArenaChoiceResult::Missing,
+                None => ArenaChoiceResult::Unknown,
+            },
+            ArenaChoiceQuery::LastAttraction { .. } => match self.last_attraction {
+                Some(Some(attraction)) => ArenaChoiceResult::Attraction(attraction),
+                Some(None) => ArenaChoiceResult::Missing,
+                None => ArenaChoiceResult::Unknown,
+            },
+            ArenaChoiceQuery::Portal { attraction } => match &self.choice_portals {
+                Some(records) => ArenaChoiceResult::PortalKey(
+                    records
+                        .iter()
+                        .find(|record| {
+                            // 0x140042750 accepts 7, 8, 10. It reads no portal field.
+                            (matches!(attraction, 7 | 8 | 10) && record.portal_type == 2)
+                                || ((1..=6).contains(attraction) && record.portal_type == 1)
+                        })
+                        .map_or(0, |record| record.key),
+                ),
+                None => ArenaChoiceResult::Unknown,
+            },
+        }
+    }
     pub fn check(&mut self, operation: &ArenaEventOperation) -> Gate {
         self.calls.push(operation.clone());
         match operation {
+            ArenaEventOperation::AttachEntry { .. } => self.entry_attach,
+            ArenaEventOperation::RegisterEntryName { .. } => self.entry_name,
+            ArenaEventOperation::ChoicePending { .. } => self.choice_pending,
+            ArenaEventOperation::ChoiceStaySend { .. } => self.send,
             ArenaEventOperation::PortalExists { .. } => self.portal,
             ArenaEventOperation::GeoZone { .. } => self.geo_zone,
             ArenaEventOperation::Send { .. } => self.send,
@@ -133,6 +263,8 @@ impl MemoryArenaEvent {
 
 pub(super) fn dispatch_arena_event(ctx: &mut Context<'_>, command: u16, req: &[u8]) -> Outcome {
     match command {
+        705 => handle_enter_arena(ctx, req),
+        955 => handle_choice_return_to_arena_lobby(ctx, req),
         708 => handle_return_to_arena_lobby_from_duel(ctx, req),
         711 => handle_return_to_arena_lobby_from_dungeon(ctx, req),
         714 => handle_arena_spectate_game(ctx, req),
@@ -205,6 +337,133 @@ fn queue_reply(ctx: &mut Context<'_>, t: SkillTask, ok: u16, fail: Outcome) -> O
 fn logged(mut out: Outcome, text: &'static str) -> Outcome {
     out.logs.push(text);
     out
+}
+
+/// parity: 705 26-arena-event-handlers.md#705--g_enterarenareqcmd--partial partial
+pub fn handle_enter_arena(ctx: &mut Context<'_>, req: &[u8]) -> Outcome {
+    let mut r = Reader(req);
+    let (Some(key_a), Some(world), Some(key_b)) = (r.quad(), r.short(), r.quad()) else {
+        return Outcome {
+            status: Status::NativeFalse,
+            logs: vec!["arena entry: decompose failed"],
+            ..Outcome::default()
+        };
+    };
+    let fail = |reason| {
+        let mut out = Outcome::reason(707, reason);
+        out.status = Status::NativeFalse;
+        out
+    };
+    let key = ArenaEntryKey {
+        key_a,
+        world,
+        key_b,
+    };
+    let pc = match ctx.services.take_arena_entry(&key) {
+        ArenaEntryResult::Unknown => return unknown(),
+        ArenaEntryResult::Missing => return fail(1887),
+        ArenaEntryResult::Found(None) => return fail(2),
+        ArenaEntryResult::Found(Some(pc)) => pc,
+    };
+    // The adapter owns the connection attach. It has no native failure branch.
+    let object_id = pc.object_id;
+    if gate(ctx, ArenaEventOperation::AttachEntry { object_id }) != Some(true) {
+        return unknown();
+    }
+    ctx.session.pc = Some(*pc);
+    match gate(ctx, ArenaEventOperation::RegisterEntryName { object_id }) {
+        Some(true) => {}
+        Some(false) => return fail(1),
+        None => return unknown(),
+    }
+    // Stop before the restricted probe. Do not mark world entry as complete.
+    Outcome::unsupported("❓ arena entry: restricted probe skipped; login history and world entry")
+}
+
+/// parity: 955 26-arena-event-handlers.md#955--g_choicereturntoarenalobbyreqcmd--partial partial
+pub fn handle_choice_return_to_arena_lobby(ctx: &mut Context<'_>, req: &[u8]) -> Outcome {
+    const F: u16 = 958;
+    if !ctx.world.party_config.arena_enabled {
+        return Outcome::reason(F, 2206);
+    }
+    if ctx.world.arena {
+        return Outcome::reason(F, 5);
+    }
+    let Some(choice) = Reader(req).byte() else {
+        return Outcome::reason(F, 2);
+    };
+    let db_id = ctx.pc().db_id;
+    match gate(ctx, ArenaEventOperation::ChoicePending { db_id }) {
+        Some(true) => return Outcome::log("arena choice: already pending"),
+        Some(false) => {}
+        None => return unknown(),
+    }
+    if choice == 0 {
+        let record = match ctx
+            .services
+            .arena_choice(&ArenaChoiceQuery::Session { db_id })
+        {
+            ArenaChoiceResult::Session(record) => record,
+            ArenaChoiceResult::Missing => return Outcome::reason(F, 2208),
+            _ => return unknown(),
+        };
+        let mut body = vec![1];
+        body.extend(db_id.to_le_bytes());
+        body.extend(record.route.to_le_bytes());
+        string_body(&mut body, party_model::name_prefix(&ctx.pc().name));
+        let operation = ArenaEventOperation::ChoiceStaySend {
+            world: ctx.pc().short_96,
+            destination: record.destination,
+            command: 493,
+            descriptor: "hQqqs",
+            body,
+        };
+        return match gate(ctx, operation) {
+            Some(true) if ctx.world.misc.trace_route_log => {
+                Outcome::log("arena choice: stay telemetry")
+            }
+            Some(true) => Outcome::default(),
+            Some(false) => Outcome::reason(F, 5),
+            None => unknown(),
+        };
+    }
+    let pc = ctx.pc();
+    if !pc.user_present || pc.party_user_blocked || pc.party_user_state != 0 {
+        return Outcome::reason(F, 2209);
+    }
+    let attraction = match ctx
+        .services
+        .arena_choice(&ArenaChoiceQuery::LastAttraction { db_id })
+    {
+        ArenaChoiceResult::Attraction(attraction) => attraction,
+        ArenaChoiceResult::Missing => return Outcome::reason(F, 2208),
+        _ => return unknown(),
+    };
+    let portal_key = match ctx
+        .services
+        .arena_choice(&ArenaChoiceQuery::Portal { attraction })
+    {
+        ArenaChoiceResult::PortalKey(key) => key,
+        _ => return unknown(),
+    };
+    match portal(ctx, portal_key) {
+        Some(true) => {}
+        Some(false) => return Outcome::reason(F, 1687),
+        None => return unknown(),
+    }
+    let Some(zone) = ctx.pc().zone else {
+        return Outcome::reason(F, 2);
+    };
+    let t = task(
+        ctx,
+        955,
+        zone,
+        ArenaEventTask::CheckPortal {
+            portal_key,
+            mode: 1,
+        },
+    );
+    queue(ctx, t, Outcome::reason(F, 2))
 }
 
 /// parity: 723 26-arena-event-handlers.md#723--g_arenaeventteleporttoreqcmd--partial partial
