@@ -227,6 +227,15 @@ pub fn parse_accounts(text: &str, binding: &Binding) -> Result<MemoryAccounts, E
     Ok(store)
 }
 pub fn main_from_args(args: impl IntoIterator<Item = String>) -> Result<(), Error> {
+    let (config, store) = load(args)?;
+    let authority = Arc::new(
+        TokenAuthority::new(config.token_lifetime, config.token_capacity)
+            .map_err(|_| Error::Configuration)?,
+    );
+    run(&config, &store, authority)
+}
+/// Parse the options and read the account file.
+pub fn load(args: impl IntoIterator<Item = String>) -> Result<(Config, MemoryAccounts), Error> {
     let config = Config::parse(args)?;
     // Bound the read before allocating. Do not trust metadata from a mutable file.
     let mut contents = String::new();
@@ -236,10 +245,15 @@ pub fn main_from_args(args: impl IntoIterator<Item = String>) -> Result<(), Erro
         .read_to_string(&mut contents)
         .map_err(|_| Error::AccountFile)?;
     let store = parse_accounts(&contents, &config.binding)?;
-    let authority = Arc::new(
-        TokenAuthority::new(config.token_lifetime, config.token_capacity)
-            .map_err(|_| Error::Configuration)?,
-    );
+    Ok((config, store))
+}
+/// Serve forever with a caller-owned token authority. An embedding process
+/// (for example a local LobbyDaemon) can consume the issued game tokens.
+pub fn run(
+    config: &Config,
+    store: &MemoryAccounts,
+    authority: Arc<TokenAuthority>,
+) -> Result<(), Error> {
     let listener = TcpListener::bind(config.bind).map_err(|_| Error::Io)?;
     let mut next_accept = Instant::now();
     for stream in listener.incoming() {
@@ -252,7 +266,7 @@ pub fn main_from_args(args: impl IntoIterator<Item = String>) -> Result<(), Erro
             .checked_add(config.min_accept_interval)
             .ok_or(Error::Configuration)?;
         // One blocking connection at a time. Absolute lifetime bounds slow input.
-        let _ = serve_connection(stream, &config, &store, authority.clone());
+        let _ = serve_connection(stream, config, store, authority.clone());
     }
     Ok(())
 }

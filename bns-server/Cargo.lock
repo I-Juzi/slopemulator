@@ -498,6 +498,7 @@ dependencies = [
  "rand",
  "rsa",
  "shared",
+ "sts",
  "tiberius",
  "tokio",
  "tokio-util",
