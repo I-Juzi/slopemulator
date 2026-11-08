@@ -131,6 +131,7 @@ pub enum SkillTaskKind {
     ChallengeParty(ChallengeTask),
     /// Doc 19 misc zone tasks.
     Misc(MiscTask),
+    Season(SeasonTask),
     /// Doc 25 arena lobby zone tasks.
     ArenaLobby(ArenaLobbyTask),
     ArenaEvent(ArenaEventTask),
