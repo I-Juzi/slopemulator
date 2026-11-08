@@ -92,9 +92,30 @@ SRP client states: 3 = idle, 0 = after start, 2 = waiting for M2, 3 = done (`0x1
 
 After reply 3102 succeeds, `sub_180002190` creates two RC4 cipher objects (`sub_18002EC80`, 0x110-byte state), both keyed with the 64-byte K.
 One is for sending (`a1+80`), one for receiving (`a1+72`). Each starts with a fresh state.
-When the send cipher exists, `sub_18001C300` passes the whole built message through `sub_180018780`, so all later messages are encrypted.
-❓ Whether the request line and headers are encrypted, or only the body, is not checked in `sub_180018780`.
-❓ Whether the server must switch at the same message boundary (directly after its 3102 reply) is inferred, not tested.
+RC4 covers the **whole byte stream**: request line, headers and body.
+
+| Direction | Function | What it does |
+| --- | --- | --- |
+| Send | `sub_18001C300` → `sub_180018780` | Takes every segment of the serialized message (request line, headers, body) in order and runs them through one continuous RC4 stream (`a1+80`, vt+8). |
+| Receive | `sub_1800196A0` | Runs each raw received chunk through the receive RC4 (`a1+72`) **before** it is appended to the frame buffer (`a1+40`, `sub_18002B7B0`). The frame parser sees only plaintext. |
+
+The RC4 state is never reset per message. It is one stream per direction for the rest of the connection.
+Switch point: the client creates the ciphers while it handles reply 3102. So reply 3102 itself arrives in plaintext, and the first encrypted bytes are the client's next request (`LoginFinish`). The server must switch both directions directly after it sends 3102.
+❓ The switch point is read from code; confirm it with a real client.
+
+## Token login path (not used by the local server)
+
+Enum 47 `Auth/LoginTokenStart` and enum 48 `Auth/TokenKeyData` form a separate login that uses a token from the launcher instead of a password. It is a TLS 1.0-style handshake:
+
+| Step | Message | Content | Source |
+| --- | --- | --- | --- |
+| 1 | Client → `LoginTokenStart` | `<ClientRand>` (random bytes) | `0x18001D530` |
+| 2 | Server → reply 3111 | `<ServerRand>`, `<ServerPublicKey>`, `<ServerSignature>` (all required) | `0x180004100` |
+| 3 | Client check | Verifies `ServerSignature` over `ServerPublicKey` with a verification key built into the client (`sub_180001900`). Failure → result 8, login stops. | `0x180004100` |
+| 4 | Client → `TokenKeyData` | `<PremasterSecret>` and `<AuthnToken>`, both encrypted with `ServerPublicKey`; `<AuthProviderCode>`, `<AppId>` | `0x18001D670` |
+| 5 | Both | Key block from a TLS-style PRF over premaster, ClientRand and ServerRand (`sub_1800013E0`, suite id 4). Separate RC4 keys for send and receive. | `0x1800135A0` |
+
+A local server cannot pass step 3 without the vendor's signing key, or without a change to the client. This path is out of scope. The local server uses the password path (SRP) only, which needs no vendor key.
 
 ## What a local STS server needs
 
