@@ -89,6 +89,24 @@ All `KeyData` text is Base64 (`sub_180030320` decode; `sub_1800375B0` encode). I
 
 SRP client states: 3 = idle, 0 = after start, 2 = waiting for M2, 3 = done (`0x18003FDB0`).
 
+### 32-bit client (`StsMsgCli32.dll` 0.122, build 381)
+
+Source: `ida/sts-client/cli32/StsMsgCli32.dll` (SHA-256 `04b7e557…5433`, the same file as the operator's `BNS_Client\bin`). Image base `0x10000000`.
+
+| Item | 32-bit result | Source |
+| --- | --- | --- |
+| SRP group N | Same RFC 5054 1024-bit N, stored as 32 reversed words | Table `0x1004F7DC`..`0x1004F85C`, loader `sub_10031280` |
+| Name before hash | ASCII upper case → lower case, 64 bytes max | `sub_10023610` → `sub_100253C0` |
+| Inner hash | `H(name ‖ ":" ‖ password)`, 32 bytes | `sub_10030F20` |
+| Step on reply 3101 | Base64 decode, then `[len][s][len][B]`, exact length, B ≠ 0, B < N | Parser `sub_10003B90` → `sub_100023F0` → `sub_10031A80` → `sub_10031590` |
+| Step result on 3101 | **Ignored.** The parser returns 1 even if the SRP step fails. Then the KeyData request builder `sub_10016890` finds no pending output and returns 8 without a send. | `sub_10003B90`, `sub_10016890` |
+| Step on reply 3102 | M2 check; failure returns 8 | `sub_10003C40`, `sub_10031410` |
+| Ping | One-way; no reply parser | `sub_100231E0` |
+
+Consequence: a bad reply 3101 does not give a visible error. The client goes idle and later sends `Sts/Ping`.
+
+Live login 2026-11-08 19:07 (wire capture through the forwarder): Connect → `<Reply/>`; LoginStart → KeyData (salt 32 bytes, B 128 bytes, B < N in both byte orders); then only `Sts/Ping` after 8 s. The old local server closed the socket on that Ping. ❓ Not yet known if the client was still about to send KeyData, or if its SRP step failed.
+
 ## Session encryption after login
 
 After reply 3102 succeeds, `sub_180002190` creates two RC4 cipher objects (`sub_18002EC80`, 0x110-byte state), both keyed with the 64-byte K.

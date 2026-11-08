@@ -505,6 +505,16 @@ mod tests {
             panic!("challenge")
         };
         let client = Client::new(&login, password.as_bytes(), &salt, &public, &mut rng);
+        // StsMsgCli32 sends a one-way Sts/Ping while idle; it expects no reply.
+        let ping = Frame {
+            start: StartLine::Request {
+                protocol: "Sts".into(),
+                command: "Ping".into(),
+            },
+            headers: vec![],
+            body: vec![],
+        };
+        stream.write_all(&codec.encode(&ping).unwrap()).unwrap();
         stream
             .write_all(
                 &codec
@@ -537,7 +547,8 @@ mod tests {
                 3107,
             ),
         ] {
-            let mut bytes = codec.encode(&request.frame(Some(id)).unwrap()).unwrap();
+            let mut bytes = codec.encode(&ping).unwrap();
+            bytes.extend(codec.encode(&request.frame(Some(id)).unwrap()).unwrap());
             send.apply(&mut bytes);
             stream.write_all(&bytes).unwrap();
             let frame = read_frame(&mut stream, &mut receive);
