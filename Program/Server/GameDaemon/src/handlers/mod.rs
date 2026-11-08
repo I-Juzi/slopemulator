@@ -25,6 +25,7 @@ mod items4;
 mod items5;
 mod mentoring;
 mod misc;
+mod quest;
 mod skills;
 mod skills2;
 mod social;
@@ -36,6 +37,7 @@ pub use items4::*;
 pub use items5::*;
 pub use mentoring::*;
 pub use misc::*;
+pub use quest::*;
 pub use skills::*;
 pub use skills2::*;
 pub use social::*;
@@ -258,6 +260,8 @@ pub struct Session {
 #[derive(Clone, Debug)]
 pub struct Pc {
     pub object_id: u64,
+    /// PC word +20672. Model default 6 passes lookup mask 6 for existing fixtures.
+    pub rights: u16,
     pub db_id: u64,
     pub name: Vec<u16>,
     /// PC +20752 and user +120, separate from user presence.
@@ -333,6 +337,7 @@ impl Default for Pc {
     fn default() -> Self {
         Self {
             object_id: 0,
+            rights: 6,
             db_id: 0,
             name: vec![],
             party_user_blocked: false,
@@ -623,6 +628,10 @@ pub trait Services {
     fn mentoring_registry(&mut self, _mentor: u64, _mentee: u64, _max: i8) -> MentoringRegistry {
         MentoringRegistry::Unknown
     }
+    /// Doc 20: server-owned quest configuration. Unknown is never approval.
+    fn quest_config(&mut self) -> QuestConfig {
+        QuestConfig::Unknown
+    }
     /// Doc 18: opaque season and name checks. Unknown is never approval.
     fn challenge_party(&mut self, _check: &ChallengeCheck) -> Gate {
         Gate::Unknown
@@ -747,6 +756,7 @@ pub struct MemoryServices {
     pub chat_result: Gate,
     pub chat_calls: Vec<ChatRequest>,
     pub mentoring_registry_result: MentoringRegistry,
+    pub quest: MemoryQuest,
     pub challenge: MemoryChallenge,
 }
 /// Test/default doc 12 boundary results. Unknown is never approval.
@@ -859,6 +869,7 @@ impl Default for MemoryServices {
             chat_result: Gate::Unknown,
             chat_calls: vec![],
             mentoring_registry_result: MentoringRegistry::Unknown,
+            quest: MemoryQuest::default(),
             challenge: MemoryChallenge::default(),
         }
     }
@@ -870,6 +881,13 @@ impl Services for MemoryServices {
     }
     fn mentoring_registry(&mut self, _: u64, _: u64, _: i8) -> MentoringRegistry {
         self.mentoring_registry_result
+    }
+    fn quest_config(&mut self) -> QuestConfig {
+        self.quest.config_reads += 1;
+        self.quest
+            .configs
+            .pop_front()
+            .unwrap_or_else(|| self.quest.config.clone())
     }
     fn challenge_party(&mut self, check: &ChallengeCheck) -> Gate {
         self.challenge.calls.push(check.clone());
@@ -1082,6 +1100,7 @@ fn dispatch_inner(ctx: &mut Context<'_>, command: u16, req: &[u8]) -> Outcome {
         && !SOCIAL_COMMANDS.contains(&command)
         && !MENTORING_COMMANDS.contains(&command)
         && !MISC_COMMANDS.contains(&command)
+        && !QUEST_COMMANDS.contains(&command)
         && !CHALLENGE_COMMANDS.contains(&command)
     {
         return Outcome::log("unknown command");
@@ -1146,6 +1165,9 @@ fn dispatch_inner(ctx: &mut Context<'_>, command: u16, req: &[u8]) -> Outcome {
     }
     if MISC_COMMANDS.contains(&command) {
         return misc::dispatch_misc(ctx, command, req);
+    }
+    if QUEST_COMMANDS.contains(&command) {
+        return quest::dispatch_quest(ctx, command, req);
     }
     if CHALLENGE_COMMANDS.contains(&command) {
         return challenge::dispatch_challenge(ctx, command, req);

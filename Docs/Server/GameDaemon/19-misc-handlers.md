@@ -20,7 +20,7 @@ Quest commands are in docs 20 and 21.
 | Slate amp page count | `qword_140EE58A0` DWORD index 523 | `MiscWorld::slate_amp_pages` |
 | Trial play | PC byte +13768 = 1 | `Pc::t2_blocked` |
 | Arena state | PC DWORD +37520 under the CS at +37480 | `Pc::arena_state` |
-| PC lookup by ID / name | `0x1403F7D20` / `0x1403F7EF0` (daemon +5824, type 6) | `MentoringWorld::players` / `names` |
+| PC lookup by ID / name | `0x1403F7D20` / `0x1403F7EF0` (daemon +5824, rights mask 6) | `MentoringWorld::by_id` / `by_name` |
 
 ## 165 — G_StopCinematicReqCmd — partial
 

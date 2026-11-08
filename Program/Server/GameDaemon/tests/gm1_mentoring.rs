@@ -203,11 +203,16 @@ fn confirm_order() {
     assert_eq!(
         h.last().kind,
         SkillTaskKind::Mentoring(MentoringTask::Confirm {
+            requester_object_id: PC_ID,
             inviter_object_id: T_ID,
             inviter_db_id: 88,
             mentor_db_id: 77,
             mentee_db_id: 88,
             max_mentees: 3,
+            mentor_job: 4,
+            mentee_job: 0,
+            mentor_name: [0; 33],
+            mentee_name: [0; 33],
         })
     );
     h.pc().mentoring_type = 1;
@@ -284,4 +289,177 @@ fn call_and_warp() {
     assert_eq!(replies(&h.run(1115, &qh(T_ID))), eqh(1117, 2, T_ID));
     h.world.mentoring.enabled = false;
     assert_eq!(replies(&h.run(1115, &qh(T_ID))), eqh(1117, 2455, T_ID));
+}
+
+#[test]
+fn confirm_task_owner_is_mentee_for_both_types() {
+    for (kind, owner, zone) in [(1, PC_ID, 9), (2, T_ID, 10)] {
+        let mut h = H::new();
+        add_target(&mut h);
+        h.pc().mentoring_type = kind;
+        h.services.mentoring_registry_result = MentoringRegistry::Clear;
+        assert!(h.run(1103, &qq(T_ID, 88)).replies.is_empty());
+        let task = h.last();
+        assert_eq!((task.caster, task.zone), (owner, zone));
+        let SkillTaskKind::Mentoring(MentoringTask::Confirm {
+            requester_object_id,
+            inviter_object_id,
+            ..
+        }) = task.kind
+        else {
+            panic!("expected confirm task");
+        };
+        assert_eq!(requester_object_id, PC_ID);
+        assert_eq!(inviter_object_id, T_ID);
+    }
+}
+
+#[test]
+fn confirm_captures_signed_jobs_and_fixed_name_snapshots() {
+    for kind in [1, 2] {
+        let mut h = H::new();
+        add_target(&mut h);
+        h.pc().mentoring_type = kind;
+        h.pc().job = 0xff;
+        h.pc().name = vec![0x41, 0x42, 0, 0x43];
+        let target = h.world.mentoring.players.get_mut(&T_ID).unwrap();
+        target.job = 0x80;
+        target.name = vec![0x44; 34];
+        h.services.mentoring_registry_result = MentoringRegistry::Clear;
+        assert!(h.run(1103, &qq(T_ID, 88)).replies.is_empty());
+        h.pc().job = 7;
+        h.pc().name.clear();
+        h.world
+            .mentoring
+            .players
+            .get_mut(&T_ID)
+            .unwrap()
+            .name
+            .clear();
+        let SkillTaskKind::Mentoring(MentoringTask::Confirm {
+            mentor_job,
+            mentee_job,
+            mentor_name,
+            mentee_name,
+            ..
+        }) = h.last().kind
+        else {
+            panic!("expected confirm task");
+        };
+        let mut pc_name = [0; 33];
+        pc_name[..2].copy_from_slice(&[0x41, 0x42]);
+        let target_name = [0x44; 33];
+        let expected = if kind == 2 {
+            (-1, -128, pc_name, target_name)
+        } else {
+            (-128, -1, target_name, pc_name)
+        };
+        assert_eq!((mentor_job, mentee_job, mentor_name, mentee_name), expected);
+    }
+}
+
+#[test]
+fn target_rights_gate_precedes_later_target_checks() {
+    let mut h = H::new();
+    add_target(&mut h);
+    h.pc().mentoring_type = 2;
+    h.world.party_config.arena_enabled = true;
+    h.services.mentoring_registry_result = MentoringRegistry::Clear;
+    let target = h.world.mentoring.players.get_mut(&T_ID).unwrap();
+    target.arena_state = 3;
+    for rights in [0, 1, 8] {
+        h.world.mentoring.players.get_mut(&T_ID).unwrap().rights = rights;
+        assert_eq!(
+            replies(&h.run(1100, &name_body(1, &[0x41, 0x42]))),
+            r(1102, 2447)
+        );
+        assert_eq!(replies(&h.run(1103, &qq(T_ID, 88))), r(1104, 2));
+        assert_eq!(replies(&h.run(1111, &qh(T_ID))), eqh(1113, 2458, T_ID));
+        assert_eq!(replies(&h.run(1115, &qh(T_ID))), eqh(1117, 2458, T_ID));
+    }
+    assert!(h.services.skill_tasks.is_empty());
+    for rights in [2, 4, 6] {
+        h.world.mentoring.players.get_mut(&T_ID).unwrap().rights = rights;
+        assert_eq!(
+            replies(&h.run(1100, &name_body(1, &[0x41, 0x42]))),
+            r(1102, 2448)
+        );
+        assert_eq!(replies(&h.run(1111, &qh(T_ID))), eqh(1113, 6, T_ID));
+        assert_eq!(replies(&h.run(1115, &qh(T_ID))), eqh(1117, 6, T_ID));
+        assert!(h.run(1103, &qq(T_ID, 88)).replies.is_empty());
+    }
+}
+
+#[test]
+fn object_lookup_uses_configured_slot_and_keeps_wire_alias() {
+    let mut h = H::new();
+    add_target(&mut h);
+    h.pc().mentoring_type = 2;
+    h.services.mentoring_registry_result = MentoringRegistry::Clear;
+    h.world.mentoring.slot_mask = 0xffff0;
+    h.world.mentoring.slot_shift = 4;
+    let occupant = (1 << 48) | 0x220;
+    let alias = occupant | (1 << 32) | 0xf;
+    let mut pc = h.world.mentoring.players.remove(&T_ID).unwrap();
+    pc.object_id = occupant;
+    h.world.mentoring.players.insert(occupant, pc.clone());
+    assert!(h.run(1103, &qq(alias, 88)).replies.is_empty());
+    let task = h.last();
+    assert_eq!((task.caster, task.zone), (occupant, 10));
+    let SkillTaskKind::Mentoring(MentoringTask::Confirm {
+        inviter_object_id, ..
+    }) = task.kind
+    else {
+        panic!("expected confirm task");
+    };
+    assert_eq!(inviter_object_id, alias);
+    for command in [1111, 1115] {
+        assert!(h.run(command, &qh(alias)).replies.is_empty());
+        let expected = if command == 1111 {
+            MentoringTask::Call { target: alias }
+        } else {
+            MentoringTask::Warp { target: alias }
+        };
+        assert_eq!(h.last().kind, SkillTaskKind::Mentoring(expected));
+        h.services.skill_queue_result = Gate::Fail;
+        assert_eq!(
+            replies(&h.run(command, &qh(alias))),
+            eqh(command + 2, 2, alias)
+        );
+        h.services.skill_queue_result = Gate::Pass;
+    }
+    for slot in [19999, 20000] {
+        let id = (1 << 48) | (slot << 4);
+        h.world.mentoring.players.insert(id, pc.clone());
+        assert_eq!(h.world.mentoring.by_id(id, 6).is_some(), slot < 20000);
+    }
+    let invalid_ids = [0, 0x220, (2 << 48) | 0x220, (1 << 48) | 0x230];
+    for id in invalid_ids {
+        assert!(h.world.mentoring.by_id(id, 6).is_none());
+        assert_eq!(replies(&h.run(1103, &qq(id, 88))), r(1104, 2));
+        assert_eq!(replies(&h.run(1111, &qh(id))), eqh(1113, 2458, id));
+        assert_eq!(replies(&h.run(1115, &qh(id))), eqh(1117, 2458, id));
+    }
+}
+
+#[test]
+fn invite_name_lookup_uses_nonempty_nul_prefix() {
+    let mut h = H::new();
+    add_target(&mut h);
+    assert!(h
+        .run(1100, &name_body(1, &[0x41, 0x42, 0, 0x43]))
+        .replies
+        .is_empty());
+    assert!(matches!(
+        h.last().kind,
+        SkillTaskKind::Mentoring(MentoringTask::Invite { target: T_ID, .. })
+    ));
+    assert_eq!(
+        replies(&h.run(1100, &name_body(1, &[0, 0x41]))),
+        r(1102, 2447)
+    );
+    // A NUL does not hide a missing counted unit from the decoder.
+    let mut truncated = name_body(1, &[0x41, 0x42, 0, 0x43]);
+    truncated.truncate(truncated.len() - 2);
+    assert_eq!(replies(&h.run(1100, &truncated)), r(1102, 2));
 }

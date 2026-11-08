@@ -346,10 +346,32 @@ Shared fields for part 2:
 ## 896 — G_AchievementCompleteReqCmd — partial
 
 - **381:** `0x1403C47A0`. **348:** `HandleGame_AchievementCompleteReq`.
-- **Wire:** `hChh;Chh;`: two counted lists of (register id h, value h).
-- **Checks/order:** Achievement rule clear → nothing. A negative count → log "invalid repeatCount". A decode failure → log "cannot decompose". Each register is checked ("invalid register id", "cannot increment register from client"); invalid records are skipped with a log. At most 1100 records are kept. The handler then composes `hqqqqhchhChh;…` (db_id, PC +37352, world short +5512, time64) and sends it to the achievement service (daemon +5472).
+- **Wire:** `hChh;Chh;`. Each `C` is a 16-bit repeat count. The lists are separate.
+
+  | List | Record fields | Native validation |
+  | --- | --- | --- |
+  | First | Register ID `h`, value `h` | DataManager slot 51, vfunc +168, keyed by register ID. Require a record and record byte +34 ≠ 0. Clamp values above 20 to 20. |
+  | Second | Achievement ID `h`, step `h` | DataManager slot 39, vfunc +168, keyed by ID, step and PC job. Retry a miss with job 0. Require a record and record byte +25 ≠ 0. |
+
+- **Checks/order:**
+  1. Achievement rule clear → nothing.
+  2. Read the first count and its records. A negative count logs "invalid repeatCount". A decode failure logs "cannot decompose". Either failure stops the handler.
+  3. Read the second count and its records with the same count and decode checks.
+  4. Skip invalid records with a log. For each list, merge duplicate IDs and keep the larger value or step. Each list has its own 1100-record limit.
+  5. Compose `hqqqqhChh;Chh;` at descriptor `0x140C22B20`. Send the packet to the achievement service at daemon +5472. Keep the register list and the achievement list separate.
+
+  | Header order | Field | Width |
+  | --- | --- | --- |
+  | 1 | Command 8 | `h` |
+  | 2 | Current time64 | `q` |
+  | 3 | PC +37360 | `q` |
+  | 4 | PC DB ID (+20744) | `q` |
+  | 5 | PC +37352 | `q` |
+  | 6 | Daemon short +5512 | `h` |
+
+- **Evidence:** `0x1403C47A0`, build 381.8867. The log at `0x140C22F00` names an invalid achievement ID or step.
 - **Failure/output:** no client reply on any path.
-- **❓ Missing:** the register table checks and the achievement service send.
+- **❓ Missing:** the achievement-service packet consumer.
 
 ## 898 — G_AchievementTitleInstallReqCmd — partial
 
@@ -404,8 +426,10 @@ Shared fields for part 2:
   1. Time-based play rule clear → 1046/2274.
   2. Arena config → 1046/2274.
   3. No user → log only.
-  4. Build reply 1045 (`hcqiqqihcccc` nested) from user +1288 with `0x1403E8E40`. Send it through vtable +584. Log the play info.
-- **❓ Missing:** the user play-state record and the reply body.
+  4. Build reply 1045 from user +1288 with `0x1403E8E40`. Use descriptor `hCQiqqihcccc;` at `0x140BC6F70`. Send it through vtable +584. Log the play info.
+- **Reply body:** Command `h`, then a 16-bit repeat count `C` of 2. Each record is `Qiqqihcccc`: target type `Q` (one byte), `i`, `q`, `q`, `i`, `h`, and four one-byte `c` fields. Each record has 31 bytes. Target types are 0 and 1. `Q` is not a 64-bit `q`.
+- **Evidence:** `0x140372610` and writer `0x1403E8E40`, build 381.8867.
+- **❓ Missing:** the user play-state field meanings.
 
 ## 1047 — G_TakeTimeBasedPlayRewardReqCmd — partial
 

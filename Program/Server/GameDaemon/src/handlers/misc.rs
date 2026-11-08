@@ -136,15 +136,11 @@ pub fn handle_report_bot_spammer(ctx: &mut Context<'_>, req: &[u8]) -> Outcome {
             "report bot spammer: target pc id in arena lobby",
         );
     }
-    let players = &ctx.world.mentoring.players;
+    // Native lookups 0x1403F7D20 / 0x1403F7EF0 with rights mask 6.
     let found = if target != 0 {
-        players.get(&target)
+        ctx.world.mentoring.by_id(target, 6)
     } else {
-        ctx.world
-            .mentoring
-            .names
-            .get(&name)
-            .and_then(|id| players.get(id))
+        ctx.world.mentoring.by_name(&name, 6)
     };
     if found.is_none() && !lobby {
         return fail(2226, kind, "report bot spammer: target pc not found");

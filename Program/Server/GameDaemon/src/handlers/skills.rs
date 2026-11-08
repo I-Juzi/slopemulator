@@ -105,6 +105,8 @@ pub enum SkillTaskKind {
     ChallengeParty(ChallengeTask),
     /// Doc 19 misc zone tasks.
     Misc(MiscTask),
+    /// Doc 20 quest, discovery and survey zone tasks.
+    Quest(QuestTask),
 }
 
 #[derive(Clone, Debug, PartialEq, Eq)]

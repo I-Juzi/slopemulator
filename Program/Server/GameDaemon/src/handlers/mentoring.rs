@@ -9,16 +9,64 @@ use super::*;
 pub const MENTORING_COMMANDS: &[u16] = &[1098, 1100, 1103, 1105, 1107, 1111, 1115];
 
 /// Doc 17 shared fields.
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug)]
 pub struct MentoringWorld {
     /// DataManager signed short +32896 > 0.
     pub enabled: bool,
     /// DataManager qword +32888 record with short +8 > 0: byte +25 maximum mentee count.
     pub max_mentees: Option<i8>,
-    /// `0x1403F7D20(daemon +5824, q, 6)`: object ID → PC.
+    /// Occupied PCs, keyed by their current object IDs. Keep one PC per slot.
     pub players: BTreeMap<u64, Pc>,
-    /// `0x1403F7EF0(daemon +5824, name, 6)`: name → object ID.
+    /// NUL-prefix name → current object ID. Name lookup references the PC directly.
     pub names: BTreeMap<Vec<u16>, u64>,
+    /// Native ID configuration +24 and +40. The adapter must set these values.
+    pub slot_mask: u64,
+    pub slot_shift: u32,
+}
+impl Default for MentoringWorld {
+    fn default() -> Self {
+        Self {
+            enabled: false,
+            max_mentees: None,
+            players: BTreeMap::new(),
+            names: BTreeMap::new(),
+            // Model default for existing fixtures, not a verified native configuration.
+            slot_mask: 0xffff,
+            slot_shift: 0,
+        }
+    }
+}
+impl MentoringWorld {
+    fn slot(&self, id: u64) -> Option<u32> {
+        let slot = (id & self.slot_mask).checked_shr(self.slot_shift)? as u32;
+        (slot < 20000).then_some(slot)
+    }
+
+    fn eligible(pc: &Pc, mask: u16) -> Option<&Pc> {
+        (mask & 1 != 0 || pc.rights & mask != 0).then_some(pc)
+    }
+
+    /// `0x1403F7D20`: type, configured slot, bound, then rights. No full-ID recheck.
+    pub fn by_id(&self, id: u64, mask: u16) -> Option<&Pc> {
+        if id >> 48 != 1 {
+            return None;
+        }
+        let slot = self.slot(id)?;
+        let (_, pc) = self
+            .players
+            .iter()
+            .find(|(stored_id, _)| self.slot(**stored_id) == Some(slot))?;
+        Self::eligible(pc, mask)
+    }
+
+    /// `0x1403F7EF0`: nonempty NUL prefix, direct name entry, then rights.
+    pub fn by_name(&self, name: &[u16], mask: u16) -> Option<&Pc> {
+        let key = party_model::name_prefix(name);
+        if key.is_empty() {
+            return None;
+        }
+        Self::eligible(self.players.get(self.names.get(key)?)?, mask)
+    }
 }
 
 #[derive(Clone, Debug, PartialEq, Eq)]
@@ -36,11 +84,20 @@ pub enum MentoringTask {
     },
     /// 1103, kind 309, vtable `0x140C413F8`, attached to the mentee.
     Confirm {
+        /// +144: requester PC ID, separate from the mentee task owner at +128.
+        requester_object_id: u64,
+        /// +152: original wire ID, even when it aliases the inviter's slot.
         inviter_object_id: u64,
         inviter_db_id: u64,
         mentor_db_id: u64,
         mentee_db_id: u64,
         max_mentees: i8,
+        /// +186/+188: signed PC job bytes widened to signed shorts.
+        mentor_job: i16,
+        mentee_job: i16,
+        /// +190/+256: wcsncpy snapshots, 33 UTF-16 units each.
+        mentor_name: [u16; 33],
+        mentee_name: [u16; 33],
     },
     /// 1105, kind 307, vtable `0x140BC1930`. +144, +152, +160 = 0.
     Reject { first: u64, second: u64 },
@@ -100,6 +157,14 @@ fn task(ctx: &Context<'_>, command: u16, zone: u64, task: MentoringTask) -> Skil
     }
 }
 
+fn name_snapshot(name: &[u16]) -> [u16; 33] {
+    let mut snapshot = [0; 33];
+    for (to, from) in snapshot.iter_mut().zip(party_model::name_prefix(name)) {
+        *to = *from;
+    }
+    snapshot
+}
+
 fn logged(mut out: Outcome, text: &'static str) -> Outcome {
     out.logs.push(text);
     out
@@ -152,12 +217,7 @@ pub fn handle_invite_mentoring(ctx: &mut Context<'_>, req: &[u8]) -> Outcome {
         return Outcome::reason(F, 3);
     }
     let world = ctx.world;
-    let Some(target) = world
-        .mentoring
-        .names
-        .get(&name)
-        .and_then(|id| world.mentoring.players.get(id))
-    else {
+    let Some(target) = world.mentoring.by_name(&name, 6) else {
         return Outcome::reason(F, 2447);
     };
     let (object_id, db_id) = (ctx.pc().object_id, ctx.pc().db_id);
@@ -205,7 +265,7 @@ pub fn handle_confirm_invitation_mentoring(ctx: &mut Context<'_>, req: &[u8]) ->
         return Outcome::reason(F, 2);
     };
     let world = ctx.world;
-    let Some(inviter) = world.mentoring.players.get(&inviter_object_id) else {
+    let Some(inviter) = world.mentoring.by_id(inviter_object_id, 6) else {
         return Outcome::reason(F, 2);
     };
     let pc = ctx.pc();
@@ -222,6 +282,20 @@ pub fn handle_confirm_invitation_mentoring(ctx: &mut Context<'_>, req: &[u8]) ->
     };
     let (mentor_db_id, mentee_db_id) = (mentor.db_id, mentee.db_id);
     let (mentee_zone, mentee_kind) = (mentee.zone, mentee.native_kind);
+    let mentee_object_id = mentee.object_id;
+    // Native snapshots these fields before either registry check.
+    let confirm = MentoringTask::Confirm {
+        requester_object_id: pc.object_id,
+        inviter_object_id,
+        inviter_db_id,
+        mentor_db_id,
+        mentee_db_id,
+        max_mentees,
+        mentor_job: i16::from(mentor.job as i8),
+        mentee_job: i16::from(mentee.job as i8),
+        mentor_name: name_snapshot(&mentor.name),
+        mentee_name: name_snapshot(&mentee.name),
+    };
     match ctx
         .services
         .mentoring_registry(mentor_db_id, mentee_db_id, max_mentees)
@@ -239,18 +313,8 @@ pub fn handle_confirm_invitation_mentoring(ctx: &mut Context<'_>, req: &[u8]) ->
     if mentee_kind != 1 || inviter_db_id == 0 {
         return Outcome::reason(F, 2);
     }
-    let t = task(
-        ctx,
-        1103,
-        zone,
-        MentoringTask::Confirm {
-            inviter_object_id,
-            inviter_db_id,
-            mentor_db_id,
-            mentee_db_id,
-            max_mentees,
-        },
-    );
+    let mut t = task(ctx, 1103, zone, confirm);
+    t.caster = mentee_object_id;
     queue(ctx, t, Outcome::reason(F, 2))
 }
 
@@ -332,11 +396,7 @@ fn call_or_warp(ctx: &mut Context<'_>, req: &[u8], warp: bool) -> Outcome {
         }
     }
     let world = ctx.world;
-    let found = if target == 0 {
-        None
-    } else {
-        world.mentoring.players.get(&target)
-    };
+    let found = world.mentoring.by_id(target, 6);
     let Some(member) = found else {
         return reply(2458);
     };
