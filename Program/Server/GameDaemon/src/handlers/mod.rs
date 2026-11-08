@@ -55,6 +55,9 @@ pub enum StateChange {
 #[derive(Clone, Debug, PartialEq, Eq)]
 pub enum SessionEffect {
     SendWithCurrentProcessor(Message),
+    /// Complete size/command/mark/body fragment. Do not add a second header.
+    /// Apply the current session processor to each fragment in vector order.
+    SendFragmentWithCurrentProcessor(Vec<u8>),
     ActivateSessionProcessor,
 }
 #[derive(Clone, Debug, PartialEq, Eq)]
@@ -333,6 +336,11 @@ pub trait Services {
     fn hello(&mut self, _input: &[u8]) -> HelloOperation {
         HelloOperation::Unknown
     }
+    /// Server-owned, complete command-32 input for this PC. None is not approval.
+    /// This supplies data only; it does not complete post-32 sync or travel.
+    fn initial_world(&mut self, _pc: &Pc) -> Option<Box<packet::world_entry::EnterWorldOk>> {
+        None
+    }
     fn activated_teleport(&mut self) -> PackedProperty {
         PackedProperty::Unknown
     }
@@ -345,6 +353,7 @@ pub trait Services {
 #[derive(Clone, Debug)]
 pub struct MemoryServices {
     pub hello_result: HelloOperation,
+    pub initial_world: Option<Box<packet::world_entry::EnterWorldOk>>,
     pub activated_teleport_result: PackedProperty,
     pub queue_result: Gate,
     pub logout_result: Gate,
@@ -357,6 +366,7 @@ impl Default for MemoryServices {
     fn default() -> Self {
         Self {
             hello_result: HelloOperation::Unknown,
+            initial_world: None,
             activated_teleport_result: PackedProperty::Unknown,
             queue_result: Gate::Unknown,
             logout_result: Gate::Unknown,
@@ -370,6 +380,9 @@ impl Default for MemoryServices {
 impl Services for MemoryServices {
     fn hello(&mut self, _: &[u8]) -> HelloOperation {
         self.hello_result.clone()
+    }
+    fn initial_world(&mut self, _: &Pc) -> Option<Box<packet::world_entry::EnterWorldOk>> {
+        self.initial_world.take()
     }
     fn activated_teleport(&mut self) -> PackedProperty {
         self.activated_teleport_result.clone()

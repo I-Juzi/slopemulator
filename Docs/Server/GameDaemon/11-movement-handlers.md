@@ -28,6 +28,8 @@ Task creation and queue success do not prove operation success.
 
 Common end helper `0x140422850` removes the action from the caster action manager through virtual +48, unlinks the child through `0x14069C1D0`, and releases the reference when required. It does not close the session.
 
+**gw1 shared spawn boundary:** Build 381 `0x1404BF1E0` sets position properties 99/100/101 before spatial insertion and appearance queueing through `0x1402304A0`. Client 43 can precede failure in later update `0x14026A180`. Do not use a queued appearance or command 43 as proof of complete movement or spawn. Initial terrain validation, command 41, summon correction and the remaining action-finish paths are specified in doc 10, section 42. These facts do not close the movement-broadcast gaps below.
+
 Teleport-action broadcast helper `0x14023C550` and cave-escape helper `0x1402411F0` require a nonempty zone broadcast structure at +16232. They append an inner `cqQ` record: event type byte 48 (teleport) or 51 (escape), object ID:q, state byte:Q. States passed by these actions are 0=start, 1=accepted finish, 2=cancel/failure. These are inner event types, not proved top-level network command IDs. Both helpers obtain a spatial cell from x/y/z through `0x140212720` and queue through `0x140248A50`. Outer format literal is `hiCS;` at `0x140B674C8`. ❓ Full outer command/fields, grouping and recipient filter remain unread. Do not send command 48 or 51 from these constants alone.
 
 ## 66 — G_TurnReqCmd — partial

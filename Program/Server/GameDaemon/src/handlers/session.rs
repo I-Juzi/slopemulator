@@ -276,13 +276,34 @@ pub fn handle_enter_world(ctx: &mut Context<'_>, req: &[u8]) -> Outcome {
     pc.received_enter_world = true;
     pc.client_version = version;
     // STOP optional 0x140371AC8. Ordinary composite precedes destination checks.
-    // TODO ❓ Cannot skip unknown composite 32 to execute later checks out of order.
-    let mut out = Outcome::unsupported(
-        "TODO ❓ full initial PC composite 32, 0x1405F5980; destination / World::Enter",
-    );
+    let mut out = Outcome::unsupported("TODO ❓ server-owned initial PC snapshot for command 32");
     out.changes.push(StateChange::EnterWorldReceived {
         client_version: version,
     });
+    let Some(snapshot) = ctx.services.initial_world(pc) else {
+        return out;
+    };
+    // Adapter consistency checks, not new native failure reasons. Never send
+    // another PC's snapshot or convert an adapter error into a native 33 reply.
+    if snapshot.header.object_id != pc.object_id || snapshot.pc_db_id != pc.db_id {
+        out.status = Status::Unsupported("TODO ❓ initial PC snapshot identity mismatch");
+        return out;
+    }
+    let fragments = match snapshot.encode_fragments() {
+        Ok(fragments) => fragments,
+        Err(_) => {
+            out.status = Status::Unsupported("TODO ❓ invalid initial PC snapshot encoding");
+            return out;
+        }
+    };
+    out.session_effects.extend(
+        fragments
+            .into_iter()
+            .map(SessionEffect::SendFragmentWithCurrentProcessor),
+    );
+    // The native builder continues with summon/quest/other sync before travel.
+    // A complete 32 alone must not approve or queue a destination or spawn.
+    out.status = Status::Unsupported("TODO ❓ post-32 sync, destination and World::Enter");
     out
 }
 pub(super) fn arena_blocked(pc: &Pc) -> bool {
