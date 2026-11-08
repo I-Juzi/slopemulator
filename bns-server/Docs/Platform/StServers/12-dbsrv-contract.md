@@ -28,12 +28,34 @@ The services hold almost no SQL. The business rules live in the stored procedure
 
 ### Parameter elements
 
-| Element | Caller type | ODBC binding |
+Only the element name `T` is special. DbSrv does not look at the other names
+(`<I>`, `<S>`, `<G>` are caller conventions). Source: DbSrv sub_1400D3B90.
+
+| Element | ODBC binding | Column size |
 | --- | --- | --- |
-| `<I>` | integer (0) | integer |
-| `<S>` | string (2, 3, 5) | SQL_VARCHAR (12), or SQL_WVARCHAR (−9) when the text has bytes ≥ 0x80 |
-| `<G>` | GUID (4) | GUID |
-| `<T>` | table-valued param: `<T><row><col/>…</row>…</T>`; all rows must have the same column count (line 738) | SQL_SS_TABLE (−153) |
+| any, all bytes < 0x80 | SQL_VARCHAR (12), C type CHAR | length; 0 (max) when > 8000 |
+| any, a byte ≥ 0x80 | SQL_WVARCHAR (−9), C type WCHAR (−8) | UTF-16 length; 0 when > 4000 |
+| `type="null"` | NULL | — |
+| `name="@x"` | bound by name (SQL_DESC_NAME); all params named or none, else code 10 line 828 | — |
+| `<T><R><C/>…</R>…</T>` | SQL_SS_TABLE (−153); cells varchar, or wvarchar when a cell has a byte ≥ 0x80; same column count in every row (line 738) | — |
+
+No database in the SQL dump has a table type (`AS TABLE`), so `T` is not used in build 381.
+
+### Call text
+
+`{?=call <Schema>.<p_Proc>(?,…)}` (sub_1400E6390). The return value is output param 1,
+initialised to −1. With 32 user params the text is not built: code 4, line 977, no text.
+
+## 2a. Connection handler (module 1)
+
+| Order | Check | Error |
+| --- | --- | --- |
+| 1 | body missing | code 10, line 71, text `DbConn: NULL body` |
+| 2 | protocol `Storage` | StorageSrv code path (sub_1400C6480), only with `Storage.ini` |
+| 3 | protocol ≠ `Db.<Logical>` (case-sensitive, sub_1400C73A0) | code 10, line 101, `DbConn: unknown protocol %s` |
+| 4 | command ∉ {`Exec`, `ExecBatched`} | code 51, line 119, `DbConn: unknown command %s` |
+
+One process serves one logical database. The start-up argument gives the name (sub_1400D3550).
 
 ## 3. Reply
 
@@ -50,12 +72,43 @@ The services hold almost no SQL. The business rules live in the stored procedure
 | Column element | the SQL column name | DbSrv sub_1400D35E0 |
 | NULL column | element left out | sub_1400D35E0 (`ind == -1`) |
 | Wide columns | read as SQL_C_WCHAR (−8), sent as UTF-8 | sub_1400D35E0 |
-| Text | XML-escaped (sub_1400D30B0) ❓ escape set not checked | |
+| Text | only `&` → `&amp;` and `<` → `&lt;` | sub_1400D30B0 |
+| Column name | max 64 chars; data read in 4096-byte pieces | sub_1400D35E0 |
+| Empty result (0 columns) | stops the set loop; all procs use `SET NOCOUNT ON` | sub_1400D35E0 |
 | Result sets | `SQLMoreResults` loop, one `<Set>` each | DbSrv sub_1400D4E10 |
 | Return value | `RETURN r` with r ≠ 0 → error reply, code = r + 100000 when 1 ≤ code ≤ 99 900, else 4 (ErrBadData); line 1001 | sub_1400D4E10 |
+| Aux data | on a return-code error the `<Response>` text is attached under `<Error>`, except when it is ≤ 59 bytes and has an empty set (one empty set only) | sub_1400D2E30 |
+| Error after a set | the loop stops, `</Response>` is closed, r stays −1 → code 4, line 1001 | sub_1400D35E0 |
+| Error text | `[rc] [api] [proc]: message\n`, api = `SqlExecute`, `SQLMoreResults`, … | sub_1400D3A50, sub_1400E5420 |
+| Slow call | log `Execute procedure(%s) took %u ms` above 500 ms | sub_1400D4E10 |
 | Dead connection | retry once after 5 s (`connection dead, wait & try again`) | sub_1400D4E10 |
 | Shutdown | error line 921 `server is shutting down` | sub_1400D4E10 |
 | No statement handle | code 900 (ErrSqlTimeout) line 928 | sub_1400D4E10 |
+
+Error module: 2 for execution errors (sub_1400D2B80 sets +1376 = 2), 1 for the handler.
+
+### Partial replies (`ExecBatched`)
+
+| Rule | Detail | Source |
+| --- | --- | --- |
+| Split | before a piece is added, when buffer + piece ≥ 0xE666, the buffer is sent as a partial reply | sub_1400D2F70 |
+| Header | partials `s:<id>r1`, `r2`, …; final `s:<id>R<n+1>`; without partials plain `R` | sub_1400DF2D0, sub_1400EC5D0 |
+| Receiver | joins the bodies ❓ (not traced) | |
+
+### Db.ini `[Sql.<Logical>]`
+
+| Key | Rule | Source |
+| --- | --- | --- |
+| Database | default: computer name | sub_1400D3550 |
+| Driver | default `SQL Server Native Client 10.0` | sub_1400D3550 |
+| Address | `ip`, `ip:port` (`:` → `,`), `host/instance` | sub_1400D3550 |
+| Mirror | `FAILOVER_PARTNER` | sub_1400D3550 |
+| Username + Password | SQL login; else `Trusted_Connection` | sub_1400D3550 |
+| EncryptedPassword | Base64 + RSA with the `ServerPrName` key (default `plaync.pr`, `ServerKeyBits` 2048, `[DbSrvOptions]`) | sub_1400D3550 |
+| TransTimeoutSeconds | read (default 20) but the value is not used | sub_1400D3550 |
+| `[ThreadTasks] ThreadTasks` | worker count | |
+
+A value with `;` is logged and cleared. Connection string `DRIVER=%s;NETWORK=DbNetLib;SERVER=%.64s;DATABASE=%s;`.
 
 So the SQL convention `RETURN (3000 + n - 100000)` gives the STS error code `3000 + n`.
 
@@ -79,7 +132,31 @@ equals a `p_<name>` in the pinned schema of the SQL dump.
 
 | Part | Port approach |
 | --- | --- |
-| DbSrv | STS listener; `Exec`/`ExecBatched` → `tiberius` RPC call `<Schema>.p_<Proc>` with the typed params; same XML reply and return-code rule |
+| DbSrv | done: `Program/Platform/StServers/DbSrv` (see §6) |
+| StorageSrv | separate exe (`GetStorageByKey`, `CreateStorage`); port later |
 | Services | build the same `Db.<Logical>/Exec` requests; read rows by column name |
 | Stored procedures | reuse the original procedures from the restored databases |
 | Secrets | `Db.ini` passwords → `keyhere` in the shipped config |
+
+## 6. Rust port (`Program/Platform/StServers/DbSrv`)
+
+```
+DbSrv --config Db.ini --db AcctDb [--db GameDb …] [--listen 127.0.0.1:10900] [--server-id N]
+```
+
+| Item | Port | Parity |
+| --- | --- | --- |
+| Call | batch `DECLARE @__rv int = -1; EXEC @__rv = [S].[p_X] @P1, @n = @P2; SELECT @__rv AS [__DbSrvReturn]`; the last set is removed | same reply |
+| Param types | every value is sent as nvarchar; the procedure converts | ❓ varchar code-page bytes |
+| TVP | table variable typed from `sys.parameters` + `INSERT … VALUES` | not testable (no table types) |
+| Values | int decimal; bit 1/0; decimal `.50`; money 4 decimals; datetime `.fff`; datetime2/time n digits; datetimeoffset `+hh:mm`; GUID and binary upper case | float text ❓ |
+| Info messages | not seen by tiberius | ❓ SUCCESS_WITH_INFO text |
+| Several `--db` | one process, several logical DBs | deviation |
+| Route registration | direct STS listener only; RouteSrv provider registration comes with the RouteSrv port | gap |
+| EncryptedPassword | not supported; use `Password=keyhere` | deviation |
+| Shutdown | queued calls get line 921, code 1 ❓ | |
+
+Live test (bns-mssql, 8 Nov 2026): typed values, `&`/`<` escape, return code 3004 with aux,
+empty-set aux dropped (3010), missing procedure → 977, error after a set → 1001 with aux,
+NULL body → module 1 line 71, 32 params → 977 without text, ExecBatched → `r1`, `r2`, `R3`
+with 58981-byte partials.

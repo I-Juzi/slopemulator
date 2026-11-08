@@ -14,6 +14,7 @@ members = [
     "Program/Server/Data/GameData",
     "Program/Platform/Sts",
     "Program/Platform/StServers/StsCore",
+    "Program/Platform/StServers/DbSrv",
     "Program/Tools/DataFile/BnsData",
     "Program/Tools/DataFile/BnsModel",
     "Program/Tools/DataFile/BnsSchema",

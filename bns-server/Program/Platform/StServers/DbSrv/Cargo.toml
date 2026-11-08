@@ -1,0 +1,18 @@
+[package]
+name = "dbsrv"
+version = "0.1.0"
+edition = "2021"
+publish = false
+description = "Rust port of the StServers DbSrv: STS `Db.<Logical>/Exec` → SQL Server stored procedures."
+
+[dependencies]
+sts-core = { path = "../StsCore" }
+sts = { path = "../../Sts" }
+tokio = { version = "1", features = ["rt-multi-thread", "net", "io-util", "sync", "time", "macros", "signal"] }
+tokio-util = { version = "0.7", features = ["compat"] }
+tiberius = { version = "0.12", default-features = false, features = ["tds73", "rustls"] }
+futures-util = { version = "0.3", default-features = false }
+
+[[bin]]
+name = "DbSrv"
+path = "src/main.rs"
