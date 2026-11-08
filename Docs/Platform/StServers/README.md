@@ -23,8 +23,8 @@ Updated 8 Nov 2026.
 | STS message, framing, errors, INI, XML | `sts-core` | Ported (used by DbSrv) | `../Sts/01-transport.md`, `../Sts/02-messages.md` |
 | Connect handshake | `sts-core::connect` | Ported | `11-cligate-protocol.md` |
 | Route message, commands, locations, `t` targets | `sts-core::route` | Types ported | `13-routesrv.md` |
-| Route bus client (service → RouteSrv registration) | — | Not ported yet (needs RouteSrv) | `13-routesrv.md` §3 |
-| Socket transaction map (`p`/`t`/`s` headers) | — | Analysed | `13-routesrv.md` §8.1 |
+| Route bus client (service → RouteSrv registration) | — | Not ported yet (RouteSrv phase 1 now exists) | `13-routesrv.md` §3 |
+| Socket transaction map (`p`/`t`/`s` headers) | `routesrv::relay` | Ported in RouteSrv (25000 ms map) | `13-routesrv.md` §8.1 |
 | TLS between servers | — | Not ported yet; key = `keyhere` | `13-routesrv.md` §6 |
 | Admin HTTP pages | — | Not ported yet (low priority) | `../Sts/10-stservers-original.md` |
 
@@ -53,7 +53,7 @@ The percent changes when a service reaches "Ported". RouteSrv is next.
 | Service | State | Notes |
 | --- | --- | --- |
 | DbSrv (33 instances) | **Ported** | All reply, error and partial rules verified live on SQL Server. Not ported yet: RouteSrv registration. Storage path: not used. Spec `12-dbsrv-contract.md` |
-| RouteSrv | **In progress** | Single router first. Multi-router Paxos and forward scope later. Spec `13-routesrv.md` |
+| RouteSrv | **In progress** | Phase 1 crate `routesrv` (19 tests): Connect, service commands, Direct/Key/Block routing, reply relay. ❓ key hash, provider codes and command reply shapes are local choices. Not yet: forward scope, multi-router, TLS. Spec `13-routesrv.md`, crate `Program/Platform/StServers/RouteSrv/README.md` |
 | CliGate | Analysed | Client gate, port 6600. Spec `11-cligate-protocol.md`. The `sts` crate covers the client login path today |
 | AuthSrv | Analysed (partial) | Login, SRP verifier from `PlatformAcctDb.dbo.Users` |
 | GameGate | Analysed (partial) | Daemon gate for LobbyGate/GameDaemon, 74 commands |

@@ -152,7 +152,7 @@ fn missing_and_invalid_lengths_fail() {
 }
 #[test]
 fn duplicate_and_alias_headers_fail() {
-    for headers in ["l:0\r\nL:0", "l:0\r\nt:a\r\nT:b"] {
+    for headers in ["l:0\r\nL:0", "l:0\r\ns:1\r\nS:2", "l:0\r\np:a\r\nP:b"] {
         let bytes = format!("POST /Sts/Ping STS/1.0\r\n{headers}\r\n\r\n");
         assert_eq!(
             Codec::default().decode(bytes.as_bytes()),
@@ -163,6 +163,16 @@ fn duplicate_and_alias_headers_fail() {
         Codec::default().decode(b"POST /Sts/Ping STS/1.0\r\nContent-Length:0\r\n\r\n"),
         Err(Error::InvalidLength)
     );
+}
+#[test]
+fn repeated_route_targets_round_trip() {
+    let bytes = b"POST /Auth/Test STS/1.0\r\nt:0#1\r\nT:0#2\r\nl:0\r\n\r\n";
+    let frame = Codec::default().decode(bytes).unwrap().unwrap().0;
+    assert_eq!(frame.headers, vec![
+        Header { name: "t".into(), value: "0#1".into() },
+        Header { name: "t".into(), value: "0#2".into() },
+    ]);
+    round_trip(&frame);
 }
 #[test]
 fn header_names_normalize_but_values_do_not() {

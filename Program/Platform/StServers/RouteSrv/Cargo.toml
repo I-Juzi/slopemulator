@@ -1,0 +1,18 @@
+[package]
+name = "routesrv"
+version = "0.1.0"
+edition = "2021"
+publish = false
+description = "Single-router STS service registration and request relay."
+
+[dependencies]
+sts-core = { path = "../StsCore" }
+sts = { path = "../../Sts" }
+tokio = { version = "1", features = ["rt-multi-thread", "net", "io-util", "sync", "time", "macros", "signal"] }
+
+[dev-dependencies]
+tokio = { version = "1", features = ["test-util"] }
+
+[[bin]]
+name = "RouteSrv"
+path = "src/main.rs"

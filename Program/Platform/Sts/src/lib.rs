@@ -160,7 +160,9 @@ impl Codec {
             let (name, value) = line.split_once(':').ok_or(Error::InvalidHeader)?;
             validate_header(name, value)?;
             let name = name.to_ascii_lowercase();
-            if !seen.insert(name.clone()) {
+            // RouteSrv supports several targets (13-routesrv.md §5).
+            // All other headers, including framing and transaction ids, are unique.
+            if !seen.insert(name.clone()) && name != "t" {
                 return Err(Error::DuplicateHeader);
             }
             if name == "l" {
@@ -219,7 +221,7 @@ impl Codec {
         for header in &frame.headers {
             validate_header(&header.name, &header.value)?;
             let name = header.name.to_ascii_lowercase();
-            if name == "l" || !seen.insert(name.clone()) {
+            if name == "l" || (!seen.insert(name.clone()) && name != "t") {
                 return Err(Error::DuplicateHeader);
             }
             self.append(&mut output, name.as_bytes())?;

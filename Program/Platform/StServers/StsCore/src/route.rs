@@ -292,7 +292,7 @@ impl RouteMessage {
             if m & BLOCK_BITS != 0 {
                 p.push_nonzero("BlockBits", self.block_bits);
             }
-            let n = if self.block_bits != 0 { 1usize << self.block_bits } else { 0 };
+            let n = 1usize.checked_shl(self.block_bits).unwrap_or(0);
             if m & CURRENT != 0 && !self.current.is_empty() {
                 p.push(Element::text("Current", blocks_text(&self.current[..n.min(self.current.len())])));
             }
@@ -389,7 +389,7 @@ impl RouteMessage {
             m.block_bits = p.get_u32("BlockBits", 0);
             let blocks = |n| -> Option<Vec<BlockSlot>> {
                 match p.get_text(n) {
-                    Some(t) if !t.is_empty() => t.split(',').map(BlockSlot::parse).collect(),
+                    Some(t) => t.split(',').map(BlockSlot::parse).collect(),
                     _ => Some(vec![]),
                 }
             };
@@ -550,6 +550,16 @@ mod tests {
         assert!(x.contains("<Current>7,7/12</Current>"), "{x}");
         let back = RouteMessage::from_element(m.cmd, &Element::parse(x.as_bytes()).unwrap()).unwrap();
         assert_eq!(back, m);
+    }
+
+    #[test]
+    fn zero_block_bits_has_one_slot() {
+        for provider in [0, 7] {
+            let mut m = RouteMessage::new(RouteCmd::BlocksFound);
+            m.current = vec![BlockSlot(provider)];
+            assert!(m.to_element().get("Protocol").unwrap().has("Current"));
+            assert_eq!(RouteMessage::from_element(m.cmd, &m.to_element()).unwrap(), m);
+        }
     }
 
     #[test]
