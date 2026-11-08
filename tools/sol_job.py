@@ -4,13 +4,14 @@
 Usage: sol_job.py --slot N --turns N --prompt FILE --out FILE [--resume ID] [--ida] [--write] [--emu]
        sol_job.py --report
 """
-import argparse, json, subprocess, sys, time
+import argparse, json, os, signal, subprocess, sys, time
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
 LEDGER = ROOT / "notes" / "sol-usage.jsonl"
 BUDGET_5H = 30_000_000  # Report/warning threshold only. It never blocks a job.
 WINDOW = 5 * 3600
+JOB_TIMEOUT = 4 * 3600  # Wall-clock safety only. --max-turns is the real job limit (user, 2026-11-08: never cut jobs short).
 MAX_RESUME_CONTEXT = 60_000  # Over this, start a new session. A resumed session resends its context on each request.
 
 
@@ -99,7 +100,15 @@ def main():
         allowed.append("Bash(bns-server/.venv/bin/python bns-server/Program/Tools/Emu/*)")
     cmd += ["--allowedTools", ",".join(allowed)]
     cmd += ["-p", Path(a.prompt).read_text()]
-    run = subprocess.run(cmd, cwd=ROOT, capture_output=True, text=True, timeout=1500)
+    proc = subprocess.Popen(cmd, cwd=ROOT, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, start_new_session=True)
+    try:
+        out, err = proc.communicate(timeout=JOB_TIMEOUT)
+    except subprocess.TimeoutExpired:
+        os.killpg(proc.pid, signal.SIGTERM)  # whole group: no orphan Sol session keeps editing files
+        out, err = proc.communicate()
+        print(f"job timed out after {JOB_TIMEOUT} s; process group stopped", file=sys.stderr)
+        return 124
+    run = subprocess.CompletedProcess(cmd, proc.returncode, out, err)
     if run.returncode != 0 and not run.stdout.strip():
         print(run.stderr[-500:], file=sys.stderr)
         return run.returncode
