@@ -462,7 +462,7 @@ Shared task attachment (431, 434) uses `0x14025DB30` (zone), `0x14069BF60` (PC c
 - **Source:** GameDaemon 381.8867, `ida/delegate/gamed/GameDaemon.exe`. All logs start with `[guild-join-renewal], HandleGame_<Name>Req`.
 - **Renewal gate (J):** Config byte `qword_140EE58A0 + 2041` = 0 → reply 2 ("guild join renewal is disabled"). All 13 handlers test it first. Rust: `GuildConfig::join_renewal` (also used by 509).
 - **Arena:** 557 and 560 use form A. All others use form B. Both → 5.
-- **Cooldown (K):** `GetTickCount64() - base < PC +20880 + 1000 × config dword +2044` → reject ("too frequent request"). 563 → 1624. 579 and 583 → 1644. Only 563 and 579 write PC +20880, and only after the task queues. Rust: `GuildConfig::join_request_cooldown_secs`, `Pc::join_request_tick`, `World::tick`.
+- **Cooldown (K):** `GetTickCount64() - base < PC +20880 + 1000 × config dword +2044` → reject ("too frequent request"). 563 → 1624. 579 and 583 → 1644. Only 563, 579 and 583 write PC +20880, and only after the task queues. Rust: `GuildConfig::join_request_cooldown_secs`, `Pc::join_request_tick`, `World::tick`.
 - **Row 18:** Action row 18 must be enabled for the type of the looked-up guild (+16 normal, +17 open). Otherwise → 2 ("guild action disabled").
 - **Ticket task (T):** `new(0xB0)`, ctor `0x14036D550`, init `0x140297680(task, zone, PC, op, a, b, c)`, queue `0x140603BD0`. Allocation failure, zone (PC +2224) null and init failure all → 2. ❓ The body of `0x140297680` and the task's later replies are not read.
 - **Ticket manager:** World +6392, a map under an SRW lock (+48). Key = guild ID (557) or PC DB ID (560). Entry +368 count, +32 ticket pointers, +376 list timestamp, lock +392. Ticket getters `0x140113160` (q), `0x140113240` (q), `0x140113320` (h type), `0x140113400` (h), `0x140113680` (q expiry). 557/560 skip expired tickets and types 4 and 9.
@@ -526,11 +526,17 @@ Shared task attachment (431, 434) uses `0x14025DB30` (zone), `0x14069BF60` (PC c
 - **381:** `0x1403B26A0`. **Wire:** `hq` (target DB ID).
 - **Checks/order (reply 581):** J → 2. Arena B → 5. K → 1644. Then as 571 with op 5. Success writes PC +20880.
 
-## 583 — G_SendGuildInvitation2ReqCmd — done
+## 583 — G_SendGuildInvitation2ReqCmd — partial
 
-- **381:** `0x1403B2B70`. **Wire:** `hsq`. The reply command is **581**, not 585.
-- **Checks/order:** J → 2. Arena B → 5. K → 1644. No guild → 2. Decode fails → 2 ("packet decompose failed"). Decode succeeds → 2 ("invalid parameter").
-- **Output:** Build 381 rejects every request. No task.
+- **381:** `0x1403B2B70`. **Wire:** `hsq` (PC name, lookup key). The reply command is **581**, not 585.
+- **Correction:** An earlier version said "always rejects". That came from Hex-Rays, which drops the success path. The disassembly (`0x1403B2D71`–`0x1403B3057`) shows the path below.
+- **Checks/order:** J → 2. Arena B → 5. K → 1644. No guild → 2. Decode fails → 2. Name empty or `q` = 0 → 2.
+- **Target PC:** `0x1403F7D20(World +5824, &out, q, 1)`. Null → 2. Target name (PC +194) ≠ decoded name → 2. ❓ The key may be the PC DB ID or the object ID.
+- **Own guild:** `0x1403FA7D0(World +5824, PC +336)`. Null → 2.
+- **Faction:** Target PC +328 ≠ guild +32417 → send 581/**1645**. The handler does **not** return (`0x1403B2EE1` falls through to `0x1403B2EE7`). It continues with the row check, so one request can get two replies.
+- **Row 18** on the guild type (+32416) off → 2.
+- **Task:** `new(0xB0)` (`0x14036D550`). Null → 2. Zone (PC +2224) null → 2. `0x140297680(task, PC, 5, PC DB ID, target PC +20744, guild ID)` fails → 2. Queue with `0x140603BD0` (no failure). Success writes PC +20880 = now. Op 5, as 579.
+- **Rust:** `GuildWorld::players` holds the lookup (name, faction, DB ID).
 
 ## 584 — G_CancelGuildInvitationReqCmd — partial
 
@@ -555,6 +561,62 @@ Shared task attachment (431, 434) uses `0x14025DB30` (zone), `0x14069BF60` (PC c
 - **381:** `0x1403B4410`. **Wire:** `hq`.
 - **Checks/order (reply 602):** J → 2. Arena B → 5. Decode fails → 2. `(PC +890 & 2 ≠ 0)` = `(q == 1)` → 2 ("already set"). Zone null → 2. PC kind ≠ 1 → 2.
 - **Output:** Task `new(0xA0)`, +68 = 327, vtable `off_140C408C0`: +144 DB ID, +152 byte `q`. It queues. No reply.
+
+## 518 — G_QueryGuildInfoToGamedReqCmd — partial
+
+- **381:** `0x1403A7500`. **Wire:** `hCq;` (count, guild IDs). Fail reply 520 `hh`.
+- **Checks/order:** Arena A → 5. Decode fails → 2. Count > 50 → 2. A zero guild ID → 2.
+- **Output:** Reply 519 `hiCqQsCc;;`. Each record: guild ID, `Q` (❓), type (+32416), name (+32418) and 28 bytes from `0x14036D290` (❓ uniform data). Compose failure → 2.
+- **❓ Missing:** The leading `i`, the `Q` field and the 28-byte tail. Rust stops at a boundary after the checks.
+
+## Guild point, benefit and alliance group (603–623): shared facts
+
+- **Config:** +2107 byte = guild point system on (Rust `level_up_disabled`; 443 rejects when it is on). +2116 dword = 603 cooldown seconds. +2136 byte = benefit purchase on. +2144 byte = alliance on.
+- **Point tasks** go to `0x140254FD0(zone, task)`. It can fail → reason 2 (Rust `queue_task`).
+- **Hex-Rays** drops the 610 tail. The facts below come from the disassembly.
+
+## 603 — G_AccumulateGuildPointReqCmd — done
+
+- **381:** `0x1403B47C0`. **Wire:** `hi` (points). Fail reply 605 `hEq`. ❓ Build 381 never loads the `q` argument (stale stack value). Rust sends 0.
+- **Checks/order:** +2107 = 0 → 2. Arena B → 5. Cooldown: when config +2116 ≠ 0 and `now < PC +20888 + 1000 × (+2116)` → **1658**. Decode fails → 2. No guild → 2. Guild lookup null → **1659**. Row 19 off → 2.
+- **Task:** `new(0xA8)`, +68 = 350: +144 DB ID, +152 guild ID, +160 points. Zone null → 2. PC kind ≠ 1 → 2. DB ID or points 0 → 2. Queue fails → 2.
+- **Success:** PC +20888 = now. No reply.
+
+## 606 — G_GuildLevelUpWithGuildPointReqCmd — done
+
+- **381:** `0x1403B4D60`. **Wire:** `h`. Fail reply 608 `hE`.
+- **Checks/order:** +2107 = 0 → 2. Task `new(0xA0)`, +68 = 353: +144 DB ID, +152 guild ID. Zone null, PC kind ≠ 1, DB ID or guild 0 → 2. Queue fails → 2. No arena check.
+
+## 610 — G_PurchaseGuildBenefitReqCmd — done
+
+- **381:** `0x1403B4FE0`. **Wire:** `hhhi` (benefit ID, type, duration). Fail reply 612 `hE`.
+- **Checks/order:** +2136 = 0 → 2. Arena B → 5. Decode fails → 2. Benefit ≤ 0, type not 1 or 2, or duration < 0 → 2.
+- **Task:** `new(0xA8)`, +68 = 356, vtable `off_140B945F0`. Zone null → 2. PC kind (+46) ≠ 1 → 2. DB ID or guild 0, or a bad parameter → 2 (`0x1403B534B`). Fields: +144 DB ID, +152 guild ID, +160 benefit, +162 type, +164 duration. Queue fails → 2 (`0x1403B52F5`). No reply on success.
+
+## Alliance shared shape (615, 619, 621, 623)
+
+- +2144 = 0 → 2. Arena B → 5. Own guild `0x1403FA7D0(PC +336)` null → 2.
+- GuildAllianceWSO `new(0x120)` (`0x14067C5B0`) null → 2. Initialize needs DB ID, both guild IDs and both names nonzero, else → 2. Fields: +112 PC DB ID, +120 op, +128/+136 first guild ID and name, +208/+216 second guild ID and name, +282 reason word. Post `0x1403FB2D0(World +5824, wso, 0)` fails → 2. No reply on success.
+
+## 615 — G_CreateGuildAllianceReqCmd — done
+
+- **381:** `0x1403B54B0`. **Wire:** `hs` (ally guild name). Reply 617 `hE`.
+- Decode fails or name empty → 2. Name lookup `0x1403FA8E0` null → **1668**. Ally = own guild → **1669**. Op 0: first = own guild, second = ally.
+
+## 619 — G_AcceptGuildAllianceReqCmd — done
+
+- **381:** `0x1403B5A20`. **Wire:** `hq` (guild ID). Reply 620 `hE`.
+- Decode fails → 2. Guild lookup null → 2. Op 1: first = `q` guild, second = own guild.
+
+## 621 — G_RejectGuildAllianceReqCmd — partial
+
+- **381:** `0x1403B5FA0`. **Wire:** `hqQ` (guild ID, reason). Reply 622 `hE`.
+- As 619, op 2, +282 = reason (word). ❓ `Q` wire width. Rust stops at a boundary after the `q` decode.
+
+## 623 — G_DeleteGuildAllianceReqCmd — done
+
+- **381:** `0x1403B6530`. **Wire:** `hq`. Reply 625 `hE`.
+- As 619, op 3, but first = own guild and second = `q` guild.
 
 ## Status
 
@@ -604,9 +666,17 @@ Shared task attachment (431, 434) uses `0x14025DB30` (zone), `0x14069BF60` (PC c
 | 571 | partial |
 | 575 | partial |
 | 579 | partial |
-| 583 | done |
+| 583 | partial |
 | 584 | partial |
 | 588 | partial |
 | 592 | partial |
 | 596 | done |
 | 600 | done |
+| 518 | partial |
+| 603 | done |
+| 606 | done |
+| 610 | done |
+| 615 | done |
+| 619 | done |
+| 621 | partial |
+| 623 | done |

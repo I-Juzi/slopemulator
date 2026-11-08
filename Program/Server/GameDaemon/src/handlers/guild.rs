@@ -6,7 +6,8 @@ use super::*;
 pub const GUILD_COMMANDS: &[u16] = &[
     431, 434, 437, 440, 443, 445, 447, 449, 451, 453, 455, 457, 459, 461, 463, 465, 467, 469, 471,
     473, 475, 477, 480, 483, 486, 489, 491, 494, 499, 501, 503, 506, 508, 509, 511, 513, 515, 557,
-    560, 563, 567, 571, 575, 579, 583, 584, 588, 592, 596, 600,
+    560, 563, 567, 571, 575, 579, 583, 584, 588, 592, 596, 600, 518, 603, 606, 610, 615, 619, 621,
+    623,
 ];
 
 /// Server config read by the guild handlers (`qword_140EE58A0`, World +6208).
@@ -30,8 +31,15 @@ pub struct GuildConfig {
     pub join_renewal: bool,
     /// Config +776 byte = 1: delegate leader posts op 29, else 25.
     pub delegate_alt_op: bool,
-    /// Config +2107 byte = 1: 443 replies reason 2 (❓ level-up disabled).
+    /// Config +2107 byte = 1: guild point system on. 443 replies reason 2;
+    /// 603 and 606 reply reason 2 when it is off.
     pub level_up_disabled: bool,
+    /// Config +2116 dword: seconds between accepted 603 requests (0 = none).
+    pub guild_point_cooldown_secs: u32,
+    /// Config +2136 byte: guild benefit purchase (610) enabled.
+    pub benefit_enabled: bool,
+    /// Config +2144 byte: guild alliance (615–623) enabled.
+    pub alliance_enabled: bool,
     /// Config +2106 byte: guild bank deposit enabled.
     pub bank_enabled: bool,
     /// Config +64 signed dword: largest money deposit.
@@ -70,6 +78,19 @@ pub struct GuildWorld {
     pub guilds: BTreeMap<u64, Guild>,
     /// Missing row = native null row = not enabled.
     pub actions: BTreeMap<u32, GuildActionRow>,
+    /// Guild-manager PC lookup `0x1403F7D20(World +5824, q, 1)`.
+    /// ❓ The key may be the PC DB ID or the object ID.
+    pub players: BTreeMap<u64, GuildPlayer>,
+}
+/// Fields 583 reads from the looked-up PC.
+#[derive(Clone, Debug, Default)]
+pub struct GuildPlayer {
+    /// PC +194 name.
+    pub name: Vec<u16>,
+    /// PC +328 faction.
+    pub faction: i8,
+    /// PC +20744 DB ID.
+    pub db_id: u64,
 }
 impl GuildWorld {
     fn action_enabled(&self, guild: &Guild, row: u32) -> bool {
@@ -120,6 +141,17 @@ pub enum GuildWorkKind {
     Join {
         db_id: u64,
     },
+    /// Separate 0x120-byte GuildAllianceWSO (`0x14067C5B0`), posted with
+    /// `0x1403FB2D0`. +120 op (0 create, 1 accept, 2 reject, 3 delete),
+    /// +128/+136 first guild, +208/+216 second guild, +282 reason.
+    Alliance {
+        op: u32,
+        first_id: u64,
+        first_name: Vec<u16>,
+        second_id: u64,
+        second_name: Vec<u16>,
+        reason: u16,
+    },
 }
 #[derive(Clone, Debug, PartialEq, Eq)]
 pub struct GuildWork {
@@ -144,7 +176,7 @@ impl GuildWork {
             GuildWorkKind::DelegateLeader { alt: false, .. } => 25,
             GuildWorkKind::RejectLeader => 26,
             GuildWorkKind::ConfirmLeader => 27,
-            GuildWorkKind::Join { .. } => return None,
+            GuildWorkKind::Join { .. } | GuildWorkKind::Alliance { .. } => return None,
         })
     }
 }
@@ -192,6 +224,18 @@ pub enum GuildTaskKind {
     },
     /// 600 task (+68 = 327, size 0xA0): +144 DB ID, +152 raw value.
     InvitationRefusal { db_id: u64, value: u64 },
+    /// 603 task (+68 = 350, size 0xA8): +144 DB ID, +152 guild, +160 points.
+    AccumulatePoint { db_id: u64, points: u32 },
+    /// 606 task (+68 = 353, size 0xA0): +144 DB ID, +152 guild.
+    LevelUpWithPoint { db_id: u64 },
+    /// 610 task (+68 = 356, size 0xA8): +144 DB ID, +152 guild,
+    /// +160 benefit, +162 type, +164 duration.
+    PurchaseBenefit {
+        db_id: u64,
+        benefit: i16,
+        kind: i16,
+        duration: i32,
+    },
 }
 /// 461 decoded request. ❓ The helper outputs (Destination +148…) are not read.
 #[derive(Clone, Debug, PartialEq, Eq)]
@@ -280,6 +324,14 @@ pub(super) fn dispatch_guild(ctx: &mut Context<'_>, command: u16, req: &[u8]) ->
         592 => handle_accept_guild_invitation(ctx, req),
         596 => handle_update_guild_application_refusal(ctx, req),
         600 => handle_update_guild_invitation_refusal(ctx, req),
+        518 => handle_query_guild_info_to_gamed(ctx, req),
+        603 => handle_accumulate_guild_point(ctx, req),
+        606 => handle_guild_level_up_with_guild_point(ctx, req),
+        610 => handle_purchase_guild_benefit(ctx, req),
+        615 => handle_create_guild_alliance(ctx, req),
+        619 => handle_accept_guild_alliance(ctx, req),
+        621 => handle_reject_guild_alliance(ctx, req),
+        623 => handle_delete_guild_alliance(ctx, req),
         _ => unreachable!("guild command table"),
     }
 }
@@ -1697,17 +1749,52 @@ pub fn handle_send_guild_invitation(ctx: &mut Context<'_>, req: &[u8]) -> Outcom
     guild_side_ticket(ctx, 581, 5, req, Some(1644))
 }
 
-/// parity: 583 15-guild-handlers.md#583--g_sendguildinvitation2reqcmd--done ported
-pub fn handle_send_guild_invitation2(ctx: &mut Context<'_>, _: &[u8]) -> Outcome {
-    // Build 381 rejects every path; the reply goes to 581 (not 585).
+/// parity: 583 15-guild-handlers.md#583--g_sendguildinvitation2reqcmd--partial partial
+pub fn handle_send_guild_invitation2(ctx: &mut Context<'_>, req: &[u8]) -> Outcome {
+    // Replies go to 581 (not 585). A faction mismatch sends 1645 and the
+    // handler continues (no return in build 381).
     const R: u16 = 581;
-    if ctx.world.guild.config.join_renewal && arena_b(ctx) {
+    if !ctx.world.guild.config.join_renewal {
+        return Outcome::reason(R, 2);
+    }
+    if arena_b(ctx) {
         return Outcome::reason(R, 5);
     }
-    if ctx.world.guild.config.join_renewal && join_cooldown(ctx).is_none() {
+    let Some(now) = join_cooldown(ctx) else {
         return Outcome::reason(R, 1644);
+    };
+    let id = guild_id(ctx.pc());
+    if id == 0 {
+        return Outcome::reason(R, 2);
     }
-    Outcome::reason(R, 2)
+    let mut r = Reader(req);
+    let (Some(name), Some(key)) = (r.string(NAME_UNITS), r.quad()) else {
+        return Outcome::reason(R, 2);
+    };
+    if !nonempty(&name) || key == 0 {
+        return Outcome::reason(R, 2);
+    }
+    let Some(target) = ctx.world.guild.players.get(&key).cloned() else {
+        return Outcome::reason(R, 2);
+    };
+    if trimmed(&target.name) != trimmed(&name) {
+        return Outcome::reason(R, 2);
+    }
+    let Some(guild) = ctx.world.guild.guilds.get(&id) else {
+        return Outcome::reason(R, 2);
+    };
+    let mismatch = guild.faction != target.faction;
+    let mut out = if row18(ctx, id) {
+        let db_id = ctx.pc().db_id;
+        ticket_task(ctx, R, 5, (db_id, target.db_id, id), Some(now))
+    } else {
+        Outcome::reason(R, 2)
+    };
+    if mismatch {
+        let first = Outcome::reason(R, 1645);
+        out.replies.splice(0..0, first.replies);
+    }
+    out
 }
 
 /// parity: 584 15-guild-handlers.md#584--g_cancelguildinvitationreqcmd--partial partial
@@ -1798,4 +1885,255 @@ pub fn handle_update_guild_invitation_refusal(ctx: &mut Context<'_>, req: &[u8])
         },
     };
     queue_shared(ctx, task, R)
+}
+
+/// parity: 518 15-guild-handlers.md#518--g_queryguildinfotogamedreqcmd--partial partial
+pub fn handle_query_guild_info_to_gamed(ctx: &mut Context<'_>, req: &[u8]) -> Outcome {
+    // ❓ 519 `hiCqQsCc;;` leading `i` and record tail are not read.
+    const R: u16 = 520;
+    if arena_a(ctx) {
+        return Outcome::reason(R, 5);
+    }
+    let mut r = Reader(req);
+    let Some(count) = r.byte() else {
+        return Outcome::reason(R, 2);
+    };
+    if count > 50 {
+        return Outcome::reason(R, 2);
+    }
+    for _ in 0..count {
+        if r.quad().unwrap_or(0) == 0 {
+            return Outcome::reason(R, 2);
+        }
+    }
+    boundary("❓ 519 guild info list compose")
+}
+
+/// Guild point and benefit tasks: zone, native kind 1, then queue.
+fn point_task(ctx: &mut Context<'_>, reply: u16, kind: GuildTaskKind) -> Outcome {
+    let pc = ctx.pc().clone();
+    let Some(zone) = pc.zone else {
+        return Outcome::reason(reply, 2);
+    };
+    if pc.native_kind != 1 || pc.db_id == 0 || pc.guild_id == 0 {
+        return Outcome::reason(reply, 2);
+    }
+    let task = GuildTask {
+        command: reply - 2,
+        caster: pc.object_id,
+        zone,
+        guild_id: pc.guild_id,
+        kind,
+    };
+    queue_task(ctx, task, reply)
+}
+
+/// parity: 603 15-guild-handlers.md#603--g_accumulateguildpointreqcmd--done ported
+pub fn handle_accumulate_guild_point(ctx: &mut Context<'_>, req: &[u8]) -> Outcome {
+    const R: u16 = 605;
+    let cfg = &ctx.world.guild.config;
+    if !cfg.level_up_disabled {
+        return point_reply(R, 2);
+    }
+    let wait = u64::from(cfg.guild_point_cooldown_secs) * 1000;
+    if arena_b(ctx) {
+        return point_reply(R, 5);
+    }
+    let now = ctx.world.tick;
+    if wait != 0 && ctx.pc().guild_point_tick + wait > now {
+        return point_reply(R, 1658);
+    }
+    let Some(points) = Reader(req).int() else {
+        return point_reply(R, 2);
+    };
+    let id = guild_id(ctx.pc());
+    if id == 0 {
+        return point_reply(R, 2);
+    }
+    if !ctx.world.guild.guilds.contains_key(&id) {
+        return point_reply(R, 1659);
+    }
+    if !ctx
+        .world
+        .guild
+        .action_enabled(&ctx.world.guild.guilds[&id], 19)
+    {
+        return point_reply(R, 2);
+    }
+    if points == 0 {
+        return point_reply(R, 2);
+    }
+    let db_id = ctx.pc().db_id;
+    let mut out = point_task(ctx, R, GuildTaskKind::AccumulatePoint { db_id, points });
+    for reply in &mut out.replies {
+        reply.body.extend(0u64.to_le_bytes());
+    }
+    if matches!(out.changes.first(), Some(StateChange::Queued(_))) {
+        if let Some(pc) = ctx.session.pc.as_mut() {
+            pc.guild_point_tick = now;
+        }
+    }
+    out
+}
+/// 605 is `hEq`; build 381 never sets the q argument (❓ stale stack value).
+/// This port sends 0.
+fn point_reply(reply: u16, reason: u16) -> Outcome {
+    let mut out = Outcome::reason(reply, reason);
+    for r in &mut out.replies {
+        r.body.extend(0u64.to_le_bytes());
+    }
+    out
+}
+
+/// parity: 606 15-guild-handlers.md#606--g_guildlevelupwithguildpointreqcmd--done ported
+pub fn handle_guild_level_up_with_guild_point(ctx: &mut Context<'_>, _: &[u8]) -> Outcome {
+    const R: u16 = 608;
+    if !ctx.world.guild.config.level_up_disabled {
+        return Outcome::reason(R, 2);
+    }
+    let db_id = ctx.pc().db_id;
+    point_task(ctx, R, GuildTaskKind::LevelUpWithPoint { db_id })
+}
+
+/// parity: 610 15-guild-handlers.md#610--g_purchaseguildbenefitreqcmd--done ported
+pub fn handle_purchase_guild_benefit(ctx: &mut Context<'_>, req: &[u8]) -> Outcome {
+    const R: u16 = 612;
+    if !ctx.world.guild.config.benefit_enabled {
+        return Outcome::reason(R, 2);
+    }
+    if arena_b(ctx) {
+        return Outcome::reason(R, 5);
+    }
+    let mut r = Reader(req);
+    let (Some(benefit), Some(kind), Some(duration)) = (r.short(), r.short(), r.int()) else {
+        return Outcome::reason(R, 2);
+    };
+    let (benefit, kind, duration) = (benefit as i16, kind as i16, duration as i32);
+    if benefit <= 0 || !(1..=2).contains(&kind) || duration < 0 {
+        return Outcome::reason(R, 2);
+    }
+    let db_id = ctx.pc().db_id;
+    let task = GuildTaskKind::PurchaseBenefit {
+        db_id,
+        benefit,
+        kind,
+        duration,
+    };
+    point_task(ctx, R, task)
+}
+
+/// Gates shared by 615–623: enabled → 2, arena form B → 5, own guild → 2.
+/// Err = the failure reason.
+fn alliance_gates(ctx: &Context<'_>) -> Result<(u64, Vec<u16>), u16> {
+    if !ctx.world.guild.config.alliance_enabled {
+        return Err(2);
+    }
+    if arena_b(ctx) {
+        return Err(5);
+    }
+    let id = guild_id(ctx.pc());
+    guild_named(ctx, id).ok_or(2)
+}
+fn alliance_post(
+    ctx: &mut Context<'_>,
+    reply: u16,
+    op: u32,
+    first: (u64, Vec<u16>),
+    second: (u64, Vec<u16>),
+    reason: u16,
+) -> Outcome {
+    let pc = ctx.pc().clone();
+    if pc.db_id == 0 || first.0 == 0 || second.0 == 0 || !nonempty(&first.1) || !nonempty(&second.1)
+    {
+        return Outcome::reason(reply, 2);
+    }
+    let work = GuildWork {
+        guild_id: pc.guild_id,
+        requester: pc.db_id,
+        kind: GuildWorkKind::Alliance {
+            op,
+            first_id: first.0,
+            first_name: first.1,
+            second_id: second.0,
+            second_name: second.1,
+            reason,
+        },
+    };
+    post(ctx, work, Outcome::reason(reply, 2))
+}
+fn guild_named(ctx: &Context<'_>, id: u64) -> Option<(u64, Vec<u16>)> {
+    let g = ctx.world.guild.guilds.get(&id)?;
+    Some((id, trimmed(&g.name).to_vec()))
+}
+
+/// parity: 615 15-guild-handlers.md#615--g_createguildalliancereqcmd--done ported
+pub fn handle_create_guild_alliance(ctx: &mut Context<'_>, req: &[u8]) -> Outcome {
+    const R: u16 = 617;
+    let own = match alliance_gates(ctx) {
+        Ok(own) => own,
+        Err(reason) => return Outcome::reason(R, reason),
+    };
+    let Some(name) = Reader(req).string(NAME_UNITS) else {
+        return Outcome::reason(R, 2);
+    };
+    if !nonempty(&name) {
+        return Outcome::reason(R, 2);
+    }
+    let found = ctx
+        .world
+        .guild
+        .guilds
+        .iter()
+        .find(|(_, g)| trimmed(&g.name) == trimmed(&name))
+        .map(|(id, _)| *id);
+    let Some(ally) = found else {
+        return Outcome::reason(R, 1668);
+    };
+    if ally == own.0 {
+        return Outcome::reason(R, 1669);
+    }
+    let name = trimmed(&name).to_vec();
+    alliance_post(ctx, R, 0, own, (ally, name), 0)
+}
+
+/// 619/623 shape: (q) names the other guild.
+fn alliance_by_id(ctx: &mut Context<'_>, reply: u16, op: u32, req: &[u8]) -> Outcome {
+    let own = match alliance_gates(ctx) {
+        Ok(own) => own,
+        Err(reason) => return Outcome::reason(reply, reason),
+    };
+    let Some(key) = Reader(req).quad() else {
+        return Outcome::reason(reply, 2);
+    };
+    let Some(other) = guild_named(ctx, key) else {
+        return Outcome::reason(reply, 2);
+    };
+    if op == 3 {
+        alliance_post(ctx, reply, op, own, other, 0)
+    } else {
+        alliance_post(ctx, reply, op, other, own, 0)
+    }
+}
+
+/// parity: 619 15-guild-handlers.md#619--g_acceptguildalliancereqcmd--done ported
+pub fn handle_accept_guild_alliance(ctx: &mut Context<'_>, req: &[u8]) -> Outcome {
+    alliance_by_id(ctx, 620, 1, req)
+}
+
+/// parity: 621 15-guild-handlers.md#621--g_rejectguildalliancereqcmd--partial partial
+pub fn handle_reject_guild_alliance(ctx: &mut Context<'_>, req: &[u8]) -> Outcome {
+    // ❓ `Q` wire width of the reason (stored as a word at +282).
+    const R: u16 = 622;
+    if let Err(reason) = alliance_gates(ctx) {
+        return Outcome::reason(R, reason);
+    }
+    if Reader(req).quad().is_none() {
+        return Outcome::reason(R, 2);
+    }
+    boundary("❓ 621 `Q` reason wire width")
+}
+
+/// parity: 623 15-guild-handlers.md#623--g_deleteguildalliancereqcmd--done ported
+pub fn handle_delete_guild_alliance(ctx: &mut Context<'_>, req: &[u8]) -> Outcome {
+    alliance_by_id(ctx, 625, 3, req)
 }

@@ -1019,3 +1019,233 @@ fn refusal_flags() {
     assert_eq!(reason(&h.run(596, &q(1))), Some((598, 5)));
     assert_eq!(reason(&h.run(600, &q(1))), Some((602, 5)));
 }
+
+#[test]
+fn send_guild_invitation2() {
+    let mut h = jr();
+    h.world.guild.players.insert(
+        0x42,
+        GuildPlayer {
+            name: name("Bob"),
+            faction: 1,
+            db_id: 0x8800,
+        },
+    );
+    let body = [s("Bob"), q(0x42)].concat();
+    assert!(h.run(583, &body).replies.is_empty());
+    assert_eq!(ticket(&h), (5, DB_ID, 0x8800, GUILD));
+    assert_eq!(h.pc().join_request_tick, 100_000);
+    assert_eq!(reason(&h.run(583, &body)), Some((581, 1644)));
+    h.world.tick += 20_000;
+    assert_eq!(
+        reason(&h.run(583, &[s("Ann"), q(0x42)].concat())),
+        Some((581, 2))
+    );
+    assert_eq!(
+        reason(&h.run(583, &[s("Bob"), q(0x43)].concat())),
+        Some((581, 2))
+    );
+    assert_eq!(
+        reason(&h.run(583, &[s("Bob"), q(0)].concat())),
+        Some((581, 2))
+    );
+    assert_eq!(reason(&h.run(583, &s("Bob"))), Some((581, 2)));
+    // Faction mismatch: 1645 first, then the handler continues.
+    h.world.guild.players.get_mut(&0x42).unwrap().faction = 2;
+    let out = h.run(583, &body);
+    assert_eq!(out.replies.len(), 1);
+    assert_eq!(reason(&out), Some((581, 1645)));
+    assert!(out
+        .changes
+        .iter()
+        .any(|c| matches!(c, StateChange::GuildTaskQueued(_))));
+    h.world.tick += 20_000;
+    h.pc().guild_id = OPEN; // row 18 off: 1645 then 2
+    let out = h.run(583, &body);
+    assert_eq!(out.replies.len(), 2);
+    h.pc().guild_id = 0;
+    assert_eq!(reason(&h.run(583, &body)), Some((581, 2)));
+    h.world.arena = true;
+    assert_eq!(reason(&h.run(583, &body)), Some((581, 5)));
+    h.world.guild.config.join_renewal = false;
+    assert_eq!(reason(&h.run(583, &body)), Some((581, 2)));
+}
+
+#[test]
+fn query_guild_info_to_gamed() {
+    let mut h = H::new();
+    assert!(unsupported(
+        &h.run(518, &[[2u8].to_vec(), q(1), q(2)].concat())
+    ));
+    assert_eq!(
+        reason(&h.run(518, &[[2u8].to_vec(), q(1), q(0)].concat())),
+        Some((520, 2))
+    );
+    assert_eq!(
+        reason(&h.run(518, &[[1u8].to_vec()].concat())),
+        Some((520, 2))
+    );
+    assert_eq!(reason(&h.run(518, &[51u8])), Some((520, 2)));
+    assert_eq!(reason(&h.run(518, &[])), Some((520, 2)));
+    h.world.arena = true;
+    assert_eq!(reason(&h.run(518, &[0u8])), Some((520, 5)));
+}
+
+fn gp() -> H {
+    let mut h = H::new();
+    h.pc().native_kind = 1;
+    h.world.guild.config.level_up_disabled = true;
+    h.world.guild.config.guild_point_cooldown_secs = 5;
+    h.world.guild.config.benefit_enabled = true;
+    h.world.tick = 50_000;
+    h.world.guild.actions.insert(
+        19,
+        GuildActionRow {
+            normal: true,
+            open: false,
+        },
+    );
+    h
+}
+
+#[test]
+fn accumulate_guild_point() {
+    let mut h = gp();
+    let pts = 30u32.to_le_bytes();
+    assert!(h.run(603, &pts).replies.is_empty());
+    assert_eq!(
+        last_task(&h),
+        &GuildTaskKind::AccumulatePoint {
+            db_id: DB_ID,
+            points: 30
+        }
+    );
+    assert_eq!(h.pc().guild_point_tick, 50_000);
+    let out = h.run(603, &pts);
+    assert_eq!(reason(&out), Some((605, 1658)));
+    assert_eq!(out.replies[0].body.len(), 10);
+    h.world.tick = 60_000;
+    assert_eq!(reason(&h.run(603, &0u32.to_le_bytes())), Some((605, 2)));
+    assert_eq!(reason(&h.run(603, &[1])), Some((605, 2)));
+    h.pc().guild_id = 0x9999;
+    assert_eq!(reason(&h.run(603, &pts)), Some((605, 1659)));
+    h.pc().guild_id = OPEN;
+    assert_eq!(reason(&h.run(603, &pts)), Some((605, 2)));
+    h.pc().guild_id = 0;
+    assert_eq!(reason(&h.run(603, &pts)), Some((605, 2)));
+    h.pc().guild_id = GUILD;
+    h.services.guild.queue_result = Gate::Fail;
+    assert_eq!(reason(&h.run(603, &pts)), Some((605, 2)));
+    assert_eq!(h.pc().guild_point_tick, 50_000);
+    h.world.arena = true;
+    assert_eq!(reason(&h.run(603, &pts)), Some((605, 5)));
+    h.world.guild.config.level_up_disabled = false;
+    assert_eq!(reason(&h.run(603, &pts)), Some((605, 2)));
+}
+
+#[test]
+fn level_up_and_benefit() {
+    let mut h = gp();
+    assert!(h.run(606, &[]).replies.is_empty());
+    assert_eq!(
+        last_task(&h),
+        &GuildTaskKind::LevelUpWithPoint { db_id: DB_ID }
+    );
+    let body = |b: i16, k: i16, d: i32| {
+        [
+            b.to_le_bytes().to_vec(),
+            k.to_le_bytes().to_vec(),
+            d.to_le_bytes().to_vec(),
+        ]
+        .concat()
+    };
+    assert!(h.run(610, &body(7, 2, 3600)).replies.is_empty());
+    assert_eq!(
+        last_task(&h),
+        &GuildTaskKind::PurchaseBenefit {
+            db_id: DB_ID,
+            benefit: 7,
+            kind: 2,
+            duration: 3600
+        }
+    );
+    for bad in [
+        body(0, 1, 1),
+        body(7, 3, 1),
+        body(7, 0, 1),
+        body(7, 1, -1),
+        vec![1, 0],
+    ] {
+        assert_eq!(reason(&h.run(610, &bad)), Some((612, 2)));
+    }
+    h.pc().native_kind = 0;
+    assert_eq!(reason(&h.run(606, &[])), Some((608, 2)));
+    assert_eq!(reason(&h.run(610, &body(7, 1, 1))), Some((612, 2)));
+    h.pc().native_kind = 1;
+    h.pc().zone = None;
+    assert_eq!(reason(&h.run(606, &[])), Some((608, 2)));
+    h.world.arena = true;
+    assert_eq!(reason(&h.run(610, &body(7, 1, 1))), Some((612, 5)));
+    h.world.guild.config.benefit_enabled = false;
+    assert_eq!(reason(&h.run(610, &body(7, 1, 1))), Some((612, 2)));
+    h.world.guild.config.level_up_disabled = false;
+    assert_eq!(reason(&h.run(606, &[])), Some((608, 2)));
+}
+
+#[test]
+fn guild_alliance() {
+    let mut h = H::new();
+    h.world.guild.config.alliance_enabled = true;
+    let out = h.run(615, &s("Open"));
+    assert!(out.replies.is_empty());
+    assert_eq!(
+        posted(&out).map(|w| w.kind.clone()),
+        Some(GuildWorkKind::Alliance {
+            op: 0,
+            first_id: GUILD,
+            first_name: name("[Old]Guild"),
+            second_id: OPEN,
+            second_name: name("Open"),
+            reason: 0,
+        })
+    );
+    assert_eq!(reason(&h.run(615, &s("Nobody"))), Some((617, 1668)));
+    assert_eq!(reason(&h.run(615, &s("[Old]Guild"))), Some((617, 1669)));
+    assert_eq!(reason(&h.run(615, &s(""))), Some((617, 2)));
+    let out = h.run(619, &q(OPEN));
+    match &posted(&out).unwrap().kind {
+        GuildWorkKind::Alliance {
+            op,
+            first_id,
+            second_id,
+            ..
+        } => {
+            assert_eq!((*op, *first_id, *second_id), (1, OPEN, GUILD));
+        }
+        other => panic!("{other:?}"),
+    }
+    let out = h.run(623, &q(OPEN));
+    match &posted(&out).unwrap().kind {
+        GuildWorkKind::Alliance {
+            op,
+            first_id,
+            second_id,
+            ..
+        } => {
+            assert_eq!((*op, *first_id, *second_id), (3, GUILD, OPEN));
+        }
+        other => panic!("{other:?}"),
+    }
+    assert_eq!(reason(&h.run(619, &q(0x9999))), Some((620, 2)));
+    assert_eq!(reason(&h.run(623, &[])), Some((625, 2)));
+    assert!(unsupported(&h.run(621, &[q(OPEN), q(1)].concat())));
+    assert_eq!(reason(&h.run(621, &[])), Some((622, 2)));
+    h.services.guild.post_result = Gate::Fail;
+    assert_eq!(reason(&h.run(615, &s("Open"))), Some((617, 2)));
+    h.pc().guild_id = 0;
+    assert_eq!(reason(&h.run(619, &q(OPEN))), Some((620, 2)));
+    h.world.arena = true;
+    assert_eq!(reason(&h.run(623, &q(OPEN))), Some((625, 5)));
+    h.world.guild.config.alliance_enabled = false;
+    assert_eq!(reason(&h.run(621, &q(OPEN))), Some((622, 2)));
+}

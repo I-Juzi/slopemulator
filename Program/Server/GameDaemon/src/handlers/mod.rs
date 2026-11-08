@@ -253,6 +253,8 @@ pub struct Pc {
     pub uniform_faction_blocked: bool,
     /// PC +20880: tick of the last accepted 563/579 request.
     pub join_request_tick: u64,
+    /// PC +20888: tick of the last accepted 603 request.
+    pub guild_point_tick: u64,
     /// PC +890 bit 1: guild invitation refusal.
     pub guild_invitation_refusal: bool,
 }
@@ -299,6 +301,7 @@ impl Default for Pc {
             user_present: false,
             uniform_faction_blocked: false,
             join_request_tick: 0,
+            guild_point_tick: 0,
             guild_invitation_refusal: false,
         }
     }
