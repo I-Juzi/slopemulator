@@ -170,3 +170,41 @@ New codecs: `Program/Server/Packet/src/game_requests.rs`. This separate API cove
 **TODO ❓:** Full handshake acceptance and command 24; complete command 32; world-entry destination and failure cleanup; all EnterZoneTask effects; movement duration history, speed/height/transition integration and broadcasts; turn bounds and unknown wrapper failure arguments; activated-property metadata and mutation; base-camp helper; party manager predicates and notifications; channel restriction branches and LeaveAction routing; cached option persistence; auto-logout report destination; unchecked malformed echo bits; QQ interface effects; contents-cache construction; direct-zone tasks; jumping-ticket transaction; ClientRun reports; air-dash start/effect helpers; teleport event/table/cost/travel chain; cave-escape reservation/disposal and destination chain. These paths remain unsupported. No incomplete command 32, arbitrary-coordinate warp or synthetic broadcast command was added.
 
 Restricted hooks remain address comments only: `0x1403710A5` / `0x14036DE10`, `0x140371AC8`, `0x1403721D5`, `0x1405DF767`, `0x140394181`, `0x140394427` / `0x14060E280`, `0x1403895C7` / `0x1403EAB50`. The private-object boundary `0x1406E3100` remains excluded. No anti-cheat, licence, socket, network or Git operation ran. No other Docs file was changed. No live-client acceptance test ran.
+
+## gs2 — 2026-11-08
+
+Build 381.8867 supplies behavior. Build 348.8349 supplies names only. This job closes verified subsets, not all 30 handlers. World entry remains blocked by command 32. No live-client acceptance test ran.
+
+| ID | Spec before → after | Rust before → after | Verified change or limit |
+| --- | --- | --- | --- |
+| 11 | partial → partial | partial → partial | Correct processor assignment; opaque operation; ordered reply/activation; UTF-16 NUL comparison. |
+| 23 | partial → partial | partial → partial | Lobby 5 request; state-1 failure mapping; guarded callback plans; complete command-24 codec. |
+| 31 | partial → partial | partial → partial | Correct bit-8-only MobileZone branch; retain entry latch; no guessed command 32. |
+| 42 | partial → partial | partial → partial | Missing action 44/2; wrong state 44/1149; mismatch 44/1150; preserve queue order. |
+| 64 | partial → partial | partial → partial | Document PC/summon initializer order; retain duration/action integration boundary. |
+| 66 | partial → partial | partial → partial | Wrapper failures use 67/2 and original selector; task bounds stay runtime-owned. |
+| 18 | partial → partial | partial → ported | Receive/store pair and native-false result; restricted call remains excluded. |
+| 99 | partial → partial | partial → partial | Append server-supplied packed property once; verified zero-byte fetch failure is distinct from a counted empty field. |
+| 145 | partial → partial | partial → partial | Document destination-selection subset and LeaveAction mode 3/reason 4. |
+| 411 | partial → done | partial → partial | Resolve LogArchive sink; redacted report ID 1009/detail; no logout. Unknown queue adapter remains unsupported. |
+| 929 | partial → partial | partial → partial | Signed tick checks and pre-send tick mutation; cache/reload owner; success command 930. |
+| 981 | partial → partial | partial → partial | Ordered task prefix and reasons; type 2 fails with 983/3; do not authorize travel. |
+| 984 | partial → partial | partial → partial | Require native PC kind; document deferred flag/helper/attraction paths. |
+| 1210 | partial → partial | partial → ported | Redacted report ID 1042 and two raw request bytes; no movement mutation. |
+| 26, 102, 174, 262, 296, 298, 300, 303, 305, 648, 809, 887, 1149, 1219, 1223, 1239 | partial → partial | partial → partial | Existing unresolved paths remain explicit. No new rule was added. |
+
+**Counts:** Among the 30 target handlers, 29 specs remain partial and 28 Rust handlers remain partial. Across all 43 handlers, 14 specs are done and 15 Rust handlers are ported. A ported receive plan is not a complete transport, archive or backend implementation.
+
+**Tests:** The approved baseline run passed 443 tests with 6 ignored. Added 33 generated tests: 23 session tests, 6 movement tests and 4 codec tests. The token-failure test covers all 65,536 backend short values. Existing Turn tests now assert the verified reply bytes. Existing contents tests now assert the verified tick mutation. No test was removed or weakened.
+
+**Checks:** Final workspace tests passed: 476 passed, 0 failed, 6 ignored. Strict workspace Clippy passed. Formatting passed for gamedaemon and packet. Earlier runs found an import-name collision and signed-short codec mismatches; both were fixed before the final pass. Only these approved command forms ran:
+
+```sh
+cargo test --manifest-path bns-server/Cargo.toml --workspace
+cargo clippy --manifest-path bns-server/Cargo.toml --workspace --all-targets -- -D warnings
+cargo fmt --manifest-path bns-server/Cargo.toml -p gamedaemon -p packet
+```
+
+**Remaining ❓:** Hello framing/processor acceptance and false-return session consequences; later token recovery/charge/DB/rollback paths; full command 32 and world-entry destination/spawn cleanup; EnterZone appearance/summon continuations; Move duration/action/speed/height/transition integration; Turn metadata record types and broadcast framing; activated-property metadata/mutation/persistence; base-camp override predicates and travel; party/team mutations and notifications; channel routing/restrictions; option persistence; arena-return backend completion; malformed native echo bits; QQ interface effects; contents fragment/config/null-cache contracts; direct-zone authorization and travel; jumping-ticket transaction; ClientRun byte meanings/archive layout; air-dash helpers; teleport event/cost/travel chain; cave-escape reservation/disposal/travel chain. Each handler keeps its address-backed gap list in docs 10 or 11.
+
+**Scope:** Both permitted IDA leases are closed. No explicit database save, binary mutation, Git command or network tool ran. No restricted integration or licence code was implemented. No key material was extracted. The parity ledger and item-handler spec were not edited. Source edits stay in docs 10/11, GameDaemon, new Packet codecs and this appended section.

@@ -100,7 +100,7 @@ fn unavailable_quota_operation_echoes_only_the_two_quads() {
     );
 }
 #[test]
-fn turn_missing_zone_preserves_request_selector_and_yaw_failure_is_unknown() {
+fn turn_missing_zone_and_invalid_yaw_preserve_request_selector() {
     let mut pc = ready();
     pc.zone = None;
     let out = invoke(66, &[42, 1, 0], pc, World::default(), &mut services());
@@ -113,8 +113,10 @@ fn turn_missing_zone_preserves_request_selector_and_yaw_failure_is_unknown() {
         World::default(),
         &mut services(),
     );
-    assert!(matches!(out.status, Status::Unsupported(_)));
-    assert!(out.replies.is_empty());
+    assert_eq!(out.status, Status::Handled);
+    assert_eq!(reason(&out), (67, 2));
+    assert_eq!(out.replies[0].body, vec![2, 0, 0]);
+    assert!(out.changes.is_empty());
 }
 #[test]
 fn queued_request_keeps_raw_pose_without_authorizing_a_warp() {
@@ -156,6 +158,8 @@ fn selector_one_requires_valid_summon_control_even_when_summon_exists() {
         yaw: 0,
     });
     let out = invoke(66, &[1, 0, 0], pc, World::default(), &mut services());
-    assert!(matches!(out.status, Status::Unsupported(_)));
-    assert!(out.replies.is_empty());
+    assert_eq!(out.status, Status::Handled);
+    assert_eq!(reason(&out), (67, 2));
+    assert_eq!(out.replies[0].body, vec![2, 0, 1]);
+    assert!(out.changes.is_empty());
 }

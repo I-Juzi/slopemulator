@@ -4,7 +4,7 @@
 
 This file extends doc 07, Step 5 part 1. It does not replace that exact subset.
 Build 348.8349 supplies names. Build 381 supplies IDs and behavior.
-This is a static spec. No Rust change or client test ran.
+This is a static spec. Rust plan changes and generated tests are recorded in STATUS.md. No live-client test ran.
 `done` means that all game-logic paths were read. `partial` lists unread paths.
 Full formats include command `h`. They exclude the outer size field.
 See doc 10 for scalar widths and dispatch rules.
@@ -36,11 +36,12 @@ Teleport-action broadcast helper `0x14023C550` and cave-escape helper `0x1402411
 - **Wire:** `hch`: command, control selector, yaw. Decode return is ignored.
 - **Checks/order:** Selector 1 selects PC summon +36880 only if summon state +6984 is 1 or 2. Any other selector selects the PC. Require selected creature and its zone +2224. Allocate TurnTask. Require unsigned yaw <=359. Attach task and queue.
 - **State:** Store yaw at task +144. No direct yaw update in the wrapper. Task vtable `0x140BB54D0`.
-- **Failure:** Send 67, `hEc`, to the selected creature's owner. Missing zone explicitly sends reason 2 and request selector. Failed creature resolution sends through the PC. ❓ Other reason/selector arguments are omitted by the decompiler.
+- **Failure:** Send 67, `hEc`, to the selected creature's owner. Missing zone explicitly sends reason 2 and request selector. Failed creature resolution sends through the PC. Missing creature, invalid yaw and queue failure all use reason 2 and the original request selector. Instructions at `0x14038BA33..0x14038BA53` and `0x14038BC00..0x14038BC20` verify these arguments.
 - **Output/calls:** No immediate success reply, broadcast or daemon call. Return true.
 - **Task `0x140291D00`:** Clamp requested yaw to signed global bounds at `qword_140EE5418` +18928/+18936. Set caster property 102 through `0x140696F20`; if changed, add property change through `0x140273E10`. Call property broadcast `0x140260850`. Queue movement broadcast through `0x140236820`, centered at current position, with authoritative object ID/pose/yaw, duration zero, standing-social zero and one MoveType record. Its type is 1; startTime/startCell/diffx/diffy/diffz/eventJump are zero. Failure for caster native kinds 1..3 sends 67, `hEc`, with selector from caster virtual +600.
 - **Deferred failure:** Task failure sends reason 168, verified at `0x140291E33`. The selector comes from caster virtual +600, not necessarily the original request byte.
-- **❓ Missing:** Movement broadcast format/recipients, property broadcast details, exact global bound names and omitted wrapper failure arguments. No table check in wrapper.
+- **Bound source:** The task reads signed shorts at `qword_140EE5418` +18928/+18936. The 348 name guide `Creature::HandleYaw`, `0x14026CDE0`, identifies property 102 and its metadata bounds. ❓ The exact build-381 metadata record stride and stored bound types need independent verification. Do not replace runtime metadata with an assumed 0..359 task clamp; 0..359 is the separate wrapper gate.
+- **❓ Missing:** Complete movement broadcast framing/recipients and property broadcast details. No table check in wrapper. Malformed unchecked decode can leave native locals undefined.
 
 ## 99 — G_ActivatedTeleportListReqCmd — partial
 
@@ -50,6 +51,7 @@ Teleport-action broadcast helper `0x14023C550` and cave-escape helper `0x1402411
 - **State/output:** The wrapper changes only task state and child relation. Missing zone or queue failure sends 101, `hh`, reason 2 to requester. Both reason arguments are verified in instructions. Return true. No immediate success or broadcast.
 - **Task `0x1402962B0`:** Send 100, `hb`, to requester through PC packet-send virtual +584. Command immediate 100 is verified at `0x140296375`. `Pc::FetchActivatedTeleport`, `0x1405FE680`, obtains packed property field 1 from ActivatedTeleport at PC +29496 through `0x140697E50`. It returns the packed byte count, or zero on helper failure. The returned block is appended directly. Do not insert a second length prefix without the packed-property codec.
 - **Packed body:** For the byte-array metadata types 13/14, shared reader `0x140697E50` writes signed-16 byte length followed by the raw flag bytes. Thus command 100 has one b block, not two. Bit mapping is in command 102. On metadata/capacity failure, FetchActivatedTeleport returns zero and the task still sends its assembled packet. Queue failure reason is 2, verified at `0x14038293B`.
+- **Rust boundary:** After queue success, `Services::activated_teleport` supplies exact packed bytes, verified fetch failure or Unknown. Append supplied bytes once. Verified fetch failure produces command 100 without a body, not a fabricated zero-length b field. Unknown metadata remains unsupported. The native buffer permits at most 3996 packed bytes after size/command.
 - **❓ Missing:** ActivatedTeleport field-definition source and malformed/unavailable property contract. No task broadcast or direct backend request. Storage is `_activatedTeleportList` in 348.
 
 ## 102 — G_DetectTeleportSwitchReqCmd — partial
@@ -69,7 +71,9 @@ Teleport-action broadcast helper `0x14023C550` and cave-escape helper `0x1402411
 - **Checks/order:** Require zone. Create ReturnToBaseCampTask, vtable `0x140BC1778`. Attach and queue through common setup.
 - **State/output:** No direct location change. Missing zone or failed queue sends 146, `hh`, reason 2 to requester. Return true. No immediate success or broadcast.
 - **Task `0x140291C80`:** For parent native kind 1, call `Pc::ReturnToBaseCamp` at `0x1405E6EE0` with second argument zero. If it returns false, send 146, `hh`, reason 284. Other parent kinds do nothing in the task.
-- **❓ Missing:** ReturnToBaseCamp helper, camp eligibility and destination selection, data tables, spawn chain, success outputs and DB/daemon work.
+- **Helper subset `0x1405E6EE0`:** Require current zone and destination selection through `0x1405EF5E0`. Resolve geo-zone through table slot 3343 and a nonzero matching respawn index. For request 145, create LeaveAction class 3, mode 3, movement reason 4. Resolve named return-leave/return-enter records through table slot 2703. Initialize with `0x1404C2920`, then post with `0x1404C3090`. Failure returns false. Posting does not prove completed travel.
+- **Destination selector subset `0x1405EF5E0`:** Zone +16816 and attraction kinds 6/10 have override paths. The ordinary path scans slot-3255 records in the current geo-zone. It prefers the nearest faction-matching record, then the nearest unrestricted record. Distance uses signed XYZ and squared 64-bit arithmetic. If neither exists, try the geo-zone default/faction respawn key; if that lookup fails, use the nearest scanned record regardless of faction. Missing all candidates returns false. The faction source can change through `0x140256360`.
+- **❓ Missing:** Override helper predicates, faction-switch predicate, table field names/constraints, spawn chain, success outputs and DB/daemon work.
 
 ## 296 — G_EnterPortalReqCmd — partial
 
@@ -104,7 +108,8 @@ Teleport-action broadcast helper `0x14023C550` and cave-escape helper `0x1402411
 - **Checks/order:** Decode success only. No movement action, coordinate input or rate check appears in this wrapper.
 - **State/calls:** Build a server-side report through `0x14060D810`. Obtain optional user metadata. Pass report fields and both request bytes to `0x140368150`. Release temporary storage and user reference.
 - **Failure/output:** Decode failure logs only. Return true. No direct client reply, broadcast or game-position mutation.
-- **❓ Missing:** Meaning of the bytes, report-helper side effects and final logging/backend call. Do not treat the command name as proof that it starts running.
+- **Report sink:** Instructions in `0x140368150` call `GetLocalTime` and `0x1406A2FC0` at `0x1403684E7`. Report ID 1042 is a log identifier, not a client command. The shared sink uses optional LogArchive global `0x140F77BB8`; it composes a type-5 archive record through `0x1406C0E50` and queues through `0x1406AE790` on archive +48. No archive means no work. No game reply or movement mutation occurs. Queueing does not prove archive delivery. The Rust plan retains the two raw request bytes and the report ID; it omits identity, address and formatted PC metadata.
+- **❓ Missing:** Meaning of the two bytes and the complete archive record layout. Do not treat the command name as proof that it starts running.
 
 ## 1221 — G_WarpToPosReqCmd — done
 
@@ -133,6 +138,7 @@ Teleport-action broadcast helper `0x14023C550` and cave-escape helper `0x1402411
 - **STOP:** After fixed decode, the user movement-count block matches 348 `User::CheckBotMovePacketReceived` / `CheckBotSummonedMovePacketReceived`. It is inlined in 381 before controlled-creature resolution. Call instruction `0x1403895C7` targets `0x1403EAB50`. This anti-bot path is excluded. Do not port its internals from this spec.
 - **Ordered ordinary checks:** Fixed decode (reason 2); selector 1 resolves summon +36880 only in state 1 or 2, all other selectors resolve PC (2); summon native kind 2 with entry +6960 and race byte +56 equal to 11 rejects (166); unsigned move-type count <=12 (103); decode each move-type entry (2); unsigned cell count <=36 (2); decode cells (2), but incremented parsed count >=36 rejects (102); actual cell count must equal declared count (102); selected creature must have zone (2).
 - **Action routing:** Native kind 1 creates class 34 and calls PC initializer `0x14048A1E0`. Kind 2 creates class 51 and calls summon initializer `0x140490430`. Other kinds return true without action. Create/initialize/queue failure sends corrective reason 2. PC initialization gets all fixed fields, both arrays and broadcast. Summon initialization omits UU coordinates. Queue through `0x140254FD0`.
+- **Initializer order:** PC initializer `0x14048A1E0` requires matching zones, kind 1..3, 1..36 cells, duration <=550 and 1..12 move types. For kind 1, duration helper `0x1405D87D0` must pass before common initialization. Summon initializer `0x140490430` requires kind 2 and the same count/duration bounds; it calls that helper but ignores its return. It does not copy UU coordinates. Do not apply the PC rejection rule to the summon path.
 - **State/checks:** Extend doc 07 Step 5 part 1 for duration <=550, type transitions, speed bounds, height validation and duration history. Its PC start `0x14048A890`, transition `0x14048C0B0`, height `0x14048CDB0`, summon start `0x140490A80` and duration-history helper `0x1405D87D0` remain the evidence source. Do not replace those checks with distance alone.
 - **Failure/output:** `0x14038BE00` sends 65, `hEchhhh`, reason, controlled selector and authoritative x/y/z/yaw to selected creature's owner. Fixed-decode or creature-resolution failure targets PC. Return true after each handled path. No direct DB/other-daemon request or user-manager kick in ordinary wrapper.
 - **❓ Missing:** All action continuations and interruption branches, complete cell loader and transition predicates, successful movement broadcast ID/body/recipients, and backend effects. This is not a complete movement implementation spec.

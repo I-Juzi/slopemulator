@@ -149,30 +149,26 @@ pub fn handle_turn(ctx: &mut Context<'_>, req: &[u8]) -> Outcome {
         ctx.pc().summon.as_ref().map(|s| s.control_state),
     ) {
         Ok(value) => value,
-        Err(_) => {
-            return Outcome::unsupported(
-                "TODO ❓ Turn wrapper missing-creature reason/selector, 0x14038B990",
-            )
-        }
+        Err(_) => return turn_failure(selector),
     };
     let zone = if summon {
         ctx.pc().summon.as_ref().and_then(|s| s.zone)
     } else {
         ctx.pc().zone
     };
-    if zone.is_none() {
-        let mut out = Outcome::reason(67, 2);
-        out.replies[0].body.push(selector);
-        return out;
+    if zone.is_none() || yaw > 359 {
+        return turn_failure(selector);
     }
-    if yaw > 359 {
-        return Outcome::unsupported("TODO ❓ Turn wrapper yaw failure arguments");
-    }
-    // TODO ❓ Queue failure arguments and global yaw bounds are not recovered.
     match ctx.services.queue(66) {
-        Gate::Pass => Outcome { changes: vec![StateChange::Queued(66)], ..Outcome::unsupported("TODO ❓ TurnTask yaw bounds / property and movement broadcasts; deferred failure 67/168") },
-        _ => Outcome::unsupported("TODO ❓ Turn task creation/queue failure arguments"),
+        Gate::Pass => Outcome { changes: vec![StateChange::Queued(66)], ..Outcome::unsupported("TODO ❓ TurnTask runtime yaw bounds / property and movement broadcasts; deferred failure 67/168") },
+        Gate::Fail => turn_failure(selector),
+        Gate::Unknown => Outcome::unsupported("TODO ❓ Turn task creation/queue adapter"),
     }
+}
+fn turn_failure(selector: u8) -> Outcome {
+    let mut out = Outcome::reason(67, 2);
+    out.replies[0].body.push(selector);
+    out
 }
 
 /// parity: 99 11-movement-handlers.md#99--g_activatedteleportlistreqcmd--partial partial
@@ -180,12 +176,24 @@ pub fn handle_activated_teleport_list(ctx: &mut Context<'_>, _: &[u8]) -> Outcom
     if ctx.pc().zone.is_none() {
         return Outcome::reason(101, 2);
     }
-    ctx.queue(
+    let mut out = ctx.queue(
         99,
         101,
         2,
-        "TODO ❓ ActivatedTeleport property metadata / packed body / unavailable property contract",
-    )
+        "TODO ❓ ActivatedTeleport field metadata / packed property adapter",
+    );
+    if out.changes.contains(&StateChange::Queued(99)) {
+        let body = match ctx.services.activated_teleport() {
+            PackedProperty::Unknown => return out,
+            PackedProperty::Bytes(bytes) if bytes.len() <= 3996 => bytes,
+            PackedProperty::Bytes(_) => return out,
+            // Fetch returns zero bytes, not a new counted empty block.
+            PackedProperty::FetchFailed => Vec::new(),
+        };
+        out = Outcome::reply(100, body);
+        out.changes.push(StateChange::Queued(99));
+    }
+    out
 }
 
 /// parity: 102 11-movement-handlers.md#102--g_detectteleportswitchreqcmd--partial partial
@@ -308,14 +316,17 @@ pub fn handle_return_to_game(ctx: &mut Context<'_>, _: &[u8]) -> Outcome {
     }
 }
 
-/// parity: 1210 11-movement-handlers.md#1210--g_clientrunreqcmd--partial partial
+/// parity: 1210 11-movement-handlers.md#1210--g_clientrunreqcmd--partial ported
 pub fn handle_client_run(_: &mut Context<'_>, req: &[u8]) -> Outcome {
     if req.len() < 2 {
         return Outcome::log("ClientRun decode failure");
     }
-    Outcome::unsupported(
-        "TODO ❓ ClientRun report helper effects / byte meanings, 0x14060D810 / 0x140368150",
-    )
+    Outcome {
+        reports: vec![Report::ClientRun {
+            bytes: [req[0], req[1]],
+        }],
+        ..Outcome::default()
+    }
 }
 
 /// parity: 1219 11-movement-handlers.md#1219--g_airdashreqcmd--partial partial

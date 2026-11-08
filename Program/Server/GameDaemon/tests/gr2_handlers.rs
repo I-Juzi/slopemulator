@@ -14,6 +14,7 @@ impl Default for Harness {
             world_id: 1,
             user_available: true,
             party_id: 1,
+            spawn_action_present: Some(true),
             spawn_state: 2,
             spawn_correlation: 0,
             ..Pc::default()
@@ -447,7 +448,18 @@ fn contents_throttle_boundaries_do_not_synthesize_cache() {
         } else {
             assert_eq!(reason(&out), Some((931, 2167)));
         }
-        assert_eq!(h.session.contents_last_tick, Some(last));
+        assert_eq!(
+            h.session.contents_last_tick,
+            Some(if allowed { now } else { last })
+        );
+        assert_eq!(
+            out.changes,
+            if allowed {
+                vec![StateChange::ContentsTick(now)]
+            } else {
+                vec![]
+            }
+        );
     }
 }
 #[test]

@@ -8,11 +8,13 @@
 
 mod movement;
 mod session;
+mod token;
 mod wire;
 use crate::{kick::FailureAction, Position};
 pub use movement::*;
 pub use session::*;
 use std::collections::{BTreeMap, BTreeSet};
+pub use token::*;
 use wire::Reader;
 
 #[derive(Clone, Debug, PartialEq, Eq)]
@@ -43,9 +45,41 @@ pub enum StateChange {
     ArenaReturned,
     LastChannelChange(u64),
     ContentsTick(u64),
+    LobbyTokenAuthQueued(TokenAuthRequest),
+    RemovePendingTokenUser(u64),
+    TokenAuthFinished(u64),
+}
+
+/// Ordered session operations. The adapter must send before it switches processors.
+/// No processor object, key, or encryption implementation is stored here.
+#[derive(Clone, Debug, PartialEq, Eq)]
+pub enum SessionEffect {
+    SendWithCurrentProcessor(Message),
+    ActivateSessionProcessor,
+}
+#[derive(Clone, Debug, PartialEq, Eq)]
+pub enum Report {
+    AutoLogoutCheck { detail: u16 },
+    ClientRun { bytes: [u8; 2] },
+}
+impl Report {
+    pub fn record_id(&self) -> u16 {
+        match self {
+            Self::AutoLogoutCheck { .. } => 1009,
+            Self::ClientRun { .. } => 1042,
+        }
+    }
 }
 #[derive(Clone, Debug, PartialEq, Eq)]
 pub enum DaemonRequest {
+    /// Lobby command 5, hqqqi. The world selects the route, not a wire field.
+    LobbyConsumeToken {
+        world: u16,
+        transaction_id: u64,
+        client_key: u64,
+        lobby_token: u64,
+        accepted_address_bits: u32,
+    },
     LobbyClean {
         world: u16,
         db_id: u64,
@@ -73,6 +107,9 @@ pub struct Outcome {
     pub daemon_requests: Vec<DaemonRequest>,
     pub kicks: Vec<FailureAction>,
     pub logs: Vec<&'static str>,
+    /// Redacted log records only. These are not game packets or archive codecs.
+    pub reports: Vec<Report>,
+    pub session_effects: Vec<SessionEffect>,
 }
 impl Default for Outcome {
     fn default() -> Self {
@@ -84,6 +121,8 @@ impl Default for Outcome {
             daemon_requests: vec![],
             kicks: vec![],
             logs: vec![],
+            reports: vec![],
+            session_effects: vec![],
         }
     }
 }
@@ -122,6 +161,8 @@ pub struct Session {
     pub authenticated: bool,
     pub pc: Option<Pc>,
     pub contents_last_tick: Option<u64>,
+    /// Native session +256. None means that the adapter has not supplied it.
+    pub hello_mode: Option<u32>,
     /// The adapter must resolve rights/product checks. None is not approval.
     pub dispatch_permission: Option<bool>,
 }
@@ -150,6 +191,9 @@ pub struct Pc {
     pub last_channel_change: u64,
     pub summon: Option<Summon>,
     pub party_id: u64,
+    /// None: action lookup has not run. Some(false): verified missing action.
+    pub spawn_action_present: Option<bool>,
+    pub life_state: u8,
     pub spawn_state: u8,
     pub spawn_correlation: u32,
 }
@@ -179,6 +223,8 @@ impl Default for Pc {
             last_channel_change: 0,
             summon: None,
             party_id: 0,
+            spawn_action_present: None,
+            life_state: 0,
             spawn_state: 0,
             spawn_correlation: 0,
         }
@@ -194,9 +240,19 @@ pub struct Summon {
     pub position: Position,
     pub yaw: u16,
 }
+/// Zone +16224 and its record category, resolved from server-owned data.
+#[derive(Clone, Debug, Default, PartialEq, Eq)]
+pub enum DirectEntryGeo {
+    #[default]
+    Unknown,
+    Missing,
+    MissingRecord,
+    Category(u8),
+}
 #[derive(Clone, Debug, Default)]
 pub struct Zone {
     pub channel: i16,
+    pub direct_entry_geo: DirectEntryGeo,
     pub channel_list: Option<(u16, [u8; 51])>,
     pub forbidden_channel_destination: bool,
     pub zone_type: u16,
@@ -207,6 +263,7 @@ pub struct Zone {
 #[derive(Clone, Debug, Default)]
 pub struct World {
     pub arena: bool,
+    pub game_log_enabled: bool,
     pub team_enabled: bool,
     pub account_inventory_enabled: bool,
     pub channel_type_87_restricted: bool,
@@ -255,7 +312,30 @@ pub enum Gate {
     Fail,
     Unknown,
 }
+/// Results from opaque, server-owned operations. Unknown is never approval.
+#[derive(Clone, Debug, Default, PartialEq, Eq)]
+pub enum HelloOperation {
+    #[default]
+    Unknown,
+    Rejected,
+    Reply(Vec<u8>),
+}
+#[derive(Clone, Debug, Default, PartialEq, Eq)]
+pub enum PackedProperty {
+    #[default]
+    Unknown,
+    /// Exact bytes returned by the native packed-property operation.
+    Bytes(Vec<u8>),
+    FetchFailed,
+}
 pub trait Services {
+    /// Opaque boundary 0x1406A65D0. Do not implement key setup here.
+    fn hello(&mut self, _input: &[u8]) -> HelloOperation {
+        HelloOperation::Unknown
+    }
+    fn activated_teleport(&mut self) -> PackedProperty {
+        PackedProperty::Unknown
+    }
     fn queue(&mut self, command: u16) -> Gate;
     fn logout(&mut self) -> Gate;
     fn available_channel(&mut self, channel: i16) -> Gate;
@@ -264,6 +344,8 @@ pub trait Services {
 }
 #[derive(Clone, Debug)]
 pub struct MemoryServices {
+    pub hello_result: HelloOperation,
+    pub activated_teleport_result: PackedProperty,
     pub queue_result: Gate,
     pub logout_result: Gate,
     pub channel_result: Gate,
@@ -274,6 +356,8 @@ pub struct MemoryServices {
 impl Default for MemoryServices {
     fn default() -> Self {
         Self {
+            hello_result: HelloOperation::Unknown,
+            activated_teleport_result: PackedProperty::Unknown,
             queue_result: Gate::Unknown,
             logout_result: Gate::Unknown,
             channel_result: Gate::Unknown,
@@ -284,6 +368,12 @@ impl Default for MemoryServices {
     }
 }
 impl Services for MemoryServices {
+    fn hello(&mut self, _: &[u8]) -> HelloOperation {
+        self.hello_result.clone()
+    }
+    fn activated_teleport(&mut self) -> PackedProperty {
+        self.activated_teleport_result.clone()
+    }
     fn queue(&mut self, command: u16) -> Gate {
         self.queued.push(command);
         self.queue_result

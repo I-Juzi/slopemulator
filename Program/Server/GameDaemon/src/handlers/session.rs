@@ -78,7 +78,19 @@ pub fn handle_hello(ctx: &mut Context<'_>, req: &[u8]) -> Outcome {
     let Some((protocol, property, publisher, extra, blob)) = decoded else {
         return native_false();
     };
-    if protocol != 1278 || property != 0x12D261D120403 || publisher != ctx.world.publisher {
+    let publisher_end = publisher
+        .iter()
+        .position(|unit| *unit == 0)
+        .unwrap_or(publisher.len());
+    let expected = &ctx.world.publisher;
+    let expected_end = expected
+        .iter()
+        .position(|unit| *unit == 0)
+        .unwrap_or(expected.len());
+    if protocol != 1278
+        || property != 0x12D261D120403
+        || publisher[..publisher_end] != expected[..expected_end]
+    {
         return native_false();
     }
     match ctx.world.publisher_code {
@@ -89,8 +101,37 @@ pub fn handle_hello(ctx: &mut Context<'_>, req: &[u8]) -> Outcome {
     if blob.is_empty() {
         return native_false();
     }
-    // TODO ❓ Opaque operation 0x1406A65D0 / framing acceptance. No key setup.
-    Outcome::unsupported("TODO ❓ Hello handshake operation and processor acceptance, 0x1406A65D0")
+    let reply = match ctx.services.hello(&blob) {
+        HelloOperation::Rejected => return native_false(),
+        HelloOperation::Unknown => {
+            return Outcome::unsupported(
+                "TODO ❓ Hello operation / framing acceptance, 0x1406A65D0",
+            )
+        }
+        HelloOperation::Reply(reply) => reply,
+    };
+    // Size, command and blob count consume six of the native 4000 bytes.
+    if reply.len() > 3994 {
+        return Outcome::unsupported("TODO ❓ invalid opaque Hello output capacity");
+    }
+    let mut body = (reply.len() as u16).to_le_bytes().to_vec();
+    body.extend(reply);
+    let mut out = Outcome::default();
+    out.session_effects
+        .push(SessionEffect::SendWithCurrentProcessor(Message {
+            command: 12,
+            body,
+        }));
+    match ctx.session.hello_mode {
+        Some(3) => {
+            ctx.session.hello_mode = Some(5);
+            out.session_effects
+                .push(SessionEffect::ActivateSessionProcessor);
+        }
+        Some(_) => {}
+        None => out.status = Status::Unsupported("TODO ❓ missing Hello session mode"),
+    }
+    out
 }
 fn native_false() -> Outcome {
     Outcome {
@@ -137,16 +178,19 @@ pub fn handle_mobile_hello(_: &mut Context<'_>, req: &[u8]) -> Outcome {
     Outcome::reply(14, vec![])
 }
 
-/// parity: 18 10-session-handlers.md#18--g_serverpingreqcmd--partial partial
+/// parity: 18 10-session-handlers.md#18--g_serverpingreqcmd--partial ported
 pub fn handle_server_ping(ctx: &mut Context<'_>, req: &[u8]) -> Outcome {
     let mut r = Reader(req);
     let (Some(a), Some(b)) = (r.quad(), r.quad()) else {
-        return native_false();
+        let mut out = native_false();
+        out.logs.push("ServerPing decode failure");
+        return out;
     };
     ctx.session.pc.as_mut().expect("PC dispatch").received_ping = [a, b];
     // STOP 0x1403710A5 -> 0x14036DE10. No restricted call.
     Outcome {
         changes: vec![StateChange::PingReceived([a, b])],
+        logs: vec!["server ping (metadata redacted)"],
         ..Outcome::default()
     }
 }
@@ -157,7 +201,7 @@ pub fn handle_lobby_token_auth(ctx: &mut Context<'_>, req: &[u8]) -> Outcome {
         return Outcome::reason(25, 5);
     }
     let mut r = Reader(req);
-    let (Some(world), Some(key), Some(_token)) = (r.short(), r.quad(), r.quad()) else {
+    let (Some(world), Some(key), Some(token)) = (r.short(), r.quad(), r.quad()) else {
         // TODO ❓ Native decoder return is unchecked. Do not invent a reason.
         return Outcome::unsupported("TODO ❓ unchecked token-auth decode");
     };
@@ -167,12 +211,21 @@ pub fn handle_lobby_token_auth(ctx: &mut Context<'_>, req: &[u8]) -> Outcome {
     if key == 0 {
         return Outcome::reason(25, 1939);
     }
-    ctx.queue(
+    let mut out = ctx.queue(
         23,
         25,
         2,
-        "TODO ❓ LobbyTokenAuthTran callbacks / command 24 / build-381 daemon request",
-    )
+        "TODO ❓ token-auth initialization and later recovery/charge/DB callbacks",
+    );
+    if out.changes.contains(&StateChange::Queued(23)) {
+        out.changes
+            .push(StateChange::LobbyTokenAuthQueued(TokenAuthRequest {
+                world,
+                client_key: key,
+                lobby_token: token,
+            }));
+    }
+    out
 }
 
 /// parity: 26 10-session-handlers.md#26--g_returntolobbyreqcmd--partial partial
@@ -254,9 +307,21 @@ pub fn handle_enter_zone(ctx: &mut Context<'_>, req: &[u8]) -> Outcome {
         "TODO ❓ EnterZoneTask continuation / appearance / summon correction",
     );
     if out.changes.contains(&StateChange::Queued(42)) {
+        if ctx.pc().native_kind != 1 {
+            out = Outcome::log("EnterZone task caster is not a PC");
+            out.changes.push(StateChange::Queued(42));
+            return out;
+        }
         let correlation = u32::from_le_bytes(req[..4].try_into().unwrap());
-        if ctx.pc().spawn_state != 2 || ctx.pc().spawn_correlation != correlation {
-            out = Outcome::reason(44, 1150);
+        let reason = match ctx.pc().spawn_action_present {
+            None => return out,
+            Some(false) => Some(2),
+            Some(true) if ctx.pc().spawn_state != 2 => Some(1149),
+            Some(true) if ctx.pc().spawn_correlation != correlation => Some(1150),
+            Some(true) => None,
+        };
+        if let Some(reason) = reason {
+            out = Outcome::reason(44, reason);
             out.changes.push(StateChange::Queued(42));
         }
     }
@@ -265,17 +330,25 @@ pub fn handle_enter_zone(ctx: &mut Context<'_>, req: &[u8]) -> Outcome {
 
 /// parity: 929 10-session-handlers.md#929--g_contentsrulelistreqcmd--partial partial
 pub fn handle_contents_rule_list(ctx: &mut Context<'_>, _: &[u8]) -> Outcome {
-    let last = ctx.session.contents_last_tick.unwrap_or(0);
+    // Preserve the native signed comparisons over raw 64-bit tick storage.
+    let last = ctx.session.contents_last_tick.unwrap_or(0) as i64;
     let now = ctx.world.tick;
-    if !(last == 0
-        || last <= ctx.world.config_reload_tick
-        || now <= 30000
-        || now.wrapping_sub(last) >= 30000)
+    let signed_now = now as i64;
+    if !(last <= 0
+        || last <= ctx.world.config_reload_tick as i64
+        || signed_now <= 30000
+        || signed_now.wrapping_sub(last) >= 30000)
     {
         return Outcome::reason(931, 2167);
     }
-    // TODO ❓ Null cache / success construction. Do not update tick past this gap.
-    Outcome::unsupported("TODO ❓ cached contents packet and null-cache send contract")
+    // 0x140370250 writes the tick before encryption/send, even with a null cache.
+    let mut out =
+        Outcome::unsupported("TODO ❓ cached contents fragments and null-cache send contract");
+    if let Some(last) = ctx.session.contents_last_tick.as_mut() {
+        *last = now;
+        out.changes.push(StateChange::ContentsTick(now));
+    }
+    out
 }
 
 /// parity: 174 10-session-handlers.md#174--g_clearlogoutpartymemberreqcmd--partial partial
@@ -444,17 +517,25 @@ pub fn handle_save_client_option(ctx: &mut Context<'_>, req: &[u8]) -> Outcome {
     out
 }
 
-/// parity: 411 10-session-handlers.md#411--g_autologoutcheckreqcmd--partial partial
+/// parity: 411 10-session-handlers.md#411--g_autologoutcheckreqcmd--done partial
 pub fn handle_auto_logout_check(ctx: &mut Context<'_>, _: &[u8]) -> Outcome {
     if ctx.pc().zone.is_none() || ctx.pc().native_kind != 1 {
         return Outcome::reason(413, 2);
     }
-    ctx.queue(
-        411,
-        413,
-        2,
-        "TODO ❓ AutoLogoutCheck report helper 0x140200860; no logout proved",
-    )
+    let mut out = ctx.queue(411, 413, 2, "TODO ❓ AutoLogoutCheck task queue adapter");
+    if out.changes.contains(&StateChange::Queued(411)) {
+        out.status = Status::Handled;
+        if ctx.world.game_log_enabled {
+            let detail = match ctx.pc().life_state {
+                0 => 1,
+                1 => 2,
+                2 => 3,
+                _ => 0,
+            };
+            out.reports.push(Report::AutoLogoutCheck { detail });
+        }
+    }
+    out
 }
 
 /// parity: 809 10-session-handlers.md#809--g_extendjumpingcharactercreationquotawithwarehouseitemreqcmd--partial partial
@@ -503,18 +584,47 @@ pub fn handle_enter_zone_direct(ctx: &mut Context<'_>, req: &[u8]) -> Outcome {
     if ctx.pc().zone.is_none() || ctx.pc().native_kind != 1 || !(1..=3).contains(&kind) {
         return Outcome::reason(983, 2);
     }
-    ctx.queue(
+    let mut out = ctx.queue(
         981,
         983,
         2,
-        "TODO ❓ direct zone entry authorization, task and deferred effects",
-    )
+        "TODO ❓ direct zone entry authorization and deferred effects",
+    );
+    if out.changes.contains(&StateChange::Queued(981)) {
+        let Some(zone) = ctx.pc().zone.and_then(|id| ctx.world.zones.get(&id)) else {
+            return out;
+        };
+        let reason = match zone.direct_entry_geo {
+            DirectEntryGeo::Unknown => return out,
+            DirectEntryGeo::Missing => Some(2),
+            DirectEntryGeo::MissingRecord => Some(2388),
+            DirectEntryGeo::Category(category) if category != 1 => Some(2388),
+            DirectEntryGeo::Category(_) if ctx.pc().life_state != 0 => Some(2390),
+            DirectEntryGeo::Category(_) if ctx.pc().combat => Some(2391),
+            DirectEntryGeo::Category(_)
+                if ctx.pc().achievement_reward || ctx.pc().jumping_ticket =>
+            {
+                Some(2392)
+            }
+            DirectEntryGeo::Category(_) if ctx.pc().instant_payment => Some(2393),
+            DirectEntryGeo::Category(_) if kind == 2 => Some(3),
+            DirectEntryGeo::Category(_) => None,
+        };
+        if let Some(reason) = reason {
+            out = Outcome::reason(983, reason);
+            out.changes.push(StateChange::Queued(981));
+        }
+    }
+    out
 }
 
 /// parity: 984 10-session-handlers.md#984--g_leavezonedirectreqcmd--partial partial
 pub fn handle_leave_zone_direct(ctx: &mut Context<'_>, _: &[u8]) -> Outcome {
     if ctx.pc().zone.is_none() {
         return Outcome::log("leave-zone missing zone");
+    }
+    if ctx.pc().native_kind != 1 {
+        return Outcome::log("leave-zone task caster is not a PC");
     }
     match ctx.services.queue(984) {
         Gate::Fail => Outcome::log("leave-zone queue failure"),
