@@ -1,3 +1,23 @@
+# GameDaemon world entry: step 3 report
+
+Specs: `bns-server/Docs/Server/GameDaemon/`.
+
+| Part | State | Evidence |
+| --- | --- | --- |
+| Connection | partial | `04-world-connect.md`: separate game connection; Hello 11/12 and token request 23. Server `0x1403703D0`, `0x140371170`. |
+| Enter-world sequence | partial | `05-enter-world.md`: 31/32 → 41/42/43. Prepare sender `0x1404BEED0`; client zone request `0x7815C0`. |
+| Minimum session | partial | `06-minimum-session.md`: ping 16 and echo 17/18; timer `0x1406832D0`. ❓ Complete standing packet set remains unverified. |
+
+**Verified:** game protocol 1278; fragmented PC initialization; zone preparation; client load/enter request; ordinary ping echo.
+**Boundaries:** client `0x741AB2`, `0xF3B00C`/`0xF3B1F6`, `0xEF68C8`; server zone hook `0x1405DF767`, ping hook `0x14036DE10`. No restricted hook internals were inspected.
+**❓ Connection gaps:** outer framing; handshake family sequence and secret ownership; command 929; command-24 success body. No vendor-secret dependency was established.
+**❓ Entry gaps:** full command-32 payload and DB mapping; command-42 field meanings; command-43 body; spawn/appear packets; final load-screen exit.
+**❓ Session gaps:** safe omission of inventory, skills, quests and social data; complete timeout rules. No standing-client test ran.
+**First Rust step:** add a separate game dispatch schema and synthetic codec tests in the existing Packet/BloodLib layers. Keep unknown bodies unsupported. Do not claim successful entry.
+**Scope:** specifications only. No Rust changes, network use, git commands, binary patches or explicit database saves. Both IDA leases are closed.
+
+## Previous report
+
 # GameDaemon data: step 2 report
 
 | Part | State | Evidence |
