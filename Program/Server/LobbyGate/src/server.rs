@@ -258,6 +258,7 @@ impl Server {
             let (plain, _) = session.decrypt(&frame, 4000).map_err(protocol)?;
             let packet = inner_packet(&plain)?;
             let cmd = i16::from_le_bytes([packet[2], packet[3]]);
+            tracing::debug!(cmd, len = packet.len(), authed = client_key != 0, "client packet");
             match cmd {
                 3 | 6 if client_key == 0 => {
                     let login = decode_login(packet, cmd)?;
@@ -354,6 +355,7 @@ impl Server {
     }
     async fn daemon_packet(&self, cmd: i16, data: &[u8]) -> io::Result<()> {
         let tables = &self.tables;
+        tracing::debug!(cmd, len = data.len(), "lobbyd packet");
         if matches!(tables.lobbyd_route(cmd), packet::dispatch::Route::Relay) {
             let (key, packet) = tables.relay_to_client(data).map_err(protocol)?;
             self.hub.send_client(key, vec![packet]).await;

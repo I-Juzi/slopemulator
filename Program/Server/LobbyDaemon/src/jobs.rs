@@ -69,6 +69,8 @@ pub struct Settings {
     pub check_retained_ipv4: bool,
     pub max_sessions: usize,
     pub max_links: usize,
+    /// Local fixture worlds sent in HelloOk. Empty by default (milestone R1).
+    pub worlds: Vec<crate::protocol::WorldInfo>,
 }
 impl Default for Settings {
     fn default() -> Self {
@@ -81,6 +83,7 @@ impl Default for Settings {
             check_retained_ipv4: true,
             max_sessions: 1024,
             max_links: 64,
+            worlds: Vec::new(),
         }
     }
 }
@@ -262,7 +265,7 @@ impl<S: Store, N: Np> Jobs<S, N> {
             self.links.insert(link);
             return Ok(vec![Output {
                 link,
-                packets: wire::hello()?,
+                packets: wire::hello(&self.settings.worlds)?,
             }]);
         }
         if !self.links.contains(&link) {
@@ -285,6 +288,7 @@ impl<S: Store, N: Np> Jobs<S, N> {
             41 => vec![],
             44 | 47 | 51 | 54 => self.character_mutation(link, packet, key, cmd).await?,
             103 => self.initial_user_name(link, packet, key).await?,
+            64 | 67 | 70 | 73 | 76 => self.goods_unavailable(link, packet, key, cmd)?,
             18 | 19 | 23 => {
                 wire::fields("hq", packet)?;
                 let client = if cmd == 18 {
@@ -614,6 +618,59 @@ impl<S: Store, N: Np> Jobs<S, N> {
             Ok(packet) => Ok(vec![packet]),
             Err(_) => failure(2),
         }
+    }
+    /// Goods requests with account inventory off (`use-account-inventory=no`).
+    /// Build 307: each job sends its Fail packet with reason 7 ("init fail;
+    /// account-inventory N/A"), 4 without a session, 5 outside the lobby.
+    /// Malformed requests are dropped (decompose fail only logs).
+    /// GetGoodsCount 0x1400C3550/0x14004FB70, ListGoods 0x1400C37E0/0x140053C40,
+    /// TakeGoods 0x1400C3B30/0x140079130, ListLobbyServiceItemInfo
+    /// 0x1400C3D40/0x1400548A0, GetLobbyServiceItemInfo 0x1400C3FC0/0x140050780.
+    fn goods_unavailable(
+        &self,
+        link: LinkId,
+        packet: &[u8],
+        key: u64,
+        cmd: i16,
+    ) -> io::Result<Vec<Vec<u8>>> {
+        let (format, fail) = match cmd {
+            64 => ("hq", 66),
+            67 => ("hqc", 69),
+            70 => ("hqq", 72),
+            73 => ("hqQq", 75),
+            _ => ("hqq", 78),
+        };
+        let Ok(values) = wire::fields(format, packet) else {
+            return Ok(vec![]);
+        };
+        let reason = match self.sessions.get(&key).filter(|s| s.link == link) {
+            None => 4,
+            // ❓ 307 accepts client states 0x20000 and 0x10003; only Lobby is mapped.
+            Some(s) if s.state != State::Lobby => 5,
+            Some(_) => 7,
+        };
+        Ok(vec![match cmd {
+            // D75 hqQE echoes the search type; D78 hqqE echoes the request key.
+            73 => wire::packet(
+                "hqQE",
+                &[
+                    Value::I16(fail),
+                    Value::U64(key),
+                    values[2].clone(),
+                    Value::I16(reason),
+                ],
+            )?,
+            76 => wire::packet(
+                "hqqE",
+                &[
+                    Value::I16(fail),
+                    Value::U64(key),
+                    values[2].clone(),
+                    Value::I16(reason),
+                ],
+            )?,
+            _ => wire::failure(fail, key, reason)?,
+        }])
     }
     fn characters(&self, link: LinkId, packet: &[u8], key: u64) -> io::Result<Vec<Vec<u8>>> {
         if wire::fields("hq", packet).is_err() {
