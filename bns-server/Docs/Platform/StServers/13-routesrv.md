@@ -141,3 +141,23 @@ Routing errors (RouteSrv `sub_1400CCD30`/`sub_1400CAB70`):
 | Multi-router Paxos (257–1030), MultiRouterChanged, RouterConnect | gap: one router only in phase 1 |
 | Forward scope (`@`) | needs ForwardSrv/NameSrv; phase 2 |
 | TLS between datacenters | gap; key = `keyhere` |
+
+## 8. Forward path (trace in progress, 8 Nov 2026)
+
+Header names in the STS library are one-byte codes, not strings.
+Codes that RouteSrv.exe uses: `c` 99, `e` 101, `l` 108, `o` 111, `p` 112, `r` 114, `s` 115, `t` 116, `x` 120.
+
+| Step | Function | Behaviour |
+| --- | --- | --- |
+| Pick the protocol | `sub_1400CBAD0` | A `t` target of type 4 (Block) with a `protocol` attribute wins. Otherwise the request-line protocol is used. The default is `Sts`. |
+| Pick the service | `sub_1400CCD30` → `sub_1400DF980` | Looks up the protocol in the service table (router + 66360). A service with no providers (field +88 = 0) counts as none. |
+| Resolve targets | `sub_1400CAB70`, loop on `sub_1400F9CC0` | Each `t` header is resolved. Several targets are grouped per router (multicast). |
+| No target found | `sub_1400CCD30` | error 49, module 2, line 1160 |
+| Reply frames | `sub_1400CCD30` | a reply cannot be routed: error 10, line 1115 or 1170 |
+| No `t` match | `sub_1400CCD30` | line 1105 (code −1) or 1185 when a target list is empty |
+| Deliver | `sub_1400CD6C0` | Local provider: the frame is copied (`sub_140102570`, `CInetMsgOut`) and sent on the provider connection (network vtable +32). Each send increments the connection counter at +180. A failed send increments stat 6. |
+| Forward scope | `sub_1400F7BC0` / `sub_1400F8220` | Saves `protocol`, `protocolVersion` and `command` in an `r` header, and sets the command to `Forward`. The pop restores the original request line. Used for `@scope` targets through ForwardSrv. |
+
+❓ Reply return: the frame copy keeps the request unchanged. The mapping of the provider's
+reply back to the caller is in the STS socket layer (`StsInetSocket`, `sub_1401221A0`,
+"invalid transaction reply" → error 4, module 9001, line 3488). Not traced yet.
