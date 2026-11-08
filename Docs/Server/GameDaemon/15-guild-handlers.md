@@ -618,6 +618,50 @@ Shared task attachment (431, 434) uses `0x14025DB30` (zone), `0x14069BF60` (PC c
 - **381:** `0x1403B6530`. **Wire:** `hq`. Reply 625 `hE`.
 - As 619, op 3, but first = own guild and second = `q` guild.
 
+## Guild warp group (1274–1289): shared facts
+
+- **Config +2138 byte** (Rust `warp_v2`): when it is 1, 1274/1277/1280 reply 2. When it is 0, 1283/1286/1289 reply 2. This is the first check in each handler.
+- Arena form B → 5 is the second check in each handler.
+- **Busy flags** (1274, 1280): PC +21096 achievement reward, +13752 jumping ticket or +21080 instant payment, each read under its lock.
+- **Member lookup** `0x1400EF0B0(guild, index)` → PC object ID (Rust `member_slots`). **Meeting place** `0x1400F2900(guild, &out)` → 32 bytes (Rust `meeting_places`).
+- **Actions** come from `0x140472550(World +86712, kind)` and go to `0x140254FD0(zone, action)`. Zone null, action null, PC kind (+46) ≠ 1 or queue fail → 2.
+- Records: `C` count, then (h, h) pairs. Count > 16 rejects.
+- Only 1277 calls the excluded restriction helper `0x14060E280` (checked in all six disassemblies).
+
+## 1274 — G_WarpToGuildMemberReqCmd — done
+
+- **381:** `0x1403A7BE0`. **Wire:** `hchChh;` (member index, value, records). Fail reply 1276 `hh`.
+- **Checks/order:** +2138 = 1 → 2. Arena B → 5. No guild or guild lookup null → **1470**. Row 14 off → 2. Busy flag → **1464**. Decode index/value fails → **1553**. Count > 16 → **1468**. Record fails → **1553**. Member null or own PC ID (+40) → **1473**.
+- **Action** kind 53: +152 member, +160 value, +192 config int +104 (❓ meaning), +200 records (4 bytes each), +264 count. No reply on success.
+
+## 1277 — G_CallGuildMemberReqCmd — partial
+
+- **381:** `0x1403A82C0`. **Wire:** `hhChh;`. Fail reply 1279.
+- +2138 = 1 → 2. Arena B → 5. Then the excluded restriction call `0x14060E280` (→ 1488). STOP. Rust stops at a boundary. The rest (no guild → 1485, row 15, action 54) is not ported.
+
+## 1280 — G_WarpToGuildMeetingPlaceReqCmd — done
+
+- **381:** `0x1403A88E0`. **Wire:** `h`. Fail reply 1282.
+- +2138 = 1 → 2. Arena B → 5. No guild or guild null → **1494**. Row 16 off → 2. Busy flag → **1491**. Action kind 55 (no fields). Common action failures → 2.
+
+## 1283 — G_WarpToGuildMember2ReqCmd — done
+
+- **381:** `0x1403A8D20`. **Wire:** `hcChh;`. Fail reply 1285.
+- **Checks/order:** +2138 = 0 → 2. Arena B → 5. No guild → **1509**. Decode index fails, count > 16, record fails or a second word ≤ 0 → 2. Guild null → 2. Member null → **1500**. Row 14 off or member = self → 2.
+- Target PC `0x1403F7D20(World +5824, member, 6)` null → 2. Target +37520 state 2, 3, 5 or 6 → **1499**. Target zone null → 2. Target kind ≠ 1, own ID or DB ID 0 → 2.
+- **Task** `new(0xF8)`, +68 = 358, vtable `off_140BC2A40`: +128 target, +138 = 1, +144 own ID, +152 DB ID, +160 guild, +168 member, +176 records, +240 count. Queued on the **target** zone with `0x140603BD0` (no failure branch; Rust `queue_shared`).
+
+## 1286 — G_CallGuildMember2ReqCmd — done
+
+- **381:** `0x1403A9680`. **Wire:** `hChh;`. Fail reply 1288.
+- +2138 = 0 → 2. Arena B → 5. No guild → **1523**. Guild null or row 15 off → 2. Count > 16 or record fails → 2. Action kind 57: +152 ID, +160 DB ID, +168 guild, +176 records, +240 count. ID or DB ID 0 and common failures → 2.
+
+## 1289 — G_WarpToGuildMeetingPlace2ReqCmd — done
+
+- **381:** `0x1403A9C90`. **Wire:** `h`. Fail reply 1291.
+- +2138 = 0 → 2. Arena B → 5. No guild → **1535**. Guild null or row 16 off → 2. Meeting place missing, q0 = 0, dword +8 = 0, word +12 = 0 or now > expiry (+24) → 2.
+- Action kind 58: +152 ID, +160 DB ID, +168 guild, +176/+192 meeting place. ID, DB ID or expiry 0 and common failures → 2.
+
 ## Status
 
 | Id | State |
@@ -680,3 +724,9 @@ Shared task attachment (431, 434) uses `0x14025DB30` (zone), `0x14069BF60` (PC c
 | 619 | done |
 | 621 | partial |
 | 623 | done |
+| 1274 | done |
+| 1277 | partial |
+| 1280 | done |
+| 1283 | done |
+| 1286 | done |
+| 1289 | done |

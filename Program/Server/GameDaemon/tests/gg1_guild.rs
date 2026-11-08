@@ -1029,6 +1029,7 @@ fn send_guild_invitation2() {
             name: name("Bob"),
             faction: 1,
             db_id: 0x8800,
+            ..GuildPlayer::default()
         },
     );
     let body = [s("Bob"), q(0x42)].concat();
@@ -1248,4 +1249,175 @@ fn guild_alliance() {
     assert_eq!(reason(&h.run(623, &q(OPEN))), Some((625, 5)));
     h.world.guild.config.alliance_enabled = false;
     assert_eq!(reason(&h.run(621, &q(OPEN))), Some((622, 2)));
+}
+
+fn wp(v2: bool) -> H {
+    let mut h = H::new();
+    h.pc().native_kind = 1;
+    h.world.guild.config.warp_v2 = v2;
+    h.world.guild.config.warp_member_value = 77;
+    for row in [14, 15, 16] {
+        h.world.guild.actions.insert(
+            row,
+            GuildActionRow {
+                normal: true,
+                open: false,
+            },
+        );
+    }
+    h.world.guild.member_slots.insert((GUILD, 3), 0x20002);
+    h.world.guild.member_slots.insert((GUILD, 4), PC_ID);
+    h.world.guild.players.insert(
+        0x20002,
+        GuildPlayer {
+            name: name("Mate"),
+            faction: 1,
+            db_id: 0x9900,
+            object_id: 0x20002,
+            arena_state: 0,
+            zone: Some(12),
+            native_kind: 1,
+        },
+    );
+    h
+}
+fn recs16(n: u8, b: u16) -> Vec<u8> {
+    let mut v = vec![n];
+    for i in 0..n {
+        v.extend(u16::from(i).to_le_bytes());
+        v.extend(b.to_le_bytes());
+    }
+    v
+}
+
+#[test]
+fn warp_to_guild_member() {
+    let mut h = wp(false);
+    let body = |idx: u8, n: u8| [vec![idx], 9u16.to_le_bytes().to_vec(), recs16(n, 1)].concat();
+    assert!(h.run(1274, &body(3, 2)).replies.is_empty());
+    assert_eq!(
+        last_task(&h),
+        &GuildTaskKind::WarpToMember {
+            member: 0x20002,
+            value: 9,
+            config: 77,
+            records: vec![(0, 1), (1, 1)]
+        }
+    );
+    assert_eq!(reason(&h.run(1274, &body(3, 17))), Some((1276, 1468)));
+    assert_eq!(
+        reason(&h.run(1274, &[3, 9, 0, 2, 0, 0])),
+        Some((1276, 1553))
+    );
+    assert_eq!(reason(&h.run(1274, &[3])), Some((1276, 1553)));
+    assert_eq!(reason(&h.run(1274, &body(4, 0))), Some((1276, 1473)));
+    assert_eq!(reason(&h.run(1274, &body(5, 0))), Some((1276, 1473)));
+    h.services.guild.queue_result = Gate::Fail;
+    assert_eq!(reason(&h.run(1274, &body(3, 0))), Some((1276, 2)));
+    h.pc().jumping_ticket = true;
+    assert_eq!(reason(&h.run(1274, &body(3, 0))), Some((1276, 1464)));
+    h.pc().guild_id = OPEN;
+    assert_eq!(reason(&h.run(1274, &body(3, 0))), Some((1276, 2)));
+    h.pc().guild_id = 0x9999;
+    assert_eq!(reason(&h.run(1274, &body(3, 0))), Some((1276, 1470)));
+    h.pc().guild_id = 0;
+    assert_eq!(reason(&h.run(1274, &body(3, 0))), Some((1276, 1470)));
+    h.world.arena = true;
+    assert_eq!(reason(&h.run(1274, &body(3, 0))), Some((1276, 5)));
+    h.world.guild.config.warp_v2 = true;
+    assert_eq!(reason(&h.run(1274, &body(3, 0))), Some((1276, 2)));
+}
+
+#[test]
+fn call_member_and_meeting_place() {
+    let mut h = wp(false);
+    assert!(unsupported(&h.run(1277, &[])));
+    assert!(h.run(1280, &[]).replies.is_empty());
+    assert_eq!(last_task(&h), &GuildTaskKind::WarpToMeetingPlace);
+    h.pc().instant_payment = true;
+    assert_eq!(reason(&h.run(1280, &[])), Some((1282, 1491)));
+    h.pc().guild_id = 0;
+    assert_eq!(reason(&h.run(1280, &[])), Some((1282, 1494)));
+    h.world.arena = true;
+    assert_eq!(reason(&h.run(1277, &[])), Some((1279, 5)));
+    h.world.guild.config.warp_v2 = true;
+    assert_eq!(reason(&h.run(1277, &[])), Some((1279, 2)));
+    assert_eq!(reason(&h.run(1280, &[])), Some((1282, 2)));
+}
+
+#[test]
+fn warp_to_guild_member2() {
+    let mut h = wp(true);
+    let body = |idx: u8, n: u8, b: u16| [vec![idx], recs16(n, b)].concat();
+    assert!(h.run(1283, &body(3, 1, 5)).replies.is_empty());
+    let task = h.services.guild.tasks.last().unwrap().clone();
+    assert_eq!(task.zone, 12);
+    assert_eq!(
+        task.kind,
+        GuildTaskKind::WarpToMember2 {
+            target: 0x20002,
+            db_id: DB_ID,
+            member: 0x20002,
+            records: vec![(0, 5)]
+        }
+    );
+    assert_eq!(reason(&h.run(1283, &body(3, 1, 0))), Some((1285, 2)));
+    assert_eq!(reason(&h.run(1283, &body(3, 17, 1))), Some((1285, 2)));
+    assert_eq!(reason(&h.run(1283, &body(9, 0, 1))), Some((1285, 1500)));
+    assert_eq!(reason(&h.run(1283, &body(4, 0, 1))), Some((1285, 2)));
+    h.world.guild.players.get_mut(&0x20002).unwrap().arena_state = 5;
+    assert_eq!(reason(&h.run(1283, &body(3, 0, 1))), Some((1285, 1499)));
+    h.world.guild.players.get_mut(&0x20002).unwrap().arena_state = 0;
+    h.world.guild.players.get_mut(&0x20002).unwrap().zone = None;
+    assert_eq!(reason(&h.run(1283, &body(3, 0, 1))), Some((1285, 2)));
+    h.world.guild.players.clear();
+    assert_eq!(reason(&h.run(1283, &body(3, 0, 1))), Some((1285, 2)));
+    h.pc().guild_id = 0;
+    assert_eq!(reason(&h.run(1283, &body(3, 0, 1))), Some((1285, 1509)));
+    h.world.guild.config.warp_v2 = false;
+    assert_eq!(reason(&h.run(1283, &body(3, 0, 1))), Some((1285, 2)));
+}
+
+#[test]
+fn call_member2_and_meeting_place2() {
+    let mut h = wp(true);
+    h.world.utc_seconds = 1000;
+    assert!(h.run(1286, &recs16(2, 3)).replies.is_empty());
+    assert_eq!(
+        last_task(&h),
+        &GuildTaskKind::CallMember2 {
+            db_id: DB_ID,
+            records: vec![(0, 3), (1, 3)]
+        }
+    );
+    assert_eq!(reason(&h.run(1286, &recs16(17, 3))), Some((1288, 2)));
+    assert_eq!(reason(&h.run(1286, &[1, 0])), Some((1288, 2)));
+    assert_eq!(reason(&h.run(1289, &[])), Some((1291, 2)));
+    let mut place = [0u8; 32];
+    place[0] = 1;
+    place[8] = 2;
+    place[12] = 3;
+    place[24..32].copy_from_slice(&2000i64.to_le_bytes());
+    h.world.guild.meeting_places.insert(GUILD, place);
+    assert!(h.run(1289, &[]).replies.is_empty());
+    assert_eq!(
+        last_task(&h),
+        &GuildTaskKind::WarpToMeetingPlace2 {
+            db_id: DB_ID,
+            place
+        }
+    );
+    h.world.utc_seconds = 2001;
+    assert_eq!(reason(&h.run(1289, &[])), Some((1291, 2)));
+    h.world.utc_seconds = 1000;
+    place[12] = 0;
+    h.world.guild.meeting_places.insert(GUILD, place);
+    assert_eq!(reason(&h.run(1289, &[])), Some((1291, 2)));
+    h.pc().guild_id = OPEN;
+    assert_eq!(reason(&h.run(1286, &recs16(0, 0))), Some((1288, 2)));
+    h.pc().guild_id = 0;
+    assert_eq!(reason(&h.run(1286, &[0])), Some((1288, 1523)));
+    assert_eq!(reason(&h.run(1289, &[])), Some((1291, 1535)));
+    h.world.arena = true;
+    assert_eq!(reason(&h.run(1289, &[])), Some((1291, 5)));
 }

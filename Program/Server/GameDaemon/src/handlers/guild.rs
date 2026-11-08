@@ -7,7 +7,7 @@ pub const GUILD_COMMANDS: &[u16] = &[
     431, 434, 437, 440, 443, 445, 447, 449, 451, 453, 455, 457, 459, 461, 463, 465, 467, 469, 471,
     473, 475, 477, 480, 483, 486, 489, 491, 494, 499, 501, 503, 506, 508, 509, 511, 513, 515, 557,
     560, 563, 567, 571, 575, 579, 583, 584, 588, 592, 596, 600, 518, 603, 606, 610, 615, 619, 621,
-    623,
+    623, 1274, 1277, 1280, 1283, 1286, 1289,
 ];
 
 /// Server config read by the guild handlers (`qword_140EE58A0`, World +6208).
@@ -40,6 +40,11 @@ pub struct GuildConfig {
     pub benefit_enabled: bool,
     /// Config +2144 byte: guild alliance (615–623) enabled.
     pub alliance_enabled: bool,
+    /// Config +2138 byte = 1: guild warp version 2. 1274/1277/1280 reply 2
+    /// when it is on; 1283/1286/1289 reply 2 when it is off.
+    pub warp_v2: bool,
+    /// Config +104 signed dword, copied into the 1274 task +192 (❓ meaning).
+    pub warp_member_value: i32,
     /// Config +2106 byte: guild bank deposit enabled.
     pub bank_enabled: bool,
     /// Config +64 signed dword: largest money deposit.
@@ -81,6 +86,10 @@ pub struct GuildWorld {
     /// Guild-manager PC lookup `0x1403F7D20(World +5824, q, 1)`.
     /// ❓ The key may be the PC DB ID or the object ID.
     pub players: BTreeMap<u64, GuildPlayer>,
+    /// `0x1400EF0B0(guild, index)`: (guild ID, member index) → PC object ID.
+    pub member_slots: BTreeMap<(u64, u32), u64>,
+    /// `0x1400F2900(guild, &out)`: 32-byte meeting place. Missing = false.
+    pub meeting_places: BTreeMap<u64, [u8; 32]>,
 }
 /// Fields 583 reads from the looked-up PC.
 #[derive(Clone, Debug, Default)]
@@ -91,6 +100,14 @@ pub struct GuildPlayer {
     pub faction: i8,
     /// PC +20744 DB ID.
     pub db_id: u64,
+    /// PC +40 object ID.
+    pub object_id: u64,
+    /// PC +37520 arena state (2, 3, 5, 6 = in arena).
+    pub arena_state: u32,
+    /// PC +2224 zone.
+    pub zone: Option<u64>,
+    /// PC +46 native kind.
+    pub native_kind: u16,
 }
 impl GuildWorld {
     fn action_enabled(&self, guild: &Guild, row: u32) -> bool {
@@ -236,6 +253,33 @@ pub enum GuildTaskKind {
         kind: i16,
         duration: i32,
     },
+    /// 1274 action (factory kind 53): +152 member PC, +160 value,
+    /// +192 config +104, +200 records, +264 count.
+    WarpToMember {
+        member: u64,
+        value: u16,
+        config: i32,
+        records: Vec<(u16, u16)>,
+    },
+    /// 1280 action (factory kind 55): no fields.
+    WarpToMeetingPlace,
+    /// 1283 task (+68 = 358, size 0xF8) on the target zone: +128 target,
+    /// +144 PC, +152 DB ID, +160 guild, +168 member, +176 records, +240 count.
+    WarpToMember2 {
+        target: u64,
+        db_id: u64,
+        member: u64,
+        records: Vec<(u16, u16)>,
+    },
+    /// 1286 action (factory kind 57): +152 PC, +160 DB ID, +168 guild,
+    /// +176 records, +240 count.
+    CallMember2 {
+        db_id: u64,
+        records: Vec<(u16, u16)>,
+    },
+    /// 1289 action (factory kind 58): +152 PC, +160 DB ID, +168 guild,
+    /// +176 meeting place (32 bytes).
+    WarpToMeetingPlace2 { db_id: u64, place: [u8; 32] },
 }
 /// 461 decoded request. ❓ The helper outputs (Destination +148…) are not read.
 #[derive(Clone, Debug, PartialEq, Eq)]
@@ -332,6 +376,12 @@ pub(super) fn dispatch_guild(ctx: &mut Context<'_>, command: u16, req: &[u8]) ->
         619 => handle_accept_guild_alliance(ctx, req),
         621 => handle_reject_guild_alliance(ctx, req),
         623 => handle_delete_guild_alliance(ctx, req),
+        1274 => handle_warp_to_guild_member(ctx, req),
+        1277 => handle_call_guild_member(ctx, req),
+        1280 => handle_warp_to_guild_meeting_place(ctx, req),
+        1283 => handle_warp_to_guild_member2(ctx, req),
+        1286 => handle_call_guild_member2(ctx, req),
+        1289 => handle_warp_to_guild_meeting_place2(ctx, req),
         _ => unreachable!("guild command table"),
     }
 }
@@ -2136,4 +2186,251 @@ pub fn handle_reject_guild_alliance(ctx: &mut Context<'_>, req: &[u8]) -> Outcom
 /// parity: 623 15-guild-handlers.md#623--g_deleteguildalliancereqcmd--done ported
 pub fn handle_delete_guild_alliance(ctx: &mut Context<'_>, req: &[u8]) -> Outcome {
     alliance_by_id(ctx, 625, 3, req)
+}
+
+/// Warp gates: version flag → 2, arena form B → 5, no guild → `no_guild`.
+fn warp_gates(ctx: &Context<'_>, v2: bool, no_guild: u16) -> Result<u64, u16> {
+    if ctx.world.guild.config.warp_v2 != v2 {
+        return Err(2);
+    }
+    if arena_b(ctx) {
+        return Err(5);
+    }
+    let id = guild_id(ctx.pc());
+    if id == 0 {
+        return Err(no_guild);
+    }
+    Ok(id)
+}
+/// Achievement reward (+21096), jumping ticket (+13752) or instant payment
+/// (+21080), each read under its lock.
+fn warp_busy(pc: &Pc) -> bool {
+    pc.achievement_reward || pc.jumping_ticket || pc.instant_payment
+}
+/// `C` count (> 16 rejects) then (h, h) records. Err(true) = count too big.
+fn warp_records(r: &mut Reader<'_>) -> Result<Vec<(u16, u16)>, bool> {
+    let count = r.byte().ok_or(false)?;
+    if count > 16 {
+        return Err(true);
+    }
+    (0..count)
+        .map(|_| Some((r.short()?, r.short()?)))
+        .collect::<Option<Vec<_>>>()
+        .ok_or(false)
+}
+/// Factory action on the PC zone: zone → 2, kind 1 → 2, queue fail → 2.
+fn warp_action(ctx: &mut Context<'_>, command: u16, reply: u16, kind: GuildTaskKind) -> Outcome {
+    let pc = ctx.pc().clone();
+    let Some(zone) = pc.zone else {
+        return Outcome::reason(reply, 2);
+    };
+    if pc.native_kind != 1 {
+        return Outcome::reason(reply, 2);
+    }
+    let task = GuildTask {
+        command,
+        caster: pc.object_id,
+        zone,
+        guild_id: pc.guild_id,
+        kind,
+    };
+    queue_task(ctx, task, reply)
+}
+
+/// parity: 1274 15-guild-handlers.md#1274--g_warptoguildmemberreqcmd--done ported
+pub fn handle_warp_to_guild_member(ctx: &mut Context<'_>, req: &[u8]) -> Outcome {
+    const R: u16 = 1276;
+    let id = match warp_gates(ctx, false, 1470) {
+        Ok(id) => id,
+        Err(reason) => return Outcome::reason(R, reason),
+    };
+    let Some(guild) = ctx.world.guild.guilds.get(&id) else {
+        return Outcome::reason(R, 1470);
+    };
+    if !ctx.world.guild.action_enabled(guild, 14) {
+        return Outcome::reason(R, 2);
+    }
+    if warp_busy(ctx.pc()) {
+        return Outcome::reason(R, 1464);
+    }
+    let mut r = Reader(req);
+    let (Some(index), Some(value)) = (r.byte(), r.short()) else {
+        return Outcome::reason(R, 1553);
+    };
+    let records = match warp_records(&mut r) {
+        Ok(records) => records,
+        Err(true) => return Outcome::reason(R, 1468),
+        Err(false) => return Outcome::reason(R, 1553),
+    };
+    let member = ctx
+        .world
+        .guild
+        .member_slots
+        .get(&(id, u32::from(index)))
+        .copied()
+        .unwrap_or(0);
+    if member == 0 || member == ctx.pc().object_id {
+        return Outcome::reason(R, 1473);
+    }
+    let config = ctx.world.guild.config.warp_member_value;
+    let kind = GuildTaskKind::WarpToMember {
+        member,
+        value,
+        config,
+        records,
+    };
+    warp_action(ctx, 1274, R, kind)
+}
+
+/// parity: 1277 15-guild-handlers.md#1277--g_callguildmemberreqcmd--partial partial
+pub fn handle_call_guild_member(ctx: &mut Context<'_>, _: &[u8]) -> Outcome {
+    const R: u16 = 1279;
+    if ctx.world.guild.config.warp_v2 {
+        return Outcome::reason(R, 2);
+    }
+    if arena_b(ctx) {
+        return Outcome::reason(R, 5);
+    }
+    // STOP excluded restriction query 0x1403A8344 -> 0x14060E280 (1488).
+    boundary("❓ STOP excluded restriction call in 1277; call task unread")
+}
+
+/// parity: 1280 15-guild-handlers.md#1280--g_warptoguildmeetingplacereqcmd--done ported
+pub fn handle_warp_to_guild_meeting_place(ctx: &mut Context<'_>, _: &[u8]) -> Outcome {
+    const R: u16 = 1282;
+    let id = match warp_gates(ctx, false, 1494) {
+        Ok(id) => id,
+        Err(reason) => return Outcome::reason(R, reason),
+    };
+    let Some(guild) = ctx.world.guild.guilds.get(&id) else {
+        return Outcome::reason(R, 1494);
+    };
+    if !ctx.world.guild.action_enabled(guild, 16) {
+        return Outcome::reason(R, 2);
+    }
+    if warp_busy(ctx.pc()) {
+        return Outcome::reason(R, 1491);
+    }
+    warp_action(ctx, 1280, R, GuildTaskKind::WarpToMeetingPlace)
+}
+
+/// parity: 1283 15-guild-handlers.md#1283--g_warptoguildmember2reqcmd--done ported
+pub fn handle_warp_to_guild_member2(ctx: &mut Context<'_>, req: &[u8]) -> Outcome {
+    const R: u16 = 1285;
+    let id = match warp_gates(ctx, true, 1509) {
+        Ok(id) => id,
+        Err(reason) => return Outcome::reason(R, reason),
+    };
+    let mut r = Reader(req);
+    let Some(index) = r.byte() else {
+        return Outcome::reason(R, 2);
+    };
+    let Ok(records) = warp_records(&mut r) else {
+        return Outcome::reason(R, 2);
+    };
+    if records.iter().any(|(_, b)| (*b as i16) <= 0) {
+        return Outcome::reason(R, 2);
+    }
+    let Some(guild) = ctx.world.guild.guilds.get(&id) else {
+        return Outcome::reason(R, 2);
+    };
+    let Some(&member) = ctx.world.guild.member_slots.get(&(id, u32::from(index))) else {
+        return Outcome::reason(R, 1500);
+    };
+    if !ctx.world.guild.action_enabled(guild, 14) || member == ctx.pc().object_id {
+        return Outcome::reason(R, 2);
+    }
+    let Some(target) = ctx.world.guild.players.get(&member).cloned() else {
+        return Outcome::reason(R, 2);
+    };
+    if matches!(target.arena_state, 2 | 3 | 5 | 6) {
+        return Outcome::reason(R, 1499);
+    }
+    let Some(zone) = target.zone else {
+        return Outcome::reason(R, 2);
+    };
+    let pc = ctx.pc().clone();
+    if target.native_kind != 1 || pc.object_id == 0 || pc.db_id == 0 {
+        return Outcome::reason(R, 2);
+    }
+    let task = GuildTask {
+        command: 1283,
+        caster: pc.object_id,
+        zone,
+        guild_id: id,
+        kind: GuildTaskKind::WarpToMember2 {
+            target: target.object_id,
+            db_id: pc.db_id,
+            member,
+            records,
+        },
+    };
+    queue_shared(ctx, task, R)
+}
+
+/// parity: 1286 15-guild-handlers.md#1286--g_callguildmember2reqcmd--done ported
+pub fn handle_call_guild_member2(ctx: &mut Context<'_>, req: &[u8]) -> Outcome {
+    const R: u16 = 1288;
+    let id = match warp_gates(ctx, true, 1523) {
+        Ok(id) => id,
+        Err(reason) => return Outcome::reason(R, reason),
+    };
+    if !row_on(ctx, id, 15) {
+        return Outcome::reason(R, 2);
+    }
+    let Ok(records) = warp_records(&mut Reader(req)) else {
+        return Outcome::reason(R, 2);
+    };
+    let pc = ctx.pc().clone();
+    if pc.object_id == 0 || pc.db_id == 0 {
+        return Outcome::reason(R, 2);
+    }
+    let kind = GuildTaskKind::CallMember2 {
+        db_id: pc.db_id,
+        records,
+    };
+    warp_action(ctx, 1286, R, kind)
+}
+
+/// parity: 1289 15-guild-handlers.md#1289--g_warptoguildmeetingplace2reqcmd--done ported
+pub fn handle_warp_to_guild_meeting_place2(ctx: &mut Context<'_>, _: &[u8]) -> Outcome {
+    const R: u16 = 1291;
+    let id = match warp_gates(ctx, true, 1535) {
+        Ok(id) => id,
+        Err(reason) => return Outcome::reason(R, reason),
+    };
+    if !row_on(ctx, id, 16) {
+        return Outcome::reason(R, 2);
+    }
+    let Some(place) = ctx.world.guild.meeting_places.get(&id).copied() else {
+        return Outcome::reason(R, 2);
+    };
+    let field = |a: usize, n: usize| {
+        place[a..a + n]
+            .iter()
+            .rev()
+            .fold(0u64, |v, b| v << 8 | u64::from(*b))
+    };
+    let expiry = field(24, 8) as i64;
+    let now = ctx.world.utc_seconds;
+    if field(0, 8) == 0 || field(8, 4) == 0 || field(12, 2) == 0 || now > expiry {
+        return Outcome::reason(R, 2);
+    }
+    let pc = ctx.pc().clone();
+    if pc.object_id == 0 || pc.db_id == 0 || expiry == 0 {
+        return Outcome::reason(R, 2);
+    }
+    let kind = GuildTaskKind::WarpToMeetingPlace2 {
+        db_id: pc.db_id,
+        place,
+    };
+    warp_action(ctx, 1289, R, kind)
+}
+/// Guild lookup and action row. Missing guild = off.
+fn row_on(ctx: &Context<'_>, id: u64, row: u32) -> bool {
+    ctx.world
+        .guild
+        .guilds
+        .get(&id)
+        .is_some_and(|g| ctx.world.guild.action_enabled(g, row))
 }
