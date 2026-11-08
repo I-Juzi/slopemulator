@@ -27,7 +27,11 @@ This file covers the 17 core guild commands: create, rename, destroy, info, memb
 | Row | Handler |
 | --- | --- |
 | 1 | 509 Join |
+| 2 | 486 Edit member permission |
 | 3 | 491 Change grade |
+| 4 | 489 Change flag bearer |
+| 5 | 443 Guild level up |
+| 6 | 445 Deposit in guild bank |
 | 9 | 494 Delegate leader |
 | 11 | 511 Leave |
 | 12 | 513 Banish |
@@ -40,6 +44,9 @@ This file covers the 17 core guild commands: create, rename, destroy, info, memb
 | --- | --- | --- |
 | 2 | 440 Retrieve info | — |
 | 3 | 477 Retrieve members | — |
+| 6 | 443 Guild level up | — |
+| 13 | 483 Retrieve member permission | — |
+| 14 | 486 Edit member permission | +412, +416, +420, +424: the four permission masks |
 | 11 | 480 Edit notice | +170 notice text, `wcsncpy` 121 units |
 | 17 | 506 Confirm invitation | +160 PC DB ID |
 | 18 | 508 Reject invitation | +152 = PC DB ID (not runtime ID) |
@@ -204,11 +211,85 @@ Shared task attachment (431, 434) uses `0x14025DB30` (zone), `0x14069BF60` (PC c
 - **Output:** Reply 516 `hiCqQsCc;;`: per guild, ID, type, name (from guild +32418 or a cache), and a 28-entry uniform list. Compose fail → 517 reason 2.
 - **❓ Missing:** The cache branch (`0x1400176E0`, ordered map, entries ≥ 8 bytes) and the exact field meaning of `i`, `C` and the uniform records.
 
+## 443 — G_GuildLevelUpReqCmd — done
+
+- **381:** `0x1403AA270`. **PDB hint:** `HandleGame_GuildLevelUpReq`.
+- **Wire:** `h` (no body read).
+- **Checks/order (reply 444):**
+  1. Arena form B → 5.
+  2. Config `qword_140EE58A0` +2107 byte = 1 → 2 (❓ meaning: level-up disabled).
+  3. No guild (PC +336 = 0) → 1554.
+  4. Guild lookup fails → 2.
+  5. Action row 5 not enabled → 2.
+  6. WSO alloc fails → 2.
+  7. Post op 6 fails → 2.
+- **Output:** Success posts op 6 (+144 guild ID, +152 runtime ID). No reply.
+
+## 445 — G_DepositInGuildBankReqCmd — done
+
+- **381:** `0x1403AA5D0`. **PDB hint:** `HandleGame_DepositInGuildBankReq`.
+- **Wire:** `hichh`: money (`i`), then a repeat count (`c`, read by `0x14069DA00`), then `count` records of (`h` slot, `h` amount).
+- **Checks/order (reply 446):**
+  1. Config +2106 byte = 0 (bank off) → 2.
+  2. Arena form B → 5.
+  3. T2 gate (PC byte +13768 = 1, spec 12) → 7.
+  4. Money decode fails → 1553.
+  5. Money < 0, or money > config +64 (signed dword) → 33.
+  6. No guild → 2. Lookup fails → 2. Action row 6 not enabled → 2.
+  7. Count < 0, or count > 5, or money = 0 and count = 0 → 1553 (log 15279).
+  8. Money > 0 and count > 0 → 1579 (money and items in one request).
+  9. A record decode fails → 1553.
+  10. Two records with the same slot → 1553 (log 15311).
+  11. No zone (PC +2224) → 2.
+  12. Task alloc (`new(0x188)`, `0x140540BF0`) fails → 2.
+  13. PC kind (+46) ≠ 1 → assert `0x14069CB70` (15287), then 2.
+  14. A record with slot 0 or amount 0 → 2 (log 15309).
+- **Output:** Task +144 = 1, +148 money, +152 count, +154 slot words, +174 amount words. Attach to the zone (`0x14025DB30`), +128 runtime ID, PC child link (`0x14069BF60`), +138 = 1. Queue with `0x140603BD0(task+32 → +16, task, 0, 0)`. This queue has no failure branch: no reply on success.
+
+## 483 — G_RetrieveGuildMemberPermissionReqCmd — done
+
+- **381:** `0x1403A3F50`. **PDB hint:** `HandleGame_RetrieveGuildMemberPermissionReq`.
+- **Wire:** `h` (no body read).
+- **Checks/order (reply 485):** Arena form A → 5. No guild → 1384. Lookup fails → 2. WSO alloc fails → 2. Post op 13 fails → 2.
+- **Output:** Success posts op 13. No reply. No action-row check.
+
+## 486 — G_EditGuildMemberPermissionReqCmd — done
+
+- **381:** `0x1403A41F0`. **PDB hint:** `HandleGame_EditGuildMemberPermissionReq`.
+- **Wire:** `hiiii`: four permission masks.
+- **Checks/order (reply 488):**
+  1. Arena form A → 5.
+  2. Decode fails → 1395.
+  3. No guild → 1398.
+  4. Lookup fails → 2. Action row 2 not enabled → 2.
+  5. A mask sets a bit outside its limit → 1396. Limits: normal guild (type 1) World +6264, +6268, +6272, +6276; open guild World +6304, +6308, +6312, +6316. The test is `limit < (limit | mask)` (❓ signed compare; equal to a bit-subset test for non-negative values).
+  6. WSO alloc fails → 2. Post op 14 fails → 2.
+- **Output:** Op 14 with the masks at +412..+424. No reply.
+
+## 489 — G_ChangeGuildFlagBearerReqCmd — partial
+
+- **381:** `0x1403A4690`. **PDB hint:** `HandleGame_ChangeGuildFlagBearerReq`.
+- **Wire:** `hcs`: target index, target name (33 units).
+- **Checks/order (reply 490):**
+  1. Arena form B → 5.
+  2. T2 gate → 7.
+  3. Decode fails → 1553.
+  4. No guild → 1554.
+  5. Lookup fails → 2. Action row 4 not enabled → 2.
+  6. `0x1400FF0D0(guild, PC, index, name, 33)` returns a nonzero reason → reply that reason.
+- **Output:** Helper success (0) → no reply.
+- **❓ Missing:** The body of `0x1400FF0D0` (member lookup, broadcasts, DB work).
+
 ## Status
 
 | Id | State |
 | --- | --- |
 | 431 | partial |
+| 443 | done |
+| 445 | done |
+| 483 | done |
+| 486 | done |
+| 489 | partial |
 | 434 | partial |
 | 437 | done |
 | 440 | done |

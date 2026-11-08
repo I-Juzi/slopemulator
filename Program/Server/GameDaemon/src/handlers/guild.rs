@@ -4,7 +4,8 @@
 use super::*;
 
 pub const GUILD_COMMANDS: &[u16] = &[
-    431, 434, 437, 440, 477, 480, 491, 494, 499, 501, 503, 506, 508, 509, 511, 513, 515,
+    431, 434, 437, 440, 443, 445, 477, 480, 483, 486, 489, 491, 494, 499, 501, 503, 506, 508, 509,
+    511, 513, 515,
 ];
 
 /// Server config read by the guild handlers (`qword_140EE58A0`, World +6208).
@@ -28,6 +29,14 @@ pub struct GuildConfig {
     pub join_renewal: bool,
     /// Config +776 byte = 1: delegate leader posts op 29, else 25.
     pub delegate_alt_op: bool,
+    /// Config +2107 byte = 1: 443 replies reason 2 (❓ level-up disabled).
+    pub level_up_disabled: bool,
+    /// Config +2106 byte: guild bank deposit enabled.
+    pub bank_enabled: bool,
+    /// Config +64 signed dword: largest money deposit.
+    pub bank_money_limit: i32,
+    /// Permission mask limits: [normal (World +6264..), open (World +6304..)].
+    pub permission_limits: [[u32; 4]; 2],
 }
 /// Guild +32416 type, +32418 name, +32771 rename-in-progress.
 #[derive(Clone, Debug, Default)]
@@ -66,6 +75,12 @@ impl GuildWorld {
 pub enum GuildWorkKind {
     RetrieveInfo,
     RetrieveMembers,
+    LevelUp,
+    RetrievePermission,
+    /// +412..+424.
+    EditPermission {
+        masks: [u32; 4],
+    },
     /// +170, at most 121 units copied.
     EditNotice {
         text: Vec<u16>,
@@ -105,6 +120,9 @@ impl GuildWork {
         Some(match &self.kind {
             GuildWorkKind::RetrieveInfo => 2,
             GuildWorkKind::RetrieveMembers => 3,
+            GuildWorkKind::LevelUp => 6,
+            GuildWorkKind::RetrievePermission => 13,
+            GuildWorkKind::EditPermission { .. } => 14,
             GuildWorkKind::EditNotice { .. } => 11,
             GuildWorkKind::ConfirmInvitation { .. } => 17,
             GuildWorkKind::RejectInvitation => 18,
@@ -131,6 +149,8 @@ pub enum GuildTaskKind {
         name: Vec<u16>,
         items: Vec<(u16, u16)>,
     },
+    /// Deposit task (`0x140540BF0`): +144 = 1, +148 money, (slot, amount) records.
+    Deposit { money: i32, items: Vec<(u16, u16)> },
 }
 #[derive(Clone, Debug, PartialEq, Eq)]
 pub struct GuildTask {
@@ -152,6 +172,11 @@ pub(super) fn dispatch_guild(ctx: &mut Context<'_>, command: u16, req: &[u8]) ->
         434 => handle_rename_guild(ctx, req),
         437 => handle_destroy_guild(ctx, req),
         440 => handle_retrieve_guild_info(ctx, req),
+        443 => handle_guild_level_up(ctx, req),
+        445 => handle_deposit_in_guild_bank(ctx, req),
+        483 => handle_retrieve_guild_member_permission(ctx, req),
+        486 => handle_edit_guild_member_permission(ctx, req),
+        489 => handle_change_guild_flag_bearer(ctx, req),
         477 => handle_retrieve_guild_members(ctx, req),
         480 => handle_edit_guild_notification_message(ctx, req),
         491 => handle_change_guild_member_grade(ctx, req),
@@ -727,4 +752,178 @@ pub fn handle_query_guild_info(ctx: &mut Context<'_>, req: &[u8]) -> Outcome {
     }
     let _ = ctx;
     boundary("❓ reply 516 hiCqQsCc;; composition")
+}
+
+/// parity: 443 15-guild-handlers.md#443--g_guildlevelupreqcmd--done ported
+pub fn handle_guild_level_up(ctx: &mut Context<'_>, _: &[u8]) -> Outcome {
+    const R: u16 = 444;
+    if arena_b(ctx) {
+        return Outcome::reason(R, 5);
+    }
+    if ctx.world.guild.config.level_up_disabled {
+        return Outcome::reason(R, 2);
+    }
+    if guild_id(ctx.pc()) == 0 {
+        return Outcome::reason(R, 1554);
+    }
+    let Some(id) = guild_with_action(ctx, 5) else {
+        return Outcome::reason(R, 2);
+    };
+    let work = GuildWork {
+        guild_id: id,
+        requester: ctx.pc().object_id,
+        kind: GuildWorkKind::LevelUp,
+    };
+    post(ctx, work, Outcome::reason(R, 2))
+}
+
+/// parity: 445 15-guild-handlers.md#445--g_depositinguildbankreqcmd--done ported
+pub fn handle_deposit_in_guild_bank(ctx: &mut Context<'_>, req: &[u8]) -> Outcome {
+    const R: u16 = 446;
+    let cfg = &ctx.world.guild.config;
+    if !cfg.bank_enabled {
+        return Outcome::reason(R, 2);
+    }
+    if arena_b(ctx) {
+        return Outcome::reason(R, 5);
+    }
+    if ctx.pc().t2_blocked {
+        return Outcome::reason(R, 7);
+    }
+    let mut r = Reader(req);
+    let Some(money) = r.int().map(|v| v as i32) else {
+        return Outcome::reason(R, 1553);
+    };
+    if money < 0 || money > cfg.bank_money_limit {
+        return Outcome::reason(R, 33);
+    }
+    if guild_id(ctx.pc()) == 0 {
+        return Outcome::reason(R, 2);
+    }
+    if guild_with_action(ctx, 6).is_none() {
+        return Outcome::reason(R, 2);
+    }
+    // ❓ A missing count byte: the reader result is treated as a decode failure.
+    let Some(count) = r.byte().map(|c| c as i8) else {
+        return Outcome::reason(R, 1553);
+    };
+    if !(0..=5).contains(&count) || (money == 0 && count == 0) {
+        return Outcome::reason(R, 1553);
+    }
+    if money > 0 && count > 0 {
+        return Outcome::reason(R, 1579);
+    }
+    let mut items: Vec<(u16, u16)> = Vec::with_capacity(count as usize);
+    for _ in 0..count {
+        let (Some(slot), Some(amount)) = (r.short(), r.short()) else {
+            return Outcome::reason(R, 1553);
+        };
+        if items.iter().any(|(s, _)| *s == slot) {
+            return Outcome::reason(R, 1553);
+        }
+        items.push((slot, amount));
+    }
+    let pc = ctx.pc().clone();
+    let Some(zone) = pc.zone else {
+        return Outcome::reason(R, 2);
+    };
+    if pc.native_kind != 1 || items.iter().any(|(s, a)| *s == 0 || *a == 0) {
+        return Outcome::reason(R, 2);
+    }
+    let task = GuildTask {
+        command: 445,
+        caster: pc.object_id,
+        zone,
+        guild_id: pc.guild_id,
+        kind: GuildTaskKind::Deposit { money, items },
+    };
+    // `0x140603BD0` has no failure branch; only allocation failure replies.
+    match ctx.services.queue_guild(&task) {
+        Gate::Unknown => boundary("❓ guild deposit task adapter"),
+        Gate::Fail => Outcome::reason(R, 2),
+        Gate::Pass => Outcome {
+            changes: vec![StateChange::Queued(445), StateChange::GuildTaskQueued(task)],
+            ..Outcome::default()
+        },
+    }
+}
+
+/// parity: 483 15-guild-handlers.md#483--g_retrieveguildmemberpermissionreqcmd--done ported
+pub fn handle_retrieve_guild_member_permission(ctx: &mut Context<'_>, _: &[u8]) -> Outcome {
+    const R: u16 = 485;
+    if arena_a(ctx) {
+        return Outcome::reason(R, 5);
+    }
+    let id = guild_id(ctx.pc());
+    if id == 0 {
+        return Outcome::reason(R, 1384);
+    }
+    if !ctx.world.guild.guilds.contains_key(&id) {
+        return Outcome::reason(R, 2);
+    }
+    let work = GuildWork {
+        guild_id: id,
+        requester: ctx.pc().object_id,
+        kind: GuildWorkKind::RetrievePermission,
+    };
+    post(ctx, work, Outcome::reason(R, 2))
+}
+
+/// parity: 486 15-guild-handlers.md#486--g_editguildmemberpermissionreqcmd--done ported
+pub fn handle_edit_guild_member_permission(ctx: &mut Context<'_>, req: &[u8]) -> Outcome {
+    const R: u16 = 488;
+    if arena_a(ctx) {
+        return Outcome::reason(R, 5);
+    }
+    let mut r = Reader(req);
+    let (Some(a), Some(b), Some(c), Some(d)) = (r.int(), r.int(), r.int(), r.int()) else {
+        return Outcome::reason(R, 1395);
+    };
+    let masks = [a, b, c, d];
+    if guild_id(ctx.pc()) == 0 {
+        return Outcome::reason(R, 1398);
+    }
+    let Some(id) = guild_with_action(ctx, 2) else {
+        return Outcome::reason(R, 2);
+    };
+    let open = ctx.world.guild.guilds[&id].guild_type == 2;
+    let limits = ctx.world.guild.config.permission_limits[usize::from(open)];
+    // ❓ Native compare is `limit < (limit | mask)`, possibly signed.
+    if masks.iter().zip(limits).any(|(m, l)| m & !l != 0) {
+        return Outcome::reason(R, 1396);
+    }
+    let work = GuildWork {
+        guild_id: id,
+        requester: ctx.pc().object_id,
+        kind: GuildWorkKind::EditPermission { masks },
+    };
+    post(ctx, work, Outcome::reason(R, 2))
+}
+
+/// parity: 489 15-guild-handlers.md#489--g_changeguildflagbearerreqcmd--partial partial
+pub fn handle_change_guild_flag_bearer(ctx: &mut Context<'_>, req: &[u8]) -> Outcome {
+    // ❓ 0x1400FF0D0 member lookup, broadcasts, DB work.
+    const R: u16 = 490;
+    if arena_b(ctx) {
+        return Outcome::reason(R, 5);
+    }
+    if ctx.pc().t2_blocked {
+        return Outcome::reason(R, 7);
+    }
+    let mut r = Reader(req);
+    let (Some(index), Some(name)) = (r.byte(), r.string(NAME_UNITS)) else {
+        return Outcome::reason(R, 1553);
+    };
+    if guild_id(ctx.pc()) == 0 {
+        return Outcome::reason(R, 1554);
+    }
+    let Some(id) = guild_with_action(ctx, 4) else {
+        return Outcome::reason(R, 2);
+    };
+    let pc = ctx.pc().clone();
+    match ctx.services.guild_flag_bearer(id, &pc, index, &name) {
+        None => boundary("❓ guild flag bearer helper 0x1400FF0D0"),
+        Some(0) => Outcome::default(),
+        Some(reason) => Outcome::reason(R, reason),
+    }
 }

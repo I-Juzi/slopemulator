@@ -245,6 +245,8 @@ pub struct Pc {
     pub pending_guild_id: u64,
     /// PC +328 faction (signed byte).
     pub faction: i8,
+    /// PC byte +13768 = 1: the T2 gate of spec 12 (reason 7).
+    pub t2_blocked: bool,
 }
 impl Default for Pc {
     fn default() -> Self {
@@ -285,6 +287,7 @@ impl Default for Pc {
             guild_id: 0,
             pending_guild_id: 0,
             faction: 0,
+            t2_blocked: false,
         }
     }
 }
@@ -458,6 +461,16 @@ pub trait Services {
     ) -> Option<Result<(), u16>> {
         None
     }
+    /// Opaque `0x1400FF0D0`: 0 = success, else the reason to reply.
+    fn guild_flag_bearer(
+        &mut self,
+        _guild_id: u64,
+        _pc: &Pc,
+        _index: u8,
+        _name: &[u16],
+    ) -> Option<u16> {
+        None
+    }
     fn queue(&mut self, command: u16) -> Gate;
     fn logout(&mut self) -> Gate;
     fn available_channel(&mut self, channel: i16) -> Gate;
@@ -494,6 +507,7 @@ pub struct MemoryGuild {
     pub join_ticket: Option<bool>,
     pub leave_result: Option<Result<(), u16>>,
     pub banish_result: Option<Result<(), u16>>,
+    pub flag_bearer_result: Option<u16>,
     pub posted: Vec<GuildWork>,
     pub tasks: Vec<GuildTask>,
 }
@@ -508,6 +522,7 @@ impl Default for MemoryGuild {
             join_ticket: None,
             leave_result: None,
             banish_result: None,
+            flag_bearer_result: None,
             posted: vec![],
             tasks: vec![],
         }
@@ -561,6 +576,9 @@ impl Services for MemoryServices {
     }
     fn guild_banish(&mut self, _: u64, _: &Pc, _: u8, _: &[u16]) -> Option<Result<(), u16>> {
         self.guild.banish_result
+    }
+    fn guild_flag_bearer(&mut self, _: u64, _: &Pc, _: u8, _: &[u16]) -> Option<u16> {
+        self.guild.flag_bearer_result
     }
     fn party_state(&mut self) -> Option<&mut PartyState> {
         self.party.as_mut()

@@ -53,7 +53,7 @@ impl H {
                 rename_in_progress: false,
             },
         );
-        for row in [1, 3, 9, 11, 12, 13, 17] {
+        for row in [1, 2, 3, 4, 5, 6, 9, 11, 12, 13, 17] {
             world.guild.actions.insert(
                 row,
                 GuildActionRow {
@@ -65,6 +65,9 @@ impl H {
         world.guild.config.rename_enabled = true;
         world.guild.config.rename_prefix = name("[Old]");
         world.guild.config.rename_by_item = true;
+        world.guild.config.bank_enabled = true;
+        world.guild.config.bank_money_limit = 1000;
+        world.guild.config.permission_limits = [[0xFF; 4], [0x0F; 4]];
         let mut services = MemoryServices::default();
         services.guild.post_result = Gate::Pass;
         services.guild.queue_result = Gate::Pass;
@@ -74,6 +77,7 @@ impl H {
         services.guild.join_ticket = Some(false);
         services.guild.leave_result = Some(Ok(()));
         services.guild.banish_result = Some(Ok(()));
+        services.guild.flag_bearer_result = Some(0);
         Self {
             session: Session {
                 authenticated: true,
@@ -461,4 +465,124 @@ fn unknown_boundaries_are_not_approval() {
         h.run(431, &create_body(1, "New", 7)).status,
         Status::Unsupported(_)
     ));
+}
+
+#[test]
+fn level_up() {
+    let mut h = H::new();
+    assert_eq!(posted(&h.run(443, &[])).unwrap().op(), Some(6));
+    h.services.guild.post_result = Gate::Fail;
+    assert_eq!(reason(&h.run(443, &[])), Some((444, 2)));
+    h.world.guild.actions.remove(&5);
+    assert_eq!(reason(&h.run(443, &[])), Some((444, 2)));
+    h.pc().guild_id = 0;
+    assert_eq!(reason(&h.run(443, &[])), Some((444, 1554)));
+    h.world.guild.config.level_up_disabled = true;
+    assert_eq!(reason(&h.run(443, &[])), Some((444, 2)));
+    h.pc().arena_state = 2;
+    assert_eq!(reason(&h.run(443, &[])), Some((444, 5)));
+}
+
+fn deposit(money: i32, items: &[(u16, u16)]) -> Vec<u8> {
+    let mut b = money.to_le_bytes().to_vec();
+    b.push(items.len() as u8);
+    for (s, a) in items {
+        b.extend(s.to_le_bytes());
+        b.extend(a.to_le_bytes());
+    }
+    b
+}
+
+#[test]
+fn deposit_in_guild_bank() {
+    let mut h = H::new();
+    let out = h.run(445, &deposit(500, &[]));
+    assert!(out.replies.is_empty(), "{out:?}");
+    assert!(matches!(
+        h.services.guild.tasks.last().unwrap().kind,
+        GuildTaskKind::Deposit { money: 500, .. }
+    ));
+    let out = h.run(445, &deposit(0, &[(3, 1), (4, 2)]));
+    assert!(out.replies.is_empty(), "{out:?}");
+    assert_eq!(reason(&h.run(445, &[1])), Some((446, 1553)));
+    assert_eq!(reason(&h.run(445, &deposit(1001, &[]))), Some((446, 33)));
+    assert_eq!(reason(&h.run(445, &deposit(-1, &[]))), Some((446, 33)));
+    assert_eq!(reason(&h.run(445, &deposit(0, &[]))), Some((446, 1553)));
+    let six: Vec<_> = (1..=6).map(|i| (i, 1)).collect();
+    assert_eq!(reason(&h.run(445, &deposit(0, &six))), Some((446, 1553)));
+    assert_eq!(
+        reason(&h.run(445, &deposit(5, &[(3, 1)]))),
+        Some((446, 1579))
+    );
+    assert_eq!(
+        reason(&h.run(445, &deposit(0, &[(3, 1), (3, 2)]))),
+        Some((446, 1553))
+    );
+    assert_eq!(reason(&h.run(445, &deposit(0, &[(3, 0)]))), Some((446, 2)));
+    h.pc().zone = None;
+    assert_eq!(reason(&h.run(445, &deposit(5, &[]))), Some((446, 2)));
+    h.pc().zone = Some(9);
+    h.world.guild.actions.remove(&6);
+    assert_eq!(reason(&h.run(445, &deposit(5, &[]))), Some((446, 2)));
+    h.pc().t2_blocked = true;
+    assert_eq!(reason(&h.run(445, &deposit(5, &[]))), Some((446, 7)));
+    h.pc().arena_state = 3;
+    assert_eq!(reason(&h.run(445, &deposit(5, &[]))), Some((446, 5)));
+    h.world.guild.config.bank_enabled = false;
+    assert_eq!(reason(&h.run(445, &deposit(5, &[]))), Some((446, 2)));
+}
+
+#[test]
+fn member_permissions() {
+    let mut h = H::new();
+    assert_eq!(posted(&h.run(483, &[])).unwrap().op(), Some(13));
+    h.pc().guild_id = 0x4242;
+    assert_eq!(reason(&h.run(483, &[])), Some((485, 2)));
+    h.pc().guild_id = 0;
+    assert_eq!(reason(&h.run(483, &[])), Some((485, 1384)));
+
+    let masks = |m: [u32; 4]| m.iter().flat_map(|v| v.to_le_bytes()).collect::<Vec<_>>();
+    let mut h = H::new();
+    assert_eq!(reason(&h.run(486, &[1, 0, 0, 0])), Some((488, 1395)));
+    let w = posted(&h.run(486, &masks([1, 2, 0xFF, 0])))
+        .unwrap()
+        .clone();
+    assert_eq!(
+        w.kind,
+        GuildWorkKind::EditPermission {
+            masks: [1, 2, 0xFF, 0]
+        }
+    );
+    assert_eq!(
+        reason(&h.run(486, &masks([0x100, 0, 0, 0]))),
+        Some((488, 1396))
+    );
+    // Open guild uses the second limit set.
+    h.pc().guild_id = OPEN;
+    assert_eq!(
+        reason(&h.run(486, &masks([0x10, 0, 0, 0]))),
+        Some((488, 1396))
+    );
+    h.world.guild.actions.remove(&2);
+    assert_eq!(reason(&h.run(486, &masks([1, 0, 0, 0]))), Some((488, 2)));
+    h.pc().guild_id = 0;
+    assert_eq!(reason(&h.run(486, &masks([1, 0, 0, 0]))), Some((488, 1398)));
+}
+
+#[test]
+fn change_flag_bearer() {
+    let body = [vec![1], s("Target")].concat();
+    let mut h = H::new();
+    assert!(h.run(489, &body).replies.is_empty());
+    h.services.guild.flag_bearer_result = Some(1555);
+    assert_eq!(reason(&h.run(489, &body)), Some((490, 1555)));
+    h.world.guild.actions.remove(&4);
+    assert_eq!(reason(&h.run(489, &body)), Some((490, 2)));
+    h.pc().guild_id = 0;
+    assert_eq!(reason(&h.run(489, &body)), Some((490, 1554)));
+    assert_eq!(reason(&h.run(489, &[1])), Some((490, 1553)));
+    h.pc().t2_blocked = true;
+    assert_eq!(reason(&h.run(489, &body)), Some((490, 7)));
+    h.world.arena = true;
+    assert_eq!(reason(&h.run(489, &body)), Some((490, 5)));
 }
