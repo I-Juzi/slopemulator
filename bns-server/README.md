@@ -34,7 +34,7 @@ paths inside the original binaries (`...\depot\Branch\381NC\Program\Server\...`)
 | GameDaemon 381 | 502 client handlers: 74 ported, 423 partial, 5 not started | `Docs/Server/GameDaemon/09-parity.md`, `parity-ledger.tsv` |
 | CacheGate, AchievementDaemon, RankingDaemon, SmartCouponDaemon | Ported; parity reviews done | `Docs/Server/<name>/README.md` |
 | STS client login (`sts`) | SRP-6a login server; real-client login not yet verified | `Docs/Platform/Sts/STATUS.md` |
-| StServers (original NP platform) | DbSrv ported; RouteSrv in progress; 47 other services not ported yet | `Docs/Platform/StServers/README.md` |
+| StServers (original NP platform) | **Rust port parity 3 %** (1 of 49 services ported, 1 in progress); analysis 18 % | `Docs/Platform/StServers/README.md` |
 | Client 381 (reversing) | Notes: packets, framing, datafiles, command list | `Docs/Client/README.md` |
 
 Build and check:

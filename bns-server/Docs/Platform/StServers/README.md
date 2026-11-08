@@ -28,6 +28,26 @@ Updated 8 Nov 2026.
 | TLS between servers | — | Not ported yet; key = `keyhere` | `13-routesrv.md` §6 |
 | Admin HTTP pages | — | Not ported yet (low priority) | `../Sts/10-stservers-original.md` |
 
+## Port parity (8 Nov 2026)
+
+Counted by service type. The 49 types are the services that `StServer.ini` starts.
+Scoring: Ported = 100 %, In progress = 50 %, all other states = 0 %.
+
+| Measure | Count | Percent |
+| --- | --- | --- |
+| **Rust port parity** | 1 ported + 1 in progress of 49 | **3 %** |
+| Ported (DbSrv) | 1 of 49 | 2 % |
+| Analysed or decompiled (no Rust yet) | 7 of 49 | 14 % |
+| Not started | 40 of 49 | 82 % |
+| By process count (DbSrv runs 33 instances) | 33 of 81 processes ported | 41 % ❓ misleading, one binary |
+
+```
+Port parity  [#-------------------------------------------------] 3 %
+Analysis     [#########-----------------------------------------] 18 %
+```
+
+The percent changes when a service reaches "Ported". RouteSrv is next.
+
 ## Services started by `StServer.ini` (49)
 
 | Service | State | Notes |
