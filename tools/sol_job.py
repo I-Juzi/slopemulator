@@ -9,7 +9,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
 LEDGER = ROOT / "notes" / "sol-usage.jsonl"
-BUDGET_5H = 30_000_000  # Backup guard only. Live quota is the main stop rule (95% of 5 h or weekly; was 85%).
+BUDGET_5H = 30_000_000  # Report/warning threshold only. It never blocks a job.
 WINDOW = 5 * 3600
 MAX_RESUME_CONTEXT = 60_000  # Over this, start a new session. A resumed session resends its context on each request.
 
@@ -79,8 +79,9 @@ def main():
     if not (a.slot and a.turns and a.prompt and a.out):
         ap.error("--slot, --turns, --prompt and --out are required")
     if used(a.slot) >= BUDGET_5H:
-        print(f"slot {a.slot} is over budget; no job sent", file=sys.stderr)
-        return 75
+        # Warning only (user, 2026-11-08): the local guard must never stop the pipeline.
+        # The launcher's real quota check (exit 75) is the only stop rule.
+        print(f"note: slot {a.slot} used {used(a.slot):,} tokens in 5 h (local estimate); job sent anyway", file=sys.stderr)
     if a.resume:
         last = [r for r in rows() if r["session"] == a.resume]
         if last and last[-1].get("last_context", 0) > MAX_RESUME_CONTEXT:
