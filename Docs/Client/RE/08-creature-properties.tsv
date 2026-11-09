@@ -1,0 +1,455 @@
+table	pair_table_id	finfo_381	entry_addr_381	field_id	name	ftype	size	offset	sync_order	enter_sync_order	encounter_sync_order	in_419_gm
+CreatureProperty	2	0x19f6b48	0x19f6b48	1	world_id	F_INT16	2	4	0	0		yes
+CreatureProperty	2	0x19f6b48	0x19f6b5c	2	race	F_INT8	1	6	1	1		yes
+CreatureProperty	2	0x19f6b48	0x19f6b70	3	sex	F_INT8	1	7	2	2		yes
+CreatureProperty	2	0x19f6b48	0x19f6b84	4	job	F_INT8	1	8	3	3		yes
+CreatureProperty	2	0x19f6b48	0x19f6b98	5	appearance1	F_INT8	1	9	4	4		yes
+CreatureProperty	2	0x19f6b48	0x19f6bac	6	appearance2	F_INT8	1	10	5	5		yes
+CreatureProperty	2	0x19f6b48	0x19f6bc0	7	appearance3	F_INT8	1	11	6	6		yes
+CreatureProperty	2	0x19f6b48	0x19f6bd4	8	appearance4	F_INT8	1	12	7	7		yes
+CreatureProperty	2	0x19f6b48	0x19f6be8	9	appearance5	F_INT8	1	13	8	8		yes
+CreatureProperty	2	0x19f6b48	0x19f6bfc	10	appearance6	F_INT8	1	14	9	9		yes
+CreatureProperty	2	0x19f6b48	0x19f6c10	11	appearance7	F_INT8	1	15	10	10		yes
+CreatureProperty	2	0x19f6b48	0x19f6c24	12	appearance8	F_INT8	1	16	11	11		yes
+CreatureProperty	2	0x19f6b48	0x19f6c38	13	appearance9	F_INT8	1	17	12	12		yes
+CreatureProperty	2	0x19f6b48	0x19f6c4c	14	appearance10	F_INT8	1	18	13	13		yes
+CreatureProperty	2	0x19f6b48	0x19f6c60	15	appearance11	F_INT8	1	19	14	14		yes
+CreatureProperty	2	0x19f6b48	0x19f6c74	16	appearance12	F_INT8	1	20	15	15		yes
+CreatureProperty	2	0x19f6b48	0x19f6c88	17	appearance13	F_INT8	1	21	16	16		yes
+CreatureProperty	2	0x19f6b48	0x19f6c9c	18	appearance14	F_INT8	1	22	17	17		yes
+CreatureProperty	2	0x19f6b48	0x19f6cb0	19	appearance15	F_INT8	1	23	18	18		yes
+CreatureProperty	2	0x19f6b48	0x19f6cc4	20	appearance16	F_INT8	1	24	19	19		yes
+CreatureProperty	2	0x19f6b48	0x19f6cd8	21	appearance17	F_INT8	1	25	20	20		yes
+CreatureProperty	2	0x19f6b48	0x19f6cec	22	appearance18	F_INT8	1	26	21	21		yes
+CreatureProperty	2	0x19f6b48	0x19f6d00	23	appearance19	F_INT8	1	27	22	22		yes
+CreatureProperty	2	0x19f6b48	0x19f6d14	24	appearance20	F_INT8	1	28	23	23		yes
+CreatureProperty	2	0x19f6b48	0x19f6d28	25	appearance21	F_INT8	1	29	24	24		yes
+CreatureProperty	2	0x19f6b48	0x19f6d3c	26	appearance22	F_INT8	1	30	25	25		yes
+CreatureProperty	2	0x19f6b48	0x19f6d50	27	appearance23	F_INT8	1	31	26	26		yes
+CreatureProperty	2	0x19f6b48	0x19f6d64	28	appearance24	F_INT8	1	32	27	27		yes
+CreatureProperty	2	0x19f6b48	0x19f6d78	29	appearance25	F_INT8	1	33	28	28		yes
+CreatureProperty	2	0x19f6b48	0x19f6d8c	30	appearance26	F_INT8	1	34	29	29		yes
+CreatureProperty	2	0x19f6b48	0x19f6da0	31	appearance27	F_INT8	1	35	30	30		yes
+CreatureProperty	2	0x19f6b48	0x19f6db4	32	appearance28	F_INT8	1	36	31	31		yes
+CreatureProperty	2	0x19f6b48	0x19f6dc8	33	appearance29	F_INT8	1	37	32	32		yes
+CreatureProperty	2	0x19f6b48	0x19f6ddc	34	appearance30	F_INT8	1	38	33	33		yes
+CreatureProperty	2	0x19f6b48	0x19f6df0	35	appearance31	F_INT8	1	39	34	34		yes
+CreatureProperty	2	0x19f6b48	0x19f6e04	36	appearance32	F_INT8	1	40	35	35		yes
+CreatureProperty	2	0x19f6b48	0x19f6e18	37	appearance33	F_INT8	1	41	36	36		yes
+CreatureProperty	2	0x19f6b48	0x19f6e2c	38	appearance34	F_INT8	1	42	37	37		yes
+CreatureProperty	2	0x19f6b48	0x19f6e40	39	appearance35	F_INT8	1	43	38	38		yes
+CreatureProperty	2	0x19f6b48	0x19f6e54	40	appearance36	F_INT8	1	44	39	39		yes
+CreatureProperty	2	0x19f6b48	0x19f6e68	41	appearance37	F_INT8	1	45	40	40		yes
+CreatureProperty	2	0x19f6b48	0x19f6e7c	42	appearance38	F_INT8	1	46	41	41		yes
+CreatureProperty	2	0x19f6b48	0x19f6e90	43	appearance39	F_INT8	1	47	42	42		yes
+CreatureProperty	2	0x19f6b48	0x19f6ea4	44	appearance40	F_INT8	1	48	43	43		yes
+CreatureProperty	2	0x19f6b48	0x19f6eb8	45	appearance41	F_INT8	1	49	44	44		yes
+CreatureProperty	2	0x19f6b48	0x19f6ecc	46	appearance42	F_INT8	1	50	45	45		yes
+CreatureProperty	2	0x19f6b48	0x19f6ee0	47	appearance43	F_INT8	1	51	46	46		yes
+CreatureProperty	2	0x19f6b48	0x19f6ef4	48	appearance44	F_INT8	1	52	47	47		yes
+CreatureProperty	2	0x19f6b48	0x19f6f08	49	appearance45	F_INT8	1	53	48	48		yes
+CreatureProperty	2	0x19f6b48	0x19f6f1c	50	appearance46	F_INT8	1	54	49	49		yes
+CreatureProperty	2	0x19f6b48	0x19f6f30	51	appearance47	F_INT8	1	55	50	50		yes
+CreatureProperty	2	0x19f6b48	0x19f6f44	52	appearance48	F_INT8	1	56	51	51		yes
+CreatureProperty	2	0x19f6b48	0x19f6f58	53	appearance49	F_INT8	1	57	52	52		yes
+CreatureProperty	2	0x19f6b48	0x19f6f6c	54	appearance50	F_INT8	1	58	53	53		yes
+CreatureProperty	2	0x19f6b48	0x19f6f80	55	appearance51	F_INT8	1	59	54	54		yes
+CreatureProperty	2	0x19f6b48	0x19f6f94	56	appearance52	F_INT8	1	60	55	55		yes
+CreatureProperty	2	0x19f6b48	0x19f6fa8	57	appearance53	F_INT8	1	61	56	56		yes
+CreatureProperty	2	0x19f6b48	0x19f6fbc	58	appearance54	F_INT8	1	62	57	57		yes
+CreatureProperty	2	0x19f6b48	0x19f6fd0	59	appearance55	F_INT8	1	63	58	58		yes
+CreatureProperty	2	0x19f6b48	0x19f6fe4	60	appearance56	F_INT8	1	64	59	59		yes
+CreatureProperty	2	0x19f6b48	0x19f6ff8	61	appearance57	F_INT8	1	65	60	60		yes
+CreatureProperty	2	0x19f6b48	0x19f700c	62	appearance58	F_INT8	1	66	61	61		yes
+CreatureProperty	2	0x19f6b48	0x19f7020	63	appearance59	F_INT8	1	67	62	62		yes
+CreatureProperty	2	0x19f6b48	0x19f7034	64	appearance60	F_INT8	1	68	63	63		yes
+CreatureProperty	2	0x19f6b48	0x19f7048	65	appearance61	F_INT8	1	69	64	64		yes
+CreatureProperty	2	0x19f6b48	0x19f705c	66	appearance62	F_INT8	1	70	65	65		yes
+CreatureProperty	2	0x19f6b48	0x19f7070	67	appearance63	F_INT8	1	71	66	66		yes
+CreatureProperty	2	0x19f6b48	0x19f7084	68	appearance64	F_INT8	1	72	67	67		yes
+CreatureProperty	2	0x19f6b48	0x19f7098	69	appearance65	F_INT8	1	73	68	68		yes
+CreatureProperty	2	0x19f6b48	0x19f70ac	70	appearance66	F_INT8	1	74	69	69		yes
+CreatureProperty	2	0x19f6b48	0x19f70c0	71	appearance67	F_INT8	1	75	70	70		yes
+CreatureProperty	2	0x19f6b48	0x19f70d4	72	appearance68	F_INT8	1	76	71	71		yes
+CreatureProperty	2	0x19f6b48	0x19f70e8	73	appearance69	F_INT8	1	77	72	72		yes
+CreatureProperty	2	0x19f6b48	0x19f70fc	74	appearance70	F_INT8	1	78	73	73		yes
+CreatureProperty	2	0x19f6b48	0x19f7110	75	appearance71	F_INT8	1	79	74	74		yes
+CreatureProperty	2	0x19f6b48	0x19f7124	76	appearance72	F_INT8	1	80	75	75		yes
+CreatureProperty	2	0x19f6b48	0x19f7138	77	appearance73	F_INT8	1	81	76	76		yes
+CreatureProperty	2	0x19f6b48	0x19f714c	78	appearance74	F_INT8	1	82	77	77		yes
+CreatureProperty	2	0x19f6b48	0x19f7160	79	appearance75	F_INT8	1	83	78	78		yes
+CreatureProperty	2	0x19f6b48	0x19f7174	80	appearance76	F_INT8	1	84	79	79		yes
+CreatureProperty	2	0x19f6b48	0x19f7188	81	appearance77	F_INT8	1	85	80	80		yes
+CreatureProperty	2	0x19f6b48	0x19f719c	82	appearance78	F_INT8	1	86	81	81		yes
+CreatureProperty	2	0x19f6b48	0x19f71b0	83	appearance79	F_INT8	1	87	82	82		yes
+CreatureProperty	2	0x19f6b48	0x19f71c4	84	appearance80	F_INT8	1	88	83	83		yes
+CreatureProperty	2	0x19f6b48	0x19f71d8	85	appearance81	F_INT8	1	89	84	84		yes
+CreatureProperty	2	0x19f6b48	0x19f71ec	86	appearance82	F_INT8	1	90	85	85		yes
+CreatureProperty	2	0x19f6b48	0x19f7200	87	appearance83	F_INT8	1	91	86	86		yes
+CreatureProperty	2	0x19f6b48	0x19f7214	88	appearance84	F_INT8	1	92	87	87		yes
+CreatureProperty	2	0x19f6b48	0x19f7228	89	appearance85	F_INT8	1	93	88	88		yes
+CreatureProperty	2	0x19f6b48	0x19f723c	90	appearance86	F_INT8	1	94	89	89		yes
+CreatureProperty	2	0x19f6b48	0x19f7250	91	appearance87	F_INT8	1	95	90	90		yes
+CreatureProperty	2	0x19f6b48	0x19f7264	92	appearance88	F_INT8	1	96	91	91		yes
+CreatureProperty	2	0x19f6b48	0x19f7278	93	appearance89	F_INT8	1	97	92	92		yes
+CreatureProperty	2	0x19f6b48	0x19f728c	94	appearance90	F_INT8	1	98	93	93		yes
+CreatureProperty	2	0x19f6b48	0x19f72a0	95	appearance91	F_INT8	1	99	94	94		yes
+CreatureProperty	2	0x19f6b48	0x19f72b4	96	appearance92	F_INT8	1	100	95	95		yes
+CreatureProperty	2	0x19f6b48	0x19f72c8	97	name	F_STRING	0	104	96	96		yes
+CreatureProperty	2	0x19f6b48	0x19f72dc	98	geo_zone	F_INT32	4	112	97		0	yes
+CreatureProperty	2	0x19f6b48	0x19f72f0	99	x	F_INT16	2	116	98		1	yes
+CreatureProperty	2	0x19f6b48	0x19f7304	100	y	F_INT16	2	118	99		2	yes
+CreatureProperty	2	0x19f6b48	0x19f7318	101	z	F_INT16	2	120	100		3	yes
+CreatureProperty	2	0x19f6b48	0x19f732c	102	yaw	F_INT16	2	122	101		4	yes
+CreatureProperty	2	0x19f6b48	0x19f7340	103	level	F_INT8	1	124	102		5	yes
+CreatureProperty	2	0x19f6b48	0x19f7354	104	exp	F_INT32	4	128	103		6	yes
+CreatureProperty	2	0x19f6b48	0x19f7368	105	mastery_level	F_INT8	1	132	104		7	yes
+CreatureProperty	2	0x19f6b48	0x19f737c	106	mastery_exp	F_INT64	8	136	105			yes
+CreatureProperty	2	0x19f6b48	0x19f7390	107	hp	F_INT64	8	144	106		8	yes
+CreatureProperty	2	0x19f6b48	0x19f73a4	108	guard_gauge	F_INT64	8	152	107		9	yes
+CreatureProperty	2	0x19f6b48	0x19f73b8	109	money	F_INT64	8	160	108			yes
+CreatureProperty	2	0x19f6b48	0x19f73cc	110	money_diff	F_INT64	8	168	109			yes
+CreatureProperty	2	0x19f6b48	0x19f73e0	111	faction	F_INT8	1	176	110	97	10	yes
+CreatureProperty	2	0x19f6b48	0x19f73f4	112	faction2	F_INT8	1	177	111		11	yes
+CreatureProperty	2	0x19f6b48	0x19f7408	113	guild_id	F_INT64	8	184	112		12	yes
+CreatureProperty	2	0x19f6b48	0x19f741c	114	activated_faction	F_INT8	1	192	113		13	yes
+CreatureProperty	2	0x19f6b48	0x19f7430	115	faction_reputation	F_INT32	4	196	114		14	yes
+CreatureProperty	2	0x19f6b48	0x19f7444	116	achievement_id	F_INT16	2	200	115		15	yes
+CreatureProperty	2	0x19f6b48	0x19f7458	117	achievement_step	F_INT16	2	202	116		16	yes
+CreatureProperty	2	0x19f6b48	0x19f746c	118	ability_achievement_id	F_INT16	2	204	117			yes
+CreatureProperty	2	0x19f6b48	0x19f7480	119	ability_achievement_step	F_INT16	2	206	118			yes
+CreatureProperty	2	0x19f6b48	0x19f7494	120	sp	F_INT16	2	208	119		17	yes
+CreatureProperty	2	0x19f6b48	0x19f74a8	121	sp2	F_INT16	2	210	120		18	yes
+CreatureProperty	2	0x19f6b48	0x19f74bc	122	stance	F_INT8	1	212	121		19	yes
+CreatureProperty	2	0x19f6b48	0x19f74d0	123	link_target	F_INT64	8	216	122		20	yes
+CreatureProperty	2	0x19f6b48	0x19f74e4	124	link_type	F_INT8	1	224	123		21	yes
+CreatureProperty	2	0x19f6b48	0x19f74f8	125	link_state	F_INT8	1	225	124		22	yes
+CreatureProperty	2	0x19f6b48	0x19f750c	126	link_stage	F_INT8	1	226	125		23	yes
+CreatureProperty	2	0x19f6b48	0x19f7520	127	target	F_INT64	8	232	126		24	yes
+CreatureProperty	2	0x19f6b48	0x19f7534	128	action_type	F_INT8	1	240	127		25	yes
+CreatureProperty	2	0x19f6b48	0x19f7548	129	action_target	F_INT64	8	248	128		26	yes
+CreatureProperty	2	0x19f6b48	0x19f755c	130	additional_hp	F_INT32	4	256	129		27	yes
+CreatureProperty	2	0x19f6b48	0x19f7570	131	effect_attribute	F_INT64	8	264	130		28	yes
+CreatureProperty	2	0x19f6b48	0x19f7584	132	effect_attribute_2	F_INT64	8	272	131		29	yes
+CreatureProperty	2	0x19f6b48	0x19f7598	133	effect_attribute_3	F_INT64	8	280	132		30	yes
+CreatureProperty	2	0x19f6b48	0x19f75ac	134	immune_effect_attribute	F_INT64	8	288	133		31	yes
+CreatureProperty	2	0x19f6b48	0x19f75c0	135	immune_effect_attribute_2	F_INT64	8	296	134		32	yes
+CreatureProperty	2	0x19f6b48	0x19f75d4	136	immune_effect_attribute_3	F_INT64	8	304	135		33	yes
+CreatureProperty	2	0x19f6b48	0x19f75e8	137	effect_flag	F_INT64	8	312	136		34	yes
+CreatureProperty	2	0x19f6b48	0x19f75fc	138	effect_flag_2	F_INT64	8	320	137		35	yes
+CreatureProperty	2	0x19f6b48	0x19f7610	139	effect_flag_3	F_INT64	8	328	138		36	yes
+CreatureProperty	2	0x19f6b48	0x19f7624	140	effect_flag_4	F_INT64	8	336	139		37	yes
+CreatureProperty	2	0x19f6b48	0x19f7638	141	field_item	F_INT64	8	344	140		38	yes
+CreatureProperty	2	0x19f6b48	0x19f764c	142	summoned	F_INT64	8	352	141		39	yes
+CreatureProperty	2	0x19f6b48	0x19f7660	143	convoy_id	F_INT8	1	360	142		40	yes
+CreatureProperty	2	0x19f6b48	0x19f7674	144	top_contribution_group_id	F_INT64	8	368	143		41	yes
+CreatureProperty	2	0x19f6b48	0x19f7688	145	inventory_size	F_INT8	1	376	144			yes
+CreatureProperty	2	0x19f6b48	0x19f769c	146	depository_size	F_INT8	1	377	145			yes
+CreatureProperty	2	0x19f6b48	0x19f76b0	147	wardrobe_size	F_INT8	1	378	146			yes
+CreatureProperty	2	0x19f6b48	0x19f76c4	148	premium_depository_size	F_INT8	1	379	147			yes
+CreatureProperty	2	0x19f6b48	0x19f76d8	149	builder_right	F_INT8	1	380	148			yes
+CreatureProperty	2	0x19f6b48	0x19f76ec	150	survey	F_VARBINARY	0	384	149			yes
+CreatureProperty	2	0x19f6b48	0x19f7700	151	style_score	F_INT16	2	392	150			yes
+CreatureProperty	2	0x19f6b48	0x19f7714	152	immune_breaker_attribute	F_INT16	2	394	151		42	yes
+CreatureProperty	2	0x19f6b48	0x19f7728	153	immune_breaker_count	F_INT16	2	396	152		43	yes
+CreatureProperty	2	0x19f6b48	0x19f773c	154	faction_score	F_INT32	4	400	153		44	yes
+CreatureProperty	2	0x19f6b48	0x19f7750	155	faction_killed_count	F_INT8	1	404	154			yes
+CreatureProperty	2	0x19f6b48	0x19f7764	156	combat_side	F_INT8	1	405	155		45	yes
+CreatureProperty	2	0x19f6b48	0x19f7778	157	duel_point	F_INT32	4	408	156			yes
+CreatureProperty	2	0x19f6b48	0x19f778c	158	party_battle_point	F_INT32	4	412	157			yes
+CreatureProperty	2	0x19f6b48	0x19f77a0	159	field_play_point	F_INT32	4	416	158			yes
+CreatureProperty	2	0x19f6b48	0x19f77b4	160	life_contents_point	F_INT32	4	420	159			yes
+CreatureProperty	2	0x19f6b48	0x19f77c8	161	duel_grade	F_INT8	1	424	160		46	yes
+CreatureProperty	2	0x19f6b48	0x19f77dc	162	duel_grade_type	F_INT8	1	425	161		47	yes
+CreatureProperty	2	0x19f6b48	0x19f77f0	163	dead	F_INT8	1	426	162		48	yes
+CreatureProperty	2	0x19f6b48	0x19f7804	164	gm_mode	F_INT8	1	427	163		49	yes
+CreatureProperty	2	0x19f6b48	0x19f7818	165	grade_level	F_INT8	1	428	164		50	yes
+CreatureProperty	2	0x19f6b48	0x19f782c	166	grade_broadcast_benefit_1	F_BOOL	1	429	165		51	yes
+CreatureProperty	2	0x19f6b48	0x19f7840	167	grade_broadcast_benefit_2	F_BOOL	1	430	166		52	yes
+CreatureProperty	2	0x19f6b48	0x19f7854	168	grade_broadcast_benefit_3	F_BOOL	1	431	167		53	yes
+CreatureProperty	2	0x19f6b48	0x19f7868	169	grade_broadcast_benefit_4	F_BOOL	1	432	168		54	yes
+CreatureProperty	2	0x19f6b48	0x19f787c	170	grade_broadcast_benefit_5	F_BOOL	1	433	169		55	yes
+CreatureProperty	2	0x19f6b48	0x19f7890	171	grade_broadcast_benefit_6	F_BOOL	1	434	170		56	yes
+CreatureProperty	2	0x19f6b48	0x19f78a4	172	grade_broadcast_benefit_7	F_BOOL	1	435	171		57	yes
+CreatureProperty	2	0x19f6b48	0x19f78b8	173	grade_broadcast_benefit_8	F_BOOL	1	436	172		58	yes
+CreatureProperty	2	0x19f6b48	0x19f78cc	174	logout_time	F_INT64	8	440	173			yes
+CreatureProperty	2	0x19f6b48	0x19f78e0	175	instant_heart_count	F_INT8	1	448	174			yes
+CreatureProperty	2	0x19f6b48	0x19f78f4	176	heart_count	F_INT8	1	449	175			yes
+CreatureProperty	2	0x19f6b48	0x19f7908	177	skill_score	F_INT32	4	452	176			yes
+CreatureProperty	2	0x19f6b48	0x19f791c	178	bound_raid_dungeon_id_1	F_INT64	8	456	177			yes
+CreatureProperty	2	0x19f6b48	0x19f7930	179	bound_raid_dungeon_id_2	F_INT64	8	464	178			yes
+CreatureProperty	2	0x19f6b48	0x19f7944	180	bound_raid_dungeon_id_3	F_INT64	8	472	179			yes
+CreatureProperty	2	0x19f6b48	0x19f7958	181	bound_raid_dungeon_id_4	F_INT64	8	480	180			yes
+CreatureProperty	2	0x19f6b48	0x19f796c	182	bound_raid_dungeon_id_5	F_INT64	8	488	181			yes
+CreatureProperty	2	0x19f6b48	0x19f7980	183	bound_raid_dungeon_id_6	F_INT64	8	496	182			yes
+CreatureProperty	2	0x19f6b48	0x19f7994	184	bound_raid_dungeon_id_7	F_INT64	8	504	183			yes
+CreatureProperty	2	0x19f6b48	0x19f79a8	185	bound_raid_dungeon_id_8	F_INT64	8	512	184			yes
+CreatureProperty	2	0x19f6b48	0x19f79bc	186	bound_raid_dungeon_id_9	F_INT64	8	520	185			yes
+CreatureProperty	2	0x19f6b48	0x19f79d0	187	bound_raid_dungeon_id_10	F_INT64	8	528	186			yes
+CreatureProperty	2	0x19f6b48	0x19f79e4	188	bound_raid_dungeon_id_11	F_INT64	8	536	187			yes
+CreatureProperty	2	0x19f6b48	0x19f79f8	189	bound_raid_dungeon_id_12	F_INT64	8	544	188			yes
+CreatureProperty	2	0x19f6b48	0x19f7a0c	190	bound_raid_dungeon_id_13	F_INT64	8	552	189			yes
+CreatureProperty	2	0x19f6b48	0x19f7a20	191	bound_raid_dungeon_id_14	F_INT64	8	560	190			yes
+CreatureProperty	2	0x19f6b48	0x19f7a34	192	bound_raid_dungeon_id_15	F_INT64	8	568	191			yes
+CreatureProperty	2	0x19f6b48	0x19f7a48	193	bound_raid_dungeon_id_16	F_INT64	8	576	192			yes
+CreatureProperty	2	0x19f6b48	0x19f7a5c	194	bound_raid_dungeon_id_17	F_INT64	8	584	193			yes
+CreatureProperty	2	0x19f6b48	0x19f7a70	195	boss_second_gauge	F_INT16	2	592	194		59	yes
+CreatureProperty	2	0x19f6b48	0x19f7a84	196	accumulated_damage_slot_tao	F_INT64	8	600	195			yes
+CreatureProperty	2	0x19f6b48	0x19f7a98	197	accumulated_damage_slot_1	F_INT64	8	608	196		60	yes
+CreatureProperty	2	0x19f6b48	0x19f7aac	198	accumulated_damage_slot_2	F_INT64	8	616	197		61	yes
+CreatureProperty	2	0x19f6b48	0x19f7ac0	199	accumulated_damage_slot_3	F_INT64	8	624	198		62	yes
+CreatureProperty	2	0x19f6b48	0x19f7ad4	200	skill_skin_id	F_INT16	2	632	199		63	yes
+CreatureProperty	2	0x19f6b48	0x19f7ae8	201	pvp_mode_cooltime	F_INT64	8	640	200		64	yes
+CreatureProperty	2	0x19f6b48	0x19f7afc	202	ghost_type	F_INT8	1	648	201		65	yes
+CreatureProperty	2	0x19f6b48	0x19f7b10	203	challenge_party_id	F_INT64	8	656	202			yes
+CreatureProperty	2	0x19f6b48	0x19f7b24	204	challenge_party_out_time	F_INT64	8	664	203			yes
+CreatureProperty	2	0x19f6b48	0x19f7b38	205	acquired_skill_build_up_point	F_INT16	2	672	204			yes
+CreatureProperty	2	0x19f6b48	0x19f7b4c	206	usable_skill_build_up_point	F_INT16	2	674	205			yes
+CreatureProperty	2	0x19f6b48	0x19f7b60	207	job_style	F_INT8	1	676	206		66	yes
+CreatureProperty	2	0x19f6b48	0x19f7b74	208	account_exp_to_add	F_INT32	4	680	207			yes
+CreatureProperty	2	0x19f6b48	0x19f7b88	209	account_exp_added	F_INT32	4	684	208			yes
+CreatureProperty	2	0x19f6b48	0x19f7b9c	210	account_exp_added_time	F_INT64	8	688	209			yes
+CreatureProperty	2	0x19f6b48	0x19f7bb0	211	account_exp_by_pc	F_INT64	8	696	210			yes
+CreatureProperty	2	0x19f6b48	0x19f7bc4	212	account_level	F_INT16	2	704	211		67	yes
+CreatureProperty	2	0x19f6b48	0x19f7bd8	213	account_exp	F_INT64	8	712	212			yes
+CreatureProperty	2	0x19f6b48	0x19f7bec	214	account_exp_quota_per_day	F_INT32	4	720	213			yes
+CreatureProperty	2	0x19f6b48	0x19f7c00	215	account_exp_last_update_time	F_INT64	8	728	214			yes
+CreatureProperty	2	0x19f6b48	0x19f7c14	216	activated_badge_page	F_INT8	1	736	215			yes
+CreatureProperty	2	0x19f6b48	0x19f7c28	217	equip_badge_gear_score	F_INT32	4	740	216		68	yes
+CreatureProperty	2	0x19f6b48	0x19f7c3c	218	combat_mode	F_BOOL	1	744	217		69	yes
+CreatureProperty	2	0x19f6b48	0x19f7c50	219	falling	F_BOOL	1	745	218		70	yes
+CreatureProperty	2	0x19f6b48	0x19f7c64	220	convoy	F_BOOL	1	746	219		71	yes
+CreatureProperty	2	0x19f6b48	0x19f7c78	221	attackable	F_BOOL	1	747	220		72	yes
+CreatureProperty	2	0x19f6b48	0x19f7c8c	222	casting	F_BOOL	1	748	221		73	yes
+CreatureProperty	2	0x19f6b48	0x19f7ca0	223	immune_breaker_disable	F_BOOL	1	749	222		74	yes
+CreatureProperty	2	0x19f6b48	0x19f7cb4	224	npc_interactive	F_BOOL	1	750	223		75	yes
+CreatureProperty	2	0x19f6b48	0x19f7cc8	225	npc_talkable	F_BOOL	1	751	224		76	yes
+CreatureProperty	2	0x19f6b48	0x19f7cdc	226	special_skill_gauge_full	F_BOOL	1	752	225		77	yes
+CreatureProperty	2	0x19f6b48	0x19f7cf0	227	pvp_mode	F_BOOL	1	753	226		78	yes
+CreatureProperty	2	0x19f6b48	0x19f7d04	228	pvp_safe_area	F_BOOL	1	754	227			yes
+CreatureProperty	2	0x19f6b48	0x19f7d18	229	zone_move_state	F_BOOL	1	755	228			yes
+CreatureProperty	2	0x19f6b48	0x19f7d2c	230	public_reserve_5	F_BOOL	1	756	229			yes
+CreatureProperty	2	0x19f6b48	0x19f7d40	231	public_reserve_6	F_BOOL	1	757	230			yes
+CreatureProperty	2	0x19f6b48	0x19f7d54	232	public_reserve_7	F_BOOL	1	758	231			yes
+CreatureProperty	2	0x19f6b48	0x19f7d68	233	public_reserve_8	F_BOOL	1	759	232			yes
+CreatureProperty	2	0x19f6b48	0x19f7d7c	234	detect_hiding	F_BOOL	1	760	233			yes
+CreatureProperty	2	0x19f6b48	0x19f7d90	235	guild_invitation_refusal	F_BOOL	1	761	234			yes
+CreatureProperty	2	0x19f6b48	0x19f7da4	236	private_reserve_3	F_BOOL	1	762	235			yes
+CreatureProperty	2	0x19f6b48	0x19f7db8	237	private_reserve_4	F_BOOL	1	763	236			yes
+CreatureProperty	2	0x19f6b48	0x19f7dcc	238	private_reserve_5	F_BOOL	1	764	237			yes
+CreatureProperty	2	0x19f6b48	0x19f7de0	239	private_reserve_6	F_BOOL	1	765	238			yes
+CreatureProperty	2	0x19f6b48	0x19f7df4	240	private_reserve_7	F_BOOL	1	766	239			yes
+CreatureProperty	2	0x19f6b48	0x19f7e08	241	private_reserve_8	F_BOOL	1	767	240			yes
+CreatureProperty	2	0x19f6b48	0x19f7e1c	242	slate_page	F_INT8	1	768	241			yes
+CreatureProperty	2	0x19f6b48	0x19f7e30	243	guild_point	F_INT32	4	772	242			yes
+CreatureProperty	2	0x19f6b48	0x19f7e44	244	max_hp	F_INT64	8	776	243		79	yes
+CreatureProperty	2	0x19f6b48	0x19f7e58	245	max_hp_equip	F_INT32	4	784	244		80	yes
+CreatureProperty	2	0x19f6b48	0x19f7e6c	246	max_guard_gauge	F_INT64	8	792	245		81	yes
+CreatureProperty	2	0x19f6b48	0x19f7e80	247	max_guard_gauge_equip	F_INT32	4	800	246		82	yes
+CreatureProperty	2	0x19f6b48	0x19f7e94	248	max_sp	F_INT16	2	804	247		83	yes
+CreatureProperty	2	0x19f6b48	0x19f7ea8	249	max_sp2	F_INT16	2	806	248		84	yes
+CreatureProperty	2	0x19f6b48	0x19f7ebc	250	speed	F_INT16	2	808	249		85	yes
+CreatureProperty	2	0x19f6b48	0x19f7ed0	251	modify_cast_speed_percent	F_INT16	2	810	250			yes
+CreatureProperty	2	0x19f6b48	0x19f7ee4	252	hp_regen	F_INT32	4	812	251			yes
+CreatureProperty	2	0x19f6b48	0x19f7ef8	253	hp_regen_equip	F_INT32	4	816	252			yes
+CreatureProperty	2	0x19f6b48	0x19f7f0c	254	hp_regen_combat	F_INT32	4	820	253			yes
+CreatureProperty	2	0x19f6b48	0x19f7f20	255	hp_regen_combat_equip	F_INT32	4	824	254			yes
+CreatureProperty	2	0x19f6b48	0x19f7f34	256	attack_hit_base_percent	F_INT16	2	828	255			yes
+CreatureProperty	2	0x19f6b48	0x19f7f48	257	attack_hit_value	F_INT16	2	830	256			yes
+CreatureProperty	2	0x19f6b48	0x19f7f5c	258	attack_hit_value_equip	F_INT16	2	832	257			yes
+CreatureProperty	2	0x19f6b48	0x19f7f70	259	attack_pierce_base_percent	F_INT16	2	834	258			yes
+CreatureProperty	2	0x19f6b48	0x19f7f84	260	attack_parry_pierce_percent	F_INT16	2	836	259			yes
+CreatureProperty	2	0x19f6b48	0x19f7f98	261	attack_pierce_value	F_INT16	2	838	260			yes
+CreatureProperty	2	0x19f6b48	0x19f7fac	262	attack_pierce_value_equip	F_INT16	2	840	261			yes
+CreatureProperty	2	0x19f6b48	0x19f7fc0	263	attack_critical_base_percent	F_INT16	2	842	262			yes
+CreatureProperty	2	0x19f6b48	0x19f7fd4	264	attack_critical_damage_percent	F_INT16	2	844	263			yes
+CreatureProperty	2	0x19f6b48	0x19f7fe8	265	attack_critical_value	F_INT32	4	848	264			yes
+CreatureProperty	2	0x19f6b48	0x19f7ffc	266	attack_critical_value_equip	F_INT32	4	852	265			yes
+CreatureProperty	2	0x19f6b48	0x19f8010	267	attack_critical_damage_value	F_INT16	2	856	266			yes
+CreatureProperty	2	0x19f6b48	0x19f8024	268	attack_critical_damage_value_equip	F_INT16	2	858	267			yes
+CreatureProperty	2	0x19f6b48	0x19f8038	269	defend_critical_base_percent	F_INT16	2	860	268			yes
+CreatureProperty	2	0x19f6b48	0x19f804c	270	defend_critical_damage_percent	F_INT16	2	862	269			yes
+CreatureProperty	2	0x19f6b48	0x19f8060	271	defend_critical_value	F_INT16	2	864	270			yes
+CreatureProperty	2	0x19f6b48	0x19f8074	272	defend_critical_value_equip	F_INT16	2	866	271			yes
+CreatureProperty	2	0x19f6b48	0x19f8088	273	defend_bounce_percent	F_INT16	2	868	272			yes
+CreatureProperty	2	0x19f6b48	0x19f809c	274	defend_dodge_base_percent	F_INT16	2	870	273			yes
+CreatureProperty	2	0x19f6b48	0x19f80b0	275	defend_dodge_value	F_INT16	2	872	274			yes
+CreatureProperty	2	0x19f6b48	0x19f80c4	276	defend_dodge_value_equip	F_INT16	2	874	275			yes
+CreatureProperty	2	0x19f6b48	0x19f80d8	277	defend_parry_base_percent	F_INT16	2	876	276			yes
+CreatureProperty	2	0x19f6b48	0x19f80ec	278	defend_parry_value	F_INT16	2	878	277			yes
+CreatureProperty	2	0x19f6b48	0x19f8100	279	defend_parry_value_equip	F_INT16	2	880	278			yes
+CreatureProperty	2	0x19f6b48	0x19f8114	280	defend_parry_reduce_percent	F_INT16	2	882	279			yes
+CreatureProperty	2	0x19f6b48	0x19f8128	281	defend_parry_reduce_diff	F_INT16	2	884	280			yes
+CreatureProperty	2	0x19f6b48	0x19f813c	282	defend_perfect_parry_base_percent	F_INT16	2	886	281			yes
+CreatureProperty	2	0x19f6b48	0x19f8150	283	defend_immune_base_percent	F_INT16	2	888	282			yes
+CreatureProperty	2	0x19f6b48	0x19f8164	284	attack_power_creature_min	F_INT32	4	892	283			yes
+CreatureProperty	2	0x19f6b48	0x19f8178	285	attack_power_creature_max	F_INT32	4	896	284			yes
+CreatureProperty	2	0x19f6b48	0x19f818c	286	attack_power_equip_min	F_INT16	2	900	285			yes
+CreatureProperty	2	0x19f6b48	0x19f81a0	287	attack_power_equip_max	F_INT16	2	902	286			yes
+CreatureProperty	2	0x19f6b48	0x19f81b4	288	defend_power_creature_value	F_INT32	4	904	287			yes
+CreatureProperty	2	0x19f6b48	0x19f81c8	289	defend_power_equip_value	F_INT32	4	908	288			yes
+CreatureProperty	2	0x19f6b48	0x19f81dc	290	defend_resist_power_creature_value	F_INT16	2	912	289			yes
+CreatureProperty	2	0x19f6b48	0x19f81f0	291	defend_resist_power_equip_value	F_INT16	2	914	290			yes
+CreatureProperty	2	0x19f6b48	0x19f8204	292	defend_physical_damage_reduce_percent	F_INT16	2	916	291			yes
+CreatureProperty	2	0x19f6b48	0x19f8218	293	defend_force_damage_reduce_percent	F_INT16	2	918	292			yes
+CreatureProperty	2	0x19f6b48	0x19f822c	294	attack_damage_modify_percent	F_INT16	2	920	293			yes
+CreatureProperty	2	0x19f6b48	0x19f8240	295	attack_damage_modify_diff	F_INT32	4	924	294			yes
+CreatureProperty	2	0x19f6b48	0x19f8254	296	defend_damage_modify_percent	F_INT16	2	928	295			yes
+CreatureProperty	2	0x19f6b48	0x19f8268	297	defend_damage_modify_diff	F_INT32	4	932	296			yes
+CreatureProperty	2	0x19f6b48	0x19f827c	298	defend_miss_base_percent	F_INT16	2	936	297			yes
+CreatureProperty	2	0x19f6b48	0x19f8290	299	attack_stiff_duration_base_percent	F_INT16	2	938	298			yes
+CreatureProperty	2	0x19f6b48	0x19f82a4	300	attack_stiff_duration_value	F_INT16	2	940	299			yes
+CreatureProperty	2	0x19f6b48	0x19f82b8	301	defend_stiff_duration_base_percent	F_INT16	2	942	300			yes
+CreatureProperty	2	0x19f6b48	0x19f82cc	302	defend_stiff_duration_value	F_INT16	2	944	301			yes
+CreatureProperty	2	0x19f6b48	0x19f82e0	303	cast_duration_base_percent	F_INT16	2	946	302			yes
+CreatureProperty	2	0x19f6b48	0x19f82f4	304	cast_duration_value	F_INT16	2	948	303			yes
+CreatureProperty	2	0x19f6b48	0x19f8308	305	attack_concentrate_value	F_INT16	2	950	304			yes
+CreatureProperty	2	0x19f6b48	0x19f831c	306	attack_concentrate_value_equip	F_INT16	2	952	305			yes
+CreatureProperty	2	0x19f6b48	0x19f8330	307	defend_perfect_parry_reduce_percent	F_INT16	2	954	306			yes
+CreatureProperty	2	0x19f6b48	0x19f8344	308	defend_counter_reduce_percent	F_INT16	2	956	307			yes
+CreatureProperty	2	0x19f6b48	0x19f8358	309	pve_boss_level_npc_attack_power_creature_min	F_INT16	2	958	308			yes
+CreatureProperty	2	0x19f6b48	0x19f836c	310	pve_boss_level_npc_attack_power_creature_max	F_INT16	2	960	309			yes
+CreatureProperty	2	0x19f6b48	0x19f8380	311	pve_boss_level_npc_attack_power_equip_min	F_INT16	2	962	310			yes
+CreatureProperty	2	0x19f6b48	0x19f8394	312	pve_boss_level_npc_attack_power_equip_max	F_INT16	2	964	311			yes
+CreatureProperty	2	0x19f6b48	0x19f83a8	313	pve_boss_level_npc_defend_power_creature_value	F_INT16	2	966	312			yes
+CreatureProperty	2	0x19f6b48	0x19f83bc	314	pve_boss_level_npc_defend_power_equip_value	F_INT16	2	968	313			yes
+CreatureProperty	2	0x19f6b48	0x19f83d0	315	pvp_attack_power_creature_min	F_INT16	2	970	314			yes
+CreatureProperty	2	0x19f6b48	0x19f83e4	316	pvp_attack_power_creature_max	F_INT16	2	972	315			yes
+CreatureProperty	2	0x19f6b48	0x19f83f8	317	pvp_attack_power_equip_min	F_INT16	2	974	316			yes
+CreatureProperty	2	0x19f6b48	0x19f840c	318	pvp_attack_power_equip_max	F_INT16	2	976	317			yes
+CreatureProperty	2	0x19f6b48	0x19f8420	319	pvp_defend_power_creature_value	F_INT16	2	978	318			yes
+CreatureProperty	2	0x19f6b48	0x19f8434	320	pvp_defend_power_equip_value	F_INT16	2	980	319			yes
+CreatureProperty	2	0x19f6b48	0x19f8448	321	job_ability_1	F_INT32	4	984	320			yes
+CreatureProperty	2	0x19f6b48	0x19f845c	322	job_ability_2	F_INT32	4	988	321			yes
+CreatureProperty	2	0x19f6b48	0x19f8470	323	heal_power_base_percent	F_INT16	2	992	322			yes
+CreatureProperty	2	0x19f6b48	0x19f8484	324	heal_power_value	F_INT16	2	994	323			yes
+CreatureProperty	2	0x19f6b48	0x19f8498	325	heal_power_diff	F_INT32	4	996	324			yes
+CreatureProperty	2	0x19f6b48	0x19f84ac	326	aoe_defend_base_percent	F_INT16	2	1000	325			yes
+CreatureProperty	2	0x19f6b48	0x19f84c0	327	aoe_defend_power_value	F_INT16	2	1002	326			yes
+CreatureProperty	2	0x19f6b48	0x19f84d4	328	abnormal_attack_base_percent	F_INT16	2	1004	327			yes
+CreatureProperty	2	0x19f6b48	0x19f84e8	329	abnormal_attack_power_value	F_INT16	2	1006	328			yes
+CreatureProperty	2	0x19f6b48	0x19f84fc	330	abnormal_attack_power_value_equip	F_INT16	2	1008	329			yes
+CreatureProperty	2	0x19f6b48	0x19f8510	331	abnormal_defend_base_percent	F_INT16	2	1010	330			yes
+CreatureProperty	2	0x19f6b48	0x19f8524	332	abnormal_defend_power_value	F_INT16	2	1012	331			yes
+CreatureProperty	2	0x19f6b48	0x19f8538	333	hate_base_percent	F_INT16	2	1014	332			yes
+CreatureProperty	2	0x19f6b48	0x19f854c	334	hate_power_creature_value	F_INT16	2	1016	333			yes
+CreatureProperty	2	0x19f6b48	0x19f8560	335	hate_power_equip_value	F_INT16	2	1018	334			yes
+CreatureProperty	2	0x19f6b48	0x19f8574	336	additional_exp_diff_by_kill	F_INT32	4	1020	335			yes
+CreatureProperty	2	0x19f6b48	0x19f8588	337	additional_exp_percent_by_kill	F_INT16	2	1024	336			yes
+CreatureProperty	2	0x19f6b48	0x19f859c	338	additional_mastery_exp_diff_by_kill	F_INT32	4	1028	337			yes
+CreatureProperty	2	0x19f6b48	0x19f85b0	339	additional_mastery_exp_percent_by_kill	F_INT16	2	1032	338			yes
+CreatureProperty	2	0x19f6b48	0x19f85c4	340	additional_faction_score_max_percent	F_INT16	2	1034	339			yes
+CreatureProperty	2	0x19f6b48	0x19f85d8	341	attack_attribute_value	F_INT16	2	1036	340			yes
+CreatureProperty	2	0x19f6b48	0x19f85ec	342	attack_attribute_value_equip	F_INT16	2	1038	341			yes
+CreatureProperty	2	0x19f6b48	0x19f8600	343	attack_attribute_base_percent	F_INT16	2	1040	342			yes
+CreatureProperty	2	0x19f6b48	0x19f8614	344	invisible	F_BOOL	1	1042	343		86	yes
+CreatureProperty	2	0x19f6b48	0x19f8628	345	block_move	F_BOOL	1	1043	344			yes
+CreatureProperty	2	0x19f6b48	0x19f863c	346	block_skill	F_BOOL	1	1044	345			yes
+CreatureProperty	2	0x19f6b48	0x19f8650	347	block_physical_skill	F_BOOL	1	1045	346			yes
+CreatureProperty	2	0x19f6b48	0x19f8664	348	block_force_skill	F_BOOL	1	1046	347			yes
+CreatureProperty	2	0x19f6b48	0x19f8678	349	immune_damage	F_BOOL	1	1047	348			yes
+CreatureProperty	2	0x19f6b48	0x19f868c	350	immune_death	F_BOOL	1	1048	349			yes
+CreatureProperty	2	0x19f6b48	0x19f86a0	351	immune_debuff	F_BOOL	1	1049	350			yes
+CreatureProperty	2	0x19f6b48	0x19f86b4	352	exception_target	F_BOOL	1	1050	351			yes
+CreatureProperty	2	0x19f6b48	0x19f86c8	353	exception_detect	F_BOOL	1	1051	352			yes
+CreatureProperty	2	0x19f6b48	0x19f86dc	354	exception_hostile_target	F_BOOL	1	1052	353			yes
+CreatureProperty	2	0x19f6b48	0x19f86f0	355	immune_casting_delay	F_BOOL	1	1053	354			yes
+CreatureProperty	2	0x19f6b48	0x19f8704	356	block_dodge	F_BOOL	1	1054	355			yes
+CreatureProperty	2	0x19f6b48	0x19f8718	357	block_bounce	F_BOOL	1	1055	356			yes
+CreatureProperty	2	0x19f6b48	0x19f872c	358	block_parry	F_BOOL	1	1056	357			yes
+CreatureProperty	2	0x19f6b48	0x19f8740	359	block_perfect_parry	F_BOOL	1	1057	358			yes
+CreatureProperty	2	0x19f6b48	0x19f8754	360	front_perfect_parry	F_BOOL	1	1058	359			yes
+CreatureProperty	2	0x19f6b48	0x19f8768	361	back_perfect_parry	F_BOOL	1	1059	360			yes
+CreatureProperty	2	0x19f6b48	0x19f877c	362	front_bounce	F_BOOL	1	1060	361			yes
+CreatureProperty	2	0x19f6b48	0x19f8790	363	back_bounce	F_BOOL	1	1061	362			yes
+CreatureProperty	2	0x19f6b48	0x19f87a4	364	debug_invincible	F_BOOL	1	1062	363			yes
+CreatureProperty	2	0x19f6b48	0x19f87b8	365	debug_invisible	F_BOOL	1	1063	364			yes
+CreatureProperty	2	0x19f6b48	0x19f87cc	366	abnormality_reserve_7	F_BOOL	1	1064	365			yes
+CreatureProperty	2	0x19f6b48	0x19f87e0	367	abnormality_reserve_8	F_BOOL	1	1065	366			yes
+CreatureProperty	2	0x19f6b48	0x19f87f4	368	equip_hand	F_INT32	4	1068	367		87	yes
+CreatureProperty	2	0x19f6b48	0x19f8808	369	equip_hand_level	F_INT8	1	1072	368		88	yes
+CreatureProperty	2	0x19f6b48	0x19f881c	370	equip_hand_appearance_item	F_INT32	4	1076	369		89	yes
+CreatureProperty	2	0x19f6b48	0x19f8830	371	equip_hand_appearance_item_level	F_INT8	1	1080	370		90	yes
+CreatureProperty	2	0x19f6b48	0x19f8844	372	equip_hand_alt	F_INT32	4	1084	371		91	yes
+CreatureProperty	2	0x19f6b48	0x19f8858	373	equip_body	F_INT32	4	1088	372		92	yes
+CreatureProperty	2	0x19f6b48	0x19f886c	374	equip_body_guild_id	F_INT64	8	1096	373		93	yes
+CreatureProperty	2	0x19f6b48	0x19f8880	375	equip_body_custom1	F_INT8	1	1104	374		94	yes
+CreatureProperty	2	0x19f6b48	0x19f8894	376	equip_body_custom2	F_INT8	1	1105	375		95	yes
+CreatureProperty	2	0x19f6b48	0x19f88a8	377	equip_body_custom3	F_INT8	1	1106	376		96	yes
+CreatureProperty	2	0x19f6b48	0x19f88bc	378	equip_body_custom4	F_INT8	1	1107	377		97	yes
+CreatureProperty	2	0x19f6b48	0x19f88d0	379	equip_body_custom5	F_INT8	1	1108	378		98	yes
+CreatureProperty	2	0x19f6b48	0x19f88e4	380	equip_body_custom6	F_INT8	1	1109	379		99	yes
+CreatureProperty	2	0x19f6b48	0x19f88f8	381	equip_body_custom7	F_INT8	1	1110	380		100	yes
+CreatureProperty	2	0x19f6b48	0x19f890c	382	equip_body_custom8	F_INT8	1	1111	381		101	yes
+CreatureProperty	2	0x19f6b48	0x19f8920	383	equip_ear	F_INT32	4	1112	382		102	yes
+CreatureProperty	2	0x19f6b48	0x19f8934	384	equip_eye	F_INT32	4	1116	383		103	yes
+CreatureProperty	2	0x19f6b48	0x19f8948	385	equip_eye_custom1	F_INT8	1	1120	384		104	yes
+CreatureProperty	2	0x19f6b48	0x19f895c	386	equip_eye_custom2	F_INT8	1	1121	385		105	yes
+CreatureProperty	2	0x19f6b48	0x19f8970	387	equip_eye_custom3	F_INT8	1	1122	386		106	yes
+CreatureProperty	2	0x19f6b48	0x19f8984	388	equip_head	F_INT32	4	1124	387		107	yes
+CreatureProperty	2	0x19f6b48	0x19f8998	389	equip_head_custom1	F_INT8	1	1128	388		108	yes
+CreatureProperty	2	0x19f6b48	0x19f89ac	390	equip_head_custom2	F_INT8	1	1129	389		109	yes
+CreatureProperty	2	0x19f6b48	0x19f89c0	391	equip_head_custom3	F_INT8	1	1130	390		110	yes
+CreatureProperty	2	0x19f6b48	0x19f89d4	392	equip_body_attach	F_INT32	4	1132	391		111	yes
+CreatureProperty	2	0x19f6b48	0x19f89e8	393	equip_body_attach_custom1	F_INT8	1	1136	392		112	yes
+CreatureProperty	2	0x19f6b48	0x19f89fc	394	equip_body_attach_custom2	F_INT8	1	1137	393		113	yes
+CreatureProperty	2	0x19f6b48	0x19f8a10	395	equip_body_attach_custom3	F_INT8	1	1138	394		114	yes
+CreatureProperty	2	0x19f6b48	0x19f8a24	396	equip_weapon_gem	F_INT32	4	1140	395		115	yes
+CreatureProperty	2	0x19f6b48	0x19f8a38	397	equip_pet_1	F_INT32	4	1144	396		116	yes
+CreatureProperty	2	0x19f6b48	0x19f8a4c	398	equip_pet_1_appearance_item	F_INT32	4	1148	397		117	yes
+CreatureProperty	2	0x19f6b48	0x19f8a60	399	equip_pet_2	F_INT32	4	1152	398			yes
+CreatureProperty	2	0x19f6b48	0x19f8a74	400	equip_pet_2_appearance_item	F_INT32	4	1156	399			yes
+CreatureProperty	2	0x19f6b48	0x19f8a88	401	equip_badge_appearance_item	F_INT32	4	1160	400		118	yes
+CreatureProperty	2	0x19f6b48	0x19f8a9c	402	attack_stiff_duration_equip_value	F_INT16	2	1164	401			yes
+CreatureProperty	2	0x19f6b48	0x19f8ab0	403	defend_stiff_duration_equip_value	F_INT16	2	1166	402			yes
+CreatureProperty	2	0x19f6b48	0x19f8ac4	404	aoe_defend_power_value_equip	F_INT16	2	1168	403			yes
+CreatureProperty	2	0x19f6b48	0x19f8ad8	405	heal_power_equip_value	F_INT16	2	1170	404			yes
+CreatureProperty	2	0x19f6b48	0x19f8aec	406	defend_strength_creature_value	F_INT32	4	1172	405			yes
+CreatureProperty	2	0x19f6b48	0x19f8b00	407	defend_strength_equip_value	F_INT32	4	1176	406			yes
+CreatureProperty	2	0x19f6b48	0x19f8b14	408	attack_precise_creature_value	F_INT32	4	1180	407			yes
+CreatureProperty	2	0x19f6b48	0x19f8b28	409	attack_precise_equip_value	F_INT32	4	1184	408			yes
+CreatureProperty	2	0x19f6b48	0x19f8b3c	410	attack_aoe_pierce_value	F_INT16	2	1188	409			yes
+CreatureProperty	2	0x19f6b48	0x19f8b50	411	attack_aoe_pierce_value_equip	F_INT16	2	1190	410			yes
+CreatureProperty	2	0x19f6b48	0x19f8b64	412	attack_abnormal_hit_base_percent	F_INT16	2	1192	411			yes
+CreatureProperty	2	0x19f6b48	0x19f8b78	413	attack_abnormal_hit_value	F_INT16	2	1194	412			yes
+CreatureProperty	2	0x19f6b48	0x19f8b8c	414	attack_abnormal_hit_equip_value	F_INT16	2	1196	413			yes
+CreatureProperty	2	0x19f6b48	0x19f8ba0	415	defend_abnormal_dodge_base_percent	F_INT16	2	1198	414			yes
+CreatureProperty	2	0x19f6b48	0x19f8bb4	416	defend_abnormal_dodge_value	F_INT16	2	1200	415			yes
+CreatureProperty	2	0x19f6b48	0x19f8bc8	417	defend_abnormal_dodge_equip_value	F_INT16	2	1202	416			yes
+CreatureProperty	2	0x19f6b48	0x19f8bdc	418	support_power_base_percent	F_INT16	2	1204	417			yes
+CreatureProperty	2	0x19f6b48	0x19f8bf0	419	support_power_value	F_INT16	2	1206	418			yes
+CreatureProperty	2	0x19f6b48	0x19f8c04	420	support_power_equip_value	F_INT16	2	1208	419			yes
+CreatureProperty	2	0x19f6b48	0x19f8c18	421	hypermove_power_value	F_INT16	2	1210	420			yes
+CreatureProperty	2	0x19f6b48	0x19f8c2c	422	hypermove_power_equip_value	F_INT16	2	1212	421			yes
+ExtraCreatureProperty	17	0x19f9ac8	0x19f9ac8	1	qqid	F_INT64	8	8	0			yes
+ExtraCreatureProperty	17	0x19f9ac8	0x19f9adc	2	vitality1	F_INT32	4	16	1			yes
+ExtraCreatureProperty	17	0x19f9ac8	0x19f9af0	3	vitality1_last_recharge_time	F_INT64	8	24	2			yes
+ExtraCreatureProperty	17	0x19f9ac8	0x19f9b04	4	vitality2	F_INT32	4	32	3			yes
+ExtraCreatureProperty	17	0x19f9ac8	0x19f9b18	5	vitality2_last_recharge_time	F_INT64	8	40	4			yes
+ExtraCreatureProperty	17	0x19f9ac8	0x19f9b2c	6	vitality3	F_INT32	4	48	5			yes
+ExtraCreatureProperty	17	0x19f9ac8	0x19f9b40	7	vitality3_last_recharge_time	F_INT64	8	56	6			yes
+ExtraCreatureProperty	17	0x19f9ac8	0x19f9b54	8	vitality4	F_INT32	4	64	7			yes
+ExtraCreatureProperty	17	0x19f9ac8	0x19f9b68	9	vitality4_last_recharge_time	F_INT64	8	72	8			yes
+EnergyProperty	40	0x19fd958	0x19fd958	1	energy_point	F_INT32	4	4	0			yes
+EnergyProperty	40	0x19fd958	0x19fd96c	2	energy_multiple_point	F_INT32	4	8	1			yes
+EnergyProperty	40	0x19fd958	0x19fd980	3	energy_multiple_value	F_INT8	1	12	2			yes
+EnergyProperty	40	0x19fd958	0x19fd994	4	last_acquired_reward_id	F_INT8	1	13	3			yes
+EnergyProperty	40	0x19fd958	0x19fd9a8	5	expiration_time	F_INT64	8	16	4			yes
+EnergyProperty	40	0x19fd958	0x19fd9bc	6	grade_1_reward_count	F_INT32	4	24	5			yes
+EnergyProperty	40	0x19fd958	0x19fd9d0	7	grade_2_reward_count	F_INT32	4	28	6			yes
+EnergyProperty	40	0x19fd958	0x19fd9e4	8	grade_3_reward_count	F_INT32	4	32	7			yes
+EnergyProperty	40	0x19fd958	0x19fd9f8	9	grade_4_reward_count	F_INT32	4	36	8			yes
+EnergyProperty	40	0x19fd958	0x19fda0c	10	grade_5_reward_count	F_INT32	4	40	9			yes
+EnergyProperty	40	0x19fd958	0x19fda20	11	grade_6_reward_count	F_INT32	4	44	10			yes
+EnergyProperty	40	0x19fd958	0x19fda34	12	grade_7_reward_count	F_INT32	4	48	11			yes
+EnergyProperty	40	0x19fd958	0x19fda48	13	grade_8_reward_count	F_INT32	4	52	12			yes
+SummonedProperty		0x19fe3c0	0x19fe3c0	1	race	F_INT8	1	4	0	0		yes
+SummonedProperty		0x19fe3c0	0x19fe3d4	2	job	F_INT8	1	5	1	1		yes
+SummonedProperty		0x19fe3c0	0x19fe3e8	3	name	F_STRING	0	8	2	2		yes
+SummonedProperty		0x19fe3c0	0x19fe3fc	4	appearance1	F_INT8	1	16	3	3		yes
+SummonedProperty		0x19fe3c0	0x19fe410	5	appearance2	F_INT8	1	17	4	4		yes
+SummonedProperty		0x19fe3c0	0x19fe424	6	appearance3	F_INT8	1	18	5	5		yes
+SummonedProperty		0x19fe3c0	0x19fe438	7	appearance4	F_INT8	1	19	6	6		yes
+SummonedProperty		0x19fe3c0	0x19fe44c	8	appearance5	F_INT8	1	20	7	7		yes
+SummonedProperty		0x19fe3c0	0x19fe460	9	appearance6	F_INT8	1	21	8	8		yes
+SummonedProperty		0x19fe3c0	0x19fe474	10	appearance7	F_INT8	1	22	9	9		yes
