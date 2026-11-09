@@ -1,0 +1,1063 @@
+addr_381	class	method	name_381_or_note	source
+0x10d26e0	BControlledPlayingActions	requestSkill	419 GM name; caller of G_UseSkillReqPacket ctor 0x449fd0 ❓	this slice
+0x10d2ec0	BControlledPlayingActions	requestGroundSkill	419 GM name; caller of G_UseSkillToGroundReqPacket ctor 0x44a0d0 ❓	this slice
+0x10fd7f0	BControlledPlayingActions	ProcessNetObjectEvent	419 GM name; switch on command 1227 1230 1240 1261-1263 ❓	this slice
+0x1113950	BControlledPlayingActions	useActiveSkill	419 GM name; only caller useSkillByPlayer ❓	this slice
+0x449fd0	G_UseSkillReqPacket	G_UseSkillReqPacket	constructor	this slice
+0x44a0d0	G_UseSkillToGroundReqPacket	G_UseSkillToGroundReqPacket	constructor	this slice
+0x712bc0	-	L_ERROR_CODE_TO_STRING	index into 0x194fc30, max 0xA46	this slice
+0x4022a0	BPlayingActions	GetOperation	BPlayingActions::GetOperation(bool)	381 PDB-match name
+0x406940	EffectCatalog	Size	EffectCatalog::Size(void)	381 PDB-match name
+0x41c350	BCreature	GetEffectFlag	BCreature::GetEffectFlag(int)	381 PDB-match name
+0x41c3a0	BCreature	CheckEffectAttribute	BCreature::CheckEffectAttribute(int)	381 PDB-match name
+0x41c3e0	BCreature	IsImmuneBreakDurationOver	BCreature::IsImmuneBreakDurationOver(void)	381 PDB-match name
+0x41cb40	PassiveEffectList	~PassiveEffectList	PassiveEffectList::~PassiveEffectList(void)	381 PDB-match name
+0x442860	SkillTracer	SkillTracer	SkillTracer::SkillTracer(void)	381 PDB-match name
+0x44ac80	BSkill	GetActiveSkillData	BSkill::GetActiveSkillData(void)	381 PDB-match name
+0x44b1e0	BPlayingActions	GetSkillUseTarget	BPlayingActions::GetSkillUseTarget(Data::Skill3RecordActiveSkillPtr)	381 PDB-match name
+0x4f0540	BContextProcess	ResetAction	BContextProcess::ResetAction(bool)	381 PDB-match name
+0x511ca0	PTActiveSkill2	GetChainShow	PTActiveSkill2::GetChainShow(void)	381 PDB-match name
+0x511cd0	PTActiveSkill2	SetChainshowStageHandleNULL	PTActiveSkill2::SetChainshowStageHandleNULL(void)	381 PDB-match name
+0x534290	SkillComboList	SkillComboList	SkillComboList::SkillComboList(void)	381 PDB-match name
+0x534320	SkillComboList	~SkillComboList	SkillComboList::~SkillComboList(void)	381 PDB-match name
+0x71f490	World	SendRequestDamageInfo	World::SendRequestDamageInfo(void)	381 PDB-match name
+0x71f680	World	getGuildCombatStateCommand	World::getGuildCombatStateCommand(XmlNode const *,std::basic_string<wchar_t,std::char_traits<wchar_t>,std::allocator<wchar_t>> &,std::basic_string<wchar_t,std::	381 PDB-match name
+0x71f810	World	getRequestDamageMeterInfoMsgCommand	World::getRequestDamageMeterInfoMsgCommand(XmlNode const *)	381 PDB-match name
+0x71f850	World	getDamageMeterInfoMsgCommand	World::getDamageMeterInfoMsgCommand(XmlNode const *,std::basic_string<wchar_t,std::char_traits<wchar_t>,std::allocator<wchar_t>> &,std::basic_string<wchar_t,std	381 PDB-match name
+0x721a50	World	RestoreBulletEffect	World::RestoreBulletEffect(void)	381 PDB-match name
+0x721ba0	World	SendGuildCombatState	World::SendGuildCombatState(wchar_t const *,wchar_t const *,int,int)	381 PDB-match name
+0x7239b0	BControlledPlayingActions	IsDeactiveSkill	BControlledPlayingActions::IsDeactiveSkill(__int64)	381 PDB-match name
+0x729780	World	UseBulletEffectDirecting	World::UseBulletEffectDirecting(void)	381 PDB-match name
+0x72d420	World	IsBattleRoyalPcTargetCam	World::IsBattleRoyalPcTargetCam(bool,__int64)	381 PDB-match name
+0x72d740	World	IsPlayingClassTrainingSubjectInSkillTrainingRoom	World::IsPlayingClassTrainingSubjectInSkillTrainingRoom(void)	381 PDB-match name
+0x72d770	World	SetBulletEffect	World::SetBulletEffect(void)	381 PDB-match name
+0x72d8e0	World	SetBulletEffect	World::SetBulletEffect(float)	381 PDB-match name
+0x72daa0	World	createSkillTrainingSequenceManager	World::createSkillTrainingSequenceManager(void)	381 PDB-match name
+0x72db20	World	IsSkillTrainingRoomZoneTrialMode	World::IsSkillTrainingRoomZoneTrialMode(void)	381 PDB-match name
+0x72eab0	World	setSkillRepeatByServerToOwner	World::setSkillRepeatByServerToOwner(BCreature *,__int64,int,char,char,int,int)	381 PDB-match name
+0x7319a0	World	createSkillTrainingRoom	World::createSkillTrainingRoom(void)	381 PDB-match name
+0x733850	World	FindAttackAbleTargetInPosition	World::FindAttackAbleTargetInPosition(Vector const &,float,bool &,bool &,bool &)	381 PDB-match name
+0x737a60	World	processSkillActionToOwner	World::processSkillActionToOwner(PfStruct const *,char,__int64,__int64,bool,bool)	381 PDB-match name
+0x744a20	World	processActionToOwner	World::processActionToOwner(PfStruct const *,char,__int64,__int64,bool)	381 PDB-match name
+0x748b00	World	processAction	World::processAction(G_BroadcastActionPacket const *,G_BroadcastPrivateActionPacket const *)	381 PDB-match name
+0x75a110	BContextProcess	SetPlayerVehicleContextScript	BContextProcess::SetPlayerVehicleContextScript(void)	381 PDB-match name
+0x789640	World	createDamageAccum	World::createDamageAccum(void)	381 PDB-match name
+0x867b60	TargetStatusPanel2	clearCombatTimerEffect	TargetStatusPanel2::clearCombatTimerEffect(void)	381 PDB-match name
+0x867c40	TargetStatusPanel2	invokeCombatTimerCountdown2Effect	TargetStatusPanel2::invokeCombatTimerCountdown2Effect(void)	381 PDB-match name
+0x867cd0	TargetStatusPanel2	ReadOption	TargetStatusPanel2::ReadOption(void)	381 PDB-match name
+0x8814d0	TargetStatusPanel2	invokeCombatTimerNotification	TargetStatusPanel2::invokeCombatTimerNotification(void)	381 PDB-match name
+0x881720	TargetStatusPanel2	invokeImmuneBreakSussessEffect	TargetStatusPanel2::invokeImmuneBreakSussessEffect(TargetStatusPanel2::IMMUNE_BREAK_BUBBLE_EFFECT_TYPE)	381 PDB-match name
+0x881930	TargetStatusPanel2	ChangeAttackTarget	TargetStatusPanel2::ChangeAttackTarget(unsigned __int64)	381 PDB-match name
+0x890f40	TargetStatusPanel2	IsPersonalDroppedPouchReward	TargetStatusPanel2::IsPersonalDroppedPouchReward(void)	381 PDB-match name
+0x8910b0	TargetStatusPanel2	IsCoOwnerShipPouch	TargetStatusPanel2::IsCoOwnerShipPouch(void)	381 PDB-match name
+0x891230	TargetStatusPanel2	UpdateDoubleSidedSecondGaugeEffect	TargetStatusPanel2::UpdateDoubleSidedSecondGaugeEffect(short)	381 PDB-match name
+0x891570	TargetStatusPanel2	updateChallengePartyPatternTimerText	TargetStatusPanel2::updateChallengePartyPatternTimerText(float)	381 PDB-match name
+0x891750	TargetStatusPanel2	updateChallengePartyPatternTimer	TargetStatusPanel2::updateChallengePartyPatternTimer(void)	381 PDB-match name
+0x8918c0	TargetStatusPanel2	updateCombatTimeText	TargetStatusPanel2::updateCombatTimeText(float)	381 PDB-match name
+0x891b50	TargetStatusPanel2	updateCombatTimer	TargetStatusPanel2::updateCombatTimer(void)	381 PDB-match name
+0x892450	TargetStatusPanel2	updateCombatModeTime	TargetStatusPanel2::updateCombatModeTime(BCreature const *)	381 PDB-match name
+0x8928f0	TargetStatusPanel2	updateImmuneBreakState	TargetStatusPanel2::updateImmuneBreakState(void)	381 PDB-match name
+0x892ff0	TargetStatusPanel2	applySecondGaugeUpdateSequence	TargetStatusPanel2::applySecondGaugeUpdateSequence(void)	381 PDB-match name
+0x8945f0	TargetStatusPanel2	invokeSecondGaugeEffect	TargetStatusPanel2::invokeSecondGaugeEffect(short)	381 PDB-match name
+0x895050	TargetStatusPanel2	invokeSecondGaugeReleaseCombatMode	TargetStatusPanel2::invokeSecondGaugeReleaseCombatMode(void)	381 PDB-match name
+0x8957c0	TargetStatusPanel2	updateSecondGauge	TargetStatusPanel2::updateSecondGauge(void)	381 PDB-match name
+0x896ae0	TargetStatusPanel2	isBigBossNpc	TargetStatusPanel2::isBigBossNpc(BCreature const *)	381 PDB-match name
+0x896c00	TargetStatusPanel2	isBossNpc	TargetStatusPanel2::isBossNpc(BCreature const *)	381 PDB-match name
+0x896ca0	TargetStatusPanel2	getNpcSoulLevel	TargetStatusPanel2::getNpcSoulLevel(void)	381 PDB-match name
+0x896d70	TargetStatusPanel2	updateJob	TargetStatusPanel2::updateJob(unsigned __int64)	381 PDB-match name
+0x896fc0	TargetStatusPanel2	updateLevel	TargetStatusPanel2::updateLevel(uint,uint,int,char,char,bool,Data::NpcBossSlotTypeType)	381 PDB-match name
+0x897440	TargetStatusPanel2	updateHPBar	TargetStatusPanel2::updateHPBar(__int64 const &,__int64 const &,__int64 const &,bool,Data::NpcBossSlotTypeType)	381 PDB-match name
+0x8977c0	TargetStatusPanel2	updateGuardGaugeBar	TargetStatusPanel2::updateGuardGaugeBar(__int64 const &,__int64 const &,__int64 const &,bool,Data::NpcBossSlotTypeType)	381 PDB-match name
+0x897a40	TargetStatusPanel2	processParentPropertyEvent	TargetStatusPanel2::processParentPropertyEvent(__int64,PropertyPair const &,bool)	381 PDB-match name
+0x897dd0	TargetStatusPanel2	PostTick	TargetStatusPanel2::PostTick(float)	381 PDB-match name
+0x8980f0	TargetStatusPanel2	TargetStatusPanel2	TargetStatusPanel2::TargetStatusPanel2(void)	381 PDB-match name
+0x8a6130	TargetStatusPanel2	updateDuelbotTrainingRoomGradeIcon	TargetStatusPanel2::updateDuelbotTrainingRoomGradeIcon(BGameObject const *)	381 PDB-match name
+0x8a6310	TargetStatusPanel2	setNpcSoulImage	TargetStatusPanel2::setNpcSoulImage(BGameObject *,char,int &)	381 PDB-match name
+0x8a64f0	TargetStatusPanel2	updateNpcSoul	TargetStatusPanel2::updateNpcSoul(unsigned __int64)	381 PDB-match name
+0x8a6670	TargetStatusPanel2	updateSubTarget	TargetStatusPanel2::updateSubTarget(unsigned __int64,bool)	381 PDB-match name
+0x8a6b60	TargetStatusPanel2	udpateFactionScore	TargetStatusPanel2::udpateFactionScore(unsigned __int64)	381 PDB-match name
+0x8a6ec0	TargetStatusPanel2	UpdateTargetDistance	TargetStatusPanel2::UpdateTargetDistance(float)	381 PDB-match name
+0x8a7110	TargetStatusPanel2	ProcessActionSubEvent	TargetStatusPanel2::ProcessActionSubEvent(int,PfStruct const *,BGameObject const *)	381 PDB-match name
+0x8a7150	TargetStatusPanel2	updateCreatureProperty	TargetStatusPanel2::updateCreatureProperty(CreatureProperty const *)	381 PDB-match name
+0x8a7350	TargetStatusPanel2	ShowPanel	TargetStatusPanel2::ShowPanel(bool,bool)	381 PDB-match name
+0x8b8110	TargetStatusPanel2	UpdatePeakTime	TargetStatusPanel2::UpdatePeakTime(void)	381 PDB-match name
+0x8ccb10	TargetStatusPanel2	updateContents	TargetStatusPanel2::updateContents(void)	381 PDB-match name
+0x8d6c00	TargetStatusPanel2	UpdateContributionInfo	TargetStatusPanel2::UpdateContributionInfo(bool)	381 PDB-match name
+0x8d78a0	TargetStatusPanel2	updateName	TargetStatusPanel2::updateName(void)	381 PDB-match name
+0x8d7b70	TargetStatusPanel2	UpdateMarkIndicator	TargetStatusPanel2::UpdateMarkIndicator(void)	381 PDB-match name
+0x8d7d50	TargetStatusPanel2	processTargetTargetPropertyEvent	TargetStatusPanel2::processTargetTargetPropertyEvent(unsigned __int64,PropertyPair const &)	381 PDB-match name
+0x8d7db0	TargetStatusPanel2	ProcessNetObjectEvent	TargetStatusPanel2::ProcessNetObjectEvent(StructPacket const *)	381 PDB-match name
+0x8dc120	TargetStatusPanel2	updateAttackIndicator	TargetStatusPanel2::updateAttackIndicator(unsigned __int64)	381 PDB-match name
+0x8dc330	TargetStatusPanel2	processPropertyEvent	TargetStatusPanel2::processPropertyEvent(PropertyPair const &,bool)	381 PDB-match name
+0x8dc9f0	TargetStatusPanel2	SetCustomizeMode	TargetStatusPanel2::SetCustomizeMode(bool)	381 PDB-match name
+0x8dcf60	TargetStatusPanel2	ProcessEffectEvent	TargetStatusPanel2::ProcessEffectEvent(GS_ActionsEffectSubPacket const *)	381 PDB-match name
+0x8dfea0	TargetStatusPanel2	showNpcSoulTooltip	TargetStatusPanel2::showNpcSoulTooltip(int)	381 PDB-match name
+0x8dfff0	TargetStatusPanel2	showSecondGaugeTextTooltip	TargetStatusPanel2::showSecondGaugeTextTooltip(void)	381 PDB-match name
+0x8e01b0	TargetStatusPanel2	updateEnvStatus	TargetStatusPanel2::updateEnvStatus(BEnvObject const *)	381 PDB-match name
+0x8e0560	TargetStatusPanel2	updateNpcStatus	TargetStatusPanel2::updateNpcStatus(BCreature const *)	381 PDB-match name
+0x8e0ba0	TargetStatusPanel2	updatePcAndSummonedStatus	TargetStatusPanel2::updatePcAndSummonedStatus(BCreature const *)	381 PDB-match name
+0x8e15e0	TargetStatusPanel2	Set	TargetStatusPanel2::Set(unsigned __int64)	381 PDB-match name
+0x8e17f0	TargetStatusPanel2	OutofSight	TargetStatusPanel2::OutofSight(unsigned __int64)	381 PDB-match name
+0x8e1860	TargetStatusPanel2	ProcessEvent	TargetStatusPanel2::ProcessEvent(EngineEvent *)	381 PDB-match name
+0x8e6100	TargetStatusPanel2	ProcessPlayerPropertyEvent	TargetStatusPanel2::ProcessPlayerPropertyEvent(PropertyPair const &)	381 PDB-match name
+0x901230	SkillTracer	isExcludedClientFailReason	SkillTracer::isExcludedClientFailReason(int)	381 PDB-match name
+0x901620	SkillTimer	GetRecycleCount	SkillTimer::GetRecycleCount(void)	381 PDB-match name
+0x901960	SkillRecycleIcon	SetOutputTimeType	SkillRecycleIcon::SetOutputTimeType(SkillRecycleIcon::Type)	381 PDB-match name
+0x901970	SkillRecycleIcon	IsWidgetOf	SkillRecycleIcon::IsWidgetOf(uint)	381 PDB-match name
+0x901990	SkillRecycleIcon	Initialize	SkillRecycleIcon::Initialize(uint,uint,uint,uint,wchar_t const *,wchar_t const *,wchar_t const *,wchar_t const *)	381 PDB-match name
+0x901ee0	SkillComboList	GetRowCount	SkillComboList::GetRowCount(void)	381 PDB-match name
+0x901f00	SkillComboList	CompareGroup	SkillComboList::CompareGroup(SkillComboList::GroupData const &,SkillComboList::GroupData const &)	381 PDB-match name
+0x901f20	EffectLinkCastPanel	getHighPriorityEffectType	EffectLinkCastPanel::getHighPriorityEffectType(void)	381 PDB-match name
+0x901fb0	EffectLinkCastPanel	Clear	EffectLinkCastPanel::Clear(void)	381 PDB-match name
+0x901fc0	SkillCastPanel	updateTargetSignalType	SkillCastPanel::updateTargetSignalType(float)	381 PDB-match name
+0x902010	SkillCastPanel	hide	SkillCastPanel::hide(void)	381 PDB-match name
+0x902060	SkillCastPanel	EndSkillCasting	SkillCastPanel::EndSkillCasting(void)	381 PDB-match name
+0x902070	SkillCastPanel	Clear	SkillCastPanel::Clear(void)	381 PDB-match name
+0x902090	BSkillBook	IsCacheSkillContextLockFull	BSkillBook::IsCacheSkillContextLockFull(void)	381 PDB-match name
+0x9020b0	BSkillBook	IsCacheSkillContextLock	BSkillBook::IsCacheSkillContextLock(int)	381 PDB-match name
+0x9020d0	BSkillBook	ClearCacheSkillContextLockList	BSkillBook::ClearCacheSkillContextLockList(void)	381 PDB-match name
+0x902100	BSkillBook	ClearCacheSkillContextLock	BSkillBook::ClearCacheSkillContextLock(int)	381 PDB-match name
+0x902130	BSkillBook	SetCacheSkillContextLock	BSkillBook::SetCacheSkillContextLock(int)	381 PDB-match name
+0x902160	BSkillBook	GetCacheJobStyleAndTraitIndex	BSkillBook::GetCacheJobStyleAndTraitIndex(char &,char &,char &,char &,char &,char &)	381 PDB-match name
+0x9021b0	BSkillBook	ReorderAutoCombatCustomizedSkillSet	BSkillBook::ReorderAutoCombatCustomizedSkillSet(uchar,uchar)	381 PDB-match name
+0x9022b0	BSkillBook	SetAutoCombatCustomizedSkillSetActivated	BSkillBook::SetAutoCombatCustomizedSkillSetActivated(uchar,bool)	381 PDB-match name
+0x9022d0	BSkillBook	SetAutoCombatCustomizedSkillCastConditionOp	BSkillBook::SetAutoCombatCustomizedSkillCastConditionOp(uchar,BSkillBook::BAutoCombatCustomizedSkillSetInfo::EConditionOp)	381 PDB-match name
+0x9022f0	BSkillBook	GetAutoCombatCustomizedSkillCastCondition	BSkillBook::GetAutoCombatCustomizedSkillCastCondition(uchar,uchar)	381 PDB-match name
+0x902320	BSkillBook	SetAutoCombatCustomizedSkillCastCondition	BSkillBook::SetAutoCombatCustomizedSkillCastCondition(uchar,uchar,unsigned __int64)	381 PDB-match name
+0x902360	BSkillBook	GetAutoCombatCustomizedSkill	BSkillBook::GetAutoCombatCustomizedSkill(uchar)	381 PDB-match name
+0x902380	BSkillBook	SetAutoCombatCustomizedSkillSet	BSkillBook::SetAutoCombatCustomizedSkillSet(uchar,BSkillBook::BAutoCombatCustomizedSkillSetInfo const &)	381 PDB-match name
+0x9023b0	BSkillBook	GetAutoCombatCustomizedSkillSet	BSkillBook::GetAutoCombatCustomizedSkillSet(uchar,BSkillBook::BAutoCombatCustomizedSkillSetInfo &)	381 PDB-match name
+0x902400	SkillBarPanel	ConvertExtraSkillSlotToKeyCommand	SkillBarPanel::ConvertExtraSkillSlotToKeyCommand(int)	381 PDB-match name
+0x902440	SkillBarPanel	ConvertSkillSlotToKeyCommand	SkillBarPanel::ConvertSkillSlotToKeyCommand(int)	381 PDB-match name
+0x9024a0	SkillBarPanel	SetBossSkillGageSection	SkillBarPanel::SetBossSkillGageSection(bool,float,float,float)	381 PDB-match name
+0x902620	SkillBarPanel	UpdateBossSkillGage	SkillBarPanel::UpdateBossSkillGage(float,float)	381 PDB-match name
+0x902680	SkillBarPanel	showDuelBotCardSlotName	SkillBarPanel::showDuelBotCardSlotName(bool)	381 PDB-match name
+0x9026d0	SkillBarPanel	showDuelTagMatchSkillSlotName	SkillBarPanel::showDuelTagMatchSkillSlotName(bool)	381 PDB-match name
+0x902a30	SkillBarPanel	OnChangedUIMode	SkillBarPanel::OnChangedUIMode(EngineTPSInnerMode)	381 PDB-match name
+0x902a40	SkillBarPanel	updateDuelTagMatchSlotTooltip	SkillBarPanel::updateDuelTagMatchSlotTooltip(int)	381 PDB-match name
+0x902a50	SkillBarPanel	updateName	SkillBarPanel::updateName(uint,wchar_t const *)	381 PDB-match name
+0x902a70	SkillBarPanel	UpdateContextButton	SkillBarPanel::UpdateContextButton(CONTEXT_ACTION::Info *)	381 PDB-match name
+0x902a80	SkillBarPanel	getIconDataByKeyCommand	SkillBarPanel::getIconDataByKeyCommand(Data::KeyCommandCommandType)	381 PDB-match name
+0x902b80	SkillBarPanel	EndModal	SkillBarPanel::EndModal(WindowModalPanel *)	381 PDB-match name
+0x902c80	SkillBarPanel	StartModal	SkillBarPanel::StartModal(WindowModalPanel *)	381 PDB-match name
+0x902d80	SkillBarPanel	Clear	SkillBarPanel::Clear(void)	381 PDB-match name
+0x902d90	SkillBarPanel	WriteOption	SkillBarPanel::WriteOption(void)	381 PDB-match name
+0x902da0	SkillBarPanel	ReadOption	SkillBarPanel::ReadOption(void)	381 PDB-match name
+0x902fe0	BSkill	GetSkillMoveType	BSkill::GetSkillMoveType(void)	381 PDB-match name
+0x902ff0	BSkill	increaseRepeat	BSkill::increaseRepeat(void)	381 PDB-match name
+0x906b80	SkillTracer	LoadIni	SkillTracer::LoadIni(void)	381 PDB-match name
+0x906e30	SkillTimer	GetCoolTimeBias	SkillTimer::GetCoolTimeBias(void)	381 PDB-match name
+0x907470	SkillRecycleIcon	~SkillRecycleIcon	SkillRecycleIcon::~SkillRecycleIcon(void)	381 PDB-match name
+0x9079e0	SkillComboList	getGroupDataIndex	SkillComboList::getGroupDataIndex(char)	381 PDB-match name
+0x907a40	SkillComboList	hasComponentGroup	SkillComboList::hasComponentGroup(char)	381 PDB-match name
+0x907ae0	SkillComboList	setSearchStance	SkillComboList::setSearchStance(char)	381 PDB-match name
+0x907cb0	EffectLinkCastPanel	getMinDurationEffect	EffectLinkCastPanel::getMinDurationEffect(EffectLinkCastPanel::LinkTargetType,EffectLinkCastPanel::LinkEffectData &)	381 PDB-match name
+0x907e20	EffectLinkCastPanel	getHighPriorityEffect	EffectLinkCastPanel::getHighPriorityEffect(EffectLinkCastPanel::LinkEffectData &)	381 PDB-match name
+0x907ec0	EffectLinkCastPanel	removeEffect	EffectLinkCastPanel::removeEffect(EffectLinkCastPanel::LinkTargetType,short)	381 PDB-match name
+0x907f50	BSkillBook	CanTrainPlayerState	BSkillBook::CanTrainPlayerState(void)	381 PDB-match name
+0x907f90	BSkillBook	GetTabName	BSkillBook::GetTabName(char)	381 PDB-match name
+0x908100	BSkillBook	CanAddPage	BSkillBook::CanAddPage(void)	381 PDB-match name
+0x9081f0	BSkillBook	GetActivePageIndex	BSkillBook::GetActivePageIndex(void)	381 PDB-match name
+0x908220	BSkillBook	ClearAutoCombatCustomizedSkillSet	BSkillBook::ClearAutoCombatCustomizedSkillSet(uchar)	381 PDB-match name
+0x908250	BSkillBook	GetDefaultSkillKey	BSkillBook::GetDefaultSkillKey(int)	381 PDB-match name
+0x908270	SkillBarPanel	GetResistContextActionType	SkillBarPanel::GetResistContextActionType(void)	381 PDB-match name
+0x908290	SkillBarPanel	GetResistSkillId	SkillBarPanel::GetResistSkillId(void)	381 PDB-match name
+0x9082e0	SkillBarPanel	GetImmuneContextActionType	SkillBarPanel::GetImmuneContextActionType(void)	381 PDB-match name
+0x908300	SkillBarPanel	GetImmuneSkillId	SkillBarPanel::GetImmuneSkillId(void)	381 PDB-match name
+0x908310	SkillBarPanel	GetStanceKeyStatus	SkillBarPanel::GetStanceKeyStatus(void)	381 PDB-match name
+0x908320	SkillBarPanel	GetStanceType	SkillBarPanel::GetStanceType(void)	381 PDB-match name
+0x908340	SkillBarPanel	GetStanceSkillId	SkillBarPanel::GetStanceSkillId(void)	381 PDB-match name
+0x908350	SkillBarPanel	GetCmdKeyRightKeyStatus	SkillBarPanel::GetCmdKeyRightKeyStatus(void)	381 PDB-match name
+0x908360	SkillBarPanel	GetCmdKeyRightControlId	SkillBarPanel::GetCmdKeyRightControlId(void)	381 PDB-match name
+0x908370	SkillBarPanel	GetCmdKeyRightId	SkillBarPanel::GetCmdKeyRightId(void)	381 PDB-match name
+0x908380	SkillBarPanel	GetCmdKeyLeftKeyStatus	SkillBarPanel::GetCmdKeyLeftKeyStatus(void)	381 PDB-match name
+0x908390	SkillBarPanel	GetCmdKeyLeftControlId	SkillBarPanel::GetCmdKeyLeftControlId(void)	381 PDB-match name
+0x9083a0	SkillBarPanel	GetCmdKeyLeftId	SkillBarPanel::GetCmdKeyLeftId(void)	381 PDB-match name
+0x9083b0	SkillBarPanel	GetCmdKeyDownControlId	SkillBarPanel::GetCmdKeyDownControlId(void)	381 PDB-match name
+0x9083c0	SkillBarPanel	GetCmdKeyDownId	SkillBarPanel::GetCmdKeyDownId(void)	381 PDB-match name
+0x9083d0	SkillBarPanel	GetExtraSkillKeyStatus	SkillBarPanel::GetExtraSkillKeyStatus(int)	381 PDB-match name
+0x9083f0	SkillBarPanel	GetExtraSkillSlotType	SkillBarPanel::GetExtraSkillSlotType(int)	381 PDB-match name
+0x908410	SkillBarPanel	GetExtraSkillSlotControlId	SkillBarPanel::GetExtraSkillSlotControlId(int)	381 PDB-match name
+0x908430	SkillBarPanel	GetExtraSkillSlotId	SkillBarPanel::GetExtraSkillSlotId(int)	381 PDB-match name
+0x908450	SkillBarPanel	GetSkillKeyStatus	SkillBarPanel::GetSkillKeyStatus(int)	381 PDB-match name
+0x908470	SkillBarPanel	GetSkillSlotType	SkillBarPanel::GetSkillSlotType(int)	381 PDB-match name
+0x908490	SkillBarPanel	GetSkillSlotControlId	SkillBarPanel::GetSkillSlotControlId(int)	381 PDB-match name
+0x908500	SkillBarPanel	IsDimedExtraSkillSlot	SkillBarPanel::IsDimedExtraSkillSlot(int)	381 PDB-match name
+0x908520	SkillBarPanel	IsDimedSkillSlot	SkillBarPanel::IsDimedSkillSlot(int)	381 PDB-match name
+0x908570	BSkill	Triggered	BSkill::Triggered(void)	381 PDB-match name
+0x9085c0	BSkill	~BSkill	BSkill::~BSkill(void)	381 PDB-match name
+0x90c6b0	SkillTracer	isActivated	SkillTracer::isActivated(void)	381 PDB-match name
+0x90c700	SkillTracer	getRecentSkillTrace	SkillTracer::getRecentSkillTrace(int,char,char,bool,bool,bool,bool)	381 PDB-match name
+0x90c860	SkillTracer	getRecentSkillTrace	SkillTracer::getRecentSkillTrace(int,char,bool,bool,bool,bool)	381 PDB-match name
+0x90ca10	SkillTimer	GetGlobalCoolTime_renewal	SkillTimer::GetGlobalCoolTime_renewal(int,float &,float &)	381 PDB-match name
+0x90cab0	SkillTimer	RemoveGlobalCoolTime_renewal	SkillTimer::RemoveGlobalCoolTime_renewal(int)	381 PDB-match name
+0x90cb30	SkillTimer	RemoveSkillRecyclingByEffect_renewal	SkillTimer::RemoveSkillRecyclingByEffect_renewal(int,int)	381 PDB-match name
+0x90cbc0	SkillTimer	RemoveSkillRecycling_renewal	SkillTimer::RemoveSkillRecycling_renewal(int,int)	381 PDB-match name
+0x90cc10	SkillTimer	ClearSkillRecycleTime_renewal	SkillTimer::ClearSkillRecycleTime_renewal(void)	381 PDB-match name
+0x90cc50	SkillTimer	InitPlayerSkillCoolTime	SkillTimer::InitPlayerSkillCoolTime(void)	381 PDB-match name
+0x90cd40	SkillTimer	GetSkillGroupElapsedTime_renewal	SkillTimer::GetSkillGroupElapsedTime_renewal(int,int,float &,float &)	381 PDB-match name
+0x90cde0	SkillTimer	ModifySkillRecycleTimeInGroupIndex	SkillTimer::ModifySkillRecycleTimeInGroupIndex(int,int,float,bool)	381 PDB-match name
+0x90ced0	SkillTimer	ClearEffectTime	SkillTimer::ClearEffectTime(void)	381 PDB-match name
+0x90cf00	SkillTimer	GetEffectElapsedTime	SkillTimer::GetEffectElapsedTime(int,int,float &,float &)	381 PDB-match name
+0x90d590	SkillRecycleIcon	ClearWidget	SkillRecycleIcon::ClearWidget(void)	381 PDB-match name
+0x90d610	SkillRecycleIcon	SkillRecycleIcon	SkillRecycleIcon::SkillRecycleIcon(void)	381 PDB-match name
+0x90d8d0	SkillComboList	AddWidget	SkillComboList::AddWidget(uint,uint,uint,uint,uint)	381 PDB-match name
+0x90d920	SkillComboList	Clear	SkillComboList::Clear(void)	381 PDB-match name
+0x90da30	EffectLinkCastPanel	clearEffect	EffectLinkCastPanel::clearEffect(EffectLinkCastPanel::LinkTargetType)	381 PDB-match name
+0x90da80	EffectLinkCastPanel	addEffect	EffectLinkCastPanel::addEffect(EffectLinkCastPanel::LinkTargetType,unsigned __int64,unsigned __int64,short,int,char,char)	381 PDB-match name
+0x90db90	BSkillBook	HasSkillId	BSkillBook::HasSkillId(int)	381 PDB-match name
+0x90dbd0	SkillBarPanel	highlightFrame	SkillBarPanel::highlightFrame(SkillBarPanel::IconData *,bool)	381 PDB-match name
+0x90dc20	SkillBarPanel	SimulateNovaSlotHighlightFrame	SkillBarPanel::SimulateNovaSlotHighlightFrame(float)	381 PDB-match name
+0x90dcb0	SkillBarPanel	SimulateContextSlotHighlightFrame	SkillBarPanel::SimulateContextSlotHighlightFrame(Data::KeyCommandCommandType,float)	381 PDB-match name
+0x90dd50	SkillBarPanel	InitializeHighlightFrame	SkillBarPanel::InitializeHighlightFrame(void)	381 PDB-match name
+0x912a10	BPTCreature	GetSoulFighterStanceParticleData	BPTCreature::GetSoulFighterStanceParticleData(std::basic_string<wchar_t,std::char_traits<wchar_t>,std::allocator<wchar_t>> &,float &,float &,bool,Data::StanceRe	381 PDB-match name
+0x916030	SkillTimer	SetGlobalCoolTime_renewal	SkillTimer::SetGlobalCoolTime_renewal(__int64,int,float)	381 PDB-match name
+0x916160	SkillTimer	SetEffectTime	SkillTimer::SetEffectTime(__int64,int,float)	381 PDB-match name
+0x916290	SkillTimer	SkillTimer	SkillTimer::SkillTimer(void)	381 PDB-match name
+0x917680	SkillComboList	updateList	SkillComboList::updateList(void)	381 PDB-match name
+0x917990	SkillComboList	SetSearchStance	SkillComboList::SetSearchStance(char)	381 PDB-match name
+0x9179d0	SkillComboList	CompareCombo	SkillComboList::CompareCombo(SkillComboList::ComboData const &,SkillComboList::ComboData const &)	381 PDB-match name
+0x917bf0	EffectLinkCastPanel	hide	EffectLinkCastPanel::hide(void)	381 PDB-match name
+0x917db0	BSkillBook	IsNewSkill	BSkillBook::IsNewSkill(int)	381 PDB-match name
+0x917df0	BSkillBook	AddNewSkill	BSkillBook::AddNewSkill(int)	381 PDB-match name
+0x917e10	BSkillBook	IsCacheSkillListChanged	BSkillBook::IsCacheSkillListChanged(void)	381 PDB-match name
+0x918050	BSkillBook	CopySkillBuildUpLevel	BSkillBook::CopySkillBuildUpLevel(std::map<int,BSkillBook::BSkillInfo,std::less<int>,std::allocator<std::pair<int const,BSkillBook::BSkillInfo>>> &,std::map<int	381 PDB-match name
+0x918120	BSkillBook	InitCacheSkillContextLockList	BSkillBook::InitCacheSkillContextLockList(void)	381 PDB-match name
+0x918920	BSkillBook	IsJumpingCharacterSkillQuest	BSkillBook::IsJumpingCharacterSkillQuest(short)	381 PDB-match name
+0x918af0	BSkillBook	GetMaxSkillBuildUpLevelOnSkillTrain	BSkillBook::GetMaxSkillBuildUpLevelOnSkillTrain(char,__int64)	381 PDB-match name
+0x918ba0	BSkillBook	GetMaxSkillBuildUpLevel	BSkillBook::GetMaxSkillBuildUpLevel(int)	381 PDB-match name
+0x918d60	BSkillBook	GetSkillBuildUpLevel	BSkillBook::GetSkillBuildUpLevel(int,std::map<int,BSkillBook::BSkillInfo,std::less<int>,std::allocator<std::pair<int const,BSkillBook::BSkillInfo>>> const &)	381 PDB-match name
+0x918f60	BSkillBook	ClearAllCacheSkillBuildUpLevel	BSkillBook::ClearAllCacheSkillBuildUpLevel(void)	381 PDB-match name
+0x918fe0	BSkillBook	GetCacheSkillBuildUpLevelAllSpentPoint	BSkillBook::GetCacheSkillBuildUpLevelAllSpentPoint(void)	381 PDB-match name
+0x919180	BSkillBook	AutoCombatSkillSortByOrder	BSkillBook::AutoCombatSkillSortByOrder(__int64,__int64)	381 PDB-match name
+0x919340	BSkillBook	AutoCombatApproachSkillSortByOrder	BSkillBook::AutoCombatApproachSkillSortByOrder(__int64,__int64)	381 PDB-match name
+0x919510	BSkillBook	GetSkillTiming	BSkillBook::GetSkillTiming(Data::Skill3RecordActiveSkillPtr,char)	381 PDB-match name
+0x9199e0	BSkillBook	IsSkillContextLock	BSkillBook::IsSkillContextLock(BPlayer const *,int)	381 PDB-match name
+0x919b70	SkillBarPanel	updateChromaKeyboard	SkillBarPanel::updateChromaKeyboard(int,int,char,char)	381 PDB-match name
+0x919bc0	SkillBarPanel	~SkillBarPanel	SkillBarPanel::~SkillBarPanel(void)	381 PDB-match name
+0x91a2a0	BSkill	BSkill	BSkill::BSkill(BCreature *,bool)	381 PDB-match name
+0x91d080	EffectLinkCastPanel	~EffectLinkCastPanel	EffectLinkCastPanel::~EffectLinkCastPanel(void)	381 PDB-match name
+0x91d610	SkillCastPanel	~SkillCastPanel	SkillCastPanel::~SkillCastPanel(void)	381 PDB-match name
+0x91f350	BSkillBook	GetSkillKeyByDefaultSkillVariation	BSkillBook::GetSkillKeyByDefaultSkillVariation(int,__int64 &)	381 PDB-match name
+0x91fa20	BSkillBook	GetMainSlotSkillTiming	BSkillBook::GetMainSlotSkillTiming(unsigned __int64)	381 PDB-match name
+0x923f20	SkillTracer	getPlayerTargetConditions	SkillTracer::getPlayerTargetConditions(SkillTrace::Conditions &,unsigned __int64)	381 PDB-match name
+0x9240c0	SkillTracer	removeSkillTrace	SkillTracer::removeSkillTrace(SkillTrace *)	381 PDB-match name
+0x924190	SkillTracer	Canceled	SkillTracer::Canceled(int,char,char)	381 PDB-match name
+0x924220	SkillTracer	Succeeded	SkillTracer::Succeeded(int,char,char)	381 PDB-match name
+0x9242a0	SkillTracer	FailedByServer	SkillTracer::FailedByServer(int,char,int)	381 PDB-match name
+0x924310	SkillTracer	FailedByClient	SkillTracer::FailedByClient(int,char,int)	381 PDB-match name
+0x9243a0	SkillTracer	SentRequest	SkillTracer::SentRequest(int,char,unsigned __int64)	381 PDB-match name
+0x926ed0	SkillTimer	~SkillTimer	SkillTimer::~SkillTimer(void)	381 PDB-match name
+0x929550	SkillRecycleIcon	UpdateLeftSecond	SkillRecycleIcon::UpdateLeftSecond(int)	381 PDB-match name
+0x929ff0	SkillComboList	selectGroup	SkillComboList::selectGroup(uint)	381 PDB-match name
+0x92a060	SkillComboList	setComboName	SkillComboList::setComboName(uint,uint)	381 PDB-match name
+0x92a170	SkillComboList	setGroupName	SkillComboList::setGroupName(uint,uint)	381 PDB-match name
+0x92a3b0	SkillComboList	Fill	SkillComboList::Fill(uint,int,int,bool)	381 PDB-match name
+0x92b5f0	EffectLinkCastPanel	updateLeftTime	EffectLinkCastPanel::updateLeftTime(int)	381 PDB-match name
+0x92b6c0	EffectLinkCastPanel	ProcessEvent	EffectLinkCastPanel::ProcessEvent(EngineEvent *)	381 PDB-match name
+0x92b780	EffectLinkCastPanel	EffectLinkCastPanel	EffectLinkCastPanel::EffectLinkCastPanel(void)	381 PDB-match name
+0x92b7f0	SkillCastPanel	updateLeftTime	SkillCastPanel::updateLeftTime(int)	381 PDB-match name
+0x92b910	SkillCastPanel	SetCustomizeMode	SkillCastPanel::SetCustomizeMode(bool)	381 PDB-match name
+0x92ba40	SkillCastPanel	ProcessEvent	SkillCastPanel::ProcessEvent(EngineEvent *)	381 PDB-match name
+0x92ba80	SkillCastPanel	SkillCastPanel	SkillCastPanel::SkillCastPanel(void)	381 PDB-match name
+0x92bae0	BSkillBook	ClearNewSkill	BSkillBook::ClearNewSkill(void)	381 PDB-match name
+0x92bb20	BSkillBook	CheckBackupJumpingCharacter	BSkillBook::CheckBackupJumpingCharacter(int)	381 PDB-match name
+0x92bd70	BSkillBook	ClearJumpingCharacterBackup	BSkillBook::ClearJumpingCharacterBackup(void)	381 PDB-match name
+0x92be40	BSkillBook	GetMaxSkillBuildUpLevelOnContentsRangeAll	BSkillBook::GetMaxSkillBuildUpLevelOnContentsRangeAll(int,__int64)	381 PDB-match name
+0x92bfd0	BSkillBook	IsBlockedSkill	BSkillBook::IsBlockedSkill(int)	381 PDB-match name
+0x92c150	BSkillBook	ResetRecommendSkillList	BSkillBook::ResetRecommendSkillList(void)	381 PDB-match name
+0x92c190	BSkillBook	GetRecommendSkillList	BSkillBook::GetRecommendSkillList(BSkillBook::ERecommendType,std::map<int,BSkillBook::BSkillInfo,std::less<int>,std::allocator<std::pair<int const,BSkillBook::B	381 PDB-match name
+0x92c1e0	BSkillBook	~BSkillBook	BSkillBook::~BSkillBook(void)	381 PDB-match name
+0x92c380	BSkillBook	BSkillBook	BSkillBook::BSkillBook(void)	381 PDB-match name
+0x92c660	SkillBarPanel	ProcessReleasedKeyEvent	SkillBarPanel::ProcessReleasedKeyEvent(BInputKey const *)	381 PDB-match name
+0x92cbb0	SkillBarPanel	SkillBarPanel	SkillBarPanel::SkillBarPanel(void)	381 PDB-match name
+0x933350	SkillTracer	StartSkill	SkillTracer::StartSkill(int,char)	381 PDB-match name
+0x934de0	SkillRecycleIcon	UpdateHudCustomize	SkillRecycleIcon::UpdateHudCustomize(void)	381 PDB-match name
+0x935340	BSkillBook	IsEnableJobStyleAdvanced3	BSkillBook::IsEnableJobStyleAdvanced3(CreatureProperty::Job)	381 PDB-match name
+0x935570	BSkillBook	ChangeCacheTraitAndCacheSkillList	BSkillBook::ChangeCacheTraitAndCacheSkillList(char,char,char,char,char,char)	381 PDB-match name
+0x935bc0	BSkillBook	ChangeSkillPage	BSkillBook::ChangeSkillPage(void)	381 PDB-match name
+0x935db0	BSkillBook	AddJumpingCharacterBackup	BSkillBook::AddJumpingCharacterBackup(int,char,char,char)	381 PDB-match name
+0x935e90	BSkillBook	ApplySkillContextLockFromChangedCache	BSkillBook::ApplySkillContextLockFromChangedCache(void)	381 PDB-match name
+0x935fc0	BSkillBook	GetSkillVariation	BSkillBook::GetSkillVariation(int,std::map<int,BSkillBook::BSkillInfo,std::less<int>,std::allocator<std::pair<int const,BSkillBook::BSkillInfo>>> const &)	381 PDB-match name
+0x9363a0	BSkillBook	Add	BSkillBook::Add(int,char,char,char)	381 PDB-match name
+0x936640	SkillBarPanel	UpdateKeyMappingText	SkillBarPanel::UpdateKeyMappingText(void)	381 PDB-match name
+0x936d90	SkillBarPanel	AcquireSkillNotify	SkillBarPanel::AcquireSkillNotify(int)	381 PDB-match name
+0x936f10	SkillBarPanel	ProcessPressedKeyEvent	SkillBarPanel::ProcessPressedKeyEvent(BInputKey const *)	381 PDB-match name
+0x937320	SkillBarPanel	ProcessNetObjectEvent	SkillBarPanel::ProcessNetObjectEvent(StructPacket const *)	381 PDB-match name
+0x943930	BSkillBook	SendAddTabPage	BSkillBook::SendAddTabPage(int)	381 PDB-match name
+0x943e50	BSkillBook	ReqTrainTraitPacket	BSkillBook::ReqTrainTraitPacket(char,char,char,char,char,char)	381 PDB-match name
+0x9441e0	BSkillBook	UpdateAutoCombatCustomizedSkillSetValidationBySkillTrain	BSkillBook::UpdateAutoCombatCustomizedSkillSetValidationBySkillTrain(bool &)	381 PDB-match name
+0x944350	BSkillBook	GetRecommendSettingAutoCombatCustomizedSkillSetList	BSkillBook::GetRecommendSettingAutoCombatCustomizedSkillSetList(std::map<uchar,BSkillBook::BAutoCombatCustomizedSkillSetInfo,std::less<uchar>,std::allocator<std	381 PDB-match name
+0x9446c0	BSkillBook	UpdateChildSkillList	BSkillBook::UpdateChildSkillList(void)	381 PDB-match name
+0x944960	SkillBarPanel	updateExtraSkillCount	SkillBarPanel::updateExtraSkillCount(short,int,int)	381 PDB-match name
+0x944c00	SkillBarPanel	updateExtraSkillCount	SkillBarPanel::updateExtraSkillCount(short,int)	381 PDB-match name
+0x944c80	SkillBarPanel	RefreshSkillRecycleTime	SkillBarPanel::RefreshSkillRecycleTime(void)	381 PDB-match name
+0x944d60	SkillBarPanel	ProcessPassiveEffectEvent	SkillBarPanel::ProcessPassiveEffectEvent(GS_ActionsPassiveEffectSubPacket const *)	381 PDB-match name
+0x94ace0	BSkillBook	IsCacheSkillContextLockChanged	BSkillBook::IsCacheSkillContextLockChanged(void)	381 PDB-match name
+0x94af70	BSkillBook	GetCacheSkillKey	BSkillBook::GetCacheSkillKey(int)	381 PDB-match name
+0x94afc0	BSkillBook	GetSkillKey	BSkillBook::GetSkillKey(int)	381 PDB-match name
+0x94b010	BSkillBook	SaveOptionAutoCombatCustomizedSkillSet	BSkillBook::SaveOptionAutoCombatCustomizedSkillSet(void)	381 PDB-match name
+0x94cc00	BSkillBook	EnterZone	BSkillBook::EnterZone(void)	381 PDB-match name
+0x94cde0	SkillBarPanel	requestRespawn	SkillBarPanel::requestRespawn(void)	381 PDB-match name
+0x94ce40	SkillBarPanel	OpenReturnToTownConfirm	SkillBarPanel::OpenReturnToTownConfirm(void)	381 PDB-match name
+0x94cfb0	SkillBarPanel	ProgressComplete	SkillBarPanel::ProgressComplete(WindowModalPanel *,short)	381 PDB-match name
+0x94f740	SkillTimer	IsGlobalCoolTimeRecycled_renewal	SkillTimer::IsGlobalCoolTimeRecycled_renewal(int,bool)	381 PDB-match name
+0x94f790	SkillTimer	IsRecycleTimeRecycled_renewal	SkillTimer::IsRecycleTimeRecycled_renewal(int,int,bool)	381 PDB-match name
+0x94f7f0	SkillTimer	ResetSkillRecycling_renewal	SkillTimer::ResetSkillRecycling_renewal(int,int)	381 PDB-match name
+0x94f940	SkillTimer	IsSkillRecycled_renewal	SkillTimer::IsSkillRecycled_renewal(int,int,int,int,bool)	381 PDB-match name
+0x94fda0	BSkillBook	GetItemChangeSkillId	BSkillBook::GetItemChangeSkillId(int)	381 PDB-match name
+0x94fdf0	BSkillBook	UpdateAutoCombatSkillList	BSkillBook::UpdateAutoCombatSkillList(void)	381 PDB-match name
+0x950050	SkillBarPanel	updateNovaItemTooltip	SkillBarPanel::updateNovaItemTooltip(void)	381 PDB-match name
+0x950630	BSkillBook	GetRecommendType	BSkillBook::GetRecommendType(int)	381 PDB-match name
+0x950970	BSkillBook	UpdateRecommandSkillList	BSkillBook::UpdateRecommandSkillList(void)	381 PDB-match name
+0x951250	BSkillBook	GetActiveSkillKey	BSkillBook::GetActiveSkillKey(int,__int64 &)	381 PDB-match name
+0x952160	BSkillBook	GetCurrentLockState	BSkillBook::GetCurrentLockState(int)	381 PDB-match name
+0x9523d0	BSkillBook	GetCategorySkillKey	BSkillBook::GetCategorySkillKey(int,__int64 &)	381 PDB-match name
+0x952430	BSkillBook	SetSkillBuildUpLevel	BSkillBook::SetSkillBuildUpLevel(int,char,std::map<int,BSkillBook::BSkillInfo,std::less<int>,std::allocator<std::pair<int const,BSkillBook::BSkillInfo>>> &)	381 PDB-match name
+0x952630	BSkillBook	SetCacheSkillBuildUpLevel	BSkillBook::SetCacheSkillBuildUpLevel(int,char)	381 PDB-match name
+0x953480	BSkillBook	ProcessEquipItem	BSkillBook::ProcessEquipItem(__int64)	381 PDB-match name
+0x953aa0	BSkillBook	GetResistanceSkillKeyImpl	BSkillBook::GetResistanceSkillKeyImpl(char const *,int,std::vector<BSkillBook::BResistanceSkillInfo,std::allocator<BSkillBook::BResistanceSkillInfo>> const &)	381 PDB-match name
+0x9541c0	BSkillBook	GetResistanceSkillKey	BSkillBook::GetResistanceSkillKey(BSkillBook::EResistanceSkillContentsType,__int64)	381 PDB-match name
+0x9644a0	SkillRecycleIcon	updateWidget	SkillRecycleIcon::updateWidget(float,float)	381 PDB-match name
+0x964830	SkillRecycleIcon	Update	SkillRecycleIcon::Update(unsigned __int64,Data::Skill3RecordActiveSkillPtr,float,float)	381 PDB-match name
+0x9657a0	SkillComboList	setSearchFiler	SkillComboList::setSearchFiler(wchar_t const *)	381 PDB-match name
+0x965d20	SkillComboList	MakeSkillComboList	SkillComboList::MakeSkillComboList(std::vector<char,std::allocator<char>> &)	381 PDB-match name
+0x966270	EffectLinkCastPanel	updateWidget	EffectLinkCastPanel::updateWidget(unsigned __int64,float,float)	381 PDB-match name
+0x9664a0	EffectLinkCastPanel	showNextEffect	EffectLinkCastPanel::showNextEffect(void)	381 PDB-match name
+0x966520	EffectLinkCastPanel	remove	EffectLinkCastPanel::remove(unsigned __int64,short)	381 PDB-match name
+0x966580	EffectLinkCastPanel	invoke	EffectLinkCastPanel::invoke(unsigned __int64,unsigned __int64,short,int,char,char)	381 PDB-match name
+0x966820	EffectLinkCastPanel	ChangePlayerLinkTarget	EffectLinkCastPanel::ChangePlayerLinkTarget(unsigned __int64)	381 PDB-match name
+0x966880	EffectLinkCastPanel	ProcessPassiveEffectEvent	EffectLinkCastPanel::ProcessPassiveEffectEvent(GS_ActionsPassiveEffectSubPacket const *)	381 PDB-match name
+0x966a00	SkillCastPanel	updateWidget	SkillCastPanel::updateWidget(unsigned __int64,float,float,bool,bool)	381 PDB-match name
+0x966d20	SkillCastPanel	StartSkillExec	SkillCastPanel::StartSkillExec(unsigned __int64,float)	381 PDB-match name
+0x966d50	SkillCastPanel	StartSkillCasting	SkillCastPanel::StartSkillCasting(unsigned __int64,short,float)	381 PDB-match name
+0x966da0	SkillCastPanel	ProcessSkillEvent	SkillCastPanel::ProcessSkillEvent(__int64,int,char,char,char)	381 PDB-match name
+0x9670d0	BSkillBook	CompleteJumpingCharacterSkillQuest	BSkillBook::CompleteJumpingCharacterSkillQuest(short)	381 PDB-match name
+0x9677e0	BSkillBook	ProcessNetObjectEvent	BSkillBook::ProcessNetObjectEvent(StructPacket const *)	381 PDB-match name
+0x968000	SkillBarPanel	getSocialActionCommandTooltipText	SkillBarPanel::getSocialActionCommandTooltipText(__int64)	381 PDB-match name
+0x9684c0	SkillBarPanel	ShowBossSkillStatePanel	SkillBarPanel::ShowBossSkillStatePanel(unsigned __int64,bool)	381 PDB-match name
+0x9686f0	SkillBarPanel	updateDuelBotCardSlotTooltip	SkillBarPanel::updateDuelBotCardSlotTooltip(int)	381 PDB-match name
+0x968840	SkillBarPanel	updateTooltipInfo	SkillBarPanel::updateTooltipInfo(uint,__int64,char,Data::KeyCommandCommandType)	381 PDB-match name
+0x968e50	SkillBarPanel	checkExtraSkillSlotTooltipUpdate	SkillBarPanel::checkExtraSkillSlotTooltipUpdate(void)	381 PDB-match name
+0x968ec0	SkillBarPanel	checkSkillSlotTooltipUpdate	SkillBarPanel::checkSkillSlotTooltipUpdate(void)	381 PDB-match name
+0x96bcf0	SkillTracer	Report	SkillTracer::Report(wchar_t const *,int)	381 PDB-match name
+0x96eff0	SkillCastPanel	ProcessSkillHitEvent	SkillCastPanel::ProcessSkillHitEvent(GS_ActionsSkillHitSubPacket const *)	381 PDB-match name
+0x96f140	SkillBarPanel	updateStanceSlotTooltip	SkillBarPanel::updateStanceSlotTooltip(void)	381 PDB-match name
+0x974fc0	SkillTimer	SetSkillRecycleTime_renewal	SkillTimer::SetSkillRecycleTime_renewal(__int64,int,int,float)	381 PDB-match name
+0x981d90	SkillTimer	SetExtendLimitTime_renewal	SkillTimer::SetExtendLimitTime_renewal(__int64,char,short,float)	381 PDB-match name
+0x982dc0	SkillComboList	selectCombo	SkillComboList::selectCombo(uint)	381 PDB-match name
+0x982e20	SkillComboList	ProcessEvent	SkillComboList::ProcessEvent(EngineEvent *)	381 PDB-match name
+0x983030	SkillBarPanel	updateIcon	SkillBarPanel::updateIcon(SkillBarPanel::IconData *,CONTEXT_ACTION::TYPE,unsigned __int64,char,CONTEXT_ACTION::STATUS,CONTEXT_ACTION::CONTEXT_STATE,char,int,boo	381 PDB-match name
+0x983e60	SkillBarPanel	updateIcon	SkillBarPanel::updateIcon(SkillBarPanel::IconData *,CONTEXT_ACTION::TYPE,unsigned __int64,char,CONTEXT_ACTION::STATUS,CONTEXT_ACTION::CONTEXT_STATE,char,int,Ski	381 PDB-match name
+0x983ea0	SkillBarPanel	UpdateSkillBarButton	SkillBarPanel::UpdateSkillBarButton(CONTEXT_ACTION::Info *,CONTEXT_ACTION::Info &,CONTEXT_ACTION::Info &,CONTEXT_ACTION::Info &,CONTEXT_ACTION::Info &,SkillBarP	381 PDB-match name
+0x984f20	SkillBarPanel	ClearExtraSkillSlotIcon	SkillBarPanel::ClearExtraSkillSlotIcon(int)	381 PDB-match name
+0x9853c0	SkillBarPanel	ClearSkillSlotIcon	SkillBarPanel::ClearSkillSlotIcon(int)	381 PDB-match name
+0x985850	SkillBarPanel	Start	SkillBarPanel::Start(wchar_t const *)	381 PDB-match name
+0x98af40	SkillBarPanel	ClearAllIcons	SkillBarPanel::ClearAllIcons(void)	381 PDB-match name
+0x994fa0	BSkill	invokeSkillMessage	BSkill::invokeSkillMessage(Data::Skill3Record::Key)	381 PDB-match name
+0x995730	SkillBarPanel	ProcessPressedChargeSkillKey	SkillBarPanel::ProcessPressedChargeSkillKey(void)	381 PDB-match name
+0x995950	SkillBarPanel	ProcessEvent	SkillBarPanel::ProcessEvent(EngineEvent *)	381 PDB-match name
+0x9966c0	SkillTimer	UpdateGlobalRecycle_renewal	SkillTimer::UpdateGlobalRecycle_renewal(void)	381 PDB-match name
+0x9967e0	SkillTimer	UpdateRecycle_renewal	SkillTimer::UpdateRecycle_renewal(void)	381 PDB-match name
+0x996a20	SkillTimer	UpdateEffectTime_renewal	SkillTimer::UpdateEffectTime_renewal(void)	381 PDB-match name
+0x996bd0	SkillBarPanel	SetCustomizeMode	SkillBarPanel::SetCustomizeMode(bool)	381 PDB-match name
+0xa20bf0	PTActiveSkill2	stopShowKeysByStopEvent	PTActiveSkill2::stopShowKeysByStopEvent(void)	381 PDB-match name
+0xa20c30	PTActiveSkill2	stopExtraFlight	PTActiveSkill2::stopExtraFlight(void)	381 PDB-match name
+0xa20cb0	PTActiveSkill2	IsShowEnabled	PTActiveSkill2::IsShowEnabled(void)	381 PDB-match name
+0xa20cd0	PTSkill2	Cancel	PTSkill2::Cancel(float,char)	381 PDB-match name
+0xa20ce0	PTSkill2	Finish	PTSkill2::Finish(void)	381 PDB-match name
+0xa20cf0	PTSkill2	Return	PTSkill2::Return(float)	381 PDB-match name
+0xa20d00	PTSkill2	ExecFail	PTSkill2::ExecFail(float)	381 PDB-match name
+0xa20d10	PTSkill2	FireFail	PTSkill2::FireFail(float)	381 PDB-match name
+0xa20d20	PTSkill2	FireMiss	PTSkill2::FireMiss(float)	381 PDB-match name
+0xa20d30	PTSkill2	Fire	PTSkill2::Fire(float)	381 PDB-match name
+0xa20d40	PTSkill2	Cast	PTSkill2::Cast(float,short,short)	381 PDB-match name
+0xa20d60	PTSkill2	SetCaster	PTSkill2::SetCaster(BPTCreature *)	381 PDB-match name
+0xa21740	BPTPlayer	hideTargetParticle	BPTPlayer::hideTargetParticle(BGameObject *)	381 PDB-match name
+0xa25160	PTActiveSkill2	addSkillTriggerDamageOnInputParamsignalType	PTActiveSkill2::addSkillTriggerDamageOnInputParamsignalType(__int64,float,ESHOW_SIGNAL_TYPE)	381 PDB-match name
+0xa25250	PTActiveSkill2	stopSkillRangeDecal	PTActiveSkill2::stopSkillRangeDecal(void)	381 PDB-match name
+0xa253f0	PTActiveSkill2	clearFireInputHandle	PTActiveSkill2::clearFireInputHandle(void)	381 PDB-match name
+0xa2ae30	PTActiveSkill2	ShowCreate	PTActiveSkill2::ShowCreate(void)	381 PDB-match name
+0xa2aed0	PTSkill2	GetSkillObject	PTSkill2::GetSkillObject(void)	381 PDB-match name
+0xa2af10	PTSkill2	GetCasterNextYaw	PTSkill2::GetCasterNextYaw(void)	381 PDB-match name
+0xa2af60	PTSkill2	GetRepeatCount	PTSkill2::GetRepeatCount(void)	381 PDB-match name
+0xa2afa0	PTSkill2	PTSkill2	PTSkill2::PTSkill2(BPTCreature *,bool,bool)	381 PDB-match name
+0xa2d010	BPTPlayer	ShowTargetZoneDecal	BPTPlayer::ShowTargetZoneDecal(bool)	381 PDB-match name
+0xa361c0	PTActiveSkill2	getSkillflowShowOject	PTActiveSkill2::getSkillflowShowOject(SkillFlowCode,std::basic_string<wchar_t,std::char_traits<wchar_t>,std::allocator<wchar_t>> &,int)	381 PDB-match name
+0xa36e40	PTActiveSkill2	clearInputParam	PTActiveSkill2::clearInputParam(void)	381 PDB-match name
+0xa36f30	PTActiveSkill2	getConvertedSignalType	PTActiveSkill2::getConvertedSignalType(float,ESHOW_SIGNAL_TYPE)	381 PDB-match name
+0xa370c0	PTActiveSkill2	processStopShowKeysByStopEvent	PTActiveSkill2::processStopShowKeysByStopEvent(BSkill *,SkillHitCode)	381 PDB-match name
+0xa37200	PTActiveSkill2	PlayTriggeredCastShow	PTActiveSkill2::PlayTriggeredCastShow(bool,float)	381 PDB-match name
+0xa375b0	PTActiveSkill2	SkillResult	PTActiveSkill2::SkillResult(unsigned __int64,unsigned __int64,SkillFlowCode,SkillHitCode)	381 PDB-match name
+0xa37790	PTActiveSkill2	Triggered	PTActiveSkill2::Triggered(void)	381 PDB-match name
+0xa37b70	PTActiveSkill2	serverSyncSkillRangeDecal	PTActiveSkill2::serverSyncSkillRangeDecal(void)	381 PDB-match name
+0xa38b70	PTActiveSkill2	hideCastDecal	PTActiveSkill2::hideCastDecal(void)	381 PDB-match name
+0xa38d40	PTActiveSkill2	showCastDecal	PTActiveSkill2::showCastDecal(void)	381 PDB-match name
+0xa39690	PTActiveSkill2	ShowRelease	PTActiveSkill2::ShowRelease(void)	381 PDB-match name
+0xa39810	PTActiveSkill2	ShowStopRelease	PTActiveSkill2::ShowStopRelease(void)	381 PDB-match name
+0xa39850	PTActiveSkill2	IsTopPriorityShow	PTActiveSkill2::IsTopPriorityShow(void)	381 PDB-match name
+0xa39ec0	PTSkill2	~PTSkill2	PTSkill2::~PTSkill2(void)	381 PDB-match name
+0xa3bde0	BPTPlayer	playStanceTransit	BPTPlayer::playStanceTransit(char,char,bool,bool)	381 PDB-match name
+0xa4b760	PTActiveSkill2	Deactivate	PTActiveSkill2::Deactivate(void)	381 PDB-match name
+0xa4b770	PTActiveSkill2	addTriggerDamageOnInputParamsignalType	PTActiveSkill2::addTriggerDamageOnInputParamsignalType(__int64,float,ESHOW_SIGNAL_TYPE)	381 PDB-match name
+0xa4b950	PTActiveSkill2	CanGhostResultShowPlay	PTActiveSkill2::CanGhostResultShowPlay(BGameObject const *)	381 PDB-match name
+0xa4bad0	PTActiveSkill2	canCasterLastAnimPause	PTActiveSkill2::canCasterLastAnimPause(void)	381 PDB-match name
+0xa4bbf0	PTActiveSkill2	PTActiveSkill2	PTActiveSkill2::PTActiveSkill2(BPTCreature *,bool)	381 PDB-match name
+0xa4bea0	BPTPlayer	UpdateAutoTargettingState	BPTPlayer::UpdateAutoTargettingState(PTSkill2 *,int)	381 PDB-match name
+0xa4c070	PTSkill2	UpdateTarget	PTSkill2::UpdateTarget(void)	381 PDB-match name
+0xa55e70	PTActiveSkill2	getShowAppliedParam	PTActiveSkill2::getShowAppliedParam(void)	381 PDB-match name
+0xa56080	PTActiveSkill2	execAttachBone	PTActiveSkill2::execAttachBone(Data::Skill3RecordActiveSkillPtr,float)	381 PDB-match name
+0xa564e0	PTActiveSkill2	Activate	PTActiveSkill2::Activate(Data::Skill3RecordPtr &,char,unsigned __int64)	381 PDB-match name
+0xa61760	PTActiveSkill2	isSoulSkill	PTActiveSkill2::isSoulSkill(void)	381 PDB-match name
+0xa627d0	PTActiveSkill2	playTriggeredShow	PTActiveSkill2::playTriggeredShow(float)	381 PDB-match name
+0xa62b60	PTActiveSkill2	playExecShow	PTActiveSkill2::playExecShow(float)	381 PDB-match name
+0xa63630	PTActiveSkill2	FireMiss	PTActiveSkill2::FireMiss(float)	381 PDB-match name
+0xa63960	PTActiveSkill2	playFireShow	PTActiveSkill2::playFireShow(sTargetDataInfo const &,float,int,int,int)	381 PDB-match name
+0xa64210	PTActiveSkill2	canSkillRangeDecal	PTActiveSkill2::canSkillRangeDecal(void)	381 PDB-match name
+0xa64330	PTActiveSkill2	getSkillRangeDecalRGB	PTActiveSkill2::getSkillRangeDecalRGB(Data::Skill3RecordActiveSkillPtr,int &,int &,int &,float &,float &,float &)	381 PDB-match name
+0xa6a930	PTActiveSkill2	AddDamageOnInputParamAdditionalSignalType	PTActiveSkill2::AddDamageOnInputParamAdditionalSignalType(__int64,float,ESHOW_SIGNAL_TYPE)	381 PDB-match name
+0xa6b760	PTActiveSkill2	AddDamageOnInputParamsignalType	PTActiveSkill2::AddDamageOnInputParamsignalType(__int64,float,ESHOW_SIGNAL_TYPE)	381 PDB-match name
+0xa6c4b0	PTActiveSkill2	PlayTriggeredResultShow	PTActiveSkill2::PlayTriggeredResultShow(BGameObject const *,SkillFlowCode,SkillHitCode,bool)	381 PDB-match name
+0xa6cd00	PTActiveSkill2	updateSkillRangeDecal	PTActiveSkill2::updateSkillRangeDecal(void)	381 PDB-match name
+0xa6d300	PTActiveSkill2	startSkillRangeDecal	PTActiveSkill2::startSkillRangeDecal(float)	381 PDB-match name
+0xa6e020	PTActiveSkill2	Cast	PTActiveSkill2::Cast(float,short,short)	381 PDB-match name
+0xa71440	PTActiveSkill2	detachBone	PTActiveSkill2::detachBone(__int64,bool)	381 PDB-match name
+0xa71890	PTActiveSkill2	Return	PTActiveSkill2::Return(float)	381 PDB-match name
+0xa71d80	PTActiveSkill2	addInputParam	PTActiveSkill2::addInputParam(__int64,EInterface::Handle const &,BSkill *)	381 PDB-match name
+0xa72350	PTActiveSkill2	addBossLinkLaserDamageOnInputParamsignalType	PTActiveSkill2::addBossLinkLaserDamageOnInputParamsignalType(__int64,float,ESHOW_SIGNAL_TYPE)	381 PDB-match name
+0xa72520	PTActiveSkill2	addSkillDamageOnInputParamsignalType	PTActiveSkill2::addSkillDamageOnInputParamsignalType(__int64,float,ESHOW_SIGNAL_TYPE)	381 PDB-match name
+0xa72990	PTActiveSkill2	PlaySkillResultShow	PTActiveSkill2::PlaySkillResultShow(BGameObject const *,SkillFlowCode,SkillHitCode,bool)	381 PDB-match name
+0xa73380	PTActiveSkill2	PlayResultShow	PTActiveSkill2::PlayResultShow(BGameObject const *,SkillFlowCode,SkillHitCode,bool)	381 PDB-match name
+0xa733f0	PTActiveSkill2	Cancel	PTActiveSkill2::Cancel(float,char)	381 PDB-match name
+0xa73c70	PTActiveSkill2	Finish	PTActiveSkill2::Finish(void)	381 PDB-match name
+0xa74870	PTActiveSkill2	Exec	PTActiveSkill2::Exec(float)	381 PDB-match name
+0xa74ea0	PTActiveSkill2	Fire	PTActiveSkill2::Fire(float)	381 PDB-match name
+0xa75940	PTActiveSkill2	~PTActiveSkill2	PTActiveSkill2::~PTActiveSkill2(void)	381 PDB-match name
+0xaa1950	BPTCreature	SetChainSkill	BPTCreature::SetChainSkill(PTSkill2 *)	381 PDB-match name
+0xaa1a30	BPTCreature	DetachTargetMark	BPTCreature::DetachTargetMark(void)	381 PDB-match name
+0xaa1a90	BPTCreature	getExhaustionIdle	BPTCreature::getExhaustionIdle(void)	381 PDB-match name
+0xaa1ac0	BPTCreature	IsDeadWhileFalling	BPTCreature::IsDeadWhileFalling(void)	381 PDB-match name
+0xaa1bb0	BPTCreature	updateSkillScore	BPTCreature::updateSkillScore(GS_ActionsEffectSubPacket const *)	381 PDB-match name
+0xaa1bf0	BPTCreature	damageEffectMessageType	BPTCreature::damageEffectMessageType(int)	381 PDB-match name
+0xaa2d70	BPTPlayer	SetCanCombatHyperMove	BPTPlayer::SetCanCombatHyperMove(bool)	381 PDB-match name
+0xaa3030	BPTPlayer	HideTutorialTargetZoneMark	BPTPlayer::HideTutorialTargetZoneMark(void)	381 PDB-match name
+0xaa3320	BPTPlayer	SetZoneTransitEffect	BPTPlayer::SetZoneTransitEffect(bool)	381 PDB-match name
+0xaa5f60	BPTCreature	IsActivePairCostumeEffect	BPTCreature::IsActivePairCostumeEffect(void)	381 PDB-match name
+0xaa6400	BPTCreature	IsExhaust	BPTCreature::IsExhaust(void)	381 PDB-match name
+0xaa6430	BPTCreature	IsDead	BPTCreature::IsDead(void)	381 PDB-match name
+0xaa7a90	BPTCreature	SetBloomEffect	BPTCreature::SetBloomEffect(bool)	381 PDB-match name
+0xaa7ce0	BPTCreature	getSkillEffectHitcode	BPTCreature::getSkillEffectHitcode(PTSkill2 *,Data::EffectRecordPtr,BPTCreature::DAMAGE_TYPE,__int64 const &)	381 PDB-match name
+0xaa7e20	BPTCreature	getEffectJobSpHitcode	BPTCreature::getEffectJobSpHitcode(BPTCreature::DAMAGE_TYPE)	381 PDB-match name
+0xaa7e80	BPTCreature	battleMessageSkillResultType	BPTCreature::battleMessageSkillResultType(PTSkill2 *,bool)	381 PDB-match name
+0xaa7f00	BPTCreature	FindSkillIndex	BPTCreature::FindSkillIndex(char,unsigned __int64)	381 PDB-match name
+0xaa7f50	BPTCreature	FindSkill	BPTCreature::FindSkill(char,unsigned __int64)	381 PDB-match name
+0xaa91c0	BPTPlayer	IsExhaust	BPTPlayer::IsExhaust(void)	381 PDB-match name
+0xaa9220	BPTPlayer	getTargetDistance	BPTPlayer::getTargetDistance(Vector)	381 PDB-match name
+0xaa93b0	BPTPlayer	setAttackTargetWithinFirstBand	BPTPlayer::setAttackTargetWithinFirstBand(bool)	381 PDB-match name
+0xaa9400	BPTPlayer	ShowTutorialTargetZoneMark	BPTPlayer::ShowTutorialTargetZoneMark(void)	381 PDB-match name
+0xaa9550	BPTPlayer	hideScanedEffect	BPTPlayer::hideScanedEffect(BGameObject *)	381 PDB-match name
+0xaa95d0	BPTPlayer	UpdateScanedEffect	BPTPlayer::UpdateScanedEffect(BGameObject *)	381 PDB-match name
+0xaa9730	BPTPlayer	OnNotifyTargetedDeadbodyStateChange	BPTPlayer::OnNotifyTargetedDeadbodyStateChange(BGameObject *,char)	381 PDB-match name
+0xaaba00	PTActiveSkill2	getSkillHitResultCasterShowObject	PTActiveSkill2::getSkillHitResultCasterShowObject(SkillHitCode,std::basic_string<wchar_t,std::char_traits<wchar_t>,std::allocator<wchar_t>> &,int)	381 PDB-match name
+0xaabb60	PTPassiveEffectList	HideEffectShow	PTPassiveEffectList::HideEffectShow(void)	381 PDB-match name
+0xaad3c0	BPTCreature	IsInPreparingExhaust	BPTCreature::IsInPreparingExhaust(void)	381 PDB-match name
+0xaad400	BPTCreature	EraseExtraSkillSound	BPTCreature::EraseExtraSkillSound(std::basic_string<wchar_t,std::char_traits<wchar_t>,std::allocator<wchar_t>> const &)	381 PDB-match name
+0xaad450	BPTCreature	ClearSkill	BPTCreature::ClearSkill(char,unsigned __int64)	381 PDB-match name
+0xaafcb0	BPTPlayer	ShowClassicModeGroundEffect	BPTPlayer::ShowClassicModeGroundEffect(bool,bool)	381 PDB-match name
+0xab0950	BPTPlayer	setCombatHyperMoveCoolTimeEvent	BPTPlayer::setCombatHyperMoveCoolTimeEvent(void)	381 PDB-match name
+0xab1700	BPTPlayer	UpdateAutoTargetParams	BPTPlayer::UpdateAutoTargetParams(void)	381 PDB-match name
+0xab2930	BPTPlayer	ReleasePresentaionAction	BPTPlayer::ReleasePresentaionAction(void)	381 PDB-match name
+0xab29e0	BPTPlayer	NoneOwnerProcessAction	BPTPlayer::NoneOwnerProcessAction(int,PfStruct const *)	381 PDB-match name
+0xab5ee0	PTPassiveEffectList	GetDuelFighterTimeEffect	PTPassiveEffectList::GetDuelFighterTimeEffect(float &)	381 PDB-match name
+0xab6010	PTPassiveEffectList	GetDuelInterferenceEffect	PTPassiveEffectList::GetDuelInterferenceEffect(float &)	381 PDB-match name
+0xab64e0	PTPassiveEffectList	PTPassiveEffectList	PTPassiveEffectList::PTPassiveEffectList(void)	381 PDB-match name
+0xabc210	BPTCreature	actionsFireEffectPlayShow	BPTCreature::actionsFireEffectPlayShow(int,__int64,__int64)	381 PDB-match name
+0xabc9a0	BPTCreature	useSoulFighterStanceParticle	BPTCreature::useSoulFighterStanceParticle(bool,bool,bool,char)	381 PDB-match name
+0xabcc30	BPTCreature	useWarlockCombatModeParticle	BPTCreature::useWarlockCombatModeParticle(bool,char)	381 PDB-match name
+0xabce80	BPTCreature	playCombatModeChangeShow	BPTCreature::playCombatModeChangeShow(bool)	381 PDB-match name
+0xabdd00	BPTCreature	SkillShowRelease	BPTCreature::SkillShowRelease(void)	381 PDB-match name
+0xabf400	BPTCreature	getDeadIdle	BPTCreature::getDeadIdle(Data::AbnormalMoveAnimIdleTypeType,__int64)	381 PDB-match name
+0xabf730	BPTCreature	GetNpcCombatIdle	BPTCreature::GetNpcCombatIdle(bool)	381 PDB-match name
+0xabfee0	BPTCreature	PlayWallExhaustion	BPTCreature::PlayWallExhaustion(void)	381 PDB-match name
+0xabffd0	BPTCreature	playExhaustion	BPTCreature::playExhaustion(std::basic_string<wchar_t,std::char_traits<wchar_t>,std::allocator<wchar_t>> &)	381 PDB-match name
+0xac14c0	BPTCreature	PlayLockOnTarget	BPTCreature::PlayLockOnTarget(bool)	381 PDB-match name
+0xac1630	BPTCreature	PlayEffectImmunedShow	BPTCreature::PlayEffectImmunedShow(int,BGameObject const *,__int64 const &,ESHOW_SIGNAL_TYPE)	381 PDB-match name
+0xac1880	BPTCreature	getEffectShowName	BPTCreature::getEffectShowName(int,char,std::basic_string<wchar_t,std::char_traits<wchar_t>,std::allocator<wchar_t>> &,BGameObject const *)	381 PDB-match name
+0xac1ae0	BPTCreature	updateProtectionStanceShow	BPTCreature::updateProtectionStanceShow(void)	381 PDB-match name
+0xac1e30	BPTCreature	UpdateExtraSkillSound	BPTCreature::UpdateExtraSkillSound(std::basic_string<wchar_t,std::char_traits<wchar_t>,std::allocator<wchar_t>> const &,float)	381 PDB-match name
+0xac2080	BPTCreature	PlayDuelBattleZoneEffect	BPTCreature::PlayDuelBattleZoneEffect(char)	381 PDB-match name
+0xac2460	BPTCreature	ExtendPassiveEffect	BPTCreature::ExtendPassiveEffect(__int64,int,float)	381 PDB-match name
+0xac26c0	BPTCreature	isResurrectionEffect	BPTCreature::isResurrectionEffect(int)	381 PDB-match name
+0xac27a0	BPTCreature	casterPlayerFindSkill	BPTCreature::casterPlayerFindSkill(char,unsigned __int64)	381 PDB-match name
+0xac27f0	BPTCreature	IsTopPriorityThisOrTargetShow	BPTCreature::IsTopPriorityThisOrTargetShow(__int64)	381 PDB-match name
+0xac2920	BPTCreature	ClearAllSkill	BPTCreature::ClearAllSkill(void)	381 PDB-match name
+0xac29c0	PTPassiveEffectList	checkAddSkillresultEffect	PTPassiveEffectList::checkAddSkillresultEffect(__int64)	381 PDB-match name
+0xac2bd0	BPTCreature	PlayExhaustion	BPTCreature::PlayExhaustion(__int64)	381 PDB-match name
+0xac6a50	BPTPlayer	UpdateSpecialSkillFullChargeShow	BPTPlayer::UpdateSpecialSkillFullChargeShow(bool)	381 PDB-match name
+0xac8640	BPTPlayer	getTargetZoneIndexWithRadius	BPTPlayer::getTargetZoneIndexWithRadius(float &,Vector const &,float,float,AutoTargetInfo const &,EInterface::Handle const &,bool)	381 PDB-match name
+0xac8a70	BPTPlayer	getTargetZoneIndexForAction	BPTPlayer::getTargetZoneIndexForAction(float &,Vector const &,float,float,EInterface::Handle const &,bool)	381 PDB-match name
+0xac8ab0	BPTPlayer	getTargetZoneIndexForAttack	BPTPlayer::getTargetZoneIndexForAttack(float &,Vector const &,float,float,EInterface::Handle const &,bool)	381 PDB-match name
+0xac9240	BPTPlayer	HideDeadbodyFocusMark	BPTPlayer::HideDeadbodyFocusMark(unsigned __int64)	381 PDB-match name
+0xac9430	BPTPlayer	ShowDeadbodyFocusMark	BPTPlayer::ShowDeadbodyFocusMark(unsigned __int64)	381 PDB-match name
+0xac9620	BPTPlayer	OnNotifyTutorialCaseSelfRevivalShowTargetParticle	BPTPlayer::OnNotifyTutorialCaseSelfRevivalShowTargetParticle(bool)	381 PDB-match name
+0xac96d0	BPlayingActions	FindSkillBySkillIdWithSkillInheritanceData	BPlayingActions::FindSkillBySkillIdWithSkillInheritanceData(int,bool)	381 PDB-match name
+0xacc400	PTPassiveEffectList	GetFlashEffect	PTPassiveEffectList::GetFlashEffect(void)	381 PDB-match name
+0xacc840	PTPassiveEffectList	reAttach	PTPassiveEffectList::reAttach(std::vector<PTPassiveEffect,std::allocator<PTPassiveEffect>> &,unsigned __int64)	381 PDB-match name
+0xacca90	PTPassiveEffectList	updateSkillResultEffect	PTPassiveEffectList::updateSkillResultEffect(std::vector<PTPassiveEffect,std::allocator<PTPassiveEffect>> const &)	381 PDB-match name
+0xaccaf0	PTPassiveEffectList	updateSkillResultEffectAll	PTPassiveEffectList::updateSkillResultEffectAll(void)	381 PDB-match name
+0xaccbc0	PTPassiveEffectList	checkPassiveEffectIdleType	PTPassiveEffectList::checkPassiveEffectIdleType(int &,float &,__int64 &,__int64 &)	381 PDB-match name
+0xacd650	PTPassiveEffectList	ShowEffectShow	PTPassiveEffectList::ShowEffectShow(unsigned __int64)	381 PDB-match name
+0xacd7f0	PTPassiveEffectList	removeAllSoulMask	PTPassiveEffectList::removeAllSoulMask(void)	381 PDB-match name
+0xacd8e0	PTPassiveEffectList	removeSoulMask	PTPassiveEffectList::removeSoulMask(int)	381 PDB-match name
+0xacd9e0	PTPassiveEffectList	removeAllStaticCountBuff	PTPassiveEffectList::removeAllStaticCountBuff(void)	381 PDB-match name
+0xacdad0	PTPassiveEffectList	removeStaticCountBuff	PTPassiveEffectList::removeStaticCountBuff(int)	381 PDB-match name
+0xacdbd0	PTPassiveEffectList	removeAllBindingSkillStep	PTPassiveEffectList::removeAllBindingSkillStep(void)	381 PDB-match name
+0xacdcc0	PTPassiveEffectList	removeBindingSkillStep	PTPassiveEffectList::removeBindingSkillStep(int)	381 PDB-match name
+0xacddc0	PTPassiveEffectList	removeAllDebuff	PTPassiveEffectList::removeAllDebuff(void)	381 PDB-match name
+0xacdeb0	PTPassiveEffectList	removeDebuff	PTPassiveEffectList::removeDebuff(int)	381 PDB-match name
+0xacdfb0	PTPassiveEffectList	removeAllBuff	PTPassiveEffectList::removeAllBuff(void)	381 PDB-match name
+0xace0a0	PTPassiveEffectList	removeBuff	PTPassiveEffectList::removeBuff(int)	381 PDB-match name
+0xace8d0	PTPassiveEffectList	~PTPassiveEffectList	PTPassiveEffectList::~PTPassiveEffectList(void)	381 PDB-match name
+0xad4b30	BPTCreature	updateKungfuFighterStanceParticle	BPTCreature::updateKungfuFighterStanceParticle(void)	381 PDB-match name
+0xad4bd0	BPTCreature	updateSoulFighterStanceParticle	BPTCreature::updateSoulFighterStanceParticle(void)	381 PDB-match name
+0xad4c40	BPTCreature	updateWarlockCombatModeParticle	BPTCreature::updateWarlockCombatModeParticle(void)	381 PDB-match name
+0xad58f0	BPTCreature	DropDeadBody	BPTCreature::DropDeadBody(unsigned __int64)	381 PDB-match name
+0xad5980	BPTCreature	GetDeadBodyFieldItemRecord	BPTCreature::GetDeadBodyFieldItemRecord(__int64,Data::FielditemRecordPtr &)	381 PDB-match name
+0xad5d50	BPTCreature	hasPassiveEffect	BPTCreature::hasPassiveEffect(int,int)	381 PDB-match name
+0xad6350	BPTCreature	getApplyIdleTypeAndPreTransitEffect	BPTCreature::getApplyIdleTypeAndPreTransitEffect(Data::AbnormalMoveAnimIdleTypeType &,int &,float &,__int64 &,__int64 &)	381 PDB-match name
+0xad7660	BPTCreature	setNpcCombatMoveAnim	BPTCreature::setNpcCombatMoveAnim(bool,bool)	381 PDB-match name
+0xada100	BPTCreature	ProcessSkill	BPTCreature::ProcessSkill(__int64,char,unsigned __int64,short,short,int,int,char)	381 PDB-match name
+0xada9e0	BPTCreature	playEffectDetach	BPTCreature::playEffectDetach(int,__int64,std::basic_string<wchar_t,std::char_traits<wchar_t>,std::allocator<wchar_t>>)	381 PDB-match name
+0xadad50	BPTCreature	insertSkill	BPTCreature::insertSkill(char,unsigned __int64,bool)	381 PDB-match name
+0xae20f0	BPTPlayer	ProcessSkill	BPTPlayer::ProcessSkill(__int64,char,unsigned __int64,short,short,int,int,char)	381 PDB-match name
+0xae28f0	BPTPlayer	OnNotifyTargetAbnormalStateChanged	BPTPlayer::OnNotifyTargetAbnormalStateChanged(unsigned __int64,short,CreatureProperty const &)	381 PDB-match name
+0xae6100	BPlayingActions	createSkill	BPlayingActions::createSkill(__int64,char,unsigned __int64)	381 PDB-match name
+0xae6320	BPlayingActions	postProcessSkill	BPlayingActions::postProcessSkill(char,unsigned __int64,int)	381 PDB-match name
+0xae6f80	BPlayingActions	IsCanSitSkill	BPlayingActions::IsCanSitSkill(void)	381 PDB-match name
+0xae7880	PTPassiveEffectList	ReAttach	PTPassiveEffectList::ReAttach(unsigned __int64)	381 PDB-match name
+0xae9b30	BPTCreature	HasFestivalSpeicalEffect	BPTCreature::HasFestivalSpeicalEffect(void)	381 PDB-match name
+0xae9b80	BPTCreature	HasBmSpecialEffect	BPTCreature::HasBmSpecialEffect(void)	381 PDB-match name
+0xae9bd0	BPTCreature	PickupDeadBody	BPTCreature::PickupDeadBody(unsigned __int64)	381 PDB-match name
+0xaeb770	BPTCreature	ProcessPerfectDodgeEffect	BPTCreature::ProcessPerfectDodgeEffect(Data::EffectRecordPtr)	381 PDB-match name
+0xaeb820	BPTCreature	CreateSkill	BPTCreature::CreateSkill(__int64,char,unsigned __int64)	381 PDB-match name
+0xaecf50	BPTCreature	ProcessSkillEvent	BPTCreature::ProcessSkillEvent(__int64,int,char,char,short,short,char,short,PfSub const &,char)	381 PDB-match name
+0xaf2510	BPTPlayer	RequestCombatHyperMove	BPTPlayer::RequestCombatHyperMove(void)	381 PDB-match name
+0xaf2890	BPlayingActions	processSkill	BPlayingActions::processSkill(__int64,char,unsigned __int64,int,int,int,int,char,int,int,std::vector<sTargetDataInfo,std::allocator<sTargetDataInfo>> const &)	381 PDB-match name
+0xaf3070	BPTPlayer	CreateSkill	BPTPlayer::CreateSkill(__int64,char,unsigned __int64)	381 PDB-match name
+0xaf30a0	BPTPlayer	RequestSetTarget	BPTPlayer::RequestSetTarget(unsigned __int64)	381 PDB-match name
+0xaf3100	BPTPlayer	ResetSecondaryTarget	BPTPlayer::ResetSecondaryTarget(void)	381 PDB-match name
+0xaf3160	BPTPlayer	HideFriendlyTargetFocusMark	BPTPlayer::HideFriendlyTargetFocusMark(unsigned __int64)	381 PDB-match name
+0xaf5ef0	BPTCreature	IsSpecialEffectMoveType	BPTCreature::IsSpecialEffectMoveType(char)	381 PDB-match name
+0xaf6370	BPTCreature	deleteAction	BPTCreature::deleteAction(void)	381 PDB-match name
+0xaf63b0	BPTCreature	createAction	BPTCreature::createAction(int)	381 PDB-match name
+0xaf7ad0	BPTCreature	InvokeEffect	BPTCreature::InvokeEffect(int,short,char,unsigned __int64,unsigned __int64,char,PfStruct const *,PropertyPair const &,int)	381 PDB-match name
+0xaf8190	BPTCreature	actionSkillHitStopPcSocial	BPTCreature::actionSkillHitStopPcSocial(PfStruct const *)	381 PDB-match name
+0xafd030	BPTCreature	preProcessAction	BPTCreature::preProcessAction(void)	381 PDB-match name
+0xafd150	BPTCreature	PlayWallHitShow	BPTCreature::PlayWallHitShow(__int64,short,float)	381 PDB-match name
+0xafd300	BPTCreature	presentationActionsEffectAttachFialImmuned	BPTCreature::presentationActionsEffectAttachFialImmuned(GS_ActionsEffectSubPacket const *,BGameObject const *,BGameObject const *)	381 PDB-match name
+0xafd580	BPTCreature	actionsNoneSkillEffectPlayShow	BPTCreature::actionsNoneSkillEffectPlayShow(int,char,__int64 const &,BPTCreature::DAMAGE_TYPE,float,BGameObject const *,BGameObject const *)	381 PDB-match name
+0xafda60	BPTCreature	actionsNoneSkillEffectDamageSignal	BPTCreature::actionsNoneSkillEffectDamageSignal(int,char,__int64 const &,BPTCreature::DAMAGE_TYPE,BGameObject const *,BGameObject const *)	381 PDB-match name
+0xafdc00	BPTCreature	actionsSkillEffectAttachDamageSignalNonePlayShow	BPTCreature::actionsSkillEffectAttachDamageSignalNonePlayShow(int,PTSkill2 *,char,__int64 const &,BPTCreature::DAMAGE_TYPE,float,BGameObject const *,BGameObject	381 PDB-match name
+0xafde60	BPTCreature	actionsSkillEffectPlayShow	BPTCreature::actionsSkillEffectPlayShow(int,PTSkill2 *,char,__int64 const &,BPTCreature::DAMAGE_TYPE,float,BGameObject const *,BGameObject const *)	381 PDB-match name
+0xaff460	BPTPlayer	updatePredefinedSkillList	BPTPlayer::updatePredefinedSkillList(void)	381 PDB-match name
+0xb014d0	BPTCreature	StopPairCostumeEffectContinuanceShowAndPlayDetachShow	BPTCreature::StopPairCostumeEffectContinuanceShowAndPlayDetachShow(void)	381 PDB-match name
+0xb01500	BPTCreature	ActivePairCostumeEffect	BPTCreature::ActivePairCostumeEffect(void)	381 PDB-match name
+0xb03120	BPTCreature	actionsEffectPlayShow	BPTCreature::actionsEffectPlayShow(int,PTSkill2 *,char,__int64 const &,BPTCreature::DAMAGE_TYPE,float,BGameObject const *,BGameObject const *)	381 PDB-match name
+0xb05e30	BPTCreature	actionsEffectAttachFailPlayShow	BPTCreature::actionsEffectAttachFailPlayShow(int,PTSkill2 *,char,__int64 const &,BPTCreature::DAMAGE_TYPE,float,BGameObject const *,BGameObject const *)	381 PDB-match name
+0xb07050	BPTCreature	processAction	BPTCreature::processAction(int,PfStruct const *)	381 PDB-match name
+0xb07a50	BPTPlayer	ShowFriendlyTargetFocusMark	BPTPlayer::ShowFriendlyTargetFocusMark(unsigned __int64)	381 PDB-match name
+0xb08330	BPTPlayer	ResetTarget	BPTPlayer::ResetTarget(void)	381 PDB-match name
+0xb0a4e0	BPTPlayer	SetPlayerAttackTarget	BPTPlayer::SetPlayerAttackTarget(unsigned __int64,bool)	381 PDB-match name
+0xb0a820	BPTPlayer	SetPlayerActionTarget	BPTPlayer::SetPlayerActionTarget(unsigned __int64,BPTControlledCreature::TARGET_SUB_TYPE,bool)	381 PDB-match name
+0xb0c1a0	BPTPlayer	FixedTargetingToAttack	BPTPlayer::FixedTargetingToAttack(char)	381 PDB-match name
+0xb11750	BPTPlayer	RemoveTarget	BPTPlayer::RemoveTarget(__int64)	381 PDB-match name
+0xb12940	BPTCreature	dieEffectMessage	BPTCreature::dieEffectMessage(__int64,__int64,PTSkill2 *,__int64)	381 PDB-match name
+0xb15d60	BPTPlayer	OnNotifySkillRecycleAdded_renewal	BPTPlayer::OnNotifySkillRecycleAdded_renewal(int,int)	381 PDB-match name
+0xb168a0	BPTCreature	addEffectDamageMeterHitInfo	BPTCreature::addEffectDamageMeterHitInfo(GS_ActionsEffectSubPacket const *)	381 PDB-match name
+0xb16b60	BPTCreature	addSkillDamageMeterHitInfo	BPTCreature::addSkillDamageMeterHitInfo(GS_ActionsSkillHitSubPacket const *)	381 PDB-match name
+0xb16e00	BPTCreature	addDamageMeterInfo	BPTCreature::addDamageMeterInfo(GS_ActionsEffectSubPacket const *,BGameObject const *)	381 PDB-match name
+0xb172a0	BPTCreature	presentationActionsEffectInterval	BPTCreature::presentationActionsEffectInterval(GS_ActionsEffectSubPacket const *,BGameObject const *,BGameObject const *)	381 PDB-match name
+0xb17ef0	BPTCreature	presentationActionsEffectInstance	BPTCreature::presentationActionsEffectInstance(GS_ActionsEffectSubPacket const *,BGameObject const *,BGameObject const *)	381 PDB-match name
+0xb18950	BPTPlayer	autoTargetingAttackTarget	BPTPlayer::autoTargetingAttackTarget(bool)	381 PDB-match name
+0xb1a590	BPTCreature	presentationActions	BPTCreature::presentationActions(GS_ActionsEffectSubPacket const *,BGameObject const *)	381 PDB-match name
+0xb1a780	BPTPlayer	DeactivePairCostumeEffect	BPTPlayer::DeactivePairCostumeEffect(void)	381 PDB-match name
+0xb1a810	BPTPlayer	ActivePairCostumeEffect	BPTPlayer::ActivePairCostumeEffect(void)	381 PDB-match name
+0xb319d0	BPTCreature	invokeBattleMessage	BPTCreature::invokeBattleMessage(GS_ActionsEffectSubPacket const *,BGameObject const *)	381 PDB-match name
+0xb32cc0	BPTCreature	ProcessActionSubEvent	BPTCreature::ProcessActionSubEvent(int,PfStruct const *,BGameObject const *)	381 PDB-match name
+0xb33f70	BPTPlayer	ResetDeadbodyTarget	BPTPlayer::ResetDeadbodyTarget(void)	381 PDB-match name
+0xb33fd0	BPTPlayer	SetPlayerDeadbodyTarget	BPTPlayer::SetPlayerDeadbodyTarget(unsigned __int64,bool)	381 PDB-match name
+0xb34040	BPTPlayer	ProcessActionSubEvent	BPTPlayer::ProcessActionSubEvent(int,PfStruct const *,BGameObject const *)	381 PDB-match name
+0xb340d0	BPTPlayer	autoTargetingActionTarget	BPTPlayer::autoTargetingActionTarget(bool)	381 PDB-match name
+0xb35cd0	BPTPlayer	RefreshAutoTargeting	BPTPlayer::RefreshAutoTargeting(void)	381 PDB-match name
+0xb35d80	BPTPlayer	TickAutoTargeting	BPTPlayer::TickAutoTargeting(void)	381 PDB-match name
+0xb38a00	BPlayingActions	ForceClearSkill	BPlayingActions::ForceClearSkill(void)	381 PDB-match name
+0xb38a60	BPlayingActions	ClearAllSkill	BPlayingActions::ClearAllSkill(void)	381 PDB-match name
+0xb38e20	PlayerCombatStatusPanel	updateFactionScore	PlayerCombatStatusPanel::updateFactionScore(int,int)	381 PDB-match name
+0xb39400	BPlayer	IsSpecialSkillGaugeFull	BPlayer::IsSpecialSkillGaugeFull(void)	381 PDB-match name
+0xb39830	BPlayer	GetControlledPlayingActions	BPlayer::GetControlledPlayingActions(void)	381 PDB-match name
+0xb39a70	PlayerCommon	ConvertGamePacketMoveTypeToCastConditionMoveState	PlayerCommon::ConvertGamePacketMoveTypeToCastConditionMoveState(int)	381 PDB-match name
+0xb39b20	PlayerCommon	IsResurrectionSkill	PlayerCommon::IsResurrectionSkill(int)	381 PDB-match name
+0xb39b50	PlayerCommon	IsSummonedGuardSkill	PlayerCommon::IsSummonedGuardSkill(int)	381 PDB-match name
+0xb3ab60	PassiveEffectList	sortEventBuff	PassiveEffectList::sortEventBuff(void)	381 PDB-match name
+0xb3ab90	PassiveEffectList	Hide	PassiveEffectList::Hide(void)	381 PDB-match name
+0xb3ac90	PassiveEffectList	Show	PassiveEffectList::Show(void)	381 PDB-match name
+0xb3adb0	PassiveEffectList	SetUseBuffGraph	PassiveEffectList::SetUseBuffGraph(bool)	381 PDB-match name
+0xb3adc0	PassiveEffectList	Add	PassiveEffectList::Add(unsigned __int64,short,uint,int,__int64,char,char)	381 PDB-match name
+0xb3bba0	BPlayingActions	FindSkillIndex	BPlayingActions::FindSkillIndex(char,unsigned __int64)	381 PDB-match name
+0xb3bc10	BPlayingActions	FindSkill	BPlayingActions::FindSkill(char)	381 PDB-match name
+0xb3bc60	BPlayingActions	postProcessAction	BPlayingActions::postProcessAction(int,PfStruct const *)	381 PDB-match name
+0xb3bd50	BPlayingActions	PreProcessAction	BPlayingActions::PreProcessAction(void)	381 PDB-match name
+0xb3bd80	BPlayingActions	printDebugLog	BPlayingActions::printDebugLog(std::basic_string<wchar_t,std::char_traits<wchar_t>,std::allocator<wchar_t>>,int)	381 PDB-match name
+0xb3c000	BPlayingActions	deleteAction	BPlayingActions::deleteAction(void)	381 PDB-match name
+0xb3d570	PlayerCommon	GetActionAvailableDistanceSU	PlayerCommon::GetActionAvailableDistanceSU(BGameObject::TYPE,int,float,float)	381 PDB-match name
+0xb3d720	PlayerCommon	CanExhaustionCreatureBeTargeted	PlayerCommon::CanExhaustionCreatureBeTargeted(BPlayer *,BCreature *)	381 PDB-match name
+0xb3d770	PlayerCommon	IsGhostModeShowPlay	PlayerCommon::IsGhostModeShowPlay(BGameObject *)	381 PDB-match name
+0xb3f9d0	PassiveEffectList	SetOwner	PassiveEffectList::SetOwner(BCreature *)	381 PDB-match name
+0xb3f9f0	PassiveEffectList	setSkillRecycleIconWidgetId	PassiveEffectList::setSkillRecycleIconWidgetId(SkillRecycleIcon *,wchar_t const *,wchar_t const *,wchar_t const *,wchar_t const *,wchar_t const *,wchar_t const 	381 PDB-match name
+0xb3fba0	PassiveEffectList	setBuffIconWidgetId	PassiveEffectList::setBuffIconWidgetId(PassiveEffectIcon *,wchar_t const *,wchar_t const *,wchar_t const *,wchar_t const *,wchar_t const *,wchar_t const *)	381 PDB-match name
+0xb3fd60	PassiveEffectList	GetEffectDataId	PassiveEffectList::GetEffectDataId(short)	381 PDB-match name
+0xb3fda0	PassiveEffectList	GetExpirationTime	PassiveEffectList::GetExpirationTime(uint)	381 PDB-match name
+0xb3fdf0	PassiveEffectList	GetDetachCount	PassiveEffectList::GetDetachCount(uint)	381 PDB-match name
+0xb3fe30	PassiveEffectList	GetStackCount	PassiveEffectList::GetStackCount(uint)	381 PDB-match name
+0xb3fe70	PassiveEffectList	SetBaseOpacity	PassiveEffectList::SetBaseOpacity(float)	381 PDB-match name
+0xb3ff10	PassiveEffectList	GetBuffCount	PassiveEffectList::GetBuffCount(bool)	381 PDB-match name
+0xb41c70	BPlayingActions	ClearSkill	BPlayingActions::ClearSkill(char,unsigned __int64)	381 PDB-match name
+0xb42210	BPlayer	GetSpecialSkillPointValue	BPlayer::GetSpecialSkillPointValue(void)	381 PDB-match name
+0xb423b0	BPlayer	AddSpecialSkillPointValue	BPlayer::AddSpecialSkillPointValue(short)	381 PDB-match name
+0xb42eb0	PlayerCommon	CheckDuelBotToUseCard	PlayerCommon::CheckDuelBotToUseCard(BGameObject const *,char,short const *,short,char,short const *,int)	381 PDB-match name
+0xb43100	PlayerCommon	CheckCreaturePropertyToUseSkill	PlayerCommon::CheckCreaturePropertyToUseSkill(BGameObject const *,char,short const *,int,char,short const *,int,bool)	381 PDB-match name
+0xb43280	PlayerCommon	IsDuelState	PlayerCommon::IsDuelState(void)	381 PDB-match name
+0xb432c0	PlayerCommon	IsGhostModeAbleTarget	PlayerCommon::IsGhostModeAbleTarget(BPlayer *,BGameObject *)	381 PDB-match name
+0xb43440	PlayerCommon	IsTeam	PlayerCommon::IsTeam(BGameObject *,BGameObject *)	381 PDB-match name
+0xb434d0	PlayerCommon	IsParty	PlayerCommon::IsParty(BGameObject const *,BGameObject const *)	381 PDB-match name
+0xb43560	PlayerCommon	GetTargetType	PlayerCommon::GetTargetType(BGameObject *)	381 PDB-match name
+0xb45870	PassiveEffectList	clear	PassiveEffectList::clear(void)	381 PDB-match name
+0xb45980	PassiveEffectList	GetLeftDuration	PassiveEffectList::GetLeftDuration(uint)	381 PDB-match name
+0xb45a40	PassiveEffectList	Start	PassiveEffectList::Start(wchar_t const *,PassiveEffectIcon::Type,char,bool,wchar_t const *,wchar_t const *,wchar_t const *,wchar_t const *,PassiveEffectList::Ef	381 PDB-match name
+0xb493d0	BPlayingActions	SetSkillCasterNextYaw	BPlayingActions::SetSkillCasterNextYaw(char,short)	381 PDB-match name
+0xb49400	BPlayingActions	SetSkillRepeatByServer	BPlayingActions::SetSkillRepeatByServer(__int64,char,unsigned __int64,int,int)	381 PDB-match name
+0xb49460	BPlayingActions	GetInterpolatedSkillStep	BPlayingActions::GetInterpolatedSkillStep(PfStruct const *,std::vector<GS_ActionsSkillSubPacket,std::allocator<GS_ActionsSkillSubPacket>> &,bool)	381 PDB-match name
+0xb49b80	BPlayingActions	FindSkillBySkillId	BPlayingActions::FindSkillBySkillId(int)	381 PDB-match name
+0xb49e70	BPlayingActions	PostProcessActionSubEvent	BPlayingActions::PostProcessActionSubEvent(int,PfStruct const *,BGameObject const *)	381 PDB-match name
+0xb4ab20	PlayerCombatStatusPanel	playFXByAdditionalHP	PlayerCombatStatusPanel::playFXByAdditionalHP(bool)	381 PDB-match name
+0xb4abe0	PlayerCombatStatusPanel	ShowGuardGaugeHolder	PlayerCombatStatusPanel::ShowGuardGaugeHolder(bool)	381 PDB-match name
+0xb4acd0	PlayerCombatStatusPanel	OnUpdateAutoMode	PlayerCombatStatusPanel::OnUpdateAutoMode(bool)	381 PDB-match name
+0xb4ae70	PlayerCombatStatusPanel	UpdateAutoMode	PlayerCombatStatusPanel::UpdateAutoMode(void)	381 PDB-match name
+0xb4aec0	PlayerCombatStatusPanel	canUseBmHeart	PlayerCombatStatusPanel::canUseBmHeart(void)	381 PDB-match name
+0xb4c080	BPlayer	NoneOwnerProcessAction	BPlayer::NoneOwnerProcessAction(int,PfStruct const *)	381 PDB-match name
+0xb4d850	PlayerCommon	IsSkillTrainingRoomReadyState	PlayerCommon::IsSkillTrainingRoomReadyState(void)	381 PDB-match name
+0xb4d8a0	PlayerCommon	IsDuelBotTrainingRoomReadyState	PlayerCommon::IsDuelBotTrainingRoomReadyState(void)	381 PDB-match name
+0xb4d8f0	PlayerCommon	IsDuelBotChallengeReadyState	PlayerCommon::IsDuelBotChallengeReadyState(void)	381 PDB-match name
+0xb4d940	PlayerCommon	IsGroundSkill	PlayerCommon::IsGroundSkill(Data::Skill3RecordActiveSkillPtr)	381 PDB-match name
+0xb4db40	PlayerCommon	GetGroceryItemSkillId	PlayerCommon::GetGroceryItemSkillId(unsigned __int64)	381 PDB-match name
+0xb4dcd0	PlayerCommon	FilterCheck	PlayerCommon::FilterCheck(unsigned __int64,BGameObject *)	381 PDB-match name
+0xb4de40	PlayerCommon	IsClassicFieldZone	PlayerCommon::IsClassicFieldZone(int)	381 PDB-match name
+0xb4df40	PlayerCommon	IsVisible	PlayerCommon::IsVisible(BPlayer *,BCreature *)	381 PDB-match name
+0xb4dfa0	PlayerCommon	IsDuelEnemy	PlayerCommon::IsDuelEnemy(BGameObject *,BGameObject *)	381 PDB-match name
+0xb51120	PassiveEffectList	addVipDeactiveEffect	PassiveEffectList::addVipDeactiveEffect(void)	381 PDB-match name
+0xb51360	PassiveEffectList	SetBuffGraphTypeList	PassiveEffectList::SetBuffGraphTypeList(std::vector<char,std::allocator<char>>)	381 PDB-match name
+0xb513d0	PassiveEffectList	PassiveEffectList	PassiveEffectList::PassiveEffectList(void)	381 PDB-match name
+0xb52060	BPlayer	CheckErrorSkillSkinAcquire	BPlayer::CheckErrorSkillSkinAcquire(__int64)	381 PDB-match name
+0xb539b0	PlayerCommon	IsJoinedFaction	PlayerCommon::IsJoinedFaction(BCreature *,unsigned __int64)	381 PDB-match name
+0xb54da0	BPlayingActions	createAction	BPlayingActions::createAction(int,__int64)	381 PDB-match name
+0xb56290	PassiveEffectList	GetTargetIndicatorEffectList	PassiveEffectList::GetTargetIndicatorEffectList(std::vector<int,std::allocator<int>> &)	381 PDB-match name
+0xb56e10	PlayerCombatStatusPanel	updatePvPEnabled	PlayerCombatStatusPanel::updatePvPEnabled(void)	381 PDB-match name
+0xb56fd0	PlayerCombatStatusPanel	updateInstantHeartCount	PlayerCombatStatusPanel::updateInstantHeartCount(char,char)	381 PDB-match name
+0xb57370	PlayerCombatStatusPanel	updateHeartCount	PlayerCombatStatusPanel::updateHeartCount(char,char)	381 PDB-match name
+0xb57790	PlayerCombatStatusPanel	showHeartInstantCountTooltip	PlayerCombatStatusPanel::showHeartInstantCountTooltip(uint)	381 PDB-match name
+0xb578e0	PlayerCombatStatusPanel	showHeartCountTooltip	PlayerCombatStatusPanel::showHeartCountTooltip(uint)	381 PDB-match name
+0xb57c90	PlayerCombatStatusPanel	showHpTooltip	PlayerCombatStatusPanel::showHpTooltip(uint)	381 PDB-match name
+0xb57db0	PlayerCombatStatusPanel	showGuardGaugeTooltip	PlayerCombatStatusPanel::showGuardGaugeTooltip(uint)	381 PDB-match name
+0xb57ed0	PlayerCombatStatusPanel	showSpecialSkillGaugeTooltip	PlayerCombatStatusPanel::showSpecialSkillGaugeTooltip(uint)	381 PDB-match name
+0xb58020	PlayerCombatStatusPanel	updateAdditionalHPBar	PlayerCombatStatusPanel::updateAdditionalHPBar(__int64 const &,__int64 const &,__int64 const &,bool)	381 PDB-match name
+0xb581b0	PlayerCombatStatusPanel	updateHPBar	PlayerCombatStatusPanel::updateHPBar(__int64 const &,__int64 const &,__int64 const &,bool)	381 PDB-match name
+0xb583e0	PlayerCombatStatusPanel	updateGuardGaugeBar	PlayerCombatStatusPanel::updateGuardGaugeBar(__int64 const &,__int64 const &,__int64 const &,bool)	381 PDB-match name
+0xb585a0	PlayerCombatStatusPanel	canShowSpecialSkillGauge	PlayerCombatStatusPanel::canShowSpecialSkillGauge(void)	381 PDB-match name
+0xb586e0	PlayerCombatStatusPanel	OnChangedCreatureProperty	PlayerCombatStatusPanel::OnChangedCreatureProperty(short,CreatureProperty const &,CreatureProperty const &)	381 PDB-match name
+0xb58a30	PlayerCombatStatusPanel	SetCustomizeMode	PlayerCombatStatusPanel::SetCustomizeMode(bool)	381 PDB-match name
+0xb58ad0	PlayerCombatStatusPanel	Clear	PlayerCombatStatusPanel::Clear(void)	381 PDB-match name
+0xb58be0	PlayerCombatStatusPanel	~PlayerCombatStatusPanel	PlayerCombatStatusPanel::~PlayerCombatStatusPanel(void)	381 PDB-match name
+0xb5a3c0	BPlayer	HasBoutiqueFreeEffect	BPlayer::HasBoutiqueFreeEffect(void)	381 PDB-match name
+0xb5a450	BPlayer	updateFixedTarget	BPlayer::updateFixedTarget(unsigned __int64)	381 PDB-match name
+0xb5b1a0	BPlayer	GetTargetSuDistance	BPlayer::GetTargetSuDistance(unsigned __int64)	381 PDB-match name
+0xb5bd60	BPlayer	ProcessSkillEventForOthers	BPlayer::ProcessSkillEventForOthers(__int64,int,char,char,char)	381 PDB-match name
+0xb5d430	PlayerCommon	CheckFilterToUseSkill	PlayerCommon::CheckFilterToUseSkill(BGameObject const *,Data::SkillCastCondition3FlagOpType,unsigned __int64 const *,int,int &,bool)	381 PDB-match name
+0xb5d510	PlayerCommon	IsGuildAlliance	PlayerCommon::IsGuildAlliance(BGameObject const *)	381 PDB-match name
+0xb5d610	PlayerCommon	IsGuild	PlayerCommon::IsGuild(BGameObject const *)	381 PDB-match name
+0xb5d700	PlayerCommon	IsBanned	PlayerCommon::IsBanned(BGameObject const *)	381 PDB-match name
+0xb5d7b0	PlayerCommon	IsSnsFriend	PlayerCommon::IsSnsFriend(BGameObject *,BGameObject *)	381 PDB-match name
+0xb5d860	PlayerCommon	IsPvPAvailableTarget	PlayerCommon::IsPvPAvailableTarget(BGameObject *,BGameObject *)	381 PDB-match name
+0xb5d9b0	PlayerCommon	IsFriendFaction	PlayerCommon::IsFriendFaction(BGameObject *,BGameObject *)	381 PDB-match name
+0xb5db90	PlayerCommon	IsHostileFaction	PlayerCommon::IsHostileFaction(BGameObject *,BGameObject *)	381 PDB-match name
+0xb644e0	PassiveEffectList	updateRewardCostTooltip	PassiveEffectList::updateRewardCostTooltip(std::basic_string<wchar_t,std::char_traits<wchar_t>,std::allocator<wchar_t>> &,unsigned __int64)	381 PDB-match name
+0xb647a0	PassiveEffectList	GetRecycleCount	PassiveEffectList::GetRecycleCount(void)	381 PDB-match name
+0xb64a20	PassiveEffectList	GetEffectList	PassiveEffectList::GetEffectList(std::vector<int,std::allocator<int>> &)	381 PDB-match name
+0xb696f0	BPlayingActions	showRestorationGameMessage	BPlayingActions::showRestorationGameMessage(__int64,__int64)	381 PDB-match name
+0xb6b3d0	PlayerCombatStatusPanel	SpawnSpecialSkillGaugeChargingParticle	PlayerCombatStatusPanel::SpawnSpecialSkillGaugeChargingParticle(void)	381 PDB-match name
+0xb6b460	PlayerCombatStatusPanel	updateCreatureProperty	PlayerCombatStatusPanel::updateCreatureProperty(CreatureProperty const *,bool)	381 PDB-match name
+0xb6b5d0	PlayerCombatStatusPanel	processPropertyEvent	PlayerCombatStatusPanel::processPropertyEvent(PropertyPair const &,bool)	381 PDB-match name
+0xb6b810	PlayerCombatStatusPanel	updateSpecialSkillGauge	PlayerCombatStatusPanel::updateSpecialSkillGauge(void)	381 PDB-match name
+0xb6bb00	PlayerCombatStatusPanel	ProcessActionSubEvent	PlayerCombatStatusPanel::ProcessActionSubEvent(int,PfStruct const *,BGameObject const *)	381 PDB-match name
+0xb6bf00	PlayerCombatStatusPanel	ShowPanel	PlayerCombatStatusPanel::ShowPanel(bool,bool)	381 PDB-match name
+0xb705e0	PlayerCommon	IsUsableJob	PlayerCommon::IsUsableJob(char)	381 PDB-match name
+0xb707f0	PlayerCommon	GetUsableJobList	PlayerCommon::GetUsableJobList(std::vector<char,std::allocator<char>> &)	381 PDB-match name
+0xb709d0	PlayerCommon	GetPlayerNamePlateType	PlayerCommon::GetPlayerNamePlateType(BGameObject *)	381 PDB-match name
+0xb70a40	PlayerCommon	CheckSideDuel	PlayerCommon::CheckSideDuel(BGameObject *,BGameObject *,bool)	381 PDB-match name
+0xb70e60	PlayerCommon	CheckSideWorld	PlayerCommon::CheckSideWorld(BGameObject *,BGameObject *,bool)	381 PDB-match name
+0xb71390	PlayerCommon	CheckSide	PlayerCommon::CheckSide(BGameObject *,BGameObject *,bool)	381 PDB-match name
+0xb71400	PlayerCommon	IsTargetableState	PlayerCommon::IsTargetableState(BPlayer *,BCreature *,int)	381 PDB-match name
+0xb767e0	PassiveEffectList	showAdditionalRewardEffectTooltip	PassiveEffectList::showAdditionalRewardEffectTooltip(uint,uint)	381 PDB-match name
+0xb76b50	PassiveEffectList	updateAutoVisibleHolder	PassiveEffectList::updateAutoVisibleHolder(void)	381 PDB-match name
+0xb76cb0	PassiveEffectList	getCurrentDuration	PassiveEffectList::getCurrentDuration(unsigned __int64,short)	381 PDB-match name
+0xb76cd0	PassiveEffectList	CompareEffect	PassiveEffectList::CompareEffect(PassiveEffectIcon *,PassiveEffectIcon *)	381 PDB-match name
+0xb76e10	PassiveEffectList	UpdateEffect	PassiveEffectList::UpdateEffect(unsigned __int64,short,char)	381 PDB-match name
+0xb76f70	PassiveEffectList	OnChangedCreatureProperty	PassiveEffectList::OnChangedCreatureProperty(short,CreatureProperty const &,CreatureProperty const &)	381 PDB-match name
+0xb79dd0	PlayerCombatStatusPanel	Start	PlayerCombatStatusPanel::Start(wchar_t const *)	381 PDB-match name
+0xb7c6f0	BPlayer	RequestSpecialSkillGaugeFull	BPlayer::RequestSpecialSkillGaugeFull(void)	381 PDB-match name
+0xb7dda0	PlayerCommon	GetNpcNamePlateType	PlayerCommon::GetNpcNamePlateType(BGameObject *,BGameObject *)	381 PDB-match name
+0xb7e0e0	PlayerCommon	GetPcNamePlateTypeDuel	PlayerCommon::GetPcNamePlateTypeDuel(BGameObject *,BGameObject *)	381 PDB-match name
+0xb7e350	PlayerCommon	GetPcNamePlateTypeWorld	PlayerCommon::GetPcNamePlateTypeWorld(BGameObject *,BGameObject *)	381 PDB-match name
+0xb7e5c0	PlayerCommon	GetPcNamePlateType	PlayerCommon::GetPcNamePlateType(BGameObject *,BGameObject *)	381 PDB-match name
+0xb82100	PassiveEffectList	addDummyEffects	PassiveEffectList::addDummyEffects(void)	381 PDB-match name
+0xb82370	PassiveEffectList	UpdateCustomizeMode	PassiveEffectList::UpdateCustomizeMode(void)	381 PDB-match name
+0xb824d0	PassiveEffectList	SetCustomizeMode	PassiveEffectList::SetCustomizeMode(bool)	381 PDB-match name
+0xb85330	BPlayer	ChangeNpcAttackTargetEvent	BPlayer::ChangeNpcAttackTargetEvent(unsigned __int64,unsigned __int64,unsigned __int64)	381 PDB-match name
+0xb8b7c0	PlayerCommon	CheckClientSideRecycleTime	PlayerCommon::CheckClientSideRecycleTime(SkillTimer *,int,char const *,char const *,char,int)	381 PDB-match name
+0xb8f650	PlayerCommon	IsAttackableTarget	PlayerCommon::IsAttackableTarget(BPlayer *,BGameObject *,bool)	381 PDB-match name
+0xb901c0	BContextProcess	isPlayerSummonedExist	BContextProcess::isPlayerSummonedExist(void)	381 PDB-match name
+0xb90330	BPlayer	CanUseQuestSkill	BPlayer::CanUseQuestSkill(unsigned __int64,unsigned __int64)	381 PDB-match name
+0xb90360	BPlayer	GetQuestItemRelatedToThisTarget	BPlayer::GetQuestItemRelatedToThisTarget(BGameObject *)	381 PDB-match name
+0xb91e80	BPlayer	IsItemSkillAvailableToUse	BPlayer::IsItemSkillAvailableToUse(__int64,ControlledPlayingActionsBase::SKILL_USE_ERROR &)	381 PDB-match name
+0xb95e20	BPlayer	UpdateStateAffectedByEffect	BPlayer::UpdateStateAffectedByEffect(void)	381 PDB-match name
+0xb99390	PassiveEffectList	UpdateSkillRecycleList	PassiveEffectList::UpdateSkillRecycleList(void)	381 PDB-match name
+0xb9d0d0	PlayerCombatStatusPanel	ProcessEvent	PlayerCombatStatusPanel::ProcessEvent(EngineEvent *)	381 PDB-match name
+0xba06c0	PassiveEffectList	sort	PassiveEffectList::sort(void)	381 PDB-match name
+0xba0f80	PassiveEffectList	remove	PassiveEffectList::remove(unsigned __int64,PassiveEffectIcon *,short)	381 PDB-match name
+0xba11b0	PassiveEffectList	set	PassiveEffectList::set(unsigned __int64,PassiveEffectIcon *,short,uint,int,__int64,float,char,char)	381 PDB-match name
+0xba1300	PassiveEffectList	Remove	PassiveEffectList::Remove(unsigned __int64,short)	381 PDB-match name
+0xba14d0	PassiveEffectList	add	PassiveEffectList::add(unsigned __int64,short,uint,int,__int64,float,char,char)	381 PDB-match name
+0xba17a0	PassiveEffectList	update	PassiveEffectList::update(BCreature const *)	381 PDB-match name
+0xba19a0	PassiveEffectList	Update	PassiveEffectList::Update(BCreature const *)	381 PDB-match name
+0xba3e60	BPlayer	OnNotifySkillRecycleAdded_renewal	BPlayer::OnNotifySkillRecycleAdded_renewal(int,int)	381 PDB-match name
+0xba9420	BPlayingActions	addRestorationHistory	BPlayingActions::addRestorationHistory(__int64,__int64)	381 PDB-match name
+0xba9580	BPlayingActions	processAction	BPlayingActions::processAction(int,PfStruct const *)	381 PDB-match name
+0xba9970	BPlayingActions	ProcessActionSubEvent	BPlayingActions::ProcessActionSubEvent(int,PfStruct const *,BGameObject const *)	381 PDB-match name
+0xbbd160	PassiveEffectList	ProcessEvent	PassiveEffectList::ProcessEvent(EngineEvent *)	381 PDB-match name
+0xbbeac0	BPlayer	UseSkill	BPlayer::UseSkill(uint,bool)	381 PDB-match name
+0xbc25d0	BPlayingActions	ProcessSkillResult	BPlayingActions::ProcessSkillResult(__int64,char,unsigned __int64,unsigned __int64,SkillFlowCode,SkillHitCode)	381 PDB-match name
+0xbc7230	BPlayer	ProcessActionSubEvent	BPlayer::ProcessActionSubEvent(int,PfStruct const *,BGameObject const *)	381 PDB-match name
+0xf78b60	EffectCatalog	ConvPosToIndex	EffectCatalog::ConvPosToIndex(int)	381 PDB-match name
+0xf7c6d0	EffectCatalog	Enumerate	EffectCatalog::Enumerate(void)	381 PDB-match name
+0xf80ed0	EffectCatalog	IsNotTargetableEffectExist	EffectCatalog::IsNotTargetableEffectExist(void)	381 PDB-match name
+0xf80f40	EffectCatalog	IsPauseTargetingEffectExist	EffectCatalog::IsPauseTargetingEffectExist(void)	381 PDB-match name
+0xf887a0	EffectCatalog	UpdateEffectTimer	EffectCatalog::UpdateEffectTimer(void)	381 PDB-match name
+0xf889b0	EffectCatalog	Get	EffectCatalog::Get(int)	381 PDB-match name
+0xf889e0	EffectCatalog	FindbyDataId	EffectCatalog::FindbyDataId(int)	381 PDB-match name
+0xf88a40	EffectCatalog	~EffectCatalog	EffectCatalog::~EffectCatalog(void)	381 PDB-match name
+0xf88ae0	EffectCatalog	EffectCatalog	EffectCatalog::EffectCatalog(BCreature *,ushort)	381 PDB-match name
+0xf9a4d0	EffectCatalog	Set	EffectCatalog::Set(int,EffectCatalog::Item *)	381 PDB-match name
+0x100cf00	DamageMeterPanel	Compare	DamageMeterPanel::Compare(DamageMeterPanel::RankingInfo const &,DamageMeterPanel::RankingInfo const &)	381 PDB-match name
+0x100cf30	DamageMeterPanel	SendDamageInfo	DamageMeterPanel::SendDamageInfo(void)	381 PDB-match name
+0x100cf40	DamageMeterPanel	EncounterCreature	DamageMeterPanel::EncounterCreature(__int64)	381 PDB-match name
+0x100cf50	DamageMeterPanel	Clear	DamageMeterPanel::Clear(void)	381 PDB-match name
+0x100efa0	BCreature	GetEffectCatalogByPos	BCreature::GetEffectCatalogByPos(int)	381 PDB-match name
+0x1012570	DamageMeterPanel	hide	DamageMeterPanel::hide(void)	381 PDB-match name
+0x1012600	DamageMeterPanel	updateContainerBackground	DamageMeterPanel::updateContainerBackground(DamageMeterPanel::ContainerInfo const &,__int64)	381 PDB-match name
+0x1012730	DamageMeterPanel	isBattle	DamageMeterPanel::isBattle(void)	381 PDB-match name
+0x10127c0	DamageMeterPanel	isConnectedNpc	DamageMeterPanel::isConnectedNpc(__int64)	381 PDB-match name
+0x1012870	DamageMeterPanel	getHyperTextParam	DamageMeterPanel::getHyperTextParam(std::vector<DamageMeterPanel::RankingInfo,std::allocator<DamageMeterPanel::RankingInfo>> *,__int64)	381 PDB-match name
+0x1012d40	DamageMeterPanel	ProcessNetObjectEvent	DamageMeterPanel::ProcessNetObjectEvent(StructPacket const *)	381 PDB-match name
+0x1012d80	DamageMeterPanel	GetDamageMeterPcInfo	DamageMeterPanel::GetDamageMeterPcInfo(__int64,__int64 &,__int64 &,float &)	381 PDB-match name
+0x1012eb0	DamageMeterPanel	Toggle	DamageMeterPanel::Toggle(bool)	381 PDB-match name
+0x1012f30	DamageMeterPanel	ReadOption	DamageMeterPanel::ReadOption(void)	381 PDB-match name
+0x1014270	BCreature	StartImmuneBreakTimer	BCreature::StartImmuneBreakTimer(void)	381 PDB-match name
+0x1019270	DamageMeterCollection	Get	DamageMeterCollection::Get(__int64,std::pair<std::_Tree<std::_Tmap_traits<__int64,DamageMeterCollection::DamageInfo,std::less<__int64>,std::allocator<std::pair<	381 PDB-match name
+0x1020210	DamageMeterPanel	isEnableAttraction	DamageMeterPanel::isEnableAttraction(void)	381 PDB-match name
+0x1020580	DamageMeterCollection	passHitSkill	DamageMeterCollection::passHitSkill(__int64,__int64,__int64,char)	381 PDB-match name
+0x102a6f0	BCreature	ProcessActionsEffectSoulMask	BCreature::ProcessActionsEffectSoulMask(__int64,char)	381 PDB-match name
+0x102a8f0	BCreature	GetInterpolatedSkillStep	BCreature::GetInterpolatedSkillStep(PfStruct const *,std::vector<GS_ActionsSkillSubPacket,std::allocator<GS_ActionsSkillSubPacket>> &)	381 PDB-match name
+0x1040d40	DamageMeterPanel	addReservedNpc	DamageMeterPanel::addReservedNpc(unsigned __int64)	381 PDB-match name
+0x1040f20	DamageMeterPanel	updateMinimizeContainer	DamageMeterPanel::updateMinimizeContainer(char,__int64)	381 PDB-match name
+0x1041060	DamageMeterPanel	updateContainer	DamageMeterPanel::updateContainer(DamageMeterPanel::ContainerInfo const &,wchar_t const *,char,__int64,__int64,bool,float,char)	381 PDB-match name
+0x10414c0	DamageMeterPanel	updateNpcInfo	DamageMeterPanel::updateNpcInfo(void)	381 PDB-match name
+0x10417a0	DamageMeterPanel	applyDamageInfoByNpcObj	DamageMeterPanel::applyDamageInfoByNpcObj(void)	381 PDB-match name
+0x1041a40	DamageMeterPanel	DamageMeterPanel	DamageMeterPanel::DamageMeterPanel(void)	381 PDB-match name
+0x1041b90	DamageMeterCollection	HasPlayerMember	DamageMeterCollection::HasPlayerMember(__int64)	381 PDB-match name
+0x1054360	DamageMeterPanel	updateWidget	DamageMeterPanel::updateWidget(void)	381 PDB-match name
+0x10549a0	DamageMeterPanel	parseHyperTextParam	DamageMeterPanel::parseHyperTextParam(wchar_t const *,std::vector<std::basic_string<wchar_t,std::char_traits<wchar_t>,std::allocator<wchar_t>>,std::allocator<st	381 PDB-match name
+0x1054b40	DamageMeterPanel	ShowInspector	DamageMeterPanel::ShowInspector(wchar_t const *)	381 PDB-match name
+0x10550c0	DamageMeterPanel	ShowPanel	DamageMeterPanel::ShowPanel(bool,bool)	381 PDB-match name
+0x1060a50	DamageMeterPanel	setMinimizeMode	DamageMeterPanel::setMinimizeMode(bool)	381 PDB-match name
+0x1060b70	DamageMeterPanel	toggleMinimize	DamageMeterPanel::toggleMinimize(void)	381 PDB-match name
+0x1060b90	DamageMeterPanel	Start	DamageMeterPanel::Start(wchar_t const *)	381 PDB-match name
+0x1060eb0	DamageMeterCollection	Clear	DamageMeterCollection::Clear(__int64)	381 PDB-match name
+0x106b080	BCreature	ProcessActionSubEvent	BCreature::ProcessActionSubEvent(int,PfStruct const *,BGameObject const *)	381 PDB-match name
+0x106d910	DamageMeterPanel	updateList	DamageMeterPanel::updateList(void)	381 PDB-match name
+0x10707e0	DamageMeterCollection	Clear	DamageMeterCollection::Clear(void)	381 PDB-match name
+0x1070890	DamageMeterCollection	AddHit	DamageMeterCollection::AddHit(__int64,__int64,__int64,__int64,char,char,char)	381 PDB-match name
+0x1070e60	DamageMeterCollection	AddDamage	DamageMeterCollection::AddDamage(__int64,__int64,__int64,__int64,char,char,char)	381 PDB-match name
+0x1071780	DamageMeterCollection	DamageMeterCollection	DamageMeterCollection::DamageMeterCollection(void)	381 PDB-match name
+0x1071ae0	DamageMeterCollection	~DamageMeterCollection	DamageMeterCollection::~DamageMeterCollection(void)	381 PDB-match name
+0x1071b50	BCreature	UpdateStateAffectedByEffect	BCreature::UpdateStateAffectedByEffect(void)	381 PDB-match name
+0x10780d0	DamageMeterPanel	sendBattleCriticalLog	DamageMeterPanel::sendBattleCriticalLog(void)	381 PDB-match name
+0x1079a50	DamageMeterPanel	Update	DamageMeterPanel::Update(__int64,char,bool)	381 PDB-match name
+0x1079f70	DamageMeterPanel	PostTick	DamageMeterPanel::PostTick(float)	381 PDB-match name
+0x107a180	DamageMeterPanel	ChangeBossGroup	DamageMeterPanel::ChangeBossGroup(char)	381 PDB-match name
+0x1098eb0	DamageMeterPanel	appendHyperlink	DamageMeterPanel::appendHyperlink(void)	381 PDB-match name
+0x1099070	DamageMeterPanel	ProcessEvent	DamageMeterPanel::ProcessEvent(EngineEvent *)	381 PDB-match name
+0x109dbb0	BControlledPlayingActions	checkSendCriticalLog	BControlledPlayingActions::checkSendCriticalLog(void)	381 PDB-match name
+0x109dbc0	BControlledPlayingActions	checkSendSkilFailCriticalLog	BControlledPlayingActions::checkSendSkilFailCriticalLog(void)	381 PDB-match name
+0x109dbd0	BContextProcess	UpdateContextCarry	BContextProcess::UpdateContextCarry(int,unsigned __int64)	381 PDB-match name
+0x109dc80	BContextProcess	setSelectedStance	BContextProcess::setSelectedStance(char,Stance *)	381 PDB-match name
+0x109dce0	BContextProcess	UpdateUiSkillRecycleTime	BContextProcess::UpdateUiSkillRecycleTime(void)	381 PDB-match name
+0x109dd10	BContextProcess	resetContextItemLayer	BContextProcess::resetContextItemLayer(char)	381 PDB-match name
+0x109dd70	BContextProcess	resetContextSoulMaskLayer	BContextProcess::resetContextSoulMaskLayer(char)	381 PDB-match name
+0x109ddd0	BContextProcess	resetContextLayer	BContextProcess::resetContextLayer(char)	381 PDB-match name
+0x109dfa0	BContextProcess	resetContextSimpleBranchGroup	BContextProcess::resetContextSimpleBranchGroup(void)	381 PDB-match name
+0x109dfb0	BContextProcess	SetSelectedSocialModeGroupIndex	BContextProcess::SetSelectedSocialModeGroupIndex(char)	381 PDB-match name
+0x10a07f0	BControlledPlayingActions	sendSkillFailTraceCriticalLog	`BControlledPlayingActions::sendSkillFailTraceCriticalLog(int)'::`6'::TimePrinter::PrintLocalTime(__int64)	381 PDB-match name
+0x10a0880	BControlledPlayingActions	processClientSideActionSubEvent	BControlledPlayingActions::processClientSideActionSubEvent(int,PfStruct const *,BGameObject const *)	381 PDB-match name
+0x10a08d0	BControlledPlayingActions	IsContextBlockActionEnabled	BControlledPlayingActions::IsContextBlockActionEnabled(void)	381 PDB-match name
+0x10a0900	BControlledPlayingActions	checkCombatMode	BControlledPlayingActions::checkCombatMode(char)	381 PDB-match name
+0x10a0950	BControlledPlayingActions	PauseLastComboResult	BControlledPlayingActions::PauseLastComboResult(void)	381 PDB-match name
+0x10a0980	BControlledPlayingActions	ResumeLastComboResult	BControlledPlayingActions::ResumeLastComboResult(void)	381 PDB-match name
+0x10a0a10	BControlledPlayingActions	CancelSocialMode	BControlledPlayingActions::CancelSocialMode(char)	381 PDB-match name
+0x10a0a90	BControlledPlayingActions	IsRequestedCancelActionAnswered	BControlledPlayingActions::IsRequestedCancelActionAnswered(void)	381 PDB-match name
+0x10a0c00	BControlledPlayingActions	CheckPickupLimitTimer	BControlledPlayingActions::CheckPickupLimitTimer(void)	381 PDB-match name
+0x10a0c30	BControlledPlayingActions	GetSkillTimer	BControlledPlayingActions::GetSkillTimer(void)	381 PDB-match name
+0x10a0d00	BContextProcess	SetDeadContextDelayed	BContextProcess::SetDeadContextDelayed(bool)	381 PDB-match name
+0x10a0d40	BContextProcess	isPlayerLinkState	BContextProcess::isPlayerLinkState(void)	381 PDB-match name
+0x10a0d90	BContextProcess	isPlayerBlockSkillState	BContextProcess::isPlayerBlockSkillState(void)	381 PDB-match name
+0x10a0ea0	BContextProcess	GetResultRecommendSlot	BContextProcess::GetResultRecommendSlot(CONTEXT_ACTION::Info &)	381 PDB-match name
+0x10a0f00	BContextProcess	GetResultStanceSlot	BContextProcess::GetResultStanceSlot(CONTEXT_ACTION::Info &)	381 PDB-match name
+0x10a0ff0	BContextProcess	GetResultExtraSkillBarSlot	BContextProcess::GetResultExtraSkillBarSlot(CONTEXT_ACTION::Info *)	381 PDB-match name
+0x10a1060	BContextProcess	GetResultSpecialSlot	BContextProcess::GetResultSpecialSlot(CONTEXT_ACTION::Info *)	381 PDB-match name
+0x10a1400	BContextProcess	isPlayerDisabled	BContextProcess::isPlayerDisabled(void)	381 PDB-match name
+0x10a1430	BContextProcess	ProcessSkillHitEvent	BContextProcess::ProcessSkillHitEvent(GS_ActionsSkillHitSubPacket const *)	381 PDB-match name
+0x10a14d0	BContextProcess	getHighestPriorityResult	BContextProcess::getHighestPriorityResult(std::vector<BContextProcess::CONTEXT_CONDITON_COMPARE_RESULT,std::allocator<BContextProcess::CONTEXT_CONDITON_COMPARE_	381 PDB-match name
+0x10a15a0	BContextProcess	isResistRecommendEnabled	BContextProcess::isResistRecommendEnabled(void)	381 PDB-match name
+0x10a1610	BContextProcess	resetBossResistContext	BContextProcess::resetBossResistContext(void)	381 PDB-match name
+0x10a16a0	BContextProcess	canPlayerUseRepair	BContextProcess::canPlayerUseRepair(void)	381 PDB-match name
+0x10a1750	BContextProcess	IsDimedNovaSlot	BContextProcess::IsDimedNovaSlot(void)	381 PDB-match name
+0x10a1770	BContextProcess	InitializeContextSimpleBranchGroupSkillbar	BContextProcess::InitializeContextSimpleBranchGroupSkillbar(void)	381 PDB-match name
+0x10a17d0	BContextProcess	~BContextProcess	BContextProcess::~BContextProcess(void)	381 PDB-match name
+0x10a5980	ControlledPlayingActionsBase	canUseSkillByMoveTypeCheckInternalImpl	ControlledPlayingActionsBase::canUseSkillByMoveTypeCheckInternalImpl(unsigned __int64 const &,Data::SkillCastCondition3RecordPtr,bool,bool,bool,MoveType,bool)	381 PDB-match name
+0x10a5ae0	ControlledPlayingActionsBase	canUseSkillByMoveTypeCheckInternal	ControlledPlayingActionsBase::canUseSkillByMoveTypeCheckInternal(Data::SkillCastCondition3RecordPtr,bool)	381 PDB-match name
+0x10a5c10	ControlledPlayingActionsBase	canUseSkillByBasicCheckInternalImpl	ControlledPlayingActionsBase::canUseSkillByBasicCheckInternalImpl(unsigned __int64 const &,Data::Skill3RecordActiveSkillPtr,Data::Skill3RecordActiveSkillPtr,boo	381 PDB-match name
+0x10a62b0	BControlledPlayingActions	removeSkillFailTrace	BControlledPlayingActions::removeSkillFailTrace(__int64,int)	381 PDB-match name
+0x10a62c0	BControlledPlayingActions	isPlayerJumpStateFormCollision	BControlledPlayingActions::isPlayerJumpStateFormCollision(void)	381 PDB-match name
+0x10a6430	BControlledPlayingActions	CancelClientSideAction	BControlledPlayingActions::CancelClientSideAction(void)	381 PDB-match name
+0x10a6550	BControlledPlayingActions	GetPutDownFieldItemPos	BControlledPlayingActions::GetPutDownFieldItemPos(Vector &)	381 PDB-match name
+0x10a6740	BControlledPlayingActions	GetSkillGroupElapsedTime_renewal	BControlledPlayingActions::GetSkillGroupElapsedTime_renewal(int,int,float &,float &)	381 PDB-match name
+0x10a6780	BControlledPlayingActions	GetGlobalCoolTime_renewal	BControlledPlayingActions::GetGlobalCoolTime_renewal(int,float &,float &)	381 PDB-match name
+0x10a67b0	BControlledPlayingActions	OnChangeEventState	BControlledPlayingActions::OnChangeEventState(void)	381 PDB-match name
+0x10a6830	BControlledPlayingActions	OnChangeComboDuration	BControlledPlayingActions::OnChangeComboDuration(float)	381 PDB-match name
+0x10a68a0	BControlledPlayingActions	ResetComboTimer	BControlledPlayingActions::ResetComboTimer(float)	381 PDB-match name
+0x10a6920	BControlledPlayingActions	SetLastHitResult	BControlledPlayingActions::SetLastHitResult(Data::SkillEventTypeType,Data::SkillSkillResultType)	381 PDB-match name
+0x10a6ad0	BControlledPlayingActions	cancelAction	BControlledPlayingActions::cancelAction(void)	381 PDB-match name
+0x10a6ae0	BContextProcess	GetResultSkillBarSlot	BContextProcess::GetResultSkillBarSlot(CONTEXT_ACTION::Info *)	381 PDB-match name
+0x10a6e30	BContextProcess	IsBlockedForCastingResistSkill	BContextProcess::IsBlockedForCastingResistSkill(void)	381 PDB-match name
+0x10a6e90	BContextProcess	GetSkillIdOnKeyCommandSlot	BContextProcess::GetSkillIdOnKeyCommandSlot(Data::KeyCommandCommandType,char &,int &)	381 PDB-match name
+0x10a72c0	BContextProcess	updateContextDuelBotCard	BContextProcess::updateContextDuelBotCard(void)	381 PDB-match name
+0x10a74a0	BContextProcess	SetPlayerSummonedContextScript	BContextProcess::SetPlayerSummonedContextScript(void)	381 PDB-match name
+0x10aec30	ControlledPlayingActionsBase	checkTargetDeadState	ControlledPlayingActionsBase::checkTargetDeadState(Data::SkillCastCondition3RecordPtr,char)	381 PDB-match name
+0x10aed30	ControlledPlayingActionsBase	getSkillUseTarget	ControlledPlayingActionsBase::getSkillUseTarget(BCreature *,BPlayer *,unsigned __int64 const &,unsigned __int64 const &,BPlayerSummoned *,unsigned __int64 const	381 PDB-match name
+0x10af0f0	BControlledPlayingActions	getCriticalLogAdditionalString	BControlledPlayingActions::getCriticalLogAdditionalString(void)	381 PDB-match name
+0x10afdf0	BControlledPlayingActions	canUseSkillByBasicCheckInternal	BControlledPlayingActions::canUseSkillByBasicCheckInternal(Data::Skill3RecordActiveSkillPtr,bool,bool,bool)	381 PDB-match name
+0x10affd0	BControlledPlayingActions	CanUseSkillByBasicCheckForUi	BControlledPlayingActions::CanUseSkillByBasicCheckForUi(Data::Skill3RecordActiveSkillPtr)	381 PDB-match name
+0x10b0090	BControlledPlayingActions	IsRequestedSkillAnswered	BControlledPlayingActions::IsRequestedSkillAnswered(bool)	381 PDB-match name
+0x10b02a0	BControlledPlayingActions	getProcessSkillSlotPosition	BControlledPlayingActions::getProcessSkillSlotPosition(__int64,char)	381 PDB-match name
+0x10b04f0	BContextProcess	HideExtraSkillSlot	BContextProcess::HideExtraSkillSlot(void)	381 PDB-match name
+0x10b0520	BContextProcess	GetResultNovaSlot	BContextProcess::GetResultNovaSlot(CONTEXT_ACTION::Info &)	381 PDB-match name
+0x10b0640	BContextProcess	VerifyRequestSkillId	BContextProcess::VerifyRequestSkillId(__int64)	381 PDB-match name
+0x10b0800	BContextProcess	canResurrectUnequip	BContextProcess::canResurrectUnequip(__int64 &)	381 PDB-match name
+0x10b0b40	BContextProcess	updateDeadSkillbarSet	BContextProcess::updateDeadSkillbarSet(void)	381 PDB-match name
+0x10b0e80	BContextProcess	SimulateContextSlotHighlightFrame	BContextProcess::SimulateContextSlotHighlightFrame(Data::KeyCommandCommandType,float)	381 PDB-match name
+0x10b0eb0	BContextProcess	IsPressedSkillCombinableKey	BContextProcess::IsPressedSkillCombinableKey(Data::KeyCommandCommandType)	381 PDB-match name
+0x10b0f20	BContextProcess	IsPressedChargeSkillKey	BContextProcess::IsPressedChargeSkillKey(Data::KeyCommandCommandType)	381 PDB-match name
+0x10b0f90	BContextProcess	updateContextResist	BContextProcess::updateContextResist(void)	381 PDB-match name
+0x10b11a0	BContextProcess	SetPlayerSoulMaskContextScript	BContextProcess::SetPlayerSoulMaskContextScript(void)	381 PDB-match name
+0x10b1290	BContextProcess	SetPlayerItemContextScript	BContextProcess::SetPlayerItemContextScript(void)	381 PDB-match name
+0x10b1450	BContextProcess	SetPlayerContextScript	BContextProcess::SetPlayerContextScript(char)	381 PDB-match name
+0x10b8760	ControlledPlayingActionsBase	CompareRemainRecycleTime	ControlledPlayingActionsBase::CompareRemainRecycleTime(unsigned __int64,unsigned __int64)	381 PDB-match name
+0x10b8bf0	BControlledPlayingActions	FinishClientSideAction	BControlledPlayingActions::FinishClientSideAction(int,unsigned __int64)	381 PDB-match name
+0x10b8d40	BControlledPlayingActions	StartClientSideAction	BControlledPlayingActions::StartClientSideAction(int,unsigned __int64)	381 PDB-match name
+0x10b8e90	BControlledPlayingActions	createAction	BControlledPlayingActions::createAction(int,__int64)	381 PDB-match name
+0x10b8ee0	BControlledPlayingActions	GetFieldItemSkillTypeAndIndex	BControlledPlayingActions::GetFieldItemSkillTypeAndIndex(int,BControlledPlayingActions::FIELD_ITEM_SKILL_TYPE &,char &)	381 PDB-match name
+0x10b90d0	BControlledPlayingActions	OutputSkillErrorGameMessage	BControlledPlayingActions::OutputSkillErrorGameMessage(ControlledPlayingActionsBase::SKILL_USE_ERROR,__int64)	381 PDB-match name
+0x10b93c0	BControlledPlayingActions	ResetHitResult	BControlledPlayingActions::ResetHitResult(void)	381 PDB-match name
+0x10b9400	BControlledPlayingActions	ResetComboResult	BControlledPlayingActions::ResetComboResult(void)	381 PDB-match name
+0x10b9440	BControlledPlayingActions	UpdateHitResultByUsingSkill	BControlledPlayingActions::UpdateHitResultByUsingSkill(int)	381 PDB-match name
+0x10b9490	BControlledPlayingActions	SetLastComboResult	BControlledPlayingActions::SetLastComboResult(Data::SkillEventTypeType,Data::SkillSkillResultType)	381 PDB-match name
+0x10b9520	BControlledPlayingActions	UpdateHitResult	BControlledPlayingActions::UpdateHitResult(void)	381 PDB-match name
+0x10b95c0	BControlledPlayingActions	UpdateComboResult	BControlledPlayingActions::UpdateComboResult(void)	381 PDB-match name
+0x10b9670	BControlledPlayingActions	VerifyRequestSkillId	BControlledPlayingActions::VerifyRequestSkillId(bool,__int64,char,bool,short)	381 PDB-match name
+0x10b9a70	BControlledPlayingActions	GetSkillUseTarget	BControlledPlayingActions::GetSkillUseTarget(Data::Skill3RecordActiveSkillPtr)	381 PDB-match name
+0x10b9b30	BControlledPlayingActions	comboStart	BControlledPlayingActions::comboStart(Data::Skill3RecordActiveSkillPtr,Data::SkillEventTypeType,Data::SkillSkillResultType)	381 PDB-match name
+0x10b9dc0	BControlledPlayingActions	RequestOpenRefinerReward	BControlledPlayingActions::RequestOpenRefinerReward(unsigned __int64)	381 PDB-match name
+0x10b9e20	BControlledPlayingActions	RequestOpenContributionRewardPouch	BControlledPlayingActions::RequestOpenContributionRewardPouch(unsigned __int64)	381 PDB-match name
+0x10b9e80	BControlledPlayingActions	RequestClosePrivatePouch	BControlledPlayingActions::RequestClosePrivatePouch(unsigned __int64)	381 PDB-match name
+0x10b9ed0	BControlledPlayingActions	BControlledPlayingActions	BControlledPlayingActions::BControlledPlayingActions(BCreature *,bool)	381 PDB-match name
+0x10ba180	BContextProcess	UpdateGadgetActionSlot	BContextProcess::UpdateGadgetActionSlot(void)	381 PDB-match name
+0x10ba610	BContextProcess	InitializeSocialModeLayer	BContextProcess::InitializeSocialModeLayer(void)	381 PDB-match name
+0x10c9e70	ControlledPlayingActionsBase	isAvailableDistanceForNoneTargetSkill	ControlledPlayingActionsBase::isAvailableDistanceForNoneTargetSkill(BCreature *,Data::Skill3RecordPtr,Data::SkillCastCondition3RecordPtr,__int64)	381 PDB-match name
+0x10ca130	BControlledPlayingActions	createSkill	BControlledPlayingActions::createSkill(__int64,char,unsigned __int64)	381 PDB-match name
+0x10ca370	BControlledPlayingActions	CancelCombo	BControlledPlayingActions::CancelCombo(void)	381 PDB-match name
+0x10ca3f0	BControlledPlayingActions	AddEventSkill	BControlledPlayingActions::AddEventSkill(int)	381 PDB-match name
+0x10ca440	BControlledPlayingActions	processSkillForSkillTrace	BControlledPlayingActions::processSkillForSkillTrace(__int64,char,int)	381 PDB-match name
+0x10ca6f0	BContextProcess	checkImmuneBreakerAttribute	BContextProcess::checkImmuneBreakerAttribute(Data::Skill3RecordActiveSkillPtr,short)	381 PDB-match name
+0x10ca850	BContextProcess	canPlayerUseAction	BContextProcess::canPlayerUseAction(void)	381 PDB-match name
+0x10cb860	BControlledPlayingActions	processSkillForCombo	BControlledPlayingActions::processSkillForCombo(__int64,char,int)	381 PDB-match name
+0x10d38e0	BControlledPlayingActions	RequestTeleport	BControlledPlayingActions::RequestTeleport(short)	381 PDB-match name
+0x10d3940	BControlledPlayingActions	RequestHelpRestorationRequest	BControlledPlayingActions::RequestHelpRestorationRequest(int,__int64)	381 PDB-match name
+0x10d3a20	BControlledPlayingActions	RequestRestorationRequest	BControlledPlayingActions::RequestRestorationRequest(void)	381 PDB-match name
+0x10d3ad0	BControlledPlayingActions	RequestRespawn	BControlledPlayingActions::RequestRespawn(RespawnType)	381 PDB-match name
+0x10d3ba0	BControlledPlayingActions	RequestCancelAction	BControlledPlayingActions::RequestCancelAction(char,char,bool)	381 PDB-match name
+0x10d3c40	BControlledPlayingActions	RequestEscapeFromCave	BControlledPlayingActions::RequestEscapeFromCave(__int64)	381 PDB-match name
+0x10d3cd0	BControlledPlayingActions	RequestSurrender	BControlledPlayingActions::RequestSurrender(void)	381 PDB-match name
+0x10d3ec0	BControlledPlayingActions	RequestUnequipPacket	BControlledPlayingActions::RequestUnequipPacket(BItem::Pos const &,__int64)	381 PDB-match name
+0x10d4070	BControlledPlayingActions	RequestEquipPacket	BControlledPlayingActions::RequestEquipPacket(__int64,BItem::Pos const &)	381 PDB-match name
+0x10d4360	BControlledPlayingActions	RequestPickupDeadBody	BControlledPlayingActions::RequestPickupDeadBody(unsigned __int64)	381 PDB-match name
+0x10d4450	BControlledPlayingActions	RequestPickupFieldItem	BControlledPlayingActions::RequestPickupFieldItem(unsigned __int64)	381 PDB-match name
+0x10d4560	BControlledPlayingActions	RequestDistributeItemPacket	BControlledPlayingActions::RequestDistributeItemPacket(unsigned __int64,wchar_t const *,char,short,bool)	381 PDB-match name
+0x10d4670	BControlledPlayingActions	RequestPickupContributionRewardItemAllPacket	BControlledPlayingActions::RequestPickupContributionRewardItemAllPacket(unsigned __int64)	381 PDB-match name
+0x10d4850	BControlledPlayingActions	RequestTakeRefinerRewardPacket	BControlledPlayingActions::RequestTakeRefinerRewardPacket(unsigned __int64)	381 PDB-match name
+0x10d49b0	BControlledPlayingActions	RequestPickupContributionRewardItemPakcet	BControlledPlayingActions::RequestPickupContributionRewardItemPakcet(unsigned __int64)	381 PDB-match name
+0x10d4b50	BControlledPlayingActions	RequestPickupItemAllPacket	BControlledPlayingActions::RequestPickupItemAllPacket(unsigned __int64,bool)	381 PDB-match name
+0x10d4fd0	BControlledPlayingActions	RequestPickupItemPacket	BControlledPlayingActions::RequestPickupItemPacket(unsigned __int64,char,short,bool)	381 PDB-match name
+0x10d5120	BControlledPlayingActions	RequestOpenPrivatePouch	BControlledPlayingActions::RequestOpenPrivatePouch(unsigned __int64)	381 PDB-match name
+0x10d51e0	BControlledPlayingActions	RequestClosePouch	BControlledPlayingActions::RequestClosePouch(unsigned __int64)	381 PDB-match name
+0x10d5290	BControlledPlayingActions	RequestOpenPouch	BControlledPlayingActions::RequestOpenPouch(unsigned __int64)	381 PDB-match name
+0x10d5360	BControlledPlayingActions	RequestPickupItemAllFromEnvPacket	BControlledPlayingActions::RequestPickupItemAllFromEnvPacket(void)	381 PDB-match name
+0x10d56d0	BControlledPlayingActions	RequestNpcManipulatePacket	BControlledPlayingActions::RequestNpcManipulatePacket(unsigned __int64)	381 PDB-match name
+0x10d5a10	BControlledPlayingActions	RequestRefinerGiveSocrePacket	BControlledPlayingActions::RequestRefinerGiveSocrePacket(unsigned __int64)	381 PDB-match name
+0x10d5b20	BControlledPlayingActions	RequestManipulatePacket	BControlledPlayingActions::RequestManipulatePacket(unsigned __int64)	381 PDB-match name
+0x10d5ff0	BContextProcess	UseResurrection	BContextProcess::UseResurrection(void)	381 PDB-match name
+0x10dcf30	BControlledPlayingActions	UseSkillPetitionImmediateEscapeNotSkillCheck	BControlledPlayingActions::UseSkillPetitionImmediateEscapeNotSkillCheck(void)	381 PDB-match name
+0x10dd2a0	BControlledPlayingActions	CancelSkill	BControlledPlayingActions::CancelSkill(char,bool)	381 PDB-match name
+0x10dd540	BControlledPlayingActions	CancelAction	BControlledPlayingActions::CancelAction(char,bool)	381 PDB-match name
+0x10dd680	BControlledPlayingActions	processSkillForCancelAction	BControlledPlayingActions::processSkillForCancelAction(__int64,char,int)	381 PDB-match name
+0x10dd760	BControlledPlayingActions	RequestPutDownFieldItem	BControlledPlayingActions::RequestPutDownFieldItem(void)	381 PDB-match name
+0x10dd890	BContextProcess	isSkipUpdateSkillContext	BContextProcess::isSkipUpdateSkillContext(BControlledCreature const *)	381 PDB-match name
+0x10ddb40	BContextProcess	UpdateContextSummonedGuard	BContextProcess::UpdateContextSummonedGuard(int)	381 PDB-match name
+0x10ddbd0	BContextProcess	ProcessCancel	BContextProcess::ProcessCancel(void)	381 PDB-match name
+0x10e01d0	ControlledPlayingActionsBase	isConsumablePointEnough	ControlledPlayingActionsBase::isConsumablePointEnough(Data::SkillCastCondition3RecordPtr,short const *,__int64 const &,int,__int64 const &,int const *,int const	381 PDB-match name
+0x10e08e0	BControlledPlayingActions	sendSkillFailTraceCriticalLog	BControlledPlayingActions::sendSkillFailTraceCriticalLog(int)	381 PDB-match name
+0x10e0900	BControlledPlayingActions	addSkillFailTrace	BControlledPlayingActions::addSkillFailTrace(__int64,int,char,short,unsigned __int64,std::basic_string<wchar_t,std::char_traits<wchar_t>,std::allocator<wchar_t>	381 PDB-match name
+0x10e0950	BControlledPlayingActions	processSkillForDebug	BControlledPlayingActions::processSkillForDebug(__int64,char,unsigned __int64,int,int,char,std::vector<sTargetDataInfo,std::allocator<sTargetDataInfo>> const &)	381 PDB-match name
+0x10e0960	BControlledPlayingActions	GetRecyclingSkillKeyList	BControlledPlayingActions::GetRecyclingSkillKeyList(std::vector<unsigned __int64,std::allocator<unsigned __int64>> &)	381 PDB-match name
+0x10e1650	BControlledPlayingActions	IsThereCastingSkill	BControlledPlayingActions::IsThereCastingSkill(int,int,bool)	381 PDB-match name
+0x10e16b0	BControlledPlayingActions	IsSkillRecycled_renewal	BControlledPlayingActions::IsSkillRecycled_renewal(int,int,int,char,bool)	381 PDB-match name
+0x10e1720	BContextProcess	CheckSoulMaskTransformSkillConditionBySkillId	BContextProcess::CheckSoulMaskTransformSkillConditionBySkillId(int)	381 PDB-match name
+0x10e57f0	BControlledPlayingActions	canUseSkillByPointCheckInternal	BControlledPlayingActions::canUseSkillByPointCheckInternal(__int64,short const *,Data::SkillCastCondition3RecordPtr,bool,bool)	381 PDB-match name
+0x10e5c20	BControlledPlayingActions	canUseSkillByConditionStatusCheckInternal	BControlledPlayingActions::canUseSkillByConditionStatusCheckInternal(BPlayerSummoned *,Data::Skill3RecordActiveSkillPtr,Data::SkillCastCondition3RecordPtr,bool,	381 PDB-match name
+0x10e5e30	BControlledPlayingActions	CanUseSkillByConditionStatusCheckForContextScript	BControlledPlayingActions::CanUseSkillByConditionStatusCheckForContextScript(Data::Skill3RecordActiveSkillPtr,bool,bool,bool,bool,bool)	381 PDB-match name
+0x10e6280	BContextProcess	checkCondition	BContextProcess::checkCondition(BControlledCreature const *,Condition const *,int,bool)	381 PDB-match name
+0x10e6730	BContextProcess	updateContextSoulMask	BContextProcess::updateContextSoulMask(BControlledCreature const *)	381 PDB-match name
+0x10e7840	BContextProcess	updateContextItem	BContextProcess::updateContextItem(BControlledCreature const *)	381 PDB-match name
+0x10e8880	BContextProcess	canSummonedUseThisSkill	BContextProcess::canSummonedUseThisSkill(Data::Skill3RecordPtr,bool)	381 PDB-match name
+0x10e89b0	BContextProcess	canPlayerUseThisSkill	BContextProcess::canPlayerUseThisSkill(Data::Skill3RecordPtr,bool)	381 PDB-match name
+0x10e9140	BControlledPlayingActions	isSkillAvailableToUse	BControlledPlayingActions::isSkillAvailableToUse(Data::Skill3RecordActiveSkillPtr,bool,bool)	381 PDB-match name
+0x10e9310	BControlledPlayingActions	isItemRelatedSkillAvailableToUse	BControlledPlayingActions::isItemRelatedSkillAvailableToUse(Data::Skill3RecordActiveSkillPtr,Data::ItemRecordPtr)	381 PDB-match name
+0x10e9430	BControlledPlayingActions	IsItemSkillAvailableToUse	BControlledPlayingActions::IsItemSkillAvailableToUse(__int64,ControlledPlayingActionsBase::SKILL_USE_ERROR &)	381 PDB-match name
+0x10e9670	BControlledPlayingActions	UseItem	BControlledPlayingActions::UseItem(unsigned __int64,unsigned __int64)	381 PDB-match name
+0x10e9790	BControlledPlayingActions	CanUseSkillByConditionStatusCheckForRecommend	BControlledPlayingActions::CanUseSkillByConditionStatusCheckForRecommend(Data::Skill3RecordActiveSkillPtr,bool)	381 PDB-match name
+0x10e9a10	BControlledPlayingActions	CanSummonedUseSkill	BControlledPlayingActions::CanSummonedUseSkill(int)	381 PDB-match name
+0x10e9f90	BContextProcess	refreshDuelTagMatchContext	BContextProcess::refreshDuelTagMatchContext(void)	381 PDB-match name
+0x10ea140	BContextProcess	refreshActionContext	BContextProcess::refreshActionContext(void)	381 PDB-match name
+0x10ea450	BContextProcess	refreshContext	BContextProcess::refreshContext(CONTEXT_ACTION::Info *,CONTEXT_ACTION::Info *,CONTEXT_ACTION::Info *,CONTEXT_ACTION::Info (*)[3],CONTEXT_ACTION::Info *,CONTEXT_	381 PDB-match name
+0x10eaed0	BContextProcess	refreshSkillContext	BContextProcess::refreshSkillContext(CONTEXT_ACTION::Info *,int)	381 PDB-match name
+0x10eb170	BContextProcess	updateContextDuelTagMatch	BContextProcess::updateContextDuelTagMatch(void)	381 PDB-match name
+0x10eb3a0	BContextProcess	updateContextImmuneBreak	BContextProcess::updateContextImmuneBreak(void)	381 PDB-match name
+0x10eb900	BContextProcess	updateContextInternal	BContextProcess::updateContextInternal(BControlledCreature const *)	381 PDB-match name
+0x10ef010	BControlledPlayingActions	processSkillForReplayRecorder	BControlledPlayingActions::processSkillForReplayRecorder(__int64,char,int)	381 PDB-match name
+0x10ef110	BContextProcess	SetSkillbarPanel	BContextProcess::SetSkillbarPanel(SkillBarPanel *)	381 PDB-match name
+0x10ef180	BContextProcess	OnNotifyCreatureRemoved	BContextProcess::OnNotifyCreatureRemoved(unsigned __int64)	381 PDB-match name
+0x10ef1f0	BContextProcess	updateContextBossSkill	BContextProcess::updateContextBossSkill(void)	381 PDB-match name
+0x10ef480	BContextProcess	ProcessSkillEventForOthers	BContextProcess::ProcessSkillEventForOthers(__int64,int,char,char,char)	381 PDB-match name
+0x10f76e0	BControlledPlayingActions	useActionSkill	BControlledPlayingActions::useActionSkill(Data::Skill3RecordPtr)	381 PDB-match name
+0x10f7ae0	BControlledPlayingActions	RequestRepairWithCampfireRequest	BControlledPlayingActions::RequestRepairWithCampfireRequest(__int64)	381 PDB-match name
+0x10f7ff0	BControlledPlayingActions	useActiveSkillEgo	BControlledPlayingActions::useActiveSkillEgo(Data::Skill3RecordPtr)	381 PDB-match name
+0x10f8380	BContextProcess	ProcessNovaQuickSlotInput	BContextProcess::ProcessNovaQuickSlotInput(void)	381 PDB-match name
+0x10fceb0	BControlledPlayingActions	useSkillByEgo	BControlledPlayingActions::useSkillByEgo(uint)	381 PDB-match name
+0x10fe6e0	BControlledPlayingActions	getTargetObjectOrTargetGroundPosition	BControlledPlayingActions::getTargetObjectOrTargetGroundPosition(__int64 &,bool &,Vector &,BPlayer *,BPTControlledCreature *,Data::Skill3RecordActiveSkillPtr,Da	381 PDB-match name
+0x10fee60	BControlledPlayingActions	ProcessActionSubEvent	BControlledPlayingActions::ProcessActionSubEvent(int,PfStruct const *,BGameObject const *)	381 PDB-match name
+0x110c6b0	BContextProcess	updateContextAndSkillBarButtons	BContextProcess::updateContextAndSkillBarButtons(void)	381 PDB-match name
+0x110cb20	BContextProcess	UpdateContextSummonedHelpRestoration	BContextProcess::UpdateContextSummonedHelpRestoration(int,unsigned __int64)	381 PDB-match name
+0x110cc40	BContextProcess	UpdateContextHelpRestoration	BContextProcess::UpdateContextHelpRestoration(int,unsigned __int64)	381 PDB-match name
+0x110cd10	BContextProcess	UpdateContextRepair	BContextProcess::UpdateContextRepair(int,unsigned __int64)	381 PDB-match name
+0x110cfb0	BContextProcess	UpdateContextPartyMatch	BContextProcess::UpdateContextPartyMatch(int,unsigned __int64,bool)	381 PDB-match name
+0x110d090	BContextProcess	UpdateContextSummonedResurrectionGround	BContextProcess::UpdateContextSummonedResurrectionGround(int)	381 PDB-match name
+0x110d1c0	BContextProcess	UpdateContextSummonedResurrectionOther	BContextProcess::UpdateContextSummonedResurrectionOther(int)	381 PDB-match name
+0x110d2f0	BContextProcess	UpdateContextActionFishing	BContextProcess::UpdateContextActionFishing(int)	381 PDB-match name
+0x110d400	BContextProcess	UpdateContextActionCheckPCInformation	BContextProcess::UpdateContextActionCheckPCInformation(int,unsigned __int64)	381 PDB-match name
+0x110d4d0	BContextProcess	UpdateContextResurrectionOther	BContextProcess::UpdateContextResurrectionOther(int,unsigned __int64)	381 PDB-match name
+0x110d5e0	BContextProcess	UpdateContextQuestItem	BContextProcess::UpdateContextQuestItem(int,unsigned __int64,int)	381 PDB-match name
+0x110d6c0	BContextProcess	UpdateContextActionPickupItemAllFromEnv	BContextProcess::UpdateContextActionPickupItemAllFromEnv(int,unsigned __int64)	381 PDB-match name
+0x110d780	BContextProcess	UpdateContextActionPickupItemAll	BContextProcess::UpdateContextActionPickupItemAll(int,unsigned __int64)	381 PDB-match name
+0x110d840	BContextProcess	UpdateContextActionAirDashLeave	BContextProcess::UpdateContextActionAirDashLeave(int,unsigned __int64)	381 PDB-match name
+0x110d900	BContextProcess	UpdateContextActionAirDash	BContextProcess::UpdateContextActionAirDash(int,unsigned __int64)	381 PDB-match name
+0x110d9c0	BContextProcess	UpdateContextActionManipulate	BContextProcess::UpdateContextActionManipulate(int,unsigned __int64)	381 PDB-match name
+0x110da90	BContextProcess	UpdateContextActionOpenPrivatePouch	BContextProcess::UpdateContextActionOpenPrivatePouch(int,unsigned __int64)	381 PDB-match name
+0x110db50	BContextProcess	UpdateContextActionOpenPouch	BContextProcess::UpdateContextActionOpenPouch(int,unsigned __int64)	381 PDB-match name
+0x110dc10	BContextProcess	UpdateContextActionPickupGadget	BContextProcess::UpdateContextActionPickupGadget(int,unsigned __int64)	381 PDB-match name
+0x110dce0	BContextProcess	UpdateContextActionPickupDeadbody	BContextProcess::UpdateContextActionPickupDeadbody(int,unsigned __int64)	381 PDB-match name
+0x110ddb0	BContextProcess	UpdateContextActionTalk	BContextProcess::UpdateContextActionTalk(int,unsigned __int64)	381 PDB-match name
+0x110de80	BContextProcess	UpdateContextActionReset	BContextProcess::UpdateContextActionReset(int)	381 PDB-match name
+0x110df90	BContextProcess	UpdateRestorationState	BContextProcess::UpdateRestorationState(void)	381 PDB-match name
+0x110e070	BContextProcess	UpdateContextBlank	BContextProcess::UpdateContextBlank(void)	381 PDB-match name
+0x110e100	BContextProcess	UpdateDeadState	BContextProcess::UpdateDeadState(void)	381 PDB-match name
+0x110e200	BContextProcess	UpdateQuestItemContextForAttackable	BContextProcess::UpdateQuestItemContextForAttackable(BGameObject *)	381 PDB-match name
+0x110e330	BContextProcess	ChangeAttackTarget	BContextProcess::ChangeAttackTarget(unsigned __int64)	381 PDB-match name
+0x110e3d0	BContextProcess	BContextProcess	BContextProcess::BContextProcess(void)	381 PDB-match name
+0x110fc30	BContextProcess	ProcessPropertyEvent	BContextProcess::ProcessPropertyEvent(char,PropertyPair const &)	381 PDB-match name
+0x110ffe0	BContextProcess	UpdateExhaustionState	BContextProcess::UpdateExhaustionState(void)	381 PDB-match name
+0x1110170	BContextProcess	updateContextActionInternal	BContextProcess::updateContextActionInternal(void)	381 PDB-match name
+0x1110f10	BContextProcess	PostTick	BContextProcess::PostTick(float)	381 PDB-match name
+0x1113740	BContextProcess	ProcessActionSubEvent	BContextProcess::ProcessActionSubEvent(int,PfStruct const *,BGameObject const *)	381 PDB-match name
+0x11137b0	BContextProcess	ProcessDuelBotCardInput	BContextProcess::ProcessDuelBotCardInput(CONTEXT_ACTION::TYPE,int)	381 PDB-match name
+0x1113e00	BControlledPlayingActions	RequestUseFishingPaste	BControlledPlayingActions::RequestUseFishingPaste(__int64)	381 PDB-match name
+0x1114de0	BControlledPlayingActions	useSkillByPlayer	BControlledPlayingActions::useSkillByPlayer(uint)	381 PDB-match name
+0x1114f50	BControlledPlayingActions	UseSkill	BControlledPlayingActions::UseSkill(uint,bool)	381 PDB-match name
+0x1116060	BControlledPlayingActions	NotifySkillSlotChange	BControlledPlayingActions::NotifySkillSlotChange(unsigned __int64)	381 PDB-match name
+0x11160c0	BControlledPlayingActions	UpdateAutoEgoSkillProcess	BControlledPlayingActions::UpdateAutoEgoSkillProcess(void)	381 PDB-match name
+0x1116460	BControlledPlayingActions	Tick	BControlledPlayingActions::Tick(void)	381 PDB-match name
+0x11166d0	BContextProcess	ProcessDuelTagMatchSkillBarInput	BContextProcess::ProcessDuelTagMatchSkillBarInput(CONTEXT_ACTION::TYPE,int)	381 PDB-match name
+0x1118750	BControlledPlayingActions	UseAction	BControlledPlayingActions::UseAction(unsigned __int64,BPTControlledCreature::TARGET_SUB_TYPE,BControlledPlayingActions::USE_ACTION_STATE)	381 PDB-match name
+0x1119d40	BContextProcess	OnUserSkillBySummoned	BContextProcess::OnUserSkillBySummoned(BPlayerSummoned *,__int64)	381 PDB-match name
+0x1119f50	BContextProcess	UseSkillByContext	BContextProcess::UseSkillByContext(char,int)	381 PDB-match name
+0x1119fe0	BContextProcess	ProcessStanceInput	BContextProcess::ProcessStanceInput(bool,bool)	381 PDB-match name
+0x111a1a0	BContextProcess	processSkillbarPanelInput	BContextProcess::processSkillbarPanelInput(unsigned __int64,char,CONTEXT_ACTION::TYPE,char,bool,bool)	381 PDB-match name
+0x111aa30	BContextProcess	ProcessContextRecommendInput	BContextProcess::ProcessContextRecommendInput(void)	381 PDB-match name
+0x111ab90	BContextProcess	ProcessContextInput	BContextProcess::ProcessContextInput(CONTEXT_ACTION::TYPE,int,bool,bool)	381 PDB-match name
+0x111b7a0	BContextProcess	ProcessContextHiddenInput	BContextProcess::ProcessContextHiddenInput(int,bool,bool)	381 PDB-match name
+0x111c3e0	BControlledPlayingActions	processMouseRightButtonClick	BControlledPlayingActions::processMouseRightButtonClick(__int64,bool,bool,bool)	381 PDB-match name
+0x111c450	BControlledPlayingActions	processMouseLeftButtonClick	BControlledPlayingActions::processMouseLeftButtonClick(__int64,bool,bool,bool)	381 PDB-match name
+0x111c4c0	BControlledPlayingActions	ProcessEvent	BControlledPlayingActions::ProcessEvent(EngineEvent *)	381 PDB-match name
+0x111c840	BControlledPlayingActions	ProcessSkillResult	BControlledPlayingActions::ProcessSkillResult(__int64,char,unsigned __int64,unsigned __int64,SkillFlowCode,SkillHitCode)	381 PDB-match name
+0x111caf0	BContextProcess	ProcessSkillBarInput	BContextProcess::ProcessSkillBarInput(CONTEXT_ACTION::TYPE,int,bool,bool)	381 PDB-match name
+0x111cd00	BContextProcess	ProcessExtraSkillBarInput	BContextProcess::ProcessExtraSkillBarInput(CONTEXT_ACTION::TYPE,int,bool,bool)	381 PDB-match name
+0x111ce20	BContextProcess	RefreshContext	BContextProcess::RefreshContext(void)	381 PDB-match name
+0x111d0b0	BContextProcess	ProcessSkillEvent	BContextProcess::ProcessSkillEvent(__int64,int,char,char,char)	381 PDB-match name
+0x111d170	BControlledPlayingActions	OnNotifyMainSlotSkillEnd	BControlledPlayingActions::OnNotifyMainSlotSkillEnd(bool)	381 PDB-match name
+0x111d1e0	BContextProcess	ProcessNetObjectEvent	BContextProcess::ProcessNetObjectEvent(StructPacket const *)	381 PDB-match name
+0x111d290	BControlledPlayingActions	UpdateSkillRecycleTimer	BControlledPlayingActions::UpdateSkillRecycleTimer(void)	381 PDB-match name
+0x111d2d0	BControlledPlayingActions	processSkill	BControlledPlayingActions::processSkill(__int64,char,unsigned __int64,int,int,int,int,char,int,int,std::vector<sTargetDataInfo,std::allocator<sTargetDataInfo>> 	381 PDB-match name
+0x1196ec0	BuffGraph	clear	BuffGraph::clear(void)	381 PDB-match name
+0x119bab0	BuffGraph	initializePowerGaugeIcon	BuffGraph::initializePowerGaugeIcon(void)	381 PDB-match name
+0x11a3150	BuffGraph	GetBuffGraphTypeList	BuffGraph::GetBuffGraphTypeList(void)	381 PDB-match name
+0x11a31e0	BuffGraph	~BuffGraph	BuffGraph::~BuffGraph(void)	381 PDB-match name
+0x11a3270	BuffGraph	BuffGraph	BuffGraph::BuffGraph(void)	381 PDB-match name
+0x11b94e0	BuffGraph	setPowerGaugeEffectList	BuffGraph::setPowerGaugeEffectList(BCreature const *)	381 PDB-match name
+0x11b95e0	BuffGraph	processEventShowTooltip	BuffGraph::processEventShowTooltip(EUiEvent *)	381 PDB-match name
+0x11d2f80	BuffGraph	updateBuffIcon	BuffGraph::updateBuffIcon(uint,short,int,__int64,float,char)	381 PDB-match name
+0x11d2ff0	BuffGraph	updateBuff	BuffGraph::updateBuff(BCreature const *)	381 PDB-match name
+0x11d30b0	BuffGraph	updateBuffGraph	BuffGraph::updateBuffGraph(BCreature const *)	381 PDB-match name
+0x11d3100	BuffGraph	AddBuff	BuffGraph::AddBuff(unsigned __int64)	381 PDB-match name
+0x11d3190	BuffGraph	removeBuffGraph	BuffGraph::removeBuffGraph(uint)	381 PDB-match name
+0x11d31c0	BuffGraph	RemoveBuff	BuffGraph::RemoveBuff(unsigned __int64)	381 PDB-match name
+0x11d3290	BuffGraph	processEventResetGaugeTime	BuffGraph::processEventResetGaugeTime(EUiEvent *)	381 PDB-match name
+0x11d32f0	BuffGraph	processEventUpdateGaugeTime	BuffGraph::processEventUpdateGaugeTime(EUiEvent *)	381 PDB-match name
+0x11d3390	BuffGraph	ProcessEvent	BuffGraph::ProcessEvent(EngineEvent *)	381 PDB-match name
+0x11e0b10	BuffGraph	initializeBuffGraphIcon	BuffGraph::initializeBuffGraphIcon(BuffGraphIcon &,int,Data::EffectItemTypeType)	381 PDB-match name
+0x11e0c00	BuffGraph	Start	BuffGraph::Start(void)	381 PDB-match name
