@@ -1,0 +1,225 @@
+cmd_id	cmd_name	direction	path	depth	type	type_code	size	offset_381	subdef_381	subdef_field_count	gm_field_name	gm_field_type	gm_body_type	gm_parent_type
+1	I_HelloReqCmd	C2S	0	0	T_INT16	1	2	16			packet_version	__int16		I_HelloReqPacket
+1	I_HelloReqCmd	C2S	1	0	T_VBIN	7	0	20			handshake_param	PfVarBin		I_HelloReqPacket
+2	I_HelloOkCmd	S2C	0	0	T_VBIN	7	0	16			handshake_param	PfVarBin		I_HelloOkPacket
+3	I_AuthTokenReqCmd	C2S	0	0	T_INT64	3	8	16			cli_key	__int64		I_AuthTokenReqPacket
+3	I_AuthTokenReqCmd	C2S	1	0	T_INT128	4	16	24			token	id128		I_AuthTokenReqPacket
+4	I_AuthTokenOkCmd	S2C	0	0	T_VBIN	7	0	16			broadcast_key	PfVarBin		I_AuthTokenOkPacket
+5	I_AuthTokenFailCmd	S2C	0	0	T_INT16	1	2	16			reason	__int16 (FailPacket)		I_AuthTokenFailPacket
+7	I_RetrieveFriendListReqCmd	C2S	0	0	T_REPEAT	14	2	16	0x14a058c	1	user_id_list	PfRepeat	IR_UserIdListRptBody	I_RetrieveFriendListReqPacket
+7	I_RetrieveFriendListReqCmd	C2S	0/0	1	T_INT128	4	16	8			user_id	id128		IR_UserIdListRptBody
+8	I_RetrieveFriendListOkCmd	S2C	0	0	T_REPEAT	14	2	16	0x14a05dc	3	friend_info_list	PfRepeat	IR_FriendInfoListRptBody	I_RetrieveFriendListOkPacket
+8	I_RetrieveFriendListOkCmd	S2C	0/0	1	T_INT128	4	16	8			user_id	id128		IR_FriendInfoListRptBody
+8	I_RetrieveFriendListOkCmd	S2C	0/1	1	T_INT8	0	1	24			is_exist	char		IR_FriendInfoListRptBody
+8	I_RetrieveFriendListOkCmd	S2C	0/2	1	T_REPEAT	14	2	28	0x14a05c8	1	friend_character_list	PfRepeat	IR_FriendCharacterListRptBody	IR_FriendInfoListRptBody
+8	I_RetrieveFriendListOkCmd	S2C	0/2/0	2	T_STRUCT	12	0	8	0x14966bc	2	friend_character_info	FriendCharacterInfo	FriendCharacterInfo	IR_FriendCharacterListRptBody
+8	I_RetrieveFriendListOkCmd	S2C	0/2/0/0	3	T_STRUCT	12	0	8	0x14965cc	6	character_info	CharacterInfo	CharacterInfo	FriendCharacterInfo
+8	I_RetrieveFriendListOkCmd	S2C	0/2/0/1	3	T_INT64	3	8	48			last_play_end_time	__int64		FriendCharacterInfo
+9	I_RetrieveFriendListFailCmd	S2C	0	0	T_INT16	1	2	16			reason	__int16 (FailPacket)		I_RetrieveFriendListFailPacket
+10	I_RetrieveUserIdByCharacterNameReqCmd	C2S	0	0	T_STRING	5	0	16			character_name	PfString		I_RetrieveUserIdByCharacterNameReqPacket
+11	I_RetrieveUserIdByCharacterNameOkCmd	S2C	0	0	T_STRING	5	0	16			character_name	PfString		I_RetrieveUserIdByCharacterNameOkPacket
+11	I_RetrieveUserIdByCharacterNameOkCmd	S2C	1	0	T_INT128	4	16	24			user_id	id128		I_RetrieveUserIdByCharacterNameOkPacket
+12	I_RetrieveUserIdByCharacterNameFailCmd	S2C	0	0	T_INT16	1	2	16			reason	__int16		I_RetrieveUserIdByCharacterNameFailPacket
+13	I_RetrieveCharacterDetailReqCmd	C2S	0	0	T_INT64	3	8	16			pc_id	__int64		I_RetrieveCharacterDetailReqPacket
+13	I_RetrieveCharacterDetailReqCmd	C2S	1	0	T_STRING	5	0	24			character_name	PfString		I_RetrieveCharacterDetailReqPacket
+14	I_RetrieveCharacterDetailOkCmd	S2C	0	0	T_INT64	3	8	16			pc_id	__int64		I_RetrieveCharacterDetailOkPacket
+14	I_RetrieveCharacterDetailOkCmd	S2C	1	0	T_STRING	5	0	24			character_name	PfString		I_RetrieveCharacterDetailOkPacket
+14	I_RetrieveCharacterDetailOkCmd	S2C	2	0	T_STRUCT	12	0	32	0x149ec2c	2	character_detail	CharacterDetail	CharacterDetail	I_RetrieveCharacterDetailOkPacket
+14	I_RetrieveCharacterDetailOkCmd	S2C	2/0	1	T_INT16	1	2	4			level	__int16		CharacterDetail
+14	I_RetrieveCharacterDetailOkCmd	S2C	2/1	1	T_VBIN	7	0	8			showcase_data	PfVarBin		CharacterDetail
+14	I_RetrieveCharacterDetailOkCmd	S2C	3	0	T_INT64	3	8	48			guild_id	__int64		I_RetrieveCharacterDetailOkPacket
+14	I_RetrieveCharacterDetailOkCmd	S2C	4	0	T_STRING	5	0	56			guild_name	PfString		I_RetrieveCharacterDetailOkPacket
+14	I_RetrieveCharacterDetailOkCmd	S2C	5	0	T_REPEAT	14	2	64	0x14a0618	1	guild_uniform_param_list	PfRepeat	IR_GuildUniformParamListRptBody	I_RetrieveCharacterDetailOkPacket
+14	I_RetrieveCharacterDetailOkCmd	S2C	5/0	1	T_INT8	0	1	8			param	char		IR_GuildUniformParamListRptBody
+15	I_RetrieveCharacterDetailFailCmd	S2C	0	0	T_INT16	1	2	16			reason	__int16		I_RetrieveCharacterDetailFailPacket
+16	I_SearchCharacterListReqCmd	C2S	0	0	T_INT8	0	1	16			search_type	char		I_SearchCharacterListReqPacket
+16	I_SearchCharacterListReqCmd	C2S	1	0	T_INT16	1	2	18			world_id	__int16		I_SearchCharacterListReqPacket
+16	I_SearchCharacterListReqCmd	C2S	2	0	T_STRING	5	0	20			search_string	PfString		I_SearchCharacterListReqPacket
+16	I_SearchCharacterListReqCmd	C2S	3	0	T_STRING	5	0	28			paging_key	PfString		I_SearchCharacterListReqPacket
+17	I_SearchCharacterListOkCmd	S2C	0	0	T_REPEAT	14	2	16	0x14a05f0	1	character_search_result_list	PfRepeat	IR_CharacterSearchResultListRptBody	I_SearchCharacterListOkPacket
+17	I_SearchCharacterListOkCmd	S2C	0/0	1	T_STRUCT	12	0	8	0x14a053c	1	character_search_result	CharacterSearchResult	CharacterSearchResult	IR_CharacterSearchResultListRptBody
+17	I_SearchCharacterListOkCmd	S2C	0/0/0	2	T_STRUCT	12	0	8	0x14965cc	6	character_info	CharacterInfo	CharacterInfo	CharacterSearchResult
+17	I_SearchCharacterListOkCmd	S2C	0/0/0/0	3	T_INT64	3	8	8			pc_id	__int64		CharacterInfo
+17	I_SearchCharacterListOkCmd	S2C	0/0/0/1	3	T_INT16	1	2	16			world_id	__int16		CharacterInfo
+17	I_SearchCharacterListOkCmd	S2C	0/0/0/2	3	T_STRING	5	0	20			world_name	PfString		CharacterInfo
+17	I_SearchCharacterListOkCmd	S2C	0/0/0/3	3	T_STRING	5	0	28			name	PfString		CharacterInfo
+17	I_SearchCharacterListOkCmd	S2C	0/0/0/4	3	T_INT16	1	2	36			job	__int16		CharacterInfo
+17	I_SearchCharacterListOkCmd	S2C	0/0/0/5	3	T_INT16	1	2	38			level	__int16		CharacterInfo
+18	I_SearchCharacterListFailCmd	S2C	0	0	T_INT16	1	2	16			reason	__int16		I_SearchCharacterListFailPacket
+19	I_RetrieveCharacterGuildInfoListReqCmd	C2S	0	0	T_REPEAT	14	2	16	0x14a0604	2	search_key	PfRepeat	IR_RetrieveCharacterGuildInfoSearchKeyListRptBody ❓	I_RetrieveCharacterGuildInfoListReqPacket
+19	I_RetrieveCharacterGuildInfoListReqCmd	C2S	0/0	1	T_INT64	3	8	8			pc_id	__int64		IR_RetrieveCharacterGuildInfoSearchKeyListRptBody
+19	I_RetrieveCharacterGuildInfoListReqCmd	C2S	0/1	1	T_INT16	1	2	16			world_id	__int16		IR_RetrieveCharacterGuildInfoSearchKeyListRptBody
+20	I_RetrieveCharacterGuildInfoListOkCmd	S2C	0	0	T_REPEAT	14	2	16	0x14a062c	4	character_guild_info_result_list	PfRepeat	IR_RetrieveCharacterGuildInfoResultListRptBody ❓	I_RetrieveCharacterGuildInfoListOkPacket
+20	I_RetrieveCharacterGuildInfoListOkCmd	S2C	0/0	1	T_INT64	3	8	8			pc_id	__int64		IR_RetrieveCharacterGuildInfoResultListRptBody
+20	I_RetrieveCharacterGuildInfoListOkCmd	S2C	0/1	1	T_INT64	3	8	16			guild_id	__int64		IR_RetrieveCharacterGuildInfoResultListRptBody
+20	I_RetrieveCharacterGuildInfoListOkCmd	S2C	0/2	1	T_STRING	5	0	24			guild_name	PfString		IR_RetrieveCharacterGuildInfoResultListRptBody
+20	I_RetrieveCharacterGuildInfoListOkCmd	S2C	0/3	1	T_REPEAT	14	2	32	0x14a0618	1	guild_uniform_param_list	PfRepeat	IR_GuildUniformParamListRptBody	IR_RetrieveCharacterGuildInfoResultListRptBody
+20	I_RetrieveCharacterGuildInfoListOkCmd	S2C	0/3/0	2	T_INT8	0	1	8			param	char		IR_GuildUniformParamListRptBody
+21	I_RetrieveCharacterGuildInfoListFailCmd	S2C	0	0	T_INT16	1	2	16			reason	__int16		I_RetrieveCharacterGuildInfoListFailPacket
+22	I_LoadCharacterClosetInfoListReqCmd	C2S	0	0	T_INT64	3	8	16			pc_id	__int64		I_LoadCharacterClosetInfoListReqPacket
+22	I_LoadCharacterClosetInfoListReqCmd	C2S	1	0	T_INT16	1	2	24			world_id	__int16		I_LoadCharacterClosetInfoListReqPacket
+23	I_LoadCharacterClosetInfoListOkCmd	S2C	0	0	T_REPEAT	14	2	16	0x14a0640	15	load_character_closet_info_result_list	PfRepeat	IR_LoadCharacterClosetInfoResultListRptBody	I_LoadCharacterClosetInfoListOkPacket
+23	I_LoadCharacterClosetInfoListOkCmd	S2C	0/0	1	T_INT32	2	4	8			closet_group_id	int		IR_LoadCharacterClosetInfoResultListRptBody
+23	I_LoadCharacterClosetInfoListOkCmd	S2C	0/1	1	T_INT32	2	4	12			item_data_id	int		IR_LoadCharacterClosetInfoResultListRptBody
+23	I_LoadCharacterClosetInfoListOkCmd	S2C	0/2	1	T_INT8	0	1	16			used	char		IR_LoadCharacterClosetInfoResultListRptBody
+23	I_LoadCharacterClosetInfoListOkCmd	S2C	0/3	1	T_INT8	0	1	17			locked	char		IR_LoadCharacterClosetInfoResultListRptBody
+23	I_LoadCharacterClosetInfoListOkCmd	S2C	0/4	1	T_INT64	3	8	24			lock_expiration_time	__int64		IR_LoadCharacterClosetInfoResultListRptBody
+23	I_LoadCharacterClosetInfoListOkCmd	S2C	0/5	1	T_INT8	0	1	32			time_limit_type	char		IR_LoadCharacterClosetInfoResultListRptBody
+23	I_LoadCharacterClosetInfoListOkCmd	S2C	0/6	1	T_INT64	3	8	40			time_limit_expiration_time	__int64		IR_LoadCharacterClosetInfoResultListRptBody
+23	I_LoadCharacterClosetInfoListOkCmd	S2C	0/7	1	T_INT8	0	1	48			custom_param_1	char		IR_LoadCharacterClosetInfoResultListRptBody
+23	I_LoadCharacterClosetInfoListOkCmd	S2C	0/8	1	T_INT8	0	1	49			custom_param_2	char		IR_LoadCharacterClosetInfoResultListRptBody
+23	I_LoadCharacterClosetInfoListOkCmd	S2C	0/9	1	T_INT8	0	1	50			custom_param_3	char		IR_LoadCharacterClosetInfoResultListRptBody
+23	I_LoadCharacterClosetInfoListOkCmd	S2C	0/10	1	T_INT8	0	1	51			custom_param_4	char		IR_LoadCharacterClosetInfoResultListRptBody
+23	I_LoadCharacterClosetInfoListOkCmd	S2C	0/11	1	T_INT8	0	1	52			custom_param_5	char		IR_LoadCharacterClosetInfoResultListRptBody
+23	I_LoadCharacterClosetInfoListOkCmd	S2C	0/12	1	T_INT8	0	1	53			custom_param_6	char		IR_LoadCharacterClosetInfoResultListRptBody
+23	I_LoadCharacterClosetInfoListOkCmd	S2C	0/13	1	T_INT8	0	1	54			custom_param_7	char		IR_LoadCharacterClosetInfoResultListRptBody
+23	I_LoadCharacterClosetInfoListOkCmd	S2C	0/14	1	T_INT8	0	1	55			custom_param_8	char		IR_LoadCharacterClosetInfoResultListRptBody
+24	I_LoadCharacterClosetInfoListFailCmd	S2C	0	0	T_INT16	1	2	16			reason	__int16		I_LoadCharacterClosetInfoListFailPacket
+25	I_RetrieveCurrentRankingListSummaryReqCmd	C2S	0	0	T_INT8	0	1	16			season_contents_type	char		I_RetrieveCurrentRankingListSummaryReqPacket
+26	I_RetrieveCurrentRankingListSummaryOkCmd	S2C	0	0	T_INT8	0	1	16			season_contents_type	char		I_RetrieveCurrentRankingListSummaryOkPacket
+26	I_RetrieveCurrentRankingListSummaryOkCmd	S2C	1	0	T_INT64	3	8	24			make_time	__int64		I_RetrieveCurrentRankingListSummaryOkPacket
+26	I_RetrieveCurrentRankingListSummaryOkCmd	S2C	2	0	T_REPEAT	14	2	32	0x14a0654	2	ranking_list_summary_list	PfRepeat	IR_RankingListSummaryInfoRptBody	I_RetrieveCurrentRankingListSummaryOkPacket
+26	I_RetrieveCurrentRankingListSummaryOkCmd	S2C	2/0	1	T_INT8	0	1	8			job	char		IR_RankingListSummaryInfoRptBody
+26	I_RetrieveCurrentRankingListSummaryOkCmd	S2C	2/1	1	T_INT8	0	1	9			total_page_number	char		IR_RankingListSummaryInfoRptBody
+27	I_RetrieveCurrentRankingListSummaryFailCmd	S2C	0	0	T_INT16	1	2	16			reason	__int16 (FailPacket)		I_RetrieveCurrentRankingListSummaryFailPacket
+28	I_RetrieveCurrentRankingListReqCmd	C2S	0	0	T_INT8	0	1	16			season_contents_type	char		I_RetrieveCurrentRankingListReqPacket
+28	I_RetrieveCurrentRankingListReqCmd	C2S	1	0	T_INT8	0	1	17			job	char		I_RetrieveCurrentRankingListReqPacket
+28	I_RetrieveCurrentRankingListReqCmd	C2S	2	0	T_INT8	0	1	18			page_number	char		I_RetrieveCurrentRankingListReqPacket
+29	I_RetrieveCurrentRankingListOkCmd	S2C	0	0	T_INT8	0	1	16			season_contents_type	char		I_RetrieveCurrentRankingListOkPacket
+29	I_RetrieveCurrentRankingListOkCmd	S2C	1	0	T_INT8	0	1	17			job	char		I_RetrieveCurrentRankingListOkPacket
+29	I_RetrieveCurrentRankingListOkCmd	S2C	2	0	T_INT8	0	1	18			page_number	char		I_RetrieveCurrentRankingListOkPacket
+29	I_RetrieveCurrentRankingListOkCmd	S2C	3	0	T_INT64	3	8	24			page_make_time	__int64		I_RetrieveCurrentRankingListOkPacket
+29	I_RetrieveCurrentRankingListOkCmd	S2C	4	0	T_REPEAT	14	2	32	0x14a0668	8	ranking_info_list	PfRepeat	IR_RankingInfoListRptBody	I_RetrieveCurrentRankingListOkPacket
+29	I_RetrieveCurrentRankingListOkCmd	S2C	4/0	1	T_INT32	2	4	8			ranking	int		IR_RankingInfoListRptBody
+29	I_RetrieveCurrentRankingListOkCmd	S2C	4/1	1	T_INT8	0	1	12			job	char		IR_RankingInfoListRptBody
+29	I_RetrieveCurrentRankingListOkCmd	S2C	4/2	1	T_STRING	5	0	16			pc_name	PfString		IR_RankingInfoListRptBody
+29	I_RetrieveCurrentRankingListOkCmd	S2C	4/3	1	T_INT16	1	2	24			world_id	__int16		IR_RankingInfoListRptBody
+29	I_RetrieveCurrentRankingListOkCmd	S2C	4/4	1	T_STRING	5	0	28			guild_name	PfString		IR_RankingInfoListRptBody
+29	I_RetrieveCurrentRankingListOkCmd	S2C	4/5	1	T_INT64	3	8	40			challenge_party_id	__int64		IR_RankingInfoListRptBody
+29	I_RetrieveCurrentRankingListOkCmd	S2C	4/6	1	T_INT64	3	8	48			primary_score	__int64		IR_RankingInfoListRptBody
+29	I_RetrieveCurrentRankingListOkCmd	S2C	4/7	1	T_INT64	3	8	56			last_modification_time	__int64		IR_RankingInfoListRptBody
+30	I_RetrieveCurrentRankingListFailCmd	S2C	0	0	T_INT16	1	2	16			reason	__int16 (FailPacket)		I_RetrieveCurrentRankingListFailPacket
+31	I_RetrieveGuildMemberRankingInfoListReqCmd	C2S	0	0	T_INT8	0	1	16			season_contents_type	char		I_RetrieveGuildMemberRankingInfoListReqPacket
+31	I_RetrieveGuildMemberRankingInfoListReqCmd	C2S	1	0	T_INT64	3	8	24			guild_id	__int64		I_RetrieveGuildMemberRankingInfoListReqPacket
+32	I_RetrieveGuildMemberRankingInfoListOkCmd	S2C	0	0	T_INT8	0	1	16			season_contents_type	char		I_RetrieveGuildMemberRankingInfoListOkPacket
+32	I_RetrieveGuildMemberRankingInfoListOkCmd	S2C	1	0	T_INT64	3	8	24			list_make_time	__int64		I_RetrieveGuildMemberRankingInfoListOkPacket
+32	I_RetrieveGuildMemberRankingInfoListOkCmd	S2C	2	0	T_REPEAT	14	2	32	0x14a067c	4	guild_member_ranking_info	PfRepeat	IR_GuildMemberRankingInfoRptBody	I_RetrieveGuildMemberRankingInfoListOkPacket
+32	I_RetrieveGuildMemberRankingInfoListOkCmd	S2C	2/0	1	T_STRING	5	0	8			pc_name	PfString		IR_GuildMemberRankingInfoRptBody
+32	I_RetrieveGuildMemberRankingInfoListOkCmd	S2C	2/1	1	T_INT32	2	4	16			ranking_per_job	int		IR_GuildMemberRankingInfoRptBody
+32	I_RetrieveGuildMemberRankingInfoListOkCmd	S2C	2/2	1	T_INT64	3	8	24			primary_score	__int64		IR_GuildMemberRankingInfoRptBody
+32	I_RetrieveGuildMemberRankingInfoListOkCmd	S2C	2/3	1	T_INT64	3	8	32			last_modification_time	__int64		IR_GuildMemberRankingInfoRptBody
+33	I_RetrieveGuildMemberRankingInfoListFailCmd	S2C	0	0	T_INT16	1	2	16			reason	__int16 (FailPacket)		I_RetrieveGuildMemberRankingInfoListFailPacket
+34	I_RetrieveTimeAttackBestRecordReqCmd	C2S	0	0	T_INT8	0	1	16			season_contents_type	char		I_RetrieveTimeAttackBestRecordReqPacket
+34	I_RetrieveTimeAttackBestRecordReqCmd	C2S	1	0	T_INT8	0	1	17			job	char		I_RetrieveTimeAttackBestRecordReqPacket
+34	I_RetrieveTimeAttackBestRecordReqCmd	C2S	2	0	T_INT32	2	4	20			ranking_per_job	int		I_RetrieveTimeAttackBestRecordReqPacket
+34	I_RetrieveTimeAttackBestRecordReqCmd	C2S	3	0	T_INT64	3	8	24			guild_member_pc_id	__int64		I_RetrieveTimeAttackBestRecordReqPacket
+35	I_RetrieveTimeAttackBestRecordOkCmd	S2C	0	0	T_INT8	0	1	16			season_contents_type	char		I_RetrieveTimeAttackBestRecordOkPacket
+35	I_RetrieveTimeAttackBestRecordOkCmd	S2C	1	0	T_INT8	0	1	17			job	char		I_RetrieveTimeAttackBestRecordOkPacket
+35	I_RetrieveTimeAttackBestRecordOkCmd	S2C	2	0	T_INT32	2	4	20			ranking_per_job	int		I_RetrieveTimeAttackBestRecordOkPacket
+35	I_RetrieveTimeAttackBestRecordOkCmd	S2C	3	0	T_INT64	3	8	24			guild_member_pc_id	__int64		I_RetrieveTimeAttackBestRecordOkPacket
+35	I_RetrieveTimeAttackBestRecordOkCmd	S2C	4	0	T_STRING	5	0	32			ranker_name	PfString		I_RetrieveTimeAttackBestRecordOkPacket
+35	I_RetrieveTimeAttackBestRecordOkCmd	S2C	5	0	T_STRING	5	0	40			best_record	PfString		I_RetrieveTimeAttackBestRecordOkPacket
+36	I_RetrieveTimeAttackBestRecordFailCmd	S2C	0	0	T_INT16	1	2	16			reason	__int16 (FailPacket)		I_RetrieveTimeAttackBestRecordFailPacket
+37	I_RetrieveChallengePartyLogSummaryReqCmd	C2S	0	0	T_INT8	0	1	16			season_contents_type	char		I_RetrieveChallengePartyLogSummaryReqPacket
+37	I_RetrieveChallengePartyLogSummaryReqCmd	C2S	1	0	T_INT64	3	8	24			player_id	__int64		I_RetrieveChallengePartyLogSummaryReqPacket
+38	I_RetrieveChallengePartyLogSummaryOkCmd	S2C	0	0	T_INT8	0	1	16			season_contents_type	char		I_RetrieveChallengePartyLogSummaryOkPacket
+38	I_RetrieveChallengePartyLogSummaryOkCmd	S2C	1	0	T_INT64	3	8	24			player_id	__int64		I_RetrieveChallengePartyLogSummaryOkPacket
+38	I_RetrieveChallengePartyLogSummaryOkCmd	S2C	2	0	T_STRING	5	0	32			log_summary	PfString		I_RetrieveChallengePartyLogSummaryOkPacket
+39	I_RetrieveChallengePartyLogSummaryFailCmd	S2C	0	0	T_INT16	1	2	16			reason	__int16 (FailPacket)		I_RetrieveChallengePartyLogSummaryFailPacket
+41	I_LoadChatSpamFilterListOkCmd	S2C	0	0	T_REPEAT	14	2	16	0x14a0690	2	chat_spam_filter_result_list	PfRepeat	IR_ChatSpamFilterRptBody	I_LoadChatSpamFilterListOkPacket
+41	I_LoadChatSpamFilterListOkCmd	S2C	0/0	1	T_INT32	2	4	8			filterId	int		IR_ChatSpamFilterRptBody
+41	I_LoadChatSpamFilterListOkCmd	S2C	0/1	1	T_STRING	5	0	12			filterString	PfString		IR_ChatSpamFilterRptBody
+42	I_LoadChatSpamFilterListFailCmd	S2C	0	0	T_INT16	1	2	16			reason	__int16		I_LoadChatSpamFilterListFailPacket
+44	I_LoadGameTVScheduleOkCmd	S2C	0	0	T_STRING	5	0	16			url	PfString		I_LoadGameTVScheduleOkPacket
+44	I_LoadGameTVScheduleOkCmd	S2C	1	0	T_INT64	3	8	24			start_time_1	__int64		I_LoadGameTVScheduleOkPacket
+44	I_LoadGameTVScheduleOkCmd	S2C	2	0	T_INT64	3	8	32			end_time_1	__int64		I_LoadGameTVScheduleOkPacket
+44	I_LoadGameTVScheduleOkCmd	S2C	3	0	T_INT64	3	8	40			start_time_2	__int64		I_LoadGameTVScheduleOkPacket
+44	I_LoadGameTVScheduleOkCmd	S2C	4	0	T_INT64	3	8	48			end_time_2	__int64		I_LoadGameTVScheduleOkPacket
+44	I_LoadGameTVScheduleOkCmd	S2C	5	0	T_INT64	3	8	56			start_time_3	__int64		I_LoadGameTVScheduleOkPacket
+44	I_LoadGameTVScheduleOkCmd	S2C	6	0	T_INT64	3	8	64			end_time_3	__int64		I_LoadGameTVScheduleOkPacket
+44	I_LoadGameTVScheduleOkCmd	S2C	7	0	T_INT64	3	8	72			start_time_4	__int64		I_LoadGameTVScheduleOkPacket
+44	I_LoadGameTVScheduleOkCmd	S2C	8	0	T_INT64	3	8	80			end_time_4	__int64		I_LoadGameTVScheduleOkPacket
+45	I_LoadGameTVScheduleFailCmd	S2C	0	0	T_INT16	1	2	16			reason	__int16		I_LoadGameTVScheduleFailPacket
+46	I_RetrieveGuildJoinRenewalPcInfoReqCmd	C2S	0	0	T_INT16	1	2	16			world_cluster_id	__int16		I_RetrieveGuildJoinRenewalPcInfoReqPacket
+46	I_RetrieveGuildJoinRenewalPcInfoReqCmd	C2S	1	0	T_STRING	5	0	20			pc_name	PfString		I_RetrieveGuildJoinRenewalPcInfoReqPacket
+47	I_RetrieveGuildJoinRenewalPcInfoOkCmd	S2C	0	0	T_STRUCT	12	0	16	0x14a0550	7	guild_join_renewal_pc_info	GuildJoinRenewalPcInfo	GuildJoinRenewalPcInfo	I_RetrieveGuildJoinRenewalPcInfoOkPacket
+47	I_RetrieveGuildJoinRenewalPcInfoOkCmd	S2C	0/0	1	T_INT64	3	8	8			pcdbid	__int64		GuildJoinRenewalPcInfo
+47	I_RetrieveGuildJoinRenewalPcInfoOkCmd	S2C	0/1	1	T_STRING	5	0	16			pc_name	PfString		GuildJoinRenewalPcInfo
+47	I_RetrieveGuildJoinRenewalPcInfoOkCmd	S2C	0/2	1	T_INT16	1	2	24			job	__int16		GuildJoinRenewalPcInfo
+47	I_RetrieveGuildJoinRenewalPcInfoOkCmd	S2C	0/3	1	T_INT16	1	2	26			level	__int16		GuildJoinRenewalPcInfo
+47	I_RetrieveGuildJoinRenewalPcInfoOkCmd	S2C	0/4	1	T_INT16	1	2	28			mastery_level	__int16		GuildJoinRenewalPcInfo
+47	I_RetrieveGuildJoinRenewalPcInfoOkCmd	S2C	0/5	1	T_INT64	3	8	32			guild_id	__int64		GuildJoinRenewalPcInfo
+47	I_RetrieveGuildJoinRenewalPcInfoOkCmd	S2C	0/6	1	T_INT16	1	2	40			faction	__int16		GuildJoinRenewalPcInfo
+47	I_RetrieveGuildJoinRenewalPcInfoOkCmd	S2C	1	0	T_INT8	0	1	64			guild_invitation_refusal_seq	char		I_RetrieveGuildJoinRenewalPcInfoOkPacket
+48	I_RetrieveGuildJoinRenewalPcInfoFailCmd	S2C	0	0	T_INT16	1	2	16			reason	__int16		I_RetrieveGuildJoinRenewalPcInfoFailPacket
+49	I_RetrieveGuildJoinRenewalPcListReqCmd	C2S	0	0	T_INT16	1	2	16			world_cluster_id	__int16		I_RetrieveGuildJoinRenewalPcListReqPacket
+49	I_RetrieveGuildJoinRenewalPcListReqCmd	C2S	1	0	T_REPEAT	14	2	20	0x14a05a0	1	pcdbid_list	PfRepeat	IR_PcdbidListRptBody	I_RetrieveGuildJoinRenewalPcListReqPacket
+49	I_RetrieveGuildJoinRenewalPcListReqCmd	C2S	1/0	1	T_INT64	3	8	8			pcdbid	__int64		IR_PcdbidListRptBody
+50	I_RetrieveGuildJoinRenewalPcListOkCmd	S2C	0	0	T_REPEAT	14	2	16	0x14a06cc	1	guild_join_renewal_pc_list	PfRepeat	IR_GuildJoinRenewalPcListRptBody	I_RetrieveGuildJoinRenewalPcListOkPacket
+50	I_RetrieveGuildJoinRenewalPcListOkCmd	S2C	0/0	1	T_STRUCT	12	0	8	0x14a0550	7	guild_join_renewal_pc_info	GuildJoinRenewalPcInfo	GuildJoinRenewalPcInfo	IR_GuildJoinRenewalPcListRptBody
+50	I_RetrieveGuildJoinRenewalPcListOkCmd	S2C	0/0/0	2	T_INT64	3	8	8			pcdbid	__int64		GuildJoinRenewalPcInfo
+50	I_RetrieveGuildJoinRenewalPcListOkCmd	S2C	0/0/1	2	T_STRING	5	0	16			pc_name	PfString		GuildJoinRenewalPcInfo
+50	I_RetrieveGuildJoinRenewalPcListOkCmd	S2C	0/0/2	2	T_INT16	1	2	24			job	__int16		GuildJoinRenewalPcInfo
+50	I_RetrieveGuildJoinRenewalPcListOkCmd	S2C	0/0/3	2	T_INT16	1	2	26			level	__int16		GuildJoinRenewalPcInfo
+50	I_RetrieveGuildJoinRenewalPcListOkCmd	S2C	0/0/4	2	T_INT16	1	2	28			mastery_level	__int16		GuildJoinRenewalPcInfo
+50	I_RetrieveGuildJoinRenewalPcListOkCmd	S2C	0/0/5	2	T_INT64	3	8	32			guild_id	__int64		GuildJoinRenewalPcInfo
+50	I_RetrieveGuildJoinRenewalPcListOkCmd	S2C	0/0/6	2	T_INT16	1	2	40			faction	__int16		GuildJoinRenewalPcInfo
+51	I_RetrieveGuildJoinRenewalPcListFailCmd	S2C	0	0	T_INT16	1	2	16			reason	__int16		I_RetrieveGuildJoinRenewalPcListFailPacket
+52	I_RetrieveGuildJoinRenewalGuildInfoReqCmd	C2S	0	0	T_INT16	1	2	16			world_cluster_id	__int16		I_RetrieveGuildJoinRenewalGuildInfoReqPacket
+52	I_RetrieveGuildJoinRenewalGuildInfoReqCmd	C2S	1	0	T_STRING	5	0	20			guild_name	PfString		I_RetrieveGuildJoinRenewalGuildInfoReqPacket
+53	I_RetrieveGuildJoinRenewalGuildInfoOkCmd	S2C	0	0	T_STRUCT	12	0	16	0x14a0564	4	guild_join_renewal_guild_info	GuildJoinRenewalGuildInfo	GuildJoinRenewalGuildInfo	I_RetrieveGuildJoinRenewalGuildInfoOkPacket
+53	I_RetrieveGuildJoinRenewalGuildInfoOkCmd	S2C	0/0	1	T_INT64	3	8	8			guild_id	__int64		GuildJoinRenewalGuildInfo
+53	I_RetrieveGuildJoinRenewalGuildInfoOkCmd	S2C	0/1	1	T_STRING	5	0	16			guild_name	PfString		GuildJoinRenewalGuildInfo
+53	I_RetrieveGuildJoinRenewalGuildInfoOkCmd	S2C	0/2	1	T_INT16	1	2	24			faction	__int16		GuildJoinRenewalGuildInfo
+53	I_RetrieveGuildJoinRenewalGuildInfoOkCmd	S2C	0/3	1	T_INT8	0	1	26			guild_type	char		GuildJoinRenewalGuildInfo
+53	I_RetrieveGuildJoinRenewalGuildInfoOkCmd	S2C	1	0	T_INT8	0	1	48			guild_application_refusal_seq	char		I_RetrieveGuildJoinRenewalGuildInfoOkPacket
+54	I_RetrieveGuildJoinRenewalGuildInfoFailCmd	S2C	0	0	T_INT16	1	2	16			reason	__int16		I_RetrieveGuildJoinRenewalGuildInfoFailPacket
+55	I_RetrieveGuildJoinRenewalGuildListReqCmd	C2S	0	0	T_INT16	1	2	16			world_cluster_id	__int16		I_RetrieveGuildJoinRenewalGuildListReqPacket
+55	I_RetrieveGuildJoinRenewalGuildListReqCmd	C2S	1	0	T_REPEAT	14	2	20	0x14a05b4	1	guild_id_list	PfRepeat	IR_GuildIdListRptBody	I_RetrieveGuildJoinRenewalGuildListReqPacket
+55	I_RetrieveGuildJoinRenewalGuildListReqCmd	C2S	1/0	1	T_INT64	3	8	8			guild_id	__int64		IR_GuildIdListRptBody
+56	I_RetrieveGuildJoinRenewalGuildListOkCmd	S2C	0	0	T_REPEAT	14	2	16	0x14a06e0	1	guild_join_renewal_guild_list	PfRepeat	IR_GuildJoinRenewalGuildListRptBody	I_RetrieveGuildJoinRenewalGuildListOkPacket
+56	I_RetrieveGuildJoinRenewalGuildListOkCmd	S2C	0/0	1	T_STRUCT	12	0	8	0x14a0564	4	guild_join_renewal_guild_info	GuildJoinRenewalGuildInfo	GuildJoinRenewalGuildInfo	IR_GuildJoinRenewalGuildListRptBody
+56	I_RetrieveGuildJoinRenewalGuildListOkCmd	S2C	0/0/0	2	T_INT64	3	8	8			guild_id	__int64		GuildJoinRenewalGuildInfo
+56	I_RetrieveGuildJoinRenewalGuildListOkCmd	S2C	0/0/1	2	T_STRING	5	0	16			guild_name	PfString		GuildJoinRenewalGuildInfo
+56	I_RetrieveGuildJoinRenewalGuildListOkCmd	S2C	0/0/2	2	T_INT16	1	2	24			faction	__int16		GuildJoinRenewalGuildInfo
+56	I_RetrieveGuildJoinRenewalGuildListOkCmd	S2C	0/0/3	2	T_INT8	0	1	26			guild_type	char		GuildJoinRenewalGuildInfo
+57	I_RetrieveGuildJoinRenewalGuildListFailCmd	S2C	0	0	T_INT16	1	2	16			reason	__int16		I_RetrieveGuildJoinRenewalGuildListFailPacket
+58	I_RetrieveGuildPointInfoListReqCmd	C2S	0	0	T_INT16	1	2	16			world_cluster_id	__int16		I_RetrieveGuildPointInfoListReqPacket
+58	I_RetrieveGuildPointInfoListReqCmd	C2S	1	0	T_INT64	3	8	24			guild_id	__int64		I_RetrieveGuildPointInfoListReqPacket
+59	I_RetrieveGuildPointInfoListOkCmd	S2C	0	0	T_INT64	3	8	16			guild_id	__int64		I_RetrieveGuildPointInfoListOkPacket
+59	I_RetrieveGuildPointInfoListOkCmd	S2C	1	0	T_REPEAT	14	2	24	0x14a06f4	1	guild_member_guild_point_list	PfRepeat	IR_GuildMemberGuildPointListRptBody	I_RetrieveGuildPointInfoListOkPacket
+59	I_RetrieveGuildPointInfoListOkCmd	S2C	1/0	1	T_STRUCT	12	0	8	0x14a0578	2	guild_member_guild_point_info	GuildMemberGuildPointInfo	IR_RetrieveCharacterGuildInfoSearchKeyListRptBody ❓	IR_GuildMemberGuildPointListRptBody
+59	I_RetrieveGuildPointInfoListOkCmd	S2C	1/0/0	2	T_INT64	3	8	8			pc_id	__int64		IR_RetrieveCharacterGuildInfoSearchKeyListRptBody
+59	I_RetrieveGuildPointInfoListOkCmd	S2C	1/0/1	2	T_INT64	3	8	16			world_id	__int16		IR_RetrieveCharacterGuildInfoSearchKeyListRptBody
+60	I_RetrieveGuildPointInfoListFailCmd	S2C	0	0	T_INT16	1	2	16			reason	__int16		I_RetrieveGuildPointInfoListFailPacket
+61	I_AddChatSpamFilterListNotifyCmd	S2C	0	0	T_REPEAT	14	2	16	0x14a0690	2	chat_spam_filter_list	PfRepeat	IR_ChatSpamFilterRptBody	I_AddChatSpamFilterListNotifyPacket
+61	I_AddChatSpamFilterListNotifyCmd	S2C	0/0	1	T_INT32	2	4	8			filterId	int		IR_ChatSpamFilterRptBody
+61	I_AddChatSpamFilterListNotifyCmd	S2C	0/1	1	T_STRING	5	0	12			filterString	PfString		IR_ChatSpamFilterRptBody
+62	I_DeleteChatSpamFilterListNotifyCmd	S2C	0	0	T_REPEAT	14	2	16	0x14a06a4	1	chat_spam_filter_id_list	PfRepeat	IR_GuildJoinRenewalPcListRptBody ❓	I_DeleteChatSpamFilterListNotifyPacket
+62	I_DeleteChatSpamFilterListNotifyCmd	S2C	0/0	1	T_INT32	2	4	8			guild_join_renewal_pc_info	GuildJoinRenewalPcInfo		IR_GuildJoinRenewalPcListRptBody
+63	I_UpdateGameTVScheduleNotifyCmd	S2C	0	0	T_STRING	5	0	16			url	PfString		I_UpdateGameTVScheduleNotifyPacket
+63	I_UpdateGameTVScheduleNotifyCmd	S2C	1	0	T_INT64	3	8	24			start_time_1	__int64		I_UpdateGameTVScheduleNotifyPacket
+63	I_UpdateGameTVScheduleNotifyCmd	S2C	2	0	T_INT64	3	8	32			end_time_1	__int64		I_UpdateGameTVScheduleNotifyPacket
+63	I_UpdateGameTVScheduleNotifyCmd	S2C	3	0	T_INT64	3	8	40			start_time_2	__int64		I_UpdateGameTVScheduleNotifyPacket
+63	I_UpdateGameTVScheduleNotifyCmd	S2C	4	0	T_INT64	3	8	48			end_time_2	__int64		I_UpdateGameTVScheduleNotifyPacket
+63	I_UpdateGameTVScheduleNotifyCmd	S2C	5	0	T_INT64	3	8	56			start_time_3	__int64		I_UpdateGameTVScheduleNotifyPacket
+63	I_UpdateGameTVScheduleNotifyCmd	S2C	6	0	T_INT64	3	8	64			end_time_3	__int64		I_UpdateGameTVScheduleNotifyPacket
+63	I_UpdateGameTVScheduleNotifyCmd	S2C	7	0	T_INT64	3	8	72			start_time_4	__int64		I_UpdateGameTVScheduleNotifyPacket
+63	I_UpdateGameTVScheduleNotifyCmd	S2C	8	0	T_INT64	3	8	80			end_time_4	__int64		I_UpdateGameTVScheduleNotifyPacket
+64	I_BoastEventInWorldNotifyCmd	S2C	0	0	T_STRING	5	0	16			pc_name	PfString		I_BoastEventInWorldNotifyPacket
+64	I_BoastEventInWorldNotifyCmd	S2C	1	0	T_INT16	1	2	24			boast_event_data_id	__int16		I_BoastEventInWorldNotifyPacket
+65	I_RetrieveOpenGuildRecommendListReqCmd	C2S	0	0	T_INT16	1	2	16			world_id	__int16		I_RetrieveOpenGuildRecommendListReqPacket
+65	I_RetrieveOpenGuildRecommendListReqCmd	C2S	1	0	T_INT8	0	1	18			faction	char		I_RetrieveOpenGuildRecommendListReqPacket
+66	I_RetrieveOpenGuildRecommendListOkCmd	S2C	0	0	T_REPEAT	14	2	16	0x14a06b8	3	recommendation_guild_list	PfRepeat	IR_OpenGuildNameListRptBody	I_RetrieveOpenGuildRecommendListOkPacket
+66	I_RetrieveOpenGuildRecommendListOkCmd	S2C	0/0	1	T_INT64	3	8	8			guild_id	__int64		IR_OpenGuildNameListRptBody
+66	I_RetrieveOpenGuildRecommendListOkCmd	S2C	0/1	1	T_STRING	5	0	16			guild_name	PfString		IR_OpenGuildNameListRptBody
+66	I_RetrieveOpenGuildRecommendListOkCmd	S2C	0/2	1	T_INT8	0	1	24			guild_member_count	char		IR_OpenGuildNameListRptBody
+67	I_RetrieveOpenGuildRecommendListFailCmd	S2C	0	0	T_INT16	1	2	16			reason	__int16		I_RetrieveOpenGuildRecommendListFailPacket
+68	I_EnterWorldNotifyReqCmd	C2S	0	0	T_INT16	1	2	16			world_cluster_id	__int16		I_EnterWorldNotifyReqPacket
+70	I_RetrievePcNameListReqCmd	C2S	0	0	T_INT16	1	2	16			world_cluster_id	__int16		I_RetrievePcNameListReqPacket
+70	I_RetrievePcNameListReqCmd	C2S	1	0	T_REPEAT	14	2	20	0x14a05a0	1	pcdbid_list	PfRepeat	IR_PcdbidListRptBody	I_RetrievePcNameListReqPacket
+70	I_RetrievePcNameListReqCmd	C2S	1/0	1	T_INT64	3	8	8			pcdbid	__int64		IR_PcdbidListRptBody
+71	I_RetrievePcNameListOkCmd	S2C	0	0	T_REPEAT	14	2	16	0x14a0708	2	pc_list	PfRepeat	IR_RetrieveCharacterGuildInfoSearchKeyListRptBody ❓	I_RetrievePcNameListOkPacket
+71	I_RetrievePcNameListOkCmd	S2C	0/0	1	T_INT64	3	8	8			pc_id	__int64		IR_RetrieveCharacterGuildInfoSearchKeyListRptBody
+71	I_RetrievePcNameListOkCmd	S2C	0/1	1	T_STRING	5	0	16			world_id	__int16		IR_RetrieveCharacterGuildInfoSearchKeyListRptBody
+72	I_RetrievePcNameListFailCmd	S2C	0	0	T_INT16	1	2	16			reason	__int16		I_RetrievePcNameListFailPacket
