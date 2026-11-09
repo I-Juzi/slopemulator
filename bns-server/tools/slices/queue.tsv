@@ -14,8 +14,8 @@ cx-03	spec	opus	-	Docs/Client/RE/	-	150	done	client RE: STS client (login to StS
 cx-04	spec	opus	-	Docs/Client/RE/	-	150	blocked	client RE: LobbyGate session
 cx-05	spec	opus	-	Docs/Client/RE/	-	150	done	client RE: Game session and command dispatch
 cx-06	spec	opus	-	Docs/Client/RE/	-	150	done	client RE: Movement and position sync
-cx-07	spec	opus	-	Docs/Client/RE/	-	150	ready	client RE: Skills and combat
-cx-08	spec	opus	-	Docs/Client/RE/	-	150	ready	client RE: Player, NPC and world objects
+cx-07	spec	opus	-	Docs/Client/RE/	-	150	blocked	client RE: Skills and combat
+cx-08	spec	opus	-	Docs/Client/RE/	-	150	done	client RE: Player, NPC and world objects
 cx-09	spec	opus	-	Docs/Client/RE/	-	150	ready	client RE: Items, inventory and equipment
 cx-10	spec	opus	-	Docs/Client/RE/	-	150	ready	client RE: Quests, NPC talk and zones
 cx-11	spec	opus	-	Docs/Client/RE/	-	150	ready	client RE: Party, guild, chat, mail, market

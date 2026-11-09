@@ -1,0 +1,1860 @@
+addr_381	class	name_381	size	string_count	first_string
+0x401920	Data	Data::ZoneRespawnRecordPtr::operator bool(void)	42	0	
+0x4028c0	Data	Data::SummonedLevelRecordPtr::~SummonedLevelRecordPtr(void)	46	0	
+0x405e10	Data	Data::ZoneEnv2SpawnRecordPtr::~ZoneEnv2SpawnRecordPtr(void)	42	0	
+0x406810	Data	Data::CreatureAppearanceRecordPtr::~CreatureAppearanceRecordPtr(void)	42	0	
+0x4068e0	Data	Data::ZonePcSpawnRecordPtr::~ZonePcSpawnRecordPtr(void)	46	0	
+0x40ba50	std	std::vector<BPTCreature::SoulMaskExhaustionPendingShowInfo,std::allocator<BPTCreature::SoulMaskExhaustionPendingShowInfo>>::_Ufill(BPTCreature::SoulMaskExhaustionPendingShowInfo *,uint,BPTCreature::SoulMaskExhaustionPendingShowInfo const &)	38	0	
+0x40d130	std	std::vector<ObjectIDInfo,std::allocator<ObjectIDInfo>>::_Ufill(ObjectIDInfo *,uint,ObjectIDInfo const &)	32	0	
+0x4174c0	std	std::_Allocate<BPTCreature::SoulMaskExhaustionPendingShowInfo>(uint,BPTCreature::SoulMaskExhaustionPendingShowInfo *)	120	0	
+0x4186d0	std	std::_Copy_opt<BPTCreature::SoulMaskExhaustionPendingShowInfo *,BPTCreature::SoulMaskExhaustionPendingShowInfo *>(BPTCreature::SoulMaskExhaustionPendingShowInfo *,BPTCreature::SoulMaskExhaustionPendingShowInfo *,BPTCreature::SoulMaskExhaustionPendingShowInfo *,std::random_access_iterator_tag,std::_Nonscalar_ptr_iterator_tag,std::_Range_checked_iterator_tag)	73	0	
+0x418720	std	std::_Uninit_fill_n<BPTCreature::SoulMaskExhaustionPendingShowInfo *,uint,BPTCreature::SoulMaskExhaustionPendingShowInfo,std::allocator<BPTCreature::SoulMaskExhaustionPendingShowInfo>>(BPTCreature::SoulMaskExhaustionPendingShowInfo *,uint,BPTCreature::SoulMaskExhaustionPendingShowInfo const &,std::allocator<BPTCreature::SoulMaskExhaustionPendingShowInfo> &,std::_Nonscalar_ptr_iterator_tag,std::_Range_checked_iterator_tag)	154	0	
+0x41c350	BCreature	BCreature::GetEffectFlag(int)	79	0	
+0x41c3a0	BCreature	BCreature::CheckEffectAttribute(int)	61	0	
+0x41c3e0	BCreature	BCreature::IsImmuneBreakDurationOver(void)	55	0	
+0x41dd40	BUiWorld	BUiWorld::ShowPhotoAlbum(bool,bool,int,CreatureProperty const &)	70	0	
+0x41f080	ObjectDistanceInfo	ObjectDistanceInfo::ObjectDistanceInfo(unsigned __int64,BPTControlledCreature::TARGET_SUB_TYPE,float,float,float)	44	0	
+0x420480	BNpcDeadBody	BNpcDeadBody::GetDeadBodyPos(void)	41	0	
+0x424680	std	std::vector<BPTCreature::SoulMaskExhaustionPendingShowInfo,std::allocator<BPTCreature::SoulMaskExhaustionPendingShowInfo>>::push_back(BPTCreature::SoulMaskExhaustionPendingShowInfo const &)	162	0	
+0x429030	std	std::vector<BPTCreature::SoulMaskExhaustionPendingShowInfo,std::allocator<BPTCreature::SoulMaskExhaustionPendingShowInfo>>::insert(std::_Vector_iterator<BPTCreature::SoulMaskExhaustionPendingShowInfo,std::allocator<BPTCreature::SoulMaskExhaustionPendingShowInfo>>,BPTCreature::SoulMaskExhaustionPendingShowInfo const &)	181	0	
+0x4290f0	std	std::vector<BPTCreature::SoulMaskExhaustionPendingShowInfo,std::allocator<BPTCreature::SoulMaskExhaustionPendingShowInfo>>::erase(std::_Vector_iterator<BPTCreature::SoulMaskExhaustionPendingShowInfo,std::allocator<BPTCreature::SoulMaskExhaustionPendingShowInfo>>,std::_Vector_iterator<BPTCreature::SoulMaskExhaustionPendingShowInfo,std::allocator<BPTCreature::SoulMaskExhaustionPendingShowInfo>>)	125	0	
+0x42f5a0	std	std::vector<BPTCreature::SoulMaskExhaustionPendingShowInfo,std::allocator<BPTCreature::SoulMaskExhaustionPendingShowInfo>>::_Insert_n(std::_Vector_iterator<BPTCreature::SoulMaskExhaustionPendingShowInfo,std::allocator<BPTCreature::SoulMaskExhaustionPendingShowInfo>>,uint,BPTCreature::SoulMaskExhaustionPendingShowInfo const &)	797	0	
+0x437b80	std	std::vector<BPTCreature::SoulMaskExhaustionPendingShowInfo,std::allocator<BPTCreature::SoulMaskExhaustionPendingShowInfo>>::_Umove<BPTCreature::SoulMaskExhaustionPendingShowInfo *>(BPTCreature::SoulMaskExhaustionPendingShowInfo *,BPTCreature::SoulMaskExhaustionPendingShowInfo *,BPTCreature::SoulMaskExhaustionPendingShowInfo *)	35	0	
+0x43cde0	std	std::_Copy_backward_opt<BPTCreature::SoulMaskExhaustionPendingShowInfo *,BPTCreature::SoulMaskExhaustionPendingShowInfo *>(BPTCreature::SoulMaskExhaustionPendingShowInfo *,BPTCreature::SoulMaskExhaustionPendingShowInfo *,BPTCreature::SoulMaskExhaustionPendingShowInfo *,std::random_access_iterator_tag,std::_Nonscalar_ptr_iterator_tag,std::_Range_checked_iterator_tag)	78	0	
+0x43f1e0	std	std::_Uninit_copy<BPTCreature::SoulMaskExhaustionPendingShowInfo *,BPTCreature::SoulMaskExhaustionPendingShowInfo *,std::allocator<BPTCreature::SoulMaskExhaustionPendingShowInfo>>(BPTCreature::SoulMaskExhaustionPendingShowInfo *,BPTCreature::SoulMaskExhaustionPendingShowInfo *,BPTCreature::SoulMaskExhaustionPendingShowInfo *,std::allocator<BPTCreature::SoulMaskExhaustionPendingShowInfo> &,std::_Nonscalar_ptr_iterator_tag,std::_Range_checked_iterator_tag)	156	0	
+0x43fa60		[thunk]:BAutomatedCreature::`vector deleting destructor'`adjustor{24}' (uint)	8	0	
+0x43fae0		[thunk]:BAutomatedCreature::`vector deleting destructor'`adjustor{28}' (uint)	8	0	
+0x43fdf0	CreaturePropertySync	CreaturePropertySync::FieldCount(void)	7	0	
+0x43fe70	CreaturePropertySync	CreaturePropertySync::FieldInfo(void)	7	0	
+0x44b0d0	BControlledCreature	BControlledCreature::GetControlId(void)	3	0	
+0x44d500	PresentationWorld	PresentationWorld::GetRelatedGameObjectId(EInterface::Handle const &)	92	0	
+0x4500e0	std	std::_Tree<std::_Tmap_traits<uint,PTPhantomWeapon::DelayRespawnInfo,std::less<uint>,std::allocator<std::pair<uint const,PTPhantomWeapon::DelayRespawnInfo>>,0>>::clear(void)	43	0	
+0x4576f0	std	std::_Tree<std::_Tmap_traits<__int64,BattleObjectBrowser::BattleCreature,std::less<__int64>,std::allocator<std::pair<__int64 const,BattleObjectBrowser::BattleCreature>>,0>>::_Max(std::_Tree_nod<std::_Tmap_traits<__int64,BattleObjectBrowser::BattleCreature,std::less<__int64>,std::allocator<std::pair<__int64 const,BattleObjectBrowser::BattleCreature>>,0>>::_Node *)	28	0	
+0x45b840	std	std::_Copy_backward_opt<ObjectIDInfo *,ObjectIDInfo *>(ObjectIDInfo *,ObjectIDInfo *,ObjectIDInfo *,std::random_access_iterator_tag,std::_Nonscalar_ptr_iterator_tag,std::_Range_checked_iterator_tag)	59	0	
+0x45dd70	Data	Data::SummonedPresetRecordPtr::~SummonedPresetRecordPtr(void)	51	0	
+0x45dfc0	Data	Data::SummonedAppearanceRecordPtr::~SummonedAppearanceRecordPtr(void)	46	0	
+0x460740	BSummonedSequenceLoader	BSummonedSequenceLoader::BSummonedSequenceLoader(int)	31	0	
+0x465c40		TracableProperty<CreatureProperty>::SetSync(PropertySync const *)	244	0	
+0x465d40		TracableProperty<CreatureProperty>::SetPair(PropertyPair const *)	218	0	
+0x465e20		TracableProperty<ExtraCreatureProperty>::SetPair(PropertyPair const *)	215	0	
+0x465f00		TracableProperty<CreatureProperty>::Set<short>(short,short)	213	0	
+0x465fe0		TracableProperty<CreatureProperty>::Set<int>(short,int)	200	0	
+0x46a4f0	FishingPropertySync	FishingPropertySync::FieldInfo(void)	6	0	
+0x46a8f0		GetEffectFlag(CreatureProperty const &,int)	69	0	
+0x46b650	DuelTeamMemberSlot	DuelTeamMemberSlot::InitializeSummoned(uint,uint,uint,uint,uint,uint,uint)	3	0	
+0x46c720	Data	Data::ZoneEnv2SpawnRecordPtr::ZoneEnv2SpawnRecordPtr(Data::ZoneEnv2SpawnRecordPtr const &)	85	0	
+0x46ca40	Data	Data::SummonedBeautyShopRecordPtr::~SummonedBeautyShopRecordPtr(void)	42	0	
+0x4709c0	std	std::vector<GameEditNetObjectEventHandler *,std::allocator<GameEditNetObjectEventHandler *>>::_Xran(void)	95	1	invalid vector<T> subscript
+0x481e90	std	std::vector<GameEditNetObjectEventHandler *,std::allocator<GameEditNetObjectEventHandler *>>::at(uint)	89	0	
+0x485760	std	std::_Tree<std::_Tmap_traits<__int64,BattleObjectBrowser::BattleCreature,std::less<__int64>,std::allocator<std::pair<__int64 const,BattleObjectBrowser::BattleCreature>>,0>>::find(__int64 const &)	107	0	
+0x48fe00	std	std::_Tree<std::_Tmap_traits<__int64,BattleObjectBrowser::BattleCreature,std::less<__int64>,std::allocator<std::pair<__int64 const,BattleObjectBrowser::BattleCreature>>,0>>::_Lbound(__int64 const &)	53	0	
+0x497b90	std	std::_Allocate<ObjectIDInfo>(uint,ObjectIDInfo *)	112	0	
+0x4a4b90	SummonedBeautyShopPanel	SummonedBeautyShopPanel::BeautyIcon::BeautyIcon(void)	13	0	
+0x4b1860	std	std::_Tree<std::_Tmap_traits<__int64,BattleObjectBrowser::BattleCreature,std::less<__int64>,std::allocator<std::pair<__int64 const,BattleObjectBrowser::BattleCreature>>,0>>::_Lrotate(std::_Tree_nod<std::_Tmap_traits<__int64,BattleObjectBrowser::BattleCreature,std::less<__int64>,std::allocator<std::pair<__int64 const,BattleObjectBrowser::BattleCreature>>,0>>::_Node *)	76	0	
+0x4b40f0	std	std::_Tree<std::_Tmap_traits<__int64,BattleObjectBrowser::BattleCreature,std::less<__int64>,std::allocator<std::pair<__int64 const,BattleObjectBrowser::BattleCreature>>,0>>::const_iterator::_Dec(void)	131	0	
+0x4b4180	std	std::_Tree<std::_Tmap_traits<__int64,BattleObjectBrowser::BattleCreature,std::less<__int64>,std::allocator<std::pair<__int64 const,BattleObjectBrowser::BattleCreature>>,0>>::const_iterator::_Inc(void)	99	0	
+0x4b4b00	std	std::fill<ObjectIDInfo *,ObjectIDInfo>(ObjectIDInfo *,ObjectIDInfo *,ObjectIDInfo const &)	47	0	
+0x4bb2a0	std	std::_Uninit_copy<ObjectIDInfo *,ObjectIDInfo *,std::allocator<ObjectIDInfo>>(ObjectIDInfo *,ObjectIDInfo *,ObjectIDInfo *,std::allocator<ObjectIDInfo> &,std::_Nonscalar_ptr_iterator_tag,std::_Range_checked_iterator_tag)	54	0	
+0x4ca510	ItemTabularGraph	ItemTabularGraph::GetBrandItem<std::binder2nd<std::greater_equal<int>>>(unsigned __int64,CreatureProperty::Job,std::binder2nd<std::greater_equal<int>>)	522	0	
+0x4ca720	ItemTabularGraph	ItemTabularGraph::GetBrandItem<std::binder2nd<std::greater_equal<char>>>(unsigned __int64,CreatureProperty::Job,std::binder2nd<std::greater_equal<char>>)	521	0	
+0x4d6c70	BPTPlayer	BPTPlayer::StartHyperMove(int)	22	0	
+0x4d6c90	BPTPlayer	BPTPlayer::EndHyperMove(void)	18	0	
+0x4e13b0	Data	Data::NpctalkmessageRecordMakeSummonedPtr::~NpctalkmessageRecordMakeSummonedPtr(void)	78	0	
+0x4e1400	Data	Data::NpctalkmessageRecordSummonedNameChangePtr::~NpctalkmessageRecordSummonedNameChangePtr(void)	78	0	
+0x4e1cf0	Data	Data::FielditemDropRecordNpcDeadbodyPtr::~FielditemDropRecordNpcDeadbodyPtr(void)	78	0	
+0x4efeb0	ExtraCreaturePropertySync	ExtraCreaturePropertySync::FieldInfo(void)	6	0	
+0x4f00b0	BPTCreature	BPTCreature::makeNamePlateFontSet(std::basic_string<wchar_t,std::char_traits<wchar_t>,std::allocator<wchar_t>>,BPTCreature::NAMEPLATE_LINE_TYPE)	117	0	
+0x4f0140	DataBrowser	DataBrowser::ProcessGameEditNetObjectEvent(StructPacket const *)	5	0	
+0x4f01f0	BPTControlledCreature	BPTControlledCreature::GetMovelistLastPosition(void)	17	0	
+0x4f0aa0	BUiWorld	BUiWorld::ShowCharacterShotWindow(bool,bool,int,CreatureProperty const &,uint)	73	0	
+0x4f2d90	BPTNpcDeadBody	BPTNpcDeadBody::BPTNpcDeadBody(BGameObject *,PresentationWorld *,unsigned __int64)	112	0	
+0x4f2e00	BPTNpcDeadBody	BPTNpcDeadBody::~BPTNpcDeadBody(void)	264	0	
+0x4f3220	PlayerAbilityRemasterPanel	PlayerAbilityRemasterPanel::IsSummoned(void)	10	0	
+0x5017d0		TracableProperty<CreatureProperty>::SetPair(PropertyPair const *,short)	225	0	
+0x5018c0		TracableProperty<ExtraCreatureProperty>::SetSync(PropertySync const *)	238	0	
+0x5019b0		TracableProperty<CreatureProperty>::Set<__int64>(short,__int64)	181	0	
+0x502650	std	std::vector<ObjectIDInfo,std::allocator<ObjectIDInfo>>::_Umove<ObjectIDInfo *>(ObjectIDInfo *,ObjectIDInfo *,ObjectIDInfo *)	34	0	
+0x50c720	BPTPlayerSummoned	BPTPlayerSummoned::BPTPlayerSummoned(BGameObject *,PresentationWorld *)	166	0	
+0x50c9f0	PTNpcSocial	PTNpcSocial::IsQuestIndicator(void)	22	0	
+0x50cd10	BPTNpc	BPTNpc::~BPTNpc(void)	337	0	
+0x50ce70	BPTNpc	BPTNpc::IsHighPriorityIndicator(char,char,char)	69	0	
+0x50d350	BPTPlayer	BPTPlayer::IsMoving(void)	32	0	
+0x50d370	BPTPlayer	BPTPlayer::IsMovingByInput(void)	45	0	
+0x50ded0	PTNpcSocial	PTNpcSocial::PTNpcSocial(void)	77	0	
+0x50e5f0	std	std::vector<BPTCreature::SoulMaskEffectDetachPendingShowInfo,std::allocator<BPTCreature::SoulMaskEffectDetachPendingShowInfo>>::push_back(BPTCreature::SoulMaskEffectDetachPendingShowInfo const &)	158	0	
+0x50f040	std	std::vector<BPTCreature::SoulMaskEffectDetachPendingShowInfo,std::allocator<BPTCreature::SoulMaskEffectDetachPendingShowInfo>>::insert(std::_Vector_iterator<BPTCreature::SoulMaskEffectDetachPendingShowInfo,std::allocator<BPTCreature::SoulMaskEffectDetachPendingShowInfo>>,BPTCreature::SoulMaskEffectDetachPendingShowInfo const &)	174	0	
+0x50f0f0	std	std::vector<BPTCreature::SoulMaskEffectDetachPendingShowInfo,std::allocator<BPTCreature::SoulMaskEffectDetachPendingShowInfo>>::erase(std::_Vector_iterator<BPTCreature::SoulMaskEffectDetachPendingShowInfo,std::allocator<BPTCreature::SoulMaskEffectDetachPendingShowInfo>>,std::_Vector_iterator<BPTCreature::SoulMaskEffectDetachPendingShowInfo,std::allocator<BPTCreature::SoulMaskEffectDetachPendingShowInfo>>)	126	0	
+0x50f170	std	std::vector<BPTCreature::SoulMaskEffectDetachPendingShowInfo,std::allocator<BPTCreature::SoulMaskEffectDetachPendingShowInfo>>::_Ufill(BPTCreature::SoulMaskEffectDetachPendingShowInfo *,uint,BPTCreature::SoulMaskEffectDetachPendingShowInfo const &)	34	0	
+0x50fb50	std	std::vector<BPTCreature::SoulMaskEffectDetachPendingShowInfo,std::allocator<BPTCreature::SoulMaskEffectDetachPendingShowInfo>>::_Insert_n(std::_Vector_iterator<BPTCreature::SoulMaskEffectDetachPendingShowInfo,std::allocator<BPTCreature::SoulMaskEffectDetachPendingShowInfo>>,uint,BPTCreature::SoulMaskEffectDetachPendingShowInfo const &)	787	0	
+0x50fe70	std	std::vector<BPTCreature::SoulMaskExhaustionPendingShowInfo,std::allocator<BPTCreature::SoulMaskExhaustionPendingShowInfo>>::_Destroy(BPTCreature::SoulMaskExhaustionPendingShowInfo *,BPTCreature::SoulMaskExhaustionPendingShowInfo *)	24	0	
+0x510420		TracableProperty<CreatureProperty>::Set<char>(short,char)	211	0	
+0x510640	std	std::vector<BPTCreature::SoulMaskEffectDetachPendingShowInfo,std::allocator<BPTCreature::SoulMaskEffectDetachPendingShowInfo>>::_Umove<BPTCreature::SoulMaskEffectDetachPendingShowInfo *>(BPTCreature::SoulMaskEffectDetachPendingShowInfo *,BPTCreature::SoulMaskEffectDetachPendingShowInfo *,BPTCreature::SoulMaskEffectDetachPendingShowInfo *)	35	0	
+0x510670	std	std::fill<BPTCreature::SoulMaskExhaustionPendingShowInfo *,BPTCreature::SoulMaskExhaustionPendingShowInfo>(BPTCreature::SoulMaskExhaustionPendingShowInfo *,BPTCreature::SoulMaskExhaustionPendingShowInfo *,BPTCreature::SoulMaskExhaustionPendingShowInfo const &)	35	0	
+0x5109b0	std	std::_Copy_opt<BPTCreature::SoulMaskEffectDetachPendingShowInfo *,BPTCreature::SoulMaskEffectDetachPendingShowInfo *>(BPTCreature::SoulMaskEffectDetachPendingShowInfo *,BPTCreature::SoulMaskEffectDetachPendingShowInfo *,BPTCreature::SoulMaskEffectDetachPendingShowInfo *,std::random_access_iterator_tag,std::_Nonscalar_ptr_iterator_tag,std::_Range_checked_iterator_tag)	78	0	
+0x510a00	std	std::_Uninit_fill_n<BPTCreature::SoulMaskEffectDetachPendingShowInfo *,uint,BPTCreature::SoulMaskEffectDetachPendingShowInfo,std::allocator<BPTCreature::SoulMaskEffectDetachPendingShowInfo>>(BPTCreature::SoulMaskEffectDetachPendingShowInfo *,uint,BPTCreature::SoulMaskEffectDetachPendingShowInfo const &,std::allocator<BPTCreature::SoulMaskEffectDetachPendingShowInfo> &,std::_Nonscalar_ptr_iterator_tag,std::_Range_checked_iterator_tag)	143	0	
+0x510b20	std	std::_Fill<BPTCreature::SoulMaskEffectDetachPendingShowInfo *,BPTCreature::SoulMaskEffectDetachPendingShowInfo>(BPTCreature::SoulMaskEffectDetachPendingShowInfo *,BPTCreature::SoulMaskEffectDetachPendingShowInfo *,BPTCreature::SoulMaskEffectDetachPendingShowInfo const &)	53	0	
+0x510e10	std	std::_Copy_opt<BPTCreature::SoulMaskEffectDetachPendingShowInfo *,BPTCreature::SoulMaskEffectDetachPendingShowInfo *,std::forward_iterator_tag>(BPTCreature::SoulMaskEffectDetachPendingShowInfo *,BPTCreature::SoulMaskEffectDetachPendingShowInfo *,BPTCreature::SoulMaskEffectDetachPendingShowInfo *,std::forward_iterator_tag,std::_Nonscalar_ptr_iterator_tag,std::_Range_checked_iterator_tag)	61	0	
+0x510f30	std	std::_Copy_backward_opt<BPTCreature::SoulMaskEffectDetachPendingShowInfo *,BPTCreature::SoulMaskEffectDetachPendingShowInfo *>(BPTCreature::SoulMaskEffectDetachPendingShowInfo *,BPTCreature::SoulMaskEffectDetachPendingShowInfo *,BPTCreature::SoulMaskEffectDetachPendingShowInfo *,std::random_access_iterator_tag,std::_Nonscalar_ptr_iterator_tag,std::_Range_checked_iterator_tag)	82	0	
+0x510f90	std	std::_Construct<BPTCreature::SoulMaskEffectDetachPendingShowInfo,BPTCreature::SoulMaskEffectDetachPendingShowInfo>(BPTCreature::SoulMaskEffectDetachPendingShowInfo *,BPTCreature::SoulMaskEffectDetachPendingShowInfo const &)	102	0	
+0x511080	std	std::_Copy_backward_opt<BPTCreature::SoulMaskEffectDetachPendingShowInfo *,BPTCreature::SoulMaskEffectDetachPendingShowInfo *,std::forward_iterator_tag>(BPTCreature::SoulMaskEffectDetachPendingShowInfo *,BPTCreature::SoulMaskEffectDetachPendingShowInfo *,BPTCreature::SoulMaskEffectDetachPendingShowInfo *,std::forward_iterator_tag,std::_Nonscalar_ptr_iterator_tag,std::_Range_checked_iterator_tag)	62	0	
+0x511290	std	std::_Uninit_copy<BPTCreature::SoulMaskEffectDetachPendingShowInfo *,BPTCreature::SoulMaskEffectDetachPendingShowInfo *,std::allocator<BPTCreature::SoulMaskEffectDetachPendingShowInfo>>(BPTCreature::SoulMaskEffectDetachPendingShowInfo *,BPTCreature::SoulMaskEffectDetachPendingShowInfo *,BPTCreature::SoulMaskEffectDetachPendingShowInfo *,std::allocator<BPTCreature::SoulMaskEffectDetachPendingShowInfo> &,std::_Nonscalar_ptr_iterator_tag,std::_Range_checked_iterator_tag)	145	0	
+0x511490	GR_CreatureInfoForMonitoringRptBody	GR_CreatureInfoForMonitoringRptBody::~GR_CreatureInfoForMonitoringRptBody(void)	126	0	
+0x511920	G_ProgressMissionByAcquireSummonedReqPacket	G_ProgressMissionByAcquireSummonedReqPacket::~G_ProgressMissionByAcquireSummonedReqPacket(void)	87	0	
+0x5120a0	Data	Data::SummonedStandIdleRecordPtr::~SummonedStandIdleRecordPtr(void)	78	0	
+0x5145f0	std	std::vector<CreatureProperty::Job,std::allocator<CreatureProperty::Job>>::clear(void)	60	0	
+0x52a180	std	std::_Tree<std::_Tmap_traits<__int64,BattleObjectBrowser::BattleCreature,std::less<__int64>,std::allocator<std::pair<__int64 const,BattleObjectBrowser::BattleCreature>>,0>>::_Rrotate(std::_Tree_nod<std::_Tmap_traits<__int64,BattleObjectBrowser::BattleCreature,std::less<__int64>,std::allocator<std::pair<__int64 const,BattleObjectBrowser::BattleCreature>>,0>>::_Node *)	80	0	
+0x532f90	Data	Data::SummonedRecordPtr::SummonedRecordPtr(Data::SummonedRecordPtr const &)	87	0	
+0x534820	SummonedBeautyShopPanel	SummonedBeautyShopPanel::SelectedBeautyInfoHolder::SelectedBeautyInfoHolder(void)	19	0	
+0x534f70	BSummonedSequenceLoader	BSummonedSequenceLoader::Get(unsigned __int64)	61	0	
+0x535040	BSummonedSequenceSkillAction	BSummonedSequenceSkillAction::GetSkill(void)	7	0	
+0x5381b0	BSummonedRecallAction	BSummonedRecallAction::operator=(BSummonedRecallAction const &)	39	0	
+0x5381e0	BSummonedMoveAction	BSummonedMoveAction::operator=(BSummonedMoveAction const &)	55	0	
+0x538220	BSummonedSkillAction	BSummonedSkillAction::operator=(BSummonedSkillAction const &)	69	0	
+0x538270	BSummonedSequenceSkillAction	BSummonedSequenceSkillAction::operator=(BSummonedSequenceSkillAction const &)	112	0	
+0x5382e0	BSummonedHelpRestorationAction	BSummonedHelpRestorationAction::operator=(BSummonedHelpRestorationAction const &)	57	0	
+0x546670		TracableProperty<CreatureProperty>::Set<wchar_t const *>(short,wchar_t const *)	216	0	
+0x5479c0	std	std::_Uninit_fill_n<ObjectIDInfo *,uint,ObjectIDInfo,std::allocator<ObjectIDInfo>>(ObjectIDInfo *,uint,ObjectIDInfo const &,std::allocator<ObjectIDInfo> &,std::_Nonscalar_ptr_iterator_tag,std::_Range_checked_iterator_tag)	54	0	
+0x54d1d0	NetObjectEventHandler	NetObjectEventHandler::`scalar deleting destructor'(uint)	55	0	
+0x54f050	std	std::vector<ObjectIDInfo,std::allocator<ObjectIDInfo>>::push_back(ObjectIDInfo const &)	128	0	
+0x550f90	std	std::vector<ObjectIDInfo,std::allocator<ObjectIDInfo>>::insert(std::_Vector_iterator<ObjectIDInfo,std::allocator<ObjectIDInfo>>,ObjectIDInfo const &)	140	0	
+0x553e90	std	std::vector<ObjectIDInfo,std::allocator<ObjectIDInfo>>::_Insert_n(std::_Vector_iterator<ObjectIDInfo,std::allocator<ObjectIDInfo>>,uint,ObjectIDInfo const &)	575	0	
+0x556330		GetPropertyFieldInfo<CreatureProperty>(Property::FInfo &,wchar_t const *)	141	0	
+0x55d930	CreatureEffectStatusPanel	CreatureEffectStatusPanel::IsConnectedCreatureOf(__int64)	37	0	
+0x561d80		[thunk]:UiStateArenaDungeonLobby::ProcessNetObjectEvent`adjustor{16}' (StructPacket const *)	8	0	
+0x5cac70	BSummonedSequenceLoader	BSummonedSequenceLoader::LoadAlias(XmlReader const &,DrElReader const &,DrLoaderDef const &,DrAliasMap &)	182	0	
+0x5cad30	BSummonedSequenceLoader	BSummonedSequenceLoader::LoadTable(XmlReader const &,DrElReader const &,DrLoaderDef const &,DrAliasMap &)	2028	0	
+0x5cb520	BSummonedSequenceLoader	BSummonedSequenceLoader::GetTableSummary(DrTableSummary &)	60	0	
+0x5cb560	BSummonedSequenceLoader	BSummonedSequenceLoader::addActions(BSummonedSequenceLoader::LoaderContext &,XmlElement const *,BSummonedSeqActionArray &,Data::SummonedSequenceElType)	472	0	
+0x5cb740	BSummonedSequenceLoader	BSummonedSequenceLoader::getChildrenNum(XmlElement const *,wchar_t const *)	125	0	
+0x5cea20	CreatureProperty	CreatureProperty::FieldMax(void)	7	0	
+0x5cef80	CreatureProperty	CreatureProperty::~CreatureProperty(void)	147	0	
+0x5d0da0	PvpResultDeadProperty	PvpResultDeadProperty::PvpResultDeadProperty(void)	131	0	
+0x5d0e70	PvpResultDeadProperty	PvpResultDeadProperty::~PvpResultDeadProperty(void)	172	0	
+0x5d3d70	Property	Property::SetSync(PropertySync const *)	123	0	
+0x5d4600	PropertySync	PropertySync::Set(char const *,uint)	346	0	
+0x5d4a00	SummonedProperty	SummonedProperty::FieldInfo(void)	7	0	
+0x5d6220	SummonedProperty	SummonedProperty::SummonedProperty(void)	92	0	
+0x5d6280	SummonedProperty	SummonedProperty::~SummonedProperty(void)	92	0	
+0x713360	APawn	APawn::APawn(BPTCreature *)	123	0	
+0x71f570		ComposeObjectId(int,int,BGameObject::TYPE)	47	0	
+0x71fbf0	World	World::getGuildBattleDeadMsgCommand(XmlNode const *,__int64 &,__int64 &,__int64 &,__int64 &,bool &,std::basic_string<wchar_t,std::char_traits<wchar_t>,std::allocator<wchar_t>> &)	503	5	src
+0x721e30	World	World::SendGuildBattleDeadMsg(__int64,__int64,__int64,__int64,bool,wchar_t const *)	272	0	
+0x722d50	World	World::GetPTPlayerSummoned(void)	23	0	
+0x722d70	World	World::GetPTPlayer(void)	23	0	
+0x72aad0	MinimapPanel	MinimapPanel::IsPlayerSummonedMapUnitEnable(void)	226	0	
+0x72b080	World	World::GetFactionPopulationStatisticsInZone(__int64 &,__int64 &,__int64 &)	216	0	
+0x72eab0	World	World::setSkillRepeatByServerToOwner(BCreature *,__int64,int,char,char,int,int)	73	0	
+0x730660	WebSessionManager	WebSessionManager::ProcessNetObjectEvent(StructPacket const *)	50	0	
+0x731490	World	World::setCreatureSquad(GS_ActionsSpawnSquadCreatureSubPacket const *)	426	0	
+0x7325b0	World	World::createPlayerSummoned(unsigned __int64)	133	0	
+0x73f3c0	World	World::outOfSightCreature(unsigned __int64,char)	264	1	E:\DailyBuild02\Client-Common-0.0.381\depot\Branch\381NC\Program\ue4\BNSR\Source\ClientEXE\Private\W
+0x73f4d0	World	World::OutSightObject(G_OutSightCubePacket const *)	564	0	
+0x740a50	World	World::encounterNpcDeadBody(unsigned __int64,unsigned __int64,short,short,short,char,char,PfRepeat const &,unsigned __int64)	632	1	E:\DailyBuild02\Client-Common-0.0.381\depot\Branch\381NC\Program\ue4\BNSR\Source\ClientEXE\Private\W
+0x749550	World	World::ProcessNetObjectEvent(StructPacket const *)	5318	15	Msg.ChatInput.OneChatCommand.ArenaLobby
+0x74b140	World	World::leaveCreature(unsigned __int64,char,__int64)	1268	2	Msg.NewbieCare.Complete
+0x74b640	World	World::enterCreature(unsigned __int64,PropertySync const *,char)	2160	2	E:\DailyBuild02\Client-Common-0.0.381\depot\Branch\381NC\Program\ue4\BNSR\Source\ClientEXE\Private\W
+0x74c370	World	World::EnterLeaveObject(G_EnterLeaveBroadcastPacket const *)	494	0	
+0x752e10	BUiWorld	BUiWorld::ProcessInfoGateNetObjectEvent(StructPacket const *)	46	0	
+0x754e30	WardrobePurchaseConfirmPanel	WardrobePurchaseConfirmPanel::ProcessNetObjectEvent(StructPacket const *)	111	0	
+0x755670	VipPanel	VipPanel::ProcessLobbyNetObjectEvent(StructPacket const *)	86	0	
+0x75aea0	WeaponGemPanel	WeaponGemPanel::spawnWeaponGemParticle(uint,char,short)	555	0	
+0x75b940	WeaponGemPanel	WeaponGemPanel::spawnMaxLevelParticle(void)	33	0	
+0x763e40	WeaponGemPanel	WeaponGemPanel::spawnLegendGradeParticle(Data::ItemLegendGradeBackgroundParticleType)	337	0	
+0x773cc0	VoiceChatHUDPanel	VoiceChatHUDPanel::ProcessNetObjectEvent(StructPacket const *)	122	0	
+0x77dfc0	WardrobePanel	WardrobePanel::ProcessInfoGateNetObjectEvent(StructPacket const *)	39	0	
+0x7883d0	BUiWorld	BUiWorld::OnChangedExtraCreatureProperty(short,ExtraCreatureProperty const &,ExtraCreatureProperty const &)	110	0	
+0x78c930	BUiWorld	BUiWorld::OnChangedCreatureProperty(unsigned __int64,short,CreatureProperty const &,CreatureProperty const &)	151	0	
+0x791320	WarehousePanel	WarehousePanel::ProcessNetObjectEvent(StructPacket const *)	604	4	Msg.Inventory.ExpandSuccess.Warehouse
+0x792270	Vip	Vip::ProcessLobbyNetObjectEvent(StructPacket const *)	257	0	
+0x792400	Vip	Vip::ProcessNetObjectEvent(StructPacket const *)	141	0	
+0x79bf60	BUiWorld	BUiWorld::makeScreenShotEXIFString(std::basic_string<char,std::char_traits<char>,std::allocator<char>> &,std::basic_string<wchar_t,std::char_traits<wchar_t>,std::allocator<wchar_t>> const &,std::basic_string<wchar_t,std::char_traits<wchar_t>,std::allocator<wchar_t>> const &,std::basic_string<wchar_t,std::char_traits<wchar_t>,std::allocator<wchar_t>> const &,std::basic_string<wchar_t,std::char_traits<wchar_t>,std::allocator<wchar_t>> const &,bool,bool,CreatureProperty const &)	11757	141	%.3f
+0x7adc20	WeaponGemPanel	WeaponGemPanel::ProcessNetObjectEvent(StructPacket const *)	74	0	
+0x7b8110	WardrobePanel	WardrobePanel::ProcessNetObjectEvent(StructPacket const *)	404	0	
+0x7b8b50	BUiWorld	BUiWorld::SpawnPlayerSummoned(bool)	63	0	
+0x7bf040	UiTradeManager	UiTradeManager::ProcessNetObjectEvent(StructPacket const *)	1497	9	Msg.Trade.Join.Mine
+0x7c1200	BUiWorld	BUiWorld::OnChangedPlayerSummonedProperty(short,CreatureProperty const &,CreatureProperty const &)	26	0	
+0x7c1220	BUiWorld	BUiWorld::OnChangedCreatureProperty(short,CreatureProperty const &,CreatureProperty const &)	883	0	
+0x7c2db0	BUiWorld	BUiWorld::processCreatureEncounter(unsigned __int64)	95	0	
+0x7c3c20	BUiWorld	BUiWorld::OutSightObject(G_OutSightCubePacket const *)	151	0	
+0x7c3cc0	BUiWorld	BUiWorld::InSightObject(G_InSightCubePacket const *)	85	0	
+0x7ce070	BUiWorld	BUiWorld::OnChangedPcProperty(unsigned __int64,short,CreatureProperty const &,CreatureProperty const &)	35	0	
+0x7d97f0	BUiWorld	BUiWorld::StartPlayerSummonedTalk(unsigned __int64)	249	4	Msg.Summoned.TalkFail.InvalidJob
+0x7d99c0	BUiWorld	BUiWorld::SpawnNpc(unsigned __int64,unsigned __int64,bool)	40	0	
+0x7dd4e0	UiStateGuildCustomize	UiStateGuildCustomize::ProcessInfoGateNetObjectEvent(StructPacket const *)	66	0	
+0x7dda30	UiStateCSA	UiStateCSA::OnChangedExtraCreatureProperty(short,ExtraCreatureProperty const &,ExtraCreatureProperty const &)	3	0	
+0x7dda40	UiStateCSA	UiStateCSA::OnChangedCreatureProperty(short,CreatureProperty const &,CreatureProperty const &)	3	0	
+0x7dda60	UiStateCSA	UiStateCSA::OutSight(void)	3	0	
+0x7dda70	UiStateCSA	UiStateCSA::InSight(void)	3	0	
+0x7de770	UiLobbyStateCustomize	UiLobbyStateCustomize::ProcessLobbyNetObjectEvent(StructPacket const *)	5	0	
+0x7def10	BUiGuildCustomize	BUiGuildCustomize::ProcessNetObjectEvent(StructPacket const *)	58	0	
+0x7e4690	BUiGuildCustomize	BUiGuildCustomize::ProcessInfoGateNetObjectEvent(StructPacket const *)	36	0	
+0x7e7240	UiStatePersonalCustomize	UiStatePersonalCustomize::OnChangedCreatureProperty(short,CreatureProperty const &,CreatureProperty const &)	135	0	
+0x7e77b0	UiStateGuildCustomize	UiStateGuildCustomize::OnChangedCreatureProperty(short,CreatureProperty const &,CreatureProperty const &)	63	0	
+0x7ef050	UiStateTalk	UiStateTalk::spawnItemMesh(wchar_t const *,wchar_t const *)	1464	0	
+0x7f3f40		`BUiWorld::makeScreenShotEXIFString(std::basic_string<char,std::char_traits<char>,std::allocator<char>> &,std::basic_string<wchar_t,std::char_traits<wchar_t>,std::allocator<wchar_t>> const &,std::basic_string<wchar_t,std::char_traits<wchar_t>,std::allocator<wchar_t>> const &,std::basic_string<wchar_t,std::char_traits<wchar_t>,std::allocator<wchar_t>> const &,std::basic_string<wchar_t,std::char_traits<wchar_t>,std::allocator<wchar_t>> const &,bool,bool,CreatureProperty const &)'::`32'::ItemNameFromInventory::Get(Inventory *,Data::ItemEquipPosType)	413	0	
+0x7f4d90	UICommonParticle	UICommonParticle::SpawnProgressUIParticle(uint,wchar_t const *,float,float,bool,int,bool)	109	0	
+0x7f4e00	UICommonParticle	UICommonParticle::SpawnUIParticle(uint,wchar_t const *,Alignment,Alignment,float,float,float,ParticleOrder,int,uint,bool,float)	380	0	
+0x7f51e0	UiCommonContents	UiCommonContents::SpawnProgressUIParticle(uint,wchar_t const *,float,float,bool,int,bool)	50	0	
+0x7f5220	UiCommonContents	UiCommonContents::SpawnUIParticle(uint,wchar_t const *,Alignment,Alignment,float,float,float,ParticleOrder,int,uint,bool,float)	106	0	
+0x7f8bd0	UiStateTalk	UiStateTalk::spawnPlayerSummonedMesh(EInterface::Handle &)	235	0	
+0x7fc720	UiGuildBattleFieldManager	UiGuildBattleFieldManager::checkGuildBattleFieldBossSpawnNotifyMsg(void)	216	1	Msg.GuildBattleField.Notify.SpawnBossLeftTime
+0x7fef10	Tracker	Tracker::Spawn(float,float,float,int)	194	0	
+0x800120	UiStateTalk	UiStateTalk::ShowChangeSummonedNamePanel(bool)	47	0	
+0x801d50	UiStateGame	UiStateGame::OnChangedSummonedProperty(unsigned __int64,short,CreatureProperty const &,CreatureProperty const &)	84	0	
+0x804be0	BUiLobby	BUiLobby::makeScreenShotEXIFString(std::basic_string<char,std::char_traits<char>,std::allocator<char>> &,std::basic_string<wchar_t,std::char_traits<wchar_t>,std::allocator<wchar_t>> const &,std::basic_string<wchar_t,std::char_traits<wchar_t>,std::allocator<wchar_t>> const &,std::basic_string<wchar_t,std::char_traits<wchar_t>,std::allocator<wchar_t>> const &,std::basic_string<wchar_t,std::char_traits<wchar_t>,std::allocator<wchar_t>> const &,bool,bool,CreatureProperty const &)	3198	34	<body>
+0x805a40	BUiLobby	BUiLobby::spawnCharacter(EInterface::Handle &,char const *,char,char,char,float,float,float,float,float,float,unsigned __int64,unsigned __int64,bool)	237	0	
+0x806be0	GuildBattleFieldRespawnConfirmPanel	GuildBattleFieldRespawnConfirmPanel::updateLeftTime(int)	247	0	
+0x806ce0	GuildBattleFieldRespawnConfirmPanel	GuildBattleFieldRespawnConfirmPanel::ApplyDescText(bool)	354	2	UI.GuildBattleField.RespawnConfirm.SafetyArea.Desc
+0x806e50	GuildBattleFieldRespawnConfirmPanel	GuildBattleFieldRespawnConfirmPanel::Open(ModalOwner *,char)	280	0	
+0x806f70	GuildBattleFieldRespawnConfirmPanel	GuildBattleFieldRespawnConfirmPanel::ProcessEvent(EngineEvent *)	147	0	
+0x8091e0	TradeShelf	TradeShelf::ProcessNetObjectEvent(StructPacket const *)	335	0	
+0x80a790	UiStateGuildCustomize	UiStateGuildCustomize::ProcessNetObjectEvent(StructPacket const *)	216	0	
+0x80f860	UiStateCSA	UiStateCSA::ProcessNetObjectEvent(StructPacket const *)	109	0	
+0x810020	UiPartyManager	UiPartyManager::OnChangedPcProperty(unsigned __int64,short,CreatureProperty const &,CreatureProperty const &)	138	0	
+0x8100b0	UiPartyManager	UiPartyManager::OnChangedCreatureProperty(short,CreatureProperty const &,CreatureProperty const &)	136	0	
+0x811d30	BUiLobby	BUiLobby::ProcessInfoGateNetObjectEvent(StructPacket const *)	111	0	
+0x812430	UiGuildBattleFieldManager	UiGuildBattleFieldManager::EnterLeaveObject(void)	64	0	
+0x812470	UiGuildBattleFieldManager	UiGuildBattleFieldManager::ProcessNetObjectEvent(StructPacket const *)	51	0	
+0x816520	UiStateGame	UiStateGame::OnChangedCreatureProperty(unsigned __int64,short,CreatureProperty const &,CreatureProperty const &)	469	0	
+0x8192b0	UiGuildBattleFieldManager	UiGuildBattleFieldManager::OnChangedCreatureProperty(short,CreatureProperty const &,CreatureProperty const &)	585	2	Msg.GuildBattleField.NoneFlag.Dead.GuideMsg
+0x8196c0	GuildBattleFieldRespawnConfirmPanel	GuildBattleFieldRespawnConfirmPanel::onYesClick(void)	71	0	
+0x8200d0	GuildBattleFieldRespawnConfirmPanel	GuildBattleFieldRespawnConfirmPanel::Close(void)	65	0	
+0x821550	UiLobbyStateSelect	UiLobbyStateSelect::ProcessLobbyNetObjectEvent(StructPacket const *)	531	0	
+0x828f00	BUiLobby	BUiLobby::ProcessLobbyNetObjectEvent(StructPacket const *)	143	0	
+0x82aac0	UiStateGame	UiStateGame::EnterLeaveObject(G_EnterLeaveBroadcastPacket const *)	195	0	
+0x82e120	BUiLobby	BUiLobby::ShowCharacterShotWindow(bool,bool,int,CreatureProperty const &,uint)	60	0	
+0x833030	UiStateGame	UiStateGame::ShowPhotoAlbumWindow(bool,bool,int,CreatureProperty const &)	58	0	
+0x833340	UiStateGame	UiStateGame::OnChangedExtraCreatureProperty(short,ExtraCreatureProperty const &,ExtraCreatureProperty const &)	321	0	
+0x833c80	UiStateArenaDungeonLobby	UiStateArenaDungeonLobby::ProcessNetObjectEvent(StructPacket const *)	737	0	
+0x834df0	BUiLobby	BUiLobby::ShowPhotoAlbum(bool,bool,int,CreatureProperty const &)	74	0	
+0x8362c0	BUiArenaLobby	BUiArenaLobby::ShowPhotoAlbum(bool,bool,int,CreatureProperty const &)	140	0	
+0x836c70	UiStateGame	UiStateGame::OutSightObject(G_OutSightCubePacket const *)	673	0	
+0x836f20	UiStateGame	UiStateGame::InSightObject(G_InSightCubePacket const *)	1080	0	
+0x837670	UiStateGame	UiStateGame::OnChangedPlayerSummonedProperty(short,CreatureProperty const &,CreatureProperty const &)	79	0	
+0x837e80	UiStateGame	UiStateGame::ProcessInfoGateNetObjectEvent(StructPacket const *)	551	0	
+0x83cf40	BUiArenaLobby	BUiArenaLobby::ProcessNetObjectEvent(StructPacket const *)	250	0	
+0x845760	UiStateGame	UiStateGame::InZoneObject(G_InZonePacket const *)	410	0	
+0x845900	UiStateGame	UiStateGame::OnChangedPcProperty(unsigned __int64,short,CreatureProperty const &,CreatureProperty const &)	216	0	
+0x84d110	UiStatePersonalCustomize	UiStatePersonalCustomize::ProcessNetObjectEvent(StructPacket const *)	1103	0	
+0x852fd0	UiStateTalk	UiStateTalk::OnChangedCreatureProperty(short,CreatureProperty const &,CreatureProperty const &)	130	0	
+0x8530a0	UiStateTalk	UiStateTalk::ProcessNetObjectEvent(StructPacket const *)	1761	1	Msg.ChangeSummonedName.Success
+0x854ce0	UiStateGame	UiStateGame::SpawnNpc(unsigned __int64,unsigned __int64,bool)	423	0	
+0x855b90	UiPartyManager	UiPartyManager::ProcessNetObjectEvent(StructPacket const *)	3094	5	UI.Confirm.Party.InviteMergePromotionTeam
+0x857130	UiStateGame	UiStateGame::OnChangedCreatureProperty(short,CreatureProperty const &,CreatureProperty const &)	2466	1	Msg.MasteryLevel.NoExpBoost
+0x858320	UiStateArenaDuelLobby	UiStateArenaDuelLobby::ProcessNetObjectEvent(StructPacket const *)	832	0	
+0x860330	UiStateGame	UiStateGame::ProcessNetObjectEvent(StructPacket const *)	10428	4	Msg.Petition.Notify.AnswerArrived
+0x86e840	BTeam	BTeam::OutSightObject(G_OutSightCubePacket const *)	75	0	
+0x8711a0	TencentQTalk	TencentQTalk::ProcessNetObjectEvent(StructPacket const *)	280	0	
+0x878300		GetAttractionQuestRespawnConfirmText(int)	852	0	
+0x87e290	Teleport	Teleport::isEqualPhasingMainZone(int,int)	499	0	
+0x87fb50	TeamPanel	TeamPanel::spawnReadyCheckParticle(void)	118	0	
+0x884860	BWorldAccountSoulBoost	BWorldAccountSoulBoost::SetWorldAccountSoulBoostProperty(int,WorldAccountSoulBoostPropertySync const &)	187	0	
+0x886e70	TendencyFieldQuestQuickSlotPanel	TendencyFieldQuestQuickSlotPanel::OnChangedCreatureProperty(short,CreatureProperty const &,CreatureProperty const &)	92	0	
+0x88f500	TeamPanel	TeamPanel::ProcessNetObjectEvent(StructPacket const *)	3	0	
+0x892450	TargetStatusPanel2	TargetStatusPanel2::updateCombatModeTime(BCreature const *)	1013	0	
+0x896ae0	TargetStatusPanel2	TargetStatusPanel2::isBigBossNpc(BCreature const *)	281	0	
+0x896c00	TargetStatusPanel2	TargetStatusPanel2::isBossNpc(BCreature const *)	150	0	
+0x899730	SystemInventoryPanel	SystemInventoryPanel::ProcessNetObjectEvent(StructPacket const *)	135	0	
+0x899a00	SurveyRewardPanel	SurveyRewardPanel::ProcessNetObjectEvent(StructPacket const *)	135	1	Msg.AnswerSurveyFail.InvenFull
+0x89cc60	SummonedBeautyShopPanel	SummonedBeautyShopPanel::updateAppearance(void)	478	0	
+0x89d480	SummonedBeautyShopPanel	SummonedBeautyShopPanel::getBeautyPartName(SummonedBeautyShopPanel::BeautyList,std::basic_string<wchar_t,std::char_traits<wchar_t>,std::allocator<wchar_t>> &)	285	0	
+0x8a04e0	TencentIngameShopPanel	TencentIngameShopPanel::ProcessNetObjectEvent(StructPacket const *)	46	0	
+0x8a7150	TargetStatusPanel2	TargetStatusPanel2::updateCreatureProperty(CreatureProperty const *)	509	0	
+0x8a92c0	BSummonedBrain	BSummonedBrain::OnUserSkill(unsigned __int64,unsigned __int64)	176	0	
+0x8b3b30	TencentExpBoost	TencentExpBoost::ProcessNetObjectEvent(StructPacket const *)	240	0	
+0x8b90b0	TargetIndicator	TargetIndicator::OnChangedCreatureProperty(short,CreatureProperty const &,CreatureProperty const &)	80	0	
+0x8c7850	TendencyFieldQuestQuickSlotPanel	TendencyFieldQuestQuickSlotPanel::InZoneObject(void)	173	0	
+0x8c79a0	TendencyFieldQuestQuickSlotPanel	TendencyFieldQuestQuickSlotPanel::ProcessNetObjectEvent(StructPacket const *)	639	5	Msg.TendencyField.ClearQuestPack.Simple.Complete
+0x8cc800	TeamPanel2	TeamPanel2::ProcessNetObjectEvent(StructPacket const *)	258	0	
+0x8cd570	BSummonedBrain	BSummonedBrain::IsCombatMode(void)	77	0	
+0x8d20b0		formatCreatureProperty(std::basic_string<wchar_t,std::char_traits<wchar_t>,std::allocator<wchar_t>> &,std::basic_string<wchar_t,std::char_traits<wchar_t>,std::allocator<wchar_t>> &,AttributeInfo &,char *)	3520	2	name-replace
+0x8d7db0	TargetStatusPanel2	TargetStatusPanel2::ProcessNetObjectEvent(StructPacket const *)	702	0	
+0x8de390	TendencyField	TendencyField::EnterLeaveObject(G_EnterLeaveBroadcastPacket const *)	490	1	Msg.TendencyField.EnterFriendFactionPc
+0x8debb0	Teleport	Teleport::ProcessNetObjectEvent(StructPacket const *)	1376	4	Msg.Teleport.Fail.Buyudo.Not.Open.SecondTime
+0x8e0560	TargetStatusPanel2	TargetStatusPanel2::updateNpcStatus(BCreature const *)	1597	2	PC
+0x8e0ba0	TargetStatusPanel2	TargetStatusPanel2::updatePcAndSummonedStatus(BCreature const *)	2083	1	PC
+0x8e8240	TargetIndicator	TargetIndicator::updatePassiveEffect(BCreature const *)	48	0	
+0x8e9dd0	SystemMenuPanel	SystemMenuPanel::OnChangedExtraCreatureProperty(short,ExtraCreatureProperty const &,ExtraCreatureProperty const &)	354	0	
+0x8f9c90	BTeam	BTeam::ProcessNetObjectEvent(StructPacket const *)	6064	57	Msg.Team.Invite.Success
+0x8fc8b0	BSummoned	BSummoned::ProcessActionSubEvent(int,PfStruct const *,BGameObject const *)	807	0	
+0x8ff010	SystemMenuPanel	SystemMenuPanel::ProcessNetObjectEvent(StructPacket const *)	1061	0	
+0x9011a0	SkillTrainingFieldJumpConfirmPanel	SkillTrainingFieldJumpConfirmPanel::ProcessNetObjectEvent(StructPacket const *)	41	0	
+0x903cf0	BSummonedBrain	BSummonedBrain::SetSequenceSkillParameter(BSummonedSequenceSkillAction::ESkillRangeType,unsigned __int64,int)	106	0	
+0x904030	SummonedBeautyTalkPanel	SummonedBeautyTalkPanel::ProgressComplete(WindowModalPanel *,short)	34	0	
+0x904140	SummonedBeautyTalkPanel	SummonedBeautyTalkPanel::ShowMakeTalkFuncPanel(unsigned __int64,QuestIndicator &)	148	0	
+0x9043f0	SummonedBeautyShopPanel	SummonedBeautyShopPanel::closeBeautyHolder(void)	220	0	
+0x907060	BSkillSimpleControlPanel	BSkillSimpleControlPanel::ProcessNetObjectEvent(StructPacket const *)	179	0	
+0x907670	BSkillIconViewPanel	BSkillIconViewPanel::ProcessNetObjectEvent(StructPacket const *)	179	0	
+0x909700	BSummonedBrain	BSummonedBrain::GetCopiedCurrentAction(BSummonedAction const *)	125	0	
+0x909c90	BSummoned	BSummoned::ProcessNetObjectEvent(StructPacket const *)	16	0	
+0x90a320	StanceGaugePanel	StanceGaugePanel::UpdateCreatureProperty(CreatureProperty const *)	99	0	
+0x90e460	BSummonedBrainSensor	BSummonedBrainSensor::GetPartyMemberInfo(SummonedMasterPartyInfo *)	254	0	
+0x90e5b0	BSummonedBrain	BSummonedBrain::GetCopiedReservedAction(BSummonedAction const *)	125	0	
+0x90f140	BSummonedBrain	BSummonedBrain::Initialize(unsigned __int64,unsigned __int64,Data::SummonedRecordPtr,BSummonedSensor const *,ushort)	404	0	
+0x9104a0	StanceGaugePanel	StanceGaugePanel::OnChangedCreatureProperty(short,CreatureProperty const &,CreatureProperty const &)	246	0	
+0x910870	SpamFilter	SpamFilter::ProcessInfoGateNetObjectEvent(StructPacket const *)	346	0	
+0x912a10	BPTCreature	BPTCreature::GetSoulFighterStanceParticleData(std::basic_string<wchar_t,std::char_traits<wchar_t>,std::allocator<wchar_t>> &,float &,float &,bool,Data::StanceRecordPtr)	267	0	
+0x9134d0	SkillTrainingRoomDescriptionPanel	SkillTrainingRoomDescriptionPanel::ProcessNetObjectEvent(StructPacket const *)	152	0	
+0x913570	SkillTrainingRoomControlPanel	SkillTrainingRoomControlPanel::SpawnButtonParticle(void)	436	0	
+0x915a70		GetAttackAttributePercent(CreatureProperty const &,bool,BGameObject::TYPE,short)	794	0	
+0x915fc0		convertAttackPropertyValue(CreatureProperty const &,bool,BGameObject::TYPE,short,int &,int &,int &,int &,int &,int &,int &)	99	0	
+0x91a2a0	BSkill	BSkill::BSkill(BCreature *,bool)	140	0	
+0x91bb20	BSummonedBrainSensor	BSummonedBrainSensor::IsCollideLineOfSight(unsigned __int64,unsigned __int64)	529	0	
+0x91be80	SkillTrainingSequenceManager	SkillTrainingSequenceManager::IsPlayerSummonedSequenceSkill(int)	300	0	
+0x91bfb0	BSummonedBrain	BSummonedBrain::GetSummoned(void)	58	0	
+0x91c1c0	SummonedBeautyTalkPanel	SummonedBeautyTalkPanel::SummonedBeautyTalkPanel(void)	126	0	
+0x91c460	SummonedBeautyShopPanel	SummonedBeautyShopPanel::processClickedDecisionBtn(void)	321	1	UI.SummonedBeautyShop.DecisionConfirm.Desc
+0x91c5b0	SummonedBeautyShopPanel	SummonedBeautyShopPanel::Hide(void)	561	0	
+0x91c870	SummonedBeautyShopPanel	SummonedBeautyShopPanel::SummonedBeautyShopPanel(void)	360	0	
+0x921c30	SkillTrainingSequenceManager	SkillTrainingSequenceManager::OnChangedCreaturePropertyForOthers(unsigned __int64,short,CreatureProperty const &,CreatureProperty const &)	113	0	
+0x921cb0	SkillTrainingSequenceManager	SkillTrainingSequenceManager::OnChangedCreatureProperty(short,CreatureProperty const &,CreatureProperty const &)	142	0	
+0x921e50	SkillTrainingRoomSelectionPanel	SkillTrainingRoomSelectionPanel::OnChangedCreatureProperty(short,CreatureProperty const &,CreatureProperty const &)	78	0	
+0x9221c0	SkillTrainingRoomQuickStartPanel	SkillTrainingRoomQuickStartPanel::OnChangedCreatureProperty(short,CreatureProperty const &,CreatureProperty const &)	78	0	
+0x9237f0	SkillTrainingRoom	SkillTrainingRoom::EnterLeaveObject(G_EnterLeaveBroadcastPacket const *)	400	0	
+0x92fc90	BSummonedBrain	BSummonedBrain::OnHelpRestoration(unsigned __int64)	92	0	
+0x92fff0	BSummoned	BSummoned::Initialize(PropertySync const *)	213	0	
+0x931f90	SkillTrainingRoomQuickStartPanel	SkillTrainingRoomQuickStartPanel::ProcessNetObjectEvent(StructPacket const *)	295	0	
+0x935340	BSkillBook	BSkillBook::IsEnableJobStyleAdvanced3(CreatureProperty::Job)	546	0	
+0x937320	SkillBarPanel	SkillBarPanel::ProcessNetObjectEvent(StructPacket const *)	417	0	
+0x9388a0	BSummonedBrain	BSummonedBrain::GetNextSimAction(bool &,bool &,bool &)	208	0	
+0x938970	SummonedBeautyTalkPanel	SummonedBeautyTalkPanel::updateInputNameHolder(void)	427	9	UI.MakeSummoned.UsableName
+0x938b60	SummonedBeautyTalkPanel	SummonedBeautyTalkPanel::showInputNameHolder(void)	100	0	
+0x938d40	SummonedBeautyShopPanel	SummonedBeautyShopPanel::requestBuyBeautyItem(void)	609	0	
+0x938fb0	SummonedBeautyShopPanel	SummonedBeautyShopPanel::ProgressComplete(WindowModalPanel *,short)	358	1	UI.SummonedBeautyShop.NotEnoughMoney.Desc
+0x939270	SummonedBeautyShopPanel	SummonedBeautyShopPanel::openBeautyHolder(SummonedBeautyShopPanel::BeautyList)	1346	0	
+0x93edc0	SkillTrainingRoomResultPanel	SkillTrainingRoomResultPanel::OnChangedCreatureProperty(short,CreatureProperty const &,CreatureProperty const &)	77	0	
+0x93f210	SkillTrainingRoomControlPanel	SkillTrainingRoomControlPanel::OnChangedCreatureProperty(short,CreatureProperty const &,CreatureProperty const &)	84	0	
+0x93f610	PTActionPickupDeadbody	PTActionPickupDeadbody::Cancel(void)	129	0	
+0x947e40	SkillTrainingRoomResultPanel	SkillTrainingRoomResultPanel::ProcessNetObjectEvent(StructPacket const *)	363	0	
+0x94cde0	SkillBarPanel	SkillBarPanel::requestRespawn(void)	94	0	
+0x94e460	SkillTrainJobStylePanel	SkillTrainJobStylePanel::ProcessNetObjectEvent(StructPacket const *)	1750	9	Msg.SkillTraining.Fail.CombatMode
+0x951330	BSummonedBrainSensor	BSummonedBrainSensor::IsAttackableTarget(unsigned __int64)	88	0	
+0x951390	BSummonedBrainSensor	BSummonedBrainSensor::GetNearestAttackableTarget(unsigned __int64,short,bool)	3071	0	
+0x952650	BSummoned	BSummoned::ChangedPropertyCallback(short,CreatureProperty const &,CreatureProperty const &)	194	1	Msg.Party.Summoned.Spawn
+0x954880	BSummonedBrain	BSummonedBrain::HasValidTargetAction(BSummonedAction const *)	692	0	
+0x954c70	SkillTrainJobStylePanel	SkillTrainJobStylePanel::OnChangedCreatureProperty(short,CreatureProperty const &,CreatureProperty const &)	151	0	
+0x954e10	BSummonedBrain	BSummonedBrain::CanUseAction(BSummonedAction const *)	729	0	
+0x9550f0	SummonedBeautyShopPanel	SummonedBeautyShopPanel::updateInfoHolder(void)	1988	4	Price
+0x955d30	SummonedBeautyShopPanel	SummonedBeautyShopPanel::processClickedInitBtn(void)	109	0	
+0x956020	SummonedBeautyShopPanel	SummonedBeautyShopPanel::Show(unsigned __int64)	1012	0	
+0x956420	SummonedBeautyShopPanel	SummonedBeautyShopPanel::ProcessEvent(EngineEvent *)	582	0	
+0x964430	SkillScoreResultPanel	SkillScoreResultPanel::ProcessNetObjectEvent(StructPacket const *)	105	0	
+0x9677e0	BSkillBook	BSkillBook::ProcessNetObjectEvent(StructPacket const *)	2036	7	Msg.Skill.Acquire.AirDash.Fx
+0x968f30	BSummonedBrain	BSummonedBrain::GetNextReservedAction(void)	850	1	E:\DailyBuild02\Client-Common-0.0.381\depot\Branch\381NC\Program\ue4\BNSR\Source\ClientEXE\Private\S
+0x969290	SummonedBeautyTalkPanel	SummonedBeautyTalkPanel::ProcessEvent(EngineEvent *)	533	0	
+0x96a730	SkillTrainingRoomSelectionPanel	SkillTrainingRoomSelectionPanel::ProcessNetObjectEvent(StructPacket const *)	718	0	
+0x96b0b0	SkillTrainingRoomControlPanel	SkillTrainingRoomControlPanel::ProcessNetObjectEvent(StructPacket const *)	549	0	
+0x9770d0	SuggestJoinGuildNotificationPanel	SuggestJoinGuildNotificationPanel::ProcessInfoGateNetObjectEvent(StructPacket const *)	115	0	
+0x977160	SuggestJoinGuildNotificationPanel	SuggestJoinGuildNotificationPanel::ProcessNetObjectEvent(StructPacket const *)	136	0	
+0x982c80	SkillComboPanel	SkillComboPanel::ProcessNetObjectEvent(StructPacket const *)	312	0	
+0x988380	Survey	Survey::OnChangedPlayerProperty(short,CreatureProperty const &,CreatureProperty const &)	60	0	
+0x989f40	SkillTrainingRoomComboPanel	SkillTrainingRoomComboPanel::ProcessNetObjectEvent(StructPacket const *)	1284	0	
+0x98a540	SkillSkin	SkillSkin::ProcessNetObjectEvent(StructPacket const *)	370	3	Msg.SkillSkin.Apply
+0x98e170	SlatePanel	SlatePanel::ProcessNetObjectEvent(StructPacket const *)	161	0	
+0x98e490	SlateApplyStonePanel	SlateApplyStonePanel::ProcessNetObjectEvent(StructPacket const *)	301	3	Msg.Slate.Apply.Maintain.StoneAbility
+0x992b80	SkillTrainingRoom	SkillTrainingRoom::InZoneObject(G_InZonePacket const *)	549	0	
+0x993080	SummonedBeautyShopPanel	SummonedBeautyShopPanel::ProcessNetObjectEvent(StructPacket const *)	385	1	UI.SummonedBeautyShop.ChangeFail.SystemError.Desc
+0x994a40	SkillTrainingRoom	SkillTrainingRoom::ProcessNetObjectEvent(StructPacket const *)	1334	0	
+0x996b60	SkillSkin	SkillSkin::OnChangedCreatureProperty(short,CreatureProperty const &,CreatureProperty const &)	100	0	
+0x99a610	RankingWeekInfoPanel	RankingWeekInfoPanel::ProcessNetObjectEvent(StructPacket const *)	3	0	
+0x99a660	RankingSeasonInfoPanel	RankingSeasonInfoPanel::ProcessNetObjectEvent(StructPacket const *)	3	0	
+0x9a20b0	RepairCostTooltipPanel	RepairCostTooltipPanel::ProcessNetObjectEvent(StructPacket const *)	125	0	
+0x9b4850	RankingRewardPanel	RankingRewardPanel::ProcessNetObjectEvent(StructPacket const *)	388	4	Msg.Ranking.TakeRewardFail.InvenFull
+0x9be940	RandomboxDepotPanel	RandomboxDepotPanel::ProcessNetObjectEvent(StructPacket const *)	254	0	
+0x9bf2c0	Raid	Raid::updateInsightMemberRaidProp(void)	235	0	
+0x9c2a20	BSeason	BSeason::ProcessInfoGateNetObjectEvent(StructPacket const *)	2579	0	
+0x9c4a80	RefinerInfoPanel	RefinerInfoPanel::ProcessNetObjectEvent(StructPacket const *)	100	0	
+0x9ce7e0	SelectCharacterPanel	SelectCharacterPanel::ProcessLobbyNetObjectEvent(StructPacket const *)	126	0	
+0x9d4e90	RefinerInfoPanel	RefinerInfoPanel::OnChangedCreatureProperty(short,CreatureProperty const &,CreatureProperty const &)	54	0	
+0x9d7890	RandomStoreManager	RandomStoreManager::OnChangedCreatureProperty(short,CreatureProperty const &,CreatureProperty const &)	51	0	
+0x9dddd0	ReplayRecorder	ReplayRecorder::OnChangedCreatureProperty(unsigned __int64,short,CreatureProperty const &,CreatureProperty const &)	3160	12	%I64d
+0x9df250	ReplayRecorder	ReplayRecorder::ProcessNetObjectEvent(StructPacket const *)	544	0	
+0x9ebac0	RaidDungeon	RaidDungeon::OnChangedCreatureProperty(short,CreatureProperty const &,CreatureProperty const &)	1869	0	
+0xa00c40	RankingPanel	RankingPanel::ProcessInfoGateNetObjectEvent(StructPacket const *)	843	1	fail
+0xa00fd0	RankingPanel	RankingPanel::ProcessNetObjectEvent(StructPacket const *)	337	0	
+0xa120f0	RandomStorePanel	RandomStorePanel::OnChangedCreatureProperty(short,CreatureProperty const &,CreatureProperty const &)	50	0	
+0xa13360	RandomStore2ndPanel	RandomStore2ndPanel::OnChangedCreatureProperty(short,CreatureProperty const &,CreatureProperty const &)	50	0	
+0xa13700	RandomStoreRewardConfirmPanel	RandomStoreRewardConfirmPanel::ProcessNetObjectEvent(StructPacket const *)	160	3	Msg.RandomStore.BonusReward.TakeFail.OnCombat
+0xa14590	RandomStore2ndPanel	RandomStore2ndPanel::ProcessNetObjectEvent(StructPacket const *)	646	2	Msg.SecondaryMoney.Loss
+0xa16b00	RandomStorePanel	RandomStorePanel::ProcessNetObjectEvent(StructPacket const *)	778	2	Msg.SecondaryMoney.Loss
+0xa1dcb0	QuestMappingPanel	QuestMappingPanel::ProcessNetObjectEvent(StructPacket const *)	47	0	
+0xa1e640	BQuestJournal	BQuestJournal::notifyTutorialResurrectingSummoned(short,char,char,bool)	1	0	
+0xa209a0	BPTSummoned	BPTSummoned::OutSight(void)	13	0	
+0xa209b0	BPTSummoned	BPTSummoned::InSight(void)	13	0	
+0xa20d60	PTSkill2	PTSkill2::SetCaster(BPTCreature *)	10	0	
+0xa20e50	BPTPlayerSummoned	BPTPlayerSummoned::IsGlide(void)	17	0	
+0xa20e70	BPTPlayerSummoned	BPTPlayerSummoned::BlockRotate(bool)	14	0	
+0xa20e80	BPTPlayerSummoned	BPTPlayerSummoned::Move(char,float,float,float,int,float,bool,int)	3	0	
+0xa21740	BPTPlayer	BPTPlayer::hideTargetParticle(BGameObject *)	1	0	
+0xa24bc0	BPTSummoned	BPTSummoned::HideWeapon(void)	11	0	
+0xa24bd0	BPTSummoned	BPTSummoned::CreateNameplateHpBar(void)	476	0	
+0xa24db0	BPTSummoned	BPTSummoned::CheckShowNamePlate(bool)	44	0	
+0xa25090	PTStandIdle	PTStandIdle::PTStandIdle(BPTCreature const *)	199	0	
+0xa25450	BPTPlayerSummoned	BPTPlayerSummoned::ServerSetYaw(int)	46	0	
+0xa25480	BPTPlayerSummoned	BPTPlayerSummoned::makeMoveDest(float)	1565	0	
+0xa25aa0	BPTPlayerSummoned	BPTPlayerSummoned::stop(void)	29	0	
+0xa25ac0	BPTPlayerSummoned	BPTPlayerSummoned::GetMoveType(void)	132	0	
+0xa25ba0	BPTPlayerSummoned	BPTPlayerSummoned::StopGlide(void)	37	0	
+0xa25d20	BPTPlayerSummoned	BPTPlayerSummoned::IsInSwimZone(void)	41	0	
+0xa25d90	BPTPlayerSummoned	BPTPlayerSummoned::CheckShowNamePlateHpBar(void)	32	0	
+0xa25db0	BPTPlayerSummoned	BPTPlayerSummoned::CheckShowNamePlate(bool)	44	0	
+0xa28680	PCQQGroupListPanel	PCQQGroupListPanel::ProcessNetObjectEvent(StructPacket const *)	159	0	
+0xa2a670	PublicRaidSelectPanel	PublicRaidSelectPanel::ProcessNetObjectEvent(StructPacket const *)	238	0	
+0xa2afa0	PTSkill2	PTSkill2::PTSkill2(BPTCreature *,bool,bool)	148	0	
+0xa2b150	BPTPlayerSummoned	BPTPlayerSummoned::calcFollowRunDest(float,float,float,int,float)	1671	0	
+0xa2b7e0	BPTPlayerSummoned	BPTPlayerSummoned::calcFollowDest(float,float,float,int)	374	0	
+0xa2b960	BPTPlayerSummoned	BPTPlayerSummoned::calcSpawnDest(float,float,float,int)	688	0	
+0xa2bc10	BPTPlayerSummoned	BPTPlayerSummoned::GetMovelistLastPosition(void)	18	0	
+0xa2bc30	BPTPlayerSummoned	BPTPlayerSummoned::follow(float)	783	0	
+0xa2bf40	BPTPlayerSummoned	BPTPlayerSummoned::SetMoveStop(float,float,float,int)	415	0	
+0xa2c0e0	BPTPlayerSummoned	BPTPlayerSummoned::AirDash(__int64)	499	0	
+0xa2c2e0	BPTPlayerSummoned	BPTPlayerSummoned::CreateNameplateHpBar(void)	348	0	
+0xa2c440	BPTPlayer	BPTPlayer::createCircleOfBuilderParticle(void)	328	0	
+0xa2d010	BPTPlayer	BPTPlayer::ShowTargetZoneDecal(bool)	302	0	
+0xa34ae0	PublicRaidField	PublicRaidField::SpawnNpc(unsigned __int64,unsigned __int64,bool)	339	0	
+0xa34e40	PublicRaidField	PublicRaidField::initializeKismetSpawnNpc(void)	488	0	
+0xa35090	PTTalkSocial	PTTalkSocial::getSummonedSocial(Data::TalkSocialRecordPtr,std::basic_string<wchar_t,std::char_traits<wchar_t>,std::allocator<wchar_t>> &)	191	0	
+0xa35300	PTSummonedStandIdle	PTSummonedStandIdle::getSummonedStandIdleData(void)	209	0	
+0xa39ff0	BPTPlayerSummoned	BPTPlayerSummoned::OnNotifyPlayerSummonedWarp(void)	248	0	
+0xa3a0f0	BPTPlayerSummoned	BPTPlayerSummoned::Warp(char,int,short)	733	0	
+0xa3a470	BPTPlayerSummoned	BPTPlayerSummoned::OutSight(void)	120	0	
+0xa3a4f0	BPTPlayerSummoned	BPTPlayerSummoned::InSight(void)	161	0	
+0xa3bde0	BPTPlayer	BPTPlayer::playStanceTransit(char,char,bool,bool)	168	0	
+0xa3d060	BPTPlayer	BPTPlayer::setFieldItemMoveAnim(Data::FielditemRecord const *,bool)	671	0	
+0xa41c40	BQuestJournal	BQuestJournal::UpdateNpcRelatedAcquirableQuest(bool,BNpc const *)	806	0	
+0xa47dd0	PvPDataList	PvPDataList::updatePvPKillDeath(uint,short,char)	226	1	UI.PVPData.KillCount
+0xa4a250	PublicRaidPlayerCountPanel	PublicRaidPlayerCountPanel::InZoneObject(void)	72	0	
+0xa4ae10	PTTalkSocial	PTTalkSocial::SummonedPlay(Data::TalkSocialRecordPtr)	901	0	
+0xa4b320	BPTSummoned	BPTSummoned::checkPhantomMode(void)	181	0	
+0xa4bbf0	PTActiveSkill2	PTActiveSkill2::PTActiveSkill2(BPTCreature *,bool)	432	0	
+0xa4bda0	BPTPlayer	BPTPlayer::updateMarkIndicator(bool)	241	0	
+0xa4bea0	BPTPlayer	BPTPlayer::UpdateAutoTargettingState(PTSkill2 *,int)	459	0	
+0xa4c2e0	BPTPlayerSummoned	BPTPlayerSummoned::chase(float,unsigned __int64)	468	0	
+0xa4c870	BPTPlayerSummoned	BPTPlayerSummoned::SyncRuleMoveLocation(void)	401	0	
+0xa4ca10	BPTPlayerSummoned	BPTPlayerSummoned::SetMoveDest(EOWorldInfo &,char)	1228	0	
+0xa4dc00	PTPhantomWeapon	PTPhantomWeapon::getDespawnShow(Data::Skill3RecordActiveSkillPtr,uint)	307	0	
+0xa555b0	PublicRaidQTEEscapePanel	PublicRaidQTEEscapePanel::ProcessNetObjectEvent(StructPacket const *)	92	0	
+0xa55660	PublicRaidQTEEscapePanel	PublicRaidQTEEscapePanel::stopQTEIfDead(void)	75	0	
+0xa559b0	PublicRaidQTECrashEventPanel	PublicRaidQTECrashEventPanel::ProcessNetObjectEvent(StructPacket const *)	92	0	
+0xa55a60	PublicRaidQTECrashEventPanel	PublicRaidQTECrashEventPanel::stopQTEIfDead(void)	73	0	
+0xa61710	PublicRaidSnowFlowerGaugePanel	PublicRaidSnowFlowerGaugePanel::InZoneObject(void)	67	0	
+0xa61c20	BPTPlayer	BPTPlayer::UpdateOutwardAppearanceFilteredHidden(void)	433	0	
+0xa624d0	BPTSummoned	BPTSummoned::setMove(bool)	35	0	
+0xa62500	BPTSummoned	BPTSummoned::GetNameplateHpBar(void)	260	0	
+0xa62610	BPTSummoned	BPTSummoned::CheckShowNamePlateHpBar(void)	448	0	
+0xa64640	BPTPlayerSummoned	BPTPlayerSummoned::Recall(void)	356	0	
+0xa647b0	BPTPlayerSummoned	BPTPlayerSummoned::setMove(bool)	35	0	
+0xa647e0	BPTDuelBot	BPTDuelBot::makeNamePlateFontSet(std::basic_string<wchar_t,std::char_traits<wchar_t>,std::allocator<wchar_t>>,BPTCreature::NAMEPLATE_LINE_TYPE)	780	12	00071803.Program.Fontset_Balloon_PC
+0xa65b10	BPTPlayer	BPTPlayer::MakePlayerWeaponInternal(EInterface::Handle &,EInterface::Handle &,char,char,char,int,int,bool)	668	0	
+0xa65db0	QuestQuickSlotPanel	QuestQuickSlotPanel::OnChangedExtraCreatureProperty(short,ExtraCreatureProperty const &,ExtraCreatureProperty const &)	410	0	
+0xa68350	BQuestJournal	BQuestJournal::RequestProgressMissionByAcquireSummoned(short,char,short,char,__int64,std::basic_string<wchar_t,std::char_traits<wchar_t>,std::allocator<wchar_t>>,bool)	324	0	
+0xa6a7d0	BPTSummonedCombatSide	BPTSummonedCombatSide::GetShowName(FString &)	344	0	
+0xa6ba60	QQGroupPanel	QQGroupPanel::ProcessNetObjectEvent(StructPacket const *)	205	0	
+0xa70ce0	QQRecentContactUserPanel	QQRecentContactUserPanel::ProcessNetObjectEvent(StructPacket const *)	96	0	
+0xa71010	BPTSummoned	BPTSummoned::load(bool)	1058	0	
+0xa76040	BPTPlayerSummoned	BPTPlayerSummoned::load(bool)	1692	0	
+0xa76b40	BPTSummoned	BPTSummoned::OnChangedCreatureProperty(short,CreatureProperty const &,CreatureProperty const &)	94	0	
+0xa7ef00	BQuestJournal	BQuestJournal::OnChangedCreaturePropertyForOthers(unsigned __int64,short,CreatureProperty const &,CreatureProperty const &)	118	0	
+0xa7ef80	BQuestJournal	BQuestJournal::OnChangedCreatureProperty(short,CreatureProperty const &,CreatureProperty const &)	216	0	
+0xa8a950	QuestGuideNotificationPanel	QuestGuideNotificationPanel::ProcessNetObjectEvent(StructPacket const *)	98	0	
+0xa8ca60	QuestJournalPanel	QuestJournalPanel::OnChangedCreatureProperty(short,CreatureProperty const &,CreatureProperty const &)	197	0	
+0xa8f8e0	PublicRaidField	PublicRaidField::InZoneObject(G_InZonePacket const *)	112	0	
+0xa902f0	QuestJournalPanel	QuestJournalPanel::ProcessNetObjectEvent(StructPacket const *)	340	0	
+0xa924b0	BPTPlayerSummoned	BPTPlayerSummoned::warp(Vector,int,Vector)	1033	0	
+0xa92b30	BPTPlayerSummoned	BPTPlayerSummoned::move(float,unsigned __int64)	753	0	
+0xa98520	BQuestJournal	BQuestJournal::updateQuest(short,char,char,PropertySync const *,int)	2148	8	Msg.Quest.CompleteMission
+0xa98d90	BQuestJournal	BQuestJournal::setQuest(short,PropertySync const *,char,char,char,char)	273	0	
+0xa9a5c0	BPTPlayerSummoned	BPTPlayerSummoned::OnChangedCreatureProperty(short,CreatureProperty const &,CreatureProperty const &)	930	0	
+0xa9bc40	QQMessenger	QQMessenger::ProcessNetObjectEvent(StructPacket const *)	497	0	
+0xa9c4e0	BPTPlayer	BPTPlayer::MoveMouse(float,float,float,bool)	327	0	
+0xa9d250	QuestQuickSlotPanel	QuestQuickSlotPanel::ProcessNetObjectEvent(StructPacket const *)	494	0	
+0xa9e5b0	BQuestJournal	BQuestJournal::ProcessNetObjectEvent(StructPacket const *)	5364	7	Msg.Quest.EnteredFatigueTime
+0xaa05c0	BPTPlayer	BPTPlayer::StopDynamicSound(DYNAMIC_SOUND_TYPE,float)	65	0	
+0xaa0610	BPTPlayer	BPTPlayer::PlayDynamicSound(DYNAMIC_SOUND_TYPE,wchar_t const *,float)	174	0	
+0xaa0770	BPTPlayer	BPTPlayer::actionStopReserveTalkSocial(int)	111	0	
+0xaa0820	BPTPlayer	BPTPlayer::RemoveBossSlot(unsigned __int64)	153	0	
+0xaa08c0	BPTPlayer	BPTPlayer::GetCurrentBossNpc(char)	59	0	
+0xaa0910	BPTPlayer	BPTPlayer::HideIndicator(bool)	28	0	
+0xaa0940	BPTPlayer	BPTPlayer::setInterpolIdle(wchar_t const *,wchar_t const *,wchar_t const *,wchar_t const *,wchar_t const *,wchar_t const *,wchar_t const *,wchar_t const *,wchar_t const *,wchar_t const *,wchar_t const *,EngineAnimTreeNodeType)	232	0	
+0xaa0a30	BPTPlayer	BPTPlayer::setIdle(wchar_t const *,EngineAnimTreeNodeType,bool)	50	0	
+0xaa0a70	BPTPlayer	BPTPlayer::setJumpIdle(wchar_t const *,wchar_t const *,wchar_t const *,EngineAnimTreeNodeType)	77	0	
+0xaa0ac0	BPTPlayer	BPTPlayer::setRunIdle(wchar_t const *,wchar_t const *,wchar_t const *,wchar_t const *,wchar_t const *,wchar_t const *,EngineAnimTreeNodeType)	133	0	
+0xaa0b50	BPTPlayer	BPTPlayer::setWalkIdle(wchar_t const *,wchar_t const *,wchar_t const *,wchar_t const *,wchar_t const *,wchar_t const *,EngineAnimTreeNodeType)	133	0	
+0xaa0c10	BPTPlayer	BPTPlayer::HideBalloon(bool)	28	0	
+0xaa0c80	BPTPlayer	BPTPlayer::HideNamePlate(bool)	237	0	
+0xaa0dc0	BPTPlayer	BPTPlayer::StopFactionBGM(void)	78	0	
+0xaa0f30	BPTPlayer	BPTPlayer::StopGlide(void)	29	0	
+0xaa0f50	BPTPlayer	BPTPlayer::PlayTransitAnim(wchar_t const *,float,float)	74	0	
+0xaa0fc0	BPTPlayer	BPTPlayer::PlayCustomAnim(wchar_t const *,int)	75	0	
+0xaa1050	BPTPlayer	BPTPlayer::Run(void)	36	0	
+0xaa1080	BPTPlayer	BPTPlayer::BlockJump(bool)	103	0	
+0xaa10f0	BPTPlayer	BPTPlayer::BlockRotate(bool)	121	0	
+0xaa1180	BPTPlayer	BPTPlayer::IsPlayingKismet(void)	24	0	
+0xaa11b0	BPTPlayer	BPTPlayer::ReattachWeaponTempered(int,int)	46	0	
+0xaa11e0	BPTPlayer	BPTPlayer::playBattleSoundMode(void)	92	0	
+0xaa1640	BPTPc	BPTPc::OnChangedExtraCreatureProperty(short,ExtraCreatureProperty const &,ExtraCreatureProperty const &)	3	0	
+0xaa16b0	BPTNpcDeadBody	BPTNpcDeadBody::makeNamePlateFontSet(std::basic_string<wchar_t,std::char_traits<wchar_t>,std::allocator<wchar_t>>)	353	5	00071803.Program.Fontset_Balloon_NPC
+0xaa1820	BPTNpcDeadBody	BPTNpcDeadBody::UpdateNamePlate(void)	1	0	
+0xaa1830	BPTNpcDeadBody	BPTNpcDeadBody::OutSight(void)	13	0	
+0xaa1840	BPTNpcDeadBody	BPTNpcDeadBody::InSight(void)	13	0	
+0xaa1850	BPTNpc	BPTNpc::isLeaveSocialPlayed(void)	7	0	
+0xaa1860	BPTNpc	BPTNpc::PlayPutInWeaponAnim(void)	1	0	
+0xaa1870	BPTNpc	BPTNpc::ChangeCombatMode(void)	1	0	
+0xaa1880	BPTNpc	BPTNpc::OutSight(void)	13	0	
+0xaa18b0	BPTFieldItem	BPTFieldItem::OutSight(void)	13	0	
+0xaa18c0	BPTFieldItem	BPTFieldItem::InSight(void)	13	0	
+0xaa18f0	BPTDuelBot	BPTDuelBot::InSight(void)	13	0	
+0xaa1900	BPTDroppedPouch	BPTDroppedPouch::OutSight(void)	13	0	
+0xaa1910	BPTDroppedPouch	BPTDroppedPouch::InSight(void)	13	0	
+0xaa1930	BPTCreature	BPTCreature::StopDuelTagMatchRestorationShow(void)	1	0	
+0xaa1940	BPTCreature	BPTCreature::PlayDuelTagMatchRestorationShow(void)	1	0	
+0xaa1950	BPTCreature	BPTCreature::SetChainSkill(PTSkill2 *)	7	0	
+0xaa1960	BPTCreature	BPTCreature::initRejectPropertiesInPhantomMode(void)	1	0	
+0xaa1980	BPTCreature	BPTCreature::CopyRulemoveDelayDisplay(bool *)	21	0	
+0xaa19a0	BPTCreature	BPTCreature::SetStandMoveAnimIdle(void)	15	0	
+0xaa19b0	BPTCreature	BPTCreature::UpdateOutwardAppearanceFilteredHidden(void)	1	0	
+0xaa19c0	BPTCreature	BPTCreature::DebugCommandNamePlateTitleOff(void)	8	0	
+0xaa19d0	BPTCreature	BPTCreature::DebugCommandNamePlateTitleOn(std::basic_string<wchar_t,std::char_traits<wchar_t>,std::allocator<wchar_t>> &,std::basic_string<wchar_t,std::char_traits<wchar_t>,std::allocator<wchar_t>> &,float,float)	62	0	
+0xaa1a10	BPTCreature	BPTCreature::SetHighlightNamePlate(bool)	31	0	
+0xaa1a30	BPTCreature	BPTCreature::DetachTargetMark(void)	29	0	
+0xaa1a50	BPTCreature	BPTCreature::IsMoving(void)	60	0	
+0xaa1a90	BPTCreature	BPTCreature::getExhaustionIdle(void)	6	0	
+0xaa1aa0	BPTCreature	BPTCreature::IsGlide(void)	21	0	
+0xaa1ac0	BPTCreature	BPTCreature::IsDeadWhileFalling(void)	10	0	
+0xaa1ad0	BPTCreature	BPTCreature::MoveStop(bool,int,__int64)	43	0	
+0xaa1b00	BPTCreature	BPTCreature::ServerSetYaw(int)	38	0	
+0xaa1b70	BPTCreature	BPTCreature::CastDelay(bool)	54	0	
+0xaa1bb0	BPTCreature	BPTCreature::updateSkillScore(GS_ActionsEffectSubPacket const *)	1	0	
+0xaa1bc0	BPTCreature	BPTCreature::effectMessageType(int)	39	0	
+0xaa1bf0	BPTCreature	BPTCreature::damageEffectMessageType(int)	45	0	
+0xaa2180	BPTCampfire	BPTCampfire::ProcessNetObjectEvent(StructPacket const *)	5	0	
+0xaa2780	ProductionPanel	ProductionPanel::OnChangedCreatureProperty(short,CreatureProperty const &,CreatureProperty const &)	1	0	
+0xaa2900	ProductionNotificationPanel	ProductionNotificationPanel::OnChangedCreatureProperty(short,CreatureProperty const &,CreatureProperty const &)	3	0	
+0xaa2b70	PresentationWorld	PresentationWorld::outOfSightCreature(unsigned __int64)	1	0	
+0xaa2ba0	PlayReport	PlayReport::OnChangedCreatureProperty(short,CreatureProperty const &,CreatureProperty const &)	1	0	
+0xaa2cf0	BPTPlayer	BPTPlayer::UpdateIndicator(bool)	127	0	
+0xaa2d70	BPTPlayer	BPTPlayer::SetCanCombatHyperMove(bool)	74	0	
+0xaa2dc0	BPTPlayer	BPTPlayer::OnChangedExtraCreatureProperty(short,ExtraCreatureProperty const &,ExtraCreatureProperty const &)	90	0	
+0xaa2e60	BPTPlayer	BPTPlayer::getClosestObjectWithRadius(std::list<ObjectDistanceInfo,std::allocator<ObjectDistanceInfo>> const &)	167	0	
+0xaa2f10	BPTPlayer	BPTPlayer::getClosestObjectFromBeamWithRadius(std::list<ObjectDistanceInfo,std::allocator<ObjectDistanceInfo>> const &)	167	0	
+0xaa2ff0	BPTPlayer	BPTPlayer::SetVisible(bool)	57	0	
+0xaa3030	BPTPlayer	BPTPlayer::HideTutorialTargetZoneMark(void)	88	0	
+0xaa3090	BPTPlayer	BPTPlayer::GetPositionSU(void)	95	0	
+0xaa3280	BPTPlayer	BPTPlayer::IsBlockMove(void)	42	0	
+0xaa32b0	BPTPlayer	BPTPlayer::BlockMove(void)	101	0	
+0xaa3320	BPTPlayer	BPTPlayer::SetZoneTransitEffect(bool)	52	0	
+0xaa3500	BPTPlayer	BPTPlayer::GetPlayerState(void)	108	0	
+0xaa4590	PTNpcSocial	PTNpcSocial::SetIndicatorSocial(NPC_SOCIAL_TYPE,__int64,TimerId const &,__int64,char,char)	62	0	
+0xaa45d0	BPTNpcDeadBody	BPTNpcDeadBody::GetEnginePosition(void)	24	0	
+0xaa45f0	BPTNpcDeadBody	BPTNpcDeadBody::hideIndicator(void)	33	0	
+0xaa4620	BPTNpcDeadBody	BPTNpcDeadBody::UpdatePhantomMode(void)	73	0	
+0xaa4670	BPTNpcDeadBody	BPTNpcDeadBody::checkPhantomMode(void)	41	0	
+0xaa46a0	BPTNpcDeadBody	BPTNpcDeadBody::SetDistanceNamePlate(float)	113	0	
+0xaa4720	BPTNpcDeadBody	BPTNpcDeadBody::releasePouchQuestParticle(void)	142	0	
+0xaa4810	BPTNpc	BPTNpc::SetIdleVisible(bool,bool)	32	0	
+0xaa4830	BPTNpc	BPTNpc::ReleaseEnemyParticle(void)	174	0	
+0xaa48e0	BPTNpc	BPTNpc::CreateNameplateHpBar(void)	476	0	
+0xaa4ac0	BPTNpc	BPTNpc::CanPlayQuestIndicator(void)	97	0	
+0xaa4b30	BPTNpc	BPTNpc::hideBurrowEffect(void)	115	0	
+0xaa4bb0	BPTNpc	BPTNpc::SetIndicatorSocial(NPC_SOCIAL_TYPE,__int64,TimerId const &,__int64,char,char)	90	0	
+0xaa4c10	BPTNpc	BPTNpc::IsBoss(void)	33	0	
+0xaa4c40	BPTNpc	BPTNpc::Talk(bool)	65	0	
+0xaa5670	PvPModeCoolTimeTimerEventListener	PvPModeCoolTimeTimerEventListener::PvPModeCoolTimeTimerEventListener(BPTCreature *)	21	0	
+0xaa5690	ExtraSkillSoundTimerEventListener	ExtraSkillSoundTimerEventListener::ExtraSkillSoundTimerEventListener(BPTCreature *,std::basic_string<wchar_t,std::char_traits<wchar_t>,std::allocator<wchar_t>> const &)	123	0	
+0xaa5710	BPTCreature	BPTCreature::DisableJobBattleLogicSockeParticle(bool,char,int)	148	0	
+0xaa57b0	BPTCreature	BPTCreature::EnableJobBattleLogicSockeParticle(bool,char,int,std::basic_string<wchar_t,std::char_traits<wchar_t>,std::allocator<wchar_t>> const &,float,float)	273	0	
+0xaa58d0	BPTCreature	BPTCreature::applyGhostMode(bool)	273	0	
+0xaa5a00	BPTCreature	BPTCreature::removeLockOnShow(void)	225	0	
+0xaa5af0	BPTCreature	BPTCreature::removeDuelTagShow(void)	221	0	
+0xaa5bd0	BPTCreature	BPTCreature::removeWeaponTempered(void)	141	0	
+0xaa5c60	BPTCreature	BPTCreature::removeWeaponGemShow(void)	161	0	
+0xaa5d10	BPTCreature	BPTCreature::BringChainShow(void)	210	0	
+0xaa5df0	BPTCreature	BPTCreature::checkPhantomMode(void)	62	0	
+0xaa5f30	BPTCreature	BPTCreature::IsPhantomWeaponMode(void)	33	0	
+0xaa5f60	BPTCreature	BPTCreature::IsActivePairCostumeEffect(void)	25	0	
+0xaa5f80	BPTCreature	BPTCreature::IsPlayerTalkSocial(void)	25	0	
+0xaa5fa0	BPTCreature	BPTCreature::StopTalkSocial(void)	25	0	
+0xaa5fc0	BPTCreature	BPTCreature::setInterpolIdle(wchar_t const *,wchar_t const *,wchar_t const *,wchar_t const *,wchar_t const *,wchar_t const *,wchar_t const *,wchar_t const *,wchar_t const *,wchar_t const *,wchar_t const *,EngineAnimTreeNodeType)	242	0	
+0xaa60c0	BPTCreature	BPTCreature::setIdle(wchar_t const *,EngineAnimTreeNodeType,bool)	58	0	
+0xaa6100	BPTCreature	BPTCreature::setJumpIdle(wchar_t const *,wchar_t const *,wchar_t const *,EngineAnimTreeNodeType)	85	0	
+0xaa6160	BPTCreature	BPTCreature::setRunIdle(wchar_t const *,wchar_t const *,wchar_t const *,wchar_t const *,wchar_t const *,wchar_t const *,EngineAnimTreeNodeType)	143	0	
+0xaa61f0	BPTCreature	BPTCreature::setWalkIdle(wchar_t const *,wchar_t const *,wchar_t const *,wchar_t const *,wchar_t const *,wchar_t const *,EngineAnimTreeNodeType)	143	0	
+0xaa6280	BPTCreature	BPTCreature::summonedSpawnSocialShowRelease(void)	164	0	
+0xaa6330	BPTCreature	BPTCreature::hideShowRelease(void)	164	0	
+0xaa63e0	BPTCreature	BPTCreature::UpdateCursorType(void)	29	0	
+0xaa6400	BPTCreature	BPTCreature::IsExhaust(void)	36	0	
+0xaa6430	BPTCreature	BPTCreature::IsDead(void)	36	0	
+0xaa6460	BPTCreature	BPTCreature::SetVisible(bool)	65	0	
+0xaa64b0	BPTCreature	BPTCreature::HideBalloon(bool)	36	0	
+0xaa64e0	BPTCreature	BPTCreature::ShowBalloon(unsigned __int64,float)	67	0	
+0xaa6530	BPTCreature	BPTCreature::SetBalloon(unsigned __int64,float)	1204	26	00008130.Program.Fontset_Balloon_Text
+0xaa69f0	BPTCreature	BPTCreature::HideNamePlate(bool)	248	0	
+0xaa6af0	BPTCreature	BPTCreature::RemoveNameplateGuardGaugeBar(void)	48	0	
+0xaa6b20	BPTCreature	BPTCreature::RemoveNameplateHpBar(void)	146	0	
+0xaa6bc0	BPTCreature	BPTCreature::PlayTransitAnim(wchar_t const *,float,float)	82	0	
+0xaa6c20	BPTCreature	BPTCreature::StopCustomAnim(void)	27	0	
+0xaa6c40	BPTCreature	BPTCreature::PlayCustomAnim(wchar_t const *,int)	77	0	
+0xaa6c90	BPTCreature	BPTCreature::stopStandIdle(void)	82	0	
+0xaa6cf0	BPTCreature	BPTCreature::PlayPreIdleTansit(Data::AbnormalMoveAnimIdleTypeType,float)	78	0	
+0xaa6d40	BPTCreature	BPTCreature::stopPVPModeTimer(void)	64	0	
+0xaa6d80	BPTCreature	BPTCreature::stopDuelTagMatchWarpTimer(void)	64	0	
+0xaa6dc0	BPTCreature	BPTCreature::StopTransitTimer(void)	72	0	
+0xaa6e10	BPTCreature	BPTCreature::canPreIdleTansit(Data::AbnormalMoveAnimIdleTypeType)	53	0	
+0xaa6e50	BPTCreature	BPTCreature::playIdleTransit(Data::AbnormalMoveAnimIdleTypeType,__int64,__int64,BPTCreature *)	377	0	
+0xaa6fd0	BPTCreature	BPTCreature::canSwapWeaponAnim(void)	53	0	
+0xaa7010	BPTCreature	BPTCreature::SetWorldInfo(void)	432	0	
+0xaa71c0	BPTCreature	BPTCreature::MoveTurnBack(float,float,float,int)	84	0	
+0xaa7490	BPTCreature	BPTCreature::ClientSetYaw(int)	36	0	
+0xaa74c0	BPTCreature	BPTCreature::GetGroundEnginePosition(Vector &)	215	0	
+0xaa75a0	BPTCreature	BPTCreature::GetEnginePosition(void)	292	0	
+0xaa76d0	BPTCreature	BPTCreature::GetYaw(void)	212	0	
+0xaa77b0	BPTCreature	BPTCreature::GetPositionSU(void)	399	0	
+0xaa7a60	BPTCreature	BPTCreature::setDynamicShadowOff(bool)	34	0	
+0xaa7a90	BPTCreature	BPTCreature::SetBloomEffect(bool)	398	0	
+0xaa7c40	BPTCreature	BPTCreature::UpdateHpBar(__int64 const &,__int64 const &,__int64 const &,bool)	56	0	
+0xaa7c90	BPTCreature	BPTCreature::isRuleMove(void)	27	0	
+0xaa7cb0	BPTCreature	BPTCreature::AnimationFreezing(bool)	34	0	
+0xaa7ce0	BPTCreature	BPTCreature::getSkillEffectHitcode(PTSkill2 *,Data::EffectRecordPtr,BPTCreature::DAMAGE_TYPE,__int64 const &)	286	0	
+0xaa7e20	BPTCreature	BPTCreature::getEffectJobSpHitcode(BPTCreature::DAMAGE_TYPE)	65	0	
+0xaa7e80	BPTCreature	BPTCreature::battleMessageSkillResultType(PTSkill2 *,bool)	89	0	
+0xaa7f00	BPTCreature	BPTCreature::FindSkillIndex(char,unsigned __int64)	68	0	
+0xaa7f50	BPTCreature	BPTCreature::FindSkill(char,unsigned __int64)	83	0	
+0xaa7fb0	BPTCreature	BPTCreature::IsBoss(void)	55	0	
+0xaa8190	BPTCampfire	BPTCampfire::OutSight(void)	46	0	
+0xaa81c0	BPTCampfire	BPTCampfire::InSight(void)	54	0	
+0xaa9150	BPTPlayer	BPTPlayer::CheckShowNamePlateHpBar(void)	112	0	
+0xaa91c0	BPTPlayer	BPTPlayer::IsExhaust(void)	93	0	
+0xaa9220	BPTPlayer	BPTPlayer::getTargetDistance(Vector)	75	0	
+0xaa9270	BPTPlayer	BPTPlayer::GetObjectDistance(BPresentationObject *)	78	0	
+0xaa92c0	BPTPlayer	BPTPlayer::isObjectwithinFirstBand(Vector,float)	204	0	
+0xaa9390	BPTPlayer	BPTPlayer::GetMovelistLastPosition(void)	18	0	
+0xaa93b0	BPTPlayer	BPTPlayer::setAttackTargetWithinFirstBand(bool)	78	0	
+0xaa9400	BPTPlayer	BPTPlayer::ShowTutorialTargetZoneMark(void)	322	0	
+0xaa9550	BPTPlayer	BPTPlayer::hideScanedEffect(BGameObject *)	118	0	
+0xaa95d0	BPTPlayer	BPTPlayer::UpdateScanedEffect(BGameObject *)	161	0	
+0xaa96a0	BPTPlayer	BPTPlayer::GetDirection(void)	140	0	
+0xaa9730	BPTPlayer	BPTPlayer::OnNotifyTargetedDeadbodyStateChange(BGameObject *,char)	107	0	
+0xaaa110	BPTPlayer	BPTPlayer::SyncRuleMoveLocation(void)	341	0	
+0xaaa270	BPTPlayer	BPTPlayer::MoveTurnBack(float,float,float,int)	75	0	
+0xaabef0	BPTNpcDeadBody	BPTNpcDeadBody::ProcessActionSubEvent(int,PfStruct const *,BGameObject const *)	73	0	
+0xaabf40	BPTNpcDeadBody	BPTNpcDeadBody::UpdatePouchNewbieMarkParticle(float,float,float,int)	294	0	
+0xaac070	BPTNpc	BPTNpc::CreateEnemyParticle(float)	442	1	00011416.Tutorial_RevivalArea000
+0xaac230	BPTNpc	BPTNpc::updateUi(void)	81	0	
+0xaac790	BPTCreature	BPTCreature::UpdateHideShow(void)	46	0	
+0xaac7e0	BPTCreature	BPTCreature::actionStopFishing(int)	314	0	
+0xaac920	BPTCreature	BPTCreature::actionStopTalkSocial(int)	362	0	
+0xaaca90	BPTCreature	BPTCreature::canSocial(void)	372	0	
+0xaacc20	BPTCreature	BPTCreature::decomposeMoveType(DecomposeMoveType *,GS_ActionsClientMoveAndEventJumpSubPacket const *,int)	618	0	
+0xaace90	BPTCreature	BPTCreature::decomposeMoveType(DecomposeMoveType *,GS_ActionsClientMoveSubPacket const *,int)	614	0	
+0xaad220	BPTCreature	BPTCreature::IsInTheAir(void)	237	0	
+0xaad310	BPTCreature	BPTCreature::GetDirection(void)	144	0	
+0xaad3c0	BPTCreature	BPTCreature::IsInPreparingExhaust(void)	52	0	
+0xaad400	BPTCreature	BPTCreature::EraseExtraSkillSound(std::basic_string<wchar_t,std::char_traits<wchar_t>,std::allocator<wchar_t>> const &)	80	0	
+0xaad450	BPTCreature	BPTCreature::ClearSkill(char,unsigned __int64)	148	0	
+0xaad4f0	BPTCreature	BPTCreature::IsTopPriorityShow(void)	133	0	
+0xaae840	BPTControlledCreature	BPTControlledCreature::GetPlayerGroundPositionEU(Vector,float,float,float)	655	0	
+0xaaead0	BPTControlledCreature	BPTControlledCreature::IsCollideLineOfSight(Vector const &,Vector const &,float,EInterface::Handle const &,BPTControlledCreature::COLLIDE_CHECK_CONDITION)	1522	0	
+0xaafcb0	BPTPlayer	BPTPlayer::ShowClassicModeGroundEffect(bool,bool)	614	0	
+0xab0060	BPTPlayer	BPTPlayer::showBoss4AggroShow(bool,bool)	408	0	
+0xab0200	BPTPlayer	BPTPlayer::showBoss3AggroShow(bool,bool)	408	0	
+0xab03a0	BPTPlayer	BPTPlayer::showBoss2AggroShow(bool,bool)	408	0	
+0xab0540	BPTPlayer	BPTPlayer::showBoss1AggroShow(bool,bool)	408	0	
+0xab06e0	BPTPlayer	BPTPlayer::UpdateBossAggro(bool)	174	0	
+0xab0950	BPTPlayer	BPTPlayer::setCombatHyperMoveCoolTimeEvent(void)	158	0	
+0xab0a90	BPTPlayer	BPTPlayer::initRejectPropertiesInPhantomMode(void)	101	0	
+0xab0b00	BPTPlayer	BPTPlayer::FindDivideItems(ItemPouch const *,bool,std::vector<PouchItemInfo,std::allocator<PouchItemInfo>> &,std::vector<PouchItemInfo,std::allocator<PouchItemInfo>> &,bool &)	687	0	
+0xab0db0	BPTPlayer	BPTPlayer::TickCheckPairCostume(void)	914	0	
+0xab1150	BPTPlayer	BPTPlayer::UpdateEquipPairCostumeState(CreatureProperty const &)	1006	0	
+0xab1540	BPTPlayer	BPTPlayer::CanPlayFactionBGM(void)	443	0	
+0xab1700	BPTPlayer	BPTPlayer::UpdateAutoTargetParams(void)	62	0	
+0xab23c0	BPTPlayer	BPTPlayer::Warp(char,int,short)	973	0	
+0xab2930	BPTPlayer	BPTPlayer::ReleasePresentaionAction(void)	174	0	
+0xab29e0	BPTPlayer	BPTPlayer::NoneOwnerProcessAction(int,PfStruct const *)	448	0	
+0xab32a0		__BnsGetIdentificationOfBPTCreature(unsigned __int64)	118	0	
+0xab4b30	PtPet	PtPet::despawnPet(void)	410	0	
+0xab4cd0	PtPet	PtPet::ProcessNetObjectEvent(StructPacket const *)	47	0	
+0xab7100	PTNpcSocial	PTNpcSocial::registerIndicatorSocial(EInterface::Handle,__int64,__int64,TimerId const &,NPC_SOCIAL_TYPE)	686	0	
+0xab73b0	PTNpcSocial	PTNpcSocial::EndDurationMasterIndicatorSocial(void)	566	0	
+0xab75f0	PTNpcSocial	PTNpcSocial::ClearMasterQuestIndicatorSocial(void)	603	0	
+0xab7850	PTNpcSocial	PTNpcSocial::ClearMasterSocial(void)	495	0	
+0xab7a40	PTNpcSocial	PTNpcSocial::StopMasterSocial(void)	587	0	
+0xab7c90	PTNpcSocial	PTNpcSocial::bossBurrowInSocial(__int64,float)	502	4	BK_B_NONE_skl_OverHang_start
+0xab7e90	PTNpcSocial	PTNpcSocial::~PTNpcSocial(void)	152	0	
+0xab7f30	BPTNpcDeadBody	BPTNpcDeadBody::showScoreSignal(void)	191	0	
+0xab7ff0	BPTNpcDeadBody	BPTNpcDeadBody::RulemoveDelayDisplay(void)	414	0	
+0xab8190	BPTNpcDeadBody	BPTNpcDeadBody::GetPouchDropablePosition(Vector,int,int,bool)	1766	0	
+0xab8880	BPTNpc	BPTNpc::getSoulNpcParticle(char)	221	0	
+0xab89a0	BPTNpc	BPTNpc::getSocialMaster(void)	102	0	
+0xab8a10	BPTNpc	BPTNpc::getBossSpStep(Data::BossNpcRecordPtr,int)	278	0	
+0xab8b90	BPTNpc	BPTNpc::GetQuestIndicatorIconSetRef(std::basic_string<wchar_t,std::char_traits<wchar_t>,std::allocator<wchar_t>> *)	92	0	
+0xabbc70	BPTFieldItem	BPTFieldItem::spawn(void)	447	0	
+0xabc210	BPTCreature	BPTCreature::actionsFireEffectPlayShow(int,__int64,__int64)	736	0	
+0xabc690	BPTCreature	BPTCreature::useBladeMasterEgoIdleModeParticle(bool,char,char,bool)	411	0	
+0xabc9a0	BPTCreature	BPTCreature::useSoulFighterStanceParticle(bool,bool,bool,char)	654	0	
+0xabcc30	BPTCreature	BPTCreature::useWarlockCombatModeParticle(bool,char)	582	0	
+0xabce80	BPTCreature	BPTCreature::playCombatModeChangeShow(bool)	453	0	
+0xabd050	BPTCreature	BPTCreature::isCastOrSwing(void)	326	0	
+0xabd1a0	BPTCreature	BPTCreature::attachWeaponGemShow(unsigned __int64)	1139	0	
+0xabd620	BPTCreature	BPTCreature::updateWeaponGemShow(void)	93	0	
+0xabd680	BPTCreature	BPTCreature::isRejectedPropertyInPhantomMode(short)	69	0	
+0xabdd00	BPTCreature	BPTCreature::SkillShowRelease(void)	140	0	
+0xabdd90	BPTCreature	BPTCreature::ShowRelease(void)	47	0	
+0xabddc0	BPTCreature	BPTCreature::LeaveSocialShowRelease(void)	21	0	
+0xabdf60	BPTCreature	BPTCreature::SetDistanceNamePlate(float)	345	0	
+0xabf120	BPTCreature	BPTCreature::preIdleTansitRegisterTimerEvent(Data::AbnormalMoveAnimIdleTypeType,int,float)	654	0	
+0xabf3b0	BPTCreature	BPTCreature::playStateSocialIdleTransit(Data::AbnormalMoveAnimIdleTypeType,__int64)	65	0	
+0xabf400	BPTCreature	BPTCreature::getDeadIdle(Data::AbnormalMoveAnimIdleTypeType,__int64)	333	0	
+0xabf550	BPTCreature	BPTCreature::getSummonedMoveAnim(void)	473	0	
+0xabf730	BPTCreature	BPTCreature::GetNpcCombatIdle(bool)	568	0	
+0xabf970	BPTCreature	BPTCreature::setStateSocialIdleAnim(__int64)	380	0	
+0xabfaf0	BPTCreature	BPTCreature::getMoveAnim(void)	430	0	
+0xabfca0	BPTCreature	BPTCreature::getSoulMaskTypeTransformMoveAnim(char,char)	281	0	
+0xabfdc0	BPTCreature	BPTCreature::PlayWallDie(void)	282	0	
+0xabfee0	BPTCreature	BPTCreature::PlayWallExhaustion(void)	240	0	
+0xabffd0	BPTCreature	BPTCreature::playExhaustion(std::basic_string<wchar_t,std::char_traits<wchar_t>,std::allocator<wchar_t>> &)	248	0	
+0xac00d0	BPTCreature	BPTCreature::PlayShow(wchar_t const *,bool)	241	0	
+0xac01d0	BPTCreature	BPTCreature::PlayNonePrefixPandingShow(wchar_t const *,EInterface::Handle &,bool,bool,bool)	259	0	
+0xac02e0	BPTCreature	BPTCreature::PlayNonePrefixPandingShow(wchar_t const *,bool)	232	0	
+0xac03d0	BPTCreature	BPTCreature::PlayNonePrefixShowHandle(wchar_t const *,EInterface::Handle &,bool,bool,bool)	268	0	
+0xac04e0	BPTCreature	BPTCreature::PlayNonePrefixShow(wchar_t const *,bool,bool)	308	0	
+0xac0620	BPTCreature	BPTCreature::LandingShow(void)	360	0	
+0xac0790	BPTCreature	BPTCreature::Warp(char,int,short)	760	0	
+0xac0c60	BPTCreature	BPTCreature::DetachInhalation(unsigned __int64,unsigned __int64)	63	0	
+0xac0ca0	BPTCreature	BPTCreature::DetachMount(unsigned __int64,unsigned __int64,float)	455	0	
+0xac0e70	BPTCreature	BPTCreature::AttachInhalation(unsigned __int64,unsigned __int64)	85	0	
+0xac0ed0	BPTCreature	BPTCreature::AttachMount(unsigned __int64,unsigned __int64,float,__int64)	739	0	
+0xac1360	BPTCreature	BPTCreature::PlayFishingShow(bool,wchar_t *)	341	0	
+0xac14c0	BPTCreature	BPTCreature::PlayLockOnTarget(bool)	353	0	
+0xac1630	BPTCreature	BPTCreature::PlayEffectImmunedShow(int,BGameObject const *,__int64 const &,ESHOW_SIGNAL_TYPE)	589	0	
+0xac1880	BPTCreature	BPTCreature::getEffectShowName(int,char,std::basic_string<wchar_t,std::char_traits<wchar_t>,std::allocator<wchar_t>> &,BGameObject const *)	575	0	
+0xac1ae0	BPTCreature	BPTCreature::updateProtectionStanceShow(void)	625	0	
+0xac1e30	BPTCreature	BPTCreature::UpdateExtraSkillSound(std::basic_string<wchar_t,std::char_traits<wchar_t>,std::allocator<wchar_t>> const &,float)	591	0	
+0xac2080	BPTCreature	BPTCreature::PlayDuelBattleZoneEffect(char)	514	0	
+0xac2460	BPTCreature	BPTCreature::ExtendPassiveEffect(__int64,int,float)	290	0	
+0xac26c0	BPTCreature	BPTCreature::isResurrectionEffect(int)	224	0	
+0xac27a0	BPTCreature	BPTCreature::casterPlayerFindSkill(char,unsigned __int64)	77	0	
+0xac27f0	BPTCreature	BPTCreature::IsTopPriorityThisOrTargetShow(__int64)	298	0	
+0xac2920	BPTCreature	BPTCreature::ClearAllSkill(void)	150	0	
+0xac2bd0	BPTCreature	BPTCreature::PlayExhaustion(__int64)	488	0	
+0xac2dc0	BPTCreature	BPTCreature::Leave(__int64,char)	314	0	
+0xac2f00	BPTControlledCreature	BPTControlledCreature::GetSkillAimGroundPositionEU(Data::SkillCastCondition3RecordPtr,bool)	872	0	
+0xac6a50	BPTPlayer	BPTPlayer::UpdateSpecialSkillFullChargeShow(bool)	614	0	
+0xac6cc0	BPTPlayer	BPTPlayer::UpdateGhostModeDynamicSound(void)	221	0	
+0xac74d0	BPTPlayer	BPTPlayer::getBalloonIconSet(std::basic_string<wchar_t,std::char_traits<wchar_t>,std::allocator<wchar_t>> *)	135	0	
+0xac7560	BPTPlayer	BPTPlayer::updatePartyMarkIndicator(bool)	324	0	
+0xac79e0	BPTPlayer	BPTPlayer::NpcTalkState(bool)	38	0	
+0xac7af0	BPTPlayer	BPTPlayer::TickCheckNamePlate(void)	2572	0	
+0xac8500	BPTPlayer	BPTPlayer::UpdateFactionBGM(void)	134	0	
+0xac8590	BPTPlayer	BPTPlayer::PlayBattleSoundMode(__int64,char,unsigned __int64,unsigned __int64)	170	0	
+0xac8640	BPTPlayer	BPTPlayer::getTargetZoneIndexWithRadius(float &,Vector const &,float,float,AutoTargetInfo const &,EInterface::Handle const &,bool)	1066	0	
+0xac8a70	BPTPlayer	BPTPlayer::getTargetZoneIndexForAction(float &,Vector const &,float,float,EInterface::Handle const &,bool)	49	0	
+0xac8ab0	BPTPlayer	BPTPlayer::getTargetZoneIndexForAttack(float &,Vector const &,float,float,EInterface::Handle const &,bool)	49	0	
+0xac8af0	BPTPlayer	BPTPlayer::ShowFielditemDecal(void)	1280	0	
+0xac9240	BPTPlayer	BPTPlayer::HideDeadbodyFocusMark(unsigned __int64)	481	0	
+0xac9430	BPTPlayer	BPTPlayer::ShowDeadbodyFocusMark(unsigned __int64)	482	0	
+0xac9620	BPTPlayer	BPTPlayer::OnNotifyTutorialCaseSelfRevivalShowTargetParticle(bool)	172	0	
+0xac9a80	BPTPlayer	BPTPlayer::ChangeWalkRunMode(void)	92	0	
+0xac9ae0	BPlayerSummoned	BPlayerSummoned::~BPlayerSummoned(void)	147	0	
+0xac9d20	SummonedBeautyShopPanel	SummonedBeautyShopPanel::processClickedRandomBtn(void)	1046	0	
+0xaca5b0	BPTPlayer	BPTPlayer::OutSight(void)	23	0	
+0xacb490	BPlayerSummoned	BPlayerSummoned::CanSkillOverride(unsigned __int64,unsigned __int64)	895	0	
+0xacb810	BPTCreatureCombatSide	BPTCreatureCombatSide::PlayContinuanceShow(void)	847	0	
+0xacc120	BPTPc	BPTPc::EquipAccessory(CreatureProperty const &)	59	0	
+0xacc160	BPTPc	BPTPc::EquipEyeGlass(CreatureProperty const &)	131	0	
+0xacc2a0	BPTPc	BPTPc::EquipHair(CreatureProperty const &)	123	0	
+0xaceae0	PTNpcSocial	PTNpcSocial::bossBurrowOutSocial(__int64,float)	688	3	BK_B_NONE_skl_BurrowOut_cast_180
+0xaced90	PTNpcSocial	PTNpcSocial::bossFallSocial(__int64,float)	688	3	BK_B_NONE_skl_fall_cast_180
+0xacf040	BPTNpcDeadBody	BPTNpcDeadBody::ResetPrivatePouchEngineHandle(void)	140	0	
+0xacf0d0	BPTNpcDeadBody	BPTNpcDeadBody::SetPrivatePouchEngineHandle(EInterface::Handle &)	89	0	
+0xacf130	BPTNpcDeadBody	BPTNpcDeadBody::ResetPouchEngineHandle(void)	140	0	
+0xacf1c0	BPTNpcDeadBody	BPTNpcDeadBody::SetPouchEngineHandle(EInterface::Handle &)	89	0	
+0xacf220	BPTNpcDeadBody	BPTNpcDeadBody::UnloadPouch(void)	814	0	
+0xacf550	BPTNpcDeadBody	BPTNpcDeadBody::PlayDespawn(void)	657	0	
+0xacf7f0	BPTNpc	BPTNpc::updateNPCPortal(void)	183	0	
+0xacf8b0	BPTNpc	BPTNpc::updatePublicRaidFieldCullDistance(void)	174	0	
+0xacf960	BPTNpc	BPTNpc::GetGhostModeType(void)	181	0	
+0xacfa20	BPTNpc	BPTNpc::applyGhostMode(bool)	382	0	
+0xacfbb0	BPTNpc	BPTNpc::PlayStandSocial(void)	271	0	
+0xacfcc0	BPTNpc	BPTNpc::CreateEnemyCheckMarker(float)	698	0	
+0xacff80	BPTNpc	BPTNpc::IsDummyNpc(void)	321	0	
+0xad00d0	BPTNpc	BPTNpc::ClearQuestIndicatorSocial(void)	23	0	
+0xad0130	BPTNpc	BPTNpc::StopSocial(void)	23	0	
+0xad0150	BPTNpc	BPTNpc::CompareAlias(__int64)	273	0	
+0xad0270	BPTNpc	BPTNpc::getTargetDecalRadiusRate(void)	396	0	
+0xad0400	BPTNpc	BPTNpc::showBurrowEffect(void)	487	0	
+0xad05f0	BPTNpc	BPTNpc::burrow(void)	341	0	
+0xad0750	BPTNpc	BPTNpc::showImmuneBreaker(CreatureProperty const &)	419	0	
+0xad0900	BPTNpc	BPTNpc::haveImmuneBreakerAttribute(short)	226	0	
+0xad09f0	BPTNpc	BPTNpc::warpReturn(int)	336	0	
+0xad0b70	BPTNpc	BPTNpc::EquipWeapon(CreatureProperty const &,int,int)	47	0	
+0xad0ba0	BPTNpc	BPTNpc::move(char,float,float,float,int,float,bool,int,int)	501	0	
+0xad0da0	BPTNpc	BPTNpc::releasePtGhostModeShow(void)	179	0	
+0xad0e60	BPTNpc	BPTNpc::unLoad(void)	78	0	
+0xad2d80	BPTDuelBotSummoned	BPTDuelBotSummoned::makeAppearance(void)	595	0	
+0xad3540	BPTFieldItem	BPTFieldItem::LinkDeadbody(__int64)	234	0	
+0xad3f20	BPTDroppedPouch	BPTDroppedPouch::PlaySpawnEffectShow(void)	962	0	
+0xad43d0	TagMatchDeadTimerEventListener	TagMatchDeadTimerEventListener::TagMatchDeadTimerEventListener(__int64)	554	0	
+0xad4600	BPTCreature	BPTCreature::UpdateBattleRoyalPcGuardGauge(char,__int64,__int64,__int64)	207	0	
+0xad46d0	BPTCreature	BPTCreature::UpdateBattleRoyalPcHp(__int64,__int64,__int64)	200	0	
+0xad47a0	BPTCreature	BPTCreature::UpdateJobBattleLogicSocketParticle(void)	878	0	
+0xad4b30	BPTCreature	BPTCreature::updateKungfuFighterStanceParticle(void)	73	0	
+0xad4b80	BPTCreature	BPTCreature::updateBladeMasterEgoIdleModeParticle(void)	79	0	
+0xad4bd0	BPTCreature	BPTCreature::updateSoulFighterStanceParticle(void)	99	0	
+0xad4c40	BPTCreature	BPTCreature::updateWarlockCombatModeParticle(void)	66	0	
+0xad4c90	BPTCreature	BPTCreature::UpdateChangeGuildUniformShow(__int64)	90	0	
+0xad4cf0	BPTCreature	BPTCreature::playTriggerCastshow(PTSkill2 *,unsigned __int64,bool,float)	305	0	
+0xad4e30	BPTCreature	BPTCreature::DropFieldItem(BPTFieldItem *,float,float,float)	294	0	
+0xad4f60	BPTCreature	BPTCreature::ThrowFieldItemToWorld(BPTFieldItem *,float,float,float,float)	498	0	
+0xad5160	BPTCreature	BPTCreature::AttachFieldItem(BPTFieldItem *)	344	0	
+0xad5330	BPTCreature	BPTCreature::canSitDown(void)	432	0	
+0xad54e0	BPTCreature	BPTCreature::StopFishing(void)	37	0	
+0xad5510	BPTCreature	BPTCreature::getBalloonIconSet(std::basic_string<wchar_t,std::char_traits<wchar_t>,std::allocator<wchar_t>> *)	88	0	
+0xad5570	BPTCreature	BPTCreature::updateMarkIndicator(bool)	811	0	
+0xad58a0	BPTCreature	BPTCreature::PlayEncounterSocial(__int64)	69	0	
+0xad58f0	BPTCreature	BPTCreature::DropDeadBody(unsigned __int64)	132	0	
+0xad5980	BPTCreature	BPTCreature::GetDeadBodyFieldItemRecord(__int64,Data::FielditemRecordPtr &)	629	0	
+0xad5c30	BPTCreature	BPTCreature::EncounterSync(CreaturePropertyEncounterSync const *,PfRepeat const *)	283	0	
+0xad5d50	BPTCreature	BPTCreature::hasPassiveEffect(int,int)	130	0	
+0xad5de0	BPTCreature	BPTCreature::playPickingIdleTransit(Data::AbnormalMoveAnimIdleTypeType,Data::AbnormalMoveAnimIdleTypeType)	341	0	
+0xad6010	BPTCreature	BPTCreature::canStandIdle(void)	319	0	
+0xad6150	BPTCreature	BPTCreature::GetPresentationLinkIdle(std::basic_string<wchar_t,std::char_traits<wchar_t>,std::allocator<wchar_t>> &)	509	0	
+0xad6350	BPTCreature	BPTCreature::getApplyIdleTypeAndPreTransitEffect(Data::AbnormalMoveAnimIdleTypeType &,int &,float &,__int64 &,__int64 &)	480	0	
+0xad66c0	BPTCreature	BPTCreature::setPickingAbnormalMoveAnim(Data::AbnormalMoveAnimIdleTypeType,bool)	792	0	
+0xad69e0	BPTCreature	BPTCreature::setLinkAbnormalMoveAnim(__int64,bool)	767	0	
+0xad6ce0	BPTCreature	BPTCreature::setSummonedMoveAnim(bool)	528	0	
+0xad6ef0	BPTCreature	BPTCreature::setFieldItemMoveAnim(Data::FielditemRecord const *,bool)	785	0	
+0xad7210	BPTCreature	BPTCreature::getNpcIdle(bool)	549	0	
+0xad7440	BPTCreature	BPTCreature::setNpcMoveAnim(bool,bool)	535	0	
+0xad7660	BPTCreature	BPTCreature::setNpcCombatMoveAnim(bool,bool)	527	0	
+0xad7b10	BPTCreature	BPTCreature::setMoveAnim(bool,bool)	941	0	
+0xad7ec0	BPTCreature	BPTCreature::setSoulMaskTypeTransformMoveAnim(bool,bool)	1001	0	
+0xad82f0	BPTCreature	BPTCreature::playJackpotBossAcquireFactionScore(GS_ActionsTakeFactionScoreSubPacket const *)	1463	1	Msg.FactionScore.JackpotBoss.Drain
+0xad88b0	BPTCreature	BPTCreature::unLoad(void)	802	0	
+0xad8be0	BPTCreature	BPTCreature::PlayDie(__int64,bool,bool,__int64)	1737	0	
+0xad92b0	BPTCreature	BPTCreature::playBossNpcHangBurrowDie(__int64)	896	2	BK_B_NONE_skl_fall_Dead
+0xad9630	BPTCreature	BPTCreature::unLinkCatch(int,unsigned __int64,char,unsigned __int64,float,float,float,float,float,float)	794	0	
+0xad9950	BPTCreature	BPTCreature::DetachCatch(unsigned __int64,unsigned __int64,float)	554	0	
+0xad9b80	BPTCreature	BPTCreature::AttachCatch(char,__int64,__int64,unsigned __int64,unsigned __int64,char,float,bool,bool,bool)	1393	0	
+0xada100	BPTCreature	BPTCreature::ProcessSkill(__int64,char,unsigned __int64,short,short,int,int,char)	820	0	
+0xada460	BPTCreature	BPTCreature::showAttachedShow(void)	180	0	
+0xada5e0	BPTCreature	BPTCreature::PlayLevelUpShow(void)	105	1	Msg.Player.MaxLevelUp
+0xada650	BPTCreature	BPTCreature::UpdateDuelBattleStateSummonedMark(char,char)	362	0	
+0xada7c0	BPTCreature	BPTCreature::attachDash(int,char,unsigned __int64,unsigned __int64,PfStruct const *)	540	0	
+0xada9e0	BPTCreature	BPTCreature::playEffectDetach(int,__int64,std::basic_string<wchar_t,std::char_traits<wchar_t>,std::allocator<wchar_t>>)	512	0	
+0xadac40	BPTCreature	BPTCreature::isDieKnockBack(PTSkill2 *)	270	0	
+0xadad50	BPTCreature	BPTCreature::insertSkill(char,unsigned __int64,bool)	265	0	
+0xadae60	BPTCreature	BPTCreature::releaseLink(void)	422	0	
+0xadb010	BPTCreature	BPTCreature::ReleasePt(void)	615	0	
+0xadb280	BPTCreature	BPTCreature::~BPTCreature(void)	640	0	
+0xadb500	BPTCreature	BPTCreature::BPTCreature(BGameObject *,PresentationWorld *)	976	0	
+0xadbbf0	BPTControlledCreature	BPTControlledCreature::ProcessSkill(__int64,char,unsigned __int64,short,short,int,int,char)	57	0	
+0xadc620	PTActionPickupDeadbody	PTActionPickupDeadbody::~PTActionPickupDeadbody(void)	211	0	
+0xae1c70	BPTPlayer	BPTPlayer::StopFishing(void)	116	0	
+0xae1dc0	BPTPlayer	BPTPlayer::updateDuelInterferenceIndicator(bool)	431	0	
+0xae1fa0	BPTPlayer	BPTPlayer::PlayFactionBGM(__int64,char,unsigned __int64,unsigned __int64)	326	0	
+0xae20f0	BPTPlayer	BPTPlayer::ProcessSkill(__int64,char,unsigned __int64,short,short,int,int,char)	57	0	
+0xae28f0	BPTPlayer	BPTPlayer::OnNotifyTargetAbnormalStateChanged(unsigned __int64,short,CreatureProperty const &)	788	0	
+0xae2c30	BPTPlayer	BPTPlayer::EquipAccessory(CreatureProperty const &)	50	0	
+0xae2c70	BPTPlayer	BPTPlayer::EquipEyeGlass(CreatureProperty const &)	87	0	
+0xae2cd0	BPTPlayer	BPTPlayer::EquipHair(CreatureProperty const &)	54	0	
+0xae3140	BPTPlayer	BPTPlayer::BPTPlayer(BGameObject *,PresentationWorld *)	1217	0	
+0xae71a0	PtPet	PtPet::OnChangedCreatureProperty(short,CreatureProperty const &,CreatureProperty const &)	270	0	
+0xae72b0	PlayerSummonedPanel	PlayerSummonedPanel::ShowPanel(bool,bool)	366	0	
+0xae76f0	BPTPc	BPTPc::OutSight(void)	151	0	
+0xae7990	PTNpcSocial	PTNpcSocial::registerSubNpcIndicatorSocial(Data::IndicatorSocialRecordPtr const &)	244	0	
+0xae7a90	PTNpcSocial	PTNpcSocial::playIndicatorSocial(__int64,__int64,NPC_SOCIAL_TYPE,char,char)	875	0	
+0xae7e00	PTNpcSocial	PTNpcSocial::stopSocial(void)	80	0	
+0xae7e50	PTNpcSocial	PTNpcSocial::CanRelationshipIndicatorAllSubNpc(__int64)	371	0	
+0xae7fd0	PTNpcSocial	PTNpcSocial::CanQuestIndicatorAllSubNpc(__int64,char,char,char)	395	0	
+0xae8160	PTNpcIndicatorIdle	PTNpcIndicatorIdle::StopIdle(bool)	457	0	
+0xae8330	BPTNpcDeadBody	BPTNpcDeadBody::UpdatePrivatePouchOwnerParticle(float,float,float,int)	381	1	00010057.Item_Pick_White
+0xae84b0	BPTNpcDeadBody	BPTNpcDeadBody::UpdatePrivatePouchMarkParticle(float,float,float,int)	372	1	00010057.Item_Pouch_White
+0xae8630	BPTNpcDeadBody	BPTNpcDeadBody::UnloadPrivatePouch(void)	742	0	
+0xae8920	BPTNpcDeadBody	BPTNpcDeadBody::unLoad(void)	69	0	
+0xae8970	BPTNpcDeadBody	BPTNpcDeadBody::UpdatePouchOwnerParticle(float,float,float,int)	381	1	00010057.Item_Pick_White
+0xae8af0	BPTNpcDeadBody	BPTNpcDeadBody::UpdatePouchMarkParticle(float,float,float,int)	365	1	00010057.Item_Pouch_White
+0xae8c60	BPTNpc	BPTNpc::updatePartyBattleFieldLTBBall(void)	227	0	
+0xae8d50	BPTNpc	BPTNpc::getBalloonIconSet(std::basic_string<wchar_t,std::char_traits<wchar_t>,std::allocator<wchar_t>> *)	51	0	
+0xae8d90	BPTNpc	BPTNpc::getFactionScore(void)	28	0	
+0xae8db0	BPTNpc	BPTNpc::Move(char,float,float,float,int,float,bool,int)	64	0	
+0xae8df0	BPTNpc	BPTNpc::MovePcYaw(int,float)	150	0	
+0xae8e90	BPTNpc	BPTNpc::IsBigBoss(void)	32	0	
+0xae8ed0	BPTNpc	BPTNpc::BPTNpc(BGameObject *,PresentationWorld *)	343	0	
+0xae9b30	BPTCreature	BPTCreature::HasFestivalSpeicalEffect(void)	71	0	
+0xae9b80	BPTCreature	BPTCreature::HasBmSpecialEffect(void)	71	0	
+0xae9bd0	BPTCreature	BPTCreature::PickupDeadBody(unsigned __int64)	408	0	
+0xae9d70	BPTCreature	BPTCreature::CancelPhantomWeapon(Data::Skill3RecordActiveSkillPtr &,char)	49	0	
+0xae9db0	BPTCreature	BPTCreature::FinishPhantomWeapon(Data::Skill3RecordActiveSkillPtr &,char)	49	0	
+0xae9df0	BPTCreature	BPTCreature::ReturnPhantomWeapon(Data::Skill3RecordActiveSkillPtr &,char,int,float,char)	34	0	
+0xae9e20	BPTCreature	BPTCreature::ExecPhantomWeapon(Data::Skill3RecordActiveSkillPtr &,__int64,char,int,float,char)	54	0	
+0xae9ed0	BPTCreature	BPTCreature::canTalkSocial(Data::TalkSocialRecordPtr,bool)	2370	0	
+0xaea820	BPTCreature	BPTCreature::SetFilteredHidden(bool)	374	0	
+0xaeaf40	BPTCreature	BPTCreature::updateStandIdle(void)	509	0	
+0xaeb140	BPTCreature	BPTCreature::setMove(bool)	69	0	
+0xaeb190	BPTCreature	BPTCreature::showResurrectionGameMessage(EResurrectionSkillType,__int64,__int64,__int64)	1035	9	Msg.Player.ReceiveSacrifice.PlayerSummoned
+0xaeb5a0	BPTCreature	BPTCreature::setNormalIdleAnim(bool,bool)	451	0	
+0xaeb770	BPTCreature	BPTCreature::ProcessPerfectDodgeEffect(Data::EffectRecordPtr)	174	0	
+0xaeb820	BPTCreature	BPTCreature::CreateSkill(__int64,char,unsigned __int64)	470	0	
+0xaeba00	BPTCreature	BPTCreature::playHideShow(bool,bool)	1302	5	00007916.hide_enemy5
+0xaebf20	BPTCreature	BPTCreature::UpdateDuelBattleStatePcMark(char,char)	2458	0	
+0xaec8c0	BPTCreature	BPTCreature::UpdateDuelTagMatchCamera(void)	1041	0	
+0xaecce0	BPTCreature	BPTCreature::DuelTagMatchWarp(void)	228	0	
+0xaecdd0	BPTCreature	BPTCreature::battleMessageObjectType(BGameObject const *,BGameObject const *)	372	0	
+0xaecf50	BPTCreature	BPTCreature::ProcessSkillEvent(__int64,int,char,char,short,short,char,short,PfSub const &,char)	205	0	
+0xaed1e0	BPTCreature	BPTCreature::StartPhantomWeaponMode(void)	156	0	
+0xaf2510	BPTPlayer	BPTPlayer::RequestCombatHyperMove(void)	258	0	
+0xaf2a10	BPTPlayer	BPTPlayer::SitDown(void)	123	0	
+0xaf2b00	BPTPlayer	BPTPlayer::CancelSitDown(void)	101	0	
+0xaf2b70	BPTPlayer	BPTPlayer::updateGuildMarkIndicator(bool)	293	0	
+0xaf3070	BPTPlayer	BPTPlayer::CreateSkill(__int64,char,unsigned __int64)	37	0	
+0xaf30a0	BPTPlayer	BPTPlayer::RequestSetTarget(unsigned __int64)	96	0	
+0xaf3100	BPTPlayer	BPTPlayer::ResetSecondaryTarget(void)	93	0	
+0xaf3160	BPTPlayer	BPTPlayer::HideFriendlyTargetFocusMark(unsigned __int64)	517	0	
+0xaf3470	BPTCreature	BPTCreature::setMove(bool)	5	0	
+0xaf3480	BPTPlayer	BPTPlayer::EndCinema(void)	536	0	
+0xaf4400	BPTPc	BPTPc::EquipCostume(CreatureProperty const &)	420	0	
+0xaf45b0	BPTPc	BPTPc::EquipGuildUniform(CreatureProperty const &,bool)	422	0	
+0xaf4760	PTNpcSocial	PTNpcSocial::LoopPlayIndicatorSocial(void)	72	0	
+0xaf47b0	PTNpcSocial	PTNpcSocial::PlayRelationshipIndicatorSocial(__int64,__int64)	69	0	
+0xaf4800	PTNpcSocial	PTNpcSocial::PlayQuestIndicatorSocial(__int64,__int64,char,char,char)	92	0	
+0xaf4860	PTNpcIndicatorIdle	PTNpcIndicatorIdle::setRelationshipIndicatorMoveAnim(__int64)	460	0	
+0xaf4a30	PTNpcIndicatorIdle	PTNpcIndicatorIdle::setQuestIndicatorIdleAnim(__int64,char,char)	498	0	
+0xaf4c30	BPTNpcDeadBody	BPTNpcDeadBody::UpdatePouchQuestParticle(void)	1313	0	
+0xaf51b0	BPTNpc	BPTNpc::updateSoulEffect(void)	672	0	
+0xaf5470	BPTNpc	BPTNpc::CheckShowNamePlate(bool)	140	0	
+0xaf5510	BPTNpc	BPTNpc::ShowPcSocialCaseRange(bool)	753	0	
+0xaf5810	BPTNpc	BPTNpc::ShowApproachCaseRange(bool)	753	0	
+0xaf5b10	BPTNpc	BPTNpc::HideIndicator(bool)	44	0	
+0xaf5b40	BPTNpc	BPTNpc::SetVisible(bool)	117	0	
+0xaf5bc0	BPTNpc	BPTNpc::ReleasePt(void)	547	0	
+0xaf5e10	TagMatchDeadTimerEventListener	TagMatchDeadTimerEventListener::TimerExpired(void)	214	0	
+0xaf5ef0	BPTCreature	BPTCreature::IsSpecialEffectMoveType(char)	65	0	
+0xaf5f60	BPTCreature	BPTCreature::restoreRejectedPropertiesForOutPhantomMode(void)	446	0	
+0xaf6120	BPTCreature	BPTCreature::FirePhantomWeapon(Data::Skill3RecordActiveSkillPtr &,sTargetDataInfo,char,int,float,char)	90	0	
+0xaf6180	BPTCreature	BPTCreature::PlaySummonedTalkSocial(Data::TalkSocialRecordPtr)	496	0	
+0xaf6370	BPTCreature	BPTCreature::deleteAction(void)	62	0	
+0xaf63b0	BPTCreature	BPTCreature::createAction(int)	792	0	
+0xaf6a20	BPTCreature	BPTCreature::UpdateNamePlate(void)	3078	6	00008603.Faction.Faction_Coin_Grade_1
+0xaf7630	BPTCreature	BPTCreature::SetIdleAnim(bool,bool,bool)	1177	0	
+0xaf7ad0	BPTCreature	BPTCreature::InvokeEffect(int,short,char,unsigned __int64,unsigned __int64,char,PfStruct const *,PropertyPair const &,int)	1725	0	
+0xaf8190	BPTCreature	BPTCreature::actionSkillHitStopPcSocial(PfStruct const *)	150	0	
+0xaf8800	BPTControlledCreature	BPTControlledCreature::processActionFailed(int,StructPacket const *)	187	0	
+0xafb1c0	BPTPlayer	BPTPlayer::updateQuestPouchParticleState(void)	304	0	
+0xafb350	BPTPlayer	BPTPlayer::SetIdleAnim(bool,bool,bool)	513	0	
+0xafb990	BPTPlayer	BPTPlayer::StartCinema(void)	23	0	
+0xafc200	BPTPc	BPTPc::makeNamePlateFontSet(std::basic_string<wchar_t,std::char_traits<wchar_t>,std::allocator<wchar_t>>,BPTCreature::NAMEPLATE_LINE_TYPE,wchar_t *)	1057	15	00071803.Program.Fontset_Balloon_PC
+0xafc960	BPTNpc	BPTNpc::GetNameplateHpBar(void)	134	0	
+0xafc9f0	BPTNpc	BPTNpc::CheckShowNamePlateHpBar(void)	374	0	
+0xafcb70	BPTNpc	BPTNpc::UpdateResponseApproachMode(float)	136	0	
+0xafcc00	BPTNpc	BPTNpc::playRelationshipIndicator(float)	284	0	
+0xafcd20	BPTNpc	BPTNpc::playBannedIndicator(float)	262	0	
+0xafcfc0	BPTCreature	BPTCreature::UpdatePhantomMode(void)	112	0	
+0xafd030	BPTCreature	BPTCreature::preProcessAction(void)	285	0	
+0xafd150	BPTCreature	BPTCreature::PlayWallHitShow(__int64,short,float)	424	0	
+0xafd300	BPTCreature	BPTCreature::presentationActionsEffectAttachFialImmuned(GS_ActionsEffectSubPacket const *,BGameObject const *,BGameObject const *)	639	0	
+0xafd580	BPTCreature	BPTCreature::actionsNoneSkillEffectPlayShow(int,char,__int64 const &,BPTCreature::DAMAGE_TYPE,float,BGameObject const *,BGameObject const *)	1247	0	
+0xafda60	BPTCreature	BPTCreature::actionsNoneSkillEffectDamageSignal(int,char,__int64 const &,BPTCreature::DAMAGE_TYPE,BGameObject const *,BGameObject const *)	404	0	
+0xafdc00	BPTCreature	BPTCreature::actionsSkillEffectAttachDamageSignalNonePlayShow(int,PTSkill2 *,char,__int64 const &,BPTCreature::DAMAGE_TYPE,float,BGameObject const *,BGameObject const *)	596	0	
+0xafde60	BPTCreature	BPTCreature::actionsSkillEffectPlayShow(int,PTSkill2 *,char,__int64 const &,BPTCreature::DAMAGE_TYPE,float,BGameObject const *,BGameObject const *)	1212	0	
+0xafe320	BPTCreature	BPTCreature::load(bool)	801	0	
+0xaff1c0	BPTPlayer	BPTPlayer::resetMoveState(void)	504	0	
+0xaff460	BPTPlayer	BPTPlayer::updatePredefinedSkillList(void)	127	0	
+0xaff4e0	BPTPlayer	BPTPlayer::setMoveByAuto(bool)	137	0	
+0xaffac0	PTNpcIndicatorIdle	PTNpcIndicatorIdle::Update(BPTNpc *,char,char)	531	0	
+0xb00980	BPTDuelBotSummoned	BPTDuelBotSummoned::load(bool)	1058	0	
+0xb014d0	BPTCreature	BPTCreature::StopPairCostumeEffectContinuanceShowAndPlayDetachShow(void)	32	0	
+0xb01500	BPTCreature	BPTCreature::ActivePairCostumeEffect(void)	438	0	
+0xb016c0	BPTCreature	BPTCreature::RulemoveDelayDisplay(void)	172	0	
+0xb01770	BPTCreature	BPTCreature::OnChangedCreatureProperty(short,CreatureProperty const &,CreatureProperty const &)	5856	0	
+0xb03120	BPTCreature	BPTCreature::actionsEffectPlayShow(int,PTSkill2 *,char,__int64 const &,BPTCreature::DAMAGE_TYPE,float,BGameObject const *,BGameObject const *)	435	0	
+0xb046a0	BPTPlayer	BPTPlayer::EquipSoulMask(CreatureProperty const &,char,char)	2287	1	E:\DailyBuild02\Client-Common-0.0.381\depot\Branch\381NC\Program\ue4\BNSR\Source\ClientEXE\Private\P
+0xb04f90	BPTPc	BPTPc::EquipSoulMask(CreatureProperty const &,char,char)	1528	1	E:\DailyBuild02\Client-Common-0.0.381\depot\Branch\381NC\Program\ue4\BNSR\Source\ClientEXE\Private\P
+0xb055f0	BPTDuelBot	BPTDuelBot::EquipSoulMask(CreatureProperty const &,char,char)	480	0	
+0xb057d0	BPTCreature	BPTCreature::PlayTalkSocial(Data::TalkSocialRecordPtr)	646	0	
+0xb05a60	BPTCreature	BPTCreature::UpdateSoulMaskPending(void)	973	0	
+0xb05e30	BPTCreature	BPTCreature::actionsEffectAttachFailPlayShow(int,PTSkill2 *,char,__int64 const &,BPTCreature::DAMAGE_TYPE,float,BGameObject const *,BGameObject const *)	281	0	
+0xb06140	BPTPlayer	BPTPlayer::load(bool)	1694	0	
+0xb07050	BPTCreature	BPTCreature::processAction(int,PfStruct const *)	755	0	
+0xb073c0	BPTPlayer	BPTPlayer::HideFocusMark(unsigned __int64)	446	0	
+0xb07680	BPTPlayer	BPTPlayer::ShowFocusMark(unsigned __int64)	692	0	
+0xb07a50	BPTPlayer	BPTPlayer::ShowFriendlyTargetFocusMark(unsigned __int64)	603	0	
+0xb07db0	BPTNpc	BPTNpc::UpdateCursorType(void)	403	0	
+0xb07f50	BPTNpc	BPTNpc::playQuestIndicator(float)	430	0	
+0xb08100	BPTNpc	BPTNpc::UpdateIndicatorSocial(float)	53	0	
+0xb08140	BPTPlayer	BPTPlayer::PlayQuestNavigation(short,bool)	487	0	
+0xb08330	BPTPlayer	BPTPlayer::ResetTarget(void)	92	0	
+0xb08390	BPTPlayer	BPTPlayer::ShowSecondaryFocusMark(unsigned __int64,BPTControlledCreature::TARGET_SUB_TYPE)	1897	2	00010057.Target_GroundDecal000
+0xb08c10	BPTNpc	BPTNpc::UpdateVisible(bool)	723	0	
+0xb08ef0	BPTNpc	BPTNpc::UpdateIdle(bool)	195	0	
+0xb08fc0	BPTNpc	BPTNpc::UpdateQuestIndicator(bool)	968	0	
+0xb09390	BPTNpc	BPTNpc::ShowIndicator(bool)	240	0	
+0xb09480	BPTNpc	BPTNpc::load(bool)	2679	0	
+0xb0a4e0	BPTPlayer	BPTPlayer::SetPlayerAttackTarget(unsigned __int64,bool)	569	0	
+0xb0a820	BPTPlayer	BPTPlayer::SetPlayerActionTarget(unsigned __int64,BPTControlledCreature::TARGET_SUB_TYPE,bool)	135	0	
+0xb0a8b0	BPTNpc	BPTNpc::UpdateIndicator(bool)	128	0	
+0xb0a960	BPTPlayer	BPTPlayer::ShowChatBalloon(wchar_t const *,char,wchar_t const *,char)	2488	27	00008130.Program.Fontset_Balloon_Text
+0xb0b350	BPTPlayer	BPTPlayer::UpdateNamePlate(void)	3663	1	UI.Nameplate.HidePcName
+0xb0c1a0	BPTPlayer	BPTPlayer::FixedTargetingToAttack(char)	429	0	
+0xb0c350	BPTPc	BPTPc::getNamePlateText(std::basic_string<wchar_t,std::char_traits<wchar_t>,std::allocator<wchar_t>> *,BPTCreature::NAMEPLATE_LINE_TYPE)	2363	1	UI.Nameplate.HidePcName
+0xb0cca0	BPTNpcDeadBody	BPTNpcDeadBody::getNamePlateText(std::basic_string<wchar_t,std::char_traits<wchar_t>,std::allocator<wchar_t>> *)	277	0	
+0xb0cdc0	BPTNpcDeadBody	BPTNpcDeadBody::ShowBalloon(unsigned __int64,float)	981	26	00008130.Program.Fontset_Balloon_Text
+0xb0d1a0	BPTNpc	BPTNpc::getNamePlateText(std::basic_string<wchar_t,std::char_traits<wchar_t>,std::allocator<wchar_t>> *,BPTCreature::NAMEPLATE_LINE_TYPE)	453	0	
+0xb0d380	BPTDuelBot	BPTDuelBot::getNamePlateText(std::basic_string<wchar_t,std::char_traits<wchar_t>,std::allocator<wchar_t>> *,BPTCreature::NAMEPLATE_LINE_TYPE)	1640	1	UI.Nameplate.HidePcName
+0xb0da00	BPTCreature	BPTCreature::ShowChatBalloon(wchar_t const *,char,wchar_t const *,char)	2457	27	UI.Balloon.Pc.Name.Recv.One
+0xb0e3d0	BPTCreature	BPTCreature::getObjectDetail(BGameObject const *,std::basic_string<wchar_t,std::char_traits<wchar_t>,std::allocator<wchar_t>> &,std::basic_string<wchar_t,std::char_traits<wchar_t>,std::allocator<wchar_t>> &,std::basic_string<wchar_t,std::char_traits<wchar_t>,std::allocator<wchar_t>> &)	1086	1	PC
+0xb11750	BPTPlayer	BPTPlayer::RemoveTarget(__int64)	182	0	
+0xb11810	BPTNpcDeadBody	BPTNpcDeadBody::ShowDyingMessage(void)	230	0	
+0xb11900	BPTNpcDeadBody	BPTNpcDeadBody::load(bool)	3058	6	00009256.item_0009_Physics
+0xb12940	BPTCreature	BPTCreature::dieEffectMessage(__int64,__int64,PTSkill2 *,__int64)	618	0	
+0xb15c80	Production	Production::ProcessNetObjectEvent(StructPacket const *)	209	0	
+0xb15d60	BPTPlayer	BPTPlayer::OnNotifySkillRecycleAdded_renewal(int,int)	65	0	
+0xb15dd0	BPTPlayer	BPTPlayer::ProcessNetObjectEvent(StructPacket const *)	2009	1	Msg.FactionScore.Acquire.ByQuestReward
+0xb168a0	BPTCreature	BPTCreature::addEffectDamageMeterHitInfo(GS_ActionsEffectSubPacket const *)	695	0	
+0xb16b60	BPTCreature	BPTCreature::addSkillDamageMeterHitInfo(GS_ActionsSkillHitSubPacket const *)	666	0	
+0xb16e00	BPTCreature	BPTCreature::addDamageMeterInfo(GS_ActionsEffectSubPacket const *,BGameObject const *)	1134	0	
+0xb172a0	BPTCreature	BPTCreature::presentationActionsEffectInterval(GS_ActionsEffectSubPacket const *,BGameObject const *,BGameObject const *)	746	0	
+0xb17ef0	BPTCreature	BPTCreature::presentationActionsEffectInstance(GS_ActionsEffectSubPacket const *,BGameObject const *,BGameObject const *)	1352	0	
+0xb18950	BPTPlayer	BPTPlayer::autoTargetingAttackTarget(bool)	6928	0	
+0xb1a590	BPTCreature	BPTCreature::presentationActions(GS_ActionsEffectSubPacket const *,BGameObject const *)	108	0	
+0xb1a600	BPTPlayer	BPTPlayer::RequestPlayTalkSocial(unsigned __int64)	266	0	
+0xb1a710	BPTPlayer	BPTPlayer::ReserveTalkSocial(unsigned __int64,float)	99	0	
+0xb1a780	BPTPlayer	BPTPlayer::DeactivePairCostumeEffect(void)	139	0	
+0xb1a810	BPTPlayer	BPTPlayer::ActivePairCostumeEffect(void)	199	0	
+0xb1a8e0	BPTCreature	BPTCreature::addResurrectionHistory(__int64,__int64)	361	0	
+0xb1aa50	BPTCreature	BPTCreature::addHistory(BGameObject const *,BGameObject const *,int)	145	0	
+0xb1aaf0	BPTCreature	BPTCreature::playAcquireFactionScore(__int64,__int64,__int64,int,int)	1937	3	Msg.FactionScore.Gain.ByEnv
+0xb1b290	BPTCreature	BPTCreature::playAcquireFactionScore(__int64)	871	0	
+0xb1fa40	ProductionPanel2	ProductionPanel2::OnChangedCreatureProperty(short,CreatureProperty const &,CreatureProperty const &)	92	0	
+0xb234f0	ProductionPanel	ProductionPanel::ProcessNetObjectEvent(StructPacket const *)	77	0	
+0xb24dd0	ProductionNotificationPanel2	ProductionNotificationPanel2::OnChangedCreatureProperty(short,CreatureProperty const &,CreatureProperty const &)	91	0	
+0xb281c0	ProductionNotificationPanel2	ProductionNotificationPanel2::ProcessNetObjectEvent(StructPacket const *)	218	0	
+0xb282d0	ProductionNotificationPanel	ProductionNotificationPanel::ProcessNetObjectEvent(StructPacket const *)	128	0	
+0xb28350	BPTNpc	BPTNpc::OnChangedCreatureProperty(short,CreatureProperty const &,CreatureProperty const &)	2880	0	
+0xb2a110	BPTPlayer	BPTPlayer::SetMoveByMouseClick(bool)	211	0	
+0xb2a1f0	BPTPlayer	BPTPlayer::setJump(bool)	247	0	
+0xb2a2f0	BPTPlayer	BPTPlayer::setMoveByKeyboard(bool)	304	0	
+0xb2a420	BPTCreature	BPTCreature::ShowMovePos(float,float,float,int)	409	1	00010057.Effect_Waypoint
+0xb2a5c0	BPTPlayer	BPTPlayer::InSight(void)	696	0	
+0xb2b080	BPTPlayer	BPTPlayer::MoveCancel(void)	91	0	
+0xb2b0e0	BPTPc	BPTPc::OnChangedCreatureProperty(short,CreatureProperty const &,CreatureProperty const &)	3248	0	
+0xb2f8c0	ProductionPanel2	ProductionPanel2::ProcessNetObjectEvent(StructPacket const *)	679	2	Msg.TrialVersion.Common.Fail
+0xb2fd40	PTNpcSocial	PTNpcSocial::playNpcSocial(SOCIAL_TYPE,EInterface::Handle &,unsigned __int64,bool,TimerId,short,bool)	1854	0	
+0xb30f40	BPlayerSummoned	BPlayerSummoned::UpdateBrainFarEventAction(void)	365	0	
+0xb310b0	BPTCreature	BPTCreature::PlaySocial(SOCIAL_TYPE,unsigned __int64,bool,short,bool)	1235	0	
+0xb31590	BPlayerSummoned	BPlayerSummoned::UseSpawnSkill(void)	534	0	
+0xb319d0	BPTCreature	BPTCreature::invokeBattleMessage(GS_ActionsEffectSubPacket const *,BGameObject const *)	1484	0	
+0xb32350	Production2	Production2::ProcessNetObjectEvent(StructPacket const *)	796	0	
+0xb326a0	BPTNpc	BPTNpc::Warp(char,int,short)	87	0	
+0xb32770	BPTCreature	BPTCreature::PlayLeaveSocial(__int64)	71	0	
+0xb327c0	BPTNpc	BPTNpc::SetQuestApproachMode(void)	497	0	
+0xb329c0	BPTNpc	BPTNpc::UpdateQuestApproachMode(float)	124	0	
+0xb32a40	BPTPlayer	BPTPlayer::TickCheckQuest(void)	446	0	
+0xb32cc0	BPTCreature	BPTCreature::ProcessActionSubEvent(int,PfStruct const *,BGameObject const *)	4579	0	
+0xb33f70	BPTPlayer	BPTPlayer::ResetDeadbodyTarget(void)	88	0	
+0xb33fd0	BPTPlayer	BPTPlayer::SetPlayerDeadbodyTarget(unsigned __int64,bool)	109	0	
+0xb34040	BPTPlayer	BPTPlayer::ProcessActionSubEvent(int,PfStruct const *,BGameObject const *)	53	0	
+0xb34080	BPTNpc	BPTNpc::ProcessActionSubEvent(int,PfStruct const *,BGameObject const *)	74	0	
+0xb340d0	BPTPlayer	BPTPlayer::autoTargetingActionTarget(bool)	6882	0	
+0xb35cd0	BPTPlayer	BPTPlayer::RefreshAutoTargeting(void)	175	0	
+0xb35d80	BPTPlayer	BPTPlayer::TickAutoTargeting(void)	703	0	
+0xb36040	BPTPlayer	BPTPlayer::Tick(float)	550	0	
+0xb36270	BPTPlayer	BPTPlayer::OnChangedCreatureProperty(short,CreatureProperty const &,CreatureProperty const &)	8647	0	
+0xb38b70	BPlayerSummoned	BPlayerSummoned::SetTempSummondName(wchar_t const *)	23	0	
+0xb39130	PlayerAbilityRemasterPanel	PlayerAbilityRemasterPanel::GetSummonedAbilityValue(int)	29	0	
+0xb392e0	PlayerAbilityPanel	PlayerAbilityPanel::GetSummonedAbilityValue(int)	29	0	
+0xb39b50	PlayerCommon	PlayerCommon::IsSummonedGuardSkill(int)	27	0	
+0xb39b90	PhotoAlbumPanel	PhotoAlbumPanel::SetPreviewCreatureProperty(CreatureProperty const &)	185	0	
+0xb3c280	BPlayerSummoned	BPlayerSummoned::GetPlayerSummonedName(void)	163	0	
+0xb3cb30	PlayerAbilityRemasterPanel	PlayerAbilityRemasterPanel::OnChangedCreatureProperty(short,CreatureProperty const &,CreatureProperty const &)	140	0	
+0xb3cd80	PlayerAbilityPanel	PlayerAbilityPanel::OnChangedCreatureProperty(short,CreatureProperty const &,CreatureProperty const &)	124	0	
+0xb3d210	BPlayer	BPlayer::ChangedPropertyCallback(short,ExtraCreatureProperty const &,ExtraCreatureProperty const &)	105	0	
+0xb3d550	BPlayer	BPlayer::ToPTPlayer(void)	4	0	
+0xb3d560	BPlayer	BPlayer::ToPTPlayer(void)	4	0	
+0xb3d720	PlayerCommon	PlayerCommon::CanExhaustionCreatureBeTargeted(BPlayer *,BCreature *)	68	0	
+0xb3f9d0	PassiveEffectList	PassiveEffectList::SetOwner(BCreature *)	23	0	
+0xb40c10	PresentationWorld	PresentationWorld::SetDeadSceneEffect(void)	252	0	
+0xb40e70	PresentationWorld	PresentationWorld::decomposeDeadBody(unsigned __int64)	170	0	
+0xb411c0	PresentationWorld	PresentationWorld::OutSightObject(G_OutSightCubePacket const *)	161	0	
+0xb42ba0	BPlayer	BPlayer::OnNotifyCreatureRemoved(unsigned __int64)	69	0	
+0xb43100	PlayerCommon	PlayerCommon::CheckCreaturePropertyToUseSkill(BGameObject const *,char,short const *,int,char,short const *,int,bool)	372	0	
+0xb44cc0	PersonalCustomizeConfirmPanel	PersonalCustomizeConfirmPanel::OnChangedCreatureProperty(short,CreatureProperty const &,CreatureProperty const &)	87	0	
+0xb47ff0	PresentationWorld	PresentationWorld::UpdateAllHideCreature(void)	226	0	
+0xb481d0	PresentationWorld	PresentationWorld::ResetEngineObjectId(EInterface::Handle const &,unsigned __int64)	119	0	
+0xb48300	PresentationWorld	PresentationWorld::HasSoulMaskPendingCreature(unsigned __int64)	58	0	
+0xb48340	PresentationWorld	PresentationWorld::AddSoulMaskPendingCreature(unsigned __int64)	71	0	
+0xb485c0	PresentationWorld	PresentationWorld::addPTNpcDeadBody(BGameObject *,unsigned __int64)	158	0	
+0xb4a1e0	BPlayerSummoned	BPlayerSummoned::GetSkillUsableDistance(Data::Skill3RecordActiveSkillPtr,unsigned __int64)	565	0	
+0xb4df40	PlayerCommon	PlayerCommon::IsVisible(BPlayer *,BCreature *)	85	0	
+0xb523e0	PresentationWorld	PresentationWorld::GetSummonedEnterZoneInfo(short &,short &,short &,short &)	1232	0	
+0xb52d40	PresentationWorld	PresentationWorld::spawnDroppedPouch(unsigned __int64)	197	0	
+0xb52e10	PresentationWorld	PresentationWorld::spawnDeadBody(unsigned __int64,unsigned __int64)	179	0	
+0xb52f30	PresentationWorld	PresentationWorld::encounterNpcDeadBody(unsigned __int64)	138	0	
+0xb53160	PresentationWorld	PresentationWorld::spawnFieldItem(unsigned __int64)	116	0	
+0xb53270	PresentationWorld	PresentationWorld::encounterCreature(unsigned __int64,CreaturePropertyEncounterSync const *,PfRepeat const *,__int64)	452	0	
+0xb539b0	PlayerCommon	PlayerCommon::IsJoinedFaction(BCreature *,unsigned __int64)	498	0	
+0xb54930	PlayReportPanel	PlayReportPanel::OnChangedCreatureProperty(short,CreatureProperty const &,CreatureProperty const &)	95	0	
+0xb54c80	PlayReport	PlayReport::ProcessNetObjectEvent(StructPacket const *)	44	0	
+0xb55370	PlayerSummonedPanel	PlayerSummonedPanel::updateHPBar(__int64 const &,__int64 const &,__int64 const &,bool)	546	0	
+0xb555a0	PlayerSummonedPanel	PlayerSummonedPanel::ProcessEvent(EngineEvent *)	376	0	
+0xb55740	PlayerSummonedPanel	PlayerSummonedPanel::~PlayerSummonedPanel(void)	129	0	
+0xb558b0	BPlayerSummoned	BPlayerSummoned::LeaveZone(void)	104	0	
+0xb55920	BPlayerSummoned	BPlayerSummoned::Enter(void)	2116	0	
+0xb57a00	StanceGaugePanel	StanceGaugePanel::UpdateStanceGaugeValue(CreatureProperty const *)	396	0	
+0xb586e0	PlayerCombatStatusPanel	PlayerCombatStatusPanel::OnChangedCreatureProperty(short,CreatureProperty const &,CreatureProperty const &)	663	0	
+0xb598f0	PlayerAbilityRemasterPanel	PlayerAbilityRemasterPanel::ProcessNetObjectEvent(StructPacket const *)	138	0	
+0xb5a330	PlayerAbilityPanel	PlayerAbilityPanel::ProcessNetObjectEvent(StructPacket const *)	138	0	
+0xb5ae10	BPlayer	BPlayer::IsBlockedPlayerInZone(__int64)	112	0	
+0xb60550	Petition	Petition::ProcessNetObjectEvent(StructPacket const *)	234	0	
+0xb60e60	PersonalCustomizePurchasePanel	PersonalCustomizePurchasePanel::OnChangedCreatureProperty(short,CreatureProperty const &,CreatureProperty const &)	133	0	
+0xb68b10	PresentationWorld	PresentationWorld::addPTPlayer(BGameObject *)	364	0	
+0xb6b3d0	PlayerCombatStatusPanel	PlayerCombatStatusPanel::SpawnSpecialSkillGaugeChargingParticle(void)	143	1	00027869.Particle.UI_HongMoonGauge_UP
+0xb6b460	PlayerCombatStatusPanel	PlayerCombatStatusPanel::updateCreatureProperty(CreatureProperty const *,bool)	362	0	
+0xb71400	PlayerCommon	PlayerCommon::IsTargetableState(BPlayer *,BCreature *,int)	212	0	
+0xb76f70	PassiveEffectList	PassiveEffectList::OnChangedCreatureProperty(short,CreatureProperty const &,CreatureProperty const &)	71	0	
+0xb78ad0	BPlayerSummoned	BPlayerSummoned::RequestRecall(void)	42	0	
+0xb79090	PlayerStatusPanel	PlayerStatusPanel::ProcessNetObjectEvent(StructPacket const *)	188	0	
+0xb79aa0	PlayerExpPanel	PlayerExpPanel::ProcessNetObjectEvent(StructPacket const *)	98	0	
+0xb80cf0	PcTooltipPanel	PcTooltipPanel::OnChangedCreatureProperty(short,CreatureProperty const &,CreatureProperty const &)	80	0	
+0xb82020	BPc	BPc::OutSight(void)	16	0	
+0xb84620	BPlayerSummoned	BPlayerSummoned::RequestHelpRestoration(unsigned __int64)	60	0	
+0xb890f0	BPc	BPc::InSight(void)	58	0	
+0xb8a570	BPlayer	BPlayer::ProcessInfoGateNetObjectEvent(StructPacket const *)	98	0	
+0xb8e9f0	PresentationWorld	PresentationWorld::UpdateSoulMaskPendingCreature(void)	212	0	
+0xb901c0	BContextProcess	BContextProcess::isPlayerSummonedExist(void)	356	0	
+0xb93260	PresentationWorld	PresentationWorld::InSightObject(G_InSightCubePacket const *)	660	0	
+0xb93500	PresentationWorld	PresentationWorld::InZoneObject(G_InZonePacket const *)	344	0	
+0xb94a90	PlayerStatusPanel	PlayerStatusPanel::changeCreatureProperty(short,CreatureProperty const *)	404	0	
+0xb94d40	PlayerStatusPanel	PlayerStatusPanel::OnChangedCreatureProperty(short,CreatureProperty const &,CreatureProperty const &)	207	0	
+0xb94ea0	PlayerStatusPanel	PlayerStatusPanel::UpdateCreatureProperty(CreatureProperty const *)	352	0	
+0xb957b0	PlayerAbilityRemasterPanel	PlayerAbilityRemasterPanel::updateSummonedInfo(void)	690	0	
+0xb95af0	PlayerAbilityPanel	PlayerAbilityPanel::updateSummonedInfo(void)	690	0	
+0xb97240	PetitionPanel	PetitionPanel::ProcessNetObjectEvent(StructPacket const *)	713	4	UI.Petition.CacelUnknownError
+0xb9e0a0	PickupItemPanel	PickupItemPanel::ProcessNetObjectEvent(StructPacket const *)	659	0	
+0xba17a0	PassiveEffectList	PassiveEffectList::update(BCreature const *)	509	0	
+0xba19a0	PassiveEffectList	PassiveEffectList::Update(BCreature const *)	37	0	
+0xba25d0	PlayerSummonedPanel	PlayerSummonedPanel::updatePassiveEffect(void)	50	0	
+0xba2610	PlayerSummonedPanel	PlayerSummonedPanel::UpdateSummoned(void)	1327	3	%s%d
+0xba2c60	PlayerSummonedPanel	PlayerSummonedPanel::SpawnPlayerSummoned(bool)	141	0	
+0xba2cf0	PlayerSummonedPanel	PlayerSummonedPanel::ProcessPassiveEffectEvent(GS_ActionsPassiveEffectSubPacket const *)	296	0	
+0xba2e30	PlayerSummonedPanel	PlayerSummonedPanel::OnChangedPlayerSummonedProperty(short,CreatureProperty const &,CreatureProperty const &)	182	0	
+0xba31a0	PlayerSummonedPanel	PlayerSummonedPanel::Start(wchar_t const *)	1469	0	
+0xba48e0	PartyPanel	PartyPanel::processCreatureEncounter(unsigned __int64)	88	0	
+0xba4940	PartyPanel	PartyPanel::processCreatureOutofsight(unsigned __int64)	88	0	
+0xba4f10	PlayerSummonedPanel	PlayerSummonedPanel::processPropertyEvent(PropertyPair const &,bool)	201	0	
+0xba5090	PlayerSummonedPanel	PlayerSummonedPanel::ProcessActionSubEvent(int,PfStruct const *,BGameObject const *)	84	0	
+0xba50f0	PlayerEffectStatusPanel	PlayerEffectStatusPanel::ProcessNetObjectEvent(StructPacket const *)	311	0	
+0xba65f0	PcTooltipPanel	PcTooltipPanel::ProcessNetObjectEvent(StructPacket const *)	126	0	
+0xba8c90	PlayReportPanel	PlayReportPanel::ProcessNetObjectEvent(StructPacket const *)	191	0	
+0xbb12e0	PersonalCustomizeConfirmPanel	PersonalCustomizeConfirmPanel::ProcessNetObjectEvent(StructPacket const *)	74	0	
+0xbb25f0	PlayerExpPanel	PlayerExpPanel::OnChangedCreatureProperty(short,CreatureProperty const &,CreatureProperty const &)	575	0	
+0xbb2940	PlayerExpPanel	PlayerExpPanel::UpdateCreatureProperty(CreatureProperty const *)	167	0	
+0xbb5030	PartySearchPanel	PartySearchPanel::ProcessNetObjectEvent(StructPacket const *)	329	0	
+0xbb5260	BPlayer	BPlayer::Initialize(PropertySync const *,PfVarBin const *)	1115	0	
+0xbbfe10	BPlayer	BPlayer::ProcessNetObjectEvent(StructPacket const *)	6330	6	00003805.Signal_UI.S_Sys_UltimateSkill_GaugeMaxCue
+0xbc37a0	PresentationWorld	PresentationWorld::ProcessNetObjectEvent(StructPacket const *)	2130	0	
+0xbc42a0	PresentationWorld	PresentationWorld::OnChangedExtraCreatureProperty(short,ExtraCreatureProperty const &,ExtraCreatureProperty const &)	40	0	
+0xbc42d0	PresentationWorld	PresentationWorld::OnChangedCreatureProperty(short,CreatureProperty const &,CreatureProperty const &)	131	0	
+0xbc4390	BPlayer	BPlayer::ChangedPropertyCallback(short,CreatureProperty const &,CreatureProperty const &)	3577	4	%d
+0xbc75c0	PartyMemberPanel2	PartyMemberPanel2::setSummonedCautionHpEffect(bool)	163	0	
+0xbc7d10	PartyBattleField	PartyBattleField::OutSightObject(G_OutSightCubePacket const *)	1	0	
+0xbc9510	TalkContributeGuildReputationPanel	TalkContributeGuildReputationPanel::ProcessNetObjectEvent(StructPacket const *)	44	0	
+0xbc9810	BNpcDeadBody	BNpcDeadBody::ChangeState(char)	4	0	
+0xbc9820	BNpc	BNpc::GetCombatStartTime(void)	13	0	
+0xbc9830	BNpc	BNpc::ClearQuestIndicator(void)	53	0	
+0xbcf000	BNpcDeadBody	BNpcDeadBody::ProcessActionSubEvent(int,PfStruct const *,BGameObject const *)	185	0	
+0xbcf0c0	BNpcDeadBody	BNpcDeadBody::Disconnect(void)	48	0	
+0xbcf0f0	BNpcDeadBody	BNpcDeadBody::OutSight(void)	52	0	
+0xbcf130	BNpcDeadBody	BNpcDeadBody::InSight(void)	6	0	
+0xbcf140	BNpcDeadBody	BNpcDeadBody::ToPTNpcDeadBody(void)	4	0	
+0xbcf150	BNpcDeadBody	BNpcDeadBody::ToPTNpcDeadBody(void)	4	0	
+0xbcf160	BNpc	BNpc::GetNpcDataID(void)	28	0	
+0xbcf180	BNpc	BNpc::ToPTNpc(void)	4	0	
+0xbcf190	BNpc	BNpc::ToPTNpc(void)	4	0	
+0xbd15e0	PartyBattleField	PartyBattleField::GetPartyBattleRespawnDelayLeftTime(void)	81	0	
+0xbd4bc0	BNpcDeadBody	BNpcDeadBody::IsPouchAcquiredBySoloPlaying(void)	204	0	
+0xbd4d40	BNpc	BNpc::InSight(void)	6	0	
+0xbd6900	PartyBasicFramePartyFuncPanel	PartyBasicFramePartyFuncPanel::spawnAuctionStartParticle(void)	98	0	
+0xbd6970	PartyBasicFramePartyFuncPanel	PartyBasicFramePartyFuncPanel::spawnReadyCheckParticle(void)	121	0	
+0xbd9150	PartyBattleField	PartyBattleField::OnChangedCreatureProperty(short,CreatureProperty const &,CreatureProperty const &)	87	0	
+0xbdb860	BMember	BMember::ClearSummonedAggroNpc(void)	86	0	
+0xbddaf0	TalkProgressMissionPanel	TalkProgressMissionPanel::spawnOptionalRewardParticle(int)	149	0	
+0xbde070	BNpcDeadBody	BNpcDeadBody::HasOwnerShip(void)	654	0	
+0xbde300	BNpcDeadBody	BNpcDeadBody::CanPickupDeadbody(void)	521	0	
+0xbde510	BNpc	BNpc::GetSoulSkillImageset(char)	197	0	
+0xbde5e0	BNpc	BNpc::BNpc(unsigned __int64)	152	0	
+0xbde760	BNpc	BNpc::IsSoulSkill(__int64)	89	0	
+0xbde870	BCreature	BCreature::OutSight(void)	5	0	
+0xbe0070	PartyMemberPanel2	PartyMemberPanel2::UpdateSummonedAggro(void)	1830	0	
+0xbe07a0	PartyMemberPanel2	PartyMemberPanel2::UpdateSummoned(bool)	1227	6	00008503.Program.Party_Summoned_HPBar2_InSight_Far
+0xbe47d0	PartyBasicFramePanel	PartyBasicFramePanel::showSummonedTooltip(void)	232	0	
+0xbe9190	PartyBattleFieldPanel	PartyBattleFieldPanel::maxFlagSpawnTimer(void)	506	2	PARTYBATTLE_FLAG_TIMER_COUNT_MAX
+0xbeafc0	PartyBattleField	PartyBattleField::IsLTBGoalPostEnv(unsigned __int64,CreatureProperty::Combat_Side &)	265	0	
+0xbecb70	PartyBattleField	PartyBattleField::InZoneObject(G_InZonePacket const *)	570	0	
+0xbeff30	BParty	BParty::IsMemberSummoned(unsigned __int64)	194	0	
+0xbf0000	BMember	BMember::AddSummonedAggroNpc(unsigned __int64,unsigned __int64)	332	0	
+0xbf73d0	BNpcDeadBody	BNpcDeadBody::IsEnableOpenPouch(void)	162	0	
+0xbf7480	BNpc	BNpc::addSoulSkill(char,char)	285	0	
+0xbf75a0	BNpc	BNpc::GetFactionScore(void)	603	0	
+0xbf7800	BNpc	BNpc::getContributionRewardKey(void)	687	0	
+0xbf7ad0	BNpc	BNpc::GetPeakTimeInfo(char &,char &)	1438	0	
+0xbf8090	BNpc	BNpc::IsBigBoss(void)	134	0	
+0xbf8120	BNpc	BNpc::IsSoulNpc(void)	140	0	
+0xbf81b0	BNpc	BNpc::IsBoss(void)	341	0	
+0xbf8310	BNpc	BNpc::IsImmuneBreakable(void)	331	0	
+0xbf8460	BNpc	BNpc::IsSummonedBeautician(void)	157	0	
+0xbf8500	BNpc	BNpc::IsCraftsMan(void)	239	0	
+0xbf85f0	BNpc	BNpc::IsMysteriousStore(void)	140	0	
+0xbf8680	BNpc	BNpc::IsItemSeller(void)	166	0	
+0xbf8730	BNpc	BNpc::~BNpc(void)	245	0	
+0xc02a40	PartyBattleFieldPanel	PartyBattleFieldPanel::startBonusTimer(CreatureProperty::Combat_Side,bool)	1306	8	PARTYBATTLE_LEADTHEBALL_BOUNSCOUNTSTART
+0xc02f60	PartyBattleFieldPanel	PartyBattleFieldPanel::startFlagSpawnTimer(void)	518	0	
+0xc03170	PartyBattleFieldPanel	PartyBattleFieldPanel::updateFlagSpawnEnv(unsigned __int64)	428	0	
+0xc044f0	PartyBattleField	PartyBattleField::EnterLeaveObject(G_EnterLeaveBroadcastPacket const *)	419	1	Msg.PartyBattleField.LTB.BallSpawn
+0xc047c0	PartyBattleField	PartyBattleField::DoesHoldingFlag(CreatureProperty::Combat_Side)	394	0	
+0xc05930	BMember	BMember::RemoveSummonedAggroNpc(unsigned __int64)	95	0	
+0xc05a30	BMember	BMember::GetDeadStateLeftTime(void)	282	0	
+0xc08880	NpcTooltipPanel	NpcTooltipPanel::OnChangedCreatureProperty(short,CreatureProperty const &,CreatureProperty const &)	80	0	
+0xc09be0	BNpc	BNpc::makeSoulSkillList(void)	250	0	
+0xc09ce0	BNpc	BNpc::IsResponseAvailable(Data::NpcResponseRecordPtr)	300	0	
+0xc09e10	BNpc	BNpc::IsPeakTime(void)	28	0	
+0xc09e30	BNpc	BNpc::GetContributionMinimumGroupItem(void)	129	0	
+0xc09ec0	BNpc	BNpc::GetContributionType(void)	124	0	
+0xc10760	PartyBattleFieldResultPanel	PartyBattleFieldResultPanel::ProcessNetObjectEvent(StructPacket const *)	247	0	
+0xc10910	PartyBattleFieldResultPanel	PartyBattleFieldResultPanel::InZoneObject(void)	231	0	
+0xc12a20	PartyBattleFieldPanel	PartyBattleFieldPanel::ProcessNetObjectEvent(StructPacket const *)	120	0	
+0xc12b00	PartyBattleFieldPanel	PartyBattleFieldPanel::InZoneObject(void)	98	0	
+0xc13ce0	BParty	BParty::OutSightObject(G_OutSightCubePacket const *)	225	0	
+0xc13dd0	BParty	BParty::InSightObject(G_InSightCubePacket const *)	184	0	
+0xc18f40	BNpc	BNpc::GetApproachSocial(void)	369	0	
+0xc190c0	BNpc	BNpc::GetBannedApproachSocial(void)	369	0	
+0xc19240	BNpc	BNpc::GetResponse(void)	428	0	
+0xc193f0	BNpc	BNpc::GetQuestResponse(void)	428	0	
+0xc195a0	BNpc	BNpc::GetIndicatorSocial(void)	371	0	
+0xc19720	BNpc	BNpc::GetBannedIndicatorSocial(void)	369	0	
+0xc198a0	BNpc	BNpc::GetQuestIndicatorSocial(void)	400	0	
+0xc1bd10	PartyBattleFieldPanel	PartyBattleFieldPanel::OnChangedPcProperty(unsigned __int64,short,CreatureProperty const &,CreatureProperty const &)	53	0	
+0xc1c850	PartyAuction	PartyAuction::ProcessNetObjectEvent(StructPacket const *)	640	0	
+0xc1f060	BNpc	BNpc::GetBannedResponse(void)	255	0	
+0xc1f160	BNpc	BNpc::IsQuestAvailable(void)	228	0	
+0xc1f250	BNpc	BNpc::GetTalkMessage(void)	308	0	
+0xc1f390	BNpc	BNpc::EncounterSync(CreaturePropertyEncounterSync const *,PfVarBin const *,PfRepeat const *)	95	0	
+0xc1f3f0	BNpc	BNpc::Initialize(PropertySync const *)	204	0	
+0xc231a0	NPAuctionPanel	NPAuctionPanel::ProcessNetObjectEvent(StructPacket const *)	106	0	
+0xc26850	BNpc	BNpc::AddDamageMeterHitLog(__int64,__int64,__int64,char,char,char)	232	0	
+0xc26940	BNpc	BNpc::AddDamageMeterDamageLog(__int64,__int64,__int64,char,char,char)	252	0	
+0xc26a40	BNpc	BNpc::canManipulateQuestRelated(void)	57	0	
+0xc26a80	BNpc	BNpc::CanManipulate(void)	226	0	
+0xc26d00	BNpc	BNpc::UpdateQuestIndicator(bool)	115	0	
+0xc28880	PartyMatch	PartyMatch::OnChangedCreatureProperty(short,CreatureProperty const &,CreatureProperty const &)	116	0	
+0xc2e110	OptionPanel	OptionPanel::OnChangedCreatureProperty(short,CreatureProperty const &,CreatureProperty const &)	94	0	
+0xc390b0	NpcTooltipPanel	NpcTooltipPanel::ProcessNetObjectEvent(StructPacket const *)	126	0	
+0xc39f20	BNpc	BNpc::ChangedPropertyCallback(short,CreatureProperty const &,CreatureProperty const &)	500	0	
+0xc42a50	BNpcDeadBody	BNpcDeadBody::Initialize(unsigned __int64,short,short,short,char,PfRepeat const &,unsigned __int64)	988	0	
+0xc438b0	PartyAuctionPanel	PartyAuctionPanel::ProcessNetObjectEvent(StructPacket const *)	1119	4	Msg.PartyAuction.Bidding.Fail.Common
+0xc44b40	PartyChatRecruit	PartyChatRecruit::OnChangedCreatureProperty(short,CreatureProperty const &,CreatureProperty const &)	460	1	Msg.PartySearch.AutoDeleteMsg.ChangedFaction
+0xc46810	PartyMatch	PartyMatch::ProcessNetObjectEvent(StructPacket const *)	922	2	Msg.Party.RejectParty.Fatigue
+0xc4bac0	BParty	BParty::ProcessNetObjectEvent(StructPacket const *)	7799	103	Msg.Party.PromotionFail.NoParty
+0xc574b0	MinimapPanel	MinimapPanel::OutofSightCreature(unsigned __int64)	1	0	
+0xc5ad00	MoveListMaker	MoveListMaker::summonedWarp(float,float,float,int,bool)	400	0	
+0xc5aff0	MoveListMaker	MoveListMaker::setSummonedMove(float,float,float,int,bool)	400	0	
+0xc5b340	MoveListMaker	MoveListMaker::checkSummonedMove(void)	157	0	
+0xc5ba70	MinimapPanel	MinimapPanel::getYawFromAppearance(BCreature const *)	26	0	
+0xc5ba90	MinimapPanel	MinimapPanel::getPositionSUFromAppearance(BCreature const *)	132	0	
+0xc5f9f0	Lobby	Lobby::ProcessInfoGateNetObjectEvent(StructPacket const *)	181	0	
+0xc60a10	NativeCharacterInfoPanel	NativeCharacterInfoPanel::SetCharacterInfoFromCreatureProperty(CreatureProperty const &)	534	0	
+0xc60ce0	MysteriousStoreManager	MysteriousStoreManager::ProcessNetObjectEvent(StructPacket const *)	93	0	
+0xc64c30	MentoringPanel	MentoringPanel::OnChangedCreatureProperty(short,CreatureProperty const &,CreatureProperty const &)	5	0	
+0xc6f710	Mark	Mark::ProcessNetObjectEvent(StructPacket const *)	265	0	
+0xc73a00	NativeCharacterInfoPanel	NativeCharacterInfoPanel::ProcessInfoGateNetObjectEvent(StructPacket const *)	75	0	
+0xc80890	Mentoring	Mentoring::receiveMentoringPropertySync(StructPacket const *)	221	0	
+0xc817f0	MegaphoneChatPanel	MegaphoneChatPanel::ProcessNetObjectEvent(StructPacket const *)	213	0	
+0xc8d950	MinimapPanel	MinimapPanel::getCreatureTooltipText(std::basic_string<wchar_t,std::char_traits<wchar_t>,std::allocator<wchar_t>> &,unsigned __int64)	3071	9	UI.Tooltip.PartyMember.Channel
+0xc8e550	MinimapPanel	MinimapPanel::getCreatureEnginePosition(unsigned __int64,Vector &,short &)	694	0	
+0xc900f0	MinimapPanel	MinimapPanel::addCreatureMapUnit(short,unsigned __int64,unsigned __int64)	8536	8	00009499.Manimap_BattleRoyal_cam
+0xc926e0	MentoringTypeSelectPanel	MentoringTypeSelectPanel::OnChangedCreatureProperty(short,CreatureProperty const &,CreatureProperty const &)	5	0	
+0xc926f0	MentoringTypeSelectPanel	MentoringTypeSelectPanel::ProcessNetObjectEvent(StructPacket const *)	113	0	
+0xc93310	MentoringNotificationPanel	MentoringNotificationPanel::ProcessNetObjectEvent(StructPacket const *)	547	0	
+0xc9c260	MinimapPanel	MinimapPanel::EnterLeaveObject(G_EnterLeaveBroadcastPacket const *)	593	0	
+0xca1ca0	LobbyCreateUserNamePanel	LobbyCreateUserNamePanel::ProcessLobbyNetObjectEvent(StructPacket const *)	597	0	
+0xcb3920	LobbyServicePanel	LobbyServicePanel::ProcessLobbyNetObjectEvent(StructPacket const *)	137	0	
+0xcb86d0	LobbyGateSession	LobbyGateSession::ProcessLobbyNetObjectEvent(StructPacket const *)	1063	0	
+0xcb9fb0	MinimapPanel	MinimapPanel::getEnvSpawnedUnitTooltipText(std::basic_string<wchar_t,std::char_traits<wchar_t>,std::allocator<wchar_t>> &,unsigned __int64)	658	0	
+0xcbb270	MinimapPanel	MinimapPanel::addSpawnedEnvMapUnit(short,unsigned __int64,unsigned __int64)	2598	0	
+0xcc16f0	MentoringPanel	MentoringPanel::ProcessNetObjectEvent(StructPacket const *)	250	1	Brotherhood_QuestComplte
+0xcc2650	MasterDistributionPanel	MasterDistributionPanel::ProcessNetObjectEvent(StructPacket const *)	621	0	
+0xcc5300	MoveListMaker	MoveListMaker::SetSummonedForceMove(int,float,float,float,int,int,int)	527	0	
+0xcc6bb0	MinimapPanel	MinimapPanel::updateSpawnedEnvMapUnit(short,bool)	496	0	
+0xcc7f30	MoveListMaker	MoveListMaker::summonedTick(float)	894	0	
+0xcc9710	MinimapPanel	MinimapPanel::EncounterCreature(unsigned __int64)	222	0	
+0xccef80	MinimapPanel	MinimapPanel::OnChangedPcProperty(unsigned __int64,short,CreatureProperty const &,CreatureProperty const &)	100	0	
+0xcceff0	MinimapPanel	MinimapPanel::OnChangedCreatureProperty(short,CreatureProperty const &,CreatureProperty const &)	253	0	
+0xcd14e0	Mentoring	Mentoring::ProcessNetObjectEvent(StructPacket const *)	359	0	
+0xcd19b0	MinimapPanel	MinimapPanel::SpawnNpc(unsigned __int64,unsigned __int64,bool)	690	0	
+0xcd2840	MinimapPanel	MinimapPanel::ProcessNetObjectEvent(StructPacket const *)	1217	0	
+0xce9860	ItemTooltipPanel	ItemTooltipPanel::spawnMaxLevelParticle(void)	121	0	
+0xce98e0	ItemTooltipPanel	ItemTooltipPanel::spawnRevealGemParticle(uint)	125	0	
+0xce9960	ItemTooltipPanel	ItemTooltipPanel::spawnWeaponGemParticle(uint,char,short)	517	0	
+0xcece00	InventoryItemIcon	InventoryItemIcon::isSummonedTalkMessage(unsigned __int64)	231	0	
+0xcf9a50	JobStyleGaugePanel	JobStyleGaugePanel::OnChangedCreatureProperty(short,CreatureProperty const &,CreatureProperty const &)	82	0	
+0xcf9ab0	JobStyleGaugePanel	JobStyleGaugePanel::ProcessNetObjectEvent(StructPacket const *)	153	0	
+0xcfe880	ItemTooltipPanel	ItemTooltipPanel::updateDeadFilter(void)	558	1	UI.ItemTooltip.ResurrectEffect
+0xd0ee60	JobTargetIndicatorJobStyle	JobTargetIndicatorJobStyle::OnChangedCreatureProperty(short,CreatureProperty const &,CreatureProperty const &)	106	0	
+0xd1b8e0	JumpingLevel2Panel	JumpingLevel2Panel::ProcessNetObjectEvent(StructPacket const *)	367	5	Msg.JumpingTrial.Unpack.JumpingGoods.Fail
+0xd1e5a0	ItemTransformPanel	ItemTransformPanel::OnChangedCreatureProperty(short,CreatureProperty const &,CreatureProperty const &)	65	0	
+0xd289d0	JumpingLevelPanel	JumpingLevelPanel::progressSummoned(void)	432	0	
+0xd30de0	ItemPouch	ItemPouch::ProcessNetObjectEvent(StructPacket const *)	1060	0	
+0xd51800	ItemTooltipPanel	ItemTooltipPanel::ProcessNetObjectEvent(StructPacket const *)	459	0	
+0xd544f0	ItemWarningConfirmPanel	ItemWarningConfirmPanel::OnChangedCreatureProperty(short,CreatureProperty const &,CreatureProperty const &)	101	0	
+0xd5c8f0	ItemTransformPanel	ItemTransformPanel::ProcessNetObjectEvent(StructPacket const *)	477	0	
+0xd6cc00	ItemStorePanel	ItemStorePanel::ProcessNetObjectEvent(StructPacket const *)	578	0	
+0xd6ce80	ItemStorePanel	ItemStorePanel::OnChangedCreatureProperty(short,CreatureProperty const &,CreatureProperty const &)	163	0	
+0xd6e220	ItemWarningConfirmPanel	ItemWarningConfirmPanel::ProcessNetObjectEvent(StructPacket const *)	392	0	
+0xd73940	JumpingLevelPanel	JumpingLevelPanel::ProcessNetObjectEvent(StructPacket const *)	1108	8	Msg.JumpingTrial.Unpack.JumpingGoods.Fail
+0xd740d0	JumpingLevelConfirmPanel	JumpingLevelConfirmPanel::ProcessNetObjectEvent(StructPacket const *)	335	4	Msg.JumpingTrial.QuotaWithWarehouseItem.Fail
+0xd74e90	ItemGraphUserData	ItemGraphUserData::SetJobW(CreatureProperty::Job)	6	0	
+0xd7a090	ItemTabularGraph	ItemTabularGraph::DoesItemConformToJob(unsigned __int64,CreatureProperty::Job)	265	0	
+0xd7f6e0	ItemGrowth2Panel	ItemGrowth2Panel::spawnLegendGradeParticle(Data::ItemLegendGradeBackgroundParticleType)	337	0	
+0xd7f840	ItemGrowth2Panel	ItemGrowth2Panel::spawnMaxLevelParticle(void)	117	0	
+0xd7f8c0	ItemGrowth2Panel	ItemGrowth2Panel::spawnWeaponGemParticle(uint,char,short)	496	0	
+0xd823a0	ItemTabularGraph	ItemTabularGraph::Edge::GetMainFeedItem(CreatureProperty::Job)	599	0	
+0xd82600	ItemTabularGraph	ItemTabularGraph::GetBrandItems(std::set<unsigned __int64,std::less<unsigned __int64>,std::allocator<unsigned __int64>> &,unsigned __int64,CreatureProperty::Job,int,int)	596	0	
+0xd82860	ItemTabularGraph	ItemTabularGraph::findFeedTableRereference(Data::ItemGraphRecordEdgePtr,CreatureProperty::Job)	748	0	
+0xd8d4c0	ItemGrowth2Panel	ItemGrowth2Panel::spawnProgressFeedItemParticle(void)	468	0	
+0xd8fd40		`ItemGraphMap::LoadGraph(bool &,CreatureProperty::Job,Data::ItemEquipTypeType,Data::ItemGameCategory3Type)'::`9'::SetHorizontalRulerText::Set(uint,uint,int,int,Data::ItemGraphGrowthCategoryType)	208	0	
+0xd90eb0	ItemTabularGraph	ItemTabularGraph::GetBrandItemsCheckAttackAttribute(std::set<unsigned __int64,std::less<unsigned __int64>,std::allocator<unsigned __int64>> &,unsigned __int64,CreatureProperty::Job,int,int,bool)	611	0	
+0xd95820	BItem	BItem::Init(PropertySync const *)	90	0	
+0xd95ef0	InviteUnratedDuelList	InviteUnratedDuelList::ProcessNetObjectEvent(StructPacket const *)	340	0	
+0xd960d0	InviteUnratedArenaDungeonList	InviteUnratedArenaDungeonList::ProcessNetObjectEvent(StructPacket const *)	359	0	
+0xd97210	InviteDuelList	InviteDuelList::ProcessNetObjectEvent(StructPacket const *)	359	0	
+0xd980b0	InviteArenaDungeonList	InviteArenaDungeonList::ProcessNetObjectEvent(StructPacket const *)	359	0	
+0xd985e0	InventoryEquipPanel	InventoryEquipPanel::UpdateSummonedInfo(void)	863	2	%s%d
+0xda0370	ItemGrowth2Panel	ItemGrowth2Panel::spawnResultParticle(ItemGrowth2Panel::GrowthResultType,bool)	4605	7	00027869.Particle.UI_Jangbi_MileageSuccess_front
+0xda16b0	ItemGrowth2Panel	ItemGrowth2Panel::spawnProgressParticle(void)	709	2	Appearence_Change_Progress
+0xda43f0	ItemTabularGraph	ItemTabularGraph::NodeTable::GetCellBySeedItem(unsigned __int64,bool,unsigned __int64 *,CreatureProperty::Job)	138	0	
+0xda4690	ItemTabularGraph	ItemTabularGraph::getSeedItems(std::vector<ItemTabularGraph::SubGroupedItemId,std::allocator<ItemTabularGraph::SubGroupedItemId>> &,Data::ItemGraphRecordSeedPtr,CreatureProperty::Job)	1375	0	
+0xda8ea0	InventoryEquipPanel	InventoryEquipPanel::OnChangeStateToSummoned(void)	281	0	
+0xdc98b0	ItemCleanerPanel	ItemCleanerPanel::ProcessNetObjectEvent(StructPacket const *)	565	0	
+0xdd8090	ItemTabularGraph	ItemTabularGraph::Cell::DoesMatchKeyword(unsigned __int64 &,std::basic_string<wchar_t,std::char_traits<wchar_t>,std::allocator<wchar_t>> const &,bool,bool,CreatureProperty::Job,Data::ItemGraphSubGroupType)	1991	0	
+0xdf35c0	ItemGraphPanel	ItemGraphPanel::ProcessNetObjectEvent(StructPacket const *)	23	0	
+0xdf9ef0	InventoryEquipPanel	InventoryEquipPanel::OnChangedPlayerSummonedProperty(short,CreatureProperty const &,CreatureProperty const &)	54	0	
+0xdfb3a0	InventoryEquipPanel	InventoryEquipPanel::ProcessNetObjectEvent_InventoryItemListOkCmd(StructPacket const *)	420	0	
+0xe009b0	NewInventoryPanel2	NewInventoryPanel2::OnChangedPlayerSummonedProperty(short,CreatureProperty const &,CreatureProperty const &)	84	0	
+0xe06be0	ItemBarPanel	ItemBarPanel::ProcessNetObjectEvent(StructPacket const *)	756	0	
+0xe0a890	ItemGrowth2Panel	ItemGrowth2Panel::ProcessNetObjectEvent(StructPacket const *)	3740	11	Msg.ItemGrowth.Cancel
+0xe0d400	ItemFusionPanel	ItemFusionPanel::OnChangedCreatureProperty(short,CreatureProperty const &,CreatureProperty const &)	109	0	
+0xe0d470	ItemFusionPanel	ItemFusionPanel::ProcessNetObjectEvent(StructPacket const *)	348	1	Msg.Compose.Check.AcquiredItems
+0xe17140	NewInventoryPanel2	NewInventoryPanel2::OnChangedCreatureProperty(short,CreatureProperty const &,CreatureProperty const &)	382	0	
+0xe2faa0	NewInventoryPanel2	NewInventoryPanel2::ProcessNetObjectEvent(StructPacket const *)	3742	5	Msg.Inventory.ExpandSuccess
+0xe31410	IntensionInventoryPanel	IntensionInventoryPanel::ProcessNetObjectEvent(StructPacket const *)	26	0	
+0xe33130	GuildRankingInfoPanel	GuildRankingInfoPanel::ProcessNetObjectEvent(StructPacket const *)	3	0	
+0xe33760	GuildDesignPanel	GuildDesignPanel::OnChangedCreatureProperty(short,CreatureProperty const &,CreatureProperty const &)	1	0	
+0xe36b80	HistoryRecord	HistoryRecord::HistoryRecord(CreatureProperty const &)	167	0	
+0xe37260	GuildUniformBuyListPanel	GuildUniformBuyListPanel::ProcessNetObjectEvent(StructPacket const *)	79	0	
+0xe37910	GuildPageManagementAuthorityNormalPanel	GuildPageManagementAuthorityNormalPanel::ProcessNetObjectEvent(StructPacket const *)	52	0	
+0xe44110	GuildVoiceChatMemberPanel	GuildVoiceChatMemberPanel::ProcessNetObjectEvent(StructPacket const *)	183	0	
+0xe500b0	IntensionPanel	IntensionPanel::spawnRevealGemParticle(uint)	125	0	
+0xe57500	GuildMark	GuildMark::ProcessNetObjectEvent(StructPacket const *)	156	0	
+0xe68d40	GuildVoiceChatConfirmPanel	GuildVoiceChatConfirmPanel::ProcessNetObjectEvent(StructPacket const *)	195	0	
+0xe6b440	GuildPageManagementNoticePanel	GuildPageManagementNoticePanel::ProcessNetObjectEvent(StructPacket const *)	392	1	Msg.RenameGuild.Fail.AlreadyUsed
+0xe6baf0	GuildPageManagementLevelupPanel	GuildPageManagementLevelupPanel::ProcessNetObjectEvent(StructPacket const *)	68	0	
+0xe7d290	Inventory	Inventory::Inventory(BCreature *)	988	0	
+0xe7d960	IntensionPanel	IntensionPanel::spawnResultParticle(IntensionPanel::ResultType)	412	4	appearence_separate_result
+0xe7db50	IntensionPanel	IntensionPanel::spawnProgressParticle(void)	269	2	Appearence_Change_Progress
+0xe83d70	GuildTabPageManagementPanel	GuildTabPageManagementPanel::ProcessNetObjectEvent(StructPacket const *)	101	0	
+0xe86270	GuildCustomizePurchasePanel	GuildCustomizePurchasePanel::ProcessNetObjectEvent(StructPacket const *)	305	0	
+0xe86a50	GuildCustomizePanel	GuildCustomizePanel::ProcessNetObjectEvent(StructPacket const *)	1450	9	Msg.GuildCustomize.GuildLevelup
+0xe94f00	BPTSummoned	BPTSummoned::makeAppearance(void)	237	0	
+0xe96fb0	GuildPanel2	GuildPanel2::ProcessInfoGateNetObjectEvent(StructPacket const *)	72	0	
+0xe9f5c0	GuildInfoList	GuildInfoList::InSightObject(G_InSightCubePacket const *)	138	0	
+0xe9f740	GuildInfoList	GuildInfoList::ProcessNetObjectEvent(StructPacket const *)	135	0	
+0xea2d20	InGameNoticePanel	InGameNoticePanel::ProcessNetObjectEvent(StructPacket const *)	167	0	
+0xea4c90	InfoGateSession	InfoGateSession::ProcessInfoGateNetObjectEvent(StructPacket const *)	372	0	
+0xeacad0	IntensionManager	IntensionManager::ProcessNetObjectEvent(StructPacket const *)	100	0	
+0xeaf410	Guild2MemberInfoPanel	Guild2MemberInfoPanel::ProcessNetObjectEvent(StructPacket const *)	73	0	
+0xebad60	History	History::AddResurrectionHistory(HistoryRecordType,CreatureProperty const &,History::HistoryResurrectionType,bool,wchar_t const *)	375	0	
+0xebb060	History	History::AddHistory(HistoryRecordType,CreatureProperty const &,unsigned __int64,int,bool)	372	0	
+0xeccd90	IntensionPanel	IntensionPanel::processNetObjectEventAppearanceChange(StructPacket const *)	83	0	
+0xed00c0	GuildDesignPanel	GuildDesignPanel::ProcessNetObjectEvent(StructPacket const *)	178	0	
+0xed1b60	IntensionPanel	IntensionPanel::processNetObjectEventGrind(StructPacket const *)	109	0	
+0xed1bd0	IntensionPanel	IntensionPanel::processNetObjectEventIntension(StructPacket const *)	395	0	
+0xed1d90	IntensionPanel	IntensionPanel::ProcessNetObjectEvent(StructPacket const *)	155	0	
+0xed1e30	IntensionPanel	IntensionPanel::OnChangedCreatureProperty(short,CreatureProperty const &,CreatureProperty const &)	163	0	
+0xed25c0	GuildPanel2	GuildPanel2::ProcessNetObjectEvent(StructPacket const *)	588	0	
+0xedf180	GuideMoviePanel	GuideMoviePanel::ProcessNetObjectEvent(StructPacket const *)	11	0	
+0xee2220	InviteGuildConfirmPanel	InviteGuildConfirmPanel::ProcessNetObjectEvent(StructPacket const *)	253	0	
+0xee2e80	Guild2BankPanel	Guild2BankPanel::OnChangedCreatureProperty(short,CreatureProperty const &,CreatureProperty const &)	3	0	
+0xee6390	BGatherSource	BGatherSource::OutSight(void)	7	0	
+0xee63a0	BGatherSource	BGatherSource::InSight(void)	6	0	
+0xef69a0		HandleEnergyPropertySyncPacket(GameSession const *,StructPacket const *)	56	0	
+0xef8040	GuildBattleField	GuildBattleField::GetNextBossSpawnTime(void)	54	0	
+0xef81d0	GuildBattleField	GuildBattleField::GetRespawnDelayLeftTime(void)	75	0	
+0xefd4f0	GuildChatRecruit	GuildChatRecruit::OnChangedCreatureProperty(short,CreatureProperty const &,CreatureProperty const &)	76	0	
+0xefda00	GuildBattleField	GuildBattleField::SpawnNpc(unsigned __int64,unsigned __int64,bool)	135	0	
+0xf038d0	BGoodsStore	BGoodsStore::Goods::IsDeadline(void)	253	0	
+0xf0be20	GuildBattleField	GuildBattleField::ProcessRecvDeadMessage(__int64,__int64,__int64,__int64,bool,wchar_t const *)	566	2	Msg.GuildBattleField.GuildMember.Dead.GuideMsg2
+0xf0cbf0	GuildBattleField	GuildBattleField::ProcessNetObjectEvent(StructPacket const *)	52	0	
+0xf1ea20	GameTip	GameTip::ProcessNetObjectEvent(StructPacket const *)	378	0	
+0xf1eba0	GameTip	GameTip::OnChangedCreatureProperty(short,CreatureProperty const &,CreatureProperty const &)	97	0	
+0xf214c0	GuildBattleFieldHistoryPanel	GuildBattleFieldHistoryPanel::EnterLeaveObject(void)	5	0	
+0xf214d0	GuildBattleFieldHistoryPanel	GuildBattleFieldHistoryPanel::ProcessNetObjectEvent(StructPacket const *)	60	0	
+0xf23b50	Guild2BankPanel	Guild2BankPanel::ProcessNetObjectEvent(StructPacket const *)	131	0	
+0xf2c010	TendencyField	TendencyField::ProcessNetObjectEvent(StructPacket const *)	161	0	
+0xf3c750	GuildBattleField	GuildBattleField::InZoneObject(G_InZonePacket const *)	819	0	
+0xf3df60	Guild	Guild::ProcessInfoGateNetObjectEvent(StructPacket const *)	200	0	
+0xf4a460	GoodsInventory	GoodsInventory::ProcessNetObjectEvent(StructPacket const *)	707	0	
+0xf4c250	BGoodsStorePanel	BGoodsStorePanel::ProcessNetObjectEvent(StructPacket const *)	179	0	
+0xf4d330	BGoodsStore	BGoodsStore::ProcessNetObjectEvent(StructPacket const *)	44	0	
+0xf50240	GuildCraft	GuildCraft::ProcessNetObjectEvent(StructPacket const *)	383	0	
+0xf5ab20	GuildCraftPanel	GuildCraftPanel::OnChangedCreatureProperty(short,CreatureProperty const &,CreatureProperty const &)	105	0	
+0xf5b780	InvitedGuildAllianceNotificationPanel	InvitedGuildAllianceNotificationPanel::ProcessNetObjectEvent(StructPacket const *)	63	0	
+0xf5bba0	InvitedGuildNotificationPanel	InvitedGuildNotificationPanel::ProcessNetObjectEvent(StructPacket const *)	352	0	
+0xf6a460	InventoryPlayerInfoPanel	InventoryPlayerInfoPanel::ProcessNetObjectEvent(StructPacket const *)	97	0	
+0xf6b370	GuildChatRecruit	GuildChatRecruit::ProcessNetObjectEvent(StructPacket const *)	176	0	
+0xf6de30	Guild	Guild::ProcessNetObjectEvent(StructPacket const *)	1580	0	
+0xf76ae0	GuideMovie	GuideMovie::ProcessNetObjectEvent(StructPacket const *)	80	0	
+0xf76b30	GuideMovie	GuideMovie::OnChangedCreatureProperty(short,CreatureProperty const &,CreatureProperty const &)	67	0	
+0xf78740	BEnvObject	BEnvObject::ProcessNetObjectEvent(StructPacket const *)	11	0	
+0xf78860	EnterArenaParty	EnterArenaParty::ProcessNetObjectEvent(StructPacket const *)	38	0	
+0xf79760	DuelRoundTeamMemberSlot	DuelRoundTeamMemberSlot::InitializeSummoned(uint,uint,uint,uint,uint,uint,uint)	89	0	
+0xf79ab0	DuelTeamMemberSlot	DuelTeamMemberSlot::IsConnectedCreature(unsigned __int64)	46	0	
+0xf7a1e0	DuelResultPanel	DuelResultPanel::OnChangedCreatureProperty(short,CreatureProperty const &,CreatureProperty const &)	1	0	
+0xf7b9c0	BFieldItem	BFieldItem::OutSight(void)	52	0	
+0xf7ba00	BFieldItem	BFieldItem::InSight(void)	6	0	
+0xf7bc90	BEnvObject	BEnvObject::canManipulateControlPointOfOccupationWar(CreatureProperty::Combat_Side)	34	0	
+0xf7c510	EnergyPointRewardPanel	EnergyPointRewardPanel::ProcessNetObjectEvent(StructPacket const *)	32	0	
+0xf7c530	EnergyPointRewardListPanel	EnergyPointRewardListPanel::ProcessNetObjectEvent(StructPacket const *)	32	0	
+0xf7cb00	DuelObserverTeamMemberSlot	DuelObserverTeamMemberSlot::InitializeSummoned(uint,uint,uint,uint,uint,uint,uint)	79	0	
+0xf7dbb0	DuelSpectateCameraPanel	DuelSpectateCameraPanel::InZoneObject(G_InZonePacket const *)	148	0	
+0xf81760	DuelObserverTeamMemberSlot	DuelObserverTeamMemberSlot::getHpEffectFlagParticle(CreatureProperty const &,__int64,bool &,bool &,bool &,bool &,bool &,bool &)	316	0	
+0xf81cc0	DuelTeamMemberSlot	DuelTeamMemberSlot::UpdateCreatureProperty(CreatureProperty const *,bool)	182	0	
+0xf81de0	DuelTeamMemberPanel	DuelTeamMemberPanel::UpdateCreatureProperty(CreatureProperty const *,__int64)	159	0	
+0xf86b80	BEnvObject	BEnvObject::canManipulateControlPointOfCaptureTheFlag(CreatureProperty::Combat_Side,__int64)	341	0	
+0xf88ae0	EffectCatalog	EffectCatalog::EffectCatalog(BCreature *,ushort)	150	0	
+0xf8b960	GameMessageHandler	GameMessageHandler::processNpcPropertyEvent(unsigned __int64,unsigned __int64,PropertyPair const &,GameMessageHandler::DEAD_REASON)	140	0	
+0xf8b9f0	GameMessageHandler	GameMessageHandler::processSummonedPropertyEvent(unsigned __int64,PropertyPair const &,GameMessageHandler::DEAD_REASON)	76	0	
+0xf8ba40	GameMessageHandler	GameMessageHandler::processNetObjectAuctionEvent(StructPacket const *)	903	36	Msg.TrialVersion.Common.Fail
+0xf8bed0	GameMessageHandler	GameMessageHandler::processNetObjectDeliveryEvent(StructPacket const *)	252	7	Msg.Auction.FailedToSale
+0xf8bff0	GameMessageHandler	GameMessageHandler::processNetObjectItemEvent(StructPacket const *)	3476	85	Msg.Item.PickupItemFromEnvWorldNotify.Type1
+0xf8d130	GameMessageHandler	GameMessageHandler::processNetObjectSkillBookEvent(StructPacket const *)	196	2	Msg.TrainSkill.Success
+0xf8d200	GameMessageHandler	GameMessageHandler::OnChangedCreatureProperty(short,CreatureProperty const &,CreatureProperty const &)	1309	18	Msg.Faction.Join
+0xf96180	BEnvObject	BEnvObject::getEnvObjIdBySpawnId(__int64)	396	0	
+0xf9b2f0	DungeonLobbyStatePanel	DungeonLobbyStatePanel::ProcessNetObjectEvent(StructPacket const *)	86	0	
+0xf9e6e0	DungeonLobbyControlPanel	DungeonLobbyControlPanel::ProcessNetObjectEvent(StructPacket const *)	614	1	UI.Reserve.ArenaLobby.PartyBattle.Fail.Player
+0xfa1160	DuelObserverTeamMemberSlot	DuelObserverTeamMemberSlot::changeCreatureWidget(void)	327	0	
+0xfa2700	DuelRoundTeamMemberSlot	DuelRoundTeamMemberSlot::OnChangedSummonedProperty(unsigned __int64,short,CreatureProperty const &,CreatureProperty const &)	318	0	
+0xfa49d0	DuelTeamMemberPanel	DuelTeamMemberPanel::OnChangedSummonedProperty(unsigned __int64,short,CreatureProperty const &,CreatureProperty const &)	269	0	
+0xfa5c80	DuelSpectateColumnList	DuelSpectateColumnList::ProcessNetObjectEvent(StructPacket const *)	1428	4	UI.ArenaLobbyDuel.SpectateList.Guild.Name
+0xfa6400	DuelSpectateListPanel	DuelSpectateListPanel::ProcessNetObjectEvent(StructPacket const *)	63	0	
+0xfa8950	GameMessageHandler	GameMessageHandler::changePcProperty(unsigned __int64,short,CreatureProperty const *,unsigned __int64,GameMessageHandler::DEAD_REASON)	442	5	Msg.Duel.Enemy.Last.Dead
+0xfa8b10	GameMessageHandler	GameMessageHandler::processPcPropertyEvent(unsigned __int64,unsigned __int64,PropertyPair const &,GameMessageHandler::DEAD_REASON)	119	0	
+0xfa8b90	GameMessageHandler	GameMessageHandler::processNetObjectArenaEvent(StructPacket const *)	1348	23	Msg.ArenaDuel.Move.Requested
+0xfa91c0	GameMessageHandler	GameMessageHandler::processNetObjectGuildEvent(StructPacket const *)	3191	58	Msg.CreateGuild.Success
+0xfaab50	FriendSearchPanel	FriendSearchPanel::ProcessInfoGateNetObjectEvent(StructPacket const *)	86	0	
+0xfaf840	EnergyPointPanel	EnergyPointPanel::ProcessNetObjectEvent(StructPacket const *)	311	0	
+0xfb0550	EnergyPointHUDPanel	EnergyPointHUDPanel::ProcessNetObjectEvent(StructPacket const *)	138	0	
+0xfb4840	DuelObserverTeamMemberSlot	DuelObserverTeamMemberSlot::updateSlotOnDead(void)	75	0	
+0xfb4890	DuelObserverTeamMemberSlot	DuelObserverTeamMemberSlot::updateSummonedEffectParticle(unsigned __int64,CreatureProperty const &)	673	0	
+0xfb4e20	DuelObserverTeamMemberSlot	DuelObserverTeamMemberSlot::UpdatePcEffectParticle(unsigned __int64,CreatureProperty const &)	5617	10	_Critical
+0xfb6420	DuelObserverTeamMemberSlot	DuelObserverTeamMemberSlot::OnChangedSummonedProperty(unsigned __int64,short,CreatureProperty const &,CreatureProperty const &)	96	0	
+0xfb6820	DuelTagMatchMemberSlot	DuelTagMatchMemberSlot::changeCreatureWidget(void)	536	0	
+0xfb6a40	DuelTagMatchMemberSlot	DuelTagMatchMemberSlot::OnChangedSummonedProperty(unsigned __int64,short,CreatureProperty const &,CreatureProperty const &)	325	0	
+0xfb71e0	DuelTeamMemberSlot	DuelTeamMemberSlot::getDeadStateLeftTime(char)	266	0	
+0xfbb4f0	GameMessageHandler	GameMessageHandler::processNetObjectQuestEvent(StructPacket const *)	3553	80	Msg.ConvoyFail.PcKilled
+0xfbc4a0	GameMessageHandler	GameMessageHandler::processNetObjectEnvEvent(StructPacket const *)	848	10	Msg.Env.FishManipulateFailed.NotEnoughQuota
+0xfc1810	ExpTooltipPanel	ExpTooltipPanel::ProcessNetObjectEvent(StructPacket const *)	62	0	
+0xfc30f0	BEnvObject	BEnvObject::OutSight(void)	593	0	
+0xfc9420	DuelTeamMemberSlot	DuelTeamMemberSlot::SetCreature(unsigned __int64)	78	0	
+0xfce9a0	DuelTeamMemberPanel	DuelTeamMemberPanel::ReserveCreature(char,std::basic_string<wchar_t,std::char_traits<wchar_t>,std::allocator<wchar_t>>,int,bool)	255	0	
+0xfceaa0	DuelTeamMemberPanel	DuelTeamMemberPanel::OutofSightCreature(unsigned __int64)	141	0	
+0xfceb30	DuelTeamMemberPanel	DuelTeamMemberPanel::EncounterCreature(unsigned __int64)	527	0	
+0xfd4680	DuelTeamMemberSlot	DuelTeamMemberSlot::OnChangedPcProperty(unsigned __int64,short,CreatureProperty const &,CreatureProperty const &)	667	0	
+0xfd6520	ArenaSelectPanel	ArenaSelectPanel::ProcessNetObjectEvent(StructPacket const *)	138	0	
+0xfd8890	DuelRoundTeamMemberSlot	DuelRoundTeamMemberSlot::OnChangedPcProperty(unsigned __int64,short,CreatureProperty const &,CreatureProperty const &)	276	0	
+0xfda4f0	DuelObserverTeamMemberSlot	DuelObserverTeamMemberSlot::OnChangedPcProperty(unsigned __int64,short,CreatureProperty const &,CreatureProperty const &)	130	0	
+0xfda610	DuelTagMatchMemberSlot	DuelTagMatchMemberSlot::OnChangedPcProperty(unsigned __int64,short,CreatureProperty const &,CreatureProperty const &)	450	0	
+0xfdcef0	BEnvObject	BEnvObject::InSight(void)	424	0	
+0xfddcc0	GameMessageHandler	GameMessageHandler::processNetObjectAchievement(StructPacket const *)	1601	13	Msg.Achievement.Complete
+0xfde3d0	GameMessageHandler	GameMessageHandler::processNetObjectFactionEvent(StructPacket const *)	889	12	Msg.TransferFaction.Fail.DoNotJoinFaction
+0xfe0120	FactionStagePanel	FactionStagePanel::EnterLeaveObject(void)	60	0	
+0xfe02e0	FactionStagePanel	FactionStagePanel::OnChangedCreatureProperty(short,CreatureProperty const &,CreatureProperty const &)	105	0	
+0xfe0cf0	ExpTooltipPanel	ExpTooltipPanel::OnChangedCreatureProperty(short,CreatureProperty const &,CreatureProperty const &)	89	0	
+0xfe26c0	EnergyPointSystem	EnergyPointSystem::ProcessNetObjectEvent(StructPacket const *)	1224	11	Msg.EnergyPointSystem.Get.Reward
+0xfe5460	DuelResultPanel	DuelResultPanel::ProcessNetObjectEvent(StructPacket const *)	737	0	
+0xfe5910	GameMessageHandler	GameMessageHandler::changePlayerProperty(unsigned __int64,short,CreatureProperty const *,GameMessageHandler::DEAD_REASON)	4193	48	Msg.Player.LevelUp.%d
+0xfe6ac0	GameMessageHandler	GameMessageHandler::processPlayerPropertyEvent(unsigned __int64,PropertyPair const &,GameMessageHandler::DEAD_REASON)	100	0	
+0xfe6b30	GameMessageHandler	GameMessageHandler::processNetObjectPropertyEvent(StructPacket const *)	144	1	Msg.ExchangeFactionScoreFail.Fatigue
+0xfe7300	GameMessageHandler	GameMessageHandler::ProcessNetObjectEvent(StructPacket const *)	1304	13	Msg.Player.SkillBuildUpPoint
+0xfe7de0	Fishing	Fishing::ProcessNetObjectEvent(StructPacket const *)	1545	3	E:\DailyBuild02\Client-Common-0.0.381\depot\Branch\381NC\Program\ue4\BNSR\Source\ClientEXE\Private\F
+0xff1a90	EnvObjectTooltipPanel	EnvObjectTooltipPanel::ProcessNetObjectEvent(StructPacket const *)	126	0	
+0xffa460	DungeoninitializeConfirmPanel	DungeoninitializeConfirmPanel::ProcessNetObjectEvent(StructPacket const *)	36	0	
+0xffee90	DuelTeamMemberPanel	DuelTeamMemberPanel::ProcessNetObjectEvent(StructPacket const *)	116	0	
+0x1001170	DuelTeamMemberPanel	DuelTeamMemberPanel::OnChangedPcProperty(unsigned __int64,short,CreatureProperty const &,CreatureProperty const &)	696	0	
+0x1001460	DuelTeamMemberPanel	DuelTeamMemberPanel::OnChangedCreatureProperty(short,CreatureProperty const &,CreatureProperty const &)	61	0	
+0x10092b0	DungeonNotificationPanel	DungeonNotificationPanel::ProcessNetObjectEvent(StructPacket const *)	1255	0	
+0x100a180	Friends	Friends::ProcessInfoGateNetObjectEvent(StructPacket const *)	88	0	
+0x100a690	DuelProgressMember	DuelProgressMember::SetCreature(__int64,wchar_t const *)	31	0	
+0x100ae90	DuelBotTrainingRoomMatchSelectionPanel	DuelBotTrainingRoomMatchSelectionPanel::getCreaturePropertyJobFromUIBtnJob(DuelBotTrainingRoomMatchSelectionPanel::UI_BTN_JOB)	43	0	
+0x100b460	DuelBotChallengePanel	DuelBotChallengePanel::OutSightObject(G_OutSightCubePacket const *)	3	0	
+0x100b470	DuelBotChallengePanel	DuelBotChallengePanel::InSightObject(G_InSightCubePacket const *)	3	0	
+0x100b480	DuelBotChallengePanel	DuelBotChallengePanel::InZoneObject(G_InZonePacket const *)	3	0	
+0x100b510	DuelBotChallengeCardSelectionPanel	DuelBotChallengeCardSelectionPanel::InZoneObject(void)	1	0	
+0x100b680	DuelBotBrain	DuelBotBrain::GetZoneCreature(unsigned __int64)	71	0	
+0x100c420	DeliveryPanel	DeliveryPanel::OnChangedCreatureProperty(short,CreatureProperty const &,CreatureProperty const &)	1	0	
+0x100ce40	DeadCommandPanel	DeadCommandPanel::UpdateCreatureProperty(CreatureProperty const *)	1	0	
+0x100ce50	DeadCommandPanel	DeadCommandPanel::Clear(void)	9	0	
+0x100cf40	DamageMeterPanel	DamageMeterPanel::EncounterCreature(__int64)	1	0	
+0x100d870	CreatureEffectStatusPanel	CreatureEffectStatusPanel::ShowPanel(bool,bool)	110	0	
+0x100df00		_makeFullParam(CreatureProperty const &)	921	0	
+0x100e2a0		MakeCharacterPreviewCreatureProperty(CreatureProperty &,char const *,char,char,char,int,int,int,int,int,int,char,char,char,char,char,char,char,char,char,char,char,char,char,char,char,char,char)	266	0	
+0x100e3e0		ClearLobbyCreatureWeapon(EInterface::Handle const &)	399	0	
+0x100e570		ReleaseCreature(EInterface::Handle &)	24	0	
+0x100e910		ClearSummonedWeapon(EInterface::Handle const &)	334	0	
+0x100ed80		MakePlayerCollCylinder(CreatureProperty const &)	59	0	
+0x100efa0	BCreature	BCreature::GetEffectCatalogByPos(int)	135	0	
+0x100f070	BCreature	BCreature::ChangedPropertyCallback(short,ExtraCreatureProperty const &,ExtraCreatureProperty const &)	47	0	
+0x100f9a0	BDuelBotSummoned	BDuelBotSummoned::ToPTDuelBotSummoned(void)	4	0	
+0x100f9b0	BDuelBotSummoned	BDuelBotSummoned::ToPTDuelBotSummoned(void)	4	0	
+0x100fee0	DuelBotBrain	DuelBotBrain::releaseCreatureAll(void)	62	1	DestroyDuelBotCreature
+0x100ffc0	DuelBotBrain	DuelBotBrain::createCreature(__int64,__int64)	277	5	CreateDuelBotNpc
+0x10101e0	DuelBotBrain	DuelBotBrain::GetZoneCreatureByType(IDuelBotCreature::TYPE)	91	0	
+0x1010550	BDroppedPouch	BDroppedPouch::OutSight(void)	52	0	
+0x1010590	BDroppedPouch	BDroppedPouch::InSight(void)	6	0	
+0x10124e0	DeadCommandPanel	DeadCommandPanel::ShowDeadCommand(bool)	35	0	
+0x1012510	DeadCommandPanel	DeadCommandPanel::ProcessPropertyEvent(PropertyPair const &)	83	0	
+0x1012d40	DamageMeterPanel	DamageMeterPanel::ProcessNetObjectEvent(StructPacket const *)	50	0	
+0x1013e30	CreatureEffectStatusPanel	CreatureEffectStatusPanel::ChangeAttackTarget(__int64)	95	0	
+0x1013e90	CreatureEffectStatusPanel	CreatureEffectStatusPanel::ProcessEvent(EngineEvent *)	83	0	
+0x1014120	BCreature	BCreature::IsFishing(void)	27	0	
+0x1014140	BCreature	BCreature::IsPvPMode(void)	7	0	
+0x1014150	BCreature	BCreature::CalculateGuardGaugePercent(float &)	83	0	
+0x10141b0	BCreature	BCreature::CalculateHpPercent(float &)	83	0	
+0x1014220	BCreature	BCreature::IsBuilder(void)	28	0	
+0x1014240	BCreature	BCreature::IsFieldItem(void)	26	0	
+0x1014260	BCreature	BCreature::GetActiveFactionId(void)	7	0	
+0x1014270	BCreature	BCreature::StartImmuneBreakTimer(void)	14	0	
+0x1014280	BCreature	BCreature::Disconnect(void)	48	0	
+0x10142b0	BCreature	BCreature::ProcessNetObjectEvent(StructPacket const *)	5	0	
+0x10142c0	BCreature	BCreature::InSight(void)	6	0	
+0x10142d0	BCreature	BCreature::ToPTCreature(void)	4	0	
+0x10142e0	BCreature	BCreature::ToPTCreature(void)	4	0	
+0x1015540	DuelBotBrain	DuelBotBrain::setPairProperty(short,CreatureProperty const &,__int64)	1884	0	
+0x1015ee0	DuelBotBrain	DuelBotBrain::setProperty(CreatureProperty const &,__int64)	901	0	
+0x10167b0	DuelBotBrain	DuelBotBrain::ProcessNetObjectEvent(StructPacket const *)	272	0	
+0x101ad00	BCreature	BCreature::GetRemainPvPCooltimeSec(void)	69	0	
+0x101ad50	BCreature	BCreature::IsPvPCooltime(void)	61	0	
+0x101ad90	BCreature	BCreature::OutSight(void)	68	0	
+0x101baf0	DuelBotTrainingRoom	DuelBotTrainingRoom::GetSpawnDuelBotJobKismetName(char)	580	0	
+0x101c060	DuelBotTrainingRoom	DuelBotTrainingRoom::GetDuelBotSpawnDelay(void)	367	0	
+0x101d9e0	DuelBotChallenge	DuelBotChallenge::GetDuelBotSpawnDelay(void)	367	0	
+0x101dfa0	DuelBotBrain	DuelBotBrain::SyncInfo(int,CreatureProperty const &,__int64,__int64,short)	473	0	
+0x101e180	DuelBotBrain	DuelBotBrain::OnChangedCreatureProperty(unsigned __int64,short,CreatureProperty const &,CreatureProperty const &)	36	0	
+0x101e940	DragonJadeRefinementPanel	DragonJadeRefinementPanel::spawnResultParticle(void)	239	0	
+0x101ea30	DragonJadeRefinementPanel	DragonJadeRefinementPanel::spawnProgressParticle(void)	129	0	
+0x10211e0		MakeDuelBotSummonedAppearance(EInterface::Handle const &,SummonedProperty const &,CreatureProperty const &,Data::DuelBotRecordPtr)	945	1	00014684.Summon_Cat_Animset
+0x10215a0		MakeCustomizeParam(char *,CreatureProperty const &)	982	0	
+0x1021980		makeSummonedParam(char,char,char)	316	0	
+0x1021ac0		makeSummonedFullParam(SummonedProperty const &)	167	0	
+0x1021eb0		MakeLobbyExampleCreature(EInterface::Handle const &,Data::LobbyPcRecordPtr)	561	1	AA_A_None_Log_select_default
+0x10223a0		CreateCustomzieSummonedCreature(EInterface::Handle &,SummonedProperty const &,CreatureProperty const &,float,float,float,int)	911	1	CreateCustomzieSummonedCreature()
+0x10232a0		SetCamZoomOutMax(ClientGameOption const *,CreatureProperty const &)	444	0	
+0x1023460		MakeSummonedWeapon(EInterface::Handle const &,SummonedProperty const &,unsigned __int64)	919	0	
+0x1023800		MakeSummonedFlyingship(EInterface::Handle const &,char)	608	0	
+0x1023a60		MakeSummonedHair(EInterface::Handle const &,SummonedProperty const &,CreatureProperty const &)	1010	0	
+0x1023ff0		MakeSummonedCustomizedAppearance(EInterface::Handle const &,SummonedProperty const &,CreatureProperty const &)	894	1	00014684.Summon_Cat_Animset
+0x1024370		MakeSummonedFixedAppearance(EInterface::Handle const &,SummonedProperty const &,CreatureProperty const &)	893	1	00014684.Summon_Cat_Animset
+0x10246f0		MakePersonalCustomizeAppearance(EInterface::Handle const &,CreatureProperty const &,unsigned __int64,unsigned __int64,unsigned __int64,unsigned __int64,wchar_t const *,wchar_t const *)	3175	2	BackAcc
+0x1025c80		MakeGuildUniformPreviewFace(uint,CreatureProperty const &,unsigned __int64)	485	1	FILE_UNEXIST
+0x1025e70		MakeGuildUniformPreviewHair(uint,CreatureProperty const &,unsigned __int64)	736	1	FILE_UNEXIST
+0x1026150		MakeGuildUniformPreviewAppearance(uint,CreatureProperty const &,bool)	879	4	FILE_UNEXIST
+0x10264c0		MakeItemPreviewSummonedAccessory(uint,SummonedProperty const &,CreatureProperty const &,__int64)	338	1	FILE_UNEXIST
+0x1026620		MakeItemPreviewSummonedHair(uint,SummonedProperty const &,CreatureProperty const &,__int64)	739	1	FILE_UNEXIST
+0x1026910		MakeItemPreviewSummonedBodyAttach(uint,SummonedProperty const &,CreatureProperty const &,__int64)	338	1	FILE_UNEXIST
+0x1026a70		MakeItemPreviewSummonedAppearance(uint,SummonedProperty const &,CreatureProperty const &)	643	3	FILE_UNEXIST
+0x1027c50		MakeItemPreviewHair(uint,CreatureProperty const &,unsigned __int64,bool)	878	1	FILE_UNEXIST
+0x10282f0		MakeItemPreviewAppearance(uint,CreatureProperty const &,unsigned __int64,bool)	58	0	
+0x1028330		MakePcAccessory(EInterface::Handle const &,CreatureProperty const &)	910	2	BackAcc
+0x10286c0		MakePcEyeGlass(EInterface::Handle const &,CreatureProperty const &,bool)	1155	0	
+0x10293c0		MakePcHair(EInterface::Handle const &,CreatureProperty const &,bool,bool)	1369	0	
+0x1029920		MakeDuelLobbyAppearance(EInterface::Handle const &,CreatureProperty const &,bool,bool)	1137	1	AA_A_None_Log_select_default
+0x102a5e0	BCreature	BCreature::IsSoulMaskTypeTransform(void)	269	0	
+0x102a6f0	BCreature	BCreature::ProcessActionsEffectSoulMask(__int64,char)	499	0	
+0x102a8f0	BCreature	BCreature::GetInterpolatedSkillStep(PfStruct const *,std::vector<GS_ActionsSkillSubPacket,std::allocator<GS_ActionsSkillSubPacket>> &)	26	0	
+0x102a950	BCreature	BCreature::GetWeaponPrefixString(std::basic_string<wchar_t,std::char_traits<wchar_t>,std::allocator<wchar_t>> &)	797	10	Z
+0x102ad40	BCreature	BCreature::BCreature(unsigned __int64)	1356	0	
+0x102cc40	DuelProgressState	DuelProgressState::InZoneObject(G_InZonePacket const *)	292	1	UI.DuelProgress.Title.CurrentRound
+0x102dcc0	DuelProgressPanel	DuelProgressPanel::ProcessNetObjectEvent(StructPacket const *)	437	1	UI.Confirm.ReturnToArenaLobbyFail.ArenaNotEnabled
+0x102f240	DuelLobbyStatePanel	DuelLobbyStatePanel::ProcessNetObjectEvent(StructPacket const *)	86	0	
+0x102f9f0	DuelLobbyControlPanel	DuelLobbyControlPanel::ProcessNetObjectEvent(StructPacket const *)	614	1	UI.Reserve.ArenaLobby.Duel.Fail.Player
+0x1030a50	DuelBotTrainingRoom	DuelBotTrainingRoom::InZoneObject(G_InZonePacket const *)	382	0	
+0x1030bd0	BDuelBotSummoned	BDuelBotSummoned::GetDuelBotSummonedName(void)	316	0	
+0x1030d30	BDuelBotSummoned	BDuelBotSummoned::BDuelBotSummoned(unsigned __int64)	43	0	
+0x10334c0	DuelBotChallengePanel	DuelBotChallengePanel::ProcessNetObjectEvent(StructPacket const *)	1906	1	UI.DuelBotChallenge.CombatStartFail
+0x10341c0	DuelBotChallengeCardSelectionPanel	DuelBotChallengeCardSelectionPanel::EnterLeaveObject(G_EnterLeaveBroadcastPacket const *)	130	0	
+0x1042d10	CreatureEffectStatusPanel	CreatureEffectStatusPanel::~CreatureEffectStatusPanel(void)	125	0	
+0x1042d90	CreatureEffectStatusPanel	CreatureEffectStatusPanel::CreatureEffectStatusPanel(void)	161	0	
+0x10435a0		SetCustomizeParam(CreatureProperty const &,EInterface::Handle const &)	106	0	
+0x1043610		SetPlayerCustomizeParam(CreatureProperty const &)	124	0	
+0x1043690		AttachLobbyCreatureItem(EInterface::Handle const &,EInterface::Handle &,EInterface::Handle &,char,char,char,unsigned __int64,unsigned __int64,unsigned __int64,unsigned __int64,char,unsigned __int64,bool,char,char,char,char,char,char,char,char,char,char,char,char,char,char,char,char,char)	3091	2	BackAcc
+0x10442b0		CustomizeLobbyCreatureDetail(EInterface::Handle const &,char,char,char,int,char)	534	0	
+0x10444d0		CustomizeLobbyCreature(EInterface::Handle const &,char const *,char,char,char,unsigned __int64)	1108	1	AA_A_None_Log_select_default
+0x1045050		MakeGuildCustomizePlayerAppearanceFace(EInterface::Handle const &,CreatureProperty const &,int)	599	0	
+0x10452b0		MakeGuildCustomizePlayerAppearanceHair(EInterface::Handle const &,CreatureProperty const &,int)	892	0	
+0x1045a60		MakeGuildCustomizePlayerAppearance(EInterface::Handle const &,CreatureProperty const &,int)	1182	1	AA_A_None_Log_select_default
+0x1045f00		UpdateLobbyCreatureAppearance(EInterface::Handle &,char const *,char,char,char,float,float,float,int,unsigned __int64,unsigned __int64,bool)	1372	1	AA_A_None_Log_select_default
+0x1046460		CreateLobbyCreature(EInterface::Handle &,char const *,char,char,char,float,float,float,int,unsigned __int64,unsigned __int64,bool)	1838	2	CreateLobbyCreature()
+0x1046b90		MakePlayerCloneAppearance(EInterface::Handle const &,CreatureProperty const &,unsigned __int64,wchar_t const *)	2747	2	BackAcc
+0x1047650		MakePcReactionDetach(EInterface::Handle const &,EInterface::Handle &,EInterface::Handle &,CreatureProperty const &,int,char,bool)	131	0	
+0x10476e0		MakePcAppearance(EInterface::Handle const &,CreatureProperty const &,bool,bool)	1127	0	
+0x1047b50		MakePlayerReactionDetach(EInterface::Handle &,EInterface::Handle &,CreatureProperty const &,int,char,bool)	123	0	
+0x1047bd0		MakePlayerAccessory(CreatureProperty const &)	926	2	BackAcc
+0x1047f70		MakePlayerEyeGlass(EInterface::Handle const &,CreatureProperty const &)	1211	0	
+0x1048430		MakePlayerHair(CreatureProperty const &,bool)	1761	0	
+0x1048b20		MakePlayerAppearance(CreatureProperty const &,bool)	1205	0	
+0x1048fe0	BCreature	BCreature::IsSetItemTalkSocial(Data::TalkSocialRecordPtr)	1209	0	
+0x10494d0	BCreature	BCreature::IsVipBenefitEnabled(Data::GradeBenefitsBenefitTypeType)	447	0	
+0x1049690	BCreature	BCreature::GetFieldItemId(void)	176	0	
+0x1049790	BCreature	BCreature::move(short,short,short,short)	62	0	
+0x10497d0	BCreature	BCreature::EncounterSync(CreaturePropertyEncounterSync const *,PfVarBin const *,PfRepeat const *)	482	0	
+0x1049ba0	CreateGuildPanel	CreateGuildPanel::ProcessNetObjectEvent(StructPacket const *)	361	2	UI.CreateGuild.Fail.NotAllowName
+0x104a5a0	DuelProgressPanel	DuelProgressPanel::InZoneObject(G_InZonePacket const *)	1155	1	UI.DuelSpectate.SpectateCount.Max
+0x1060730	DeadCommandPanel	DeadCommandPanel::Start(wchar_t const *)	259	2	DeadCommand_WarptoNearpoint
+0x10638d0	CreatureEffectStatusPanel	CreatureEffectStatusPanel::Start(wchar_t const *)	1620	7	%s_BuffEffectHolder
+0x1065a50	DuelBotChallengeVirtualRacePanel	DuelBotChallengeVirtualRacePanel::ProcessInfoGateNetObjectEvent(StructPacket const *)	567	0	
+0x1065cc0	DuelBotChallengeVirtualRacePanel	DuelBotChallengeVirtualRacePanel::ProcessNetObjectEvent(StructPacket const *)	193	0	
+0x106b080	BCreature	BCreature::ProcessActionSubEvent(int,PfStruct const *,BGameObject const *)	2171	0	
+0x106dfa0		MakePcSoulMaskTransformAppearance(EInterface::Handle const &,CreatureProperty const &,char,char)	791	2	MakePcSoulMaskTransformAppearance : find fail SoulMaskSetRecord key(%d, %d)
+0x106e2c0		MakePlayerSoulMaskTransformAppearance(EInterface::Handle const &,CreatureProperty const &,char,char)	1178	2	MakePlayerSoulMaskTransformAppearance : find fail SoulMaskSetRecord key(%d, %d)
+0x106eea0		MakePcSoulMaskAppearance(EInterface::Handle const &,CreatureProperty const &,char,char,bool)	2237	4	MakePcSoulMaskAppearance : find fail SoulMaskSetRecord key(%d, %d)
+0x106f760		MakePlayerSoulMaskAppearance(EInterface::Handle const &,CreatureProperty const &,char,char)	2563	4	MakePlayerSoulMaskAppearance : find fail SoulMaskSetRecord key(%d, %d)
+0x10717f0	BCreature	BCreature::ChangedPropertyCallback(short,CreatureProperty const &,CreatureProperty const &)	745	0	
+0x1071b50	BCreature	BCreature::UpdateStateAffectedByEffect(void)	131	0	
+0x1074970	DuelBotChallengePanel	DuelBotChallengePanel::InZoneObject(void)	89	0	
+0x1075260	DuelBotChallengeCardSelectionPanel	DuelBotChallengeCardSelectionPanel::ProcessNetObjectEvent(StructPacket const *)	529	0	
+0x1075c00	DiscoveryAreaList	DiscoveryAreaList::ProcessNetObjectEvent(StructPacket const *)	81	0	
+0x1080e30	CreatureEffectStatusPanel	CreatureEffectStatusPanel::refresh(void)	96	0	
+0x1080e90	CreatureEffectStatusPanel	CreatureEffectStatusPanel::ProcessPassiveEffectEvent(GS_ActionsPassiveEffectSubPacket const *)	284	0	
+0x1080fc0	CreatureEffectStatusPanel	CreatureEffectStatusPanel::Set(__int64)	183	0	
+0x1081080	CreatureEffectStatusPanel	CreatureEffectStatusPanel::ReadOption(void)	237	0	
+0x1081170	CreatureEffectStatusPanel	CreatureEffectStatusPanel::SetCustomizeMode(bool)	237	0	
+0x1081510	DuelProgressPanel	DuelProgressPanel::EncounterCreature(unsigned __int64)	701	0	
+0x1081b70	DuelBotTrainingRoom	DuelBotTrainingRoom::ProcessNetObjectEvent(StructPacket const *)	344	0	
+0x1082e30	DuelObserverSkillBar	DuelObserverSkillBar::OnChangedPcProperty(unsigned __int64,short,CreatureProperty const &,CreatureProperty const &)	23	0	
+0x1084790	DuelBotTrainingRoomRewardPanel	DuelBotTrainingRoomRewardPanel::ProcessNetObjectEvent(StructPacket const *)	159	0	
+0x10862c0	DuelBotTrainingRoomResultPanel	DuelBotTrainingRoomResultPanel::ProcessNetObjectEvent(StructPacket const *)	360	0	
+0x10874c0	DuelBotTrainingRoomMatchSelectionPanel	DuelBotTrainingRoomMatchSelectionPanel::ProcessNetObjectEvent(StructPacket const *)	468	0	
+0x1089830	DuelBotChallengeResultPanel	DuelBotChallengeResultPanel::ProcessNetObjectEvent(StructPacket const *)	399	0	
+0x10943c0	DragonJadeRefinementPanel	DragonJadeRefinementPanel::ProcessNetObjectEvent(StructPacket const *)	117	0	
+0x1095350	DeliveryBox	DeliveryBox::ProcessNetObjectEvent(StructPacket const *)	241	0	
+0x1098be0	DeliveryPanel	DeliveryPanel::ProcessNetObjectEvent(StructPacket const *)	435	0	
+0x1099f20	DuelProgressPanel	DuelProgressPanel::OnChangedPcProperty(unsigned __int64,short,CreatureProperty const &,CreatureProperty const &)	213	0	
+0x109abf0	DuelBotChallenge	DuelBotChallenge::ProcessNetObjectEvent(StructPacket const *)	595	0	
+0x109d780	CreateCharacterPanel	CreateCharacterPanel::deleteAllCreatureMesh(void)	46	0	
+0x109dba0	Convoy	Convoy::ProcessNetObjectEvent(StructPacket const *)	5	0	
+0x10a04d0	CreateCharacterPanel	CreateCharacterPanel::enableAllCreatureVisible(bool)	95	0	
+0x10a06c0	Convoy	Convoy::removeConvoyCreature(char)	156	0	
+0x10a0ce0	BControlledCreature	BControlledCreature::ToPTControlledCreature(void)	4	0	
+0x10a0cf0	BControlledCreature	BControlledCreature::ToPTControlledCreature(void)	4	0	
+0x10a0d00	BContextProcess	BContextProcess::SetDeadContextDelayed(bool)	54	0	
+0x10a57e0	Convoy	Convoy::addConvoyCreature(char,char)	155	0	
+0x10a5c10	ControlledPlayingActionsBase	ControlledPlayingActionsBase::canUseSkillByBasicCheckInternalImpl(unsigned __int64 const &,Data::Skill3RecordActiveSkillPtr,Data::Skill3RecordActiveSkillPtr,bool,CreatureProperty::Dead,bool,int,int,bool,bool,bool)	595	0	
+0x10a74a0	BContextProcess	BContextProcess::SetPlayerSummonedContextScript(void)	325	0	
+0x10ab310	CreateCharacterPanel	CreateCharacterPanel::changeLobbyExampleCreatureMesh(void)	664	0	
+0x10ada90	CreateCharacterPanel	CreateCharacterPanel::createCreatureMesh(char,Data::LobbyPcRecordPtr,float,float,float,float,float,float)	668	1	CreateCharacterPanel::createCreatureMesh()
+0x10add30	CreateCharacterPanel	CreateCharacterPanel::createAllCreatureMesh(void)	1960	0	
+0x10aec30	ControlledPlayingActionsBase	ControlledPlayingActionsBase::checkTargetDeadState(Data::SkillCastCondition3RecordPtr,char)	249	0	
+0x10aed30	ControlledPlayingActionsBase	ControlledPlayingActionsBase::getSkillUseTarget(BCreature *,BPlayer *,unsigned __int64 const &,unsigned __int64 const &,BPlayerSummoned *,unsigned __int64 const &,Data::Skill3RecordActiveSkillPtr)	592	0	
+0x10aefa0	BPlayerSummoned	BPlayerSummoned::Tick(float)	312	0	
+0x10b04c0	BControlledCreature	BControlledCreature::BControlledCreature(unsigned __int64)	43	0	
+0x10b0b40	BContextProcess	BContextProcess::updateDeadSkillbarSet(void)	512	0	
+0x10b8200	Convoy	Convoy::OutSightObject(G_OutSightCubePacket const *)	52	0	
+0x10b9ed0	BControlledPlayingActions	BControlledPlayingActions::BControlledPlayingActions(BCreature *,bool)	685	0	
+0x10c9d10	Convoy	Convoy::InSightObject(G_InSightCubePacket const *)	52	0	
+0x10c9e70	ControlledPlayingActionsBase	ControlledPlayingActionsBase::isAvailableDistanceForNoneTargetSkill(BCreature *,Data::Skill3RecordPtr,Data::SkillCastCondition3RecordPtr,__int64)	700	0	
+0x10d3ad0	BControlledPlayingActions	BControlledPlayingActions::RequestRespawn(RespawnType)	200	0	
+0x10d4360	BControlledPlayingActions	BControlledPlayingActions::RequestPickupDeadBody(unsigned __int64)	237	0	
+0x10d99b0	ContentQuotaManager	ContentQuotaManager::ProcessNetObjectEvent(StructPacket const *)	69	0	
+0x10dd890	BContextProcess	BContextProcess::isSkipUpdateSkillContext(BControlledCreature const *)	391	0	
+0x10ddb40	BContextProcess	BContextProcess::UpdateContextSummonedGuard(int)	140	0	
+0x10df4c0	ContentsJournalPanel	ContentsJournalPanel::OnChangedCreatureProperty(short,CreatureProperty const &,CreatureProperty const &)	61	0	
+0x10df500	ContentsJournalPanel	ContentsJournalPanel::ProcessNetObjectEvent(StructPacket const *)	86	0	
+0x10e5c20	BControlledPlayingActions	BControlledPlayingActions::canUseSkillByConditionStatusCheckInternal(BPlayerSummoned *,Data::Skill3RecordActiveSkillPtr,Data::SkillCastCondition3RecordPtr,bool,bool,bool,bool,bool,bool,bool)	521	0	
+0x10e6280	BContextProcess	BContextProcess::checkCondition(BControlledCreature const *,Condition const *,int,bool)	1177	0	
+0x10e6730	BContextProcess	BContextProcess::updateContextSoulMask(BControlledCreature const *)	4360	0	
+0x10e7840	BContextProcess	BContextProcess::updateContextItem(BControlledCreature const *)	4160	0	
+0x10e8880	BContextProcess	BContextProcess::canSummonedUseThisSkill(Data::Skill3RecordPtr,bool)	300	0	
+0x10e9a10	BControlledPlayingActions	BControlledPlayingActions::CanSummonedUseSkill(int)	326	0	
+0x10eb900	BContextProcess	BContextProcess::updateContextInternal(BControlledCreature const *)	8744	0	
+0x10ef180	BContextProcess	BContextProcess::OnNotifyCreatureRemoved(unsigned __int64)	98	0	
+0x10ef840	ContextPlatePanel	ContextPlatePanel::AttachCreature(unsigned __int64)	1351	0	
+0x10fe6e0	BControlledPlayingActions	BControlledPlayingActions::getTargetObjectOrTargetGroundPosition(__int64 &,bool &,Vector &,BPlayer *,BPTControlledCreature *,Data::Skill3RecordActiveSkillPtr,Data::SkillCastCondition3RecordPtr,bool)	1873	0	
+0x1107c30	ContentsClockManager	ContentsClockManager::ProcessNetObjectEvent(StructPacket const *)	45	0	
+0x1109fd0	ContentsJournal2Panel	ContentsJournal2Panel::OnChangedCreatureProperty(short,CreatureProperty const &,CreatureProperty const &)	81	0	
+0x110a030	ContentsJournal2Panel	ContentsJournal2Panel::ProcessNetObjectEvent(StructPacket const *)	147	0	
+0x110cb20	BContextProcess	BContextProcess::UpdateContextSummonedHelpRestoration(int,unsigned __int64)	276	0	
+0x110d090	BContextProcess	BContextProcess::UpdateContextSummonedResurrectionGround(int)	297	0	
+0x110d1c0	BContextProcess	BContextProcess::UpdateContextSummonedResurrectionOther(int)	297	0	
+0x110dce0	BContextProcess	BContextProcess::UpdateContextActionPickupDeadbody(int,unsigned __int64)	196	0	
+0x110e100	BContextProcess	BContextProcess::UpdateDeadState(void)	255	0	
+0x11123c0	BCollectingManager	BCollectingManager::ProcessNetObjectEvent(StructPacket const *)	2632	23	Msg.Collect.Fail.List
+0x1112e70	ClosetGroup	ClosetGroup::ProcessInfoGateNetObjectEvent(StructPacket const *)	480	0	
+0x1113050	ClosetGroup	ClosetGroup::ProcessNetObjectEvent(StructPacket const *)	1698	8	Msg.Item.MoveInventoryToWardrobe2
+0x1118750	BControlledPlayingActions	BControlledPlayingActions::UseAction(unsigned __int64,BPTControlledCreature::TARGET_SUB_TYPE,BControlledPlayingActions::USE_ACTION_STATE)	5350	5	Msg.Action.TalkFail.TooFar
+0x1119d40	BContextProcess	BContextProcess::OnUserSkillBySummoned(BPlayerSummoned *,__int64)	526	0	
+0x111d1e0	BContextProcess	BContextProcess::ProcessNetObjectEvent(StructPacket const *)	172	0	
+0x11289c0		SetUpDefaultCamTargetControlConfigTemplet(CreatureProperty::Race,CreatureProperty::Sex)	167	2	%d,%d
+0x1150620	ChatInputPanel	ChatInputPanel::ProcessNetObjectEvent(StructPacket const *)	173	0	
+0x1173fd0	ChoiceRewardConfirmPanel	ChoiceRewardConfirmPanel::OnChangedCreatureProperty(short,CreatureProperty const &,CreatureProperty const &)	92	0	
+0x117bc70	ChoiceRewardConfirmPanel	ChoiceRewardConfirmPanel::ProcessNetObjectEvent(StructPacket const *)	279	0	
+0x117fd20	ChatChannelNP	ChatChannelNP::OnChangedCreatureProperty(short,CreatureProperty const &,CreatureProperty const &)	63	0	
+0x117fd60	ChatChannelNP	ChatChannelNP::ProcessNetObjectEvent(StructPacket const *)	2583	1	Msg.StaticChatChannel.ChangeDistrict
+0x11843a0	ChatChannel	ChatChannel::OnChangedCreatureProperty(short,CreatureProperty const &,CreatureProperty const &)	64	0	
+0x1191540	ChangeSummonedNamePanel	ChangeSummonedNamePanel::getNameByEditBox(void)	91	0	
+0x1191820	ChallengePartyAttraction	ChallengePartyAttraction::InZoneObject(G_InZonePacket const *)	1	0	
+0x1191830	ChallengePartyAttraction	ChallengePartyAttraction::EnterLeaveObject(G_EnterLeaveBroadcastPacket const *)	3	0	
+0x11918e0	BCampfire	BCampfire::OnChangedCreatureProperty(short,CreatureProperty const &,CreatureProperty const &)	3	0	
+0x11918f0	BCampfire	BCampfire::ProcessNetObjectEvent(StructPacket const *)	5	0	
+0x11923e0	UBTTask_BnsUseAutoCombatSkillTo	UBTTask_BnsUseAutoCombatSkillTo::GetConditionCreature(int,BPlayer *,BCreature *,BCreature *)	41	0	
+0x1193b90	AutoModeOptionPanel	AutoModeOptionPanel::processNetObjectEventRoute(StructPacket const *)	3	0	
+0x1195f10	NewCharEquipWindowPanel	NewCharEquipWindowPanel::OnChangedPlayerSummonedProperty(short,CreatureProperty const &,CreatureProperty const &)	284	0	
+0x11969d0	ChangeSummonedNamePanel	ChangeSummonedNamePanel::SetWaitingEvent(bool)	57	0	
+0x1196a10	ChangeSummonedNamePanel	ChangeSummonedNamePanel::CancelReservedEvent(void)	60	0	
+0x1196bb0	ChallengePartyConfirmPanel	ChallengePartyConfirmPanel::ProcessNetObjectEvent(StructPacket const *)	218	0	
+0x1197990	BossCombatStatusPanel	BossCombatStatusPanel::ProcessNetObjectEvent(StructPacket const *)	118	0	
+0x1197b10	BoastChatShowPanel	BoastChatShowPanel::ProcessInfoGateNetObjectEvent(StructPacket const *)	130	0	
+0x1198dc0	BattleRoyalField	BattleRoyalField::InZoneObject(G_InZonePacket const *)	1	0	
+0x1198dd0	BAutoModeSystem	BAutoModeSystem::OnNotifyCreatureRemoved(unsigned __int64)	33	0	
+0x119b090	ChangeSummonedNamePanel	ChangeSummonedNamePanel::checkSummonedName(wchar_t const *)	381	0	
+0x119bba0	UBTTask_BnsUseAutoCombatSkillTo	UBTTask_BnsUseAutoCombatSkillTo::CheckFailEffectAttributes(BCreature const *,char,short const *,int)	153	0	
+0x119bc40	UBTTask_BnsUseAutoCombatSkillTo	UBTTask_BnsUseAutoCombatSkillTo::CheckSuccessEffectAttributes(BCreature const *,char,short const *,int)	151	0	
+0x119bce0	UBTTask_BnsUseAutoCombatSkillTo	UBTTask_BnsUseAutoCombatSkillTo::CheckFailEffectFlags(BCreature const *,char,short const *,int)	153	0	
+0x119bd80	UBTTask_BnsUseAutoCombatSkillTo	UBTTask_BnsUseAutoCombatSkillTo::CheckSuccessEffectFlags(BCreature const *,char,short const *,int)	151	0	
+0x119c6c0	BoastChatPanel	BoastChatPanel::ProcessInfoGateNetObjectEvent(StructPacket const *)	155	0	
+0x119e1e0	BattleRoyalField	BattleRoyalField::IsDeadPcId(unsigned __int64)	66	0	
+0x119ffe0	NewCharEquipWindowPanel	NewCharEquipWindowPanel::getSummonedCombatStatusValue(NewCharEquipWindowPanel::CombatStatusType,__int64 &,float &,__int64 &,float &)	2253	0	
+0x11a6c40	BoardGachaPanel	BoardGachaPanel::SpawnParticle(uint,int,wchar_t const *,float,float)	123	0	
+0x11a9160	BattleRoyalField	BattleRoyalField::EnterLeaveObject(G_EnterLeaveBroadcastPacket const *)	122	0	
+0x11ad5c0	AttendancePanel	AttendancePanel::spawnGoalIconEffect(void)	378	0	
+0x11af2e0	NewCharEquipWindowPanel	NewCharEquipWindowPanel::getSummonedCombatStatusTooltipValue(NewCharEquipWindowPanel::CombatStatusType,__int64 const &,int,__int64 const &)	4781	46	UI.CharacterInfo.Value
+0x11b2df0	NewCharEquipWindowPanel	NewCharEquipWindowPanel::updateSummonedAbilityStatus(void)	809	0	
+0x11b5c00	ChangeSummonedNamePanel	ChangeSummonedNamePanel::updateFeedbackMessage(ChangeSummonedNamePanel::FailReason)	277	13	UI.ChangeSummonedName.Success
+0x11b5d50	ChangeSummonedNamePanel	ChangeSummonedNamePanel::Show(void)	323	1	UI.ChangeSummonedName.Fail.NotInputName
+0x11b5ea0	ChangeSummonedNamePanel	ChangeSummonedNamePanel::ProcessNetObjectEvent(StructPacket const *)	291	1	UI.ChangeSummonedName.Fail.NotAllowName
+0x11b8040	ChallengePartyPatternResultPanel	ChallengePartyPatternResultPanel::ProcessNetObjectEvent(StructPacket const *)	311	0	
+0x11b8f00	ChallengeParty	ChallengeParty::ProcessNetObjectEvent(StructPacket const *)	281	0	
+0x11b94e0	BuffGraph	BuffGraph::setPowerGaugeEffectList(BCreature const *)	204	0	
+0x11bb670	BossListPanel	BossListPanel::updateCreatureProperty(BossListPanel::BossSlot &,CreatureProperty const *)	125	0	
+0x11bc7c0	BoastChatPanel	BoastChatPanel::ProcessNetObjectEvent(StructPacket const *)	3585	0	
+0x11bda20	BoardGachaPanel	BoardGachaPanel::SpawnProgressEdgeParticle(void)	95	0	
+0x11bda80	BoardGachaPanel	BoardGachaPanel::SpawnSelectNumberParticle(void)	217	1	00003805.Signal_UI.S_Sys_BoardGarcha_SmallBox01Cue
+0x11c5070	BAutoModeUtil	BAutoModeUtil::IsVisibleSightSummonedTarget(unsigned __int64,unsigned __int64,__int64)	636	0	
+0x11c5500	BAutoModeSystem	BAutoModeSystem::ProcessNetObjectEvent(StructPacket const *)	90	0	
+0x11d0d90	ChangeSummonedNamePanel	ChangeSummonedNamePanel::changeNameReq(wchar_t const *)	412	0	
+0x11d2ff0	BuffGraph	BuffGraph::updateBuff(BCreature const *)	192	0	
+0x11d30b0	BuffGraph	BuffGraph::updateBuffGraph(BCreature const *)	70	0	
+0x11d3d10	BossChallengePanel	BossChallengePanel::InZoneObject(void)	61	0	
+0x11d6020	BattleRoyalFieldAlivePanel	BattleRoyalFieldAlivePanel::InZoneObject(void)	59	0	
+0x11d6d40	BattleRoyalField	BattleRoyalField::refreshPcListByDeadEvent(unsigned __int64)	249	0	
+0x11d6e40	BattleRoyalField	BattleRoyalField::refreshPcStraightKillCountByDeadEvent(unsigned __int64,int)	317	0	
+0x11d8ec0	AuctionPanel2	AuctionPanel2::ProcessNetObjectEvent(StructPacket const *)	308	0	
+0x11de890	BCharacterBindManager	BCharacterBindManager::ProcessNetObjectEvent(StructPacket const *)	123	0	
+0x11de930	BCharacterBindManager	BCharacterBindManager::OnChangedCreatureProperty(short,CreatureProperty const &,CreatureProperty const &)	58	0	
+0x11e09e0	ChallengePartyAttraction	ChallengePartyAttraction::ProcessNetObjectEvent(StructPacket const *)	278	1	Msg.DungeonChallenge.Assault.Success
+0x11e2b80	BoardGachaRewardPanel	BoardGachaRewardPanel::ProcessNetObjectEvent(StructPacket const *)	84	0	
+0x11e6e60	BattleRoyalField	BattleRoyalField::tickReviveTimer(float)	98	0	
+0x11f2620		`anonymous namespace'::SpawnAutoModeAIController(void)	121	0	
+0x11fbbd0	NewCharEquipWindowPanel	NewCharEquipWindowPanel::updateSummonedInfo(void)	1488	2	%s%d
+0x11fced0	NewCharEquipWindowPanel	NewCharEquipWindowPanel::UpdateSummonedInfo(void)	39	0	
+0x11fe200	BossListPanel	BossListPanel::updateSlot(BossListPanel::BossSlot &,BNpc const *)	213	0	
+0x1201b20	AuctionHouse	AuctionHouse::ProcessNetObjectEvent(StructPacket const *)	404	0	
+0x1207390	CharacterShotPanel	CharacterShotPanel::SetModelTypeAndPreviewParameters(CharacterShotPanel::ModelType,CreatureProperty const &)	1094	5	JIN
+0x1208ed0	BattleRoyalField	BattleRoyalField::ProcessNetObjectEvent(StructPacket const *)	1367	3	E:\DailyBuild02\Client-Common-0.0.381\depot\Branch\381NC\Program\ue4\BNSR\Source\ClientEXE\Private\B
+0x120aee0	NewCharEquipWindowPanel	NewCharEquipWindowPanel::OnChangedCreatureProperty(short,CreatureProperty const &,CreatureProperty const &)	539	0	
+0x120c320	ChallengePartyResultPanel	ChallengePartyResultPanel::ProcessNetObjectEvent(StructPacket const *)	247	0	
+0x120fd70	NewCharEquipWindowPanel	NewCharEquipWindowPanel::ProcessNetObjectEvent(StructPacket const *)	802	0	
+0x1212970	ChallengeTodayPanel	ChallengeTodayPanel::ProcessNetObjectEvent(StructPacket const *)	585	4	Msg.ChallengeToday.TakeRawardFail.MoneyOverflow
+0x1212be0	ChallengeTodayPanel	ChallengeTodayPanel::OnChangedCreatureProperty(short,CreatureProperty const &,CreatureProperty const &)	82	0	
+0x12149b0	InvitedChallengePartyNotificationPanel	InvitedChallengePartyNotificationPanel::ProcessNetObjectEvent(StructPacket const *)	265	1	Msg.ChallengeParty.Invite.Notify
+0x1217980	BoardGachaPanel	BoardGachaPanel::ProcessNetObjectEvent(StructPacket const *)	698	0	
+0x1217c80	BoardGachaPanel	BoardGachaPanel::ProcessInfoGateNetObjectEvent(StructPacket const *)	131	0	
+0x1218490	BoardGachaManager	BoardGachaManager::ProcessNetObjectEvent(StructPacket const *)	185	0	
+0x121c1e0	AutoModeOptionPanel	AutoModeOptionPanel::processNetObjectEventItemUsage(StructPacket const *)	72	0	
+0x121c230	AutoModeOptionPanel	AutoModeOptionPanel::processNetObjectEventCombat(StructPacket const *)	173	0	
+0x121c310	AutoModeOptionPanel	AutoModeOptionPanel::ProcessNetObjectEvent(StructPacket const *)	25	0	
+0x1224f90	NewCharEquipWindowPanel	NewCharEquipWindowPanel::showSummonedTooltip(uint)	96	0	
+0x1228f90	AuctionPanel	AuctionPanel::ProcessNetObjectEvent(StructPacket const *)	457	0	
+0x122c110	BnsTv	BnsTv::ProcessInfoGateNetObjectEvent(StructPacket const *)	90	0	
+0x122d190	AttendanceTimeTablePanel	AttendanceTimeTablePanel::ProcessNetObjectEvent(StructPacket const *)	76	0	
+0x122e2e0	ChangeSummonedNamePanel	ChangeSummonedNamePanel::processButtonEvent(char)	256	0	
+0x122e3e0	ChangeSummonedNamePanel	ChangeSummonedNamePanel::ProcessFunctionEvent(TalkFunctionView::Event)	93	0	
+0x122e440	ChangeSummonedNamePanel	ChangeSummonedNamePanel::ProcessReservedEvent(void)	32	0	
+0x122e460	ChangeSummonedNamePanel	ChangeSummonedNamePanel::ProcessEvent(EngineEvent *)	471	0	
+0x1235e20	ArenaWorld	ArenaWorld::OutSightObject(G_OutSightCubePacket const *)	56	0	
+0x1235e60	ArenaWorld	ArenaWorld::InSightObject(G_InSightCubePacket const *)	56	0	
+0x1235ea0	ArenaWorld	ArenaWorld::InZoneObject(G_InZonePacket const *)	56	0	
+0x1235f20	ArenaWorld	ArenaWorld::EnterLeaveObject(G_EnterLeaveBroadcastPacket const *)	56	0	
+0x1236030	ArenaWorld	ArenaWorld::ProcessNetObjectEvent(StructPacket const *)	49	0	
+0x12361e0	ArenaLobby	ArenaLobby::ProcessNetObjectEvent(StructPacket const *)	45	0	
+0x1236740	ArenaDungeon	ArenaDungeon::OutSightObject(G_OutSightCubePacket const *)	5	0	
+0x1236750	ArenaDungeon	ArenaDungeon::InSightObject(G_InSightCubePacket const *)	5	0	
+0x1236760	ArenaDungeon	ArenaDungeon::InZoneObject(G_InZonePacket const *)	5	0	
+0x1236780	ArenaDungeon	ArenaDungeon::EnterLeaveObject(G_EnterLeaveBroadcastPacket const *)	5	0	
+0x1236a80	ArenaDuel	ArenaDuel::OutSightObject(G_OutSightCubePacket const *)	5	0	
+0x1239220	BAccount	BAccount::OnChangedExtraCreatureProperty(short,ExtraCreatureProperty const &,ExtraCreatureProperty const &)	3	0	
+0x1239230	BAccount	BAccount::ProcessInfoGateNetObjectEvent(StructPacket const *)	39	0	
+0x123ddd0	AppearancePictorialBook	AppearancePictorialBook::ProcessNetObjectEvent(StructPacket const *)	19	0	
+0x123e3e0	AchievementTooltipPanel	AchievementTooltipPanel::ProcessNetObjectEvent(StructPacket const *)	83	0	
+0x1240010	BAccount	BAccount::OnChangedCreatureProperty(short,CreatureProperty const &,CreatureProperty const &)	60	0	
+0x1244fd0	BAction	BAction::BAction(BCreature *,int)	145	0	
+0x12479c0	AttendanceCalendarPanel	AttendanceCalendarPanel::spawnGoalIconEffect(void)	378	0	
+0x124c080	ArenaDungeon	ArenaDungeon::ProcessNetObjectEvent(StructPacket const *)	93	0	
+0x124c650	ArenaDuel	ArenaDuel::GetPlayerSummonedSpawnPosition(short &,short &,short &,short &)	967	0	
+0x124d740	ArenaDuel	ArenaDuel::reserveCreature(char,char,wchar_t const *,char,int)	847	0	
+0x12500f0	BActionPutdownFieldItem	BActionPutdownFieldItem::BActionPutdownFieldItem(BCreature *,int)	33	0	
+0x1250120	BActionPickupDeadBody	BActionPickupDeadBody::BActionPickupDeadBody(BCreature *,int)	33	0	
+0x1250150	BActionPickupFieldItem	BActionPickupFieldItem::BActionPickupFieldItem(BCreature *,int)	33	0	
+0x1250180	BActionRepairWithCampfire	BActionRepairWithCampfire::BActionRepairWithCampfire(BCreature *,int)	42	0	
+0x12501b0	BActionEscapeCave	BActionEscapeCave::BActionEscapeCave(BCreature *,int)	26	0	
+0x12501d0	BActionWarpToOpponent	BActionWarpToOpponent::BActionWarpToOpponent(BCreature *,int)	26	0	
+0x12501f0	BActionWarpToGuildMeetingPlace	BActionWarpToGuildMeetingPlace::BActionWarpToGuildMeetingPlace(BCreature *,int)	26	0	
+0x1250210	BActionCallGuildMember	BActionCallGuildMember::BActionCallGuildMember(BCreature *,int)	26	0	
+0x1250230	BActionWarpToGuildMember	BActionWarpToGuildMember::BActionWarpToGuildMember(BCreature *,int)	26	0	
+0x1250250	BActionTeleport	BActionTeleport::BActionTeleport(BCreature *,int)	26	0	
+0x1250270	BActionHelpRestoration	BActionHelpRestoration::BActionHelpRestoration(BCreature *,int)	26	0	
+0x1250290	BActionRestoration	BActionRestoration::BActionRestoration(BCreature *,int)	26	0	
+0x12502b0	BActionPickupItem	BActionPickupItem::BActionPickupItem(BCreature *,int)	26	0	
+0x12502d0	BActionGiveFactionScoreToRefiner	BActionGiveFactionScoreToRefiner::BActionGiveFactionScoreToRefiner(BCreature *,int)	26	0	
+0x12502f0	BActionManipulate	BActionManipulate::BActionManipulate(BCreature *,int)	33	0	
+0x1250320	BActionEquip	BActionEquip::BActionEquip(BCreature *,int)	34	0	
+0x1252f60	AccountContentsPanelInfo	AccountContentsPanelInfo::ProcessNetObjectEvent(StructPacket const *)	375	0	
+0x125eaa0	ArenaDuel	ArenaDuel::IsDeadPcHide(__int64)	268	0	
+0x12669f0	BAchievementProgress	BAchievementProgress::ProcessNetObjectEvent(StructPacket const *)	31	0	
+0x126d230	BAbilityBase	BAbilityBase::GetSummonedAbilityValue(BAbilityBase::EAbilityType)	5235	0	
+0x126fdd0	BAbilityBase	BAbilityBase::GetSummonedAbilityTooltipText(BAbilityBase::EAbilityType)	3341	26	UI.CharacterInfo.Ability.Tooltip.attack-power
+0x1276be0	ArenaDuel	ArenaDuel::upeateEnterLeaveObject(G_EnterLeaveBroadcastPacket const *)	2032	2	Msg.Duel.Spectator.Enter
+0x1278550	ArenaDuel	ArenaDuel::EnterLeaveObject(G_EnterLeaveBroadcastPacket const *)	18	0	
+0x1283460	ArenaDuel	ArenaDuel::OnChangedCreatureProperty(unsigned __int64,short,CreatureProperty const &,CreatureProperty const &)	452	0	
+0x12892f0	ArenaDuel	ArenaDuel::encounterCreature(unsigned __int64)	462	0	
+0x1289a80	ArenaDuel	ArenaDuel::InSightObject(G_InSightCubePacket const *)	95	0	
+0x128a7f0	BAccount	BAccount::ProcessLobbyNetObjectEvent(StructPacket const *)	295	0	
+0x128c650	BAccount	BAccount::ProcessNetObjectEvent(StructPacket const *)	480	0	
+0x128c950	ArenaDuelLobby	ArenaDuelLobby::ProcessNetObjectEvent(StructPacket const *)	3152	46	Msg.Party.DuelLobby.EnterComplete.All.EqualAbility
+0x128f570	BArenaEnterNotificationPanel	BArenaEnterNotificationPanel::OnChangedCreatureProperty(short,CreatureProperty const &,CreatureProperty const &)	28	0	
+0x1297280	AchievementNotificationPanel	AchievementNotificationPanel::ProcessNetObjectEvent(StructPacket const *)	128	0	
+0x1297980	BAchievementManager	BAchievementManager::ProcessNetObjectEvent(StructPacket const *)	221	0	
+0x129f6d0	BAccountContentsGradeTooltipPanel	BAccountContentsGradeTooltipPanel::OnChangedCreatureProperty(short,CreatureProperty const &,CreatureProperty const &)	71	0	
+0x12a5a40	ArenaDuel	ArenaDuel::ProcessNetObjectEvent(StructPacket const *)	656	0	
+0x12a8770	BAbilityPointPanel	BAbilityPointPanel::OnChangedCreatureProperty(short,CreatureProperty const &,CreatureProperty const &)	120	0	
+0x12a8870	BAbilityPointPanel	BAbilityPointPanel::ProcessNetObjectEvent(StructPacket const *)	117	0	
+0x12a9130	AchievementPanel	AchievementPanel::OnChangedCreatureProperty(short,CreatureProperty const &,CreatureProperty const &)	51	0	
+0x12a9180	AchievementPanel	AchievementPanel::ProcessNetObjectEvent(StructPacket const *)	636	0	
+0x12af3c0	AccountContentsPanelBadgeEquip	AccountContentsPanelBadgeEquip::ProcessNetObjectEvent(StructPacket const *)	64	0	
+0x12b3890	BArenaEnterNotificationPanel	BArenaEnterNotificationPanel::ProcessNetObjectEvent(StructPacket const *)	3263	9	UI.ContentBan.ArenaTotalDungeonLobby.Failed
+0x12b5ce0	AccountContentsPanelInfo	AccountContentsPanelInfo::OnChangedCreatureProperty(short,CreatureProperty const &,CreatureProperty const &)	1437	5	Msg.Account.Level.Up
+0x12b75b0	Attendance	Attendance::ProcessNetObjectEvent(StructPacket const *)	148	0	
+0x12baf40	AccountContentsPanelCompose	AccountContentsPanelCompose::ProcessNetObjectEvent(StructPacket const *)	1012	16	Msg.Badge.Compose.Success
+0x12bb940	AccountContentsPanelBadge	AccountContentsPanelBadge::OnChangedCreatureProperty(short,CreatureProperty const &,CreatureProperty const &)	221	2	Msg.Badge.Appearance.Change
+0x12bbc60	AccountContentsPanelBadge	AccountContentsPanelBadge::ProcessNetObjectEvent(StructPacket const *)	317	2	Msg.Badge.Ok.ChangeBadgePage.Number
+0x12bbf00	AccountContentsPanel	AccountContentsPanel::OnChangedCreatureProperty(short,CreatureProperty const &,CreatureProperty const &)	117	0	
+0x12bbf80	AccountContentsPanel	AccountContentsPanel::ProcessNetObjectEvent(StructPacket const *)	51	0	
+0x12bdeb0	ArenaDungeonLobby	ArenaDungeonLobby::ProcessNetObjectEvent(StructPacket const *)	4668	63	Msg.DungeonLobby.LoadComplete
+0x12bfcf0	AreaInfoPanel	AreaInfoPanel::ProcessNetObjectEvent(StructPacket const *)	176	0	
