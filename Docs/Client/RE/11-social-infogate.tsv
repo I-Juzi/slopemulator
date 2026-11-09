@@ -1,0 +1,74 @@
+id	name	topic	sender_381
+1	I_HelloReqCmd	other	
+2	I_HelloOkCmd	other	
+3	I_AuthTokenReqCmd	other	
+4	I_AuthTokenOkCmd	other	
+5	I_AuthTokenFailCmd	other	
+6	I_PingReqCmd	other	
+7	I_RetrieveFriendListReqCmd	friend	0xfbdbe0:Friends::SendRetrieveFriendListReq (send path ❓)
+8	I_RetrieveFriendListOkCmd	friend	
+9	I_RetrieveFriendListFailCmd	friend	
+10	I_RetrieveUserIdByCharacterNameReqCmd	friend	
+11	I_RetrieveUserIdByCharacterNameOkCmd	friend	
+12	I_RetrieveUserIdByCharacterNameFailCmd	friend	
+13	I_RetrieveCharacterDetailReqCmd	friend	
+14	I_RetrieveCharacterDetailOkCmd	friend	
+15	I_RetrieveCharacterDetailFailCmd	friend	
+16	I_SearchCharacterListReqCmd	friend	0xfbd020:sub_FBD020
+17	I_SearchCharacterListOkCmd	friend	
+18	I_SearchCharacterListFailCmd	friend	
+19	I_RetrieveCharacterGuildInfoListReqCmd	guild	
+20	I_RetrieveCharacterGuildInfoListOkCmd	guild	
+21	I_RetrieveCharacterGuildInfoListFailCmd	guild	
+22	I_LoadCharacterClosetInfoListReqCmd	other	0x10e5660:ClosetGroup::loadCharacterClosetInfoListReq
+23	I_LoadCharacterClosetInfoListOkCmd	other	
+24	I_LoadCharacterClosetInfoListFailCmd	other	
+25	I_RetrieveCurrentRankingListSummaryReqCmd	other	0x9d1360:sub_9D1360
+26	I_RetrieveCurrentRankingListSummaryOkCmd	other	
+27	I_RetrieveCurrentRankingListSummaryFailCmd	other	
+28	I_RetrieveCurrentRankingListReqCmd	other	
+29	I_RetrieveCurrentRankingListOkCmd	other	
+30	I_RetrieveCurrentRankingListFailCmd	other	
+31	I_RetrieveGuildMemberRankingInfoListReqCmd	guild	0x9d1240:BSeason::RequestRetireveCurGuildRanker
+32	I_RetrieveGuildMemberRankingInfoListOkCmd	guild	
+33	I_RetrieveGuildMemberRankingInfoListFailCmd	guild	
+34	I_RetrieveTimeAttackBestRecordReqCmd	other	
+35	I_RetrieveTimeAttackBestRecordOkCmd	other	
+36	I_RetrieveTimeAttackBestRecordFailCmd	other	
+37	I_RetrieveChallengePartyLogSummaryReqCmd	party	
+38	I_RetrieveChallengePartyLogSummaryOkCmd	party	
+39	I_RetrieveChallengePartyLogSummaryFailCmd	party	
+40	I_LoadChatSpamFilterListReqCmd	chat	
+41	I_LoadChatSpamFilterListOkCmd	chat	
+42	I_LoadChatSpamFilterListFailCmd	chat	
+43	I_LoadGameTVScheduleReqCmd	other	
+44	I_LoadGameTVScheduleOkCmd	other	
+45	I_LoadGameTVScheduleFailCmd	other	
+46	I_RetrieveGuildJoinRenewalPcInfoReqCmd	guild	0xf304b0:Guild::RequestJoinRenewalPc
+47	I_RetrieveGuildJoinRenewalPcInfoOkCmd	guild	
+48	I_RetrieveGuildJoinRenewalPcInfoFailCmd	guild	
+49	I_RetrieveGuildJoinRenewalPcListReqCmd	guild	
+50	I_RetrieveGuildJoinRenewalPcListOkCmd	guild	
+51	I_RetrieveGuildJoinRenewalPcListFailCmd	guild	
+52	I_RetrieveGuildJoinRenewalGuildInfoReqCmd	guild	0xf30750:Guild::RequestJoinRenewalGuild
+53	I_RetrieveGuildJoinRenewalGuildInfoOkCmd	guild	
+54	I_RetrieveGuildJoinRenewalGuildInfoFailCmd	guild	
+55	I_RetrieveGuildJoinRenewalGuildListReqCmd	guild	
+56	I_RetrieveGuildJoinRenewalGuildListOkCmd	guild	
+57	I_RetrieveGuildJoinRenewalGuildListFailCmd	guild	
+58	I_RetrieveGuildPointInfoListReqCmd	guild	0xf30180:Guild::RequestGuildPointInfoList
+59	I_RetrieveGuildPointInfoListOkCmd	guild	
+60	I_RetrieveGuildPointInfoListFailCmd	guild	
+61	I_AddChatSpamFilterListNotifyCmd	chat	
+62	I_DeleteChatSpamFilterListNotifyCmd	chat	
+63	I_UpdateGameTVScheduleNotifyCmd	other	
+64	I_BoastEventInWorldNotifyCmd	other	
+65	I_RetrieveOpenGuildRecommendListReqCmd	guild	
+66	I_RetrieveOpenGuildRecommendListOkCmd	guild	
+67	I_RetrieveOpenGuildRecommendListFailCmd	guild	
+68	I_EnterWorldNotifyReqCmd	other	
+69	I_ReturnToLobbyNotifyReqCmd	other	
+70	I_RetrievePcNameListReqCmd	other	0x11d4510:BoardGachaManager::RequestPcNameList
+71	I_RetrievePcNameListOkCmd	other	
+72	I_RetrievePcNameListFailCmd	other	
+73	I_CMD_MAX	other	
