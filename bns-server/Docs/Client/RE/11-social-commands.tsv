@@ -1,0 +1,669 @@
+id	name	topic	direction	handler_381	handler_gm_name	handler_route	builder_381	builder_ida_name_381	struct_size	packet_sync	fields
+47	G_PlaySocialCmd	chat	S2C	0xeeff30	HandlePlaySocialPacket	World::ProcessNetObjectEvent			32	0	16:from:INT64/8; 24:social:INT32/4
+48	G_PlaySurroundSocialCmd	chat	S2C	0xeefef0	HandlePlaySurroundSocialPacket	World::ProcessNetObjectEvent			20	0	16:social:INT32/4
+50	G_GodSayCmd	chat	S2C	0xef66d0	HandleGodSayPacket	World::GodSays			40	0	16:at:INT32/4; 20:repeatInterval:INT32/4; 24:repeatCount:INT32/4; 28:type:INT8/1; 29:position:INT8/1; 32:msg:STRING/0
+51	G_MessageReqCmd	chat	C2S				0x43ff10 0x43ff40		48	0	16:range:INT8/1; 20:toName:STRING/0; 28:id:INT32/4; 32:header:STRING/0; 40:text:STRING/0
+52	G_MessageCmd	chat	S2C	0xef6690	HandleMessagePacket	own			80	0	16:toWorldId:INT16/2; 20:toName:STRING/0; 32:from:INT64/8; 40:fromWorldId:INT16/2; 44:fromName:STRING/0; 52:range:INT8/1; 56:id:INT32/4; 60:header:STRING/0; 68:text:STRING/0
+53	G_MessageNotifyCmd	chat	S2C	0xef6650	HandleMessageNotifyPacket	own			44	0	16:toName:STRING/0; 24:header:STRING/0; 32:text:STRING/0; 40:toQQId:INT32/4
+54	G_MessageFailCmd	chat	S2C	0xef6610	HandleMessageFailPacket	own			20	0	16:0:INT16/2
+55	G_MessageByItemReqCmd	chat	C2S				0x7378e0	World::SendMessageByItem	28	0	16:text:STRING/0; 24:font_color_index:INT8/1; 26:consumeItemBagPos:INT16/2
+56	G_MessageByItemCmd	chat	S2C	0xef65d0	HandleMessageByItemPacket	own			44	0	16:fromWorldId:INT16/2; 20:fromName:STRING/0; 28:range:INT8/1; 32:text:STRING/0; 40:font_color_index:INT8/1
+57	G_MessageByItemFailCmd	chat	S2C	0xef6590	HandleMessageByItemFailPacket	own			20	0	16:0:INT16/2
+68	G_SetPcSocialReqCmd	chat	C2S				0x733c30 0xaf2620 0xaf2890 0xaf2a10	World::SendInfoGateEnterWorldNotifyReq	20	0	16:socialId:INT16/2
+69	G_SetPcSocialOkCmd	chat	S2C	0xef1830	HandleSetPcSocialOkPacket	World::ProcessNetObjectEvent			16	0	
+70	G_SetPcSocialFailCmd	chat	S2C	0xef17f0	HandleSetPcSocialFailPacket	World::ProcessNetObjectEvent			20	0	16:0:INT16/2
+342	G_JoinChattingChannelReqCmd	chat	C2S				0x11557c0 0x1156480	ChatChannelNP::requestJoinChatChannel	20	0	16:domainId:INT8/1
+343	G_JoinChattingChannelOkCmd	chat	S2C	0xeec7a0	HandleJoinChattingChannelOkPacket	World::ProcessNetObjectEvent			20	0	16:domainId:INT8/1; 17:channel:INT8/1
+344	G_JoinChattingChannelFailCmd	chat	S2C	0xeec760	HandleJoinChattingChannelFailPacket	World::ProcessNetObjectEvent			20	0	16:0:INT16/2
+345	G_LeaveChattingChannelReqCmd	chat	C2S				0x1155770 0x1156430	ChatChannelNP::requestLeaveChatChannel	16	0	
+346	G_LeaveChattingChannelOkCmd	chat	S2C	0xeec720	HandleLeaveChattingChannelOkPacket	World::ProcessNetObjectEvent			16	0	
+347	G_LeaveChattingChannelFailCmd	chat	S2C	0xeec6e0	HandleLeaveChattingChannelFailPacket	World::ProcessNetObjectEvent			20	0	16:0:INT16/2
+387	G_ChattingServerLoginSignatureReqCmd	chat	C2S				0x11564e0	ChatChannel::requestLoginSignature	20	0	16:gameServerType:INT8/1
+388	G_ChattingServerLoginSignatureOkCmd	chat	S2C	0xeec3e0	HandleChattingServerLoginSignatureOkPacket	World::ProcessNetObjectEvent			40	0	16:gameServerType:INT8/1; 24:chattingServerId:INT64/8; 32:loginSignature:VBIN/0
+389	G_ChattingServerLoginSignatureFailCmd	chat	S2C	0xeec3a0	HandleChattingServerLoginSignatureFailPacket	World::ProcessNetObjectEvent			20	0	16:0:INT16/2
+394	G_InvitePetitionChatNotifyCmd	chat	S2C	0xeec2a0	HandleInvitePetitionChatNotifyPacket	World::ProcessNetObjectEvent			24	0	16:gmCharName:STRING/0
+395	G_SendPetitionChatNotifyReqCmd	chat	C2S						24	0	16:message:STRING/0
+396	G_RecvPetitionChatNotifyCmd	chat	S2C	0xeec260	HandleRecvPetitionChatNotifyPacket	World::ProcessNetObjectEvent			24	0	16:message:STRING/0
+397	G_EndPetitionChatNotifyCmd	chat	S2C	0xeec220	HandleEndPetitionChatNotifyPacket	World::ProcessNetObjectEvent			16	0	
+417	G_BoastNotifyCmd	chat	S2C	0xef63d0	HandleBoastNotifyPacket	World::ProcessNetObjectEvent			40	0	16:key:INT64/8; 24:npcDataId:INT64/8; 32:elapsedTime:INT32/4
+418	G_BoastCombatNotifyCmd	chat	S2C	0xef6390	HandleBoastCombatNotifyPacket	World::ProcessNetObjectEvent			32	0	16:combatMode:INT8/1; 24:npcDataId:INT64/8
+419	G_ReportBotSpammerReqCmd	chat	C2S				0xb7c980 0x1116870		40	0	16:report_type:INT8/1; 24:targetPcId:INT64/8; 32:targetPcName:STRING/0
+420	G_ReportBotSpammerOkCmd	chat	S2C	0xef6350	HandleReportBotSpammerOkPacket	World::ProcessNetObjectEvent			28	0	16:report_type:INT8/1; 20:targetPcName:STRING/0
+421	G_ReportBotSpammerFailCmd	chat	S2C	0xef6310	HandleReportBotSpammerFailPacket	World::ProcessNetObjectEvent			20	0	16:failReason:INT16/2; 18:report_type:INT8/1
+881	G_QQGroupMessageReqCmd	chat	C2S				0x511680		28	0	16:text:REPEAT/2; 8:str:STRING/0(d1); 16:link:STRING/0(d1); 24:face:INT32/4(d1)
+882	G_QQGroupMessageCmd	chat	S2C	0xeeae60	HandleQQGroupMessagePacket	World::ProcessNetObjectEvent			40	0	16:senderQQId:INT32/4; 20:msg_seq:INT32/4; 24:msg_time:INT32/4; 28:text:REPEAT/2; 8:str:STRING/0(d1); 16:link:STRING/0(d1); 24:face:INT32/4(d1)
+883	G_QQGroupMessageFailCmd	chat	S2C	0xeeae20	HandleQQGroupMessageFailPacket	World::ProcessNetObjectEvent			20	0	16:0:INT16/2
+1204	G_SendIngameMessageNotifyCmd	chat	S2C	0xee6640	HandleSendIngameMessageNotifyPacket	World::ProcessNetObjectEvent			24	0	16:szMessage:STRING/0
+277	G_DuelChooseDuelOrderReqCmd	duel	C2S				0x1282da0	ArenaDuel::SendGameReady	20	0	16:duel_order:INT8/1
+278	G_DuelChooseDuelOrderOkCmd	duel	S2C	0xeed6e0	HandleDuelChooseDuelOrderOkPacket	World::ProcessNetObjectEvent			16	0	
+279	G_DuelChooseDuelOrderFailCmd	duel	S2C	0xeed6a0	HandleDuelChooseDuelOrderFailPacket	World::ProcessNetObjectEvent			20	0	16:0:INT16/2
+280	G_DuelReadyRoundReqCmd	duel	C2S				0x1282da0	ArenaDuel::SendGameReady	16	0	
+281	G_DuelReadyRoundOkCmd	duel	S2C	0xeed660	HandleDuelReadyRoundOkPacket	World::ProcessNetObjectEvent			16	0	
+282	G_DuelReadyRoundFailCmd	duel	S2C	0xeed620	HandleDuelReadyRoundFailPacket	World::ProcessNetObjectEvent			20	0	16:0:INT16/2
+283	G_DuelTakeTagTokenReqCmd	duel	C2S				0x1277aa0	ArenaDuel::SendTagToken	16	0	
+284	G_DuelTakeTagTokenOkCmd	duel	S2C	0xeed5a0	HandleDuelTakeTagTokenOkPacket	World::ProcessNetObjectEvent			16	0	
+285	G_DuelTakeTagTokenFailCmd	duel	S2C	0xeed5e0	HandleDuelTakeTagTokenFailPacket	World::ProcessNetObjectEvent			20	0	16:0:INT16/2
+286	G_DuelGameFinishNotifyCmd	duel	S2C	0xeef830	HandleDuelGameFinishNotifyPacket	World::ProcessNetObjectEvent			20	0	16:gameResult:INT8/1
+287	G_DuelGameFinishResultNotifyCmd	duel	S2C	0xeef7f0	HandleDuelGameFinishResultNotifyPacket	World::ProcessNetObjectEvent			136	0	16:updated_to_db:INT8/1; 17:season_contents_type:INT8/1; 20:result_duel_rating_score:INT32/4; 24:diff_duel_rating_score:INT32/4; 28:result_ranking_score:INT32/4; 32:diff_ranking_score:INT32/4; 36:result_ranking:INT32/4; 40:result_kill_score:INT32/4; 44:diff_kill_score:INT32/4; 48:result_kill_count:INT32/4; 52:result_combat_score:INT32/4; 56:diff_combat_score:INT32/4; 60:result_combat_damage:INT32/4; 64:result_duel_point:INT32/4; 68:diff_duel_point:INT32/4; 72:result_exp:INT32/4; 76:diff_exp:INT32/4; 80:result_mastery_exp:INT64/8; 88:diff_mastery_exp:INT64/8; 96:base_point:INT32/4; 100:winning_streak_point:INT32/4; 104:base_exp:INT64/8; 112:week_guild_ranking_reward_data_key:INT64/8; 120:season_guild_ranking_reward_data_key:INT64/8; 128:winning_streak_point_percent:INT32/4; 132:fever_time_index:INT32/4
+288	G_DuelMemberListNotifyCmd	duel	S2C	0xef3190	HandleDuelMemberListNotifyPacket	World::ProcessNetObjectEvent			28	0	16:member_list:REPEAT/2; 8:character_name:STRING/0(d1); 16:job:INT8/1(d1); 17:duel_side:INT8/1(d1); 20:soloRating:INT32/4(d1); 24:teamRating:INT32/4(d1)
+366	G_DuelBotInfoForMonitoringNotifyCmd	duel	S2C	0xeed3a0	HandleDuelBotInfoForMonitoringNotifyPacket	World::ProcessNetObjectEvent			40	0	16:creatureId:INT64/8; 24:creature_info:REPEAT/2; 8:info_key:STRING/0(d1); 16:info_value:STRING/0(d1)
+367	G_DuelBotDaemonDebugProtocolCmd	duel	S2C	0xeed360	HandleDuelBotDaemonDebugProtocolPacket	World::ProcessNetObjectEvent			24	0	16:protocol:STRING/0
+708	G_ReturnToArenaLobbyFromDuelReqCmd	duel	C2S				0x12781c0	ArenaDuel::ReturnToDuelLobbyReq	24	0	16:arenaPortalKey:INT64/8
+709	G_ReturnToArenaLobbyFromDuelOkCmd	duel	S2C	0xef3210	HandleReturnToArenaLobbyFromDuelOkPacket	World::ProcessNetObjectEvent			16	0	
+710	G_ReturnToArenaLobbyFromDuelFailCmd	duel	S2C	0xef31d0	HandleReturnToArenaLobbyFromDuelFailPacket	World::ProcessNetObjectEvent			20	0	16:0:INT16/2
+732	G_ArenaEventDuelGameStartReqCmd	duel	C2S				0x12780f0	ArenaDuel::SendGameStartGM	16	0	
+748	G_ArenaEventWarpToDuelRoundStartPcSpawnReqCmd	duel	C2S				0x1277d80	ArenaDuel::SendWarpRoundCenter	20	0	16:duel_side:INT8/1
+749	G_ArenaEventWarpToDuelRoundStartPcSpawnOkCmd	duel	S2C	0xef2cd0	HandleArenaEventWarpToDuelRoundStartPcSpawnOkPacket	World::ProcessNetObjectEvent			16	0	
+750	G_ArenaEventWarpToDuelRoundStartPcSpawnFailCmd	duel	S2C	0xef2c90	HandleArenaEventWarpToDuelRoundStartPcSpawnFailPacket	World::ProcessNetObjectEvent			20	0	16:0:INT16/2
+968	G_DuelBotChallengeCombatStartReqCmd	duel	C2S				0x105ae00		24	0	16:duel_bot_id:INT64/8
+969	G_DuelBotChallengeCombatStartOkCmd	duel	S2C	0xee9d40	HandleDuelBotChallengeCombatStartOkPacket	World::ProcessNetObjectEvent			20	0	16:current_floor:INT16/2
+970	G_DuelBotChallengeCombatStartFailCmd	duel	S2C	0xee9d00	HandleDuelBotChallengeCombatStartFailPacket	World::ProcessNetObjectEvent			20	0	16:failReason:INT16/2
+971	G_DuelBotChallengeEnterNotifyCmd	duel	S2C	0xee9cc0	HandleDuelBotChallengeEnterNotifyPacket	World::ProcessNetObjectEvent			48	0	16:current_floor:INT16/2; 24:strategic_tool_1:INT64/8; 32:strategic_tool_2:INT64/8; 40:strategic_tool_3:INT64/8
+972	G_DuelBotChallengeEventNotifyCmd	duel	S2C	0xee9c80	HandleDuelBotChallengeEventNotifyPacket	World::ProcessNetObjectEvent			48	0	16:reason:INT8/1; 18:floor:INT16/2; 24:enemy_duel_bot_id:INT64/8; 32:elasped_time:INT64/8; 40:round:INT8/1
+973	G_DuelBotChallengePickStrategicToolReqCmd	duel	C2S				0x105ad00		20	0	16:activatedToolIndex:INT8/1
+974	G_DuelBotChallengePickStrategicToolOkCmd	duel	S2C	0xee9c40	HandleDuelBotChallengePickStrategicToolOkPacket	World::ProcessNetObjectEvent			24	0	16:toolDataKey:INT64/8
+975	G_DuelBotChallengePickStrategicToolFailCmd	duel	S2C	0xee9c00	HandleDuelBotChallengePickStrategicToolFailPacket	World::ProcessNetObjectEvent			20	0	16:failReason:INT16/2
+976	G_DuelBotChallengePickStrategicToolCancelledCmd	duel	S2C	0xee9bc0	HandleDuelBotChallengePickStrategicToolCancelledPacket	World::ProcessNetObjectEvent			16	0	
+977	G_DuelBotChallengeUseStrategicToolReqCmd	duel	C2S				0x105ac80		24	0	16:targetDuelBotId:INT64/8
+978	G_DuelBotChallengeUseStrategicToolOkCmd	duel	S2C	0xee9b80	HandleDuelBotChallengeUseStrategicToolOkPacket	World::ProcessNetObjectEvent			24	0	16:toolDataKey:INT64/8
+979	G_DuelBotChallengeUseStrategicToolFailCmd	duel	S2C	0xee9a40	HandleDuelBotChallengeUseStrategicToolFailPacket	World::ProcessNetObjectEvent			20	0	16:failReason:INT16/2
+1587	G_DuelBotTrainingRoomPickDuelBotReqCmd	duel	C2S				0x1059f80 0x1059fe0 0x105a100		24	18	16:job:INT32/4; 20:grade:INT8/1
+1588	G_DuelBotTrainingRoomPickDuelBotOkCmd	duel	S2C	0xee9f00	HandleDuelBotTrainingRoomPickDuelBotOkPacket	World::ProcessNetObjectEvent			16	18	
+1589	G_DuelBotTrainingRoomPickDuelBotFailCmd	duel	S2C	0xee9ec0	HandleDuelBotTrainingRoomPickDuelBotFailPacket	World::ProcessNetObjectEvent			20	18	16:failReason:INT16/2
+1590	G_DuelBotTrainingRoomCombatStartReqCmd	duel	C2S				0x1059f80 0x1059fe0 0x105a100		24	18	16:duel_bot_id:INT64/8
+1591	G_DuelBotTrainingRoomCombatStartOkCmd	duel	S2C	0xee9e80	HandleDuelBotTrainingRoomCombatStartOkPacket	World::ProcessNetObjectEvent			16	18	
+1592	G_DuelBotTrainingRoomCombatStartFailCmd	duel	S2C	0xee9e40	HandleDuelBotTrainingRoomCombatStartFailPacket	World::ProcessNetObjectEvent			20	18	16:failReason:INT16/2
+1593	G_DuelBotTrainingRoomEventNotifyCmd	duel	S2C	0xee9e00	HandleDuelBotTrainingRoomEventNotifyPacket	World::ProcessNetObjectEvent			32	18	16:reason:INT8/1; 17:achievement:INT8/1; 24:elapsed_time:INT64/8
+1594	G_DuelBotTrainingRoomRewardReqCmd	duel	C2S				0x1059f80 0x1059fe0 0x105a100		20	18	16:job:INT8/1; 17:grade:INT8/1; 18:achievement:INT8/1
+1595	G_DuelBotTrainingRoomRewardOkCmd	duel	S2C	0xee9b40	HandleDuelBotTrainingRoomRewardOkPacket	World::ProcessNetObjectEvent			16	18	
+1596	G_DuelBotTrainingRoomRewardFailCmd	duel	S2C	0xee9b00	HandleDuelBotTrainingRoomRewardFailPacket	World::ProcessNetObjectEvent			20	18	16:failReason:INT16/2
+1597	G_DuelBotTrainingRoomInfoNotifyCmd	duel	S2C	0xee9ac0	HandleDuelBotTrainingRoomInfoNotifyPacket	World::ProcessNetObjectEvent			28	18	16:duelBotTrainingRoomScoreList:REPEAT/2; 8:duelBotTrainingRoomScore:PROP_SYNC/0(d1)
+1598	G_DuelBotTrainingRoomScoreSyncCmd	duel	S2C	0xee9a80	HandleDuelBotTrainingRoomScoreSyncPacket	World::ProcessNetObjectEvent			44	18	16:duelBotTrainingRoomScore:PROP_SYNC/0
+83	G_ExchangeFactionScoreReqCmd	faction	C2S				0xc17ae0	TalkExchangeFactionCoinPanel::accept	32	0	16:npcId:INT64/8; 24:faction_score:INT32/4
+84	G_ExchangeFactionScoreOkCmd	faction	S2C	0xef01b0	HandleExchangeFactionScoreOkPacket	World::ProcessNetObjectEvent			16	0	
+85	G_ExchangeFactionScoreFailCmd	faction	S2C	0xef0170	HandleExchangeFactionScoreFailPacket	World::ProcessNetObjectEvent			20	0	16:0:INT16/2
+92	G_AcquireFactionScoreByCompleteQuestMissionNotifyCmd	faction	S2C	0xef0070	HandleAcquireFactionScoreByCompleteQuestMissionNotifyPacket	World::ProcessNetObjectEvent			32	0	16:pcId:INT64/8; 24:faction_score:INT32/4
+125	G_JoinFactionReqCmd	faction	C2S				0x5a0570		32	0	16:factionId:INT8/1; 24:npcId:INT64/8
+126	G_JoinFactionFailCmd	faction	S2C	0xeef1b0	HandleJoinFactionFailPacket	World::ProcessNetObjectEvent			20	0	16:0:INT16/2
+127	G_LeaveFactionReqCmd	faction	C2S						24	0	16:npcId:INT64/8
+128	G_LeaveFactionFailCmd	faction	S2C	0xeef170	HandleLeaveFactionFailPacket	World::ProcessNetObjectEvent			20	0	16:0:INT16/2
+129	G_TransferFactionReqCmd	faction	C2S				0x7d5f40 0xc185a0	BUiWorld::processReservedFunction	40	0	16:factionId:INT8/1; 24:npcId:INT64/8; 32:reserveReputation:INT8/1
+130	G_TransferFactionFailCmd	faction	S2C	0xeef130	HandleTransferFactionFailPacket	World::ProcessNetObjectEvent			20	0	16:0:INT16/2
+131	G_RetrieveFactionStatisticsReqCmd	faction	C2S				0x7336e0		16	0	
+132	G_RetrieveFactionStatisticsOkCmd	faction	S2C	0xeef0f0	HandleRetrieveFactionStatisticsOkPacket	World::ProcessNetObjectEvent			40	0	16:none_faction:INT64/8; 24:main_faction_1:INT64/8; 32:main_faction_2:INT64/8
+133	G_RetrieveFactionStatisticsFailCmd	faction	S2C	0xee0fd0	HandleRetrieveFactionStatisticsFailPacket	own			20	0	16:0:INT16/2
+1255	G_GiveFactionScoreToRefinerReqCmd	faction	C2S				0x10d5a10 0x10d5b20	BControlledPlayingActions::RequestRefinerGiveSocrePacket	24	3	16:targetId:INT64/8
+1256	G_GiveFactionScoreToRefinerNotifyCmd	faction	S2C	0xeef070	HandleGiveFactionScoreToRefinerNotifyPacket	World::ProcessNetObjectEvent			16	3	
+1257	G_GiveFactionScoreToRefinerFailCmd	faction	S2C	0xeef030	HandleGiveFactionScoreToRefinerFailPacket	World::ProcessNetObjectEvent			20	3	16:0:INT16/2
+1097	G_MentoringPropertySyncCmd	friend	S2C	0xee8040	HandleMentoringPropertySyncPacket	World::ProcessNetObjectEvent			24	0	16:mentoringProperty:PROP_SYNC/0
+1098	G_ChangeMentoringTypeReqCmd	friend	C2S				0xc9e670	Mentoring::RequestChangeMentoringType	20	0	16:mentoring_type:INT8/1
+1099	G_ChangeMentoringTypeFailCmd	friend	S2C	0xee8080	HandleChangeMentoringTypeFailPacket	World::ProcessNetObjectEvent			20	0	16:0:INT16/2
+1100	G_InviteMentoringReqCmd	friend	C2S				0xc9e4f0		28	0	16:target_type:INT8/1; 20:target_name:STRING/0
+1101	G_InviteMentoringNotifyCmd	friend	S2C	0xee8140	HandleInviteMentoringNotifyPacket	World::ProcessNetObjectEvent			56	0	16:inviter_type:INT8/1; 24:inviter_pc_id:INT64/8; 32:inviter_id:INT64/8; 40:inviter_name:STRING/0; 48:inviter_job:INT16/2; 50:inviter_level:INT16/2; 52:inviter_mastery_level:INT16/2
+1102	G_InviteMentoringFailCmd	friend	S2C	0xee8100	HandleInviteMentoringFailPacket	World::ProcessNetObjectEvent			20	0	16:0:INT16/2
+1103	G_ConfirmInvitationMentoringReqCmd	friend	C2S				0xc9e020	Mentoring::RequestConfirmInvitationMentoring	32	0	16:inviter_pc_id:INT64/8; 24:inviter_id:INT64/8
+1104	G_ConfirmInvitationMentoringFailCmd	friend	S2C	0xee80c0	HandleConfirmInvitationMentoringFailPacket	World::ProcessNetObjectEvent			20	0	16:0:INT16/2
+1105	G_RejectInvitationMentoringReqCmd	friend	C2S				0xc9dfb0	Mentoring::RequestRejectInvitationMentoring	32	0	16:inviter_pc_id:INT64/8; 24:inviter_id:INT64/8
+1106	G_RejectInvitationMentoringNotifyCmd	friend	S2C	0xee8200	HandleRejectInvitationMentoringNotifyPacket	World::ProcessNetObjectEvent			28	0	16:target_type:INT8/1; 20:target_name:STRING/0
+1107	G_LeaveMentoringReqCmd	friend	C2S				0xc9e410 0xc9e480		32	0	16:reason:INT8/1; 17:mentee_index:INT8/1; 24:mentee_id:INT64/8
+1108	G_LeaveMentoringNotifyCmd	friend	S2C	0xee81c0	HandleLeaveMentoringNotifyPacket	World::ProcessNetObjectEvent			20	0	16:reason:INT8/1; 17:mentee_index:INT8/1
+1109	G_LeaveMentoringFailCmd	friend	S2C	0xee8180	HandleLeaveMentoringFailPacket	World::ProcessNetObjectEvent			20	0	16:0:INT16/2
+1110	G_RetrieveMentoringInfoNotifyCmd	friend	S2C	0xee8240	HandleRetrieveMentoringInfoNotifyPacket	World::ProcessNetObjectEvent			72	0	16:reason:INT8/1; 20:mentor_name:STRING/0; 32:mentor_pc_id:INT64/8; 40:mentor_job:INT16/2; 48:mentor_id:INT64/8; 56:mentee_list:REPEAT/2; 8:index:INT8/1(d1); 12:name:STRING/0(d1); 24:pc_id:INT64/8(d1); 32:job:INT16/2(d1); 40:mentee_id:INT64/8(d1)
+1111	G_CallMentoringMemberReqCmd	friend	C2S				0xc9e100		32	0	16:target:INT64/8; 24:teleportId:INT16/2
+1112	G_CallMentoringMemberOkCmd	friend	S2C	0xee7f00	HandleCallMentoringMemberOkPacket	World::ProcessNetObjectEvent			24	0	16:target:INT64/8
+1113	G_CallMentoringMemberFailCmd	friend	S2C	0xee7f40	HandleCallMentoringMemberFailPacket	World::ProcessNetObjectEvent			40	0	16:failReason:INT16/2; 24:target:INT64/8; 32:teleportId:INT16/2
+1114	G_CallMentoringMemberNotifyCmd	friend	S2C	0xee7f80	HandleCallMentoringMemberNotifyPacket	World::ProcessNetObjectEvent			32	0	16:requester:INT64/8; 24:teleportId:INT16/2
+1115	G_WarpToMentoringMemberReqCmd	friend	C2S				0xc9e090	Mentoring::RequestWarpToMentoringMember	32	0	16:requester:INT64/8; 24:teleportId:INT16/2
+1116	G_WarpToMentoringMemberOkCmd	friend	S2C	0xee7fc0	HandleWarpToMentoringMemberOkPacket	World::ProcessNetObjectEvent			32	0	16:requester:INT64/8; 24:teleportId:INT16/2
+1117	G_WarpToMentoringMemberFailCmd	friend	S2C	0xee8000	HandleWarpToMentoringMemberFailPacket	World::ProcessNetObjectEvent			40	0	16:failReason:INT16/2; 24:requester:INT64/8; 32:teleportId:INT16/2
+431	G_CreateGuildReqCmd	guild	C2S				0xf33530	G_CreateGuildReqPacket::G_CreateGuildReqPacket	40	0	16:GuildType:INT8/1; 20:guildName:STRING/0; 32:npcId:INT64/8
+432	G_CreateGuildOkCmd	guild	S2C	0xef6190	HandleCreateGuildOkPacket	World::ProcessNetObjectEvent			24	0	16:guildId:INT64/8
+433	G_CreateGuildFailCmd	guild	S2C	0xef6150	HandleCreateGuildFailPacket	World::ProcessNetObjectEvent			20	0	16:0:INT16/2
+434	G_RenameGuildReqCmd	guild	C2S				0x47c7d0 0x47c800 0x57cea0		40	0	16:rename_guild_type:INT8/1; 20:new_guild_name:STRING/0; 28:rename_guild_items:REPEAT/2; 8:pos:INT16/2(d1); 10:count:INT16/2(d1)
+435	G_RenameGuildNotifyCmd	guild	S2C	0xee8f40	HandleRenameGuildNotifyPacket	World::ProcessNetObjectEvent			40	0	16:guild_id:INT64/8; 24:new_guild_name:STRING/0; 32:rename_guild_limit_time:INT64/8
+436	G_RenameGuildFailCmd	guild	S2C	0xee8f00	HandleRenameGuildFailPacket	World::ProcessNetObjectEvent			20	0	16:0:INT16/2
+437	G_DestroyGuildReqCmd	guild	C2S				0xf334a0	G_DestroyGuildReqPacket::G_DestroyGuildReqPacket	40	0	16:guildName:STRING/0; 24:guildId:INT64/8; 32:npcId:INT64/8
+438	G_DestroyGuildOkCmd	guild	S2C	0xef6110	HandleDestroyGuildOkPacket	World::ProcessNetObjectEvent			16	0	
+439	G_DestroyGuildFailCmd	guild	S2C	0xef60d0	HandleDestroyGuildFailPacket	World::ProcessNetObjectEvent			20	0	16:0:INT16/2
+440	G_RetrieveGuildInfoReqCmd	guild	C2S				0xf33440	Guild::RequestRetrieveGuildInfo	16	0	
+441	G_RetrieveGuildInfoOkCmd	guild	S2C	0xef6090	HandleRetrieveGuildInfoOkPacket	World::ProcessNetObjectEvent			216	0	16:GuildInfo:STRUCT/0; 4:GuildType:INT8/1(d1); 5:Faction:INT8/1(d1); 8:GuildName:STRING/0(d1); 16:CombatFlagBearer:INT64/8(d1); 24:CombatFlagBearerUpdateLimitTime:INT64/8(d1); 32:NotifyMessage:STRING/0(d1); 40:GuildLevel:INT8/1(d1); 48:UniformID:INT64/8(d1); 56:UniformUpdateLimitTime:INT64/8(d1); 64:DefaultUniformRegistrationQuota:INT16/2(d1); 66:IncreasedUniformRegistrationQuota:INT16/2(d1); 68:BanishMemeberCount:INT8/1(d1); 72:BanishMemeberCountLastUpdateTime:INT64/8(d1); 80:RenameGuildLimitTime:INT64/8(d1); 88:GuildApplicationRefusalSeq:INT8/1(d1); 96:TotalGuildPoint:INT64/8(d1); 120:GuildMeetingPlace:STRUCT/0; 4:teleportId:INT16/2(d1); 8:geoZone:INT32/4(d1); 12:x:INT16/2(d1); 14:y:INT16/2(d1); 16:z:INT16/2(d1); 18:zoneChannel:INT16/2(d1); 24:expirationTime:INT64/8(d1); 152:GuildBankBalanceList:REPEAT/2; 8:ItemDataID:INT32/4(d1); 12:ItemLevel:INT16/2(d1); 16:ItemAmount:INT64/8(d1); 164:GuildCraftList:REPEAT/2; 8:GuildCraftInfo:STRUCT/0(d1); 8:CraftID:INT64/8(d2); 16:CraftState:INT8/1(d2); 17:CraftScale:INT8/1(d2); 18:ContractType:INT8/1(d2); 20:RecipeID:INT32/4(d2); 24:RecipientType:INT8/1(d2); 28:RecipientName:STRING/0(d2); 40:RegistrationTime:INT64/8(d2); 48:StartTime:INT64/8(d2); 56:EndTime:INT64/8(d2); 64:ProductDataId:INT32/4(d2); 68:ProductLevel:INT16/2(d2); 72:ProductTotalAmount:INT32/4(d2); 76:ProductRemainAmount:INT32/4(d2); 88:AssentientList:REPEAT/2(d1); 8:ProductionType:INT8/1(d2); 12:AssentientName:STRING/0(d2); 100:NormalMaterialList:REPEAT/2(d1); 8:ItemDataID:INT32/4(d2); 12:ItemLevel:INT16/2(d2); 16:ItemAmount:INT32/4(d2); 112:BrandMaterialList:REPEAT/2(d1); 8:BrandID:INT32/4(d2); 12:ConditionType:INT8/1(d2); 16:Amount:INT32/4(d2); 176:GuildUniformList:REPEAT/2; 8:UniformID:INT64/8(d1); 16:UniformName:STRING/0(d1); 24:StartTime:INT64/8(d1); 32:EndTime:INT64/8(d1); 40:UniformState:INT8/1(d1); 44:GuildUniformBaseParamList:REPEAT/2(d1); 8:paramValue:INT8/1(d2); 56:GuildUniformParamList:REPEAT/2(d1); 8:paramValue:INT8/1(d2); 68:GuildUniformRecipeList:REPEAT/2(d1); 8:recipeID:INT32/4(d2); 80:MaterialList:REPEAT/2(d1); 8:ItemDataID:INT32/4(d2); 12:ItemLevel:INT16/2(d2); 16:ItemAmount:INT32/4(d2); 188:GuildCombatRecordList:REPEAT/2; 8:GuildCombatRecord:STRUCT/0(d1); 4:SeasonContentsType:INT8/1(d2); 8:Win:INT32/4(d2); 12:Draw:INT32/4(d2); 16:Lose:INT32/4(d2); 20:CurrentStraightWin:INT32/4(d2); 24:MaxStraightWin:INT32/4(d2); 28:RatingScore:INT32/4(d2); 200:GuildRankingRewardList:REPEAT/2; 8:season_contents_type:INT8/1(d1); 12:season_contents_schedule_number:INT32/4(d1); 16:season_contents_result_schedule_number:INT8/1(d1); 20:ranking:INT32/4(d1); 24:last_accumulation_request_time:INT64/8(d1); 32:primary_score:INT64/8(d1)
+442	G_RetrieveGuildInfoFailCmd	guild	S2C	0xef6050	HandleRetrieveGuildInfoFailPacket	World::ProcessNetObjectEvent			20	0	16:0:INT16/2
+443	G_GuildLevelUpReqCmd	guild	C2S				0xf31750		16	0	
+444	G_GuildLevelUpFailCmd	guild	S2C	0xef6010	HandleGuildLevelUpFailPacket	World::ProcessNetObjectEvent			20	0	16:0:INT16/2
+445	G_DepositInGuildBankReqCmd	guild	C2S				0x47c8d0 0xf316e0		32	0	16:Money:INT32/4; 20:DepositItems:REPEAT/2; 8:pos:INT16/2(d1); 10:count:INT16/2(d1)
+446	G_DepositInGuildBankFailCmd	guild	S2C	0xef5fd0	HandleDepositInGuildBankFailPacket	World::ProcessNetObjectEvent			20	0	16:0:INT16/2
+447	G_ContractGuildCraftReqCmd	guild	C2S				0x47c900 0x47c9a0 0x47c9e0 0x5861c0		56	0	16:RecipeID:INT32/4; 20:RecipientType:INT8/1; 24:RecipientName:STRING/0; 32:ContractBM:REPEAT/2; 8:pos:INT16/2(d1); 10:count:INT16/2(d1); 44:RentBM:REPEAT/2; 8:pos:INT16/2(d1); 10:count:INT16/2(d1)
+448	G_ContractGuildCraftFailCmd	guild	S2C	0xef5f10	HandleContractGuildCraftFailPacket	World::ProcessNetObjectEvent			20	0	16:0:INT16/2
+449	G_AssentGuildCraftReqCmd	guild	C2S				0xf2d660	GuildCraft::RequestDonateAbility	32	0	16:GuildCraftID:INT64/8; 24:ProductionType:INT8/1
+450	G_AssentGuildCraftFailCmd	guild	S2C	0xef5ed0	HandleAssentGuildCraftFailPacket	World::ProcessNetObjectEvent			20	0	16:0:INT16/2
+451	G_DonateGuildCraftNormalMaterialReqCmd	guild	C2S				0x47c940		40	0	16:GuildCraftID:INT64/8; 24:MaterialDonationList:REPEAT/2; 8:pos:INT16/2(d1); 10:count:INT16/2(d1)
+452	G_DonateGuildCraftNormalMaterialFailCmd	guild	S2C	0xef5e90	HandleDonateGuildCraftNormalMaterialFailPacket	World::ProcessNetObjectEvent			20	0	16:0:INT16/2
+453	G_DonateGuildCraftBrandMaterialReqCmd	guild	C2S				0x47c970		48	0	16:GuildCraftID:INT64/8; 24:BrandID:INT32/4; 28:ConditionType:INT8/1; 32:MaterialDonationList:REPEAT/2; 8:pos:INT16/2(d1); 10:count:INT16/2(d1)
+454	G_DonateGuildCraftBrandMaterialFailCmd	guild	S2C	0xef5e50	HandleDonateGuildCraftBrandMaterialFailPacket	World::ProcessNetObjectEvent			20	0	16:0:INT16/2
+455	G_MakeGuildCraftReqCmd	guild	C2S				0xf2d740	GuildCraft::RequestMakeCraft	24	0	16:GuildCraftID:INT64/8
+456	G_MakeGuildCraftFailCmd	guild	S2C	0xef5e10	HandleMakeGuildCraftFailPacket	World::ProcessNetObjectEvent			20	0	16:0:INT16/2
+457	G_TakeGuildCraftReqCmd	guild	C2S				0xf2d6d0	GuildCraft::RequestReceiveCraft	32	0	16:GuildCraftID:INT64/8; 24:ReceiveAmount:INT16/2
+458	G_TakeGuildCraftFailCmd	guild	S2C	0xef5dd0	HandleTakeGuildCraftFailPacket	World::ProcessNetObjectEvent			20	0	16:0:INT16/2
+459	G_AbandonGuildCraftReqCmd	guild	C2S				0xf2d1f0	GuildCraft::RequestAbandonCraft	24	0	16:GuildCraftID:INT64/8
+460	G_AbandonGuildCraftFailCmd	guild	S2C	0xef5d90	HandleAbandonGuildCraftFailPacket	World::ProcessNetObjectEvent			20	0	16:0:INT16/2
+461	G_ContractGuildUniformReqCmd	guild	C2S				0x47c900 0x47c9a0 0x47c9e0 0x585d50		56	0	16:PutOnGuildUniformID:INT64/8; 24:UniformName:STRING/0; 32:ParamValue:REPEAT/2; 8:paramValue:INT8/1(d1); 44:RecipeList:REPEAT/2; 8:recipeID:INT32/4(d1)
+462	G_ContractGuildUniformFailCmd	guild	S2C	0xef5d50	HandleContractGuildUniformFailPacket	World::ProcessNetObjectEvent			20	0	16:0:INT16/2
+463	G_DonateGuildUniformMaterialReqCmd	guild	C2S				0x47cab0		40	0	16:GuildUniformID:INT64/8; 24:DonationMaterialList:REPEAT/2; 8:pos:INT16/2(d1); 10:count:INT16/2(d1)
+464	G_DonateGuildUniformMaterialFailCmd	guild	S2C	0xef5d10	HandleDonateGuildUniformMaterialFailPacket	World::ProcessNetObjectEvent			20	0	16:0:INT16/2
+465	G_AbandonGuildUniformReqCmd	guild	C2S				0xf31d90		24	0	16:GuildUniformID:INT64/8
+466	G_AbandonGuildUniformFailCmd	guild	S2C	0xef5cd0	HandleAbandonGuildUniformFailPacket	World::ProcessNetObjectEvent			20	0	16:0:INT16/2
+467	G_MakeGuildUniformReqCmd	guild	C2S				0xf31df0		24	0	16:GuildUniformID:INT64/8
+468	G_MakeGuildUniformFailCmd	guild	S2C	0xef5c90	HandleMakeGuildUniformFailPacket	World::ProcessNetObjectEvent			20	0	16:0:INT16/2
+469	G_RegisterGuildUniformReqCmd	guild	C2S				0xf31b10		24	0	16:GuildUniformID:INT64/8
+470	G_RegisterGuildUniformFailCmd	guild	S2C	0xef5c50	HandleRegisterGuildUniformFailPacket	World::ProcessNetObjectEvent			20	0	16:0:INT16/2
+471	G_PutOnGuildUniformReqCmd	guild	C2S				0xf31a30		24	0	16:GuildUniformID:INT64/8
+472	G_PutOnGuildUniformFailCmd	guild	S2C	0xef5c10	HandlePutOnGuildUniformFailPacket	World::ProcessNetObjectEvent			20	0	16:0:INT16/2
+473	G_RegisterGuildUniformWithDeletionReqCmd	guild	C2S				0xf31a90		32	0	16:DeletionGuildUniformID:INT64/8; 24:RegistrationGuildUniformID:INT64/8
+474	G_RegisterGuildUniformWithDeletionFailCmd	guild	S2C	0xef5bd0	HandleRegisterGuildUniformWithDeletionFailPacket	World::ProcessNetObjectEvent			20	0	16:0:INT16/2
+477	G_RetrieveGuildMembersReqCmd	guild	C2S				0xf333c0	Guild::RequestRetrieveGuildMembers	16	0	
+478	G_RetrieveGuildMembersOkCmd	guild	S2C	0xef5610	HandleRetrieveGuildMembersOkPacket	World::ProcessNetObjectEvent			28	0	16:guild_member_list:REPEAT/2; 8:index:INT8/1(d1); 12:name:STRING/0(d1); 24:pc_id:INT64/8(d1); 32:level:INT16/2(d1); 34:faction2:INT8/1(d1); 36:mastery_level:INT16/2(d1); 38:race:INT16/2(d1); 40:job:INT16/2(d1); 42:grade:INT8/1(d1); 48:registration_time:INT64/8(d1); 56:world_id:INT16/2(d1); 60:geoZone:INT32/4(d1); 64:x:INT16/2(d1); 66:y:INT16/2(d1); 68:z:INT16/2(d1); 72:logout_time:INT64/8(d1)
+479	G_RetrieveGuildMembersFailCmd	guild	S2C	0xef55d0	HandleRetrieveGuildMembersFailPacket	World::ProcessNetObjectEvent			20	0	16:0:INT16/2
+480	G_EditGuildNotificationMessageReqCmd	guild	C2S				0x47cb10		24	0	16:notification_message:STRING/0
+481	G_EditGuildNotificationMessageFailCmd	guild	S2C	0xef5590	HandleEditGuildNotificationMessageFailPacket	World::ProcessNetObjectEvent			20	0	16:0:INT16/2
+482	G_ChangeGuildNotificationMessageCmd	guild	S2C	0xef5550	HandleChangeGuildNotificationMessagePacket	World::ProcessNetObjectEvent			32	0	16:guildId:INT64/8; 24:notification_message:STRING/0
+483	G_RetrieveGuildMemberPermissionReqCmd	guild	C2S				0xf331c0	Guild::RequestRetrieveGuildMemberPermission	16	0	
+484	G_RetrieveGuildMemberPermissionOkCmd	guild	S2C	0xef5510	HandleRetrieveGuildMemberPermissionOkPacket	World::ProcessNetObjectEvent			32	0	16:permission_staff_captain:INT32/4; 20:permission_elder:INT32/4; 24:permission_general:INT32/4; 28:permission_lower:INT32/4
+485	G_RetrieveGuildMemberPermissionFailCmd	guild	S2C	0xef54d0	HandleRetrieveGuildMemberPermissionFailPacket	World::ProcessNetObjectEvent			20	0	16:0:INT16/2
+486	G_EditGuildMemberPermissionReqCmd	guild	C2S				0xf330e0	Guild::RequestEditGuildMemberPermission	32	0	16:permission_staff_captain:INT32/4; 20:permission_elder:INT32/4; 24:permission_general:INT32/4; 28:permission_lower:INT32/4
+487	G_EditGuildMemberPermissionOkCmd	guild	S2C	0xef5490	HandleEditGuildMemberPermissionOkPacket	World::ProcessNetObjectEvent			16	0	
+488	G_EditGuildMemberPermissionFailCmd	guild	S2C	0xef5450	HandleEditGuildMemberPermissionFailPacket	World::ProcessNetObjectEvent			20	0	16:0:INT16/2
+489	G_ChangeGuildFlagBearerReqCmd	guild	C2S				0xf31420	Guild::RequestDonateUniformMaterial	28	0	16:season_contents_type:INT8/1; 20:new_flag_bearer_name:STRING/0
+490	G_ChangeGuildFlagBearerFailCmd	guild	S2C	0xef5410	HandleChangeGuildFlagBearerFailPacket	World::ProcessNetObjectEvent			20	0	16:0:INT16/2
+491	G_ChangeGuildMemberGradeReqCmd	guild	C2S				0xf32fa0	Guild::RequestChangeGuildMemberGrade	32	0	16:index:INT8/1; 20:guild_member_name:STRING/0; 28:grade:INT8/1
+492	G_ChangeGuildMemberGradeFailCmd	guild	S2C	0xef53d0	HandleChangeGuildMemberGradeFailPacket	World::ProcessNetObjectEvent			20	0	16:0:INT16/2
+493	G_ChangeGuildMemberGradeCmd	guild	S2C	0xef5390	HandleChangeGuildMemberGradePacket	World::ProcessNetObjectEvent			40	0	16:guildId:INT64/8; 24:index:INT8/1; 28:guild_member_name:STRING/0; 36:before_grade:INT8/1; 37:after_grade:INT8/1
+494	G_DelegateGuildLeaderReqCmd	guild	C2S				0xf32dc0		28	0	16:index:INT8/1; 20:target_name:STRING/0
+495	G_DelegateGuildLeaderFailCmd	guild	S2C	0xef5350	HandleDelegateGuildLeaderFailPacket	World::ProcessNetObjectEvent			20	0	16:0:INT16/2
+496	G_DelegateGuildLeaderRelayCmd	guild	S2C	0xef5310	HandleDelegateGuildLeaderRelayPacket	World::ProcessNetObjectEvent			24	0	16:fromName:STRING/0
+497	G_DelegateGuildLeaderCmd	guild	S2C	0xef52d0	HandleDelegateGuildLeaderPacket	World::ProcessNetObjectEvent			28	0	16:index:INT8/1; 20:guild_leader_name:STRING/0
+498	G_RenameGuildMemberCmd	guild	S2C	0xef5290	HandleRenameGuildMemberPacket	World::ProcessNetObjectEvent			28	0	16:index:INT8/1; 20:changed_member_name:STRING/0
+499	G_ConfirmGuildLeaderReqCmd	guild	C2S				0xf32d40	Guild::RequestConfirmGuildLeader	16	0	
+500	G_ConfirmGuildLeaderFailCmd	guild	S2C	0xef5250	HandleConfirmGuildLeaderFailPacket	World::ProcessNetObjectEvent			20	0	16:0:INT16/2
+501	G_RejectGuildLeaderReqCmd	guild	C2S				0xf32cf0	Guild::RequestRejectGuildLeader	16	0	
+502	G_RejectGuildLeaderFailCmd	guild	S2C	0xef5210	HandleRejectGuildLeaderFailPacket	World::ProcessNetObjectEvent			20	0	16:0:INT16/2
+503	G_InviteGuildReqCmd	guild	C2S				0x47cb30		28	0	16:target_name:STRING/0; 24:guildInvitationType:INT8/1
+504	G_InviteGuildFailCmd	guild	S2C	0xef5190	HandleInviteGuildFailPacket	World::ProcessNetObjectEvent			20	0	16:0:INT16/2
+505	G_InviteGuildCmd	guild	S2C	0xef5150	HandleInviteGuildPacket	World::ProcessNetObjectEvent			56	0	16:guildId:INT64/8; 24:guildName:STRING/0; 32:fromId:INT64/8; 40:fromName:STRING/0; 48:guildInvitationType:INT8/1
+506	G_ConfirmInvitationGuildReqCmd	guild	C2S				0xf32a20	Guild::RequestConfirmInvitationGuild	16	0	
+507	G_ConfirmInvitationGuildFailCmd	guild	S2C	0xef5110	HandleConfirmInvitationGuildFailPacket	World::ProcessNetObjectEvent			20	0	16:0:INT16/2
+508	G_RejectInvitationGuildReqCmd	guild	C2S				0xf329d0	Guild::RequestRejectInvitationGuild	16	0	
+509	G_JoinGuildReqCmd	guild	C2S				0xf313c0	Guild::RequestJoinGuild	24	0	16:guildId:INT64/8
+510	G_JoinGuildFailCmd	guild	S2C	0xef51d0	HandleJoinGuildFailPacket	World::ProcessNetObjectEvent			20	0	16:0:INT16/2
+511	G_LeaveGuildReqCmd	guild	C2S				0xf32980		16	0	
+512	G_LeaveGuildFailCmd	guild	S2C	0xef50d0	HandleLeaveGuildFailPacket	World::ProcessNetObjectEvent			20	0	16:0:INT16/2
+513	G_BanishGuildMemberReqCmd	guild	C2S				0x47cb50		28	0	16:index:INT8/1; 20:target_name:STRING/0
+514	G_BanishGuildMemberFailCmd	guild	S2C	0xef5090	HandleBanishGuildMemberFailPacket	World::ProcessNetObjectEvent			20	0	16:0:INT16/2
+515	G_QueryGuildInfoReqCmd	guild	C2S				0xe97470 0xf31130	GuildInfoList::RequestQueryGuildInfo	28	0	16:guild_id_list:REPEAT/2; 8:guild_id:INT64/8(d1)
+516	G_QueryGuildInfoOkCmd	guild	S2C	0xef5050	HandleQueryGuildInfoOkPacket	World::ProcessNetObjectEvent			28	0	16:guild_info_list:REPEAT/2; 8:guild_id:INT64/8(d1); 16:guild_type:INT8/1(d1); 20:guild_name:STRING/0(d1); 28:guild_uniform_param_list:REPEAT/2(d1); 8:paramValue:INT8/1(d2)
+517	G_QueryGuildInfoFailCmd	guild	S2C	0xef5010	HandleQueryGuildInfoFailPacket	World::ProcessNetObjectEvent			20	0	16:0:INT16/2
+518	G_QueryGuildInfoToGamedReqCmd	guild	C2S				0xe97290	GuildInfoList::RequestQueryGuildInfoToGameD	28	0	16:guild_id_list:REPEAT/2; 8:guild_id:INT64/8(d1)
+519	G_QueryGuildInfoToGamedOkCmd	guild	S2C	0xef4fd0	HandleQueryGuildInfoToGamedOkPacket	World::ProcessNetObjectEvent			28	0	16:guild_info_list:REPEAT/2; 8:guild_id:INT64/8(d1); 16:guild_type:INT8/1(d1); 20:guild_name:STRING/0(d1); 28:guild_uniform_param_list:REPEAT/2(d1); 8:paramValue:INT8/1(d2)
+520	G_QueryGuildInfoToGamedFailCmd	guild	S2C	0xef4f90	HandleQueryGuildInfoToGamedFailPacket	World::ProcessNetObjectEvent			20	0	16:0:INT16/2
+521	G_CallGuildMemberNotifyCmd	guild	S2C	0xef4f50	HandleCallGuildMemberNotifyPacket	World::ProcessNetObjectEvent			48	0	16:index:INT32/4; 20:teleportId:INT16/2; 24:geoZone:INT32/4; 28:x:INT16/2; 30:y:INT16/2; 32:z:INT16/2; 34:zoneChannel:INT16/2; 40:expirationTime:INT64/8
+522	G_GuildLevelUpCmd	guild	S2C	0xef5f90	HandleGuildLevelUpPacket	World::ProcessNetObjectEvent			32	0	16:GuildLevel:INT8/1; 20:Cost:REPEAT/2; 8:ItemDataID:INT32/4(d1); 12:ItemLevel:INT16/2(d1); 16:ItemAmount:INT32/4(d1)
+523	G_DepositInGuildBankCmd	guild	S2C	0xef5f50	HandleDepositInGuildBankPacket	World::ProcessNetObjectEvent			36	0	16:DepositorName:STRING/0; 24:DepositItem:REPEAT/2; 8:ItemDataID:INT32/4(d1); 12:ItemLevel:INT16/2(d1); 16:ItemAmount:INT32/4(d1)
+524	G_ContractGuildCraftCmd	guild	S2C	0xef5b50	HandleContractGuildCraftPacket	World::ProcessNetObjectEvent			72	0	16:GuildCraftID:INT64/8; 24:RecipeID:INT32/4; 28:CraftScaleType:INT8/1; 29:ContractType:INT8/1; 30:RecipientType:INT8/1; 32:RecipientName:STRING/0; 40:RequestorName:STRING/0; 48:RegistrationTime:INT64/8; 56:ContractItem:REPEAT/2; 8:ItemDataID:INT32/4(d1); 12:ItemLevel:INT16/2(d1); 16:ItemAmount:INT32/4(d1)
+525	G_AssentGuildCraftCmd	guild	S2C	0xef5b10	HandleAssentGuildCraftPacket	World::ProcessNetObjectEvent			40	0	16:GuildCraftID:INT64/8; 24:ProductionType:INT8/1; 28:DonatorName:STRING/0
+526	G_DonateGuildCraftNormalMaterialCmd	guild	S2C	0xef5ad0	HandleDonateGuildCraftNormalMaterialPacket	World::ProcessNetObjectEvent			48	0	16:GuildCraftID:INT64/8; 24:DonatorName:STRING/0; 32:ItemDataId:INT32/4; 36:ItemLevel:INT16/2; 40:Amount:INT32/4
+527	G_DonateGuildCraftBrandMaterialCmd	guild	S2C	0xef5a90	HandleDonateGuildCraftBrandMaterialPacket	World::ProcessNetObjectEvent			56	0	16:GuildCraftID:INT64/8; 24:DonatorName:STRING/0; 32:ItemDataId:INT32/4; 36:ItemLevel:INT16/2; 40:BrandID:INT32/4; 44:ConditionType:INT8/1; 48:Amount:INT32/4
+528	G_FinishDonationGuildCraftCmd	guild	S2C	0xef5a50	HandleFinishDonationGuildCraftPacket	World::ProcessNetObjectEvent			24	0	16:GuildCraftID:INT64/8
+529	G_MakeGuildCraftCmd	guild	S2C	0xef5a10	HandleMakeGuildCraftPacket	World::ProcessNetObjectEvent			56	0	16:GuildCraftID:INT64/8; 24:StartTime:INT64/8; 32:EndTime:INT64/8; 40:ProductDataId:INT32/4; 44:ProductLevel:INT16/2; 48:ProductTotalAmount:INT32/4; 52:ProductRemainAmount:INT32/4
+530	G_FinishGuildCraftCmd	guild	S2C	0xef59d0	HandleFinishGuildCraftPacket	World::ProcessNetObjectEvent			24	0	16:GuildCraftID:INT64/8
+531	G_TakeGuildCraftCmd	guild	S2C	0xef5990	HandleTakeGuildCraftPacket	World::ProcessNetObjectEvent			40	0	16:GuildCraftID:INT64/8; 24:ReceivePCName:STRING/0; 32:ReceiveAmount:INT32/4
+532	G_AbandonGuildCraftCmd	guild	S2C	0xef5950	HandleAbandonGuildCraftPacket	World::ProcessNetObjectEvent			24	0	16:GuildCraftID:INT64/8
+533	G_ContractGuildUniformCmd	guild	S2C	0xef5910	HandleContractGuildUniformPacket	World::ProcessNetObjectEvent			96	0	16:GuildUniformID:INT64/8; 24:GuildUniformName:STRING/0; 32:RequestorName:STRING/0; 40:RegistrationTime:INT64/8; 48:GuildUniformBaseParamList:REPEAT/2; 8:paramValue:INT8/1(d1); 60:GuildUniformParamList:REPEAT/2; 8:paramValue:INT8/1(d1); 72:GuildUniformRecipeList:REPEAT/2; 8:recipeID:INT32/4(d1); 84:ContractItem:REPEAT/2; 8:ItemDataID:INT32/4(d1); 12:ItemLevel:INT16/2(d1); 16:ItemAmount:INT32/4(d1)
+534	G_DonateGuildUniformMaterialCmd	guild	S2C	0xef58d0	HandleDonateGuildUniformMaterialPacket	World::ProcessNetObjectEvent			48	0	16:GuildUniformID:INT64/8; 24:DonatorName:STRING/0; 32:ItemDataId:INT32/4; 36:ItemLevel:INT16/2; 40:Amount:INT32/4
+535	G_AbandonGuildUniformCmd	guild	S2C	0xef5890	HandleAbandonGuildUniformPacket	World::ProcessNetObjectEvent			24	0	16:GuildUniformID:INT64/8
+536	G_FinishDonationGuildUniformCmd	guild	S2C	0xef5850	HandleFinishDonationGuildUniformPacket	World::ProcessNetObjectEvent			24	0	16:GuildUniformID:INT64/8
+537	G_MakeGuildUniformCmd	guild	S2C	0xef5810	HandleMakeGuildUniformPacket	World::ProcessNetObjectEvent			40	0	16:GuildUniformID:INT64/8; 24:StartTime:INT64/8; 32:EndTime:INT64/8
+538	G_FinishMakeGuildUniformCmd	guild	S2C	0xef57d0	HandleFinishMakeGuildUniformPacket	World::ProcessNetObjectEvent			24	0	16:GuildUniformID:INT64/8
+539	G_RegisterGuildUniformCmd	guild	S2C	0xef5790	HandleRegisterGuildUniformPacket	World::ProcessNetObjectEvent			24	0	16:GuildUniformID:INT64/8
+540	G_PutOnGuildUniformCmd	guild	S2C	0xef5750	HandlePutOnGuildUniformPacket	World::ProcessNetObjectEvent			32	0	16:GuildUniformID:INT64/8; 24:GuildUniformUpdateLimitTime:INT64/8
+541	G_RegisterGuildUniformWithDeletionCmd	guild	S2C	0xef5710	HandleRegisterGuildUniformWithDeletionPacket	World::ProcessNetObjectEvent			48	0	16:DeletionGuildUniformID:INT64/8; 24:RegistrationGuildUniformID:INT64/8; 32:ChangedGuildUniformID:INT8/1; 40:GuildUniformUpdateLimitTime:INT64/8
+542	G_IncreaseGuildUniformRegistrationQuotaCmd	guild	S2C	0xef56d0	HandleIncreaseGuildUniformRegistrationQuotaPacket	World::ProcessNetObjectEvent			40	0	16:RequestorPCID:INT64/8; 24:RequestorName:STRING/0; 32:IncreasedGuildUniformRegistrationQuota:INT16/2
+543	G_DepositInGuildBankByManagerCmd	guild	S2C	0xef5690	HandleDepositInGuildBankByManagerPacket	World::ProcessNetObjectEvent			32	0	16:ItemDataId:INT32/4; 20:ItemLevel:INT16/2; 24:Amount:INT64/8
+544	G_WithdrawFromGuildBankByManagerCmd	guild	S2C	0xef5650	HandleWithdrawFromGuildBankByManagerPacket	World::ProcessNetObjectEvent			32	0	16:ItemDataId:INT32/4; 20:ItemLevel:INT16/2; 24:Amount:INT64/8
+545	G_LoginGuildMemberCmd	guild	S2C	0xef4f10	HandleLoginGuildMemberPacket	World::ProcessNetObjectEvent			64	0	16:index:INT8/1; 20:login_guild_member_name:STRING/0; 28:level:INT16/2; 30:faction2:INT8/1; 31:mastery_level:INT8/1; 32:race:INT16/2; 34:job:INT16/2; 36:grade:INT8/1; 40:registration_time:INT64/8; 48:geoZone:INT32/4; 52:x:INT16/2; 54:y:INT16/2; 56:z:INT16/2
+546	G_LogoutGuildMemberCmd	guild	S2C	0xef4ed0	HandleLogoutGuildMemberPacket	World::ProcessNetObjectEvent			24	0	16:index:INT8/1; 18:level:INT16/2; 20:faction2:INT8/1; 21:mastery_level:INT8/1
+547	G_LevelUpGuildMemberCmd	guild	S2C	0xef4e90	HandleLevelUpGuildMemberPacket	World::ProcessNetObjectEvent			24	0	16:index:INT8/1; 18:level:INT16/2; 20:faction2:INT8/1; 21:mastery_level:INT8/1
+548	G_TransitZoneGuildMemberCmd	guild	S2C	0xef4e50	HandleTransitZoneGuildMemberPacket	World::ProcessNetObjectEvent			32	0	16:index:INT8/1; 20:geoZone:INT32/4; 24:x:INT16/2; 26:y:INT16/2; 28:z:INT16/2
+549	G_UpdateGuildMemberFaction2Cmd	guild	S2C	0xef4e10	HandleUpdateGuildMemberFaction2Packet	World::ProcessNetObjectEvent			20	0	16:index:INT8/1; 17:faction2:INT8/1
+550	G_RenameGuildByManagerCmd	guild	S2C	0xef4dd0	HandleRenameGuildByManagerPacket	World::ProcessNetObjectEvent			24	0	16:ChangedGuildName:STRING/0
+551	G_RejectGuildCmd	guild	S2C	0xef4d90	HandleRejectGuildPacket	World::ProcessNetObjectEvent			32	0	16:guildName:STRING/0; 24:rejected_member_name:STRING/0
+552	G_JoinGuildCmd	guild	S2C	0xef4d50	HandleJoinGuildPacket	World::ProcessNetObjectEvent			64	0	16:index:INT8/1; 20:joined_member_name:STRING/0; 28:level:INT16/2; 30:faction2:INT8/1; 32:mastery_level:INT16/2; 34:race:INT16/2; 36:job:INT16/2; 38:grade:INT8/1; 40:registration_time:INT64/8; 48:geoZone:INT32/4; 52:x:INT16/2; 54:y:INT16/2; 56:z:INT16/2
+553	G_LeaveGuildCmd	guild	S2C	0xef4d10	HandleLeaveGuildPacket	World::ProcessNetObjectEvent			56	0	16:index:INT8/1; 20:pc_name:STRING/0; 28:reason:INT8/1; 29:season_contents_type:INT8/1; 32:flag_bearer:INT64/8; 40:BanishMemeberCount:INT8/1; 48:BanishMemeberCountLastUpdateTime:INT64/8
+554	G_EditedGuildMemberPermissionCmd	guild	S2C	0xef4cd0	HandleEditedGuildMemberPermissionPacket	World::ProcessNetObjectEvent			32	0	16:permission_staff_captain:INT32/4; 20:permission_elder:INT32/4; 24:permission_general:INT32/4; 28:permission_lower:INT32/4
+555	G_ChangeGuildFlagBearerCmd	guild	S2C	0xef4c90	HandleChangeGuildFlagBearerPacket	World::ProcessNetObjectEvent			40	0	16:season_contents_type:INT8/1; 20:new_flag_bearer:STRING/0; 32:update_limit_time:INT64/8
+556	G_ChangeGuildCombatRecordCmd	guild	S2C	0xef4c50	HandleChangeGuildCombatRecordPacket	World::ProcessNetObjectEvent			52	0	16:guild_combat_record:STRUCT/0; 4:SeasonContentsType:INT8/1(d1); 8:Win:INT32/4(d1); 12:Draw:INT32/4(d1); 16:Lose:INT32/4(d1); 20:CurrentStraightWin:INT32/4(d1); 24:MaxStraightWin:INT32/4(d1); 28:RatingScore:INT32/4(d1); 48:acquired_rating_score:INT32/4
+557	G_RetrieveGuildJoinTicketListPerGuildReqCmd	guild	C2S				0xf311f0	Guild::RequestTicketListPerGuild	24	0	16:time_stamp:INT64/8
+558	G_RetrieveGuildJoinTicketListPerGuildOkCmd	guild	S2C	0xef4c10	HandleRetrieveGuildJoinTicketListPerGuildOkPacket	World::ProcessNetObjectEvent			40	0	16:time_stamp:INT64/8; 24:guild_join_ticket_list:REPEAT/2; 8:guild_join_ticket_info:STRUCT/0(d1); 8:pcdbid:INT64/8(d2); 16:guild_id:INT64/8(d2); 24:ticket_type:INT16/2(d2); 26:ticket_state:INT16/2(d2); 32:expiration_time:INT64/8(d2)
+559	G_RetrieveGuildJoinTicketListPerGuildFailCmd	guild	S2C	0xef4bd0	HandleRetrieveGuildJoinTicketListPerGuildFailPacket	World::ProcessNetObjectEvent			20	0	16:0:INT16/2
+560	G_RetrieveGuildJoinTicketListPerPcReqCmd	guild	C2S				0xf31340	Guild::RequestTicketListPerPc	16	0	
+561	G_RetrieveGuildJoinTicketListPerPcOkCmd	guild	S2C	0xef4b90	HandleRetrieveGuildJoinTicketListPerPcOkPacket	World::ProcessNetObjectEvent			28	0	16:guild_join_ticket_list:REPEAT/2; 8:guild_join_ticket_info:STRUCT/0(d1); 8:pcdbid:INT64/8(d2); 16:guild_id:INT64/8(d2); 24:ticket_type:INT16/2(d2); 26:ticket_state:INT16/2(d2); 32:expiration_time:INT64/8(d2)
+562	G_RetrieveGuildJoinTicketListPerPcFailCmd	guild	S2C	0xef4b50	HandleRetrieveGuildJoinTicketListPerPcFailPacket	World::ProcessNetObjectEvent			20	0	16:0:INT16/2
+563	G_SendGuildApplicationReqCmd	guild	C2S				0xf30f40		24	0	16:guild_name:STRING/0
+564	G_SendGuildApplicationOkCmd	guild	S2C	0xef4b10	HandleSendGuildApplicationOkPacket	World::ProcessNetObjectEvent			40	0	16:guild_name:STRING/0; 24:guild_id:INT64/8; 32:expiration_time:INT64/8
+565	G_SendGuildApplicationFailCmd	guild	S2C	0xef4ad0	HandleSendGuildApplicationFailPacket	World::ProcessNetObjectEvent			20	0	16:0:INT16/2
+566	G_SendGuildApplicationNotifyCmd	guild	S2C	0xef4a90	HandleSendGuildApplicationNotifyPacket	World::ProcessNetObjectEvent			48	0	16:pcdbid:INT64/8; 24:expiration_time:INT64/8; 32:pc_name:STRING/0; 40:job:INT16/2; 42:level:INT16/2; 44:mastery_level:INT16/2
+567	G_CancelGuildApplicationReqCmd	guild	C2S				0xf30b80	Guild::RequestCancelGuildApplication	24	0	16:guild_id:INT64/8
+568	G_CancelGuildApplicationOkCmd	guild	S2C	0xef4a50	HandleCancelGuildApplicationOkPacket	World::ProcessNetObjectEvent			32	0	16:guild_id:INT64/8; 24:cancel_reason:INT16/2
+569	G_CancelGuildApplicationFailCmd	guild	S2C	0xef4a10	HandleCancelGuildApplicationFailPacket	World::ProcessNetObjectEvent			20	0	16:0:INT16/2
+570	G_CancelGuildApplicationNotifyCmd	guild	S2C	0xef49d0	HandleCancelGuildApplicationNotifyPacket	World::ProcessNetObjectEvent			32	0	16:pcdbid:INT64/8; 24:cancel_reason:INT16/2
+571	G_RejectGuildApplicationReqCmd	guild	C2S				0xf30d40	Guild::RequestRejectGuildApplication	24	0	16:pcdbid:INT64/8
+572	G_RejectGuildApplicationOkCmd	guild	S2C	0xef4990	HandleRejectGuildApplicationOkPacket	World::ProcessNetObjectEvent			32	0	16:pcdbid:INT64/8; 24:cancel_reason:INT16/2
+573	G_RejectGuildApplicationFailCmd	guild	S2C	0xef4950	HandleRejectGuildApplicationFailPacket	World::ProcessNetObjectEvent			20	0	16:0:INT16/2
+574	G_RejectGuildApplicationNotifyCmd	guild	S2C	0xef4910	HandleRejectGuildApplicationNotifyPacket	World::ProcessNetObjectEvent			32	0	16:guild_id:INT64/8; 24:cancel_reason:INT16/2
+575	G_AcceptGuildApplicationReqCmd	guild	C2S				0xf309d0	Guild::RequestAcceptGuildApplication	24	0	16:pcdbid:INT64/8
+576	G_AcceptGuildApplicationOkCmd	guild	S2C	0xef48d0	HandleAcceptGuildApplicationOkPacket	World::ProcessNetObjectEvent			32	0	16:pcdbid:INT64/8; 24:expiration_time:INT64/8
+577	G_AcceptGuildApplicationFailCmd	guild	S2C	0xef4890	HandleAcceptGuildApplicationFailPacket	World::ProcessNetObjectEvent			20	0	16:0:INT16/2
+578	G_AcceptGuildApplicationNotifyCmd	guild	S2C	0xef4850	HandleAcceptGuildApplicationNotifyPacket	World::ProcessNetObjectEvent			32	0	16:guild_id:INT64/8; 24:expiration_time:INT64/8
+579	G_SendGuildInvitationReqCmd	guild	C2S				0xf30ec0	Guild::RequestInvitation	24	0	16:pcdbid:INT64/8
+580	G_SendGuildInvitationOkCmd	guild	S2C	0xef4810	HandleSendGuildInvitationOkPacket	World::ProcessNetObjectEvent			48	0	16:pcdbid:INT64/8; 24:expiration_time:INT64/8; 32:pc_name:STRING/0; 40:job:INT16/2; 42:level:INT16/2; 44:mastery_level:INT16/2
+581	G_SendGuildInvitationFailCmd	guild	S2C	0xef47d0	HandleSendGuildInvitationFailPacket	World::ProcessNetObjectEvent			20	0	16:0:INT16/2
+582	G_SendGuildInvitationNotifyCmd	guild	S2C	0xef4790	HandleSendGuildInvitationNotifyPacket	World::ProcessNetObjectEvent			40	0	16:guild_id:INT64/8; 24:expiration_time:INT64/8; 32:guild_name:STRING/0
+583	G_SendGuildInvitation2ReqCmd	guild	C2S				0xf30e20	Guild::RequestInvitation	32	0	16:pc_name:STRING/0; 24:pcid:INT64/8
+584	G_CancelGuildInvitationReqCmd	guild	C2S				0xf30aa0	Guild::RequestCancelGuildInvitation	24	0	16:pcdbid:INT64/8
+585	G_CancelGuildInvitationOkCmd	guild	S2C	0xef4750	HandleCancelGuildInvitationOkPacket	World::ProcessNetObjectEvent			32	0	16:pcdbid:INT64/8; 24:cancel_reason:INT16/2
+586	G_CancelGuildInvitationFailCmd	guild	S2C	0xef4710	HandleCancelGuildInvitationFailPacket	World::ProcessNetObjectEvent			20	0	16:0:INT16/2
+587	G_CancelGuildInvitationNotifyCmd	guild	S2C	0xef46d0	HandleCancelGuildInvitationNotifyPacket	World::ProcessNetObjectEvent			32	0	16:guild_id:INT64/8; 24:cancel_reason:INT16/2
+588	G_RejectGuildInvitationReqCmd	guild	C2S				0xf30c60	Guild::RequestRejectGuildInvitation	24	0	16:guild_id:INT64/8
+589	G_RejectGuildInvitationOkCmd	guild	S2C	0xef4690	HandleRejectGuildInvitationOkPacket	World::ProcessNetObjectEvent			32	0	16:guild_id:INT64/8; 24:cancel_reason:INT16/2
+590	G_RejectGuildInvitationFailCmd	guild	S2C	0xef4650	HandleRejectGuildInvitationFailPacket	World::ProcessNetObjectEvent			20	0	16:0:INT16/2
+591	G_RejectGuildInvitationNotifyCmd	guild	S2C	0xef4610	HandleRejectGuildInvitationNotifyPacket	World::ProcessNetObjectEvent			32	0	16:pcdbid:INT64/8; 24:cancel_reason:INT16/2
+592	G_AcceptGuildInvitationReqCmd	guild	C2S				0xf308f0	Guild::RequestAcceptGuildInvitation	24	0	16:guild_id:INT64/8
+593	G_AcceptGuildInvitationOkCmd	guild	S2C	0xef45d0	HandleAcceptGuildInvitationOkPacket	World::ProcessNetObjectEvent			24	0	16:guild_id:INT64/8
+594	G_AcceptGuildInvitationFailCmd	guild	S2C	0xef4590	HandleAcceptGuildInvitationFailPacket	World::ProcessNetObjectEvent			20	0	16:0:INT16/2
+595	G_AcceptGuildInvitationNotifyCmd	guild	S2C	0xef4550	HandleAcceptGuildInvitationNotifyPacket	World::ProcessNetObjectEvent			24	0	16:pcdbid:INT64/8
+596	G_UpdateGuildApplicationRefusalReqCmd	guild	C2S				0xf30880	Guild::RequestApplicationRefusal	20	0	16:guild_application_refusal_seq:INT8/1
+597	G_UpdateGuildApplicationRefusalOkCmd	guild	S2C	0xef4510	HandleUpdateGuildApplicationRefusalOkPacket	World::ProcessNetObjectEvent			20	0	16:guild_application_refusal_seq:INT8/1
+598	G_UpdateGuildApplicationRefusalFailCmd	guild	S2C	0xef44d0	HandleUpdateGuildApplicationRefusalFailPacket	World::ProcessNetObjectEvent			20	0	16:0:INT16/2
+599	G_UpdateGuildApplicationRefusalNotifyCmd	guild	S2C	0xef4490	HandleUpdateGuildApplicationRefusalNotifyPacket	World::ProcessNetObjectEvent			28	0	16:requestor_name:STRING/0; 24:guild_application_refusal_seq:INT8/1
+600	G_UpdateGuildInvitationRefusalReqCmd	guild	C2S				0xf30810	Guild::RequestInvitationRefusal	20	0	16:guild_invitation_refusal_seq:INT8/1
+601	G_UpdateGuildInvitationRefusalOkCmd	guild	S2C	0xef4450	HandleUpdateGuildInvitationRefusalOkPacket	World::ProcessNetObjectEvent			20	0	16:guild_invitation_refusal_seq:INT8/1
+602	G_UpdateGuildInvitationRefusalFailCmd	guild	S2C	0xef4410	HandleUpdateGuildInvitationRefusalFailPacket	World::ProcessNetObjectEvent			20	0	16:0:INT16/2
+603	G_AccumulateGuildPointReqCmd	guild	C2S				0xf30270	Guild::RequestAccumulateGuildPoint	20	0	16:guild_point:INT32/4
+604	G_AccumulateGuildPointOkCmd	guild	S2C	0xef43d0	HandleAccumulateGuildPointOkPacket	World::ProcessNetObjectEvent			32	0	16:guild_point:INT32/4; 24:accumulate_retry_limit_time:INT64/8
+605	G_AccumulateGuildPointFailCmd	guild	S2C	0xef4390	HandleAccumulateGuildPointFailPacket	World::ProcessNetObjectEvent			32	0	16:reason:INT16/2; 24:accumulate_retry_limit_time:INT64/8
+606	G_GuildLevelUpWithGuildPointReqCmd	guild	C2S				0xf31750		16	0	
+607	G_GuildLevelUpWithGuildPointNotifyCmd	guild	S2C	0xef4350	HandleGuildLevelUpWithGuildPointNotifyPacket	World::ProcessNetObjectEvent			24	0	16:guild_level:INT8/1; 20:guild_point:INT32/4
+608	G_GuildLevelUpWithGuildPointFailCmd	guild	S2C	0xef4310	HandleGuildLevelUpWithGuildPointFailPacket	World::ProcessNetObjectEvent			20	0	16:reason:INT16/2
+609	G_UpdateTotalGuildPointNotifyCmd	guild	S2C	0xef42d0	HandleUpdateTotalGuildPointNotifyPacket	World::ProcessNetObjectEvent			32	0	16:guild_id:INT64/8; 24:total_guild_point:INT64/8
+610	G_PurchaseGuildBenefitReqCmd	guild	C2S				0xf300e0	Guild::RequestPurchaseGuildBenefit	24	0	16:benefit_id:INT16/2; 18:benefit_type:INT16/2; 20:duration:INT32/4
+611	G_PurchaseGuildBenefitNotifyCmd	guild	S2C	0xef4290	HandlePurchaseGuildBenefitNotifyPacket	World::ProcessNetObjectEvent			48	0	16:benefit_id:INT16/2; 18:benefit_type:INT16/2; 20:duration:INT32/4; 24:guild_point:INT32/4; 28:guild_bank_item_cost_list:REPEAT/2; 8:ItemDataID:INT32/4(d1); 12:ItemLevel:INT16/2(d1); 16:ItemAmount:INT32/4(d1); 40:expiration_time:INT64/8
+612	G_PurchaseGuildBenefitFailCmd	guild	S2C	0xef4250	HandlePurchaseGuildBenefitFailPacket	World::ProcessNetObjectEvent			20	0	16:reason:INT16/2
+613	G_UpdateGuildBenefitNotifyCmd	guild	S2C	0xef4210	HandleUpdateGuildBenefitNotifyPacket	World::ProcessNetObjectEvent			28	0	16:guild_benefit_list:REPEAT/2; 8:guild_benefit_info:STRUCT/0(d1); 4:benefit_id:INT16/2(d2); 6:benefit_type:INT16/2(d2); 8:expiration_time:INT64/8(d2)
+614	G_UpdateGuildAllianceListNotifyCmd	guild	S2C	0xef41d0	HandleUpdateGuildAllianceListNotifyPacket	World::ProcessNetObjectEvent			28	0	16:guild_alliance_list:REPEAT/2; 8:guild_alliance_info:STRUCT/0(d1); 8:ally_guild_id:INT64/8(d2); 16:ally_guild_name:STRING/0(d2); 24:registration_time:INT64/8(d2)
+615	G_CreateGuildAllianceReqCmd	guild	C2S				0xf2fe40	G_CreateGuildAllianceReqPacket::G_CreateGuildAllianceReqPacket	24	0	16:ally_guild_name:STRING/0
+616	G_CreateGuildAllianceNotifyCmd	guild	S2C	0xef4190	HandleCreateGuildAllianceNotifyPacket	World::ProcessNetObjectEvent			48	0	16:guild_alliance_info:STRUCT/0; 8:ally_guild_id:INT64/8(d1); 16:ally_guild_name:STRING/0(d1); 24:registration_time:INT64/8(d1)
+617	G_CreateGuildAllianceFailCmd	guild	S2C	0xef4150	HandleCreateGuildAllianceFailPacket	World::ProcessNetObjectEvent			20	0	16:reason:INT16/2
+618	G_CreateGuildAllianceRelayCmd	guild	S2C	0xef4110	HandleCreateGuildAllianceRelayPacket	World::ProcessNetObjectEvent			32	0	16:guild_id:INT64/8; 24:guild_name:STRING/0
+619	G_AcceptGuildAllianceReqCmd	guild	C2S				0xf2fdb0	Guild::RequestAcceptGuildAlliance	24	0	16:guild_id:INT64/8
+620	G_AcceptGuildAllianceFailCmd	guild	S2C	0xef40d0	HandleAcceptGuildAllianceFailPacket	World::ProcessNetObjectEvent			20	0	16:reason:INT16/2
+621	G_RejectGuildAllianceReqCmd	guild	C2S				0xf2fd10	Guild::RequestRejectGuildAlliance	32	0	16:guild_id:INT64/8; 24:reason:INT8/1
+622	G_RejectGuildAllianceFailCmd	guild	S2C	0xef4090	HandleRejectGuildAllianceFailPacket	World::ProcessNetObjectEvent			20	0	16:reason:INT16/2
+623	G_DeleteGuildAllianceReqCmd	guild	C2S				0xf2fc80	Guild::RequestDeleteGuildAlliance	24	0	16:ally_guild_id:INT64/8
+624	G_DeleteGuildAllianceNotifyCmd	guild	S2C	0xef4050	HandleDeleteGuildAllianceNotifyPacket	World::ProcessNetObjectEvent			48	0	16:guild_alliance_info:STRUCT/0; 8:ally_guild_id:INT64/8(d1); 16:ally_guild_name:STRING/0(d1); 24:registration_time:INT64/8(d1)
+625	G_DeleteGuildAllianceFailCmd	guild	S2C	0xef4010	HandleDeleteGuildAllianceFailPacket	World::ProcessNetObjectEvent			20	0	16:reason:INT16/2
+626	G_RenameAllyGuildNameNotifyCmd	guild	S2C	0xef3fd0	HandleRenameAllyGuildNameNotifyPacket	World::ProcessNetObjectEvent			32	0	16:guild_id:INT64/8; 24:guild_name:STRING/0
+995	G_RetrieveGuildRankingInfoReqCmd	guild	C2S				0x9d1460		20	0	16:season_contents_type:INT8/1
+996	G_RetrieveGuildRankingInfoOkCmd	guild	S2C	0xee9780	HandleRetrieveGuildRankingInfoOkPacket	World::ProcessNetObjectEvent			72	0	16:season_contents_type:INT8/1; 24:guild_ranking_info:STRUCT/0; 4:ranking:INT32/4(d1); 8:primary_score:INT64/8(d1); 16:last_accumulation_request_time:INT64/8(d1); 24:top_ranker_ranking:INT32/4(d1); 28:top_ranker_guild_name:STRING/0(d1); 40:top_ranker_primary_score:INT64/8(d1)
+997	G_RetrieveGuildRankingInfoFailCmd	guild	S2C	0xee9740	HandleRetrieveGuildRankingInfoFailPacket	own			20	0	16:0:INT16/2
+1005	G_ChangedGuildRankingInfoNotifyCmd	guild	S2C	0xee95c0	HandleChangedGuildRankingInfoNotifyPacket	World::ProcessNetObjectEvent			24	0	16:season_contents_type:INT8/1; 20:ranking:INT32/4
+1006	G_TakeRankingRewardForGuildBuffNotifyCmd	guild	S2C	0xee9580	HandleTakeRankingRewardForGuildBuffNotifyPacket	World::ProcessNetObjectEvent			56	0	16:season_contents_type:INT8/1; 20:season_contents_schedule_number:INT32/4; 24:season_contents_result_schedule_number:INT8/1; 28:ranking:INT32/4; 32:lastAccumulationRequestTime:INT64/8; 40:primaryScore:INT64/8; 48:reward_data_id:INT32/4; 52:is_final:INT8/1; 53:is_playing:INT8/1
+1007	G_TakeRankingRewardForGuildBankNotifyCmd	guild	S2C	0xee9540	HandleTakeRankingRewardForGuildBankNotifyPacket	World::ProcessNetObjectEvent			44	0	16:season_contents_type:INT8/1; 20:season_contents_schedule_number:INT32/4; 24:season_contents_result_schedule_number:INT8/1; 28:ranking_season_reward_data_id:INT32/4; 32:DepositItem:REPEAT/2; 8:ItemDataID:INT32/4(d1); 12:ItemLevel:INT16/2(d1); 16:ItemAmount:INT32/4(d1)
+1274	G_WarpToGuildMemberReqCmd	guild	C2S				0x47cb70 0x54bb70 0x54bb90 0x54bbb0		32	3	16:index:INT8/1; 18:teleportId:INT16/2; 20:consumeItems:REPEAT/2; 8:pos:INT16/2(d1); 10:count:INT16/2(d1)
+1275	G_WarpToGuildMemberOkCmd	guild	S2C	0xef1400	HandleWarpToGuildMemberOkPacket	own			20	3	16:remainDuration:INT16/2; 18:zoneChannel:INT16/2
+1276	G_WarpToGuildMemberFailCmd	guild	S2C	0xef13d0	HandleWarpToGuildMemberFailPacket	own			20	3	16:0:INT16/2
+1277	G_CallGuildMemberReqCmd	guild	C2S				0x47cb70 0x54bb70 0x54bb90 0x54bbb0		32	3	16:teleportId:INT16/2; 20:consumeItems:REPEAT/2; 8:pos:INT16/2(d1); 10:count:INT16/2(d1)
+1278	G_CallGuildMemberOkCmd	guild	S2C	0xef13a0	HandleCallGuildMemberOkPacket	own			20	3	16:remainDuration:INT16/2
+1279	G_CallGuildMemberFailCmd	guild	S2C	0xef1370	HandleCallGuildMemberFailPacket	own			20	3	16:0:INT16/2
+1280	G_WarpToGuildMeetingPlaceReqCmd	guild	C2S				0x8b4bd0		16	3	
+1281	G_WarpToGuildMeetingPlaceOkCmd	guild	S2C	0xef1340	HandleWarpToGuildMeetingPlaceOkPacket	own			20	3	16:remainDuration:INT16/2
+1282	G_WarpToGuildMeetingPlaceFailCmd	guild	S2C	0xef1310	HandleWarpToGuildMeetingPlaceFailPacket	own			20	3	16:0:INT16/2
+1283	G_WarpToGuildMember2ReqCmd	guild	C2S				0x47cb70 0x54bb70 0x54bb90 0x54bbb0		32	3	16:guild_member_index:INT8/1; 20:cost_items:REPEAT/2; 8:pos:INT16/2(d1); 10:count:INT16/2(d1)
+1284	G_WarpToGuildMember2OkCmd	guild	S2C	0xef12e0	HandleWarpToGuildMember2OkPacket	own			20	3	16:remain_duration:INT16/2; 18:zone_channel:INT16/2
+1285	G_WarpToGuildMember2FailCmd	guild	S2C	0xef12b0	HandleWarpToGuildMember2FailPacket	own			20	3	16:0:INT16/2
+1286	G_CallGuildMember2ReqCmd	guild	C2S				0x47cb90 0x596e10 0x596e70		28	3	16:cost_items:REPEAT/2; 8:pos:INT16/2(d1); 10:count:INT16/2(d1)
+1287	G_CallGuildMember2OkCmd	guild	S2C	0xef1280	HandleCallGuildMember2OkPacket	own			20	3	16:remain_duration:INT16/2
+1288	G_CallGuildMember2FailCmd	guild	S2C	0xef1250	HandleCallGuildMember2FailPacket	own			20	3	16:0:INT16/2
+1289	G_WarpToGuildMeetingPlace2ReqCmd	guild	C2S				0x8b44b0		16	3	
+1290	G_WarpToGuildMeetingPlace2OkCmd	guild	S2C	0xef1220	HandleWarpToGuildMeetingPlace2OkPacket	own			20	3	16:remainDuration:INT16/2
+1291	G_WarpToGuildMeetingPlace2FailCmd	guild	S2C	0xef11f0	HandleWarpToGuildMeetingPlace2FailPacket	own			20	3	16:0:INT16/2
+368	G_RetrievePostCountReqCmd	mail	C2S						16	0	
+369	G_RetrievePostCountOkCmd	mail	S2C	0xeed320	HandleRetrievePostCountOkPacket	World::ProcessNetObjectEvent			40	0	16:total_system_post_count:INT32/4; 20:unread_system_post_count:INT32/4; 24:attached_system_post_count:INT32/4; 28:total_user_post_count:INT32/4; 32:unread_user_post_count:INT32/4; 36:attached_user_post_count:INT32/4
+370	G_RetrievePostCountFailCmd	mail	S2C	0xeed2e0	HandleRetrievePostCountFailPacket	World::ProcessNetObjectEvent			20	0	16:0:INT16/2
+371	G_RetrievePostBriefListReqCmd	mail	C2S				0x1060310		16	0	
+372	G_RetrievePostBriefListOkCmd	mail	S2C	0xeed2a0	HandleRetrievePostBriefListOkPacket	World::ProcessNetObjectEvent			40	0	16:system_post_brief_list:REPEAT/2; 8:post_id:INT64/8(d1); 16:post_type:INT8/1(d1); 17:sender_service_type:INT8/1(d1); 18:delivery_reason:INT8/1(d1); 24:service_instance_id:INT64/8(d1); 32:hint1:INT64/8(d1); 40:receipt_time:INT64/8(d1); 48:total_attachment_count:INT8/1(d1); 49:attachment_count:INT8/1(d1); 50:read:INT8/1(d1); 52:sender_world_id:INT16/2(d1); 56:sender_world_name:STRING/0(d1); 64:sender_name:STRING/0(d1); 72:post_title:STRING/0(d1); 80:attachment_list:REPEAT/2(d1); 8:item_type:INT8/1(d2); 12:item_data_id:INT32/4(d2); 16:item_level:INT16/2(d2); 24:amount:INT64/8(d2); 28:user_post_brief_list:REPEAT/2; 8:post_id:INT64/8(d1); 16:post_type:INT8/1(d1); 17:sender_service_type:INT8/1(d1); 18:delivery_reason:INT8/1(d1); 24:service_instance_id:INT64/8(d1); 32:hint1:INT64/8(d1); 40:receipt_time:INT64/8(d1); 48:total_attachment_count:INT8/1(d1); 49:attachment_count:INT8/1(d1); 50:read:INT8/1(d1); 52:sender_world_id:INT16/2(d1); 56:sender_world_name:STRING/0(d1); 64:sender_name:STRING/0(d1); 72:post_title:STRING/0(d1); 80:attachment_list:REPEAT/2(d1); 8:item_type:INT8/1(d2); 12:item_data_id:INT32/4(d2); 16:item_level:INT16/2(d2); 24:amount:INT64/8(d2)
+373	G_RetrievePostBriefListFailCmd	mail	S2C	0xeed260	HandleRetrievePostBriefListFailPacket	World::ProcessNetObjectEvent			20	0	16:0:INT16/2
+374	G_RetrievePostReqCmd	mail	C2S				0x1060290	DeliveryBox::RequestRetrievePost	32	0	16:post_kind:INT8/1; 24:postId:INT64/8
+375	G_RetrievePostOkCmd	mail	S2C	0xeed220	HandleRetrievePostOkPacket	World::ProcessNetObjectEvent			56	0	16:post_kind:INT8/1; 24:post_id:INT64/8; 32:post_message:STRING/0; 40:post_attachment_list:REPEAT/2; 8:type:INT8/1(d1); 16:item_instance_id:INT64/8(d1); 24:item_data_id:INT32/4(d1); 28:item_level:INT16/2(d1); 32:amount:INT64/8(d1); 40:item:SUB/0(d1); 52:status:INT8/1(d1)
+376	G_RetrievePostFailCmd	mail	S2C	0xeed1e0	HandleRetrievePostFailPacket	World::ProcessNetObjectEvent			32	0	16:failReason:INT16/2; 18:post_kind:INT8/1; 24:post_id:INT64/8
+1500	G_ArchivePostReqCmd	mail	C2S				0x105ff90 0x1060030 0x1060210		32	13	16:post_kind:INT8/1; 24:postId:INT64/8
+1501	G_ArchivePostOkCmd	mail	S2C	0xeed1a0	HandleArchivePostOkPacket	World::ProcessNetObjectEvent			32	13	16:post_kind:INT8/1; 24:post_id:INT64/8
+1502	G_ArchivePostFailCmd	mail	S2C	0xeed160	HandleArchivePostFailPacket	World::ProcessNetObjectEvent			32	13	16:failReason:INT16/2; 18:post_kind:INT8/1; 24:post_id:INT64/8
+1503	G_MarkExpressPostReqCmd	mail	C2S				0x105ff90 0x1060030 0x1060210		32	13	16:post_kind:INT8/1; 24:postId:INT64/8
+1504	G_MarkExpressPostOkCmd	mail	S2C	0xeed120	HandleMarkExpressPostOkPacket	World::ProcessNetObjectEvent			32	13	16:post_kind:INT8/1; 24:postId:INT64/8
+1505	G_MarkExpressPostFailCmd	mail	S2C	0xeed0e0	HandleMarkExpressPostFailPacket	World::ProcessNetObjectEvent			32	13	16:failReason:INT16/2; 18:post_kind:INT8/1; 24:postId:INT64/8
+1506	G_DetachPostAttachmentReqCmd	mail	C2S				0x105ff90 0x1060030 0x1060210		48	13	16:post_kind:INT8/1; 24:postId:INT64/8; 32:inst_id:INT64/8; 40:npcId:INT64/8
+1507	G_DetachPostAttachmentOkCmd	mail	S2C	0xeed0a0	HandleDetachPostAttachmentOkPacket	World::ProcessNetObjectEvent			40	13	16:post_kind:INT8/1; 24:post_id:INT64/8; 32:inst_id:INT64/8
+1508	G_DetachPostAttachmentFailCmd	mail	S2C	0xeed060	HandleDetachPostAttachmentFailPacket	World::ProcessNetObjectEvent			32	13	16:failReason:INT16/2; 18:post_kind:INT8/1; 24:post_id:INT64/8
+1509	G_DeliverPostReqCmd	mail	C2S				0x45d420 0x45d470		96	13	16:post_type:INT8/1; 24:npcId:INT64/8; 32:recipient_world_Id:INT16/2; 36:recipient_name:STRING/0; 44:post_title:STRING/0; 52:post_message:STRING/0; 64:money:INT64/8; 72:Itemlist:REPEAT/2; 8:pos:INT16/2(d1); 10:count:INT16/2(d1); 84:ChargeItemlist:REPEAT/2; 8:pos:INT16/2(d1); 10:count:INT16/2(d1)
+1510	G_DeliverPostOkCmd	mail	S2C	0xeed020	HandleDeliverPostOkPacket	World::ProcessNetObjectEvent			20	13	16:recipient_world_Id:INT16/2
+1511	G_DeliverPostFailCmd	mail	S2C	0xeecfe0	HandleDeliverPostFailPacket	World::ProcessNetObjectEvent			20	13	16:0:INT16/2
+205	G_BidCurrentAuctionItemReqCmd	market	C2S				0xc138d0	PartyAuction::RequestAuctionBid	32	0	16:price:INT64/8; 24:CurrentItemIndex:INT8/1
+206	G_BidCurrentAuctionItemOkCmd	market	S2C	0xeee3e0	HandleBidCurrentAuctionItemOkPacket	World::ProcessNetObjectEvent			32	0	16:pcId:INT64/8; 24:price:INT64/8
+207	G_BidCurrentAuctionItemFailCmd	market	S2C	0xeee3a0	HandleBidCurrentAuctionItemFailPacket	World::ProcessNetObjectEvent			20	0	16:0:INT16/2
+208	G_GiveUpCurrentAuctionItemReqCmd	market	C2S				0xc13820	PartyAuction::RequestAuctionGiveup	20	0	16:CurrentItemIndex:INT8/1
+209	G_GiveUpCurrentAuctionItemOkCmd	market	S2C	0xeee360	HandleGiveUpCurrentAuctionItemOkPacket	World::ProcessNetObjectEvent			24	0	16:pcId:INT64/8
+210	G_GiveUpCurrentAuctionItemFailCmd	market	S2C	0xeee320	HandleGiveUpCurrentAuctionItemFailPacket	World::ProcessNetObjectEvent			20	0	16:0:INT16/2
+378	G_RetrieveSaleListReqCmd	market	C2S				0x11f47d0	AuctionHouse::RequestListOfMySales	40	0	16:search_type:INT8/1; 17:order_type:INT8/1; 24:search_key:INT64/8; 32:page_no:INT8/1
+379	G_RetrieveSaleListOkCmd	market	S2C	0xeebb20	HandleRetrieveSaleListOkPacket	World::ProcessNetObjectEvent			48	0	16:search_type:INT8/1; 17:order_type:INT8/1; 24:search_key:INT64/8; 32:page_no:INT8/1; 36:sale_list:REPEAT/2; 8:sale_id:INT64/8(d1); 16:sale_type:INT8/1(d1); 24:sale_price:INT64/8(d1); 32:unit_price:INT64/8(d1); 40:top_bid_price:INT64/8(d1); 48:sale_rest_time:INT32/4(d1); 52:sale_item:STRUCT/0(d1); 4:item_category:INT8/1(d2); 5:item_type:INT8/1(d2); 8:item_data_id:INT32/4(d2); 12:item_level:INT16/2(d2); 16:item_exp:INT32/4(d2); 20:item_amount:INT32/4(d2); 24:item_gear_score:INT32/4(d2); 28:item_data:VBIN/0(d2)
+380	G_RetrieveSaleListFailCmd	market	S2C	0xeebb60	HandleRetrieveSaleListFailPacket	World::ProcessNetObjectEvent			40	0	16:fail_reason:INT16/2; 18:search_type:INT8/1; 19:order_type:INT8/1; 24:search_key:INT64/8; 32:page_no:INT8/1
+381	G_RetrieveBidListReqCmd	market	C2S				0x11db4a0	AuctionHouse::RequestListOfMyBids	16	0	
+382	G_RetrieveBidListOkCmd	market	S2C	0xeebd20	HandleRetrieveBidListOkPacket	World::ProcessNetObjectEvent			28	0	16:bid_list:REPEAT/2; 8:bid_id:INT64/8(d1); 16:sale_id:INT64/8(d1); 24:bid_price:INT64/8(d1); 32:seller_world_id:INT16/2(d1); 36:seller_name:STRING/0(d1); 48:bid_unit_price:INT64/8(d1); 56:top_bid_price:INT64/8(d1); 64:sale_rest_time:INT32/4(d1); 68:sale_item:STRUCT/0(d1); 4:item_category:INT8/1(d2); 5:item_type:INT8/1(d2); 8:item_data_id:INT32/4(d2); 12:item_level:INT16/2(d2); 16:item_exp:INT32/4(d2); 20:item_amount:INT32/4(d2); 24:item_gear_score:INT32/4(d2); 28:item_data:VBIN/0(d2)
+383	G_RetrieveBidListFailCmd	market	S2C	0xeebd60	HandleRetrieveBidListFailPacket	World::ProcessNetObjectEvent			20	0	16:0:INT16/2
+384	G_RetrieveBidRankStatusReqCmd	market	C2S				0x11db360	AuctionHouse::RequestRetrieveBidRankStatus	28	0	16:sale_id_list:REPEAT/2; 8:sale_id:INT64/8(d1)
+385	G_RetrieveBidRankStatusOkCmd	market	S2C	0xeebe60	HandleRetrieveBidRankStatusOkPacket	World::ProcessNetObjectEvent			28	0	16:bid_rank_status_list:REPEAT/2; 8:sale_id:INT64/8(d1); 16:bid_rank_status:INT8/1(d1)
+386	G_RetrieveBidRankStatusFailCmd	market	S2C	0xeebe20	HandleRetrieveBidRankStatusFailPacket	World::ProcessNetObjectEvent			20	0	16:0:INT16/2
+1013	G_NPAuctionBidReqCmd	market	C2S				0xc98750	NPAuction::RequestBid	48	0	16:auction_id:INT128/16; 32:bid_currency_group_id:INT16/2; 40:bid_price:INT64/8
+1014	G_NPAuctionBidOkCmd	market	S2C	0xee9440	HandleNPAuctionBidOkPacket	World::ProcessNetObjectEvent			32	0	16:auction_id:INT128/16
+1015	G_NPAuctionBidFailCmd	market	S2C	0xee9400	HandleNPAuctionBidFailPacket	World::ProcessNetObjectEvent			20	0	16:failReason:INT16/2
+1530	G_RegisterSaleReqCmd	market	C2S				0x11dba50		48	15	16:npcId:INT64/8; 24:sale_type:INT8/1; 32:sale_price:INT64/8; 40:sale_duration:INT32/4; 44:item_pos:INT16/2; 46:item_count:INT16/2
+1531	G_RegisterSaleOkCmd	market	S2C	0xeebaa0	HandleRegisterSaleOkPacket	World::ProcessNetObjectEvent			16	15	
+1532	G_RegisterSaleFailCmd	market	S2C	0xeebae0	HandleRegisterSaleFailPacket	World::ProcessNetObjectEvent			20	15	16:0:INT16/2
+1533	G_AbandonSaleReqCmd	market	C2S				0x11db9d0		24	15	16:saleId:INT64/8
+1534	G_AbandonSaleOkCmd	market	S2C	0xeebba0	HandleAbandonSaleOkPacket	World::ProcessNetObjectEvent			16	15	
+1535	G_AbandonSaleFailCmd	market	S2C	0xeebbe0	HandleAbandonSaleFailPacket	World::ProcessNetObjectEvent			20	15	16:0:INT16/2
+1536	G_UpdateSalePriceReqCmd	market	C2S						32	15	16:saleId:INT64/8; 24:new_sale_price:INT64/8
+1537	G_UpdateSalePriceOkCmd	market	S2C	0xeebc20	HandleUpdateSalePriceOkPacket	World::ProcessNetObjectEvent			16	15	
+1538	G_UpdateSalePriceFailCmd	market	S2C	0xeebc60	HandleUpdateSalePriceFailPacket	World::ProcessNetObjectEvent			20	15	16:0:INT16/2
+1539	G_RegisterBidReqCmd	market	C2S				0x11db900		32	15	16:sale_id:INT64/8; 24:bid_price:INT64/8
+1540	G_RegisterBidOkCmd	market	S2C	0xeebca0	HandleRegisterBidOkPacket	World::ProcessNetObjectEvent			16	15	
+1541	G_RegisterBidFailCmd	market	S2C	0xeebce0	HandleRegisterBidFailPacket	World::ProcessNetObjectEvent			20	15	16:0:INT16/2
+1542	G_AbandonBidReqCmd	market	C2S				0x11db7f0		32	15	16:sale_id:INT64/8; 24:bid_id:INT64/8
+1543	G_AbandonBidOkCmd	market	S2C	0xeebda0	HandleAbandonBidOkPacket	World::ProcessNetObjectEvent			16	15	
+1544	G_AbandonBidFailCmd	market	S2C	0xeebde0	HandleAbandonBidFailPacket	World::ProcessNetObjectEvent			20	15	16:0:INT16/2
+1545	G_UpdateBidPriceReqCmd	market	C2S				0x11db6c0		40	15	16:sale_id:INT64/8; 24:bid_id:INT64/8; 32:add_bid_price:INT64/8
+1546	G_UpdateBidPriceOkCmd	market	S2C	0xeebea0	HandleUpdateBidPriceOkPacket	World::ProcessNetObjectEvent			16	15	
+1547	G_UpdateBidPriceFailCmd	market	S2C	0xeebee0	HandleUpdateBidPriceFailPacket	World::ProcessNetObjectEvent			20	15	16:0:INT16/2
+1548	G_RegisterPurchaseReqCmd	market	C2S				0x11db610		32	15	16:sale_id:INT64/8; 24:purchase_price:INT64/8
+1549	G_RegisterPurchaseOkCmd	market	S2C	0xeebf20	HandleRegisterPurchaseOkPacket	World::ProcessNetObjectEvent			16	15	
+1550	G_RegisterPurchaseFailCmd	market	S2C	0xeec060	HandleRegisterPurchaseFailPacket	World::ProcessNetObjectEvent			20	15	16:0:INT16/2
+1551	G_MarketSearchItemReqCmd	market	C2S				0x11db510		48	15	16:search_type:INT8/1; 17:order_type:INT8/1; 18:price_type:INT8/1; 19:search_key_sale_type:INT8/1; 20:search_key_data_id:INT32/4; 24:search_key_sale_price:INT64/8; 32:search_key_unit_price:INT64/8; 40:search_key_index_id:INT64/8
+1552	G_MarketSearchItemOkCmd	market	S2C	0xeec020	HandleMarketSearchItemOkPacket	World::ProcessNetObjectEvent			112	15	16:prev_search_key:STRUCT/0; 4:search_key_sale_type:INT8/1(d1); 8:search_key_data_id:INT32/4(d1); 16:search_key_sale_price:INT64/8(d1); 24:search_key_unit_price:INT64/8(d1); 32:search_key_index_id:INT64/8(d1); 56:next_search_key:STRUCT/0; 4:search_key_sale_type:INT8/1(d1); 8:search_key_data_id:INT32/4(d1); 16:search_key_sale_price:INT64/8(d1); 24:search_key_unit_price:INT64/8(d1); 32:search_key_index_id:INT64/8(d1); 96:search_result_list:REPEAT/2; 8:search_result_info:STRUCT/0(d1); 8:sale_id:INT64/8(d2); 16:sale_type:INT8/1(d2); 18:seller_world_id:INT16/2(d2); 20:seller_name:STRING/0(d2); 32:sale_price:INT64/8(d2); 40:unit_price:INT64/8(d2); 48:bid_unit_price:INT64/8(d2); 56:top_bid_price:INT64/8(d2); 64:searcher_relation:INT8/1(d2); 72:searcher_bid_id:INT64/8(d2); 80:sale_rest_time:INT32/4(d2); 84:item_data_id:INT32/4(d2); 88:item_amount:INT32/4(d2); 92:item_gear_score:INT32/4(d2); 96:item_data:VBIN/0(d2)
+1553	G_MarketSearchItemFailCmd	market	S2C	0xeebfe0	HandleMarketSearchItemFailPacket	World::ProcessNetObjectEvent			20	15	16:fail_reason:INT16/2
+1554	G_RetrieveInstantSaleItemLowestPriceReqCmd	market	C2S				0x11db2e0		20	15	16:item_data_id:INT32/4
+1555	G_RetrieveInstantSaleItemLowestPriceOkCmd	market	S2C	0xeebfa0	HandleRetrieveInstantSaleItemLowestPriceOkPacket	World::ProcessNetObjectEvent			32	15	16:item_data_id:INT32/4; 24:lowest_price:INT64/8
+1556	G_RetrieveInstantSaleItemLowestPriceFailCmd	market	S2C	0xeebf60	HandleRetrieveInstantSaleItemLowestPriceFailPacket	World::ProcessNetObjectEvent			24	15	16:fail_reason:INT16/2; 20:item_data_id:INT32/4
+58	G_MessageByDiceReqCmd	party	C2S				0xf30180 0x1150260	Guild::RequestGuildPointInfoList	20	0	16:rangeMin:INT16/2; 18:rangeMax:INT16/2
+59	G_MessageByDiceCmd	party	S2C	0xef6550	HandleMessageByDicePacket	own			40	0	16:rangeMin:INT16/2; 18:rangeMax:INT16/2; 24:pcId:INT64/8; 32:randomValue:INT16/2
+60	G_MessageByDiceFailCmd	party	S2C	0xef6510	HandleMessageByDiceFailPacket	own			20	0	16:0:INT16/2
+147	G_SuggestPartyReqCmd	party	C2S				0xc14af0	BParty::RequestSuggestJoinByName	40	0	16:targetId:INT64/8; 24:targetName:STRING/0; 32:fromPartySearch:INT8/1; 33:difficultyType:INT8/1; 34:level:INT8/1; 35:mastery_level:INT8/1; 36:job:INT8/1; 37:faction2:INT8/1
+148	G_SuggestPartyOkCmd	party	S2C	0xeeee60	HandleSuggestPartyOkPacket	World::ProcessNetObjectEvent			40	0	16:targetId:INT64/8; 24:targetName:STRING/0; 32:fromPartySearch:INT8/1; 33:difficultyType:INT8/1
+149	G_SuggestPartyNotifyCmd	party	S2C	0xeeee20	HandleSuggestPartyNotifyPacket	World::ProcessNetObjectEvent			32	0	16:fromName:STRING/0; 24:fromPartySearch:INT8/1; 25:difficultyType:INT8/1; 26:level:INT8/1; 27:mastery_level:INT8/1; 28:job:INT8/1; 29:faction2:INT8/1
+150	G_SuggestPartyFailCmd	party	S2C	0xeeede0	HandleSuggestPartyFailPacket	World::ProcessNetObjectEvent			48	0	16:failReason:INT16/2; 24:targetId:INT64/8; 32:targetName:STRING/0; 40:fromPartySearch:INT8/1; 41:difficultyType:INT8/1
+151	G_RejectSuggestPartyReqCmd	party	C2S				0xc14860	BParty::RequestRejectSuggestJoin	40	0	16:targetId:INT64/8; 24:targetName:STRING/0; 32:fromPartySearch:INT8/1; 33:reason:INT8/1
+152	G_RejectSuggestPartyOkCmd	party	S2C	0xeeeda0	HandleRejectSuggestPartyOkPacket	World::ProcessNetObjectEvent			40	0	16:targetId:INT64/8; 24:targetName:STRING/0; 32:fromPartySearch:INT8/1; 33:reason:INT8/1
+153	G_RejectSuggestPartyNotifyCmd	party	S2C	0xeeed60	HandleRejectSuggestPartyNotifyPacket	World::ProcessNetObjectEvent			28	0	16:fromName:STRING/0; 24:fromPartySearch:INT8/1; 25:reason:INT8/1
+154	G_RejectSuggestPartyFailCmd	party	S2C	0xeeed20	HandleRejectSuggestPartyFailPacket	World::ProcessNetObjectEvent			48	0	16:failReason:INT16/2; 24:targetId:INT64/8; 32:targetName:STRING/0; 40:fromPartySearch:INT8/1; 41:reason:INT8/1
+155	G_CreatePartyReqCmd	party	C2S				0xc149c0	BParty::RequestCreateSoloParty	16	0	
+156	G_CreatePartyFailCmd	party	S2C	0xeeece0	HandleCreatePartyFailPacket	World::ProcessNetObjectEvent			20	0	16:failReason:INT16/2
+157	G_InvitePartyReqCmd	party	C2S				0xc14bc0 0xc14d60	BParty::RequestInviteByName	48	0	16:targetId:INT64/8; 24:targetName:STRING/0; 32:partyMatchGoal:INT32/4; 36:fromSuggestion:INT8/1; 37:difficultyType:INT8/1; 38:level:INT8/1; 39:mastery_level:INT8/1; 40:job:INT8/1; 41:faction2:INT8/1
+158	G_InvitePartyOkCmd	party	S2C	0xeeec60	HandleInvitePartyOkPacket	World::ProcessNetObjectEvent			40	0	16:targetId:INT64/8; 24:targetName:STRING/0; 32:partyMatchGoal:INT32/4; 36:fromSuggestion:INT8/1; 37:difficultyType:INT8/1
+159	G_InvitePartyFailCmd	party	S2C	0xeeeca0	HandleInvitePartyFailPacket	World::ProcessNetObjectEvent			48	0	16:failReason:INT16/2; 24:targetId:INT64/8; 32:targetName:STRING/0; 40:partyMatchGoal:INT32/4; 44:fromSuggestion:INT8/1; 45:difficultyType:INT8/1
+160	G_InvitePartyCmd	party	S2C	0xeeec20	HandleInvitePartyPacket	World::ProcessNetObjectEvent			56	0	16:partyId:INT64/8; 24:fromId:INT64/8; 32:fromName:STRING/0; 40:partyMatchGoal:INT32/4; 44:fromSuggestion:INT8/1; 45:difficultyType:INT8/1; 46:level:INT8/1; 47:mastery_level:INT8/1; 48:job:INT8/1; 49:faction2:INT8/1
+161	G_JoinPartyReqCmd	party	C2S				0x5a1020 0xc14a70		40	0	16:partyId:INT64/8; 24:fromId:INT64/8; 32:partyMatchGoal:INT32/4; 36:difficultyType:INT8/1
+162	G_JoinPartyFailCmd	party	S2C	0xeeebe0	HandleJoinPartyFailPacket	World::ProcessNetObjectEvent			28	0	16:failReason:INT16/2; 20:partyMatchGoal:INT32/4; 24:difficultyType:INT8/1
+163	G_RejectPartyReqCmd	party	C2S				0x5a10a0 0xc148e0		40	0	16:partyId:INT64/8; 24:requester:INT64/8; 32:difficultyType:INT8/1; 33:reason:INT8/1
+164	G_RejectPartyFailCmd	party	S2C	0xeeeb60	HandleRejectPartyFailPacket	World::ProcessNetObjectEvent			20	0	16:failReason:INT16/2; 18:difficultyType:INT8/1
+168	G_LeavePartyReqCmd	party	C2S				0xc147b0	BParty::RequestLeave	16	0	
+169	G_LeavePartyFailCmd	party	S2C	0xeeeaa0	HandleLeavePartyFailPacket	World::ProcessNetObjectEvent			20	0	16:0:INT16/2
+170	G_DelegatePartyLeaderReqCmd	party	C2S				0x5a1220 0xc14750		24	0	16:creatureId:INT64/8
+171	G_DelegatePartyLeaderFailCmd	party	S2C	0xeeea60	HandleDelegatePartyLeaderFailPacket	World::ProcessNetObjectEvent			20	0	16:0:INT16/2
+172	G_BanishPartyReqCmd	party	C2S				0xc142e0	BParty::RequestBanish	20	0	16:memberKey:INT8/1
+173	G_BanishPartyFailCmd	party	S2C	0xeeea20	HandleBanishPartyFailPacket	World::ProcessNetObjectEvent			20	0	16:0:INT16/2
+174	G_ClearLogoutPartyMemberReqCmd	party	C2S				0xc13fb0	BParty::RequestClearLogoutMember	16	0	
+175	G_ClearLogoutPartyMemberFailCmd	party	S2C	0xeee9e0	HandleClearLogoutPartyMemberFailPacket	World::ProcessNetObjectEvent			20	0	16:0:INT16/2
+176	G_ChangePartyPickupRuleReqCmd	party	C2S				0xc14000 0xc14090 0xc14120 0xc141b0	BParty::RequestChangePickupOption	40	0	16:pickupRule:INT8/1; 17:auctionItemGrade:INT8/1; 24:dedicated_member:INT64/8; 32:partyAuctionStartPrice:INT64/8
+177	G_ChangePartyPickupRuleOkCmd	party	S2C	0xeee9a0	HandleChangePartyPickupRuleOkPacket	World::ProcessNetObjectEvent			40	0	16:pickupRule:INT8/1; 17:auctionItemGrade:INT8/1; 24:dedicated_member:INT64/8; 32:partyAuctionStartPrice:INT64/8
+178	G_ChangePartyPickupRuleFailCmd	party	S2C	0xeee960	HandleChangePartyPickupRuleFailPacket	World::ProcessNetObjectEvent			20	0	16:0:INT16/2
+179	G_ChangePartyDifficultyTypeReqCmd	party	C2S				0xc14a10	BParty::RequestPromotion	20	0	16:difficultyType:INT8/1
+180	G_ChangePartyDifficultyTypeOkCmd	party	S2C	0xeee920	HandleChangePartyDifficultyTypeOkPacket	World::ProcessNetObjectEvent			20	0	16:difficultyType:INT8/1
+181	G_ChangePartyDifficultyTypeFailCmd	party	S2C	0xeee8e0	HandleChangePartyDifficultyTypeFailPacket	World::ProcessNetObjectEvent			20	0	16:0:INT16/2
+182	G_ChangePartyInviteAuthReqCmd	party	C2S				0xc14960	BParty::RequestChagnePartyInviteAuth	20	0	16:inviteAuth:INT8/1
+183	G_ChangePartyInviteAuthOkCmd	party	S2C	0xeee8a0	HandleChangePartyInviteAuthOkPacket	World::ProcessNetObjectEvent			20	0	16:inviteAuth:INT8/1
+184	G_ChangePartyInviteAuthFailCmd	party	S2C	0xeee860	HandleChangePartyInviteAuthFailPacket	World::ProcessNetObjectEvent			20	0	16:0:INT16/2
+185	G_DelegatePartyLeaderCmd	party	S2C	0xeee7e0	HandleDelegatePartyLeaderPacket	World::ProcessNetObjectEvent			24	0	16:creatureId:INT64/8
+186	G_RejectPartyCmd	party	S2C	0xeee7a0	HandleRejectPartyPacket	World::ProcessNetObjectEvent			40	0	16:creatureId:INT64/8; 24:creatureName:STRING/0; 32:difficultyType:INT8/1; 33:reason:INT8/1
+187	G_JoinPartyCmd	party	S2C	0xeeeba0	HandleJoinPartyPacket	World::ProcessNetObjectEvent			160	0	16:worldId:INT16/2; 18:memberKey:INT8/1; 24:creatureId:INT64/8; 32:creatureName:STRING/0; 40:race:INT8/1; 41:job:INT8/1; 44:summonedId:INT32/4; 48:zoneChannel:INT16/2; 56:prop:STRUCT/0; 8:hp:INT64/8(d1); 16:level:INT8/1(d1); 17:mastery_level:INT8/1(d1); 18:x:INT16/2(d1); 20:y:INT16/2(d1); 22:z:INT16/2(d1); 24:geo_zone:INT32/4(d1); 32:max_hp:INT64/8(d1); 40:max_hp_equip:INT32/4(d1); 44:yaw:INT16/2(d1); 46:dead:INT8/1(d1); 47:faction:INT8/1(d1); 48:faction2:INT8/1(d1); 52:faction_score:INT32/4(d1); 56:hp_alert:INT8/1(d1); 64:newbie_info_flag:INT64/8(d1); 72:guard_gauge:INT64/8(d1); 80:max_guard_gauge:INT64/8(d1); 88:max_guard_gauge_equip:INT32/4(d1); 152:reason:INT8/1
+188	G_LeavePartyCmd	party	S2C	0xeee760	HandleLeavePartyPacket	World::ProcessNetObjectEvent			20	0	16:memberKey:INT8/1; 17:reason:INT8/1
+189	G_InPartyMemberCmd	party	S2C	0xeee720	HandleInPartyMemberPacket	World::ProcessNetObjectEvent			96	0	16:partyId:INT64/8; 24:difficultyType:INT8/1; 25:inviteAuth:INT8/1; 26:pickupRule:INT8/1; 27:auctionItemGrade:INT8/1; 32:dedicated_member:INT64/8; 40:partyAuctionStartPrice:INT64/8; 48:dungeonId:INT16/2; 50:dungeonStep:INT8/1; 56:challengePartyAttractionKey:INT64/8; 64:challengePartyAttractionMode:INT8/1; 68:members:REPEAT/2; 8:worldId:INT16/2(d1); 10:memberKey:INT8/1(d1); 12:creatureName:STRING/0(d1); 20:race:INT8/1(d1); 21:job:INT8/1(d1); 22:partyMemberState:INT8/1(d1); 80:memberProperties:REPEAT/2; 8:memberKey:INT8/1(d1); 16:creatureId:INT64/8(d1); 24:summonedId:INT32/4(d1); 28:zoneChannel:INT16/2(d1); 32:prop:STRUCT/0(d1); 8:hp:INT64/8(d2); 16:level:INT8/1(d2); 17:mastery_level:INT8/1(d2); 18:x:INT16/2(d2); 20:y:INT16/2(d2); 22:z:INT16/2(d2); 24:geo_zone:INT32/4(d2); 32:max_hp:INT64/8(d2); 40:max_hp_equip:INT32/4(d2); 44:yaw:INT16/2(d2); 46:dead:INT8/1(d2); 47:faction:INT8/1(d2); 48:faction2:INT8/1(d2); 52:faction_score:INT32/4(d2); 56:hp_alert:INT8/1(d2); 64:newbie_info_flag:INT64/8(d2); 72:guard_gauge:INT64/8(d2); 80:max_guard_gauge:INT64/8(d2); 88:max_guard_gauge_equip:INT32/4(d2); 92:reason:INT8/1
+190	G_BroadcastPartyPropertyCmd	party	S2C	0xeee6e0	HandleBroadcastPartyPropertyPacket	World::ProcessNetObjectEvent			56	0	16:memberId:INT64/8; 24:summonedId:INT32/4; 28:zoneChannel:INT16/2; 32:prop:PROP_PAIR/0; 44:effects:REPEAT/2; 8:pos:INT16/2(d1); 12:effectDataId:INT32/4(d1); 16:duration:INT32/4(d1); 20:stackCount:INT8/1(d1); 21:detachCount:INT8/1(d1); 24:expiration_time:INT64/8(d1)
+191	G_BroadcastPartyMemberStateCmd	party	S2C	0xeee6a0	HandleBroadcastPartyMemberStatePacket	World::ProcessNetObjectEvent			32	0	16:memberId:INT64/8; 24:partyMemberState:INT8/1
+192	G_PartyDungeonStepCmd	party	S2C	0xeee660	HandlePartyDungeonStepPacket	World::ProcessNetObjectEvent			20	0	16:dungeonId:INT16/2; 18:dungeonStep:INT8/1; 19:reason:INT8/1
+193	G_ChangePartyDifficultyTypeCmd	party	S2C	0xeee820	HandleChangePartyDifficultyTypePacket	World::ProcessNetObjectEvent			20	0	16:difficultyType:INT8/1
+194	G_ChangePartyChallengePartyAttractionCmd	party	S2C	0xee8780	HandleChangePartyChallengePartyAttractionPacket	World::ProcessNetObjectEvent			32	0	16:challengePartyAttraction:INT64/8; 24:challengePartyMode:INT8/1
+195	G_OpenPartyAuctionCmd	party	S2C	0xeee620	HandleOpenPartyAuctionPacket	World::ProcessNetObjectEvent			48	0	16:emcee:INT64/8; 24:members:REPEAT/2; 8:creatureId:INT64/8(d1); 16:page:INT8/1(d1); 36:items:REPEAT/2; 8:itemKey:INT64/8(d1); 16:count:INT16/2(d1); 18:additionalInfo:INT8/1(d1); 19:page:INT8/1(d1); 20:finish:INT8/1(d1)
+196	G_ClosePartyAuctionCmd	party	S2C	0xeee5e0	HandleClosePartyAuctionPacket	World::ProcessNetObjectEvent			16	0	
+197	G_StartPartyAuctionCmd	party	S2C	0xeee5a0	HandleStartPartyAuctionPacket	World::ProcessNetObjectEvent			40	0	16:itemKey:INT64/8; 24:itemCount:INT16/2; 32:StartPrice:INT64/8
+198	G_LeavePartyAuctionCmd	party	S2C	0xeee560	HandleLeavePartyAuctionPacket	World::ProcessNetObjectEvent			32	0	16:pcId:INT64/8; 24:emcee:INT64/8
+199	G_JoinPartyAuctionCmd	party	S2C	0xeee520	HandleJoinPartyAuctionPacket	World::ProcessNetObjectEvent			80	0	16:emcee:INT64/8; 24:members:REPEAT/2; 8:creatureId:INT64/8(d1); 16:page:INT8/1(d1); 36:items:REPEAT/2; 8:itemKey:INT64/8(d1); 16:count:INT16/2(d1); 18:additionalInfo:INT8/1(d1); 19:page:INT8/1(d1); 20:finish:INT8/1(d1); 48:CurrentItemIndex:INT8/1; 56:CurrentPrice:INT64/8; 64:bidder:INT64/8; 72:remainDuration:INT16/2
+200	G_JoinPartyAuctionMemberCmd	party	S2C	0xeee4e0	HandleJoinPartyAuctionMemberPacket	World::ProcessNetObjectEvent			40	0	16:members:REPEAT/2; 8:creatureId:INT64/8(d1); 16:page:INT8/1(d1); 28:items:REPEAT/2; 8:itemKey:INT64/8(d1); 16:count:INT16/2(d1); 18:additionalInfo:INT8/1(d1); 19:page:INT8/1(d1); 20:finish:INT8/1(d1)
+201	G_SelectPartyAuctionNextStepCmd	party	S2C	0xeee4a0	HandleSelectPartyAuctionNextStepPacket	World::ProcessNetObjectEvent			16	0	
+202	G_FinishPartyAuctionReqCmd	party	C2S				0xc137c0	PartyAuction::RequestAuctionFinish	20	0	16:CurrentItemIndex:INT8/1
+203	G_FinishPartyAuctionCmd	party	S2C	0xeee460	HandleFinishPartyAuctionPacket	World::ProcessNetObjectEvent			40	0	16:result:INT8/1; 24:pcId:INT64/8; 32:price:INT64/8
+204	G_FinishPartyAuctionFailCmd	party	S2C	0xeee420	HandleFinishPartyAuctionFailPacket	World::ProcessNetObjectEvent			20	0	16:0:INT16/2
+211	G_DistributionCurrentAuctionItemReqCmd	party	C2S				0xc13770	PartyAuction::RequestDistributionAuctionItem	16	0	
+212	G_DistributionCurrentAuctionItemOkCmd	party	S2C	0xeee2e0	HandleDistributionCurrentAuctionItemOkPacket	World::ProcessNetObjectEvent			24	0	16:distrubutionPrice:INT64/8
+213	G_DistributionCurrentAuctionItemFailCmd	party	S2C	0xeee2a0	HandleDistributionCurrentAuctionItemFailPacket	World::ProcessNetObjectEvent			20	0	16:0:INT16/2
+214	G_PassPartyAuctionReqCmd	party	C2S				0xc13720	PartyAuction::RequestPassAuction	16	0	
+215	G_PassPartyAuctionFailCmd	party	S2C	0xeee260	HandlePassPartyAuctionFailPacket	World::ProcessNetObjectEvent			20	0	16:0:INT16/2
+216	G_PartyVoteCastReqCmd	party	C2S				0xc144b0	BParty::RequestPartyVoteCast	20	0	16:targetPartyMemberKey:INT8/1; 17:markType:INT8/1
+217	G_PartyVoteCastOkCmd	party	S2C	0xeee220	HandlePartyVoteCastOkPacket	World::ProcessNetObjectEvent			20	0	16:targetPartyMemberKey:INT8/1; 17:markType:INT8/1
+218	G_PartyVoteCastNotifyCmd	party	S2C	0xeee1e0	HandlePartyVoteCastNotifyPacket	World::ProcessNetObjectEvent			20	0	16:targetPartyMemberKey:INT8/1; 17:markType:INT8/1
+219	G_PartyVoteCastFailCmd	party	S2C	0xeee1a0	HandlePartyVoteCastFailPacket	World::ProcessNetObjectEvent			20	0	16:0:INT16/2
+220	G_PartyVoteCancelCastReqCmd	party	C2S				0xc14420		16	0	
+221	G_PartyVoteCancelCastOkCmd	party	S2C	0xeee160	HandlePartyVoteCancelCastOkPacket	World::ProcessNetObjectEvent			16	0	
+222	G_PartyVoteCancelCastNotifyCmd	party	S2C	0xeee0e0	HandlePartyVoteCancelCastNotifyPacket	World::ProcessNetObjectEvent			20	0	16:targetPartyMemberKey:INT8/1; 17:markType:INT8/1
+223	G_PartyVoteCancelCastFailCmd	party	S2C	0xeee120	HandlePartyVoteCancelCastFailPacket	World::ProcessNetObjectEvent			20	0	16:0:INT16/2
+224	G_PartyVoteResetReqCmd	party	C2S						16	0	
+225	G_PartyVoteResetNotifyCmd	party	S2C	0xeee0a0	HandlePartyVoteResetNotifyPacket	World::ProcessNetObjectEvent			20	0	16:reason:INT8/1
+226	G_SuggestTeamReqCmd	party	C2S						48	0	16:inviteType:INT8/1; 24:targetId:INT64/8; 32:targetName:STRING/0; 40:fromPartySearch:INT8/1; 41:level:INT8/1; 42:mastery_level:INT8/1; 43:job:INT8/1; 44:faction2:INT8/1
+227	G_SuggestTeamOkCmd	party	S2C	0xeee060	HandleSuggestTeamOkPacket	World::ProcessNetObjectEvent			48	0	16:inviteType:INT8/1; 24:targetId:INT64/8; 32:targetName:STRING/0; 40:fromPartySearch:INT8/1
+228	G_SuggestTeamNotifyCmd	party	S2C	0xeee020	HandleSuggestTeamNotifyPacket	World::ProcessNetObjectEvent			36	0	16:inviteType:INT8/1; 20:fromName:STRING/0; 28:fromPartySearch:INT8/1; 29:level:INT8/1; 30:mastery_level:INT8/1; 31:job:INT8/1; 32:faction2:INT8/1
+229	G_SuggestTeamFailCmd	party	S2C	0xeedfe0	HandleSuggestTeamFailPacket	World::ProcessNetObjectEvent			48	0	16:failReason:INT16/2; 18:inviteType:INT8/1; 24:targetId:INT64/8; 32:targetName:STRING/0; 40:fromPartySearch:INT8/1
+230	G_RejectSuggestTeamReqCmd	party	C2S						48	0	16:inviteType:INT8/1; 24:targetId:INT64/8; 32:targetName:STRING/0; 40:fromPartySearch:INT8/1; 41:reason:INT8/1
+231	G_RejectSuggestTeamOkCmd	party	S2C	0xeedfa0	HandleRejectSuggestTeamOkPacket	World::ProcessNetObjectEvent			48	0	16:inviteType:INT8/1; 24:targetId:INT64/8; 32:targetName:STRING/0; 40:fromPartySearch:INT8/1; 41:reason:INT8/1
+232	G_RejectSuggestTeamNotifyCmd	party	S2C	0xeedf60	HandleRejectSuggestTeamNotifyPacket	World::ProcessNetObjectEvent			32	0	16:inviteType:INT8/1; 20:fromName:STRING/0; 28:fromPartySearch:INT8/1; 29:reason:INT8/1
+233	G_RejectSuggestTeamFailCmd	party	S2C	0xeedf20	HandleRejectSuggestTeamFailPacket	World::ProcessNetObjectEvent			48	0	16:failReason:INT16/2; 18:inviteType:INT8/1; 24:targetId:INT64/8; 32:targetName:STRING/0; 40:fromPartySearch:INT8/1; 41:reason:INT8/1
+234	G_InviteTeamReqCmd	party	C2S				0x8b7be0 0x8b7cb0	BTeam::RequestInviteTeamByName	48	0	16:inviteType:INT8/1; 24:targetId:INT64/8; 32:targetName:STRING/0; 40:fromSuggestion:INT8/1; 41:level:INT8/1; 42:mastery_level:INT8/1; 43:job:INT8/1; 44:faction2:INT8/1
+235	G_InviteTeamOkCmd	party	S2C	0xeedee0	HandleInviteTeamOkPacket	World::ProcessNetObjectEvent			64	0	16:inviteType:INT8/1; 24:targetId:INT64/8; 32:targetName:STRING/0; 40:fromSuggestion:INT8/1; 48:invitedPcId:INT64/8; 56:invitedName:STRING/0
+236	G_InviteTeamFailCmd	party	S2C	0xeedea0	HandleInviteTeamFailPacket	World::ProcessNetObjectEvent			48	0	16:failReason:INT16/2; 18:inviteType:INT8/1; 24:targetId:INT64/8; 32:targetName:STRING/0; 40:fromSuggestion:INT8/1
+237	G_InviteTeamCmd	party	S2C	0xeede60	HandleInviteTeamPacket	World::ProcessNetObjectEvent			56	0	16:inviteType:INT8/1; 24:fromId:INT64/8; 32:fromName:STRING/0; 40:fromSuggestion:INT8/1; 41:level:INT8/1; 42:mastery_level:INT8/1; 43:job:INT8/1; 44:faction2:INT8/1; 48:invitedPcId:INT64/8
+238	G_InviteTeamTossNotifyCmd	party	S2C	0xeede20	HandleInviteTeamTossNotifyPacket	World::ProcessNetObjectEvent			56	0	16:inviteType:INT8/1; 24:fromId:INT64/8; 32:fromName:STRING/0; 40:fromSuggestion:INT8/1; 41:level:INT8/1; 42:mastery_level:INT8/1; 43:job:INT8/1; 44:faction2:INT8/1; 48:tossedPcId:INT64/8
+239	G_JoinTeamReqCmd	party	C2S				0x8b7af0		40	0	16:inviteType:INT8/1; 24:fromId:INT64/8; 32:invitedPcId:INT64/8
+240	G_JoinTeamFailCmd	party	S2C	0xeedde0	HandleJoinTeamFailPacket	World::ProcessNetObjectEvent			20	0	16:failReason:INT16/2; 18:inviteType:INT8/1
+241	G_RejectTeamReqCmd	party	C2S				0x8b7b70		32	0	16:requester:INT64/8; 24:reason:INT8/1
+242	G_RejectTeamFailCmd	party	S2C	0xeedda0	HandleRejectTeamFailPacket	World::ProcessNetObjectEvent			20	0	16:failReason:INT16/2
+243	G_LeaveTeamReqCmd	party	C2S				0x8b7a90	BTeam::RequestLeaveTeam	20	0	16:leaveType:INT8/1
+244	G_LeaveTeamFailCmd	party	S2C	0xeedd60	HandleLeaveTeamFailPacket	World::ProcessNetObjectEvent			20	0	16:failReason:INT16/2; 18:leaveType:INT8/1
+245	G_BanishTeamReqCmd	party	C2S				0x8b79b0	BTeam::RequestBanishTeam	20	0	16:teamMemberKey:INT16/2; 18:partyIndex:INT8/1
+246	G_BanishTeamFailCmd	party	S2C	0xeedd20	HandleBanishTeamFailPacket	World::ProcessNetObjectEvent			20	0	16:0:INT16/2
+247	G_TeamMemberPartyChangeReqCmd	party	C2S				0x8b78b0	BTeam::RequestTeamMemberPartyChange	48	0	16:srcTeamMemberKey:INT16/2; 18:srcPartyIndex:INT8/1; 24:srcPcId:INT64/8; 32:dstTeamMemberKey:INT16/2; 34:dstPartyIndex:INT8/1; 40:dstPcId:INT64/8
+248	G_TeamMemberPartyChangeOkCmd	party	S2C	0xeedce0	HandleTeamMemberPartyChangeOkPacket	World::ProcessNetObjectEvent			16	0	
+249	G_TeamMemberPartyChangeFailCmd	party	S2C	0xeedca0	HandleTeamMemberPartyChangeFailPacket	World::ProcessNetObjectEvent			20	0	16:failReason:INT16/2
+250	G_DelegateTeamLeaderReqCmd	party	C2S				0x8b7850		24	0	16:creatureId:INT64/8
+251	G_DelegateTeamLeaderOkCmd	party	S2C	0xeedc60	HandleDelegateTeamLeaderOkPacket	World::ProcessNetObjectEvent			16	0	
+252	G_DelegateTeamLeaderFailCmd	party	S2C	0xeedc20	HandleDelegateTeamLeaderFailPacket	World::ProcessNetObjectEvent			20	0	16:failReason:INT16/2
+253	G_NominatePartyLeaderReqCmd	party	C2S				0x8b77f0		24	0	16:creatureId:INT64/8
+254	G_NominatePartyLeaderOkCmd	party	S2C	0xeedbe0	HandleNominatePartyLeaderOkPacket	World::ProcessNetObjectEvent			16	0	
+255	G_NominatePartyLeaderFailCmd	party	S2C	0xeedba0	HandleNominatePartyLeaderFailPacket	World::ProcessNetObjectEvent			20	0	16:failReason:INT16/2
+256	G_ChangeTeamInviteAuthReqCmd	party	C2S				0x8b7a20	BTeam::RequestChagneTeamInviteAuth	20	0	16:inviteAuth:INT8/1
+257	G_ChangeTeamInviteAuthOkCmd	party	S2C	0xeedb60	HandleChangeTeamInviteAuthOkPacket	World::ProcessNetObjectEvent			20	0	16:inviteAuth:INT8/1
+258	G_ChangeTeamInviteAuthFailCmd	party	S2C	0xeedb20	HandleChangeTeamInviteAuthFailPacket	World::ProcessNetObjectEvent			20	0	16:0:INT16/2
+259	G_ChangeTeamPartyDifficultyTypeReqCmd	party	C2S				0x8b7790	BTeam::RequestTeamPromotionPartyType	20	0	16:partyIndex:INT8/1; 17:difficultyType:INT8/1
+260	G_ChangeTeamPartyDifficultyTypeOkCmd	party	S2C	0xeedae0	HandleChangeTeamPartyDifficultyTypeOkPacket	World::ProcessNetObjectEvent			20	0	16:difficultyType:INT8/1
+261	G_ChangeTeamPartyDifficultyTypeFailCmd	party	S2C	0xeedaa0	HandleChangeTeamPartyDifficultyTypeFailPacket	World::ProcessNetObjectEvent			20	0	16:0:INT16/2
+262	G_ClearLogoutTeamMemberReqCmd	party	C2S				0x8b7740		16	0	
+263	G_ClearLogoutTeamMemberFailCmd	party	S2C	0xeeda60	HandleClearLogoutTeamMemberFailPacket	World::ProcessNetObjectEvent			20	0	16:0:INT16/2
+264	G_RejectTeamCmd	party	S2C	0xeeda20	HandleRejectTeamPacket	World::ProcessNetObjectEvent			40	0	16:creatureId:INT64/8; 24:creatureName:STRING/0; 32:reason:INT8/1
+265	G_JoinTeamCmd	party	S2C	0xeed9e0	HandleJoinTeamPacket	World::ProcessNetObjectEvent			152	0	16:teamMemberKey:INT16/2; 18:partyIndex:INT8/1; 19:difficultyType:INT8/1; 20:worldId:INT16/2; 24:creatureId:INT64/8; 32:creatureName:STRING/0; 40:race:INT8/1; 41:job:INT8/1; 44:summonedId:INT32/4; 48:zoneChannel:INT16/2; 56:prop:STRUCT/0; 8:hp:INT64/8(d1); 16:level:INT8/1(d1); 17:mastery_level:INT8/1(d1); 18:x:INT16/2(d1); 20:y:INT16/2(d1); 22:z:INT16/2(d1); 24:geo_zone:INT32/4(d1); 32:max_hp:INT64/8(d1); 40:max_hp_equip:INT32/4(d1); 44:yaw:INT16/2(d1); 46:dead:INT8/1(d1); 47:faction:INT8/1(d1); 48:faction2:INT8/1(d1); 52:faction_score:INT32/4(d1); 56:hp_alert:INT8/1(d1); 64:guard_gauge:INT64/8(d1); 72:max_guard_gauge:INT64/8(d1); 80:max_guard_gauge_equip:INT32/4(d1); 144:reason:INT8/1
+266	G_LeaveTeamCmd	party	S2C	0xeed9a0	HandleLeaveTeamPacket	World::ProcessNetObjectEvent			20	0	16:teamMemberKey:INT16/2; 18:reason:INT8/1
+267	G_InTeamMemberCmd	party	S2C	0xeed960	HandleInTeamMemberPacket	World::ProcessNetObjectEvent			56	0	16:teamId:INT64/8; 24:leaderId:INT64/8; 32:inviteAuth:INT8/1; 36:partyList:REPEAT/2; 8:partyIndex:INT8/1(d1); 9:difficultyType:INT8/1(d1); 12:teamMemberList:REPEAT/2(d1); 8:teamMemberKey:INT16/2(d2); 10:worldId:INT16/2(d2); 12:creatureName:STRING/0(d2); 20:race:INT8/1(d2); 21:job:INT8/1(d2); 22:memberState:INT8/1(d2); 24:teamMemberPropertyList:REPEAT/2(d1); 8:teamMemberKey:INT16/2(d2); 16:creatureId:INT64/8(d2); 24:summonedId:INT32/4(d2); 28:zoneChannel:INT16/2(d2); 32:prop:STRUCT/0(d2); 8:hp:INT64/8(d3); 16:level:INT8/1(d3); 17:mastery_level:INT8/1(d3); 18:x:INT16/2(d3); 20:y:INT16/2(d3); 22:z:INT16/2(d3); 24:geo_zone:INT32/4(d3); 32:max_hp:INT64/8(d3); 40:max_hp_equip:INT32/4(d3); 44:yaw:INT16/2(d3); 46:dead:INT8/1(d3); 47:faction:INT8/1(d3); 48:faction2:INT8/1(d3); 52:faction_score:INT32/4(d3); 56:hp_alert:INT8/1(d3); 64:guard_gauge:INT64/8(d3); 72:max_guard_gauge:INT64/8(d3); 80:max_guard_gauge_equip:INT32/4(d3); 48:reason:INT8/1
+268	G_BroadcastTeamMemberStateCmd	party	S2C	0xeed920	HandleBroadcastTeamMemberStatePacket	World::ProcessNetObjectEvent			32	0	16:memberId:INT64/8; 24:memberState:INT8/1
+269	G_BroadcastTeamPartyMemberPropertyCmd	party	S2C	0xeed8e0	HandleBroadcastTeamPartyMemberPropertyPacket	World::ProcessNetObjectEvent			48	0	16:memberId:INT64/8; 24:summonedId:INT32/4; 28:zoneChannel:INT16/2; 32:prop:PROP_PAIR/0
+270	G_BroadcastTeamPartyMemberConditionsCmd	party	S2C	0xeed8a0	HandleBroadcastTeamPartyMemberConditionsPacket	World::ProcessNetObjectEvent			40	0	16:memberId:INT64/8; 24:condtions:REPEAT/2; 8:conditionId:INT16/2(d1); 12:conditionValue:VBIN/0(d1)
+271	G_TeamMemberPartyChangeNotifyCmd	party	S2C	0xeed860	HandleTeamMemberPartyChangeNotifyPacket	World::ProcessNetObjectEvent			24	0	16:srcTeamMemberKey:INT16/2; 18:srcChangedPartyIndex:INT8/1; 19:srcChangedPartyType:INT8/1; 20:dstTeamMemberKey:INT16/2; 22:dstChangedPartyIndex:INT8/1; 23:dstChangedPartyType:INT8/1
+272	G_DelegateTeamLeaderNotifyCmd	party	S2C	0xeed820	HandleDelegateTeamLeaderNotifyPacket	World::ProcessNetObjectEvent			24	0	16:pcId:INT64/8
+273	G_NominatePartyLeaderNotifyCmd	party	S2C	0xeed7e0	HandleNominatePartyLeaderNotifyPacket	World::ProcessNetObjectEvent			24	0	16:creatureId:INT64/8
+274	G_ChangeTeamInviteAuthNotifyCmd	party	S2C	0xeed7a0	HandleChangeTeamInviteAuthNotifyPacket	World::ProcessNetObjectEvent			20	0	16:inviteAuth:INT8/1
+275	G_ChangeTeamPartyDifficultyTypeNotifyCmd	party	S2C	0xeed760	HandleChangeTeamPartyDifficultyTypeNotifyPacket	World::ProcessNetObjectEvent			20	0	16:partyIndex:INT8/1; 17:difficultyType:INT8/1
+289	G_PartyBattleReadyReqCmd	party	C2S				0xc13500	PartyBattleField::RequestGameReady	16	0	
+290	G_PartyBattleReadyOkCmd	party	S2C	0xeef770	HandlePartyBattleReadyOkPacket	World::ProcessNetObjectEvent			16	0	
+291	G_PartyBattleReadyFailCmd	party	S2C	0xeef730	HandlePartyBattleReadyFailPacket	World::ProcessNetObjectEvent			20	0	16:0:INT16/2
+292	G_PartyBattleStartReqCmd	party	C2S				0xc13480	PartyBattleField::RequestGameStart	16	0	
+293	G_PartyBattleStartOkCmd	party	S2C	0xeef6f0	HandlePartyBattleStartOkPacket	World::ProcessNetObjectEvent			16	0	
+294	G_PartyBattleStartFailCmd	party	S2C	0xeef6b0	HandlePartyBattleStartFailPacket	World::ProcessNetObjectEvent			20	0	16:0:INT16/2
+295	G_PartyBattleFinishResultNotifyCmd	party	S2C	0xeef670	HandlePartyBattleFinishResultNotifyPacket	World::ProcessNetObjectEvent			112	0	16:updated_to_db:INT8/1; 17:result:INT8/1; 20:result_party_battle_rating_score:INT32/4; 24:diff_party_battle_rating_score:INT32/4; 28:result_party_battle_point:INT32/4; 32:diff_party_battle_point:INT32/4; 36:result_exp:INT32/4; 40:diff_exp:INT32/4; 48:result_mastery_exp:INT64/8; 56:diff_mastery_exp:INT64/8; 64:base_point:INT32/4; 68:mvp_point:INT32/4; 72:base_exp:INT64/8; 80:mvp_exp:INT64/8; 88:week_guild_ranking_reward_data_key:INT64/8; 96:season_guild_ranking_reward_data_key:INT64/8; 104:fever_time_index:INT32/4; 108:idelness_play_flag:INT8/1
+424	G_RegisterPartyMatchReqCmd	party	C2S				0xc0ffc0	PartyMatch::requestRegisterPartyMatch	20	0	16:goal:INT32/4
+425	G_RegisterPartyMatchOkCmd	party	S2C	0xef62d0	HandleRegisterPartyMatchOkPacket	World::ProcessNetObjectEvent			16	0	
+426	G_RegisterPartyMatchFailCmd	party	S2C	0xef6290	HandleRegisterPartyMatchFailPacket	World::ProcessNetObjectEvent			20	0	16:0:INT16/2
+427	G_MatchPartyCmd	party	S2C	0xef6250	HandleMatchPartyPacket	World::ProcessNetObjectEvent			32	0	16:targetId:INT64/8; 24:goal:INT32/4; 28:master:INT8/1
+428	G_MatchPartyFailCmd	party	S2C	0xef6210	HandleMatchPartyFailPacket	World::ProcessNetObjectEvent			24	0	16:reason:INT16/2; 20:goal:INT32/4
+429	G_RejectPartyMatchReqCmd	party	C2S				0xc0ff50	PartyMatch::requestMatchFailNotify	32	0	16:targetId:INT64/8; 24:goal:INT32/4
+430	G_RejectPartyMatchCmd	party	S2C	0xef61d0	HandleRejectPartyMatchPacket	World::ProcessNetObjectEvent			32	0	16:from:INT64/8; 24:goal:INT32/4
+657	G_DelegateArenaLobbyRoomTeamLeaderReqCmd	party	C2S				0x1274e60	ArenaDungeonLobby::SendChangeTeamLeader	32	0	16:targetWorldId:INT16/2; 24:targetPcId:INT64/8
+658	G_DelegateArenaLobbyRoomTeamLeaderOkCmd	party	S2C	0xef3ad0	HandleDelegateArenaLobbyRoomTeamLeaderOkPacket	World::ProcessNetObjectEvent			16	0	
+659	G_DelegateArenaLobbyRoomTeamLeaderFailCmd	party	S2C	0xef3a90	HandleDelegateArenaLobbyRoomTeamLeaderFailPacket	World::ProcessNetObjectEvent			20	0	16:0:INT16/2
+760	G_ReserveArenaLobbyPartyNotifyCmd	party	S2C	0xef35d0	HandleReserveArenaLobbyPartyNotifyPacket	World::ProcessNetObjectEvent			24	0	16:arenaPortalKey:INT64/8
+761	G_ReserveArenaLobbyPartyAgreementReqCmd	party	C2S				0x7c0d90 0x80a790 0x1273b50 0x12b3890	BUiWorld::ActivateGuildCustomize	20	0	16:agreed:INT8/1
+762	G_ReserveArenaLobbyPartyAgreementNotifyCmd	party	S2C	0xef3590	HandleReserveArenaLobbyPartyAgreementNotifyPacket	World::ProcessNetObjectEvent			32	0	16:pcid:INT64/8; 24:agreed:INT8/1
+763	G_ReserveArenaLobbyPartyFinalDecisionReqCmd	party	C2S				0x1273af0	BArenaEnterNotificationPanel::SendEnterArenaFinalDecision	20	0	16:ok:INT8/1
+764	G_ReserveArenaLobbyPartyFinalDecisionNotifyCmd	party	S2C	0xef3550	HandleReserveArenaLobbyPartyFinalDecisionNotifyPacket	World::ProcessNetObjectEvent			20	0	16:ok:INT8/1
+771	G_DelegateArenaLobbyRoomTeamLeaderNotifyCmd	party	S2C	0xeeb7a0	HandleDelegateArenaLobbyRoomTeamLeaderNotifyPacket	World::ProcessNetObjectEvent			32	0	16:leaderPcWorldId:INT16/2; 24:leaderPcId:INT64/8
+912	G_RaidDungeonUnbindListNotifyCmd	party	S2C	0xef1f30	HandleRaidDungeonUnbindListNotifyPacket	World::ProcessNetObjectEvent			32	0	16:reason:INT8/1; 20:raid_dungeon_unbind_property:REPEAT/2; 8:data:PROP_SYNC/0(d1)
+913	G_RetrieveBoundRaidDungeonInfoReqCmd	party	C2S				0x9d9650	RaidDungeon::RequestBoundRaidDungeonInfo	24	0	16:dungeonId:INT64/8
+914	G_RetrieveBoundRaidDungeonInfoOkCmd	party	S2C	0xef1ef0	HandleRetrieveBoundRaidDungeonInfoOkPacket	World::ProcessNetObjectEvent			28	0	16:dungeon_info:REPEAT/2; 8:dungeon_id:INT64/8(d1); 16:dungeon_data_id:INT32/4(d1); 20:dungeon_step:INT8/1(d1); 24:expire_time:INT64/8(d1); 32:leaderName:STRING/0(d1); 40:bound_pc_count:INT32/4(d1); 44:max_pc_count:INT32/4(d1)
+915	G_RetrieveBoundRaidDungeonInfoFailCmd	party	S2C	0xef1eb0	HandleRetrieveBoundRaidDungeonInfoFailPacket	World::ProcessNetObjectEvent			20	0	16:0:INT16/2
+916	G_UnbindRaidDungeonReqCmd	party	C2S				0x520ca0		40	0	16:raidDungeon:INT64/8; 24:items:REPEAT/2; 8:pos:INT16/2(d1); 10:count:INT16/2(d1)
+917	G_UnbindRaidDungeonOkCmd	party	S2C	0xef1e70	HandleUnbindRaidDungeonOkPacket	World::ProcessNetObjectEvent			16	0	
+918	G_UnbindRaidDungeonFailCmd	party	S2C	0xef1e30	HandleUnbindRaidDungeonFailPacket	World::ProcessNetObjectEvent			20	0	16:0:INT16/2
+919	G_OccupyingRaidDungeonChangeNotifyCmd	party	S2C	0xef1df0	HandleOccupyingRaidDungeonChangeNotifyPacket	World::ProcessNetObjectEvent			56	0	16:dungeon_id:INT64/8; 24:dungeon_data_id:INT32/4; 28:dungeon_step:INT8/1; 32:expire_time:INT64/8; 40:leaderName:STRING/0; 48:bound_pc_count:INT32/4; 52:max_pc_count:INT32/4
+920	G_UnoccupyingRaidDungeonNotifyCmd	party	S2C	0xef1db0	HandleUnoccupyingRaidDungeonNotifyPacket	World::ProcessNetObjectEvent			24	0	16:dungeon_id:INT64/8
+921	G_RaidDungeonOnlinePlayerInfoReqCmd	party	C2S				0x9d9290		24	0	16:dungeon_id:INT64/8
+922	G_RaidDungeonOnlinePlayerInfoOkCmd	party	S2C	0xef1d70	HandleRaidDungeonOnlinePlayerInfoOkPacket	World::ProcessNetObjectEvent			28	0	16:pc_info:REPEAT/2; 8:pc_id:INT64/8(d1); 16:pc_name:STRING/0(d1); 24:job:INT8/1(d1); 25:level:INT8/1(d1); 26:masteryLevel:INT8/1(d1)
+923	G_RaidDungeonOnlinePlayerInfoFailCmd	party	S2C	0xef1d30	HandleRaidDungeonOnlinePlayerInfoFailPacket	World::ProcessNetObjectEvent			20	0	16:0:INT16/2
+924	G_RaidDungeonExpirationReqCmd	party	C2S				0x9d9230		16	0	
+925	G_RaidDungeonExpirationOkCmd	party	S2C	0xef1cf0	HandleRaidDungeonExpirationOkPacket	World::ProcessNetObjectEvent			16	0	
+926	G_RaidDungeonExpirationFailCmd	party	S2C	0xef1cb0	HandleRaidDungeonExpirationFailPacket	World::ProcessNetObjectEvent			20	0	16:0:INT16/2
+927	G_RaidDungeonExceedMaxLeaveCountNotifyCmd	party	S2C	0xef1c70	HandleRaidDungeonExceedMaxLeaveCountNotifyPacket	World::ProcessNetObjectEvent			16	0	
+933	G_LootObjectContributionNotifyCmd	party	S2C	0xef1b70	HandleLootObjectContributionNotifyPacket	World::ProcessNetObjectEvent			32	0	16:id:INT64/8; 24:questId:INT16/2; 26:missionId:INT8/1; 27:caseIndex:INT8/1
+959	G_PublishRecruitArenaDungeonMemberReqCmd	party	C2S				0xc146d0		24	0	16:arenaPortalKey:INT64/8
+960	G_PublishRecruitArenaDungeonMemberOkCmd	party	S2C	0xeea000	HandlePublishRecruitArenaDungeonMemberOkPacket	World::ProcessNetObjectEvent			16	0	
+961	G_PublishRecruitArenaDungeonMemberNotifyCmd	party	S2C	0xee9dc0	HandlePublishRecruitArenaDungeonMemberNotifyPacket	World::ProcessNetObjectEvent			20	0	16:requestMemberCount:INT8/1
+962	G_PublishRecruitArenaDungeonMemberFailCmd	party	S2C	0xeea040	HandlePublishRecruitArenaDungeonMemberFailPacket	World::ProcessNetObjectEvent			20	0	16:0:INT16/2
+963	G_CancelRecruitArenaDungeonMemberReqCmd	party	C2S				0xc14650		24	0	16:arenaPortalKey:INT64/8
+964	G_CancelRecruitArenaDungeonMemberOkCmd	party	S2C	0xee9d80	HandleCancelRecruitArenaDungeonMemberOkPacket	World::ProcessNetObjectEvent			16	0	
+965	G_CancelRecruitArenaDungeonMemberNotifyCmd	party	S2C	0xee9f80	HandleCancelRecruitArenaDungeonMemberNotifyPacket	World::ProcessNetObjectEvent			20	0	16:cancel_reason:INT8/1
+966	G_CancelRecruitArenaDungeonMemberFailCmd	party	S2C	0xee9fc0	HandleCancelRecruitArenaDungeonMemberFailPacket	World::ProcessNetObjectEvent			20	0	16:0:INT16/2
+1021	G_PartyBattleMemberRecordNotifyCmd	party	S2C	0xeef7b0	HandlePartyBattleMemberRecordNotifyPacket	World::ProcessNetObjectEvent			28	0	16:member_record:REPEAT/2; 8:pc_id:INT64/8(d1); 16:total_attack_damage:INT64/8(d1); 24:total_received_damage:INT64/8(d1)
+1022	G_PartyBattleVoteCastReqCmd	party	C2S				0xc10380		24	0	16:pcId:INT64/8
+1023	G_PartyBattleVoteCastOkCmd	party	S2C	0xee92c0	HandlePartyBattleVoteCastOkPacket	World::ProcessNetObjectEvent			16	0	
+1024	G_PartyBattleVoteCastFailCmd	party	S2C	0xee9280	HandlePartyBattleVoteCastFailPacket	World::ProcessNetObjectEvent			20	0	16:0:INT16/2
+1056	G_PublicRaidEventStartNotifyCmd	party	S2C	0xee8c80	HandlePublicRaidEventStartNotifyPacket	World::ProcessNetObjectEvent			24	0	16:public_raid_event:INT64/8
+1057	G_PublicRaidEventStopNotifyCmd	party	S2C	0xee8c40	HandlePublicRaidEventStopNotifyPacket	World::ProcessNetObjectEvent			20	0	16:finalScore:INT16/2
+1058	G_PublicRaidEventBroadcastScoreNotifyCmd	party	S2C	0xee8c00	HandlePublicRaidEventBroadcastScoreNotifyPacket	World::ProcessNetObjectEvent			20	0	16:currentScore:INT16/2
+1059	G_PublicRaidEventAddScoreReqCmd	party	C2S				0xa61ef0 0xa62120		16	0	
+1060	G_PublicRaidEventAddScoreOkCmd	party	S2C	0xee8bc0	HandlePublicRaidEventAddScoreOkPacket	World::ProcessNetObjectEvent			16	0	
+1061	G_PublicRaidEventAddScoreFailCmd	party	S2C	0xee8b80	HandlePublicRaidEventAddScoreFailPacket	World::ProcessNetObjectEvent			20	0	16:0:INT16/2
+1068	G_CreateChallengePartyReqCmd	party	C2S				0x11d2e60		24	0	16:challenge_party_name:STRING/0
+1069	G_CreateChallengePartyOkCmd	party	S2C	0xee8440	HandleCreateChallengePartyOkPacket	World::ProcessNetObjectEvent			16	0	
+1070	G_CreateChallengePartyFailCmd	party	S2C	0xee8480	HandleCreateChallengePartyFailPacket	World::ProcessNetObjectEvent			20	0	16:0:INT16/2
+1071	G_InviteChallengePartyReqCmd	party	C2S				0x41c0b0		24	0	16:target_name:STRING/0
+1072	G_InviteChallengePartyOkCmd	party	S2C	0xee84c0	HandleInviteChallengePartyOkPacket	World::ProcessNetObjectEvent			24	0	16:target_name:STRING/0
+1073	G_InviteChallengePartyNotifyCmd	party	S2C	0xee8500	HandleInviteChallengePartyNotifyPacket	World::ProcessNetObjectEvent			48	0	16:challenge_party_id:INT64/8; 24:challenge_party_name:STRING/0; 32:from_name:STRING/0; 40:from_level:INT8/1; 41:from_mastery_level:INT8/1; 42:from_job:INT8/1
+1074	G_InviteChallengePartyFailCmd	party	S2C	0xee8540	HandleInviteChallengePartyFailPacket	World::ProcessNetObjectEvent			20	0	16:0:INT16/2
+1075	G_ConfirmInvitationChallengePartyReqCmd	party	C2S				0x11d2b00		24	0	16:challenge_party_id:INT64/8
+1076	G_ConfirmInvitationChallengePartyOkCmd	party	S2C	0xee8580	HandleConfirmInvitationChallengePartyOkPacket	World::ProcessNetObjectEvent			24	0	16:challenge_party_id:INT64/8
+1077	G_ConfirmInvitationChallengePartyFailCmd	party	S2C	0xee85c0	HandleConfirmInvitationChallengePartyFailPacket	World::ProcessNetObjectEvent			20	0	16:0:INT16/2
+1078	G_RejectInvitationChallengePartyReqCmd	party	C2S				0x11d2a90		32	0	16:challenge_party_id:INT64/8; 24:timeout:INT8/1
+1079	G_RejectInvitationChallengePartyNotifyCmd	party	S2C	0xee8600	HandleRejectInvitationChallengePartyNotifyPacket	World::ProcessNetObjectEvent			28	0	16:name:STRING/0; 24:timeout:INT8/1
+1080	G_LeaveChallengePartyReqCmd	party	C2S				0x11d2b60	ChallengeParty::RequestLeaveChallengeParty	20	0	16:index:INT8/1
+1081	G_LeaveChallengePartyNotifyCmd	party	S2C	0xee8640	HandleLeaveChallengePartyNotifyPacket	World::ProcessNetObjectEvent			20	0	16:index:INT8/1; 17:reason:INT8/1
+1082	G_LeaveChallengePartyFailCmd	party	S2C	0xee8680	HandleLeaveChallengePartyFailPacket	World::ProcessNetObjectEvent			20	0	16:0:INT16/2
+1083	G_RetrieveChallengePartyInfoNotifyCmd	party	S2C	0xee86c0	HandleRetrieveChallengePartyInfoNotifyPacket	World::ProcessNetObjectEvent			40	0	16:challenge_party_name:STRING/0; 24:is_modifiable:INT8/1; 28:challenge_party_record_list:REPEAT/2; 8:best_record:STRUCT/0(d1); 4:SeasonContentsType:INT8/1(d2); 8:bestScore:INT64/8(d2)
+1084	G_RetrieveChallengePartyMembersNotifyCmd	party	S2C	0xee8700	HandleRetrieveChallengePartyMembersNotifyPacket	World::ProcessNetObjectEvent			32	0	16:reason:INT8/1; 20:challenge_party_member_list:REPEAT/2; 8:index:INT8/1(d1); 12:name:STRING/0(d1); 24:pc_id:INT64/8(d1); 32:level:INT16/2(d1); 34:mastery_level:INT16/2(d1); 36:faction2:INT8/1(d1); 38:job:INT16/2(d1); 40:grade:INT8/1(d1); 44:geoZone:INT32/4(d1)
+1085	G_ChangeChallengePartyLeaderNotifyCmd	party	S2C	0xee8740	HandleChangeChallengePartyLeaderNotifyPacket	World::ProcessNetObjectEvent			20	0	16:index:INT8/1
+1086	G_ChangeChallengePartyModifiableStateNotifyCmd	party	S2C	0xee8400	HandleChangeChallengePartyModifiableStateNotifyPacket	World::ProcessNetObjectEvent			20	0	16:is_modifiable:INT8/1
+1087	G_ChangeChallengePartyBestRecordNotifyCmd	party	S2C	0xee8280	HandleChangeChallengePartyBestRecordNotifyPacket	World::ProcessNetObjectEvent			32	0	16:challenge_party_best_record:STRUCT/0; 4:SeasonContentsType:INT8/1(d1); 8:bestScore:INT64/8(d1)
+1088	G_RetrieveChallengePartyRankingInfoReqCmd	party	C2S				0x9d13d0		20	0	16:season_contents_type:INT8/1
+1089	G_RetrieveChallengePartyRankingInfoOkCmd	party	S2C	0xee82c0	HandleRetrieveChallengePartyRankingInfoOkPacket	World::ProcessNetObjectEvent			72	0	16:season_contents_type:INT8/1; 24:challenge_party_ranking_info:STRUCT/0; 4:ranking:INT32/4(d1); 8:primary_score:INT64/8(d1); 16:last_accumulation_request_time:INT64/8(d1); 24:top_ranker_ranking:INT32/4(d1); 28:top_ranker_challenge_party_name:STRING/0(d1); 40:top_ranker_primary_score:INT64/8(d1)
+1090	G_RetrieveChallengePartyRankingInfoFailCmd	party	S2C	0xee8300	HandleRetrieveChallengePartyRankingInfoFailPacket	World::ProcessNetObjectEvent			20	0	16:0:INT16/2
+1091	G_ChangedChallengePartyRankingInfoNotifyCmd	party	S2C	0xee8340	HandleChangedChallengePartyRankingInfoNotifyPacket	World::ProcessNetObjectEvent			24	0	16:season_contents_type:INT8/1; 20:ranking:INT32/4
+1092	G_ChallengePartyCombatStartNotifyCmd	party	S2C	0xee8840	HandleChallengePartyCombatStartNotifyPacket	World::ProcessNetObjectEvent			16	0	
+1093	G_ChallengePartyCombatFinishNotifyCmd	party	S2C	0xee8880	HandleChallengePartyCombatFinishNotifyPacket	World::ProcessNetObjectEvent			72	0	16:elapsed_time:INT64/8; 24:elapsed_time_score:INT32/4; 32:received_damage:INT64/8; 40:received_damage_score:INT32/4; 44:grade:INT8/1; 48:grade_score:INT32/4; 52:bonus_score:INT32/4; 56:total_score:INT64/8; 64:boss_npc_killed:INT8/1
+1094	G_ChallengePartyPatternStartNotifyCmd	party	S2C	0xee88c0	HandleChallengePartyPatternStartNotifyPacket	World::ProcessNetObjectEvent			32	0	16:index:INT8/1; 24:elapsedTime:INT64/8
+1095	G_ChallengePartyPatternSuccessNotifyCmd	party	S2C	0xee8900	HandleChallengePartyPatternSuccessNotifyPacket	World::ProcessNetObjectEvent			24	0	16:index:INT8/1; 17:grade:INT8/1; 20:bonus_score:INT32/4
+1096	G_ChallengePartyPatternFailNotifyCmd	party	S2C	0xee8940	HandleChallengePartyPatternFailNotifyPacket	World::ProcessNetObjectEvent			20	0	16:index:INT8/1
+1272	G_LootReqCmd	party	C2S						24	3	16:targetId:INT64/8
+1273	G_LootFailCmd	party	S2C	0xee1040	HandleLootFailPacket	own			20	3	16:0:INT16/2
+1296	G_OpenItemPouchReqCmd	party	C2S				0x10d5120 0x10d5290	BControlledPlayingActions::RequestOpenPrivatePouch	24	4	16:object:INT64/8
+1297	G_OpenItemPouchOkCmd	party	S2C	0xef09a0	HandleOpenItemPouchOkPacket	World::ProcessNetObjectEvent			48	4	16:object:INT64/8; 24:money:INT32/4; 28:drropped_pouch_id:INT16/2; 32:items:REPEAT/2; 8:dataKey:INT64/8(d1); 16:dataIndex:INT8/1(d1); 18:count:INT16/2(d1); 20:additionalInfo:INT8/1(d1)
+1298	G_OpenItemPouchFailCmd	party	S2C	0xef0970	HandleOpenItemPouchFailPacket	own			20	4	16:0:INT16/2
+1299	G_PrivateItemPouchListReqCmd	party	C2S				0x10d5120 0x10d5290	BControlledPlayingActions::RequestOpenPrivatePouch	24	4	16:object:INT64/8
+1300	G_PrivateItemPouchListOkCmd	party	S2C	0xef0930	HandlePrivateItemPouchListOkPacket	World::ProcessNetObjectEvent			40	4	16:object:INT64/8; 24:money:INT32/4; 28:items:REPEAT/2; 8:dataKey:INT64/8(d1); 16:dataIndex:INT8/1(d1); 18:count:INT16/2(d1); 20:additionalInfo:INT8/1(d1)
+1301	G_PrivateItemPouchListFailCmd	party	S2C	0xef08f0	HandlePrivateItemPouchListFailPacket	World::ProcessNetObjectEvent			20	4	16:0:INT16/2
+1302	G_DistributionPouchAuthorizedListNotifyCmd	party	S2C	0xef08b0	HandleDistributionPouchAuthorizedListNotifyPacket	World::ProcessNetObjectEvent			40	4	16:object:INT64/8; 24:authorities:REPEAT/2; 8:pc_name:STRING/0(d1); 16:job:INT8/1(d1)
+1303	G_CloseItemPouchReqCmd	party	C2S				0x10d51e0	BControlledPlayingActions::RequestClosePouch	24	5	16:npcDeadBody:INT64/8
+1304	G_CloseItemPouchNotifyCmd	party	S2C	0xef0870	HandleCloseItemPouchNotifyPacket	World::ProcessNetObjectEvent			24	5	16:npcDeadBody:INT64/8
+1305	G_CloseItemPouchFailCmd	party	S2C	0xef0830	HandleCloseItemPouchFailPacket	World::ProcessNetObjectEvent			20	5	16:0:INT16/2
+1316	G_DistributeItemReqCmd	party	C2S				0x44a370 0x5980e0 0x598170		48	6	16:pouchId:INT64/8; 24:receiver_name:STRING/0; 32:items:REPEAT/2; 8:index:INT8/1(d1)
+1317	G_DistributeItemFailRepeatCmd	party	S2C	0xef0570	HandleDistributeItemFailRepeatPacket	World::ProcessNetObjectEvent			28	6	16:fail:REPEAT/2; 8:index:INT8/1(d1); 10:failReason:INT16/2(d1)
+1318	G_DistributeItemOkCmd	party	S2C	0xef05f0	HandleDistributeItemOkPacket	World::ProcessNetObjectEvent			48	6	16:pouchId:INT64/8; 24:receiver_name:STRING/0; 32:items:REPEAT/2; 8:index:INT8/1(d1); 10:count:INT16/2(d1)
+1319	G_DistributeItemFailCmd	party	S2C	0xef05b0	HandleDistributeItemFailPacket	World::ProcessNetObjectEvent			20	6	16:0:INT16/2
+1320	G_DistributeItemNotifyCmd	party	S2C	0xef0530	HandleDistributeItemNotifyPacket	World::ProcessNetObjectEvent			56	6	16:pouchId:INT64/8; 24:receiver_pc_id:INT64/8; 32:toTeamMember:INT8/1; 36:items:REPEAT/2; 8:itemKey:INT64/8(d1); 16:count:INT16/2(d1); 48:money:INT32/4
+1321	G_CompleteDistributionReqCmd	party	C2S				0xc9f610 0x10d4670 0x10d49b0		24	6	16:pouchId:INT64/8
+1322	G_CompleteDistributionOkCmd	party	S2C	0xef04f0	HandleCompleteDistributionOkPacket	World::ProcessNetObjectEvent			24	6	16:pouchId:INT64/8
+1323	G_CompleteDistributionFailCmd	party	S2C	0xef04b0	HandleCompleteDistributionFailPacket	World::ProcessNetObjectEvent			20	6	16:0:INT16/2
+1324	G_CompleteDistributionNotifyCmd	party	S2C	0xef0470	HandleCompleteDistributionNotifyPacket	World::ProcessNetObjectEvent			24	6	16:pouchId:INT64/8
+311	G_InviteTradeReqCmd	trade	C2S				0xb7d790	BPlayer::RequestInviteTrade	24	0	16:guest:INT64/8
+312	G_InviteTradeFailCmd	trade	S2C	0xeecc60	HandleInviteTradeFailPacket	World::ProcessNetObjectEvent			20	0	16:0:INT16/2
+313	G_InviteTradeCmd	trade	S2C	0xeecc20	HandleInviteTradePacket	World::ProcessNetObjectEvent			32	0	16:inviter:INT64/8; 24:guest:INT64/8
+314	G_JoinTradeReqCmd	trade	C2S				0xb7d660	BPlayer::RequestJoinTrade	24	0	16:inviter:INT64/8
+315	G_JoinTradeFailCmd	trade	S2C	0xeecbe0	HandleJoinTradeFailPacket	World::ProcessNetObjectEvent			20	0	16:0:INT16/2
+316	G_JoinTradeCmd	trade	S2C	0xeecba0	HandleJoinTradePacket	World::ProcessNetObjectEvent			32	0	16:inviter:INT64/8; 24:guest:INT64/8
+317	G_DeclineTradeReqCmd	trade	C2S				0xb7d6c0	BPlayer::RequestDeclineTrade	32	0	16:inviter:INT64/8; 24:reason:INT8/1
+318	G_DeclineTradeFailCmd	trade	S2C	0xeecb60	HandleDeclineTradeFailPacket	World::ProcessNetObjectEvent			20	0	16:0:INT16/2
+319	G_DeclineTradeCmd	trade	S2C	0xeecb20	HandleDeclineTradePacket	World::ProcessNetObjectEvent			40	0	16:inviter:INT64/8; 24:guest:INT64/8; 32:reason:INT8/1
+320	G_CancelTradeReqCmd	trade	C2S				0xb7d740		16	0	
+321	G_CancelTradeFailCmd	trade	S2C	0xeecae0	HandleCancelTradeFailPacket	World::ProcessNetObjectEvent			20	0	16:0:INT16/2
+322	G_CancelTradeCmd	trade	S2C	0xeecaa0	HandleCancelTradePacket	World::ProcessNetObjectEvent			32	0	16:trader:INT64/8; 24:cancelReason:INT8/1
+323	G_SuggestTradeFailCmd	trade	S2C	0xeeca60	HandleSuggestTradeFailPacket	World::ProcessNetObjectEvent			20	0	16:0:INT16/2
+324	G_AppendTradeSuggestionReqCmd	trade	C2S				0x814640	TradeShelf::RequestRegisterItem	20	0	16:invenPos:INT16/2; 18:itemCount:INT16/2
+325	G_AppendTradeSuggestionOtherCmd	trade	S2C	0xeec920	HandleAppendTradeSuggestionOtherPacket	World::ProcessNetObjectEvent			40	0	16:trader:INT64/8; 24:item:SUB/0; 36:count:INT16/2
+326	G_AppendTradeSuggestionMineCmd	trade	S2C	0xeec8e0	HandleAppendTradeSuggestionMinePacket	World::ProcessNetObjectEvent			16	0	
+327	G_RemoveTradeSuggestionReqCmd	trade	C2S				0x814560		20	0	16:removePos:INT8/1
+328	G_RemoveTradeSuggestionOtherCmd	trade	S2C	0xeec8a0	HandleRemoveTradeSuggestionOtherPacket	World::ProcessNetObjectEvent			32	0	16:trader:INT64/8; 24:removePos:INT8/1
+329	G_RemoveTradeSuggestionMineCmd	trade	S2C	0xeec860	HandleRemoveTradeSuggestionMinePacket	World::ProcessNetObjectEvent			16	0	
+330	G_SuggestTradeMoneyReqCmd	trade	C2S				0x8146d0	TradeShelf::RequestRegisterMoney	24	0	16:money:INT64/8
+331	G_SuggestTradeMoneyOtherCmd	trade	S2C	0xeec820	HandleSuggestTradeMoneyOtherPacket	World::ProcessNetObjectEvent			32	0	16:trader:INT64/8; 24:money:INT64/8
+332	G_SuggestTradeMoneyMineCmd	trade	S2C	0xeec7e0	HandleSuggestTradeMoneyMinePacket	World::ProcessNetObjectEvent			24	0	16:money:INT64/8
+333	G_SubmitTradeReqCmd	trade	C2S				0x814510		16	0	
+334	G_SubmitTradeFailCmd	trade	S2C	0xeeca20	HandleSubmitTradeFailPacket	World::ProcessNetObjectEvent			20	0	16:0:INT16/2
+335	G_SubmitTradeCmd	trade	S2C	0xeec9e0	HandleSubmitTradePacket	World::ProcessNetObjectEvent			24	0	16:trader:INT64/8
+336	G_RetractTradeReqCmd	trade	C2S				0x8144c0		16	0	
+337	G_RetractTradeFailCmd	trade	S2C	0xeec5a0	HandleRetractTradeFailPacket	World::ProcessNetObjectEvent			20	0	16:0:INT16/2
+338	G_RetractTradeCmd	trade	S2C	0xeec560	HandleRetractTradePacket	World::ProcessNetObjectEvent			32	0	16:requester_id:INT64/8; 24:reason:INT8/1
+339	G_ConfirmTradeReqCmd	trade	C2S				0x814460	TradeShelf::RequestConfirmTrade	16	0	
+340	G_ConfirmTradeFailCmd	trade	S2C	0xeec9a0	HandleConfirmTradeFailPacket	World::ProcessNetObjectEvent			20	0	16:0:INT16/2
+341	G_ConfirmTradeCmd	trade	S2C	0xeec960	HandleConfirmTradePacket	World::ProcessNetObjectEvent			24	0	16:trader:INT64/8
+1010	G_ExchangeItemReqCmd	trade	C2S				0x4a39b0		48	0	16:depot:INT8/1; 24:id:INT64/8; 32:requiredItem:REPEAT/2; 8:pos:INT16/2(d1); 10:count:INT16/2(d1)
+1011	G_ExchangeItemOkCmd	trade	S2C	0xee94c0	HandleExchangeItemOkPacket	World::ProcessNetObjectEvent			28	0	16:items:REPEAT/2; 8:pos:INT16/2(d1); 10:count:INT16/2(d1)
+1012	G_ExchangeItemFailCmd	trade	S2C	0xee9480	HandleExchangeItemFailPacket	World::ProcessNetObjectEvent			20	0	16:0:INT16/2
+1352	G_TradeWithNpcReqCmd	trade	C2S				0x4cfa70 0x4cfa90 0x4cfb30 0x598ad0		40	9	16:seller:INT64/8; 24:index:INT8/1; 26:count:INT16/2; 28:consumeItems:REPEAT/2; 8:pos:INT16/2(d1); 10:count:INT16/2(d1)
+1353	G_TradeWithNpcFailCmd	trade	S2C	0xef0e90	HandleTradeWithNpcFailPacket	own			20	9	16:0:INT16/2
