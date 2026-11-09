@@ -1,0 +1,149 @@
+id	name	direction	handler_381	handler_gm_name	builder_381	builder_ida_name_381	struct_size	packet_sync	fields
+3	G_InZoneCmd	S2C	0xef6ae0	HandleInZonePacket			176	0	16:zoneId:INT64/8; 24:zoneEventStep:INT8/1; 28:zone_mode:SUB/0; 40:zone_score:SUB/0; 56:boss_spawn_time:INT64/8; 64:boss_combat_start_time:INT64/8; 72:last_occupied_effect_guildId:INT64/8; 80:jackpot_faction_score_1:INT32/4; 84:jackpot_faction_score_2:INT32/4; 88:attraction_state:SUB/0; 100:attraction_member_state_list:REPEAT/2; 8:attraction_member_state:SUB/0(d1); 112:creature:REPEAT/2; 8:creatureId:INT64/8(d1); 16:inZoneCreature:PROP_SYNC/0(d1); 124:summonedCreature:REPEAT/2; 8:creatureId:INT64/8(d1); 16:inZoneCreature:PROP_SYNC/0(d1); 136:boss_npc_hp_info:REPEAT/2; 8:boss_npc_hp_info:STRUCT/0(d1); 8:boss_npc:INT64/8(d2); 16:max_hp:INT64/8(d2); 24:hp:INT64/8(d2); 148:refinerList:REPEAT/2; 8:EnvObjId:INT64/8(d1); 16:state:INT8/1(d1); 20:hp:INT32/4(d1); 24:enable:INT8/1(d1); 25:empty:INT8/1(d1); 28:faction_score:INT32/4(d1); 32:next_state_time:INT64/8(d1); 40:guildId:INT64/8(d1); 48:exceptQuestCases:REPEAT/2(d1); 8:questId:INT16/2(d2); 10:missionId:INT8/1(d2); 11:caseIndex:INT8/1(d2); 160:squad:REPEAT/2; 8:SquadLeaderId:INT64/8(d1); 16:SquadCreatures:REPEAT/2(d1); 8:SquadCreatureId:INT64/8(d2)
+10	G_BattleRoyalFieldInZoneOnlyGMCmd	S2C	0xef6960	HandleBattleRoyalFieldInZoneOnlyGMPacket			32	0	16:detailRule:INT8/1; 20:playerPartyInfo:REPEAT/2; 8:creatureId:INT64/8(d1); 16:partyId:INT64/8(d1)
+26	G_ReturnToLobbyReqCmd	C2S			0x59e840 0xd18ca0		16	0	
+27	G_ReturnToLobbyOkCmd	S2C	0xf1ece0	HandleReturnToLobbyOkPacket			24	0	16:lobby_token:INT64/8
+28	G_ReturnToLobbyFailCmd	S2C	0xef6820	HandleReturnToLobbyFailPacket			20	0	16:?:INT16/2
+31	G_EnterWorldReqCmd	C2S			0x9d1240	BSeason::RequestRetireveCurGuildRanker	24	0	16:clientVersion:INT32/4; 20:characterId:INT8/1
+32	G_EnterWorldOkCmd	S2C	0xef6860	HandleEnterWorldOkPacket			1384	0	16:worldId:INT16/2; 24:creatureId:INT64/8; 32:jumping_character_state:INT8/1; 36:chattingIp:INT32/4; 40:chattingPort:INT16/2; 42:chattingServerId:INT16/2; 44:debugPort:INT16/2; 46:timeZoneBias:INT16/2; 48:gamePacketRight:INT16/2; 56:creatureInfo:PROP_SYNC/0; 1272:publisherCreatureInfo:VBIN/0; 1280:key:VBIN/0; 1288:recycleTime:REPEAT/2; 8:groupId:INT8/1(d1); 12:time:INT32/4(d1); 1300:clientOptionList:REPEAT/2; 8:optionType:INT8/1(d1); 12:OptionData:VBIN/0(d1); 1312:rule_client_option_1:INT8/1; 1313:rule_client_option_2:INT8/1; 1314:rule_client_option_3:INT8/1; 1315:rule_client_option_4:INT8/1; 1316:pc_cafe_publisher_code:INT8/1; 1320:characterDbId:INT64/8; 1328:contentBanList:REPEAT/2; 8:banId:INT8/1(d1); 16:effectiveFrom:INT64/8(d1); 24:effectiveTo:INT64/8(d1); 1340:testServerEnable:INT8/1; 1344:craftUnionList:REPEAT/2; 8:unionType:INT8/1(d1); 10:unoinExp:INT16/2(d1); 1356:timeBasedPlayInfo:REPEAT/2; 8:target_type:INT8/1(d1); 12:schedule_number:INT32/4(d1); 16:expire_time:INT64/8(d1); 24:last_reset_time:INT64/8(d1); 32:duration:INT32/4(d1); 36:acknowledged_play_time:INT16/2(d1); 40:rewards:STRUCT/0(d1); 4:normal:INT8/1(d2); 5:premium:INT8/1(d2); 6:newbie:INT8/1(d2); 7:return_user:INT8/1(d2); 1368:slate_prop_list:REPEAT/2; 8:page_no:INT8/1(d1); 12:prop:PROP_SYNC/0(d1)
+33	G_EnterWorldFailCmd	S2C	0xf2bea0	HandleEnterWorldFailPacket			20	0	16:?:INT16/2
+37	G_RetryEnterWorldNotifyCmd	S2C	0xf3b030	HandleRetryEnterWorldNotifyPacket			16	0	
+38	G_LeaveWorldReqCmd	C2S					16	0	
+39	G_LeaveWorldOkCmd	S2C	0xee10e0	HandleLeaveWorldOkPacket			32	0	16:key:INT64/8; 24:address:INT32/4; 28:port:INT16/2
+40	G_LeaveWorldFailCmd	S2C	0xee10d0	HandleLeaveWorldFailPacket			20	0	16:?:INT16/2
+41	G_PrepareEnterZoneCmd	S2C	0xef67d0	HandlePrepareEnterZonePacket			64	0	16:zoneId:INT64/8; 24:channel:INT16/2; 28:geoZoneId:INT32/4; 32:spawnActionKey:INT32/4; 36:worldClock:INT8/1; 37:moveToArenaCancel:INT8/1; 40:key:VBIN/0; 48:x:SU/2; 50:y:SU/2; 52:z:SU/2; 54:yaw:INT16/2; 56:moveKey:INT16/2; 58:summonedMoveKey:INT16/2
+42	G_EnterZoneReqCmd	C2S			0x5a3400 0x7815c0		28	0	16:spawnActionKey:INT32/4; 20:summonedX:SU/2; 22:summonedY:SU/2; 24:summonedZ:SU/2; 26:summonedYaw:INT16/2
+43	G_EnterZoneOkCmd	S2C	0xef6790	HandleEnterZoneOkPacket			24	0	16:enterSocial:INT64/8
+44	G_EnterZoneFailCmd	S2C	0xef6750	HandleEnterZoneFailPacket			20	0	16:failReason:INT16/2
+45	G_LeaveZoneCmd	S2C	0xef6710	HandleLeaveZonePacket			48	0	16:overlappedZone:INT8/1; 17:leaveReason:INT8/1; 24:leaveSocial:INT64/8; 32:leaveCinematic:INT64/8; 40:enterCinematic:INT64/8
+46	G_LeaveZoneFailNotifyCmd	S2C	0xef0d60	HandleLeaveZoneFailNotifyPacket			20	0	16:failReason:INT16/2
+49	G_PlayCinematicCmd	S2C	0xeeff70	HandlePlayCinematicPacket			20	0	16:cinematic:INT32/4
+61	G_TalkSessionCloseReqCmd	C2S			0x7d9a60 0x8443f0		24	0	16:npc:INT64/8
+62	G_TalkSessionClosedNotifyCmd	S2C	0xef18f0	HandleTalkSessionClosedNotifyPacket			24	0	16:npc:INT64/8
+63	G_NpcDetectCmd	S2C	0xef18b0	HandleNpcDetectPacket			24	0	16:npc:INT64/8
+86	G_QuestListReqCmd	C2S			0xc96970	LobbyGateSession::SendExpandSlotRequest	16	0	
+87	G_QuestListOkCmd	S2C	0xef0130	HandleQuestListOkPacket			28	0	16:quest:REPEAT/2; 8:questId:INT16/2(d1); 12:openQuestList:PROP_SYNC/0(d1)
+88	G_QuestListFailCmd	S2C	0xee1000	HandleQuestListFailPacket			20	0	16:?:INT16/2
+89	G_QuestCompleteListReqCmd	C2S			0x59f810		16	0	
+90	G_QuestCompleteListOkCmd	S2C	0xef00f0	HandleQuestCompleteListOkPacket			44	0	16:questCompleteList:PROP_SYNC/0
+91	G_QuestCompleteListFailCmd	S2C	0xef00b0	HandleQuestCompleteListFailPacket			20	0	16:?:INT16/2
+92	G_AcquireFactionScoreByCompleteQuestMissionNotifyCmd	S2C	0xef0070	HandleAcquireFactionScoreByCompleteQuestMissionNotifyPacket			32	0	16:pcId:INT64/8; 24:faction_score:INT32/4
+99	G_ActivatedTeleportListReqCmd	C2S			0x59fd60 0x8b5450		16	0	
+100	G_ActivatedTeleportListOkCmd	S2C	0xeefa30	HandleActivatedTeleportListOkPacket			24	0	16:activatedTeleportData:VBIN/0
+101	G_ActivatedTeleportListFailCmd	S2C	0xeef9f0	HandleActivatedTeleportListFailPacket			20	0	16:?:INT16/2
+102	G_DetectTeleportSwitchReqCmd	C2S			0x8b53f0	Teleport::RequestDetectTeleportSwitch	20	0	16:teleportSwitchId:INT16/2
+103	G_DetectTeleportSwitchOkCmd	S2C	0xeef9b0	HandleDetectTeleportSwitchOkPacket			20	0	16:activatedTeleportId:INT16/2; 18:value:INT8/1
+104	G_DetectTeleportSwitchFailCmd	S2C	0xeef970	HandleDetectTeleportSwitchFailPacket			20	0	16:?:INT16/2
+145	G_ReturnToBaseCampReqCmd	C2S			0x5a0b80		16	0	
+146	G_ReturnToBaseCampFailCmd	S2C	0xeeeea0	HandleReturnToBaseCampFailPacket			20	0	16:?:INT16/2
+165	G_StopCinematicReqCmd	C2S			0x80f8e0	UiStateCinema::ReqStopPartyTeamCinema	20	0	16:cinematic:INT32/4
+166	G_StopCinematicNotifyCmd	S2C	0xeeeb20	HandleStopCinematicNotifyPacket			20	0	16:cinematic:INT32/4
+167	G_StopCinematicFailCmd	S2C	0xeeeae0	HandleStopCinematicFailPacket			20	0	16:failReason:INT16/2
+192	G_PartyDungeonStepCmd	S2C	0xeee660	HandlePartyDungeonStepPacket			20	0	16:dungeonId:INT16/2; 18:dungeonStep:INT8/1; 19:reason:INT8/1
+296	G_EnterPortalReqCmd	C2S			0xcc5510	MoveListMaker::ReqEnterPortal	16	0	
+297	G_EnterPortalFailCmd	S2C	0xeed560	HandleEnterPortalFailPacket			20	0	16:?:INT16/2
+298	G_TurnBackFromPortalReqCmd	C2S			0xc99ad0 0xc99c20	MoveListMaker::ReqTurnBackFromPortalAndDisposeQuest	24	0	16:x:SU/2; 18:y:SU/2; 20:z:SU/2; 22:yaw:INT16/2
+299	G_TurnBackFromPortalFailCmd	S2C	0xeed520	HandleTurnBackFromPortalFailPacket			20	0	16:?:INT16/2
+300	G_ChannelListReqCmd	C2S			0xb7d610	BPlayer::RequestZoneChannelList	16	0	
+301	G_ChannelListOkCmd	S2C	0xeed4e0	HandleChannelListOkPacket			28	0	16:max:INT16/2; 20:list:VBIN/0
+302	G_ChannelListFailCmd	S2C	0xeed4a0	HandleChannelListFailPacket			20	0	16:?:INT16/2
+303	G_ChangeChannelReqCmd	C2S			0xb7d4b0	BPlayer::RequestMoveZoneChannel	20	0	16:channel:INT16/2
+304	G_ChangeChannelFailCmd	S2C	0xeed460	HandleChangeChannelFailPacket			20	0	16:?:INT16/2
+310	G_ConvoyNotifyFailCmd	S2C	0xeed420	HandleConvoyNotifyFailPacket			20	0	16:?:INT16/2
+424	G_RegisterPartyMatchReqCmd	C2S			0xc0ffc0	PartyMatch::requestRegisterPartyMatch	20	0	16:goal:INT32/4
+425	G_RegisterPartyMatchOkCmd	S2C	0xef62d0	HandleRegisterPartyMatchOkPacket			16	0	
+426	G_RegisterPartyMatchFailCmd	S2C	0xef6290	HandleRegisterPartyMatchFailPacket			20	0	16:?:INT16/2
+427	G_MatchPartyCmd	S2C	0xef6250	HandleMatchPartyPacket			32	0	16:targetId:INT64/8; 24:goal:INT32/4; 28:master:INT8/1
+428	G_MatchPartyFailCmd	S2C	0xef6210	HandleMatchPartyFailPacket			24	0	16:reason:INT16/2; 20:goal:INT32/4
+429	G_RejectPartyMatchReqCmd	C2S			0xc0ff50	PartyMatch::requestMatchFailNotify	32	0	16:targetId:INT64/8; 24:goal:INT32/4
+430	G_RejectPartyMatchCmd	S2C	0xef61d0	HandleRejectPartyMatchPacket			32	0	16:from:INT64/8; 24:goal:INT32/4
+818	G_TencentAASNotifyCmd	S2C	0xef22f0	HandleTencentAASNotifyPacket			24	0	16:notifyType:INT8/1; 20:gameTime:INT32/4
+912	G_RaidDungeonUnbindListNotifyCmd	S2C	0xef1f30	HandleRaidDungeonUnbindListNotifyPacket			32	0	16:reason:INT8/1; 20:raid_dungeon_unbind_property:REPEAT/2; 8:data:PROP_SYNC/0(d1)
+913	G_RetrieveBoundRaidDungeonInfoReqCmd	C2S			0x9d9650	RaidDungeon::RequestBoundRaidDungeonInfo	24	0	16:dungeonId:INT64/8
+914	G_RetrieveBoundRaidDungeonInfoOkCmd	S2C	0xef1ef0	HandleRetrieveBoundRaidDungeonInfoOkPacket			28	0	16:dungeon_info:REPEAT/2; 8:dungeon_id:INT64/8(d1); 16:dungeon_data_id:INT32/4(d1); 20:dungeon_step:INT8/1(d1); 24:expire_time:INT64/8(d1); 32:leaderName:STRING/0(d1); 40:bound_pc_count:INT32/4(d1); 44:max_pc_count:INT32/4(d1)
+915	G_RetrieveBoundRaidDungeonInfoFailCmd	S2C	0xef1eb0	HandleRetrieveBoundRaidDungeonInfoFailPacket			20	0	16:?:INT16/2
+916	G_UnbindRaidDungeonReqCmd	C2S			0x520ca0		40	0	16:raidDungeon:INT64/8; 24:items:REPEAT/2; 8:pos:INT16/2(d1); 10:count:INT16/2(d1)
+917	G_UnbindRaidDungeonOkCmd	S2C	0xef1e70	HandleUnbindRaidDungeonOkPacket			16	0	
+918	G_UnbindRaidDungeonFailCmd	S2C	0xef1e30	HandleUnbindRaidDungeonFailPacket			20	0	16:?:INT16/2
+919	G_OccupyingRaidDungeonChangeNotifyCmd	S2C	0xef1df0	HandleOccupyingRaidDungeonChangeNotifyPacket			56	0	16:dungeon_id:INT64/8; 24:dungeon_data_id:INT32/4; 28:dungeon_step:INT8/1; 32:expire_time:INT64/8; 40:leaderName:STRING/0; 48:bound_pc_count:INT32/4; 52:max_pc_count:INT32/4
+920	G_UnoccupyingRaidDungeonNotifyCmd	S2C	0xef1db0	HandleUnoccupyingRaidDungeonNotifyPacket			24	0	16:dungeon_id:INT64/8
+921	G_RaidDungeonOnlinePlayerInfoReqCmd	C2S			0x9d9290		24	0	16:dungeon_id:INT64/8
+922	G_RaidDungeonOnlinePlayerInfoOkCmd	S2C	0xef1d70	HandleRaidDungeonOnlinePlayerInfoOkPacket			28	0	16:pc_info:REPEAT/2; 8:pc_id:INT64/8(d1); 16:pc_name:STRING/0(d1); 24:job:INT8/1(d1); 25:level:INT8/1(d1); 26:masteryLevel:INT8/1(d1)
+923	G_RaidDungeonOnlinePlayerInfoFailCmd	S2C	0xef1d30	HandleRaidDungeonOnlinePlayerInfoFailPacket			20	0	16:?:INT16/2
+924	G_RaidDungeonExpirationReqCmd	C2S			0x9d9230		16	0	
+925	G_RaidDungeonExpirationOkCmd	S2C	0xef1cf0	HandleRaidDungeonExpirationOkPacket			16	0	
+926	G_RaidDungeonExpirationFailCmd	S2C	0xef1cb0	HandleRaidDungeonExpirationFailPacket			20	0	16:?:INT16/2
+927	G_RaidDungeonExceedMaxLeaveCountNotifyCmd	S2C	0xef1c70	HandleRaidDungeonExceedMaxLeaveCountNotifyPacket			16	0	
+959	G_PublishRecruitArenaDungeonMemberReqCmd	C2S			0xc146d0		24	0	16:arenaPortalKey:INT64/8
+960	G_PublishRecruitArenaDungeonMemberOkCmd	S2C	0xeea000	HandlePublishRecruitArenaDungeonMemberOkPacket			16	0	
+961	G_PublishRecruitArenaDungeonMemberNotifyCmd	S2C	0xee9dc0	HandlePublishRecruitArenaDungeonMemberNotifyPacket			20	0	16:requestMemberCount:INT8/1
+962	G_PublishRecruitArenaDungeonMemberFailCmd	S2C	0xeea040	HandlePublishRecruitArenaDungeonMemberFailPacket			20	0	16:?:INT16/2
+963	G_CancelRecruitArenaDungeonMemberReqCmd	C2S			0xc14650		24	0	16:arenaPortalKey:INT64/8
+964	G_CancelRecruitArenaDungeonMemberOkCmd	S2C	0xee9d80	HandleCancelRecruitArenaDungeonMemberOkPacket			16	0	
+965	G_CancelRecruitArenaDungeonMemberNotifyCmd	S2C	0xee9f80	HandleCancelRecruitArenaDungeonMemberNotifyPacket			20	0	16:cancel_reason:INT8/1
+966	G_CancelRecruitArenaDungeonMemberFailCmd	S2C	0xee9fc0	HandleCancelRecruitArenaDungeonMemberFailPacket			20	0	16:?:INT16/2
+967	G_PrepareJoinArenaDungeonMemberNotifyCmd	S2C	0xee9f40	HandlePrepareJoinArenaDungeonMemberNotifyPacket			24	0	16:addMemberCount:INT32/4; 20:remainMemberCount:INT8/1
+981	G_EnterZoneDirectReqCmd	C2S			0x46a500 0x46a520 0x5822e0 0x584770		48	0	16:entranceType:INT8/1; 24:entranceDataKey:INT64/8; 32:entranceOption:INT8/1; 36:consumeItems:REPEAT/2; 8:pos:INT16/2(d1); 10:count:INT16/2(d1)
+982	G_EnterZoneDirectOkCmd	S2C	0xee8800	HandleEnterZoneDirectOkPacket			16	0	
+983	G_EnterZoneDirectFailCmd	S2C	0xee87c0	HandleEnterZoneDirectFailPacket			20	0	16:failReason:INT16/2
+984	G_LeaveZoneDirectReqCmd	C2S			0x93f6a0 0x105a0a0 0x105ac20 0x11d2a30	SkillTrainingRoom::RequestLeaveTrainingRoom	16	0	
+1016	G_ClearQuestPackNotifyCmd	S2C	0xee93c0	HandleClearQuestPackNotifyPacket			20	0	16:quest_category:INT8/1; 17:reason:INT8/1
+1017	G_RefreshSimpleQuestPackReqCmd	C2S			0x8ac5b0		16	0	
+1018	G_RefreshSimpleQuestPackOkCmd	S2C	0xee9380	HandleRefreshSimpleQuestPackOkPacket			24	0	16:consume_money:INT64/8
+1019	G_RefreshSimpleQuestPackFailCmd	S2C	0xee9340	HandleRefreshSimpleQuestPackFailPacket			20	0	16:?:INT16/2
+1130	G_ChallengeListsReqCmd	C2S			0x11d2f20	ChallengeListManager::RequestChallengeLists	16	0	
+1131	G_ChallengeListsOkCmd	S2C	0xee7500	HandleChallengeListsOkPacket			28	0	16:challengeLists:REPEAT/2; 8:challengeListPropList:STRUCT/0(d1); 4:challengeType:INT8/1(d2); 8:challengeListProp:PROP_SYNC/0(d2)
+1132	G_ChallengeListsFailCmd	S2C	0xee74c0	HandleChallengeListsFailPacket			20	0	16:?:INT16/2
+1133	G_ChallengeListChangeNotifyCmd	S2C	0xee7480	HandleChallengeListChangeNotifyPacket			64	0	16:challengeList:STRUCT/0; 4:challengeType:INT8/1(d1); 8:challengeListProp:PROP_SYNC/0(d1)
+1203	G_NpcKilledNotifyCmd	S2C	0xef19b0	HandleNpcKilledNotifyPacket			32	0	16:killer_pc:INT64/8; 24:npc_data_id:INT64/8
+1205	G_R_SkipQuestTeleportReqCmd	C2S					20	0	16:level:INT8/1; 17:masteryLevel:INT8/1
+1206	G_R_SkipQuestTeleportOkCmd	S2C	0xee6610	HandleR_SkipQuestTeleportOkPacket			16	0	
+1207	G_R_SkipQuestTeleportFailCmd	S2C	0xee65e0	HandleR_SkipQuestTeleportFailPacket			20	0	16:?:INT16/2
+1223	G_UseTeleportReqCmd	C2S			0x8b52f0	Teleport::RequestTeleport	20	3	16:startTeleportId:INT16/2; 18:destTeleportId:INT16/2
+1224	G_UseTeleportOkCmd	S2C	0xeef630	HandleUseTeleportOkPacket			24	3	16:startTeleportId:INT16/2; 18:destTeleportId:INT16/2; 20:remainDuration:INT16/2
+1225	G_UseTeleportFailCmd	S2C	0xeef5f0	HandleUseTeleportFailPacket			32	3	16:failReason:INT16/2; 24:availableTime:INT64/8
+1260	G_EnvEnteredNotifyCmd	S2C	0xeeefc0	HandleEnvEnteredNotifyPacket			24	3	16:envId:INT64/8
+1264	G_NpcManipulateReqCmd	C2S			0x44a1d0 0x44a1f0 0x44a290 0x596970		40	3	16:targetNpcId:INT64/8; 24:groceryBagPos:INT16/2; 28:requiredItems:REPEAT/2; 8:depot:INT8/1(d1); 10:pos:INT16/2(d1); 12:count:INT16/2(d1)
+1265	G_NpcManipulateFailCmd	S2C	0xeeeef0	HandleNpcManipulateFailPacket			20	3	16:?:INT16/2
+1315	G_TakeMoneyByNpcDeadBodyNotifyCmd	S2C	0xef0630	HandleTakeMoneyByNpcDeadBodyNotifyPacket			32	6	16:pouchId:INT64/8; 24:money:INT32/4
+1352	G_TradeWithNpcReqCmd	C2S			0x4cfa70 0x4cfa90 0x4cfb30 0x598ad0		40	9	16:seller:INT64/8; 24:index:INT8/1; 26:count:INT16/2; 28:consumeItems:REPEAT/2; 8:pos:INT16/2(d1); 10:count:INT16/2(d1)
+1353	G_TradeWithNpcFailCmd	S2C	0xef0e90	HandleTradeWithNpcFailPacket			20	9	16:?:INT16/2
+1420	G_ChangeToReplayQuestReqCmd	C2S			0xa5bda0	BQuestJournal::RequestEpicQuestReplay	20	9	16:pos:INT16/2
+1421	G_ChangeToReplayQuestOkCmd	S2C	0xef2470	HandleChangeToReplayQuestOkPacket			16	9	
+1422	G_ChangeToReplayQuestFailCmd	S2C	0xef2430	HandleChangeToReplayQuestFailPacket			20	9	16:?:INT16/2
+1423	G_ChallengeListTakeRewardReqCmd	C2S			0xa5bad0	BQuestJournal::RequestChallengeListTalkReward	20	9	16:challengeSubType:INT8/1
+1424	G_ChallengeListTakeRewardOkCmd	S2C	0xef23f0	HandleChallengeListTakeRewardOkPacket			20	9	16:challengeSubType:INT8/1
+1425	G_ChallengeListTakeRewardFailCmd	S2C	0xef23b0	HandleChallengeListTakeRewardFailPacket			20	9	16:?:INT16/2
+1448	G_AcquireQuestReqCmd	C2S			0x5116b0 0x5116e0 0xa5c8a0		64	10	16:questId:INT16/2; 18:caseIndex:INT8/1; 19:optionalRewardIndex:INT8/1; 24:acquireFrom:INT64/8; 32:groceryBagPos:INT16/2; 36:brandItems:REPEAT/2; 8:depot:INT8/1(d1); 10:pos:INT16/2(d1); 48:requiredItems:REPEAT/2; 8:depot:INT8/1(d1); 10:pos:INT16/2(d1); 12:count:INT16/2(d1)
+1449	G_AcquireQuestFailCmd	S2C	0xeeffb0	HandleAcquireQuestFailPacket			20	10	16:?:INT16/2
+1450	G_ProgressMissionReqCmd	C2S			0x511790 0x5117d0		96	10	16:questId:INT16/2; 18:missionId:INT8/1; 19:caseIndex:INT8/1; 20:optionalRewardIndex:INT8/1; 24:progressFrom:INT64/8; 32:groceryBagPos:INT16/2; 36:brandItems:REPEAT/2; 8:depot:INT8/1(d1); 10:pos:INT16/2(d1); 48:equipGemItems:REPEAT/2; 8:depot:INT8/1(d1); 10:pos:INT16/2(d1); 60:requiredItems:REPEAT/2; 8:depot:INT8/1(d1); 10:pos:INT16/2(d1); 12:count:INT16/2(d1); 72:dungeonAdditionalRewardIndex:INT8/1; 80:dungeonAdditionalRewardItemDataKey:INT64/8; 88:dungeonAdditionalRewardCostGroupKey:INT64/8
+1451	G_ProgressMissionFailCmd	S2C	0xeefeb0	HandleProgressMissionFailPacket			20	10	16:?:INT16/2
+1452	G_ProgressMissionAllReqCmd	C2S			0x4cfb70 0x4cfb90 0x59b070 0xa5c720		28	10	16:progressMissionList:REPEAT/2; 8:questId:INT16/2(d1); 10:missionId:INT8/1(d1); 11:caseIndex:INT8/1(d1); 12:optionalRewardIndex:INT8/1(d1); 16:progressFrom:INT64/8(d1)
+1453	G_ProgressMissionAllFailCmd	S2C	0xeefe70	HandleProgressMissionAllFailPacket			24	10	16:failReason:INT16/2; 18:questId:INT16/2; 20:missionId:INT8/1; 21:caseIndex:INT8/1
+1454	G_ProgressMissionByAcquireSummonedReqCmd	C2S			0xa68350	BQuestJournal::RequestProgressMissionByAcquireSummoned	40	10	16:questId:INT16/2; 18:missionId:INT8/1; 19:caseIndex:INT8/1; 24:npcId:INT64/8; 32:summonedName:STRING/0
+1455	G_ProgressMissionByAcquireSummonedFailCmd	S2C	0xeefe30	HandleProgressMissionByAcquireSummonedFailPacket			20	10	16:?:INT16/2
+1456	G_DungeonProgressToStepReqCmd	C2S			0x511900 0x511920		48	10	16:dungeonId:INT16/2; 18:questId:INT16/2; 20:missionStepId:INT8/1; 24:progressFrom:INT64/8; 32:consumeItems:REPEAT/2; 8:pos:INT16/2(d1); 10:count:INT16/2(d1)
+1457	G_DungeonProgressToStepFailCmd	S2C	0xeefdf0	HandleDungeonProgressToStepFailPacket			20	10	16:?:INT16/2
+1458	G_DisposeQuestReqCmd	C2S			0x4cfb70 0x4cfb90 0x59ae90 0xa5c720		28	10	16:questIdList:REPEAT/2; 8:questId:INT16/2(d1)
+1459	G_DisposeQuestFailCmd	S2C	0xeefdb0	HandleDisposeQuestFailPacket			20	10	16:?:INT16/2
+1460	G_AcquireQuestCmd	S2C	0xeefc70	HandleAcquireQuestPacket			24	10	16:questId:INT16/2; 18:missionStepId:INT8/1; 19:questCompletionCount:INT8/1; 20:missionVariationIndex:INT8/1; 21:rewardMultiplicationFactor:INT8/1
+1461	G_ChangeQuestCmd	S2C	0xeefc30	HandleChangeQuestPacket			96	10	16:questId:INT16/2; 18:missionId:INT8/1; 19:caseIndex:INT8/1; 20:newbieState:INT8/1; 24:questProperty:PROP_SYNC/0
+1462	G_UnchangedQuestCmd	S2C	0xeefbf0	HandleUnchangedQuestPacket			20	10	16:questId:INT16/2; 18:missionId:INT8/1; 19:caseIndex:INT8/1
+1463	G_CompleteQuestCmd	S2C	0xeefbb0	HandleCompleteQuestPacket			20	10	16:questId:INT16/2; 18:missionId:INT8/1; 19:caseIndex:INT8/1
+1464	G_DisposeQuestCmd	S2C	0xeefb70	HandleDisposeQuestPacket			20	10	16:questId:INT16/2
+1465	G_MissionStepRollbackReqCmd	C2S			0xa5bb70 0xa5bf60 0xa5c000 0xa5d1f0	BQuestJournal::RequestChallengeListQuest	20	10	16:questId:INT16/2; 18:missionStepId:INT8/1; 19:caseIndex:INT8/1
+1466	G_MissionStepRollbackFailCmd	S2C	0xeefd70	HandleMissionStepRollbackFailPacket			20	10	16:?:INT16/2
+1467	G_MissionStepTimeExpiredReqCmd	C2S			0xa5bb70 0xa5bf60 0xa5c000 0xa5d1f0	BQuestJournal::RequestChallengeListQuest	20	10	16:questId:INT16/2; 18:missionStepId:INT8/1
+1468	G_MissionStepTimeExpiredFailCmd	S2C	0xeefd30	HandleMissionStepTimeExpiredFailPacket			20	10	16:?:INT16/2
+1469	G_ResetQuestCompletionTimeReqCmd	C2S			0x5119c0 0xa5c0b0	G_DungeonProgressToStepReqPacket::~G_DungeonProgressToStepReqPacket	32	10	16:questId:INT16/2; 20:items:REPEAT/2; 8:pos:INT16/2(d1); 10:count:INT16/2(d1)
+1470	G_ResetQuestCompletionTimeOkCmd	S2C	0xeefcf0	HandleResetQuestCompletionTimeOkPacket			20	10	16:questId:INT16/2
+1471	G_ResetQuestCompletionTimeFailCmd	S2C	0xeefcb0	HandleResetQuestCompletionTimeFailPacket			20	10	16:?:INT16/2
+1472	G_AcquireRenewalQuestReqCmd	C2S			0xa5bb70 0xa5bf60 0xa5c000 0xa5d1f0	BQuestJournal::RequestChallengeListQuest	16	10	
+1473	G_AcquireRenewalQuestOkCmd	S2C	0xeef3b0	HandleAcquireRenewalQuestOkPacket			16	10	
+1474	G_AcquireRenewalQuestFailCmd	S2C	0xeef370	HandleAcquireRenewalQuestFailPacket			20	10	16:?:INT16/2
+1475	G_ChallengeListAcquireQuestReqCmd	C2S			0xa5bb70 0xa5bf60 0xa5c000 0xa5d1f0	BQuestJournal::RequestChallengeListQuest	20	10	16:challengeSubType:INT8/1; 18:questId:INT16/2
+1476	G_ChallengeListAcquireQuestOkCmd	S2C	0xeef430	HandleChallengeListAcquireQuestOkPacket			16	10	
+1477	G_ChallengeListAcquireQuestFailCmd	S2C	0xeef3f0	HandleChallengeListAcquireQuestFailPacket			20	10	16:?:INT16/2
+1478	G_ProgressSkipMissionStepReqCmd	C2S			0xa5bb70 0xa5bf60 0xa5c000 0xa5d1f0	BQuestJournal::RequestChallengeListQuest	20	10	16:questId:INT16/2; 18:reason:INT8/1
+1479	G_ProgressSkipMissionStepOkCmd	S2C	0xef0030	HandleProgressSkipMissionStepOkPacket			20	10	16:questId:INT16/2; 18:reason:INT8/1
+1480	G_ProgressSkipMissionStepFailCmd	S2C	0xeefff0	HandleProgressSkipMissionStepFailPacket			24	10	16:failReason:INT16/2; 18:questId:INT16/2; 20:reason:INT8/1

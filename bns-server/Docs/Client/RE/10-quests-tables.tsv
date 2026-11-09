@@ -1,0 +1,2361 @@
+type_id	table	element	subtype_index	subtype	field	type	offset64	size64	repeat	key	required	ref_table
+6	arenamatchingrule	record			game-mode	SEQ	8	1	1	1	1	
+6	arenamatchingrule	record			level	INT16	10	2	1	1	1	
+6	arenamatchingrule	record			rating-revise	INT32	16	4	1	0	1	
+7	arenaportal	record			alias	STR	16	8	1	0	1	
+7	arenaportal	record			faction	REF	24	8	1	0	0	faction
+7	arenaportal	record			required-quest-check	SEQ	32	1	1	0	0	
+7	arenaportal	record			required-quest	REF	40	8	6	0	0	quest
+7	arenaportal	record			required-min-level	INT8	88	1	1	0	1	
+7	arenaportal	record			required-min-faction-level	INT16	90	2	1	0	1	
+7	arenaportal	record	0	duel	death-match-1vs1	REF	96	8	4	0	0	duel
+7	arenaportal	record	0	duel	death-match-unrated	REF	128	8	4	0	0	duel
+7	arenaportal	record	0	duel	tag-match-3vs3	REF	160	8	4	0	0	duel
+7	arenaportal	record	0	duel	tag-match-unrated	REF	192	8	4	0	0	duel
+7	arenaportal	record	2	public-raid	public-raid-mode	SEQ	96	1	1	0	1	
+8	attraction-group	record			alias	STR	16	8	1	0	1	
+9	attraction-reward	record			reward-contents-type	SEQ	8	1	1	1	1	
+9	attraction-reward	record			id	INT16	10	2	1	1	1	
+9	attraction-reward	record			reward-item	REF	16	8	3	0	0	item
+9	attraction-reward	record			reward-item-count	INT8	40	1	3	0	0	
+9	attraction-reward	record			reward-exp	INT32	44	4	1	0	0	
+26	boss-challenge	record			zone	REF	16	8	1	0	1	zone
+26	boss-challenge	record			id	INT32	8	4	1	1	1	
+26	boss-challenge	record			require-score	INT16	24	2	1	0	1	
+26	boss-challenge	record			last-round	INT16	26	2	1	0	0	
+26	boss-challenge	record			alias	STR	32	8	1	0	1	
+26	boss-challenge	record			group	REF	40	8	1	0	0	attraction-group
+26	boss-challenge	record			attraction-quest	REF	48	8	5	0	0	quest
+26	boss-challenge	record			enable-heart-count	BOOL	88	1	1	0	0	
+26	boss-challenge	record			max-instant-heart-count	INT8	89	1	1	0	0	
+26	boss-challenge	record			effect-npc-group1	REF	96	8	3	0	0	zonenpcspawn
+26	boss-challenge	record			effect-npc-group2	REF	120	8	3	0	0	zonenpcspawn
+26	boss-challenge	record			effect-npc-group3	REF	144	8	3	0	0	zonenpcspawn
+26	boss-challenge	record			required-level	INT8	168	1	1	0	0	
+26	boss-challenge	record			required-mastery-level	INT8	169	1	1	0	0	
+26	boss-challenge	record			required-preceding-quest	REF	176	8	3	0	0	quest
+26	boss-challenge	record			required-preceding-quest-check	SEQ	200	1	1	0	0	
+26	boss-challenge	record			enable-infinite-hyper-energy	BOOL	201	1	1	0	0	
+27	boss-challenge-round	record			id	INT32	8	4	1	1	1	
+27	boss-challenge-round	record			round	INT16	12	2	1	1	1	
+27	boss-challenge-round	record			alias	STR	16	8	1	0	1	
+27	boss-challenge-round	record			spawn-effect	REF	24	8	2	0	0	effect
+27	boss-challenge-round	record			round-npc-reset	REF	40	8	1	0	0	npc-reset-stage
+27	boss-challenge-round	record			boss-npc	REF	48	8	1	0	1	zonenpcspawn
+27	boss-challenge-round	record			boss-spawn-delay	MSEC	56	4	1	0	0	
+27	boss-challenge-round	record			effect-by-npc-killed-group1	REF	64	8	3	0	0	effect
+27	boss-challenge-round	record			prob-weight-by-npc-killed-group1	INT16	88	2	3	0	0	
+27	boss-challenge-round	record			effect-by-npc-killed-group2	REF	96	8	3	0	0	effect
+27	boss-challenge-round	record			prob-weight-by-npc-killed-group2	INT16	120	2	3	0	0	
+27	boss-challenge-round	record			effect-by-npc-killed-group3	REF	128	8	3	0	0	effect
+27	boss-challenge-round	record			prob-weight-by-npc-killed-group3	INT16	152	2	3	0	0	
+27	boss-challenge-round	record			total-prob-weight-group	INT16	158	2	3	0	0	
+29	bossnpc	record			alias	STR	16	8	1	0	1	
+29	bossnpc	record			use-bleeding	BOOL	24	1	1	0	0	
+29	bossnpc	record			use-hp-zone-broadcast	BOOL	25	1	1	0	0	
+29	bossnpc	record			disable-contribution-reward-range-check	BOOL	26	1	1	0	0	
+29	bossnpc	record			rising-attack-invoke-time	MSEC	28	4	1	0	0	
+29	bossnpc	record			rising-attack-skill3	REF	32	8	1	0	0	skill3
+29	bossnpc	record			berserk-sequence-invoke-time	MSEC	40	4	1	0	0	
+29	bossnpc	record			berserk-sequence	REF	48	8	1	0	0	combat-sequence
+29	bossnpc	record			reset-hate-all-some-cases	BOOL	56	1	1	0	0	
+29	bossnpc	record			skill-spawn-group	REF	64	8	8	0	0	zonenpcsquad
+29	bossnpc	record			skill-spawn-attack-target	SEQ	128	1	1	0	0	
+29	bossnpc	record			boss-brain-type	SEQ	129	1	1	0	0	
+29	bossnpc	record			raid-dungeon-step	INT8	130	1	1	0	0	
+29	bossnpc	record			difficulty-type-modify	REF	136	8	1	0	0	difficulty-type-modify
+29	bossnpc	record			wakeup-attack-invoke-time	MSEC	144	4	1	0	0	
+29	bossnpc	record			wakeup-attack-skill3	REF	152	8	1	0	0	skill3
+29	bossnpc	record			use-second-gauge	BOOL	160	1	1	0	0	
+29	bossnpc	record			default-gp	INT16	162	2	1	0	0	
+29	bossnpc	record			gp-section	INT16	164	2	11	0	0	
+29	bossnpc	record			gp-section-cnt	INT8	186	1	1	0	0	
+34	cave2	record			alias	STR	16	8	1	0	1	
+34	cave2	record			group	REF	24	8	1	0	0	attraction-group
+34	cave2	record			zone	REF	32	8	16	0	0	zone
+34	cave2	record			enable-heart-count	BOOL	160	1	1	0	0	
+34	cave2	record			max-instant-heart-count	INT8	161	1	1	0	0	
+34	cave2	record			enable-skill-score	BOOL	162	1	1	0	0	
+34	cave2	record			skill-score-recommend-gear-score	INT32	164	4	1	0	0	
+34	cave2	record			skill-score-recommend-clear-time-step	MSEC	168	4	5	0	0	
+34	cave2	record			skill-score-recommend-clear-time-bonus	INT16	188	2	5	0	0	
+34	cave2	record			skill-score-recommand-party-member-count-bonus	INT16	198	2	1	0	0	
+34	cave2	record			skill-score-recommend-hp-step	INT32	200	4	5	0	0	
+34	cave2	record			skill-score-recommend-hp-bonus	INT16	220	2	5	0	0	
+34	cave2	record			skill-score-recommend-use-heart-count	INT16	230	2	1	0	0	
+34	cave2	record			skill-score-recommend-use-heart-count-bonus	INT16	232	2	1	0	0	
+34	cave2	record			skill-score-recommend-use-item-point	INT32	236	4	1	0	0	
+34	cave2	record			skill-score-recommend-use-item-bonus	INT16	240	2	1	0	0	
+34	cave2	record			skill-score-boss-npc	REF	248	8	1	0	0	npc
+34	cave2	record			skill-score-boss-npc-bonus	INT16	256	2	1	0	0	
+34	cave2	record			attraction-quest	REF	264	8	5	0	0	quest
+34	cave2	record			arena-entrance-zone	REF	304	8	1	0	0	zone
+34	cave2	record			arena-disable-zone-phase	BOOL	312	1	1	0	0	
+34	cave2	record			required-level	INT8	313	1	1	0	0	
+34	cave2	record			required-mastery-level	INT8	314	1	1	0	0	
+34	cave2	record			quest-for-ignoring-required-level	REF	320	8	1	0	0	quest
+35	cave	record			id	INT16	8	2	1	1	1	
+35	cave	record			alias	STR	16	8	1	0	1	
+35	cave	record			zone	REF	24	8	40	0	0	zone
+36	challengelist	record			challenge-type	SEQ	8	1	1	1	1	
+36	challengelist	record			required-level	INT8	16	1	1	0	0	
+36	challengelist	record			required-mastery-level	INT8	17	1	1	0	0	
+36	challengelist	record			challenge-quest-basic	REF	24	8	20	0	0	quest
+36	challengelist	record			challenge-quest-expansion	REF	184	8	20	0	0	quest
+36	challengelist	record			challenge-quest-complete-count	INT8	344	1	1	0	0	
+36	challengelist	record			challenge-quest-total-count	INT8	345	1	1	0	0	
+36	challengelist	record			challenge-npc-difficulty	SEQ	346	1	20	0	0	
+36	challengelist	record			challenge-npc-kill	REF	368	8	20	0	0	npc
+36	challengelist	record			challenge-npc-kill-total-count	INT8	528	1	1	0	0	
+36	challengelist	record			challenge-count-for-reward	INT8	529	1	20	0	0	
+36	challengelist	record			reward	REF	552	8	20	0	0	challengelistreward
+36	challengelist	record	1	week	week-start-date-time	TIME64	712	8	1	0	0	
+37	challengelistreward	record			alias	STR	16	8	1	0	1	
+37	challengelistreward	record			reward-item	REF	24	8	6	0	0	item
+37	challengelistreward	record			reward-item-count	INT16	72	2	6	0	0	
+37	challengelistreward	record			reward-money	INT32	84	4	1	0	0	
+37	challengelistreward	record			reward-account-exp	INT32	88	4	1	0	0	
+38	challenge-party	record			alias	STR	16	8	1	0	1	
+38	challenge-party	record			zone	REF	24	8	1	0	1	zone
+38	challenge-party	record			resurrection-effect	REF	32	8	3	0	0	effect
+38	challenge-party	record			remain-effect-type	SUB	56	2	50	0	0	effect
+38	challenge-party	record			enter-pc-spawn	REF	160	8	1	0	0	zonepcspawn
+38	challenge-party	record			required-item	REF	168	8	2	0	0	item
+38	challenge-party	record			required-item-count	INT16	184	2	2	0	0	
+38	challenge-party	record			use-training-mode	BOOL	188	1	1	0	0	
+38	challenge-party	record			group	REF	192	8	1	0	0	attraction-group
+38	challenge-party	record			boss-npc	REF	200	8	1	0	1	npc
+38	challenge-party	record			play-time	MSEC	208	4	1	0	0	
+38	challenge-party	record			base-play-time	MSEC	212	4	1	0	0	
+38	challenge-party	record			score-per-play-time	INT32	216	4	1	0	0	
+38	challenge-party	record			base-damage	INT32	220	4	1	0	0	
+38	challenge-party	record			score-per-damage	INT32	224	4	1	0	0	
+38	challenge-party	record			max-score-damage	INT32	228	4	1	0	0	
+38	challenge-party	record			pattern-time	MSEC	232	4	8	0	0	
+38	challenge-party	record			base-pattern-time	MSEC	264	4	8	0	0	
+38	challenge-party	record			score-per-pattern-time	INT32	296	4	8	0	0	
+38	challenge-party	record			score-pattern-section-1	INT32	328	4	8	0	0	
+38	challenge-party	record			score-pattern-section-2	INT32	360	4	8	0	0	
+38	challenge-party	record			score-pattern-section-3	INT32	392	4	8	0	0	
+38	challenge-party	record			score-per-evaluate	INT32	424	4	1	0	0	
+38	challenge-party	record			kill-score	INT32	428	4	1	0	0	
+38	challenge-party	record			challenge-mode-env	REF	432	8	1	0	1	zoneenv2spawn
+38	challenge-party	record			training-mode-env	REF	440	8	1	0	1	zoneenv2spawn
+39	cinematic	record			alias	STR	16	8	1	0	1	
+39	cinematic	record			duration	MSEC	0	0	1	0	0	
+39	cinematic	record			skippable	SEQ	24	1	1	0	0	
+40	classic-field-zone	record			id	INT16	8	2	1	1	1	
+40	classic-field-zone	record			alias	STR	16	8	1	0	1	
+40	classic-field-zone	record			zone	REF	24	8	2	0	0	zone
+40	classic-field-zone	record			group	REF	40	8	1	0	0	attraction-group
+40	classic-field-zone	record			attraction-quest	REF	48	8	5	0	0	quest
+47	contents-reset	record			reset-target	TREF	16	16	1	0	1	
+47	contents-reset	record			reset-money	INT32	32	4	1	0	0	
+47	contents-reset	record			reset-item	REF	40	8	4	0	0	item
+47	contents-reset	record			reset-item-count	INT8	72	1	4	0	0	
+47	contents-reset	record			max-unbind-count	INT8	76	1	1	0	0	
+62	district	record			alias	STR	16	8	1	0	1	
+62	district	record			talk-to-self-quests	REF	24	8	64	0	0	quest
+64	duel-bot-challenge	record			id	INT32	8	4	1	1	1	
+64	duel-bot-challenge	record			zone	REF	16	8	1	0	1	zone
+64	duel-bot-challenge	record			alias	STR	24	8	1	0	1	
+64	duel-bot-challenge	record			group	REF	32	8	1	0	0	attraction-group
+64	duel-bot-challenge	record			required-level	INT8	40	1	1	0	0	
+64	duel-bot-challenge	record			required-mastery-level	INT8	41	1	1	0	0	
+64	duel-bot-challenge	record			required-preceding-quest	REF	48	8	3	0	0	quest
+64	duel-bot-challenge	record			required-preceding-quest-check	SEQ	72	1	1	0	0	
+64	duel-bot-challenge	record			duel-bot-spawn-delay	MSEC	76	4	1	0	0	
+64	duel-bot-challenge	record			ready-duration	MSEC	80	4	1	0	0	
+64	duel-bot-challenge	record			floor-timeout-duration-second	INT16	84	2	1	0	0	
+64	duel-bot-challenge	record			finish-time-section	INT16	86	2	10	0	0	
+64	duel-bot-challenge	record			finish-time-section-floor-setup	INT16	106	2	10	0	0	
+64	duel-bot-challenge	record			max-floor	INT16	126	2	1	0	0	
+64	duel-bot-challenge	record			duel-bot-tier-group	REF	128	8	40	0	0	duel-bot-group
+64	duel-bot-challenge	record			duel-bot-tier-effect-1	REF	448	8	2	0	0	effect
+64	duel-bot-challenge	record			duel-bot-tier-effect-2	REF	464	8	2	0	0	effect
+64	duel-bot-challenge	record			duel-bot-tier-effect-3	REF	480	8	2	0	0	effect
+64	duel-bot-challenge	record			duel-bot-tier-effect-4	REF	496	8	2	0	0	effect
+64	duel-bot-challenge	record			duel-bot-tier-effect-5	REF	512	8	2	0	0	effect
+64	duel-bot-challenge	record			duel-bot-spawn-pos	VECTOR16	528	6	1	0	1	
+64	duel-bot-challenge	record			strategic-tool	REF	536	8	20	0	0	duel-bot-challenge-strategic-tool
+64	duel-bot-challenge	record			strategic-tool-total-count	INT8	696	1	1	0	0	
+64	duel-bot-challenge	record			dispel-effect-type	SUB	698	2	80	0	0	effect
+64	duel-bot-challenge	record			resurrection-effect	REF	864	8	2	0	0	effect
+64	duel-bot-challenge	record			leave-pc-spawn	REF	880	8	1	0	0	zonepcspawn
+64	duel-bot-challenge	record	0	time-attack-mode	total-timeout-duration-second	INT16	888	2	1	0	0	
+64	duel-bot-challenge	record	1	round-mode	total-round	INT8	888	1	1	0	0	
+65	duel-bot-challenge-floor	record			alias	STR	16	8	1	0	1	
+65	duel-bot-challenge-floor	record			id	INT32	8	4	1	1	1	
+65	duel-bot-challenge-floor	record			floor	INT16	12	2	1	1	1	
+65	duel-bot-challenge-floor	record			start-floor	INT16	24	2	1	0	0	
+65	duel-bot-challenge-floor	record			reward-item	REF	32	8	4	0	0	item
+65	duel-bot-challenge-floor	record			reward-item-count	INT8	64	1	4	0	0	
+65	duel-bot-challenge-floor	record			reward-item-for-system-failure	REF	72	8	2	0	0	item
+65	duel-bot-challenge-floor	record			reward-item-count-for-system-failure	INT8	88	1	2	0	0	
+65	duel-bot-challenge-floor	record			reward-exp	INT32	92	4	1	0	0	
+66	duel-bot-challenge-strategic-tool	record			alias	STR	16	8	1	0	1	
+66	duel-bot-challenge-strategic-tool	record			pc-effect	REF	24	8	2	0	0	effect
+66	duel-bot-challenge-strategic-tool	record			duel-bot-effect	REF	40	8	2	0	0	effect
+66	duel-bot-challenge-strategic-tool	record			immune-caster-block-skill	BOOL	56	1	1	0	0	
+66	duel-bot-challenge-strategic-tool	record			fail-caster-flag	SEQ16	58	2	4	0	0	
+66	duel-bot-challenge-strategic-tool	record			fail-caster-op	SEQ	66	1	1	0	0	
+66	duel-bot-challenge-strategic-tool	record			fail-caster-effect-attribute	SEQ16	68	2	4	0	0	
+66	duel-bot-challenge-strategic-tool	record			fail-caster-effect-attribute-op	SEQ	76	1	1	0	0	
+77	dungeon	record			id	INT16	8	2	1	1	1	
+77	dungeon	record			alias	STR	16	8	1	0	1	
+77	dungeon	record			dungeon-type	SEQ	24	1	1	0	0	
+77	dungeon	record			group	REF	32	8	1	0	0	attraction-group
+77	dungeon	record			zone-neutral	REF	40	8	2	0	0	zone
+77	dungeon	record			zone	REF	56	8	9	0	0	zone
+77	dungeon	record			zone-mission-step	INT8	128	1	9	0	0	
+77	dungeon	record			arena-entrance-zone	REF	144	8	1	0	0	zone
+77	dungeon	record			required-level	INT8	152	1	1	0	0	
+77	dungeon	record			required-mastery-level	INT8	153	1	1	0	0	
+77	dungeon	record			required-preceding-quest	REF	160	8	3	0	0	quest
+77	dungeon	record			required-preceding-quest-check	SEQ	184	1	1	0	0	
+77	dungeon	record			enable-heart-count	BOOL	185	1	1	0	0	
+77	dungeon	record			max-instant-heart-count-difficulty-type	INT8	186	1	3	0	0	
+77	dungeon	record			apply-contents-ban-id	INT8	189	1	1	0	0	
+77	dungeon	record			npc-for-step	REF	192	8	9	0	0	npc
+77	dungeon	record			pc-spawn-for-step	INT16	264	2	9	0	0	
+77	dungeon	record			money-for-step	INT32	284	4	9	0	0	
+77	dungeon	record			item-for-step	REF	320	8	9	0	0	item
+77	dungeon	record			item-count-for-step	INT16	392	2	9	0	0	
+77	dungeon	record			quest-for-step	REF	416	8	9	0	0	quest
+77	dungeon	record			quest	REF	488	8	1	0	0	quest
+77	dungeon	record			dungeon-quest-difficulty-type	REF	496	8	3	0	0	quest
+77	dungeon	record			effect-pc-difficulty-type	REF	520	8	3	0	0	effect
+77	dungeon	record			effect-npc-difficulty-type	REF	544	8	3	0	0	effect
+77	dungeon	record			enable-skill-score	BOOL	568	1	1	0	0	
+77	dungeon	record			skill-score-recommend-gear-score	INT32	572	4	1	0	0	
+77	dungeon	record			skill-score-recommend-clear-time-step	MSEC	576	4	5	0	0	
+77	dungeon	record			skill-score-recommend-clear-time-bonus	INT16	596	2	5	0	0	
+77	dungeon	record			skill-score-recommand-party-member-count-bonus-difficulty-type	INT16	606	2	3	0	0	
+77	dungeon	record			skill-score-recommend-hp-step	INT32	612	4	5	0	0	
+77	dungeon	record			skill-score-recommend-hp-bonus	INT16	632	2	5	0	0	
+77	dungeon	record			skill-score-recommend-use-heart-count	INT16	642	2	1	0	0	
+77	dungeon	record			skill-score-recommend-use-heart-count-bonus	INT16	644	2	1	0	0	
+77	dungeon	record			skill-score-recommend-use-item-point	INT32	648	4	1	0	0	
+77	dungeon	record			skill-score-recommend-use-item-bonus	INT16	652	2	1	0	0	
+77	dungeon	record			skill-score-boss-npc	REF	656	8	1	0	0	npc
+77	dungeon	record			skill-score-boss-npc-bonus	INT16	664	2	1	0	0	
+77	dungeon	record			attraction-quest	REF	672	8	10	0	0	quest
+77	dungeon	record			faction-battle-field	BOOL	752	1	1	0	0	
+77	dungeon	record			is-single	BOOL	753	1	1	0	0	
+87	faction-battle-field-zone	record			id	INT16	8	2	1	1	1	
+87	faction-battle-field-zone	record			alias	STR	16	8	1	0	1	
+87	faction-battle-field-zone	record			zone	REF	24	8	1	0	1	zone
+87	faction-battle-field-zone	record			group	REF	32	8	1	0	0	attraction-group
+87	faction-battle-field-zone	record			attraction-quest	REF	40	8	10	0	0	quest
+87	faction-battle-field-zone	record			required-level	INT8	120	1	1	0	0	
+87	faction-battle-field-zone	record			required-faction-level	INT8	121	1	1	0	0	
+87	faction-battle-field-zone	record			revival-effect	REF	128	8	1	0	0	effect
+88	faction	record			id	INT8	8	1	1	1	1	
+88	faction	record			alias	STR	16	8	1	0	1	
+88	faction	record			hostile-faction	REF	24	8	1	0	0	faction
+88	faction	record			main-faction	BOOL	0	0	1	0	0	
+88	faction	record			category	SEQ	32	1	1	0	0	
+89	faction-level	record			level	INT8	8	1	1	1	1	
+89	faction-level	record			reputation	INT32	16	4	1	0	1	
+89	faction-level	record			max-faction-score	INT32	20	4	1	0	1	
+93	field-zone	record			id	INT16	8	2	1	1	1	
+93	field-zone	record			alias	STR	16	8	1	0	1	
+93	field-zone	record			zone	REF	24	8	30	0	0	zone
+93	field-zone	record			group	REF	264	8	1	0	0	attraction-group
+93	field-zone	record			attraction-quest	REF	272	8	5	0	0	quest
+93	field-zone	record	1	guild-battle-field-entrance	guild-battle-field-zone	REF	312	8	1	0	1	guild-battle-field-zone
+93	field-zone	record	1	guild-battle-field-entrance	spawn-npc-group	REF	320	8	10	0	0	zonenpcsquad
+93	field-zone	record	1	guild-battle-field-entrance	spawn-npc-min-id	INT16	400	2	1	0	0	
+93	field-zone	record	1	guild-battle-field-entrance	spawn-npc-max-id	INT16	402	2	1	0	0	
+93	field-zone	record	1	guild-battle-field-entrance	min-fixed-channel	INT8	404	1	1	0	0	
+93	field-zone	record	1	guild-battle-field-entrance	revival-effect	REF	408	8	1	0	0	effect
+94	filter	record			id	INT64	8	8	1	1	1	
+94	filter	record			alias	STR	16	8	1	0	1	
+94	filter	record			subject2	SCRIPT_OBJ	24	32	1	0	0	
+94	filter	record			target2	SCRIPT_OBJ	56	32	1	0	0	
+94	filter	record			line	INT32	88	4	1	0	0	
+94	filter	record	0	number	op	SEQ	96	1	1	0	1	
+94	filter	record	0	number	value	INT64	104	8	1	0	1	
+94	filter	record	1	race	value	PROP_SEQ	96	1	4	0	0	
+94	filter	record	1	race	either	BOOL	100	1	1	0	0	
+94	filter	record	2	sex	value	PROP_SEQ	96	1	4	0	0	
+94	filter	record	2	sex	either	BOOL	100	1	1	0	0	
+94	filter	record	3	job	value	PROP_SEQ	96	1	4	0	0	
+94	filter	record	3	job	either	BOOL	100	1	1	0	0	
+94	filter	record	4	job-style	count	INT8	96	1	1	0	0	
+94	filter	record	4	job-style	job	PROP_SEQ	97	1	4	0	0	
+94	filter	record	4	job-style	job-style	SEQ	101	1	4	0	0	
+94	filter	record	4	job-style	either	BOOL	105	1	1	0	0	
+94	filter	record	5	stance	value	PROP_SEQ	96	1	4	0	0	
+94	filter	record	5	stance	either	BOOL	100	1	1	0	0	
+94	filter	record	6	prop	field	PROP_FIELD	96	2	1	0	1	
+94	filter	record	6	prop	op	SEQ	98	1	1	0	1	
+94	filter	record	6	prop	value	INT64	104	8	1	0	1	
+94	filter	record	7	prop-percent	field	PROP_FIELD	96	2	1	0	1	
+94	filter	record	7	prop-percent	op	SEQ	98	1	1	0	1	
+94	filter	record	7	prop-percent	value	INT8	99	1	1	0	1	
+94	filter	record	8	prop-flag	field	PROP_FIELD	96	2	1	0	1	
+94	filter	record	8	prop-flag	flag	BOOL	98	1	1	0	1	
+94	filter	record	9	effect-flag	flagtype	SEQ16	96	2	1	0	1	
+94	filter	record	9	effect-flag	flag	BOOL	98	1	1	0	1	
+94	filter	record	10	faction	value	REF	96	8	1	0	1	faction
+94	filter	record	11	active-faction	value	REF	96	8	1	0	1	faction
+94	filter	record	13	faction-reputation	op	SEQ	96	1	1	0	1	
+94	filter	record	13	faction-reputation	value	INT16	98	2	1	0	1	
+94	filter	record	14	faction-level	op	SEQ	96	1	1	0	1	
+94	filter	record	14	faction-level	value	INT16	98	2	1	0	1	
+94	filter	record	15	effect-attribute	value	SEQ16	96	2	4	0	0	
+94	filter	record	15	effect-attribute	either	BOOL	104	1	1	0	0	
+94	filter	record	16	compare-object-id	op	SEQ	96	1	1	0	1	
+94	filter	record	18	weapon-type	weapon-type	SEQ	96	1	4	0	0	
+94	filter	record	18	weapon-type	either	BOOL	100	1	1	0	0	
+94	filter	record	21	party-member-state	abnormal-state	SEQ	96	1	1	0	1	
+94	filter	record	22	inventory	item	REF	96	8	1	0	1	item
+94	filter	record	22	inventory	amount	INT8	104	1	1	0	0	
+94	filter	record	23	field-item	field-item	REF	96	8	1	0	1	fielditem
+94	filter	record	26	npc-id	value	REF	96	8	1	0	1	npc
+94	filter	record	27	npc-convoy	convoy	BOOL	96	1	1	0	1	
+94	filter	record	29	npc-party	party	SCRIPT_OBJ	96	32	1	0	0	
+94	filter	record	29	npc-party	index	INT8	128	1	1	0	0	
+94	filter	record	29	npc-party	leader	BOOL	129	1	1	0	0	
+94	filter	record	30	npc-spawn	spawn	REF	96	8	1	0	1	zonenpcspawn
+94	filter	record	31	npc-brain	value	SEQ	96	1	1	0	1	
+94	filter	record	32	event-broadcasted	value	BOOL	96	1	1	0	1	
+94	filter	record	34	env-id	env2spawn	REF	96	8	1	0	1	zoneenv2spawn
+94	filter	record	35	env-state	env2-state	SEQ	96	1	1	0	1	
+94	filter	record	36	env-prestate	env2-state	SEQ	96	1	1	0	1	
+94	filter	record	37	env-hp-percent	op	SEQ	96	1	1	0	1	
+94	filter	record	37	env-hp-percent	value	INT8	97	1	1	0	1	
+94	filter	record	38	skill3	value	REF	96	8	1	0	1	skill3
+94	filter	record	39	skill3-id	value	REF	96	8	1	0	1	skill3
+94	filter	record	40	effect-id	value	REF	96	8	1	0	1	effect
+94	filter	record	41	effect-stack-count	effect-type	SUB	96	2	1	0	1	effect
+94	filter	record	41	effect-stack-count	effect-slot	SEQ	98	1	1	0	1	
+94	filter	record	41	effect-stack-count	term-op	SEQ	99	1	1	0	0	
+94	filter	record	41	effect-stack-count	op	SEQ	100	1	2	0	0	
+94	filter	record	41	effect-stack-count	value	INT64	104	8	2	0	0	
+94	filter	record	42	quest-complete	quest	REF	96	8	1	0	1	quest
+94	filter	record	42	quest-complete	mission-step	INT8	104	1	1	0	0	
+94	filter	record	42	quest-complete	count	INT16	106	2	1	0	0	
+94	filter	record	42	quest-complete	count-op	SEQ	108	1	1	0	0	
+94	filter	record	43	quest-not-complete	quest	REF	96	8	1	0	1	quest
+94	filter	record	44	act-sequence	value	REF	96	8	1	0	1	act-sequence
+94	filter	record	47	link-laser-terminate-reason	reason	SEQ	96	1	1	0	1	
+94	filter	record	48	content-quota-charge	content-quota	REF	96	8	1	0	1	content-quota
+94	filter	record	48	content-quota-charge	op	SEQ	104	1	1	0	1	
+94	filter	record	48	content-quota-charge	charge-value	INT64	112	8	1	0	1	
+94	filter	record	49	cinematic	value	REF	96	8	1	0	1	cinematic
+102	gemcardgradepickrule	record			item-type	SEQ	8	1	1	1	1	
+102	gemcardgradepickrule	record			gear-score	INT32	12	4	1	1	1	
+102	gemcardgradepickrule	record			grade-probability	INT16	16	2	20	0	0	
+102	gemcardgradepickrule	record			ingredient	REF	56	8	4	0	0	item
+102	gemcardgradepickrule	record			ingredient-stack-count	INT16	88	2	4	0	0	
+102	gemcardgradepickrule	record			money-cost	INT32	96	4	1	0	0	
+106	guild-battle-field-zone	record			alias	STR	16	8	1	0	1	
+106	guild-battle-field-zone	record			zone	REF	24	8	1	0	1	zone
+106	guild-battle-field-zone	record			group	REF	32	8	1	0	0	attraction-group
+106	guild-battle-field-zone	record			effect	REF	40	8	2	0	0	effect
+106	guild-battle-field-zone	record			respawn-effect	REF	56	8	1	0	0	effect
+106	guild-battle-field-zone	record			respawn-delay	MSEC	64	4	1	0	0	
+106	guild-battle-field-zone	record			refiner	REF	72	8	3	0	0	zoneenv2spawn
+106	guild-battle-field-zone	record			respawn-by-refiner	REF	96	8	3	0	0	zonerespawn
+106	guild-battle-field-zone	record			airdash-1-by-refiner	REF	120	8	3	0	0	zoneenv2spawn
+106	guild-battle-field-zone	record			airdash-2-by-refiner	REF	144	8	3	0	0	zoneenv2spawn
+106	guild-battle-field-zone	record			last-boss	REF	168	8	1	0	0	npc
+106	guild-battle-field-zone	record			effect-region-by-last-boss	REF	176	8	1	0	0	zoneenv2spawn
+106	guild-battle-field-zone	record			all-occupied-effect-to-other	REF	184	8	1	0	0	effect
+106	guild-battle-field-zone	record			pc-spawn-id	INT16	192	2	6	0	0	
+106	guild-battle-field-zone	record			pc-spawn-id-count	INT8	204	1	1	0	0	
+106	guild-battle-field-zone	record			gate-replica	REF	208	8	6	0	0	zoneenv2spawn
+106	guild-battle-field-zone	record			gate-open-ready-minute	INT8	256	1	1	0	0	
+106	guild-battle-field-zone	record			sun-gate-open-hour	INT8	257	1	12	0	0	
+106	guild-battle-field-zone	record			sun-gate-open-minute	INT8	269	1	12	0	0	
+106	guild-battle-field-zone	record			sun-gate-open-duration	INT16	282	2	12	0	0	
+106	guild-battle-field-zone	record			sun-zone-open-hour	INT8	306	1	1	0	0	
+106	guild-battle-field-zone	record			sun-zone-open-minute	INT8	307	1	1	0	0	
+106	guild-battle-field-zone	record			sun-zone-close-hour	INT8	308	1	1	0	0	
+106	guild-battle-field-zone	record			sun-zone-close-minute	INT8	309	1	1	0	0	
+106	guild-battle-field-zone	record			mon-gate-open-hour	INT8	310	1	12	0	0	
+106	guild-battle-field-zone	record			mon-gate-open-minute	INT8	322	1	12	0	0	
+106	guild-battle-field-zone	record			mon-gate-open-duration	INT16	334	2	12	0	0	
+106	guild-battle-field-zone	record			mon-zone-open-hour	INT8	358	1	1	0	0	
+106	guild-battle-field-zone	record			mon-zone-open-minute	INT8	359	1	1	0	0	
+106	guild-battle-field-zone	record			mon-zone-close-hour	INT8	360	1	1	0	0	
+106	guild-battle-field-zone	record			mon-zone-close-minute	INT8	361	1	1	0	0	
+106	guild-battle-field-zone	record			tue-gate-open-hour	INT8	362	1	12	0	0	
+106	guild-battle-field-zone	record			tue-gate-open-minute	INT8	374	1	12	0	0	
+106	guild-battle-field-zone	record			tue-gate-open-duration	INT16	386	2	12	0	0	
+106	guild-battle-field-zone	record			tue-zone-open-hour	INT8	410	1	1	0	0	
+106	guild-battle-field-zone	record			tue-zone-open-minute	INT8	411	1	1	0	0	
+106	guild-battle-field-zone	record			tue-zone-close-hour	INT8	412	1	1	0	0	
+106	guild-battle-field-zone	record			tue-zone-close-minute	INT8	413	1	1	0	0	
+106	guild-battle-field-zone	record			wed-gate-open-hour	INT8	414	1	12	0	0	
+106	guild-battle-field-zone	record			wed-gate-open-minute	INT8	426	1	12	0	0	
+106	guild-battle-field-zone	record			wed-gate-open-duration	INT16	438	2	12	0	0	
+106	guild-battle-field-zone	record			wed-zone-open-hour	INT8	462	1	1	0	0	
+106	guild-battle-field-zone	record			wed-zone-open-minute	INT8	463	1	1	0	0	
+106	guild-battle-field-zone	record			wed-zone-close-hour	INT8	464	1	1	0	0	
+106	guild-battle-field-zone	record			wed-zone-close-minute	INT8	465	1	1	0	0	
+106	guild-battle-field-zone	record			thu-gate-open-hour	INT8	466	1	12	0	0	
+106	guild-battle-field-zone	record			thu-gate-open-minute	INT8	478	1	12	0	0	
+106	guild-battle-field-zone	record			thu-gate-open-duration	INT16	490	2	12	0	0	
+106	guild-battle-field-zone	record			thu-zone-open-hour	INT8	514	1	1	0	0	
+106	guild-battle-field-zone	record			thu-zone-open-minute	INT8	515	1	1	0	0	
+106	guild-battle-field-zone	record			thu-zone-close-hour	INT8	516	1	1	0	0	
+106	guild-battle-field-zone	record			thu-zone-close-minute	INT8	517	1	1	0	0	
+106	guild-battle-field-zone	record			fri-gate-open-hour	INT8	518	1	12	0	0	
+106	guild-battle-field-zone	record			fri-gate-open-minute	INT8	530	1	12	0	0	
+106	guild-battle-field-zone	record			fri-gate-open-duration	INT16	542	2	12	0	0	
+106	guild-battle-field-zone	record			fri-zone-open-hour	INT8	566	1	1	0	0	
+106	guild-battle-field-zone	record			fri-zone-open-minute	INT8	567	1	1	0	0	
+106	guild-battle-field-zone	record			fri-zone-close-hour	INT8	568	1	1	0	0	
+106	guild-battle-field-zone	record			fri-zone-close-minute	INT8	569	1	1	0	0	
+106	guild-battle-field-zone	record			sat-gate-open-hour	INT8	570	1	12	0	0	
+106	guild-battle-field-zone	record			sat-gate-open-minute	INT8	582	1	12	0	0	
+106	guild-battle-field-zone	record			sat-gate-open-duration	INT16	594	2	12	0	0	
+106	guild-battle-field-zone	record			sat-zone-open-hour	INT8	618	1	1	0	0	
+106	guild-battle-field-zone	record			sat-zone-open-minute	INT8	619	1	1	0	0	
+106	guild-battle-field-zone	record			sat-zone-close-hour	INT8	620	1	1	0	0	
+106	guild-battle-field-zone	record			sat-zone-close-minute	INT8	621	1	1	0	0	
+106	guild-battle-field-zone	record			gate-open-percent	INT8	0	0	1	0	0	
+106	guild-battle-field-zone	record			required-level-min	INT8	622	1	1	0	0	
+106	guild-battle-field-zone	record			required-level-max	INT8	623	1	1	0	0	
+106	guild-battle-field-zone	record			required-faction-score	INT16	624	2	1	0	0	
+118	interdungeonlist	record			id	INT16	8	2	1	1	1	
+118	interdungeonlist	record			alias	STR	16	8	1	0	1	
+118	interdungeonlist	record			dungeon	REF	24	8	1	0	0	dungeon
+118	interdungeonlist	record			cave	REF	32	8	1	0	0	cave2
+118	interdungeonlist	record			party-battle-field	REF	40	8	1	0	0	party-battle-field-zone
+118	interdungeonlist	record			public-raid	REF	48	8	1	0	0	public-raid
+118	interdungeonlist	record			battle-royal-field	REF	56	8	1	0	0	battle-royal-field
+118	interdungeonlist	record			use-guild-combat	BOOL	64	1	1	0	0	
+118	interdungeonlist	record			use-pc-contents-type-dungeon	BOOL	65	1	1	0	0	
+138	jackpot-boss-zone	record			id	INT16	8	2	1	1	1	
+138	jackpot-boss-zone	record			alias	STR	16	8	1	0	1	
+138	jackpot-boss-zone	record			zone	REF	24	8	1	0	0	zone
+138	jackpot-boss-zone	record			group	REF	32	8	1	0	0	attraction-group
+138	jackpot-boss-zone	record			transfer-jackpot-percent	INT16	40	2	1	0	0	
+138	jackpot-boss-zone	record			boss-max-faction-score	INT32	44	4	1	0	0	
+138	jackpot-boss-zone	record			spawn-boss-faction-score	INT32	48	4	1	0	0	
+138	jackpot-boss-zone	record			boss-npc-faction-1	REF	56	8	1	0	0	npc
+138	jackpot-boss-zone	record			boss-npc-faction-2	REF	64	8	1	0	0	npc
+138	jackpot-boss-zone	record			despawn-npc-group-faction-1	REF	72	8	1	0	0	zonenpcsquad
+138	jackpot-boss-zone	record			despawn-force-faction-1	BOOL	80	1	1	0	0	
+138	jackpot-boss-zone	record			respawn-after-despawn-faction-1	BOOL	81	1	1	0	0	
+138	jackpot-boss-zone	record			spawn-delay-faction-1	MSEC	84	4	1	0	0	
+138	jackpot-boss-zone	record			spawn-npc-group-faction-1	REF	88	8	1	0	0	zonenpcsquad
+138	jackpot-boss-zone	record			despawn-npc-group-faction-2	REF	96	8	1	0	0	zonenpcsquad
+138	jackpot-boss-zone	record			despawn-force-faction-2	BOOL	104	1	1	0	0	
+138	jackpot-boss-zone	record			respawn-after-despawn-faction-2	BOOL	105	1	1	0	0	
+138	jackpot-boss-zone	record			spawn-delay-faction-2	MSEC	108	4	1	0	0	
+138	jackpot-boss-zone	record			spawn-npc-group-faction-2	REF	112	8	1	0	0	zonenpcsquad
+138	jackpot-boss-zone	record			attraction-quest	REF	120	8	5	0	0	quest
+143	jumpingquest2	record			job	PROP_SEQ	8	1	1	1	1	
+143	jumpingquest2	record			quest-id	INT16	10	2	1	1	1	
+144	jumpingquest	record			job	PROP_SEQ	8	1	1	1	1	
+144	jumpingquest	record			quest-id	INT16	10	2	1	1	1	
+145	jumpingteleport2	record			teleport	REF	16	8	1	0	1	teleport
+146	jumpingteleport	record			job	PROP_SEQ	8	1	1	1	1	
+146	jumpingteleport	record			teleport-id	INT16	10	2	1	1	1	
+154	message-by-item-district	record			id	INT16	8	2	1	1	1	
+154	message-by-item-district	record			alias	STR	16	8	1	0	1	
+154	message-by-item-district	record			zone1	REF	24	8	127	0	0	zone
+154	message-by-item-district	record			zone2	REF	1040	8	127	0	0	zone
+159	npc-brain-parameters	record			alias	STR	16	8	1	0	1	
+159	npc-brain-parameters	record			script	REF	24	8	1	0	0	script
+159	npc-brain-parameters	record			min-attack-distance	DISTANCE	32	2	7	0	0	
+159	npc-brain-parameters	record			max-attack-distance	DISTANCE	46	2	7	0	0	
+159	npc-brain-parameters	record			min-close-in-distance	DISTANCE	60	2	7	0	0	
+159	npc-brain-parameters	record			max-close-in-distance	DISTANCE	74	2	7	0	0	
+159	npc-brain-parameters	record			max-attack-height	DISTANCE	88	2	7	0	0	
+159	npc-brain-parameters	record			combat-sequence	REF	104	8	10	0	0	combat-sequence
+159	npc-brain-parameters	record			act-sequence	REF	184	8	4	0	0	act-sequence
+159	npc-brain-parameters	record			weapon	REF	216	8	3	0	0	item
+159	npc-brain-parameters	record			stance	PROP_SEQ	240	1	3	0	0	
+159	npc-brain-parameters	record			stance-effect	REF	248	8	3	0	0	effect
+159	npc-brain-parameters	record			reach	DISTANCE	272	2	3	0	0	
+159	npc-brain-parameters	record			skill	REF	280	8	20	0	0	skill
+159	npc-brain-parameters	record			skill3	REF	440	8	20	0	0	skill3
+159	npc-brain-parameters	record			bleeding	INT8	600	1	3	0	0	
+159	npc-brain-parameters	record			drop-weapon-cs	REF	608	8	1	0	0	combat-sequence
+159	npc-brain-parameters	record			drop-weapon-item	REF	616	8	1	0	0	fielditem
+159	npc-brain-parameters	record			social	REF	624	8	12	0	0	social
+159	npc-brain-parameters	record			spawn-social	REF	720	8	1	0	0	social
+159	npc-brain-parameters	record			despawn-social	REF	728	8	1	0	0	social
+159	npc-brain-parameters	record			spawn-skill3	REF	736	8	1	0	0	skill3
+159	npc-brain-parameters	record			return-start-social	REF	744	8	1	0	0	social
+159	npc-brain-parameters	record			return-end-social	REF	752	8	1	0	0	social
+159	npc-brain-parameters	record			hate-share-social	REF	760	8	1	0	0	social
+159	npc-brain-parameters	record			hide-type	SEQ	768	1	1	0	0	
+159	npc-brain-parameters	record			hide-on-init	BOOL	769	1	1	0	0	
+159	npc-brain-parameters	record			hide-on-return-start	BOOL	770	1	1	0	0	
+159	npc-brain-parameters	record			hide-on-social	REF	776	8	1	0	0	social
+159	npc-brain-parameters	record			hide-off-social	REF	784	8	1	0	0	social
+159	npc-brain-parameters	record			event-invoked-effect-attribute	SEQ16	792	2	4	0	0	
+159	npc-brain-parameters	record			event-invoked-effect-attribute-value	INT64	800	8	1	0	0	
+159	npc-brain-parameters	record			event-invoked-effect-attribute-value-2	INT64	808	8	1	0	0	
+159	npc-brain-parameters	record			event-invoked-effect-attribute-value-3	INT64	816	8	1	0	0	
+159	npc-brain-parameters	record			event-invoke-effect-attribute	SEQ16	824	2	4	0	0	
+159	npc-brain-parameters	record			event-invoke-effect-attribute-value	INT64	832	8	1	0	0	
+159	npc-brain-parameters	record			event-invoke-effect-attribute-value-2	INT64	840	8	1	0	0	
+159	npc-brain-parameters	record			event-invoke-effect-attribute-value-3	INT64	848	8	1	0	0	
+159	npc-brain-parameters	record			monster-talkable	BOOL	856	1	1	0	0	
+159	npc-brain-parameters	record			transit-type	SEQ	857	1	1	0	0	
+159	npc-brain-parameters	record			timer	INT16	858	2	9	0	0	
+159	npc-brain-parameters	record			setup-position	BOOL	876	1	2	0	0	
+159	npc-brain-parameters	record			setup-dir	SEQ	878	1	2	0	0	
+159	npc-brain-parameters	record			soul-npc-skill-category	SEQ	880	1	4	0	0	
+159	npc-brain-parameters	record			count-by-soul-npc-skill-category	INT8	884	1	5	0	0	
+159	npc-brain-parameters	record			targeting-type	SEQ	889	1	1	0	0	
+159	npc-brain-parameters	record			period-bind-cur-target-sec	INT16	890	2	1	0	0	
+160	npcconvoy	record			alias	STR	16	8	1	0	1	
+160	npcconvoy	record			combat-assist	BOOL	24	1	1	0	0	
+160	npcconvoy	record			start-brain	SEQ	25	1	1	0	0	
+160	npcconvoy	record			start-attackable	BOOL	26	1	1	0	0	
+160	npcconvoy	record			start-hate-on	BOOL	27	1	1	0	0	
+160	npcconvoy	record			start-act-seq	REF	32	8	1	0	0	act-sequence
+160	npcconvoy	record			destination-env2	REF	40	8	4	0	1	zoneenv2spawn
+160	npcconvoy	record			arrived-brain	SEQ	72	1	1	0	0	
+160	npcconvoy	record			arrived-attackable	BOOL	73	1	1	0	0	
+160	npcconvoy	record			arrived-hate-on	BOOL	74	1	1	0	0	
+160	npcconvoy	record			arrived-act-seq	REF	80	8	1	0	0	act-sequence
+160	npcconvoy	record			arrived-despawn	BOOL	0	0	1	0	0	
+160	npcconvoy	record			failed-brain	SEQ	88	1	1	0	0	
+160	npcconvoy	record			failed-attackable	BOOL	89	1	1	0	0	
+160	npcconvoy	record			failed-hate-on	BOOL	90	1	1	0	0	
+160	npcconvoy	record			failed-act-seq	REF	96	8	1	0	0	act-sequence
+160	npcconvoy	record			failed-despawn	BOOL	0	0	1	0	0	
+160	npcconvoy	record			follow-detect	SEQ	104	1	1	0	0	
+160	npcconvoy	record			follow-margin	DISTANCE	106	2	1	0	0	
+160	npcconvoy	record			stop-social	REF	112	8	4	0	0	social
+160	npcconvoy	record			next-stop-social-min	INT8	144	1	1	0	0	
+160	npcconvoy	record			next-stop-social-max	INT8	145	1	1	0	0	
+161	npc	record			alias	STR	16	8	1	0	1	
+161	npc	record			brain	SEQ	24	1	1	0	0	
+161	npc	record			brain-parameters	REF	32	8	1	0	0	npc-brain-parameters
+161	npc	record			boss-npc	REF	40	8	1	0	0	bossnpc
+161	npc	record			soul-npc	BOOL	48	1	1	0	0	
+161	npc	record			write-combat-log	BOOL	49	1	1	0	0	
+161	npc	record			notify-boast	BOOL	50	1	1	0	0	
+161	npc	record			radius	DISTANCE	52	2	1	0	0	
+161	npc	record			formal-radius	DISTANCE	54	2	1	0	0	
+161	npc	record			scale	INT16	56	2	1	0	0	
+161	npc	record			chase-distance	DISTANCE	58	2	1	0	0	
+161	npc	record			chase-radius	DISTANCE	60	2	1	0	0	
+161	npc	record			walk-speed	VELOCITY	62	2	1	0	0	
+161	npc	record			run-speed	VELOCITY	64	2	1	0	0	
+161	npc	record			spawn-cinematic	REF	0	0	1	0	0	cinematic
+161	npc	record			detect-range	DISTANCE	66	2	1	0	0	
+161	npc	record			detect-fixed-range	BOOL	68	1	1	0	0	
+161	npc	record			detect-height-top	DISTANCE	70	2	1	0	0	
+161	npc	record			detect-height-bottom	DISTANCE	72	2	1	0	0	
+161	npc	record			hate-on	BOOL	74	1	1	0	0	
+161	npc	record			neutral-hostile	SEQ	75	1	1	0	0	
+161	npc	record			immune-skill-attribute	SEQ	76	1	8	0	0	
+161	npc	record			immune-effect-attribute	SEQ16	84	2	20	0	0	
+161	npc	record			immune-breaker-attribute	SEQ16	124	2	8	0	0	
+161	npc	record			immune-breaker-count	INT8	140	1	1	0	0	
+161	npc	record			immune-breaker-init-duration	MSEC	144	4	1	0	0	
+161	npc	record			store	REF	152	8	1	0	0	store
+161	npc	record			store-by-item	REF	160	8	1	0	0	store-by-item
+161	npc	record			store2	REF	168	8	6	0	0	store2
+161	npc	record			teleport	REF	216	8	1	0	0	teleport
+161	npc	record			repairer	BOOL	224	1	1	0	0	
+161	npc	record			production	SEQ	225	1	1	0	0	
+161	npc	record			market	BOOL	226	1	1	0	0	
+161	npc	record			post-office	BOOL	227	1	1	0	0	
+161	npc	record			exchange-faction-score	BOOL	228	1	1	0	0	
+161	npc	record			exchange-faction-score-max-faction-level	INT16	230	2	1	0	0	
+161	npc	record			exchange-faction-score-multiply-value	INT8	232	1	1	0	0	
+161	npc	record			join-leave-faction	BOOL	233	1	1	0	0	
+161	npc	record			transfer-faction	BOOL	234	1	1	0	0	
+161	npc	record			depot	BOOL	235	1	1	0	0	
+161	npc	record			guild	BOOL	236	1	1	0	0	
+161	npc	record			max-faction-score	INT32	240	4	1	0	0	
+161	npc	record			enable-co-ownership-pouch	BOOL	244	1	1	0	0	
+161	npc	record			distribution-pouch	BOOL	245	1	1	0	0	
+161	npc	record			reward-exp	INT32	248	4	1	0	0	
+161	npc	record			reward-faction-score	INT32	252	4	1	0	0	
+161	npc	record			event-reward	REF	256	8	1	0	0	reward
+161	npc	record			apply-pouch-pickup-rights-for-team	BOOL	264	1	1	0	0	
+161	npc	record			reward-default	REF	272	8	1	0	0	reward
+161	npc	record			reward-difficulty-type	REF	280	8	3	0	0	reward
+161	npc	record			day-reward-sun	REF	304	8	1	0	0	reward
+161	npc	record			day-reward-mon	REF	312	8	1	0	0	reward
+161	npc	record			day-reward-tue	REF	320	8	1	0	0	reward
+161	npc	record			day-reward-wed	REF	328	8	1	0	0	reward
+161	npc	record			day-reward-thu	REF	336	8	1	0	0	reward
+161	npc	record			day-reward-fri	REF	344	8	1	0	0	reward
+161	npc	record			day-reward-sat	REF	352	8	1	0	0	reward
+161	npc	record			peaktime-reward-sun	REF	360	8	1	0	0	reward
+161	npc	record			peaktime-reward-sun-start-hour	INT8	368	1	1	0	0	
+161	npc	record			peaktime-reward-sun-end-hour	INT8	369	1	1	0	0	
+161	npc	record			peaktime-reward-mon	REF	376	8	1	0	0	reward
+161	npc	record			peaktime-reward-mon-start-hour	INT8	384	1	1	0	0	
+161	npc	record			peaktime-reward-mon-end-hour	INT8	385	1	1	0	0	
+161	npc	record			peaktime-reward-tue	REF	392	8	1	0	0	reward
+161	npc	record			peaktime-reward-tue-start-hour	INT8	400	1	1	0	0	
+161	npc	record			peaktime-reward-tue-end-hour	INT8	401	1	1	0	0	
+161	npc	record			peaktime-reward-wed	REF	408	8	1	0	0	reward
+161	npc	record			peaktime-reward-wed-start-hour	INT8	416	1	1	0	0	
+161	npc	record			peaktime-reward-wed-end-hour	INT8	417	1	1	0	0	
+161	npc	record			peaktime-reward-thu	REF	424	8	1	0	0	reward
+161	npc	record			peaktime-reward-thu-start-hour	INT8	432	1	1	0	0	
+161	npc	record			peaktime-reward-thu-end-hour	INT8	433	1	1	0	0	
+161	npc	record			peaktime-reward-fri	REF	440	8	1	0	0	reward
+161	npc	record			peaktime-reward-fri-start-hour	INT8	448	1	1	0	0	
+161	npc	record			peaktime-reward-fri-end-hour	INT8	449	1	1	0	0	
+161	npc	record			peaktime-reward-sat	REF	456	8	1	0	0	reward
+161	npc	record			peaktime-reward-sat-start-hour	INT8	464	1	1	0	0	
+161	npc	record			peaktime-reward-sat-end-hour	INT8	465	1	1	0	0	
+161	npc	record			private-reward	REF	472	8	1	0	0	reward
+161	npc	record			private-event-reward	REF	480	8	1	0	0	reward
+161	npc	record			private-reward-difficulty-type	REF	488	8	3	0	0	reward
+161	npc	record			private-pccafe-reward	REF	512	8	1	0	0	reward
+161	npc	record			contribution-reward	REF	520	8	1	0	0	contributionreward
+161	npc	record			contribution-day-reward-sun	REF	528	8	1	0	0	contributionreward
+161	npc	record			contribution-day-reward-mon	REF	536	8	1	0	0	contributionreward
+161	npc	record			contribution-day-reward-tue	REF	544	8	1	0	0	contributionreward
+161	npc	record			contribution-day-reward-wed	REF	552	8	1	0	0	contributionreward
+161	npc	record			contribution-day-reward-thu	REF	560	8	1	0	0	contributionreward
+161	npc	record			contribution-day-reward-fri	REF	568	8	1	0	0	contributionreward
+161	npc	record			contribution-day-reward-sat	REF	576	8	1	0	0	contributionreward
+161	npc	record			contribution-peaktime-reward-sun	REF	584	8	1	0	0	contributionreward
+161	npc	record			contribution-peaktime-reward-sun-start-hour	INT8	592	1	1	0	0	
+161	npc	record			contribution-peaktime-reward-sun-end-hour	INT8	593	1	1	0	0	
+161	npc	record			contribution-peaktime-reward-mon	REF	600	8	1	0	0	contributionreward
+161	npc	record			contribution-peaktime-reward-mon-start-hour	INT8	608	1	1	0	0	
+161	npc	record			contribution-peaktime-reward-mon-end-hour	INT8	609	1	1	0	0	
+161	npc	record			contribution-peaktime-reward-tue	REF	616	8	1	0	0	contributionreward
+161	npc	record			contribution-peaktime-reward-tue-start-hour	INT8	624	1	1	0	0	
+161	npc	record			contribution-peaktime-reward-tue-end-hour	INT8	625	1	1	0	0	
+161	npc	record			contribution-peaktime-reward-wed	REF	632	8	1	0	0	contributionreward
+161	npc	record			contribution-peaktime-reward-wed-start-hour	INT8	640	1	1	0	0	
+161	npc	record			contribution-peaktime-reward-wed-end-hour	INT8	641	1	1	0	0	
+161	npc	record			contribution-peaktime-reward-thu	REF	648	8	1	0	0	contributionreward
+161	npc	record			contribution-peaktime-reward-thu-start-hour	INT8	656	1	1	0	0	
+161	npc	record			contribution-peaktime-reward-thu-end-hour	INT8	657	1	1	0	0	
+161	npc	record			contribution-peaktime-reward-fri	REF	664	8	1	0	0	contributionreward
+161	npc	record			contribution-peaktime-reward-fri-start-hour	INT8	672	1	1	0	0	
+161	npc	record			contribution-peaktime-reward-fri-end-hour	INT8	673	1	1	0	0	
+161	npc	record			contribution-peaktime-reward-sat	REF	680	8	1	0	0	contributionreward
+161	npc	record			contribution-peaktime-reward-sat-start-hour	INT8	688	1	1	0	0	
+161	npc	record			contribution-peaktime-reward-sat-end-hour	INT8	689	1	1	0	0	
+161	npc	record			r-disable-reward-penalty	BOOL	690	1	1	0	0	
+161	npc	record			dropped-pouch-rewards	REF	696	8	10	0	0	reward
+161	npc	record			dropped-pouch-distance-min	INT8	776	1	1	0	0	
+161	npc	record			dropped-pouch-distance-max	INT8	777	1	1	0	0	
+161	npc	record			dropped-pouch-decompse-sec	INT16	778	2	1	0	0	
+161	npc	record			fielditemdrop	REF	784	8	1	0	0	fielditemdrop
+161	npc	record			deadbody-fielditemdrop	REF	792	8	1	0	0	fielditemdrop
+161	npc	record			deadbody-pickup-duration	MSEC	800	4	1	0	0	
+161	npc	record			deadbody-hide-duration	MSEC	804	4	1	0	0	
+161	npc	record			manipulate-duration	MSEC	808	4	1	0	0	
+161	npc	record			manipulate-transit-zone	REF	816	8	1	0	0	zone
+161	npc	record			max-manipulate-transit-zone-count	INT16	824	2	1	0	0	
+161	npc	record			forwarding-types	SEQ	826	1	64	0	0	
+161	npc	record			quests	REF	896	8	64	0	0	quest
+161	npc	record			missions	INT8	1408	1	64	0	0	
+161	npc	record			cases	INT8	1472	1	64	0	0	
+161	npc	record			case-subtypes	INT16	1536	2	64	0	0	
+161	npc	record			loot-forwarding-types	SEQ	1664	1	8	0	0	
+161	npc	record			loot-quests	REF	1672	8	8	0	0	quest
+161	npc	record			loot-missions	INT8	1736	1	8	0	0	
+161	npc	record			loot-cases	INT8	1744	1	8	0	0	
+161	npc	record			loot-item	REF	1752	8	8	0	0	item
+161	npc	record			finish-blow-forwarding-types	SEQ	1816	1	21	0	0	
+161	npc	record			finish-blow-quests	REF	1840	8	21	0	0	quest
+161	npc	record			finish-blow-missions	INT8	2008	1	21	0	0	
+161	npc	record			finish-blow-cases	INT8	2029	1	21	0	0	
+161	npc	record			race	PROP_SEQ	2050	1	1	0	0	
+161	npc	record			sex	PROP_SEQ	2051	1	1	0	0	
+161	npc	record			job	PROP_SEQ	2052	1	1	0	0	
+161	npc	record			stance	PROP_SEQ	2053	1	1	0	0	
+161	npc	record			equip_hand	REF	2056	8	1	0	0	item
+161	npc	record			level	INT8	2064	1	1	0	1	
+161	npc	record			mastery-level	INT8	2065	1	1	0	1	
+161	npc	record			faction	REF	2072	8	1	0	0	faction
+161	npc	record			attackable	BOOL	2080	1	1	0	0	
+161	npc	record			detect-hiding	BOOL	2081	1	1	0	0	
+161	npc	record			warfare-boss	BOOL	2082	1	1	0	0	
+161	npc	record			side	SEQ	2083	1	1	0	0	
+161	npc	record			max-hp	INT64	2088	8	1	0	1	
+161	npc	record			max-sp	INT16	2096	2	1	0	1	
+161	npc	record			modify-cast-speed-percent	INT16	2098	2	1	0	1	
+161	npc	record			hp-regen	INT32	2100	4	1	0	1	
+161	npc	record			hp-regen-combat	INT32	2104	4	1	0	1	
+161	npc	record			attack-hit-base-percent	INT16	2108	2	1	0	1	
+161	npc	record			attack-hit-value	INT16	2110	2	1	0	1	
+161	npc	record			attack-pierce-base-percent	INT16	2112	2	1	0	1	
+161	npc	record			attack-parry-pierce-percent	INT16	2114	2	1	0	1	
+161	npc	record			attack-pierce-value	INT16	2116	2	1	0	1	
+161	npc	record			attack-concentrate-value	INT16	2118	2	1	0	1	
+161	npc	record			attack-critical-base-percent	INT16	2120	2	1	0	1	
+161	npc	record			attack-critical-damage-percent	INT16	2122	2	1	0	1	
+161	npc	record			attack-critical-value	INT32	2124	4	1	0	1	
+161	npc	record			attack-critical-damage-value	INT16	2128	2	1	0	1	
+161	npc	record			defend-critical-base-percent	INT16	2130	2	1	0	1	
+161	npc	record			defend-critical-damage-percent	INT16	2132	2	1	0	1	
+161	npc	record			defend-critical-value	INT16	2134	2	1	0	1	
+161	npc	record			defend-bounce-percent	INT16	2136	2	1	0	1	
+161	npc	record			defend-dodge-base-percent	INT16	2138	2	1	0	1	
+161	npc	record			defend-dodge-value	INT16	2140	2	1	0	1	
+161	npc	record			defend-parry-base-percent	INT16	2142	2	1	0	1	
+161	npc	record			defend-parry-value	INT16	2144	2	1	0	1	
+161	npc	record			defend-parry-reduce-percent	INT16	2146	2	1	0	1	
+161	npc	record			defend-parry-reduce-diff	INT16	2148	2	1	0	1	
+161	npc	record			defend-perfect-parry-base-percent	INT16	2150	2	1	0	1	
+161	npc	record			defend-perfect-parry-reduce-percent	INT16	2152	2	1	0	1	
+161	npc	record			defend-counter-reduce-percent	INT16	2154	2	1	0	1	
+161	npc	record			defend-immune-base-percent	INT16	2156	2	1	0	1	
+161	npc	record			attack-power-creature-min	INT32	2160	4	1	0	1	
+161	npc	record			attack-power-creature-max	INT32	2164	4	1	0	1	
+161	npc	record			attack-power-equip-min	INT16	2168	2	1	0	1	
+161	npc	record			attack-power-equip-max	INT16	2170	2	1	0	1	
+161	npc	record			defend-power-creature-value	INT32	2172	4	1	0	1	
+161	npc	record			defend-power-equip-value	INT32	2176	4	1	0	1	
+161	npc	record			defend-resist-power-creature-value	INT16	2180	2	1	0	1	
+161	npc	record			defend-resist-power-equip-value	INT16	2182	2	1	0	1	
+161	npc	record			defend-physical-damage-reduce-percent	INT16	2184	2	1	0	1	
+161	npc	record			defend-force-damage-reduce-percent	INT16	2186	2	1	0	1	
+161	npc	record			attack-damage-modify-percent	INT16	2188	2	1	0	1	
+161	npc	record			attack-damage-modify-diff	INT32	2192	4	1	0	1	
+161	npc	record			defend-damage-modify-percent	INT16	2196	2	1	0	1	
+161	npc	record			defend-damage-modify-diff	INT32	2200	4	1	0	1	
+161	npc	record			defend-miss-base-percent	INT16	2204	2	1	0	1	
+161	npc	record			attack-stiff-duration-base-percent	INT16	2206	2	1	0	1	
+161	npc	record			attack-stiff-duration-value	INT16	2208	2	1	0	1	
+161	npc	record			defend-stiff-duration-base-percent	INT16	2210	2	1	0	1	
+161	npc	record			defend-stiff-duration-value	INT16	2212	2	1	0	1	
+161	npc	record			cast-duration-base-percent	INT16	2214	2	1	0	1	
+161	npc	record			cast-duration-value	INT16	2216	2	1	0	1	
+161	npc	record			job-ability-1	INT32	2220	4	1	0	1	
+161	npc	record			job-ability-2	INT32	2224	4	1	0	1	
+161	npc	record			heal-power-base-percent	INT16	2228	2	1	0	1	
+161	npc	record			aoe-defend-base-percent	INT16	2230	2	1	0	1	
+161	npc	record			aoe-defend-power-value	INT16	2232	2	1	0	1	
+161	npc	record			hate-base-percent	INT16	2234	2	1	0	1	
+161	npc	record			hate-power-creature-value	INT16	2236	2	1	0	1	
+161	npc	record			abnormal-attack-power-value	INT16	2238	2	1	0	1	
+161	npc	record			abnormal-attack-base-percent	INT16	2240	2	1	0	1	
+161	npc	record			abnormal-defend-power-value	INT16	2242	2	1	0	1	
+161	npc	record			abnormal-defend-base-percent	INT16	2244	2	1	0	1	
+161	npc	record			abnormal-attack-power-modify	INT16	2246	2	1	0	1	
+161	npc	record			abnormal-defend-power-modify	INT16	2248	2	1	0	1	
+161	npc	record			hate-power-modify	INT16	2250	2	1	0	1	
+161	npc	record			heal-power-modify	INT16	2252	2	1	0	1	
+161	npc	record			aoe-defend-power-modify	INT16	2254	2	1	0	1	
+161	npc	record			attack-hit-value-modify	INT16	2256	2	1	0	1	
+161	npc	record			attack-critical-value-modify	INT16	2258	2	1	0	1	
+161	npc	record			defend-critical-value-modify	INT16	2260	2	1	0	1	
+161	npc	record			defend-dodge-value-modify	INT16	2262	2	1	0	1	
+161	npc	record			defend-parry-value-modify	INT16	2264	2	1	0	1	
+161	npc	record			defend-physical-value-modify	INT16	2266	2	1	0	1	
+161	npc	record			defend-force-value-modify	INT16	2268	2	1	0	1	
+161	npc	record			attack-stiff-duration-value-modify	INT16	2270	2	1	0	1	
+161	npc	record			defend-stiff-duration-value-modify	INT16	2272	2	1	0	1	
+161	npc	record			cast-duration-value-modify	INT16	2274	2	1	0	1	
+161	npc	record			attack-critical-damage-modify	INT16	2276	2	1	0	1	
+161	npc	record			defend-critical-damage-modify	INT16	2278	2	1	0	1	
+161	npc	record			attack-pierce-modify	INT16	2280	2	1	0	1	
+161	npc	record			attack-parry-pierce-modify	INT16	2282	2	1	0	1	
+161	npc	record			defend-parry-reduce-modify	INT16	2284	2	1	0	1	
+161	npc	record			attack-perfect-parry-damage-modify	INT16	2286	2	1	0	1	
+161	npc	record			defend-perfect-parry-reduce-modify	INT16	2288	2	1	0	1	
+161	npc	record			attack-counter-damage-modify	INT16	2290	2	1	0	1	
+161	npc	record			defend-counter-reduce-modify	INT16	2292	2	1	0	1	
+161	npc	record			grade2	SEQ	2294	1	1	0	0	
+161	npc	record			summoned-beauty-shop	REF	2296	8	1	0	0	summonedbeautyshop
+161	npc	record			detect-signal	BOOL	2304	1	1	0	0	
+161	npc	record			invoke-achievement-event	INT16	2306	2	1	0	0	
+161	npc	record			ghost-type	PROP_SEQ	2308	1	1	0	0	
+161	npc	record			soul-npc-skill-level	INT8	2309	1	1	0	0	
+161	npc	record			boss-challenge-attraction-score	INT16	2310	2	1	0	0	
+161	npc	record			mysterious-store	REF	2312	8	1	0	0	mysterious-store
+161	npc	record			is-mysterious-store	BOOL	2320	1	1	0	0	
+161	npc	record			bot-scoring-npc-flag	BOOL	2321	1	1	0	0	
+161	npc	record			ranking-pve-stage	REF	2328	8	1	0	0	rankingpvestage
+161	npc	record			newbiecare	REF	2336	8	1	0	0	newbie-care
+161	npc	record			attack-attribute-value	INT16	2344	2	1	0	1	
+161	npc	record			attack-attribute-base-percent	INT16	2346	2	1	0	1	
+161	npc	record			attack-attribute-modify	INT16	2348	2	1	0	1	
+161	npc	record			check-challenge	INT8	2350	1	17	0	0	
+161	npc	record			challenge-difficulty-type	INT8	2367	1	17	0	0	
+161	npc	record			attack-aoe-pierce-value	INT16	2384	2	1	0	1	
+161	npc	record			attack-abnormal-hit-base-percent	INT16	2386	2	1	0	1	
+161	npc	record			attack-abnormal-hit-value	INT16	2388	2	1	0	1	
+161	npc	record			defend-abnormal-dodge-base-percent	INT16	2390	2	1	0	1	
+161	npc	record			defend-abnormal-dodge-value	INT16	2392	2	1	0	1	
+161	npc	record			support-power-base-percent	INT16	2394	2	1	0	1	
+161	npc	record			support-power-value	INT16	2396	2	1	0	1	
+161	npc	record			heal-power-value	INT16	2398	2	1	0	1	
+161	npc	record			hypermove-power-value	INT16	2400	2	1	0	1	
+161	npc	record			r-attack-aoe-pierce-modify	INT16	2402	2	1	0	1	
+161	npc	record			r-attack-abnormal-hit-modify	INT16	2404	2	1	0	1	
+161	npc	record			r-defend-abnormal-dodge-modify	INT16	2406	2	1	0	1	
+161	npc	record			r-support-power-modify	INT16	2408	2	1	0	1	
+162	npc-reset-stage	record			alias	STR	16	8	1	0	1	
+162	npc-reset-stage	record			despawn-my-party	BOOL	24	1	1	0	0	
+162	npc-reset-stage	record			spawn-my-party	BOOL	25	1	1	0	0	
+162	npc-reset-stage	record			despawn-npc-group	REF	32	8	10	0	0	zonenpcsquad
+162	npc-reset-stage	record			despawn-force	BOOL	112	1	10	0	0	
+162	npc-reset-stage	record			respawn-after-despawn	BOOL	122	1	10	0	0	
+162	npc-reset-stage	record			spawn-npc-group	REF	136	8	10	0	0	zonenpcsquad
+162	npc-reset-stage	record			spawn-delay	MSEC	216	4	10	0	0	
+162	npc-reset-stage	record			spawn-npc-min-id	INT16	256	2	1	0	0	
+162	npc-reset-stage	record			spawn-npc-max-id	INT16	258	2	1	0	0	
+162	npc-reset-stage	record			despawn-npc-min-id	INT16	260	2	1	0	0	
+162	npc-reset-stage	record			despawn-npc-max-id	INT16	262	2	1	0	0	
+162	npc-reset-stage	record			clear-npc-reg	BOOL	264	1	1	0	0	
+162	npc-reset-stage	record			clear-party-reg	BOOL	265	1	1	0	0	
+162	npc-reset-stage	record			set-env2-target	REF	272	8	72	0	0	zoneenv2spawn
+162	npc-reset-stage	record			set-env-operation	SEQ	848	1	72	0	0	
+163	npcsquadcombatpattern	record			alias	STR	16	8	1	0	1	
+163	npcsquadcombatpattern	record			squad-index	INT8	24	1	20	0	0	
+163	npcsquadcombatpattern	record			target-rule	SEQ	44	1	20	0	0	
+164	party-battle-field-zone	record			id	INT16	8	2	1	1	1	
+164	party-battle-field-zone	record			alias	STR	16	8	1	0	1	
+164	party-battle-field-zone	record			zone	REF	24	8	1	0	1	zone
+164	party-battle-field-zone	record			required-level	INT8	32	1	1	0	0	
+164	party-battle-field-zone	record			required-mastery-level	INT8	33	1	1	0	0	
+164	party-battle-field-zone	record			required-member-count-team-matching	INT8	34	1	1	0	0	
+164	party-battle-field-zone	record			available-random-matching-weekly-time	REF	40	8	1	0	0	weeklytimetable
+164	party-battle-field-zone	record			disable-calc-rating-score-weekly-time	REF	48	8	1	0	0	weeklytimetable
+164	party-battle-field-zone	record			ready-duration-second	INT16	56	2	1	0	0	
+164	party-battle-field-zone	record			play-duration-second	INT16	58	2	1	0	0	
+164	party-battle-field-zone	record			no-game-decision-duration-second	INT16	60	2	1	0	0	
+164	party-battle-field-zone	record			enter-alpha-side-pc-spawn	REF	64	8	1	0	1	zonepcspawn
+164	party-battle-field-zone	record			enter-beta-side-pc-spawn	REF	72	8	1	0	1	zonepcspawn
+164	party-battle-field-zone	record			start-alpha-side-pc-spawn	REF	80	8	1	0	1	zonepcspawn
+164	party-battle-field-zone	record			start-beta-side-pc-spawn	REF	88	8	1	0	1	zonepcspawn
+164	party-battle-field-zone	record			respawn-delay	MSEC	96	4	1	0	0	
+164	party-battle-field-zone	record			alpha-side-respawn	REF	104	8	1	0	1	zonerespawn
+164	party-battle-field-zone	record			beta-side-respawn	REF	112	8	1	0	1	zonerespawn
+164	party-battle-field-zone	record			set-env-time	INT16	120	2	10	0	0	
+164	party-battle-field-zone	record			set-env2-target	REF	144	8	10	0	0	zoneenv2spawn
+164	party-battle-field-zone	record			set-env-operation	SEQ	224	1	10	0	0	
+164	party-battle-field-zone	record			group	REF	240	8	1	0	0	attraction-group
+164	party-battle-field-zone	record			add-point-rate-win	INT16	248	2	1	0	0	
+164	party-battle-field-zone	record			add-point-rate-lose	INT16	250	2	1	0	0	
+164	party-battle-field-zone	record			add-point-win	INT16	252	2	1	0	0	
+164	party-battle-field-zone	record			add-point-lose	INT16	254	2	1	0	0	
+164	party-battle-field-zone	record			kill-score	INT16	256	2	1	0	0	
+164	party-battle-field-zone	record			goal-score	INT16	258	2	1	0	0	
+164	party-battle-field-zone	record			enable-infinite-hyper-energy	BOOL	260	1	1	0	0	
+164	party-battle-field-zone	record			enable-no-game-decision-by-idleness	BOOL	261	1	1	0	0	
+164	party-battle-field-zone	record			no-game-decision-min-damage	INT32	264	4	1	0	0	
+164	party-battle-field-zone	record			weekly-time-table-for-added-reward	REF	272	8	2	0	0	weeklytimetable
+164	party-battle-field-zone	record			bonus-point-percent	INT32	288	4	2	0	0	
+164	party-battle-field-zone	record			bonus-exp-percent	INT32	296	4	2	0	0	
+164	party-battle-field-zone	record			vote-duration-second	INT16	304	2	1	0	0	
+164	party-battle-field-zone	record			vote-reward-point	INT32	308	4	1	0	0	
+164	party-battle-field-zone	record			vote-reward-exp	INT32	312	4	1	0	0	
+164	party-battle-field-zone	record	0	occupation-war	control-point	REF	320	8	5	0	0	zoneenv2spawn
+164	party-battle-field-zone	record	0	occupation-war	whole-occupation-bonus-score	INT16	360	2	1	0	0	
+164	party-battle-field-zone	record	0	occupation-war	occupation-effect	REF	368	8	2	0	0	effect
+164	party-battle-field-zone	record	1	capture-the-flag	flag-spawn-env	REF	320	8	1	0	0	zoneenv2spawn
+164	party-battle-field-zone	record	1	capture-the-flag	flag-spawn-env-respawn-duration-second	INT16	328	2	5	0	0	
+164	party-battle-field-zone	record	1	capture-the-flag	flag-spawn-limit-count	INT8	338	1	1	0	0	
+164	party-battle-field-zone	record	1	capture-the-flag	alpha-control-point	REF	344	8	3	0	0	zoneenv2spawn
+164	party-battle-field-zone	record	1	capture-the-flag	beta-control-point	REF	368	8	3	0	0	zoneenv2spawn
+164	party-battle-field-zone	record	1	capture-the-flag	double-occupation-bonus-score	INT16	392	2	1	0	0	
+164	party-battle-field-zone	record	1	capture-the-flag	steal-flag-effect	REF	400	8	2	0	0	effect
+164	party-battle-field-zone	record	1	capture-the-flag	vote-delay-second	INT16	416	2	1	0	0	
+164	party-battle-field-zone	record	2	lead-the-ball	arrow-control-point	REF	320	8	6	0	0	zoneenv2spawn
+164	party-battle-field-zone	record	2	lead-the-ball	arrow-control-point-enable-delay-second	INT16	368	2	6	0	0	
+164	party-battle-field-zone	record	2	lead-the-ball	arrow-control-point-init-state	SEQ	380	1	6	0	0	
+164	party-battle-field-zone	record	2	lead-the-ball	opening-tip-off-control-point	REF	392	8	1	0	0	zoneenv2spawn
+164	party-battle-field-zone	record	2	lead-the-ball	alpha-goal-post	REF	400	8	1	0	0	zoneenv2spawn
+164	party-battle-field-zone	record	2	lead-the-ball	beta-goal-post	REF	408	8	1	0	0	zoneenv2spawn
+164	party-battle-field-zone	record	2	lead-the-ball	goal-post-enable-delay-second	INT16	416	2	1	0	0	
+164	party-battle-field-zone	record	2	lead-the-ball	ball-npc	REF	424	8	20	0	0	zonenpcspawn
+164	party-battle-field-zone	record	2	lead-the-ball	ball-spawn-max-count	INT8	584	1	1	0	0	
+164	party-battle-field-zone	record	2	lead-the-ball	init-ball-spawn-delay-second	INT16	586	2	1	0	0	
+164	party-battle-field-zone	record	2	lead-the-ball	play-section-duration-second	INT16	588	2	2	0	0	
+164	party-battle-field-zone	record	2	lead-the-ball	ball-spawn-interval-second	INT16	592	2	3	0	0	
+164	party-battle-field-zone	record	2	lead-the-ball	ball-speed-effect	REF	600	8	3	0	0	effect
+164	party-battle-field-zone	record	2	lead-the-ball	goal-in-score	INT16	624	2	3	0	0	
+164	party-battle-field-zone	record	2	lead-the-ball	consecutive-goal-bonus	INT16	630	2	3	0	0	
+164	party-battle-field-zone	record	2	lead-the-ball	consecutive-goal-bonus-duration-second	INT16	636	2	1	0	0	
+164	party-battle-field-zone	record	2	lead-the-ball	goal-in-effect	REF	640	8	2	0	0	effect
+165	partymatch	record			alias	STR	16	8	1	0	1	
+165	partymatch	record			faction	REF	24	8	1	0	0	faction
+174	quest	quest			id	INT16	8	2	1	1	1	
+174	quest	quest			alias	STR	16	8	1	0	1	
+174	quest	quest			max-repeat	INT8	24	1	1	0	0	
+174	quest	quest			district	REF	0	0	2	0	0	district
+174	quest	quest			category	SEQ	25	1	1	0	1	
+174	quest	quest			completed-list	BOOL	26	1	1	0	0	
+174	quest	quest			tutorial	BOOL	27	1	1	0	0	
+174	quest	quest			last-mission-step	INT8	28	1	1	0	0	
+174	quest	quest			effect-exist	BOOL	29	1	1	0	0	
+174	quest	quest			reset-type	SEQ	30	1	1	0	0	
+174	quest	quest			reset-by-acquire-time	SEQ	31	1	1	0	0	
+174	quest	quest			reset-day-of-week	SEQ	32	1	1	0	0	
+174	quest	quest			reset-day-of-month	INT8	33	1	1	0	0	
+174	quest	quest			faction	REF	40	8	1	0	0	faction
+174	quest	quest			activated-faction	REF	0	0	1	0	0	faction
+174	quest	quest			main-faction	REF	48	8	1	0	0	faction
+174	quest	quest			production	SEQ	56	1	1	0	0	
+174	quest	quest			save-type	SEQ	57	1	1	0	0	
+174	quest	quest			dungeon	REF	64	8	1	0	0	dungeon
+174	quest	quest			dungeon-type	SEQ	72	1	1	0	0	
+174	quest	quest			retired	BOOL	73	1	1	0	0	
+174	quest	quest			progress-difficulty-type	BOOL	74	1	3	0	0	
+174	quest	quest			progress-difficulty-type-always	BOOL	77	1	1	0	0	
+174	quest	quest			attraction	TREF	80	16	4	0	0	
+174	quest	quest			hunting-zone	REF	144	8	1	0	0	zone
+174	quest	quest			reset-enable	BOOL	152	1	1	0	0	
+174	quest	quest			reset-money	INT32	156	4	1	0	0	
+174	quest	quest			reset-item	REF	160	8	4	0	0	item
+174	quest	quest			reset-item-count	INT8	192	1	4	0	0	
+174	quest	quest			check-vitality	BOOL	196	1	1	0	0	
+174	quest	quest			valid-date-start-year	INT16	198	2	1	0	0	
+174	quest	quest			valid-date-start-month	INT8	200	1	1	0	0	
+174	quest	quest			valid-date-start-day	INT8	201	1	1	0	0	
+174	quest	quest			valid-date-end-year	INT16	202	2	1	0	0	
+174	quest	quest			valid-date-end-month	INT8	204	1	1	0	0	
+174	quest	quest			valid-date-end-day	INT8	205	1	1	0	0	
+174	quest	quest			valid-time-start-hour	INT8	206	1	1	0	0	
+174	quest	quest			valid-time-end-hour	INT8	207	1	1	0	0	
+174	quest	quest			valid-dayofweek-sun	BOOL	208	1	1	0	0	
+174	quest	quest			valid-dayofweek-mon	BOOL	209	1	1	0	0	
+174	quest	quest			valid-dayofweek-tue	BOOL	210	1	1	0	0	
+174	quest	quest			valid-dayofweek-wed	BOOL	211	1	1	0	0	
+174	quest	quest			valid-dayofweek-thu	BOOL	212	1	1	0	0	
+174	quest	quest			valid-dayofweek-fri	BOOL	213	1	1	0	0	
+174	quest	quest			valid-dayofweek-sat	BOOL	214	1	1	0	0	
+174	quest	quest			replay-epic-original	REF	0	0	1	0	0	quest
+174	quest	quest			replay-epic-start-point	BOOL	215	1	1	0	0	
+174	quest	quest			replay-epic-pcspawn	REF	216	8	1	0	0	zonepcspawn
+174	quest	quest			replay-epic-zone-leave-social	REF	224	8	1	0	0	social
+174	quest	quest			replay-epic-zone-enter-social	REF	232	8	1	0	0	social
+174	quest	quest			replay-epic-zone-leave-cinematic	REF	240	8	1	0	0	cinematic
+174	quest	quest			replay-epic-zone-enter-cinematic	REF	248	8	1	0	0	cinematic
+174	quest	quest			extra-quest-complete-achievement	REF	256	8	3	0	0	quest
+174	quest	quest			dungeon2	REF	280	8	1	0	0	dungeon
+174	quest	quest			duel-mission-steps	INT8	288	1	16	0	0	
+174	quest	quest			duel-missions	INT8	304	1	16	0	0	
+174	quest	quest			duel-cases	INT8	320	1	16	0	0	
+174	quest	quest			duel-case-subtypes	INT16	336	2	16	0	0	
+174	quest	quest			invoke-achievement-event	INT16	368	2	1	0	0	
+174	quest	quest			bot-scoring-quest-flag	BOOL	370	1	1	0	0	
+174	quest	quest			exceed-level-next-level	INT8	371	1	1	0	0	
+174	quest	quest			contents-reset	REF	376	8	1	0	0	contents-reset
+174	quest	quest			epic-quest-order	INT16	384	2	1	0	0	
+174	quest	filter			id	INT64	8	8	1	1	1	
+174	quest	filter			alias	STR	16	8	1	0	1	
+174	quest	filter			subject2	SCRIPT_OBJ	24	32	1	0	0	
+174	quest	filter			target2	SCRIPT_OBJ	56	32	1	0	0	
+174	quest	filter			line	INT32	88	4	1	0	0	
+174	quest	filter	0	number	op	SEQ	96	1	1	0	1	
+174	quest	filter	0	number	value	INT64	104	8	1	0	1	
+174	quest	filter	1	race	value	PROP_SEQ	96	1	4	0	0	
+174	quest	filter	1	race	either	BOOL	100	1	1	0	0	
+174	quest	filter	2	sex	value	PROP_SEQ	96	1	4	0	0	
+174	quest	filter	2	sex	either	BOOL	100	1	1	0	0	
+174	quest	filter	3	job	value	PROP_SEQ	96	1	4	0	0	
+174	quest	filter	3	job	either	BOOL	100	1	1	0	0	
+174	quest	filter	4	job-style	count	INT8	96	1	1	0	0	
+174	quest	filter	4	job-style	job	PROP_SEQ	97	1	4	0	0	
+174	quest	filter	4	job-style	job-style	SEQ	101	1	4	0	0	
+174	quest	filter	4	job-style	either	BOOL	105	1	1	0	0	
+174	quest	filter	5	stance	value	PROP_SEQ	96	1	4	0	0	
+174	quest	filter	5	stance	either	BOOL	100	1	1	0	0	
+174	quest	filter	6	prop	field	PROP_FIELD	96	2	1	0	1	
+174	quest	filter	6	prop	op	SEQ	98	1	1	0	1	
+174	quest	filter	6	prop	value	INT64	104	8	1	0	1	
+174	quest	filter	7	prop-percent	field	PROP_FIELD	96	2	1	0	1	
+174	quest	filter	7	prop-percent	op	SEQ	98	1	1	0	1	
+174	quest	filter	7	prop-percent	value	INT8	99	1	1	0	1	
+174	quest	filter	8	prop-flag	field	PROP_FIELD	96	2	1	0	1	
+174	quest	filter	8	prop-flag	flag	BOOL	98	1	1	0	1	
+174	quest	filter	9	effect-flag	flagtype	SEQ16	96	2	1	0	1	
+174	quest	filter	9	effect-flag	flag	BOOL	98	1	1	0	1	
+174	quest	filter	10	faction	value	REF	96	8	1	0	1	faction
+174	quest	filter	11	active-faction	value	REF	96	8	1	0	1	faction
+174	quest	filter	13	faction-reputation	op	SEQ	96	1	1	0	1	
+174	quest	filter	13	faction-reputation	value	INT16	98	2	1	0	1	
+174	quest	filter	14	faction-level	op	SEQ	96	1	1	0	1	
+174	quest	filter	14	faction-level	value	INT16	98	2	1	0	1	
+174	quest	filter	15	effect-attribute	value	SEQ16	96	2	4	0	0	
+174	quest	filter	15	effect-attribute	either	BOOL	104	1	1	0	0	
+174	quest	filter	16	compare-object-id	op	SEQ	96	1	1	0	1	
+174	quest	filter	18	weapon-type	weapon-type	SEQ	96	1	4	0	0	
+174	quest	filter	18	weapon-type	either	BOOL	100	1	1	0	0	
+174	quest	filter	21	party-member-state	abnormal-state	SEQ	96	1	1	0	1	
+174	quest	filter	22	inventory	item	REF	96	8	1	0	1	item
+174	quest	filter	22	inventory	amount	INT8	104	1	1	0	0	
+174	quest	filter	23	field-item	field-item	REF	96	8	1	0	1	fielditem
+174	quest	filter	26	npc-id	value	REF	96	8	1	0	1	npc
+174	quest	filter	27	npc-convoy	convoy	BOOL	96	1	1	0	1	
+174	quest	filter	29	npc-party	party	SCRIPT_OBJ	96	32	1	0	0	
+174	quest	filter	29	npc-party	index	INT8	128	1	1	0	0	
+174	quest	filter	29	npc-party	leader	BOOL	129	1	1	0	0	
+174	quest	filter	30	npc-spawn	spawn	REF	96	8	1	0	1	zonenpcspawn
+174	quest	filter	31	npc-brain	value	SEQ	96	1	1	0	1	
+174	quest	filter	32	event-broadcasted	value	BOOL	96	1	1	0	1	
+174	quest	filter	34	env-id	env2spawn	REF	96	8	1	0	1	zoneenv2spawn
+174	quest	filter	35	env-state	env2-state	SEQ	96	1	1	0	1	
+174	quest	filter	36	env-prestate	env2-state	SEQ	96	1	1	0	1	
+174	quest	filter	37	env-hp-percent	op	SEQ	96	1	1	0	1	
+174	quest	filter	37	env-hp-percent	value	INT8	97	1	1	0	1	
+174	quest	filter	38	skill3	value	REF	96	8	1	0	1	skill3
+174	quest	filter	39	skill3-id	value	REF	96	8	1	0	1	skill3
+174	quest	filter	40	effect-id	value	REF	96	8	1	0	1	effect
+174	quest	filter	41	effect-stack-count	effect-type	SUB	96	2	1	0	1	effect
+174	quest	filter	41	effect-stack-count	effect-slot	SEQ	98	1	1	0	1	
+174	quest	filter	41	effect-stack-count	term-op	SEQ	99	1	1	0	0	
+174	quest	filter	41	effect-stack-count	op	SEQ	100	1	2	0	0	
+174	quest	filter	41	effect-stack-count	value	INT64	104	8	2	0	0	
+174	quest	filter	42	quest-complete	quest	REF	96	8	1	0	1	quest
+174	quest	filter	42	quest-complete	mission-step	INT8	104	1	1	0	0	
+174	quest	filter	42	quest-complete	count	INT16	106	2	1	0	0	
+174	quest	filter	42	quest-complete	count-op	SEQ	108	1	1	0	0	
+174	quest	filter	43	quest-not-complete	quest	REF	96	8	1	0	1	quest
+174	quest	filter	44	act-sequence	value	REF	96	8	1	0	1	act-sequence
+174	quest	filter	47	link-laser-terminate-reason	reason	SEQ	96	1	1	0	1	
+174	quest	filter	48	content-quota-charge	content-quota	REF	96	8	1	0	1	content-quota
+174	quest	filter	48	content-quota-charge	op	SEQ	104	1	1	0	1	
+174	quest	filter	48	content-quota-charge	charge-value	INT64	112	8	1	0	1	
+174	quest	filter	49	cinematic	value	REF	96	8	1	0	1	cinematic
+174	quest	reaction			line	INT32	8	4	1	0	0	
+174	quest	reaction			probability	INT8	12	1	1	0	0	
+174	quest	reaction			probability10000	INT16	14	2	1	0	0	
+174	quest	reaction	0	debug-trace	text	STR	16	8	1	0	1	
+174	quest	reaction	1	debug-print	text	STR	16	8	1	0	1	
+174	quest	reaction	1	debug-print	param	SCRIPT_OBJ	24	32	8	0	0	
+174	quest	reaction	2	set-zone-timer	duration	MSEC	16	4	1	0	1	
+174	quest	reaction	4	in-out-detect-start	index	INT8	16	1	1	0	1	
+174	quest	reaction	4	in-out-detect-start	subscriber	SCRIPT_OBJ	24	32	1	0	1	
+174	quest	reaction	4	in-out-detect-start	ref-type	SEQ	56	1	1	0	1	
+174	quest	reaction	4	in-out-detect-start	ref-object	SCRIPT_OBJ	64	32	1	0	0	
+174	quest	reaction	4	in-out-detect-start	ref-area	REF	96	8	1	0	0	zonearea
+174	quest	reaction	4	in-out-detect-start	radius	INT16	104	2	1	0	1	
+174	quest	reaction	4	in-out-detect-start	duration	MSEC	108	4	1	0	1	
+174	quest	reaction	4	in-out-detect-start	gather-count	INT16	112	2	1	0	1	
+174	quest	reaction	4	in-out-detect-start	filter	REF	120	8	4	0	0	filter
+174	quest	reaction	5	in-out-detect-stop	index	INT8	16	1	1	0	1	
+174	quest	reaction	6	set-zone-object	zreg	INT8	16	1	1	0	1	
+174	quest	reaction	6	set-zone-object	object	SCRIPT_OBJ	24	32	1	0	1	
+174	quest	reaction	7	reset-zone-object	zreg	INT8	16	1	1	0	1	
+174	quest	reaction	8	damage	target2	SCRIPT_OBJ	16	32	1	0	1	
+174	quest	reaction	8	damage	amount	INT16	48	2	1	0	0	
+174	quest	reaction	8	damage	percent	INT8	50	1	1	0	0	
+174	quest	reaction	9	kill	target2	SCRIPT_OBJ	16	32	1	0	1	
+174	quest	reaction	10	heal	target2	SCRIPT_OBJ	16	32	1	0	1	
+174	quest	reaction	10	heal	amount	INT16	48	2	1	0	0	
+174	quest	reaction	10	heal	percent	INT8	50	1	1	0	0	
+174	quest	reaction	11	heal-max	target2	SCRIPT_OBJ	16	32	1	0	1	
+174	quest	reaction	12	invoke-effect	target	SCRIPT_OBJ	16	32	1	0	1	
+174	quest	reaction	12	invoke-effect	caster	SCRIPT_OBJ	48	32	1	0	0	
+174	quest	reaction	12	invoke-effect	effect	REF	80	8	1	0	1	effect
+174	quest	reaction	13	dispel-buff	target	SCRIPT_OBJ	16	32	1	0	1	
+174	quest	reaction	13	dispel-buff	dispel-force	BOOL	48	1	1	0	0	
+174	quest	reaction	14	dispel-debuff	target	SCRIPT_OBJ	16	32	1	0	1	
+174	quest	reaction	14	dispel-debuff	dispel-force	BOOL	48	1	1	0	0	
+174	quest	reaction	15	dispel-by-type	target	SCRIPT_OBJ	16	32	1	0	1	
+174	quest	reaction	15	dispel-by-type	effect-type	SUB	48	2	1	0	1	effect
+174	quest	reaction	15	dispel-by-type	dispel-force	BOOL	50	1	1	0	0	
+174	quest	reaction	16	dispel-by-attr	target	SCRIPT_OBJ	16	32	1	0	1	
+174	quest	reaction	16	dispel-by-attr	attr	SEQ16	48	2	4	0	1	
+174	quest	reaction	16	dispel-by-attr	dispel-force	BOOL	56	1	1	0	0	
+174	quest	reaction	17	warp	target	SCRIPT_OBJ	16	32	1	0	1	
+174	quest	reaction	17	warp	zone	REF	48	8	1	0	1	zone
+174	quest	reaction	17	warp	area	INT16	56	2	1	0	0	
+174	quest	reaction	17	warp	pc-spawn	INT16	58	2	1	0	0	
+174	quest	reaction	17	warp	leave-social	REF	64	8	1	0	0	social
+174	quest	reaction	17	warp	enter-social	REF	72	8	1	0	0	social
+174	quest	reaction	17	warp	leave-cinematic	REF	80	8	1	0	0	cinematic
+174	quest	reaction	17	warp	enter-cinematic	REF	88	8	1	0	0	cinematic
+174	quest	reaction	17	warp	phase-zone-pc-spawn	INT16	96	2	15	0	0	
+174	quest	reaction	17	warp	phase-zone-leave-cinematic	REF	128	8	15	0	0	cinematic
+174	quest	reaction	17	warp	phase-zone-enter-cinematic	REF	248	8	15	0	0	cinematic
+174	quest	reaction	17	warp	phase-zone-leave-social	REF	368	8	15	0	0	social
+174	quest	reaction	17	warp	phase-zone-enter-social	REF	488	8	15	0	0	social
+174	quest	reaction	18	warp-party	target	SCRIPT_OBJ	16	32	1	0	1	
+174	quest	reaction	18	warp-party	zone	REF	48	8	1	0	1	zone
+174	quest	reaction	18	warp-party	area	INT16	56	2	1	0	0	
+174	quest	reaction	18	warp-party	pc-spawn	INT16	58	2	1	0	0	
+174	quest	reaction	18	warp-party	leave-social	REF	64	8	1	0	0	social
+174	quest	reaction	18	warp-party	enter-social	REF	72	8	1	0	0	social
+174	quest	reaction	18	warp-party	leave-cinematic	REF	80	8	1	0	0	cinematic
+174	quest	reaction	18	warp-party	enter-cinematic	REF	88	8	1	0	0	cinematic
+174	quest	reaction	18	warp-party	phase-zone-pc-spawn	INT16	96	2	15	0	0	
+174	quest	reaction	18	warp-party	phase-zone-leave-cinematic	REF	128	8	15	0	0	cinematic
+174	quest	reaction	18	warp-party	phase-zone-enter-cinematic	REF	248	8	15	0	0	cinematic
+174	quest	reaction	18	warp-party	phase-zone-leave-social	REF	368	8	15	0	0	social
+174	quest	reaction	18	warp-party	phase-zone-enter-social	REF	488	8	15	0	0	social
+174	quest	reaction	19	warp-to-reentrance	target	SCRIPT_OBJ	16	32	1	0	1	
+174	quest	reaction	20	diff-faction-reputation	target	SCRIPT_OBJ	16	32	1	0	1	
+174	quest	reaction	20	diff-faction-reputation	amount	INT16	48	2	1	0	1	
+174	quest	reaction	21	diff-npc-hate	target	SCRIPT_OBJ	16	32	1	0	1	
+174	quest	reaction	21	diff-npc-hate	opponent	SCRIPT_OBJ	48	32	1	0	1	
+174	quest	reaction	21	diff-npc-hate	amount	INT32	80	4	1	0	1	
+174	quest	reaction	22	reset-npc-hate	target	SCRIPT_OBJ	16	32	1	0	1	
+174	quest	reaction	22	reset-npc-hate	opponent	SCRIPT_OBJ	48	32	1	0	1	
+174	quest	reaction	23	reset-npc-all-hate	target	SCRIPT_OBJ	16	32	1	0	1	
+174	quest	reaction	24	copy-npc-hate	target	SCRIPT_OBJ	16	32	1	0	1	
+174	quest	reaction	24	copy-npc-hate	opponent	SCRIPT_OBJ	48	32	1	0	1	
+174	quest	reaction	25	reference-npc-hate-start	target	SCRIPT_OBJ	16	32	1	0	1	
+174	quest	reaction	25	reference-npc-hate-start	opponent	SCRIPT_OBJ	48	32	1	0	1	
+174	quest	reaction	26	reference-npc-hate-end	target	SCRIPT_OBJ	16	32	1	0	1	
+174	quest	reaction	26	reference-npc-hate-end	reset-hate	BOOL	48	1	1	0	0	
+174	quest	reaction	27	set-npc-script	target	SCRIPT_OBJ	16	32	1	0	1	
+174	quest	reaction	27	set-npc-script	script	REF	48	8	1	0	1	script
+174	quest	reaction	28	request-clan-help	clan-member	SCRIPT_OBJ	16	32	1	0	1	
+174	quest	reaction	28	request-clan-help	target	SCRIPT_OBJ	48	32	1	0	1	
+174	quest	reaction	29	spawn-npc-index	group	SCRIPT_OBJ	16	32	1	0	1	
+174	quest	reaction	29	spawn-npc-index	index	INT8	48	1	20	0	0	
+174	quest	reaction	29	spawn-npc-index	spawn-delay	MSEC	68	4	1	0	0	
+174	quest	reaction	29	spawn-npc-index	spawn-target	SCRIPT_OBJ	72	32	1	0	0	
+174	quest	reaction	29	spawn-npc-index	spawn-radius	INT16	104	2	1	0	0	
+174	quest	reaction	29	spawn-npc-index	spawn-radius-diff	INT16	106	2	1	0	0	
+174	quest	reaction	29	spawn-npc-index	use-spawn-target-yaw	BOOL	108	1	1	0	0	
+174	quest	reaction	29	spawn-npc-index	spawn-angle-theta	INT16	110	2	1	0	0	
+174	quest	reaction	29	spawn-npc-index	spawn-area	INT16	112	2	1	0	0	
+174	quest	reaction	29	spawn-npc-index	attack-target	SCRIPT_OBJ	120	32	1	0	0	
+174	quest	reaction	29	spawn-npc-index	brain	SEQ	152	1	1	0	0	
+174	quest	reaction	29	spawn-npc-index	attackable	BOOL	153	1	1	0	0	
+174	quest	reaction	29	spawn-npc-index	hate-on	BOOL	154	1	1	0	0	
+174	quest	reaction	30	spawn-npc	spawn	REF	16	8	10	0	0	zonenpcspawn
+174	quest	reaction	30	spawn-npc	spawn-delay	MSEC	96	4	1	0	0	
+174	quest	reaction	30	spawn-npc	spawn-target	SCRIPT_OBJ	104	32	1	0	0	
+174	quest	reaction	30	spawn-npc	spawn-radius	INT16	136	2	1	0	0	
+174	quest	reaction	30	spawn-npc	spawn-radius-diff	INT16	138	2	1	0	0	
+174	quest	reaction	30	spawn-npc	use-spawn-target-yaw	BOOL	140	1	1	0	0	
+174	quest	reaction	30	spawn-npc	spawn-angle-theta	INT16	142	2	1	0	0	
+174	quest	reaction	30	spawn-npc	spawn-area	INT16	144	2	1	0	0	
+174	quest	reaction	30	spawn-npc	attack-target	SCRIPT_OBJ	152	32	1	0	0	
+174	quest	reaction	30	spawn-npc	brain	SEQ	184	1	1	0	0	
+174	quest	reaction	30	spawn-npc	attackable	BOOL	185	1	1	0	0	
+174	quest	reaction	30	spawn-npc	hate-on	BOOL	186	1	1	0	0	
+174	quest	reaction	31	despawn-npc	target	SCRIPT_OBJ	16	32	10	0	0	
+174	quest	reaction	31	despawn-npc	despawn-social	REF	336	8	10	0	0	social
+174	quest	reaction	31	despawn-npc	despawn-force	BOOL	416	1	1	0	0	
+174	quest	reaction	31	despawn-npc	respawn-after-despawn	BOOL	417	1	1	0	0	
+174	quest	reaction	31	despawn-npc	despawn-delay	MSEC	420	4	1	0	0	
+174	quest	reaction	32	despawn-npc-index	group	SCRIPT_OBJ	16	32	1	0	1	
+174	quest	reaction	32	despawn-npc-index	index	INT8	48	1	20	0	0	
+174	quest	reaction	32	despawn-npc-index	despawn-social	REF	72	8	10	0	0	social
+174	quest	reaction	32	despawn-npc-index	despawn-force	BOOL	152	1	1	0	0	
+174	quest	reaction	32	despawn-npc-index	respawn-after-despawn	BOOL	153	1	1	0	0	
+174	quest	reaction	32	despawn-npc-index	despawn-delay	MSEC	156	4	1	0	0	
+174	quest	reaction	33	spawn-npc-groups	group	SCRIPT_OBJ	16	32	10	0	0	
+174	quest	reaction	33	spawn-npc-groups	spawn-delay	MSEC	336	4	1	0	0	
+174	quest	reaction	33	spawn-npc-groups	attack-target	SCRIPT_OBJ	344	32	1	0	0	
+174	quest	reaction	34	despawn-npc-groups	group	SCRIPT_OBJ	16	32	10	0	0	
+174	quest	reaction	34	despawn-npc-groups	despawn-force	BOOL	336	1	1	0	0	
+174	quest	reaction	34	despawn-npc-groups	respawn-after-despawn	BOOL	337	1	1	0	0	
+174	quest	reaction	34	despawn-npc-groups	despawn-delay	MSEC	340	4	1	0	0	
+174	quest	reaction	35	spawn-random-npc	group	SCRIPT_OBJ	16	32	1	0	1	
+174	quest	reaction	35	spawn-random-npc	start	INT8	48	1	1	0	1	
+174	quest	reaction	35	spawn-random-npc	end	INT8	49	1	1	0	1	
+174	quest	reaction	35	spawn-random-npc	min	INT8	50	1	1	0	1	
+174	quest	reaction	35	spawn-random-npc	max	INT8	51	1	1	0	1	
+174	quest	reaction	35	spawn-random-npc	spawn-delay	MSEC	52	4	1	0	0	
+174	quest	reaction	35	spawn-random-npc	spawn-target	SCRIPT_OBJ	56	32	1	0	0	
+174	quest	reaction	35	spawn-random-npc	spawn-radius	INT16	88	2	1	0	0	
+174	quest	reaction	35	spawn-random-npc	spawn-radius-diff	INT16	90	2	1	0	0	
+174	quest	reaction	35	spawn-random-npc	attack-target	SCRIPT_OBJ	96	32	1	0	0	
+174	quest	reaction	36	spawn-random-npc-group	group	SCRIPT_OBJ	16	32	10	0	0	
+174	quest	reaction	36	spawn-random-npc-group	prob	INT8	336	1	10	0	0	
+174	quest	reaction	36	spawn-random-npc-group	spawn-delay	MSEC	348	4	1	0	0	
+174	quest	reaction	36	spawn-random-npc-group	attack-target	SCRIPT_OBJ	352	32	1	0	0	
+174	quest	reaction	37	transit-npc-combat	target	SCRIPT_OBJ	16	32	1	0	1	
+174	quest	reaction	37	transit-npc-combat	transit-cond-idx	INT8	48	1	1	0	0	
+174	quest	reaction	37	transit-npc-combat	immediately	BOOL	49	1	1	0	0	
+174	quest	reaction	38	transit-npc-combat-index	target	SCRIPT_OBJ	16	32	1	0	1	
+174	quest	reaction	38	transit-npc-combat-index	transit-cond-idx	INT8	48	1	1	0	0	
+174	quest	reaction	38	transit-npc-combat-index	index	INT8	49	1	1	0	0	
+174	quest	reaction	39	transit-npc-berserk	npc	SCRIPT_OBJ	16	32	1	0	1	
+174	quest	reaction	39	transit-npc-berserk	seq	REF	48	8	1	0	1	combat-sequence
+174	quest	reaction	40	set-npc-act	target	SCRIPT_OBJ	16	32	1	0	1	
+174	quest	reaction	40	set-npc-act	seq	REF	48	8	1	0	1	act-sequence
+174	quest	reaction	41	set-npc-indexed-act	target	SCRIPT_OBJ	16	32	1	0	1	
+174	quest	reaction	41	set-npc-indexed-act	seq-idx	INT8	48	1	1	0	1	
+174	quest	reaction	42	set-npc-brain	npc	SCRIPT_OBJ	16	32	1	0	1	
+174	quest	reaction	42	set-npc-brain	brain	SEQ	48	1	1	0	1	
+174	quest	reaction	42	set-npc-brain	attackable	BOOL	49	1	1	0	0	
+174	quest	reaction	42	set-npc-brain	hate-on	BOOL	50	1	1	0	0	
+174	quest	reaction	42	set-npc-brain	target	SCRIPT_OBJ	56	32	1	0	0	
+174	quest	reaction	43	set-npc-follow	npc	SCRIPT_OBJ	16	32	1	0	1	
+174	quest	reaction	43	set-npc-follow	master	SCRIPT_OBJ	48	32	1	0	1	
+174	quest	reaction	43	set-npc-follow	detect	SEQ	80	1	1	0	0	
+174	quest	reaction	43	set-npc-follow	margin	DISTANCE	82	2	1	0	0	
+174	quest	reaction	43	set-npc-follow	chase-max	DISTANCE	84	2	1	0	0	
+174	quest	reaction	43	set-npc-follow	special	REF	88	8	1	0	0	combat-sequence
+174	quest	reaction	44	set-undying	target	SCRIPT_OBJ	16	32	1	0	1	
+174	quest	reaction	44	set-undying	undying	BOOL	48	1	1	0	1	
+174	quest	reaction	45	npc-talk-finish	npc	SCRIPT_OBJ	16	32	1	0	1	
+174	quest	reaction	46	npc-fire-special	target	SCRIPT_OBJ	16	32	1	0	1	
+174	quest	reaction	46	npc-fire-special	requester	SCRIPT_OBJ	48	32	1	0	0	
+174	quest	reaction	46	npc-fire-special	special-id	INT8	80	1	1	0	1	
+174	quest	reaction	46	npc-fire-special	check-duration	INT16	82	2	1	0	0	
+174	quest	reaction	47	set-npc-combat-mode	target	SCRIPT_OBJ	16	32	1	0	1	
+174	quest	reaction	47	set-npc-combat-mode	combat-mode	BOOL	48	1	1	0	1	
+174	quest	reaction	47	set-npc-combat-mode	special-id	INT8	49	1	1	0	0	
+174	quest	reaction	47	set-npc-combat-mode	attack-target	SCRIPT_OBJ	56	32	1	0	0	
+174	quest	reaction	48	set-npc-attackable	target	SCRIPT_OBJ	16	32	1	0	1	
+174	quest	reaction	48	set-npc-attackable	flag	BOOL	48	1	1	0	1	
+174	quest	reaction	49	set-npc-hate-on	target	SCRIPT_OBJ	16	32	1	0	1	
+174	quest	reaction	49	set-npc-hate-on	flag	BOOL	48	1	1	0	1	
+174	quest	reaction	50	set-npc-interactive	target	SCRIPT_OBJ	16	32	1	0	1	
+174	quest	reaction	50	set-npc-interactive	flag	BOOL	48	1	1	0	1	
+174	quest	reaction	51	set-env-state	target2	SCRIPT_OBJ	16	32	1	0	1	
+174	quest	reaction	51	set-env-state	state2	SEQ	48	1	1	0	1	
+174	quest	reaction	52	set-env-enable	target2	SCRIPT_OBJ	16	32	1	0	1	
+174	quest	reaction	52	set-env-enable	enable	BOOL	48	1	1	0	1	
+174	quest	reaction	53	set-env-init-enable	target2	SCRIPT_OBJ	16	32	1	0	1	
+174	quest	reaction	53	set-env-init-enable	init-enable	BOOL	48	1	1	0	1	
+174	quest	reaction	54	set-env-enable-toggle-interval	target2	SCRIPT_OBJ	16	32	1	0	1	
+174	quest	reaction	54	set-env-enable-toggle-interval	on	BOOL	48	1	1	0	1	
+174	quest	reaction	55	spawn-field-item	field-item	REF	16	8	1	0	1	fielditem
+174	quest	reaction	55	spawn-field-item	area	REF	24	8	1	0	1	zonearea
+174	quest	reaction	56	acquire-field-item	target	SCRIPT_OBJ	16	32	1	0	1	
+174	quest	reaction	56	acquire-field-item	field-item	REF	48	8	1	0	1	fielditem
+174	quest	reaction	57	remove-field-item	target	SCRIPT_OBJ	16	32	1	0	1	
+174	quest	reaction	58	drop-npc-weapon	target	SCRIPT_OBJ	16	32	1	0	1	
+174	quest	reaction	59	set-npc-number	target	SCRIPT_OBJ	16	32	1	0	1	
+174	quest	reaction	59	set-npc-number	reg	INT8	48	1	1	0	1	
+174	quest	reaction	59	set-npc-number	amount	INT8	49	1	1	0	1	
+174	quest	reaction	60	diff-npc-number	target	SCRIPT_OBJ	16	32	1	0	1	
+174	quest	reaction	60	diff-npc-number	reg	INT8	48	1	1	0	1	
+174	quest	reaction	60	diff-npc-number	amount	INT8	49	1	1	0	1	
+174	quest	reaction	61	set-party-number	target	SCRIPT_OBJ	16	32	1	0	1	
+174	quest	reaction	61	set-party-number	reg	INT8	48	1	1	0	1	
+174	quest	reaction	61	set-party-number	amount	INT32	52	4	1	0	1	
+174	quest	reaction	62	diff-party-number	target	SCRIPT_OBJ	16	32	1	0	1	
+174	quest	reaction	62	diff-party-number	reg	INT8	48	1	1	0	1	
+174	quest	reaction	62	diff-party-number	amount	INT32	52	4	1	0	1	
+174	quest	reaction	63	set-party-object	target	SCRIPT_OBJ	16	32	1	0	1	
+174	quest	reaction	63	set-party-object	reg	INT8	48	1	1	0	1	
+174	quest	reaction	63	set-party-object	object	SCRIPT_OBJ	56	32	1	0	1	
+174	quest	reaction	64	play-social	from	SCRIPT_OBJ	16	32	1	0	1	
+174	quest	reaction	64	play-social	to	SCRIPT_OBJ	48	32	1	0	0	
+174	quest	reaction	64	play-social	social	REF	80	8	1	0	1	social
+174	quest	reaction	64	play-social	play-social-delay	MSEC	88	4	1	0	0	
+174	quest	reaction	65	play-indexed-social	from	SCRIPT_OBJ	16	32	1	0	1	
+174	quest	reaction	65	play-indexed-social	to	SCRIPT_OBJ	48	32	1	0	0	
+174	quest	reaction	65	play-indexed-social	social	INT8	80	1	1	0	1	
+174	quest	reaction	65	play-indexed-social	play-social-delay	MSEC	84	4	1	0	0	
+174	quest	reaction	66	play-surround-social	from	SCRIPT_OBJ	16	32	1	0	0	
+174	quest	reaction	66	play-surround-social	to	SCRIPT_OBJ	48	32	1	0	0	
+174	quest	reaction	66	play-surround-social	social	REF	80	8	1	0	1	social
+174	quest	reaction	66	play-surround-social	play-social-delay	MSEC	88	4	1	0	0	
+174	quest	reaction	67	play-cinematic	to	SCRIPT_OBJ	16	32	1	0	1	
+174	quest	reaction	67	play-cinematic	cinematic	REF	48	8	1	0	1	cinematic
+174	quest	reaction	67	play-cinematic	sight	SEQ	56	1	1	0	0	
+174	quest	reaction	68	act-resume	target	SCRIPT_OBJ	16	32	1	0	1	
+174	quest	reaction	69	expand-inventory-first	target	SCRIPT_OBJ	16	32	1	0	1	
+174	quest	reaction	70	activate-teleport	target	SCRIPT_OBJ	16	32	1	0	1	
+174	quest	reaction	70	activate-teleport	teleport	REF	48	8	1	0	1	teleport
+174	quest	reaction	71	deactivate-teleport	target	SCRIPT_OBJ	16	32	1	0	1	
+174	quest	reaction	71	deactivate-teleport	teleport	REF	48	8	1	0	1	teleport
+174	quest	reaction	72	reset-stage	reset-stage	REF	16	8	1	0	1	npc-reset-stage
+174	quest	reaction	72	reset-stage	target	SCRIPT_OBJ	24	32	1	0	1	
+174	quest	reaction	73	set-public-raid-event	public-raid-event	REF	16	8	1	0	1	public-raid-event
+174	quest	reaction	74	pattern-start	index	INT8	16	1	1	0	1	
+174	quest	reaction	75	pattern-success	index	INT8	16	1	1	0	1	
+174	quest	reaction	76	add-zone-score	score	INT16	16	2	1	0	1	
+174	quest	reaction	77	decompose-summoned	target	SCRIPT_OBJ	16	32	1	0	1	
+174	quest	filter-set			name	STR	8	8	1	0	0	
+174	quest	reaction-set			probability	INT8	6	1	1	0	0	
+174	quest	reaction-set			name	STR	8	8	1	0	0	
+174	quest	acquisition-loss			faction	REF	8	8	1	0	0	faction
+174	quest	acquisition-loss			job	PROP_SEQ	16	1	14	0	0	
+174	quest	acquisition-loss			sex	PROP_SEQ	30	1	4	0	0	
+174	quest	acquisition-loss			race	PROP_SEQ	34	1	4	0	0	
+174	quest	acquisition-loss			money	INT32	40	4	1	0	0	
+174	quest	acquisition-loss			item	REF	48	8	2	0	0	item
+174	quest	acquisition-loss			item-count	INT8	64	1	2	0	0	
+174	quest	acquisition			npc	REF	0	0	1	0	0	npc
+174	quest	acquisition			level	INT8	6	1	1	0	0	
+174	quest	acquisition			mastery-level	INT8	7	1	1	0	0	
+174	quest	acquisition			mastery-level-open-state	SEQ	8	1	1	0	0	
+174	quest	acquisition			preceding-quest	REF	16	8	14	0	0	quest
+174	quest	acquisition			preceding-quest-retired	REF	128	8	14	0	0	quest
+174	quest	acquisition			preceding-quest-mission-step	INT8	240	1	14	0	0	
+174	quest	acquisition			preceding-quest-count	INT8	254	1	14	0	0	
+174	quest	acquisition			preceding-quest-check	SEQ	268	1	1	0	0	
+174	quest	acquisition			faction	REF	0	0	1	0	0	faction
+174	quest	acquisition			job	PROP_SEQ	269	1	14	0	0	
+174	quest	acquisition			production-id	SEQ	283	1	1	0	0	
+174	quest	acquisition			production-exp	INT16	284	2	1	0	0	
+174	quest	acquisition			faction-level	INT16	286	2	1	0	0	
+174	quest	acquisition			faction-level-max	INT16	288	2	1	0	0	
+174	quest	acquisition			valid-dayofweek-start-day	SEQ	290	1	7	0	0	
+174	quest	acquisition			valid-dayofweek-start-hour	INT8	297	1	7	0	0	
+174	quest	acquisition			valid-dayofweek-end-day	SEQ	304	1	7	0	0	
+174	quest	acquisition			valid-dayofweek-end-hour	INT8	311	1	7	0	0	
+174	quest	acquisition			reward	REF	320	8	3	0	0	questreward
+174	quest	acquisition			check-tencent-vitality	BOOL	0	0	1	0	0	
+174	quest	mission-step			id	INT8	6	1	1	0	1	
+174	quest	mission-step			completion-type	SEQ	7	1	1	0	0	
+174	quest	mission-step			zone	REF	8	8	4	0	0	zone
+174	quest	mission-step			quest-decision	STR	40	8	1	0	0	
+174	quest	mission-step			mission-mask	INT16	0	0	1	0	0	
+174	quest	mission-step			mission-list	INT8	48	1	16	0	0	
+174	quest	mission-step			effect	REF	64	8	1	0	0	effect
+174	quest	mission-step			rollback	SEQ	72	1	1	0	0	
+174	quest	mission-step			time-limit-type	SEQ	73	1	1	0	0	
+174	quest	mission-step			time-limit	INT32	76	4	1	0	0	
+174	quest	mission-step			hide	BOOL	80	1	1	0	0	
+174	quest	mission-step			retired	BOOL	81	1	1	0	0	
+174	quest	mission-step			retired-zone	REF	88	8	1	0	0	zone
+174	quest	mission-step			skip-dest-mission-step	INT8	96	1	1	0	0	
+174	quest	mission-step			skip-quest-decision	STR	104	8	1	0	0	
+174	quest	mission-step			skip-quest-decision-script	REF	112	8	1	0	0	script
+174	quest	mission-step			skip-quest-decision-zone	REF	120	8	1	0	0	zone
+174	quest	mission-step			giveup-zone	REF	128	8	3	0	0	zone
+174	quest	mission-step			giveup-warp-to-pcspawn	REF	152	8	1	0	0	zonepcspawn
+174	quest	case			prob	INT8	6	1	1	0	0	
+174	quest	case			range-min	INT16	8	2	1	0	0	
+174	quest	case			range-max	INT16	10	2	1	0	0	
+174	quest	case			progress-mission	SEQ	12	1	1	0	0	
+174	quest	case			progress-value	INT8	13	1	1	0	0	
+174	quest	case			acquire-quest	BOOL	14	1	1	0	0	
+174	quest	case			quest-decision	STR	16	8	1	0	0	
+174	quest	case			fail-quest-decision	STR	24	8	1	0	0	
+174	quest	case			fail-quest-decision-script	REF	32	8	1	0	0	script
+174	quest	case			party-broadcast	BOOL	40	1	1	0	0	
+174	quest	case			team-broadcast	BOOL	41	1	1	0	0	
+174	quest	case			gadget-required	SEQ	42	1	1	0	0	
+174	quest	case			gadget	REF	48	8	1	0	0	fielditem
+174	quest	case			valid-zone	REF	56	8	2	0	0	zone
+174	quest	case			completion-count	INT8	72	1	1	0	0	
+174	quest	case			completion-count-op	SEQ	73	1	1	0	0	
+174	quest	case			visible-object	BOOL	0	0	1	0	0	
+174	quest	case	0	talk	object	TREF	80	16	1	0	1	
+174	quest	case	0	talk	drop-gadget	BOOL	96	1	1	0	0	
+174	quest	case	0	talk	convoy	REF	104	8	1	0	0	zoneconvoy
+174	quest	case	0	talk	convoy-member	INT8	112	1	4	0	0	
+174	quest	case	0	talk	convoy-members	INT32	116	4	1	0	0	
+174	quest	case	0	talk	grocery	REF	120	8	1	0	0	item
+174	quest	case	0	talk	grocery-count	INT16	128	2	1	0	0	
+174	quest	case	0	talk	remove-grocery	BOOL	130	1	1	0	0	
+174	quest	case	0	talk	faction-killed-count-min	INT8	131	1	1	0	0	
+174	quest	case	0	talk	faction-killed-count-max	INT8	132	1	1	0	0	
+174	quest	case	0	talk	duel-type	SEQ	133	1	1	0	0	
+174	quest	case	0	talk	arena-matching-rule-detail	SEQ	134	1	1	0	0	
+174	quest	case	0	talk	duel-straight-win	INT32	136	4	1	0	0	
+174	quest	case	0	talk	required-money	INT32	140	4	1	0	0	
+174	quest	case	0	talk	required-item-depot	SEQ	144	1	1	0	0	
+174	quest	case	0	talk	required-item	REF	152	8	4	0	0	item
+174	quest	case	0	talk	required-item-count	INT16	184	2	4	0	0	
+174	quest	case	0	talk	required-item-loss	BOOL	192	1	1	0	0	
+174	quest	case	0	talk	required-item-brand	REF	200	8	2	0	0	item-brand
+174	quest	case	0	talk	required-equip-gem-set	REF	216	8	1	0	0	set-item
+174	quest	case	1	talk-to-item	item	REF	80	8	1	0	1	item
+174	quest	case	1	talk-to-item	grocery	REF	88	8	1	0	0	item
+174	quest	case	1	talk-to-item	grocery-count	INT16	96	2	1	0	0	
+174	quest	case	1	talk-to-item	remove-grocery	BOOL	98	1	1	0	0	
+174	quest	case	1	talk-to-item	required-money	INT32	100	4	1	0	0	
+174	quest	case	1	talk-to-item	required-item-depot	SEQ	104	1	1	0	0	
+174	quest	case	1	talk-to-item	required-item	REF	112	8	4	0	0	item
+174	quest	case	1	talk-to-item	required-item-count	INT16	144	2	4	0	0	
+174	quest	case	1	talk-to-item	required-item-loss	BOOL	152	1	1	0	0	
+174	quest	case	1	talk-to-item	required-item-brand	REF	160	8	2	0	0	item-brand
+174	quest	case	1	talk-to-item	required-equip-gem-set	REF	176	8	1	0	0	set-item
+174	quest	case	2	talk-to-self	faction-killed-count-min	INT8	80	1	1	0	0	
+174	quest	case	2	talk-to-self	faction-killed-count-max	INT8	81	1	1	0	0	
+174	quest	case	2	talk-to-self	fee	BOOL	82	1	1	0	0	
+174	quest	case	2	talk-to-self	required-money	INT32	84	4	1	0	0	
+174	quest	case	2	talk-to-self	required-item-depot	SEQ	88	1	1	0	0	
+174	quest	case	2	talk-to-self	required-item	REF	96	8	4	0	0	item
+174	quest	case	2	talk-to-self	required-item-count	INT16	128	2	4	0	0	
+174	quest	case	2	talk-to-self	required-item-loss	BOOL	136	1	1	0	0	
+174	quest	case	2	talk-to-self	required-item-brand	REF	144	8	2	0	0	item-brand
+174	quest	case	2	talk-to-self	required-equip-gem-set	REF	160	8	1	0	0	set-item
+174	quest	case	2	talk-to-self	required-jumping-character-state	SEQ	168	1	1	0	0	
+174	quest	case	3	manipulate	object2	TREF	80	16	1	0	0	
+174	quest	case	3	manipulate	multi-object	TREF	96	16	16	0	0	
+174	quest	case	3	manipulate	grocery	REF	352	8	1	0	0	item
+174	quest	case	3	manipulate	grocery-count	INT16	360	2	1	0	0	
+174	quest	case	3	manipulate	remove-grocery	BOOL	362	1	1	0	0	
+174	quest	case	3	manipulate	drop-gadget	BOOL	363	1	1	0	0	
+174	quest	case	3	manipulate	faction-killed-count-min	INT8	364	1	1	0	0	
+174	quest	case	3	manipulate	faction-killed-count-max	INT8	365	1	1	0	0	
+174	quest	case	3	manipulate	join-faction2	REF	368	8	1	0	0	faction
+174	quest	case	3	manipulate	transfer-faction2	REF	376	8	1	0	0	faction
+174	quest	case	3	manipulate	required-money	INT32	384	4	1	0	0	
+174	quest	case	3	manipulate	required-item-depot	SEQ	388	1	1	0	0	
+174	quest	case	3	manipulate	required-item	REF	392	8	4	0	0	item
+174	quest	case	3	manipulate	required-item-count	INT16	424	2	4	0	0	
+174	quest	case	3	manipulate	required-item-loss	BOOL	432	1	1	0	0	
+174	quest	case	3	manipulate	convoy	REF	440	8	1	0	0	zoneconvoy
+174	quest	case	3	manipulate	convoy-member	INT8	448	1	4	0	0	
+174	quest	case	3	manipulate	convoy-members	INT32	452	4	1	0	0	
+174	quest	case	4	npc-manipulate	object	TREF	80	16	1	0	0	
+174	quest	case	4	npc-manipulate	multi-object	TREF	96	16	16	0	0	
+174	quest	case	4	npc-manipulate	grocery	REF	352	8	1	0	0	item
+174	quest	case	4	npc-manipulate	grocery-count	INT16	360	2	1	0	0	
+174	quest	case	4	npc-manipulate	remove-grocery	BOOL	362	1	1	0	0	
+174	quest	case	4	npc-manipulate	drop-gadget	BOOL	363	1	1	0	0	
+174	quest	case	4	npc-manipulate	faction-killed-count-min	INT8	364	1	1	0	0	
+174	quest	case	4	npc-manipulate	faction-killed-count-max	INT8	365	1	1	0	0	
+174	quest	case	4	npc-manipulate	required-money	INT32	368	4	1	0	0	
+174	quest	case	4	npc-manipulate	required-item-depot	SEQ	372	1	1	0	0	
+174	quest	case	4	npc-manipulate	required-item	REF	376	8	4	0	0	item
+174	quest	case	4	npc-manipulate	required-item-count	INT16	408	2	4	0	0	
+174	quest	case	4	npc-manipulate	required-item-loss	BOOL	416	1	1	0	0	
+174	quest	case	4	npc-manipulate	convoy	REF	424	8	1	0	0	zoneconvoy
+174	quest	case	4	npc-manipulate	convoy-member	INT8	432	1	4	0	0	
+174	quest	case	4	npc-manipulate	convoy-members	INT32	436	4	1	0	0	
+174	quest	case	5	approach	object	TREF	80	16	1	0	1	
+174	quest	case	5	approach	approach-social	REF	0	0	1	0	0	social
+174	quest	case	5	approach	grocery	REF	96	8	1	0	0	item
+174	quest	case	5	approach	grocery-count	INT16	104	2	1	0	0	
+174	quest	case	5	approach	remove-grocery	BOOL	106	1	1	0	0	
+174	quest	case	6	skill	object2	TREF	80	16	16	0	0	
+174	quest	case	6	skill	skill	REF	336	8	1	0	1	skill
+174	quest	case	6	skill	skill3	REF	344	8	1	0	1	skill3
+174	quest	case	6	skill	drop-gadget	BOOL	352	1	1	0	0	
+174	quest	case	7	loot	object2	TREF	80	16	1	0	0	
+174	quest	case	7	loot	multi-object	TREF	96	16	16	0	0	
+174	quest	case	7	loot	quest-symbol-drop-prob	INT8	352	1	1	0	0	
+174	quest	case	7	loot	loot-item	REF	360	8	1	0	0	item
+174	quest	case	8	killed	specify-object-type	SEQ	80	1	1	0	0	
+174	quest	case	8	killed	object2	TREF	88	16	1	0	0	
+174	quest	case	8	killed	multi-object	TREF	104	16	16	0	0	
+174	quest	case	8	killed	drop-gadget	BOOL	360	1	1	0	0	
+174	quest	case	8	killed	killed-difficulty-type	SEQ	361	1	1	0	0	
+174	quest	case	8	killed	skill3	REF	0	0	8	0	0	skill3
+174	quest	case	9	finish-blow	npc	REF	80	8	1	0	1	npc
+174	quest	case	9	finish-blow	skill3-id	INT32	88	4	20	0	0	
+174	quest	case	10	env-entered	object2	TREF	80	16	1	0	1	
+174	quest	case	11	enter-zone	object	TREF	80	16	1	0	1	
+174	quest	case	12	convoy-arrived	object	TREF	80	16	1	0	1	
+174	quest	case	12	convoy-arrived	convoy	REF	96	8	1	0	0	zoneconvoy
+174	quest	case	13	convoy-failed	object	TREF	80	16	1	0	1	
+174	quest	case	13	convoy-failed	convoy	REF	96	8	1	0	0	zoneconvoy
+174	quest	case	14	npc-bleeding-occured	object	TREF	80	16	1	0	1	
+174	quest	case	14	npc-bleeding-occured	idx	INT8	96	1	1	0	1	
+174	quest	case	15	enter-portal	object2	TREF	80	16	1	0	1	
+174	quest	case	16	acquire-summoned	object	TREF	80	16	1	0	0	
+174	quest	case	16	acquire-summoned	summoned-preset	REF	96	8	1	0	1	summoneddesignerpreset
+174	quest	case	17	pc-social	object2	TREF	80	16	1	0	1	
+174	quest	case	18	join-faction	faction	REF	80	8	1	0	1	faction
+174	quest	case	18	join-faction	object	TREF	88	16	1	0	0	
+174	quest	case	18	join-faction	drop-gadget	BOOL	104	1	1	0	0	
+174	quest	case	18	join-faction	grocery	REF	112	8	1	0	0	item
+174	quest	case	18	join-faction	grocery-count	INT16	120	2	1	0	0	
+174	quest	case	18	join-faction	remove-grocery	BOOL	122	1	1	0	0	
+174	quest	case	19	duel-finish	duel-result	SEQ	80	1	1	0	0	
+174	quest	case	19	duel-finish	duel-type	SEQ	81	1	1	0	0	
+174	quest	case	19	duel-finish	arena-matching-rule-detail	SEQ	82	1	1	0	0	
+174	quest	case	19	duel-finish	duel-straight-win	INT32	84	4	1	0	0	
+174	quest	case	19	duel-finish	duel-grade	INT8	88	1	1	0	0	
+174	quest	case	20	party-battle	party-battle-type	SEQ	80	1	1	0	0	
+174	quest	case	20	party-battle	party-battle-result	SEQ	81	1	1	0	0	
+174	quest	case	21	party-battle-action	party-battle-type	SEQ	80	1	1	0	0	
+174	quest	case	21	party-battle-action	party-battle-action-type	SEQ	81	1	1	0	0	
+174	quest	case	22	complete-quest	complete-quest	REF	80	8	1	0	1	quest
+174	quest	case	23	pick-up-fielditem	fielditem	REF	80	8	1	0	1	fielditem
+174	quest	case	24	battle-royal	battle-royal-field	REF	80	8	1	0	1	battle-royal-field
+174	quest	tutorial-case			prob	INT8	6	1	1	0	0	
+174	quest	tutorial-case			range-min	INT16	8	2	1	0	0	
+174	quest	tutorial-case			range-max	INT16	10	2	1	0	0	
+174	quest	tutorial-case			progress-mission	SEQ	12	1	1	0	0	
+174	quest	tutorial-case			zone	REF	16	8	1	0	0	zone
+174	quest	tutorial-case			quest-decision	STR	24	8	1	0	0	
+174	quest	tutorial-case			valid-zone	REF	32	8	2	0	0	zone
+174	quest	tutorial-case	11	npc-bleeding	npc	REF	48	8	1	0	1	npc
+174	quest	completion-loss			faction	REF	8	8	1	0	0	faction
+174	quest	completion-loss			job	PROP_SEQ	16	1	14	0	0	
+174	quest	completion-loss			sex	PROP_SEQ	30	1	4	0	0	
+174	quest	completion-loss			race	PROP_SEQ	34	1	4	0	0	
+174	quest	completion-loss			money	INT32	40	4	1	0	0	
+174	quest	completion-loss			item	REF	48	8	4	0	0	item
+174	quest	completion-loss			item-count	INT8	80	1	4	0	0	
+174	quest	giveup-loss			faction	REF	8	8	1	0	0	faction
+174	quest	giveup-loss			job	PROP_SEQ	16	1	14	0	0	
+174	quest	giveup-loss			sex	PROP_SEQ	30	1	4	0	0	
+174	quest	giveup-loss			race	PROP_SEQ	34	1	4	0	0	
+174	quest	giveup-loss			item	REF	40	8	4	0	0	item
+174	quest	giveup-loss			item-count	INT8	72	1	4	0	0	
+174	quest	basic-reward			money	INT32	8	4	1	0	0	
+174	quest	basic-reward			exp	INT32	12	4	1	0	0	
+174	quest	basic-reward			production-id	SEQ	16	1	1	0	0	
+174	quest	basic-reward			production-exp	INT16	18	2	1	0	0	
+174	quest	basic-reward			faction	REF	24	8	1	0	0	faction
+174	quest	basic-reward			faction-reputation	INT16	32	2	1	0	0	
+174	quest	fixed-reward			faction	REF	8	8	1	0	0	faction
+174	quest	fixed-reward			job	PROP_SEQ	16	1	14	0	0	
+174	quest	fixed-reward			sex	PROP_SEQ	30	1	4	0	0	
+174	quest	fixed-reward			race	PROP_SEQ	34	1	4	0	0	
+174	quest	fixed-reward			slot	TREF	40	16	4	0	0	
+174	quest	fixed-reward			item-count	INT8	104	1	4	0	0	
+174	quest	optional-reward			faction	REF	8	8	1	0	0	faction
+174	quest	optional-reward			job	PROP_SEQ	16	1	14	0	0	
+174	quest	optional-reward			sex	PROP_SEQ	30	1	4	0	0	
+174	quest	optional-reward			race	PROP_SEQ	34	1	4	0	0	
+174	quest	optional-reward			slot	TREF	40	16	4	0	0	
+174	quest	optional-reward			item-count	INT8	104	1	4	0	0	
+174	quest	mission			id	INT8	6	1	1	0	1	
+174	quest	mission			required-register-value	INT16	8	2	1	0	1	
+174	quest	mission			step	INT8	10	1	1	0	0	
+174	quest	mission			register-start-bit	INT8	0	0	1	0	0	
+174	quest	mission			register-mask	INT64	0	0	1	0	0	
+174	quest	mission			reward	REF	16	8	3	0	0	questreward
+174	quest	mission			check-tencent-vitality	BOOL	0	0	1	0	0	
+174	quest	mission			reset-teleport-recycle-time	BOOL	40	1	1	0	0	
+174	quest	mission			required-attraction	TREF	48	16	1	0	0	
+174	quest	mission			tendency-id	INT8	64	1	1	0	0	
+174	quest	mission			simple-quest-play-section	SEQ	65	1	1	0	0	
+174	quest	mission			variation-count	INT8	66	1	1	0	0	
+174	quest	mission			variation-required-condition-type	SEQ	67	1	1	0	0	
+174	quest	mission			variation-required-condition-value	INT32	68	4	8	0	0	
+174	quest	mission			variation-required-field-play-point	INT32	100	4	8	0	0	
+174	quest	mission			variation-required-register-value	INT16	132	2	8	0	0	
+174	quest	mission			variation-reward-field-play-point	INT32	148	4	8	0	0	
+174	quest	mission			variation-reward-faction-score	INT16	180	2	8	0	0	
+174	quest	mission			variation-reward-account-exp	INT32	196	4	8	0	0	
+174	quest	mission			variation-reward-tendency-score	INT32	228	4	8	0	0	
+174	quest	mission-step-fail			rollback-step-id	INT8	6	1	1	0	0	
+174	quest	mission-step-fail			dispose-quest	BOOL	7	1	1	0	0	
+174	quest	mission-step-fail			step	INT8	8	1	1	0	0	
+174	quest	mission-step-fail			zone	REF	16	8	4	0	0	zone
+174	quest	mission-step-fail			quest-decision	STR	48	8	1	0	0	
+174	quest	next-quest			faction	REF	8	8	1	0	0	faction
+174	quest	next-quest			job	PROP_SEQ	16	1	14	0	0	
+174	quest	next-quest			quest	REF	32	8	1	0	1	quest
+174	quest	transit			id	INT8	6	1	1	0	1	
+174	quest	transit			zone	REF	8	8	1	0	1	zone
+174	quest	destination			mission-step-id	INT8	6	1	1	0	1	
+174	quest	destination			zone-index	INT8	7	1	1	0	1	
+174	quest	complete			zone-index	INT8	6	1	1	0	1	
+174	quest	not-acquire			zone-index	INT8	6	1	1	0	1	
+175	questreward	record			id	INT16	8	2	1	1	1	
+175	questreward	record			alias	STR	16	8	1	0	1	
+175	questreward	record			quest-first-progress	SEQ	24	1	1	0	0	
+175	questreward	record			quest-completion-count	INT8	25	1	1	0	0	
+175	questreward	record			quest-completion-count-op	SEQ	26	1	1	0	0	
+175	questreward	record			basic-money	INT32	28	4	1	0	0	
+175	questreward	record			basic-exp	INT32	32	4	1	0	0	
+175	questreward	record			basic-account-exp	INT32	36	4	1	0	0	
+175	questreward	record			basic-mastery-level	INT8	40	1	1	0	0	
+175	questreward	record			basic-production-id	SEQ	41	1	1	0	0	
+175	questreward	record			basic-production-exp	INT16	42	2	1	0	0	
+175	questreward	record			basic-faction	REF	48	8	1	0	0	faction
+175	questreward	record			basic-faction-reputation	INT16	56	2	1	0	0	
+175	questreward	record			basic-guild-reputation	INT16	58	2	1	0	0	
+175	questreward	record			basic-duel-point	INT32	60	4	1	0	0	
+175	questreward	record			basic-party-battle-point	INT32	64	4	1	0	0	
+175	questreward	record			basic-field-play-point	INT32	68	4	1	0	0	
+175	questreward	record			fixed-quest-reward-job-style-skill3	REF	72	8	10	0	0	questrewardskill3
+175	questreward	record			fixed-common-slot	TREF	152	16	4	0	0	
+175	questreward	record			fixed-common-item-count	INT8	216	1	4	0	0	
+175	questreward	record			optional-common-slot	TREF	224	16	4	0	0	
+175	questreward	record			optional-common-item-count	INT8	288	1	4	0	0	
+175	questreward	record			fixed-1-faction	REF	296	8	1	0	0	faction
+175	questreward	record			fixed-1-job	PROP_SEQ	304	1	14	0	0	
+175	questreward	record			fixed-1-sex	PROP_SEQ	318	1	4	0	0	
+175	questreward	record			fixed-1-race	PROP_SEQ	322	1	4	0	0	
+175	questreward	record			fixed-1-difficulty-type	SEQ	326	1	1	0	0	
+175	questreward	record			fixed-1-slot	TREF	328	16	4	0	0	
+175	questreward	record			fixed-1-item-count	INT8	392	1	4	0	0	
+175	questreward	record			fixed-2-faction	REF	400	8	1	0	0	faction
+175	questreward	record			fixed-2-job	PROP_SEQ	408	1	14	0	0	
+175	questreward	record			fixed-2-sex	PROP_SEQ	422	1	4	0	0	
+175	questreward	record			fixed-2-race	PROP_SEQ	426	1	4	0	0	
+175	questreward	record			fixed-2-difficulty-type	SEQ	430	1	1	0	0	
+175	questreward	record			fixed-2-slot	TREF	432	16	4	0	0	
+175	questreward	record			fixed-2-item-count	INT8	496	1	4	0	0	
+175	questreward	record			fixed-3-faction	REF	504	8	1	0	0	faction
+175	questreward	record			fixed-3-job	PROP_SEQ	512	1	14	0	0	
+175	questreward	record			fixed-3-sex	PROP_SEQ	526	1	4	0	0	
+175	questreward	record			fixed-3-race	PROP_SEQ	530	1	4	0	0	
+175	questreward	record			fixed-3-difficulty-type	SEQ	534	1	1	0	0	
+175	questreward	record			fixed-3-slot	TREF	536	16	4	0	0	
+175	questreward	record			fixed-3-item-count	INT8	600	1	4	0	0	
+175	questreward	record			fixed-4-faction	REF	608	8	1	0	0	faction
+175	questreward	record			fixed-4-job	PROP_SEQ	616	1	14	0	0	
+175	questreward	record			fixed-4-sex	PROP_SEQ	630	1	4	0	0	
+175	questreward	record			fixed-4-race	PROP_SEQ	634	1	4	0	0	
+175	questreward	record			fixed-4-difficulty-type	SEQ	638	1	1	0	0	
+175	questreward	record			fixed-4-slot	TREF	640	16	4	0	0	
+175	questreward	record			fixed-4-item-count	INT8	704	1	4	0	0	
+175	questreward	record			fixed-5-faction	REF	712	8	1	0	0	faction
+175	questreward	record			fixed-5-job	PROP_SEQ	720	1	14	0	0	
+175	questreward	record			fixed-5-sex	PROP_SEQ	734	1	4	0	0	
+175	questreward	record			fixed-5-race	PROP_SEQ	738	1	4	0	0	
+175	questreward	record			fixed-5-difficulty-type	SEQ	742	1	1	0	0	
+175	questreward	record			fixed-5-slot	TREF	744	16	4	0	0	
+175	questreward	record			fixed-5-item-count	INT8	808	1	4	0	0	
+175	questreward	record			fixed-6-faction	REF	816	8	1	0	0	faction
+175	questreward	record			fixed-6-job	PROP_SEQ	824	1	14	0	0	
+175	questreward	record			fixed-6-sex	PROP_SEQ	838	1	4	0	0	
+175	questreward	record			fixed-6-race	PROP_SEQ	842	1	4	0	0	
+175	questreward	record			fixed-6-difficulty-type	SEQ	846	1	1	0	0	
+175	questreward	record			fixed-6-slot	TREF	848	16	4	0	0	
+175	questreward	record			fixed-6-item-count	INT8	912	1	4	0	0	
+175	questreward	record			fixed-7-faction	REF	920	8	1	0	0	faction
+175	questreward	record			fixed-7-job	PROP_SEQ	928	1	14	0	0	
+175	questreward	record			fixed-7-sex	PROP_SEQ	942	1	4	0	0	
+175	questreward	record			fixed-7-race	PROP_SEQ	946	1	4	0	0	
+175	questreward	record			fixed-7-difficulty-type	SEQ	950	1	1	0	0	
+175	questreward	record			fixed-7-slot	TREF	952	16	4	0	0	
+175	questreward	record			fixed-7-item-count	INT8	1016	1	4	0	0	
+175	questreward	record			fixed-8-faction	REF	1024	8	1	0	0	faction
+175	questreward	record			fixed-8-job	PROP_SEQ	1032	1	14	0	0	
+175	questreward	record			fixed-8-sex	PROP_SEQ	1046	1	4	0	0	
+175	questreward	record			fixed-8-race	PROP_SEQ	1050	1	4	0	0	
+175	questreward	record			fixed-8-difficulty-type	SEQ	1054	1	1	0	0	
+175	questreward	record			fixed-8-slot	TREF	1056	16	4	0	0	
+175	questreward	record			fixed-8-item-count	INT8	1120	1	4	0	0	
+175	questreward	record			fixed-9-faction	REF	1128	8	1	0	0	faction
+175	questreward	record			fixed-9-job	PROP_SEQ	1136	1	14	0	0	
+175	questreward	record			fixed-9-sex	PROP_SEQ	1150	1	4	0	0	
+175	questreward	record			fixed-9-race	PROP_SEQ	1154	1	4	0	0	
+175	questreward	record			fixed-9-difficulty-type	SEQ	1158	1	1	0	0	
+175	questreward	record			fixed-9-slot	TREF	1160	16	4	0	0	
+175	questreward	record			fixed-9-item-count	INT8	1224	1	4	0	0	
+175	questreward	record			fixed-10-faction	REF	1232	8	1	0	0	faction
+175	questreward	record			fixed-10-job	PROP_SEQ	1240	1	14	0	0	
+175	questreward	record			fixed-10-sex	PROP_SEQ	1254	1	4	0	0	
+175	questreward	record			fixed-10-race	PROP_SEQ	1258	1	4	0	0	
+175	questreward	record			fixed-10-difficulty-type	SEQ	1262	1	1	0	0	
+175	questreward	record			fixed-10-slot	TREF	1264	16	4	0	0	
+175	questreward	record			fixed-10-item-count	INT8	1328	1	4	0	0	
+175	questreward	record			fixed-11-faction	REF	1336	8	1	0	0	faction
+175	questreward	record			fixed-11-job	PROP_SEQ	1344	1	14	0	0	
+175	questreward	record			fixed-11-sex	PROP_SEQ	1358	1	4	0	0	
+175	questreward	record			fixed-11-race	PROP_SEQ	1362	1	4	0	0	
+175	questreward	record			fixed-11-difficulty-type	SEQ	1366	1	1	0	0	
+175	questreward	record			fixed-11-slot	TREF	1368	16	4	0	0	
+175	questreward	record			fixed-11-item-count	INT8	1432	1	4	0	0	
+175	questreward	record			fixed-12-faction	REF	1440	8	1	0	0	faction
+175	questreward	record			fixed-12-job	PROP_SEQ	1448	1	14	0	0	
+175	questreward	record			fixed-12-sex	PROP_SEQ	1462	1	4	0	0	
+175	questreward	record			fixed-12-race	PROP_SEQ	1466	1	4	0	0	
+175	questreward	record			fixed-12-difficulty-type	SEQ	1470	1	1	0	0	
+175	questreward	record			fixed-12-slot	TREF	1472	16	4	0	0	
+175	questreward	record			fixed-12-item-count	INT8	1536	1	4	0	0	
+175	questreward	record			fixed-13-faction	REF	1544	8	1	0	0	faction
+175	questreward	record			fixed-13-job	PROP_SEQ	1552	1	14	0	0	
+175	questreward	record			fixed-13-sex	PROP_SEQ	1566	1	4	0	0	
+175	questreward	record			fixed-13-race	PROP_SEQ	1570	1	4	0	0	
+175	questreward	record			fixed-13-difficulty-type	SEQ	1574	1	1	0	0	
+175	questreward	record			fixed-13-slot	TREF	1576	16	4	0	0	
+175	questreward	record			fixed-13-item-count	INT8	1640	1	4	0	0	
+175	questreward	record			fixed-14-faction	REF	1648	8	1	0	0	faction
+175	questreward	record			fixed-14-job	PROP_SEQ	1656	1	14	0	0	
+175	questreward	record			fixed-14-sex	PROP_SEQ	1670	1	4	0	0	
+175	questreward	record			fixed-14-race	PROP_SEQ	1674	1	4	0	0	
+175	questreward	record			fixed-14-difficulty-type	SEQ	1678	1	1	0	0	
+175	questreward	record			fixed-14-slot	TREF	1680	16	4	0	0	
+175	questreward	record			fixed-14-item-count	INT8	1744	1	4	0	0	
+175	questreward	record			optional-1-faction	REF	1752	8	1	0	0	faction
+175	questreward	record			optional-1-job	PROP_SEQ	1760	1	14	0	0	
+175	questreward	record			optional-1-sex	PROP_SEQ	1774	1	4	0	0	
+175	questreward	record			optional-1-race	PROP_SEQ	1778	1	4	0	0	
+175	questreward	record			optional-1-difficulty-type	SEQ	1782	1	1	0	0	
+175	questreward	record			optional-1-slot	TREF	1784	16	4	0	0	
+175	questreward	record			optional-1-item-count	INT8	1848	1	4	0	0	
+175	questreward	record			optional-2-faction	REF	1856	8	1	0	0	faction
+175	questreward	record			optional-2-job	PROP_SEQ	1864	1	14	0	0	
+175	questreward	record			optional-2-sex	PROP_SEQ	1878	1	4	0	0	
+175	questreward	record			optional-2-race	PROP_SEQ	1882	1	4	0	0	
+175	questreward	record			optional-2-difficulty-type	SEQ	1886	1	1	0	0	
+175	questreward	record			optional-2-slot	TREF	1888	16	4	0	0	
+175	questreward	record			optional-2-item-count	INT8	1952	1	4	0	0	
+175	questreward	record			optional-3-faction	REF	1960	8	1	0	0	faction
+175	questreward	record			optional-3-job	PROP_SEQ	1968	1	14	0	0	
+175	questreward	record			optional-3-sex	PROP_SEQ	1982	1	4	0	0	
+175	questreward	record			optional-3-race	PROP_SEQ	1986	1	4	0	0	
+175	questreward	record			optional-3-difficulty-type	SEQ	1990	1	1	0	0	
+175	questreward	record			optional-3-slot	TREF	1992	16	4	0	0	
+175	questreward	record			optional-3-item-count	INT8	2056	1	4	0	0	
+175	questreward	record			optional-4-faction	REF	2064	8	1	0	0	faction
+175	questreward	record			optional-4-job	PROP_SEQ	2072	1	14	0	0	
+175	questreward	record			optional-4-sex	PROP_SEQ	2086	1	4	0	0	
+175	questreward	record			optional-4-race	PROP_SEQ	2090	1	4	0	0	
+175	questreward	record			optional-4-difficulty-type	SEQ	2094	1	1	0	0	
+175	questreward	record			optional-4-slot	TREF	2096	16	4	0	0	
+175	questreward	record			optional-4-item-count	INT8	2160	1	4	0	0	
+175	questreward	record			optional-5-faction	REF	2168	8	1	0	0	faction
+175	questreward	record			optional-5-job	PROP_SEQ	2176	1	14	0	0	
+175	questreward	record			optional-5-sex	PROP_SEQ	2190	1	4	0	0	
+175	questreward	record			optional-5-race	PROP_SEQ	2194	1	4	0	0	
+175	questreward	record			optional-5-difficulty-type	SEQ	2198	1	1	0	0	
+175	questreward	record			optional-5-slot	TREF	2200	16	4	0	0	
+175	questreward	record			optional-5-item-count	INT8	2264	1	4	0	0	
+175	questreward	record			optional-6-faction	REF	2272	8	1	0	0	faction
+175	questreward	record			optional-6-job	PROP_SEQ	2280	1	14	0	0	
+175	questreward	record			optional-6-sex	PROP_SEQ	2294	1	4	0	0	
+175	questreward	record			optional-6-race	PROP_SEQ	2298	1	4	0	0	
+175	questreward	record			optional-6-difficulty-type	SEQ	2302	1	1	0	0	
+175	questreward	record			optional-6-slot	TREF	2304	16	4	0	0	
+175	questreward	record			optional-6-item-count	INT8	2368	1	4	0	0	
+175	questreward	record			optional-7-faction	REF	2376	8	1	0	0	faction
+175	questreward	record			optional-7-job	PROP_SEQ	2384	1	14	0	0	
+175	questreward	record			optional-7-sex	PROP_SEQ	2398	1	4	0	0	
+175	questreward	record			optional-7-race	PROP_SEQ	2402	1	4	0	0	
+175	questreward	record			optional-7-difficulty-type	SEQ	2406	1	1	0	0	
+175	questreward	record			optional-7-slot	TREF	2408	16	4	0	0	
+175	questreward	record			optional-7-item-count	INT8	2472	1	4	0	0	
+175	questreward	record			optional-8-faction	REF	2480	8	1	0	0	faction
+175	questreward	record			optional-8-job	PROP_SEQ	2488	1	14	0	0	
+175	questreward	record			optional-8-sex	PROP_SEQ	2502	1	4	0	0	
+175	questreward	record			optional-8-race	PROP_SEQ	2506	1	4	0	0	
+175	questreward	record			optional-8-difficulty-type	SEQ	2510	1	1	0	0	
+175	questreward	record			optional-8-slot	TREF	2512	16	4	0	0	
+175	questreward	record			optional-8-item-count	INT8	2576	1	4	0	0	
+175	questreward	record			optional-9-faction	REF	2584	8	1	0	0	faction
+175	questreward	record			optional-9-job	PROP_SEQ	2592	1	14	0	0	
+175	questreward	record			optional-9-sex	PROP_SEQ	2606	1	4	0	0	
+175	questreward	record			optional-9-race	PROP_SEQ	2610	1	4	0	0	
+175	questreward	record			optional-9-difficulty-type	SEQ	2614	1	1	0	0	
+175	questreward	record			optional-9-slot	TREF	2616	16	4	0	0	
+175	questreward	record			optional-9-item-count	INT8	2680	1	4	0	0	
+175	questreward	record			optional-10-faction	REF	2688	8	1	0	0	faction
+175	questreward	record			optional-10-job	PROP_SEQ	2696	1	14	0	0	
+175	questreward	record			optional-10-sex	PROP_SEQ	2710	1	4	0	0	
+175	questreward	record			optional-10-race	PROP_SEQ	2714	1	4	0	0	
+175	questreward	record			optional-10-difficulty-type	SEQ	2718	1	1	0	0	
+175	questreward	record			optional-10-slot	TREF	2720	16	4	0	0	
+175	questreward	record			optional-10-item-count	INT8	2784	1	4	0	0	
+175	questreward	record			optional-11-faction	REF	2792	8	1	0	0	faction
+175	questreward	record			optional-11-job	PROP_SEQ	2800	1	14	0	0	
+175	questreward	record			optional-11-sex	PROP_SEQ	2814	1	4	0	0	
+175	questreward	record			optional-11-race	PROP_SEQ	2818	1	4	0	0	
+175	questreward	record			optional-11-difficulty-type	SEQ	2822	1	1	0	0	
+175	questreward	record			optional-11-slot	TREF	2824	16	4	0	0	
+175	questreward	record			optional-11-item-count	INT8	2888	1	4	0	0	
+175	questreward	record			optional-12-faction	REF	2896	8	1	0	0	faction
+175	questreward	record			optional-12-job	PROP_SEQ	2904	1	14	0	0	
+175	questreward	record			optional-12-sex	PROP_SEQ	2918	1	4	0	0	
+175	questreward	record			optional-12-race	PROP_SEQ	2922	1	4	0	0	
+175	questreward	record			optional-12-difficulty-type	SEQ	2926	1	1	0	0	
+175	questreward	record			optional-12-slot	TREF	2928	16	4	0	0	
+175	questreward	record			optional-12-item-count	INT8	2992	1	4	0	0	
+175	questreward	record			optional-13-faction	REF	3000	8	1	0	0	faction
+175	questreward	record			optional-13-job	PROP_SEQ	3008	1	14	0	0	
+175	questreward	record			optional-13-sex	PROP_SEQ	3022	1	4	0	0	
+175	questreward	record			optional-13-race	PROP_SEQ	3026	1	4	0	0	
+175	questreward	record			optional-13-difficulty-type	SEQ	3030	1	1	0	0	
+175	questreward	record			optional-13-slot	TREF	3032	16	4	0	0	
+175	questreward	record			optional-13-item-count	INT8	3096	1	4	0	0	
+175	questreward	record			optional-14-faction	REF	3104	8	1	0	0	faction
+175	questreward	record			optional-14-job	PROP_SEQ	3112	1	14	0	0	
+175	questreward	record			optional-14-sex	PROP_SEQ	3126	1	4	0	0	
+175	questreward	record			optional-14-race	PROP_SEQ	3130	1	4	0	0	
+175	questreward	record			optional-14-difficulty-type	SEQ	3134	1	1	0	0	
+175	questreward	record			optional-14-slot	TREF	3136	16	4	0	0	
+175	questreward	record			optional-14-item-count	INT8	3200	1	4	0	0	
+175	questreward	record			fixed-reward-count	INT8	3204	1	1	0	0	
+175	questreward	record			optional-reward-count	INT8	3205	1	1	0	0	
+175	questreward	record			dayofweek-sun-fixed-item	REF	3208	8	2	0	0	item
+175	questreward	record			dayofweek-sun-fixed-item-count	INT8	3224	1	2	0	0	
+175	questreward	record			dayofweek-mon-fixed-item	REF	3232	8	2	0	0	item
+175	questreward	record			dayofweek-mon-fixed-item-count	INT8	3248	1	2	0	0	
+175	questreward	record			dayofweek-tue-fixed-item	REF	3256	8	2	0	0	item
+175	questreward	record			dayofweek-tue-fixed-item-count	INT8	3272	1	2	0	0	
+175	questreward	record			dayofweek-wed-fixed-item	REF	3280	8	2	0	0	item
+175	questreward	record			dayofweek-wed-fixed-item-count	INT8	3296	1	2	0	0	
+175	questreward	record			dayofweek-thu-fixed-item	REF	3304	8	2	0	0	item
+175	questreward	record			dayofweek-thu-fixed-item-count	INT8	3320	1	2	0	0	
+175	questreward	record			dayofweek-fri-fixed-item	REF	3328	8	2	0	0	item
+175	questreward	record			dayofweek-fri-fixed-item-count	INT8	3344	1	2	0	0	
+175	questreward	record			dayofweek-sat-fixed-item	REF	3352	8	2	0	0	item
+175	questreward	record			dayofweek-sat-fixed-item-count	INT8	3368	1	2	0	0	
+175	questreward	record			dayofweek-sun-bonus-money	INT32	3372	4	1	0	0	
+175	questreward	record			dayofweek-mon-bonus-money	INT32	3376	4	1	0	0	
+175	questreward	record			dayofweek-tue-bonus-money	INT32	3380	4	1	0	0	
+175	questreward	record			dayofweek-wed-bonus-money	INT32	3384	4	1	0	0	
+175	questreward	record			dayofweek-thu-bonus-money	INT32	3388	4	1	0	0	
+175	questreward	record			dayofweek-fri-bonus-money	INT32	3392	4	1	0	0	
+175	questreward	record			dayofweek-sat-bonus-money	INT32	3396	4	1	0	0	
+175	questreward	record			newbie-party-fixed-item	REF	3400	8	2	0	0	item
+175	questreward	record			newbie-party-fixed-item-count	INT8	3416	1	2	0	0	
+175	questreward	record			oldbie-party-fixed-item	REF	3424	8	2	0	0	item
+175	questreward	record			oldbie-party-fixed-item-count	INT8	3440	1	2	0	0	
+175	questreward	record			mentor-fixed-item	REF	3448	8	2	0	0	item
+175	questreward	record			mentor-fixed-item-count	INT8	3464	1	2	0	0	
+175	questreward	record			elevate-job-style	BOOL	3466	1	1	0	0	
+175	questreward	record			hongmoon-item	REF	3472	8	2	0	0	item
+175	questreward	record			hongmoon-item-count	INT16	3488	2	2	0	0	
+175	questreward	record			membership-item	REF	3496	8	2	0	0	item
+175	questreward	record			membership-item-count	INT16	3512	2	2	0	0	
+175	questreward	record			pccafe-item	REF	3520	8	2	0	0	item
+175	questreward	record			pccafe-item-count	INT16	3536	2	2	0	0	
+175	questreward	record			dungeon-additional-reward-item	REF	3544	8	4	0	0	item
+175	questreward	record			dungeon-additional-reward-item-count	INT8	3576	1	4	0	0	
+175	questreward	record			dungeon-additional-reward-cost-a	REF	3584	8	4	0	0	cost-group
+175	questreward	record			dungeon-additional-reward-cost-b	REF	3616	8	4	0	0	cost-group
+176	questrewardskill3	record			alias	STR	16	8	1	0	1	
+176	questrewardskill3	record			job-style	SEQ	24	1	1	0	0	
+176	questrewardskill3	record			skill3	REF	32	8	4	0	0	skill3
+177	raid-dungeon	record			id	INT32	8	4	1	1	1	
+177	raid-dungeon	record			alias	STR	16	8	1	0	1	
+177	raid-dungeon	record			dungeon-type	SEQ	24	1	1	0	0	
+177	raid-dungeon	record			group	REF	32	8	1	0	0	attraction-group
+177	raid-dungeon	record			max-unbind-count	INT8	40	1	1	0	0	
+177	raid-dungeon	record			reset-money	INT32	44	4	1	0	0	
+177	raid-dungeon	record			reset-item	REF	48	8	4	0	0	item
+177	raid-dungeon	record			reset-item-count	INT8	80	1	4	0	0	
+177	raid-dungeon	record			required-level	INT8	84	1	1	0	0	
+177	raid-dungeon	record			required-mastery-level	INT8	85	1	1	0	0	
+177	raid-dungeon	record			required-preceding-quest	REF	88	8	3	0	0	quest
+177	raid-dungeon	record			required-preceding-quest-check	SEQ	112	1	1	0	0	
+177	raid-dungeon	record			attraction-quest	REF	120	8	10	0	0	quest
+177	raid-dungeon	record			enable-heart-count	BOOL	200	1	1	0	0	
+177	raid-dungeon	record			max-instant-heart-count	INT8	201	1	1	0	0	
+177	raid-dungeon	record			effect	REF	208	8	3	0	0	effect
+177	raid-dungeon	record			step-count	INT8	232	1	1	0	0	
+177	raid-dungeon	record			zone	REF	240	8	9	0	0	zone
+177	raid-dungeon	record			boss-npc	REF	312	8	9	0	0	npc
+177	raid-dungeon	record			zone-index	INT8	384	1	9	0	0	
+177	raid-dungeon	record			max-leave-count-after-combat	INT8	393	1	1	0	0	
+177	raid-dungeon	record			contents-reset	REF	400	8	1	0	0	contents-reset
+214	skilltargetfilter3	record			alias	STR	16	8	1	0	1	
+214	skilltargetfilter3	record			fire-filter-target	REF	24	8	8	0	0	filter
+214	skilltargetfilter3	record			exec-filter-target	REF	88	8	8	0	0	filter
+220	skipquest	record			id	INT32	8	4	1	1	1	
+220	skipquest	record			level	INT16	16	1	1	0	1	
+220	skipquest	record			mastery-level	INT16	17	1	1	0	0	
+220	skipquest	record			quest	REF	24	8	1	0	1	quest
+220	skipquest	record	2	job	job	PROP_SEQ	32	1	1	0	1	
+221	skipteleport	record			id	INT32	8	4	1	1	1	
+221	skipteleport	record			level	INT16	16	1	1	0	1	
+221	skipteleport	record			mastery-level	INT16	17	1	1	0	0	
+221	skipteleport	record			teleport	REF	24	8	1	0	1	teleport
+225	social	record			alias	STR	16	8	1	0	1	
+225	social	record			duration	MSEC	24	4	1	0	0	
+225	social	record			spawn-cinematic	REF	32	8	1	0	0	cinematic
+225	social	record			id	INT64	0	0	1	1	1	
+227	soul-npc-skill	record			alias	STR	16	8	1	0	1	
+227	soul-npc-skill	record			skill3	REF	24	8	10	0	1	skill3
+227	soul-npc-skill	record			soul-npc-skill-category	SEQ	104	1	1	0	1	
+240	teleport	record			id	INT16	8	2	1	1	1	
+240	teleport	record			alias	STR	16	8	1	0	1	
+240	teleport	record			zone	INT32	0	0	1	0	1	
+240	teleport	record			retired	BOOL	24	1	1	0	0	
+240	teleport	record			destination-position	VECTOR16	0	0	1	0	1	
+240	teleport	record			teleport-position	REF	32	8	1	0	0	zoneteleportposition
+240	teleport	record			distance-from-start-teleport	DISTANCE	40	2	1	0	0	
+240	teleport	record			price-percent	INT32	44	4	1	0	0	
+240	teleport	record			activated-faction	REF	48	8	1	0	0	faction
+240	teleport	record			joined-faction	BOOL	56	1	1	0	0	
+240	teleport	record			required-pc-level	INT8	57	1	1	0	0	
+240	teleport	record			required-pc-mastery-level	INT8	58	1	1	0	0	
+240	teleport	record			required-faction-level	INT8	59	1	1	0	0	
+240	teleport	record			invoke-achievement-event	INT16	60	2	1	0	0	
+241	tencent-quest	record			questid	INT16	8	2	1	1	1	
+241	tencent-quest	record			check-vitality	BOOL	16	1	1	0	0	
+242	tendency-field	record			id	INT32	8	4	1	1	1	
+242	tendency-field	record			alias	STR	16	8	1	0	1	
+242	tendency-field	record			main-zone	REF	24	8	1	0	1	zone
+242	tendency-field	record			sub-zone	REF	32	8	7	0	0	zone
+242	tendency-field	record			enable-change-channel	BOOL	88	1	1	0	1	
+242	tendency-field	record			required-level	INT8	89	1	1	0	0	
+242	tendency-field	record			required-mastery-level	INT8	90	1	1	0	0	
+242	tendency-field	record			required-preceding-quest	REF	96	8	3	0	0	quest
+242	tendency-field	record			required-preceding-quest-check	SEQ	120	1	1	0	0	
+242	tendency-field	record			required-activated-main-faction	BOOL	121	1	1	0	0	
+242	tendency-field	record			restrict-enter-zone-when-manifest-tendency	BOOL	122	1	1	0	0	
+242	tendency-field	record			check-score-interval-minute	INT32	124	4	1	0	1	
+242	tendency-field	record			check-score-number-of-repetition	INT16	128	2	1	0	1	
+242	tendency-field	record			check-score-required-tendency-score-1	INT32	132	4	1	0	1	
+242	tendency-field	record			check-score-required-tendency-score-2	INT32	136	4	1	0	1	
+242	tendency-field	record			score-check-duration	MSEC	140	4	1	0	0	
+242	tendency-field	record			stand-by-duration-minute	INT16	144	2	1	0	1	
+242	tendency-field	record			in-progress-duration-minute	INT32	148	4	1	0	1	
+242	tendency-field	record			stand-by-tendency-1-npc-reset-stage-start	REF	152	8	1	0	0	npc-reset-stage
+242	tendency-field	record			stand-by-tendency-2-npc-reset-stage-start	REF	160	8	1	0	0	npc-reset-stage
+242	tendency-field	record			stand-by-tendency-3-npc-reset-stage-start	REF	168	8	1	0	0	npc-reset-stage
+242	tendency-field	record			tendency-1-max-play-value	INT8	176	1	1	0	0	
+242	tendency-field	record			tendency-2-max-play-value	INT8	177	1	1	0	0	
+242	tendency-field	record			tendency-3-max-play-value	INT8	178	1	1	0	0	
+242	tendency-field	record			tendency-1-reset-score-type	SEQ	179	1	1	0	0	
+242	tendency-field	record			tendency-2-reset-score-type	SEQ	180	1	1	0	0	
+242	tendency-field	record			tendency-3-reset-score-type	SEQ	181	1	1	0	0	
+242	tendency-field	record			tendency-1-npc-reset-stage-start	REF	184	8	5	0	0	npc-reset-stage
+242	tendency-field	record			tendency-2-npc-reset-stage-start	REF	224	8	5	0	0	npc-reset-stage
+242	tendency-field	record			tendency-3-npc-reset-stage-start	REF	264	8	5	0	0	npc-reset-stage
+242	tendency-field	record			tendency-1-npc-reset-stage-finish	REF	304	8	5	0	0	npc-reset-stage
+242	tendency-field	record			tendency-2-npc-reset-stage-finish	REF	344	8	5	0	0	npc-reset-stage
+242	tendency-field	record			tendency-3-npc-reset-stage-finish	REF	384	8	5	0	0	npc-reset-stage
+242	tendency-field	record			stand-by-tendency-1-npc-reset-stage-finish	REF	424	8	1	0	0	npc-reset-stage
+242	tendency-field	record			stand-by-tendency-2-npc-reset-stage-finish	REF	432	8	1	0	0	npc-reset-stage
+242	tendency-field	record			stand-by-tendency-3-npc-reset-stage-finish	REF	440	8	1	0	0	npc-reset-stage
+242	tendency-field	record			quest-pack-simple-quest-refresh-money	INT64	448	8	1	0	1	
+242	tendency-field	record			quest-pack-simple-quest-explicit-refresh-bonus-prob	INT8	456	1	6	0	0	
+242	tendency-field	record			quest-pack-simple-quest-implicit-refresh-bonus-prob	INT8	462	1	6	0	0	
+242	tendency-field	record			quest-pack-simple-quest-explicit-refresh-bonus-multiple	INT8	468	1	6	0	0	
+242	tendency-field	record			quest-pack-simple-quest-implicit-refresh-bonus-multiple	INT8	474	1	6	0	0	
+242	tendency-field	record			weekly-time-table-for-added-reward	REF	480	8	2	0	0	weeklytimetable
+242	tendency-field	record			weekly-bonus-point-percent	INT32	496	4	2	0	0	
+242	tendency-field	record			group	REF	504	8	1	0	0	attraction-group
+242	tendency-field	record			enable-infinite-hyper-energy	BOOL	512	1	1	0	0	
+242	tendency-field	record			disable-move-to-arena	BOOL	513	1	1	0	0	
+242	tendency-field	record			disable-move-to-skill-training-room	BOOL	514	1	1	0	0	
+242	tendency-field	record			enable-change-faction-costume	BOOL	515	1	1	0	0	
+242	tendency-field	record			enable-set-guild-meeting-place	BOOL	516	1	1	0	0	
+242	tendency-field	record			enable-warp-to-guild-member	BOOL	517	1	1	0	0	
+242	tendency-field	record	1	buyudo	playable-time	REF	520	8	1	0	0	weeklytimetable
+242	tendency-field	record	1	buyudo	check-score-required-min-faction-member-count	INT16	528	2	1	0	0	
+242	tendency-field	record	1	buyudo	tendency-1-faction1-warfare-boss	REF	536	8	5	0	0	npc
+242	tendency-field	record	1	buyudo	tendency-1-faction2-warfare-boss	REF	576	8	5	0	0	npc
+242	tendency-field	record	1	buyudo	tendency-2-faction1-warfare-boss	REF	616	8	5	0	0	npc
+242	tendency-field	record	1	buyudo	tendency-2-faction2-warfare-boss	REF	656	8	5	0	0	npc
+242	tendency-field	record	1	buyudo	tendency-3-warfare-boss	REF	696	8	5	0	0	npc
+242	tendency-field	record	1	buyudo	tendency-1-faction1-warfare-quest	REF	736	8	5	0	0	quest
+242	tendency-field	record	1	buyudo	tendency-1-faction2-warfare-quest	REF	776	8	5	0	0	quest
+242	tendency-field	record	1	buyudo	tendency-2-faction1-warfare-quest	REF	816	8	5	0	0	quest
+242	tendency-field	record	1	buyudo	tendency-2-faction2-warfare-quest	REF	856	8	5	0	0	quest
+242	tendency-field	record	1	buyudo	tendency-3-faction1-warfare-quest	REF	896	8	5	0	0	quest
+242	tendency-field	record	1	buyudo	tendency-3-faction2-warfare-quest	REF	936	8	5	0	0	quest
+242	tendency-field	record	1	buyudo	tendency-1-faction1-sub-quest	REF	976	8	5	0	0	quest
+242	tendency-field	record	1	buyudo	tendency-1-faction2-sub-quest	REF	1016	8	5	0	0	quest
+242	tendency-field	record	1	buyudo	tendency-2-faction1-sub-quest	REF	1056	8	5	0	0	quest
+242	tendency-field	record	1	buyudo	tendency-2-faction2-sub-quest	REF	1096	8	5	0	0	quest
+242	tendency-field	record	1	buyudo	tendency-3-faction1-sub-quest	REF	1136	8	5	0	0	quest
+242	tendency-field	record	1	buyudo	tendency-3-faction2-sub-quest	REF	1176	8	5	0	0	quest
+242	tendency-field	record	1	buyudo	faction1-kill-quest	REF	1216	8	1	0	0	quest
+242	tendency-field	record	1	buyudo	faction2-kill-quest	REF	1224	8	1	0	0	quest
+242	tendency-field	record	1	buyudo	defeat-field-play-point-bonus-percent	INT32	1232	4	1	0	0	
+242	tendency-field	record	1	buyudo	defeat-faction-score-bonus-percent	INT32	1236	4	1	0	0	
+242	tendency-field	record	1	buyudo	victory-faction-separation-faction-score	INT32	1240	4	1	0	0	
+242	tendency-field	record	1	buyudo	defeat-faction-separation-faction-score	INT32	1244	4	1	0	0	
+242	tendency-field	record	1	buyudo	defeat-bonus-point-percent	INT32	1248	4	1	0	0	
+242	tendency-field	record	1	buyudo	victory-npc-reset-stage-tendency	REF	1256	8	3	0	0	npc-reset-stage
+242	tendency-field	record	1	buyudo	warfare-draw-simple-quest-pack-play-section	INT8	1280	1	2	0	1	
+242	tendency-field	record	1	buyudo	warfare-victory-faction-light-user-simple-quest-pack-play-section	INT8	1282	1	2	0	1	
+242	tendency-field	record	1	buyudo	warfare-victory-faction-hard-user-simple-quest-pack-play-section	INT8	1284	1	2	0	1	
+242	tendency-field	record	1	buyudo	warfare-defeat-faction-light-user-simple-quest-pack-play-section	INT8	1286	1	2	0	1	
+242	tendency-field	record	1	buyudo	warfare-defeat-faction-hard-user-simple-quest-pack-play-section	INT8	1288	1	2	0	1	
+242	tendency-field	record	1	buyudo	reentrance-faction1-spawn	REF	1296	8	1	0	0	zonepcspawn
+242	tendency-field	record	1	buyudo	reentrance-faction2-spawn	REF	1304	8	1	0	0	zonepcspawn
+244	time-limit-field-zone	record			alias	STR	16	8	1	0	1	
+244	time-limit-field-zone	record			zone	INT32	8	4	1	1	1	
+244	time-limit-field-zone	record			enter-pc-spawn	REF	24	8	1	0	1	zonepcspawn
+244	time-limit-field-zone	record			time-limit-quota	REF	32	8	1	0	1	content-quota
+244	time-limit-field-zone	record			required-level	INT8	40	1	1	0	0	
+244	time-limit-field-zone	record			required-mastery-level	INT8	41	1	1	0	0	
+244	time-limit-field-zone	record			required-cost	REF	48	8	1	0	0	cost-group
+252	zonearea	record			zone	INT32	8	4	1	1	1	
+252	zonearea	record			id	INT16	12	2	1	1	1	
+252	zonearea	record			alias	STR	16	8	1	0	1	
+252	zonearea	record			box	BOX	24	12	1	0	1	
+252	zonearea	record			overlap	BOOL	36	1	1	0	0	
+253	zoneareagroup	record			zone	INT32	8	4	1	1	1	
+253	zoneareagroup	record			id	INT16	12	2	1	1	1	
+253	zoneareagroup	record			alias	STR	16	8	1	0	1	
+253	zoneareagroup	record			area-id-min	INT16	24	2	3	0	0	
+253	zoneareagroup	record			area-id-max	INT16	30	2	3	0	0	
+253	zoneareagroup	record			additional-area-id	INT16	36	2	30	0	0	
+254	zonebasecamp	record			zone	INT32	8	4	1	1	1	
+254	zonebasecamp	record			id	INT16	12	2	1	1	1	
+254	zonebasecamp	record			alias	STR	16	8	1	0	1	
+254	zonebasecamp	record			area	REF	24	8	1	0	0	zonearea
+254	zonebasecamp	record			center	VECTOR16	32	6	1	0	0	
+255	zonecampfire	record			zone	INT32	8	4	1	1	1	
+255	zonecampfire	record			id	INT16	12	2	1	1	1	
+255	zonecampfire	record			alias	STR	16	8	1	0	1	
+255	zonecampfire	record			campfire	REF	24	8	1	0	1	campfire
+255	zonecampfire	record			position	VECTOR16	32	6	1	0	1	
+256	zonecellattribute	record			id	INT32	8	4	1	1	1	
+256	zonecellattribute	record			alias	STR	16	8	1	0	1	
+256	zonecellattribute	record			zone	REF	24	8	1	0	1	zone
+256	zonecellattribute	record			pos-count	INT8	32	1	1	0	1	
+256	zonecellattribute	record			pos-x	INT32	36	4	20	0	1	
+256	zonecellattribute	record			pos-y	INT32	116	4	20	0	1	
+256	zonecellattribute	record			pos-z-start	INT32	196	4	1	0	1	
+256	zonecellattribute	record			pos-z-end	INT32	200	4	1	0	1	
+256	zonecellattribute	record			cell-attribute	SEQ	204	1	1	0	1	
+257	zoneconvoy	record			zone	INT32	8	4	1	1	1	
+257	zoneconvoy	record			id	INT16	12	2	1	1	1	
+257	zoneconvoy	record			alias	STR	16	8	1	0	1	
+257	zoneconvoy	record			move-radius	DISTANCE	24	2	1	0	0	
+257	zoneconvoy	record			fail-radius	DISTANCE	26	2	1	0	0	
+257	zoneconvoy	record			spawn	REF	32	8	4	0	0	zonenpcspawn
+257	zoneconvoy	record			convoy	REF	64	8	4	0	0	npcconvoy
+257	zoneconvoy	record			quests	REF	96	8	16	0	0	quest
+257	zoneconvoy	record			missions	INT8	224	1	16	0	0	
+257	zoneconvoy	record			forwarding-types	SEQ	240	1	16	0	0	
+257	zoneconvoy	record			cases	INT8	256	1	16	0	0	
+257	zoneconvoy	record			case-subtypes	INT16	272	2	16	0	0	
+258	zone	record			id	INT32	8	4	1	1	1	
+258	zone	record			alias	STR	16	8	1	0	1	
+258	zone	record			deprecated-zone	BOOL	24	1	1	0	0	
+258	zone	record			transfer-pcspawn-by-deprecated	REF	32	8	1	0	0	zonepcspawn
+258	zone	record			zone-type	SEQ	0	0	1	0	1	
+258	zone	record			zone-type2	SEQ	40	1	1	0	1	
+258	zone	record			attraction	TREF	48	16	1	0	0	
+258	zone	record			district	REF	64	8	1	0	0	district
+258	zone	record			sector-xmin	INT16	72	2	1	0	1	
+258	zone	record			sector-xmax	INT16	74	2	1	0	1	
+258	zone	record			sector-ymin	INT16	76	2	1	0	1	
+258	zone	record			sector-ymax	INT16	78	2	1	0	1	
+258	zone	record			pc-max	INT16	80	2	1	0	0	
+258	zone	record			pc-max-by-main-faction	INT16	82	2	1	0	0	
+258	zone	record			recommend-pc-count	INT16	84	2	1	0	1	
+258	zone	record			npc-max	INT16	86	2	1	0	0	
+258	zone	record			cube-xysize	INT16	0	0	1	0	0	
+258	zone	record			sight-cube	BOOL	88	1	1	0	0	
+258	zone	record			script	REF	96	8	1	0	0	script
+258	zone	record			terrain	INT16	104	2	1	0	1	
+258	zone	record			region	INT16	106	2	1	0	1	
+258	zone	record			respawn	REF	112	8	1	0	0	zonerespawn
+258	zone	record			respawn-by-activated-faction-required-faction	REF	120	8	2	0	0	faction
+258	zone	record			respawn-by-activated-faction	REF	136	8	2	0	0	zonerespawn
+258	zone	record			basecamp	REF	152	8	1	0	0	zonebasecamp
+258	zone	record			max-channel	INT8	160	1	1	0	0	
+258	zone	record			min-channel	INT8	161	1	1	0	0	
+258	zone	record			reentrance-pcspawn	REF	168	8	1	0	0	zonepcspawn
+258	zone	record			reentrance-pcspawn-in-arena	REF	176	8	1	0	0	zonepcspawn
+258	zone	record			tutorial	BOOL	184	1	1	0	0	
+258	zone	record			sharable-combatmode	BOOL	185	1	1	0	0	
+258	zone	record			use-perfmon	BOOL	186	1	1	0	0	
+258	zone	record			recharge-exp-boost	BOOL	187	1	1	0	0	
+258	zone	record			available-sextet-party	BOOL	188	1	1	0	0	
+258	zone	record			write-equipinfo-log	BOOL	189	1	1	0	0	
+258	zone	record			forwarding-types	SEQ	190	1	36	0	0	
+258	zone	record			quests	REF	232	8	36	0	0	quest
+258	zone	record			missions	INT8	520	1	36	0	0	
+258	zone	record			cases	INT8	556	1	36	0	0	
+258	zone	record			case-subtypes	INT16	592	2	36	0	0	
+258	zone	record			faction-forwarding-types	SEQ	664	1	4	0	0	
+258	zone	record			faction-quests	REF	672	8	4	0	0	quest
+258	zone	record			faction-missions	INT8	704	1	4	0	0	
+258	zone	record			faction-cases	INT8	708	1	4	0	0	
+258	zone	record			faction-case-subtypes	INT16	712	2	4	0	0	
+258	zone	record			faction-case-faction-key	INT64	720	8	4	0	0	
+258	zone	record			hunting-quests	REF	752	8	6	0	0	quest
+258	zone	record			hunting-quest-count	INT8	800	1	1	0	0	
+258	zone	record			phase-quest-count	INT8	801	1	1	0	0	
+258	zone	record			phase-quest	REF	808	8	30	0	0	quest
+258	zone	record			phase-id	INT8	1048	1	30	0	0	
+258	zone	record			phase-zone	REF	1080	8	15	0	0	zone
+258	zone	record			phase-zone-disable-in-arena	BOOL	1200	1	15	0	0	
+258	zone	record			default-phase-zone	BOOL	1215	1	1	0	0	
+258	zone	record			phase-main-zone	REF	1216	8	1	0	0	zone
+258	zone	record			default-phase-pc-spawn-id	INT16	1224	2	1	0	0	
+258	zone	record			dungeon-step	INT8	1226	1	1	0	0	
+258	zone	record			is-arena-entrance	BOOL	1227	1	1	0	0	
+258	zone	record			arena-enter-social	REF	1232	8	1	0	0	social
+258	zone	record			arena-leave-social	REF	1240	8	1	0	0	social
+258	zone	record			arena-faction	REF	1248	8	2	0	0	faction
+258	zone	record			arena-enter-cinematic	REF	1264	8	2	0	0	cinematic
+258	zone	record			arena-leave-cinematic	REF	1280	8	2	0	0	cinematic
+258	zone	record			arena-return-area	REF	1296	8	2	0	0	zonearea
+258	zone	record			arena-faction-diff	INT8	0	0	1	0	0	
+258	zone	record			friend-noti-location	REF	1312	8	1	0	0	friend-noti-location
+258	zone	record			message-by-item-district	REF	1320	8	1	0	0	message-by-item-district
+258	zone	record			bot-scoring-zone-flag	BOOL	1328	1	1	0	0	
+258	zone	record			enable-in-out-detector	BOOL	1329	1	1	0	0	
+259	zoneenv2	record			alias	STR	16	8	1	0	1	
+259	zoneenv2	record			script	REF	24	8	1	0	0	script
+259	zoneenv2	record			init-enable	BOOL	32	1	1	0	0	
+259	zoneenv2	record			init-enable-duration	MSEC	36	4	1	0	0	
+259	zoneenv2	record			hide-disable	BOOL	40	1	1	0	0	
+259	zoneenv2	record			fielditemdrop	REF	48	8	1	0	0	fielditemdrop
+259	zoneenv2	record			required-fielditem	REF	56	8	1	0	0	fielditem
+259	zoneenv2	record			manipulate-by-item	REF	64	8	1	0	0	item
+259	zoneenv2	record			manipulate-by-item-count	INT16	72	2	1	0	0	
+259	zoneenv2	record			consume-item-by-manipulate	BOOL	74	1	1	0	0	
+259	zoneenv2	record			broadcast-manipulate-cinematic	REF	80	8	1	0	0	cinematic
+259	zoneenv2	record			manipulate-notification-range	SEQ	88	1	1	0	0	
+259	zoneenv2	record			required-faction-score	INT32	92	4	1	0	0	
+259	zoneenv2	record			required-faction-score-max	INT32	96	4	1	0	0	
+259	zoneenv2	record			consume-faction-score	BOOL	100	1	1	0	0	
+259	zoneenv2	record			manipulate-duration	MSEC	104	4	1	0	0	
+259	zoneenv2	record			manipulated-effect	REF	112	8	1	0	0	effect
+259	zoneenv2	record			main-faction-effect	REF	120	8	1	0	0	effect
+259	zoneenv2	record			main-faction-effect-distance	DISTANCE	128	2	1	0	0	
+259	zoneenv2	record			cannot-manipulate-in-combat	BOOL	130	1	1	0	0	
+259	zoneenv2	record			cannot-manipulate-in-max-instant-heart-count	BOOL	131	1	1	0	0	
+259	zoneenv2	record			required-joined-main-faction	BOOL	132	1	1	0	0	
+259	zoneenv2	record			required-activated-main-faction	BOOL	133	1	1	0	0	
+259	zoneenv2	record			required-activated-faction	REF	136	8	1	0	0	faction
+259	zoneenv2	record			respawn-duration	MSEC	144	4	1	0	0	
+259	zoneenv2	record			rollback	BOOL	148	1	1	0	0	
+259	zoneenv2	record			max-hp	INT16	150	2	1	0	0	
+259	zoneenv2	record			attack-skill	REF	152	8	4	0	0	skill
+259	zoneenv2	record			attack-skill3	REF	184	8	4	0	0	skill3
+259	zoneenv2	record			dice-result-broadcast	BOOL	216	1	1	0	0	
+259	zoneenv2	record			save-authorizer	BOOL	217	1	1	0	0	
+259	zoneenv2	record			occurrence-event-in-respawn	BOOL	218	1	1	0	0	
+259	zoneenv2	record			reward	REF	224	8	1	0	0	reward
+259	zoneenv2	record			job-reward-blade-master	REF	232	8	1	0	0	reward
+259	zoneenv2	record			job-reward-kung-fu-fighter	REF	240	8	1	0	0	reward
+259	zoneenv2	record			job-reward-force-master	REF	248	8	1	0	0	reward
+259	zoneenv2	record			job-reward-shooter	REF	256	8	1	0	0	reward
+259	zoneenv2	record			job-reward-destroyer	REF	264	8	1	0	0	reward
+259	zoneenv2	record			job-reward-summoner	REF	272	8	1	0	0	reward
+259	zoneenv2	record			job-reward-assassin	REF	280	8	1	0	0	reward
+259	zoneenv2	record			job-reward-sword-master	REF	288	8	1	0	0	reward
+259	zoneenv2	record			job-reward-warlock	REF	296	8	1	0	0	reward
+259	zoneenv2	record			job-reward-soul-fighter	REF	304	8	1	0	0	reward
+259	zoneenv2	record			job-reward-warrior	REF	312	8	1	0	0	reward
+259	zoneenv2	record			job-reward-archer	REF	320	8	1	0	0	reward
+259	zoneenv2	record			job-reward-spear-master	REF	328	8	1	0	0	reward
+259	zoneenv2	record			job-reward-thunderer	REF	336	8	1	0	0	reward
+259	zoneenv2	record			broadcast-pickup-reward-to-world	BOOL	344	1	1	0	0	
+259	zoneenv2	record			acquire-reward-to-inventory	BOOL	345	1	1	0	0	
+259	zoneenv2	record			reward-faction-score	INT32	348	4	1	0	0	
+259	zoneenv2	record			hide-close	BOOL	352	1	1	0	0	
+259	zoneenv2	record			hide-empty	BOOL	353	1	1	0	0	
+259	zoneenv2	record			forwarding-types	SEQ	354	1	20	0	0	
+259	zoneenv2	record			quests	REF	376	8	20	0	0	quest
+259	zoneenv2	record			missions	INT8	536	1	20	0	0	
+259	zoneenv2	record			cases	INT8	556	1	20	0	0	
+259	zoneenv2	record			case-subtypes	INT16	576	2	20	0	0	
+259	zoneenv2	record			loot-forwarding-types	SEQ	616	1	8	0	0	
+259	zoneenv2	record			loot-quests	REF	624	8	8	0	0	quest
+259	zoneenv2	record			loot-missions	INT8	688	1	8	0	0	
+259	zoneenv2	record			loot-cases	INT8	696	1	8	0	0	
+259	zoneenv2	record			loot-item	REF	704	8	8	0	0	item
+259	zoneenv2	record			invoke-achievement-event	INT16	768	2	1	0	0	
+259	zoneenv2	record			attraction	TREF	776	16	1	0	0	
+259	zoneenv2	record	5	refiner	occupation-duration	MSEC	792	4	1	0	0	
+259	zoneenv2	record	5	refiner	try-refining-duration	MSEC	796	4	1	0	0	
+259	zoneenv2	record	5	refiner	base-refining-duration	MSEC	800	4	1	0	0	
+259	zoneenv2	record	5	refiner	accroach-duration	MSEC	804	4	1	0	0	
+259	zoneenv2	record	5	refiner	give-faction-score-duration	MSEC	808	4	1	0	0	
+259	zoneenv2	record	5	refiner	respawn-duration-in-refined	MSEC	812	4	1	0	0	
+259	zoneenv2	record	5	refiner	refine-faction-score	INT32	816	4	1	0	0	
+259	zoneenv2	record	5	refiner	refined-reward-item	REF	824	8	1	0	0	item
+259	zoneenv2	record	5	refiner	refined-reward-item-base-count	INT16	832	2	1	0	0	
+259	zoneenv2	record	5	refiner	refined-effect	REF	840	8	1	0	0	effect
+259	zoneenv2	record	5	refiner	refined-effect-distance	DISTANCE	848	2	1	0	0	
+259	zoneenv2	record	5	refiner	refining-disable	BOOL	850	1	1	0	0	
+259	zoneenv2	record	5	refiner	occputation-effect	REF	856	8	1	0	0	effect
+259	zoneenv2	record	5	refiner	occputation-effect-distance	DISTANCE	864	2	1	0	0	
+259	zoneenv2	record	6	control-point	manipulation-required-field-item	REF	792	8	1	0	0	fielditem
+259	zoneenv2	record	6	control-point	manipulation-drop-field-item	REF	800	8	1	0	0	fielditemdrop
+259	zoneenv2	record	6	control-point	occupation-zone-score	INT16	808	2	1	0	0	
+259	zoneenv2	record	6	control-point	occupation-bonus-zone-score-per-sec	INT16	810	2	1	0	0	
+259	zoneenv2	record	7	portal	portal-type	SEQ	792	1	1	0	0	
+259	zoneenv2	record	7	portal	transit-zone	REF	800	8	1	0	0	zone
+259	zoneenv2	record	7	portal	transit-dungeon	REF	808	8	1	0	0	dungeon
+259	zoneenv2	record	7	portal	transit-reentrance-pcspawn	BOOL	816	1	1	0	0	
+259	zoneenv2	record	7	portal	transit-pc-spawn	INT16	818	2	1	0	0	
+259	zoneenv2	record	7	portal	transit-pc-spawn-in-arena	REF	824	8	1	0	0	zonepcspawn
+259	zoneenv2	record	7	portal	transit-leave-cinematic	REF	832	8	1	0	0	cinematic
+259	zoneenv2	record	7	portal	transit-enter-cinematic	REF	840	8	1	0	0	cinematic
+259	zoneenv2	record	7	portal	effect	REF	848	8	8	0	0	effect
+259	zoneenv2	record	7	portal	phase-pc-spawn	INT16	912	2	15	0	0	
+259	zoneenv2	record	7	portal	phase-zone-leave-cinematic	REF	944	8	15	0	0	cinematic
+259	zoneenv2	record	7	portal	phase-zone-enter-cinematic	REF	1064	8	15	0	0	cinematic
+259	zoneenv2	record	7	portal	transit-leave-social	REF	1184	8	1	0	0	social
+259	zoneenv2	record	7	portal	transit-enter-social	REF	1192	8	1	0	0	social
+259	zoneenv2	record	7	portal	required-level	INT8	1200	1	1	0	0	
+259	zoneenv2	record	8	portal-list	portal-id	REF	792	8	16	0	0	zoneenv2
+259	zoneenv2	record	10	effect-region	enable-toggle-interval	MSEC	792	4	1	0	0	
+259	zoneenv2	record	10	effect-region	effect	REF	800	8	4	0	0	effect
+259	zoneenv2	record	10	effect-region	effect-target	SEQ	832	1	1	0	0	
+259	zoneenv2	record	11	airdash	airdash-level	INT8	792	1	1	0	0	
+259	zoneenv2	record	11	airdash	social	REF	0	0	1	0	0	social
+259	zoneenv2	record	12	airdash-leave	airdash-level	INT8	792	1	1	0	0	
+259	zoneenv2	record	12	airdash-leave	transit-zone	REF	800	8	1	0	1	zone
+259	zoneenv2	record	12	airdash-leave	transit-pc-spawn	INT16	808	2	1	0	0	
+259	zoneenv2	record	12	airdash-leave	transit-leave-social	REF	816	8	1	0	0	social
+259	zoneenv2	record	12	airdash-leave	transit-enter-social	REF	824	8	1	0	0	social
+259	zoneenv2	record	12	airdash-leave	phase-zone-pc-spawn	INT16	832	2	15	0	0	
+259	zoneenv2	record	12	airdash-leave	phase-zone-leave-social	REF	864	8	15	0	0	social
+259	zoneenv2	record	12	airdash-leave	phase-zone-enter-social	REF	984	8	15	0	0	social
+259	zoneenv2	record	15	multiple-loop	loop-restricted-effect	REF	792	8	1	0	1	effect
+259	zoneenv2	record	17	fishing-point	fishing-field	REF	792	8	1	0	0	fishing-field
+260	zoneenv2place	record			alias	STR	16	8	1	0	1	
+260	zoneenv2place	record			region-point	VECTOR16	24	6	4	0	0	
+260	zoneenv2place	record			height	DISTANCE	48	2	1	0	0	
+260	zoneenv2place	record			action-point	VECTOR16	50	6	1	0	1	
+260	zoneenv2place	record			action-radius	DISTANCE	56	2	1	0	1	
+260	zoneenv2place	record			use-manipulation-point	BOOL	58	1	1	0	1	
+260	zoneenv2place	record			manipulation-point	VECTOR16	60	6	1	0	1	
+260	zoneenv2place	record			manipulation-radius	DISTANCE	66	2	1	0	1	
+260	zoneenv2place	record			manipulation-height-upper	DISTANCE	68	2	1	0	1	
+260	zoneenv2place	record			manipulation-height-lower	DISTANCE	70	2	1	0	1	
+260	zoneenv2place	record			spawn-env	BOOL	72	1	1	0	0	
+260	zoneenv2place	record	10	airdash	duration	MSEC	80	4	1	0	0	
+260	zoneenv2place	record	10	airdash	end-pos	VECTOR16	84	6	1	0	1	
+260	zoneenv2place	record	10	airdash	summon-end-pos	VECTOR16	90	6	1	0	0	
+261	zoneenv2spawn	record			alias	STR	16	8	1	0	1	
+261	zoneenv2spawn	record			zone	INT32	8	4	1	1	1	
+261	zoneenv2spawn	record			id	INT16	12	2	1	1	1	
+261	zoneenv2spawn	record			env2	REF	24	8	1	0	1	zoneenv2
+261	zoneenv2spawn	record			env2place	REF	32	8	1	0	1	zoneenv2place
+261	zoneenv2spawn	record			change-state-env	REF	40	8	1	0	0	zoneenv2spawn
+261	zoneenv2spawn	record			trigger	REF	48	8	1	0	0	zoneenv2spawn
+261	zoneenv2spawn	record			required-env	REF	56	8	1	0	0	zoneenv2spawn
+261	zoneenv2spawn	record			guild-battle-field-gate	REF	64	8	1	0	0	guild-battle-field-zone
+262	zoneevent	record			zone	INT32	8	4	1	1	1	
+262	zoneevent	record			id	INT8	12	1	1	1	1	
+262	zoneevent	record			alias	STR	16	8	1	0	1	
+262	zoneevent	record	0	faction-kill-count	filter-count	INT16	24	2	1	0	1	
+262	zoneevent	record	0	faction-kill-count	spawn-npc	REF	32	8	3	0	0	zonenpcspawn
+262	zoneevent	record	0	faction-kill-count	spawn-delay	MSEC	56	4	3	0	0	
+262	zoneevent	record	1	kill-npc	filter-spawn-npc	REF	24	8	3	0	0	zonenpcspawn
+263	zonegathersource	record			zone	INT32	8	4	1	1	1	
+263	zonegathersource	record			id	INT16	12	2	1	1	1	
+263	zonegathersource	record			alias	STR	16	8	1	0	1	
+263	zonegathersource	record			pos	VECTOR16	24	6	1	0	1	
+263	zonegathersource	record			gather-source	REF	32	8	1	0	1	gathersource
+264	zonenpcrandomspawn	record			zone	INT32	8	4	1	1	1	
+264	zonenpcrandomspawn	record			id	INT16	12	2	1	1	1	
+264	zonenpcrandomspawn	record			alias	STR	16	8	1	0	1	
+264	zonenpcrandomspawn	record			npc	REF	24	8	4	0	0	npc
+264	zonenpcrandomspawn	record			npc-count	INT16	56	2	4	0	0	
+264	zonenpcrandomspawn	record			npc-move-distance	DISTANCE	64	2	4	0	0	
+264	zonenpcrandomspawn	record			area-group	REF	72	8	1	0	1	zoneareagroup
+264	zonenpcrandomspawn	record			act-sequence	REF	80	8	1	0	0	act-sequence
+264	zonenpcrandomspawn	record			respawn	BOOL	88	1	1	0	0	
+264	zonenpcrandomspawn	record			respawn-delay-min	MSEC	92	4	1	0	0	
+264	zonenpcrandomspawn	record			respawn-delay-max	MSEC	96	4	1	0	0	
+264	zonenpcrandomspawn	record			despawn-delay	MSEC	100	4	1	0	0	
+264	zonenpcrandomspawn	record			act-social	REF	104	8	4	0	0	social
+264	zonenpcrandomspawn	record			act-detect	SEQ	136	1	4	0	0	
+265	zonenpcspawn	record			zone	INT32	8	4	1	1	1	
+265	zonenpcspawn	record			id	INT16	12	2	1	1	1	
+265	zonenpcspawn	record			alias	STR	16	8	1	0	1	
+265	zonenpcspawn	record			npc	REF	24	8	1	0	1	npc
+265	zonenpcspawn	record			area	REF	32	8	1	0	1	zonearea
+265	zonenpcspawn	record			act-sequence	REF	40	8	1	0	0	act-sequence
+265	zonenpcspawn	record			yaw-min	ANGLE	48	2	1	0	0	
+265	zonenpcspawn	record			yaw-max	ANGLE	50	2	1	0	0	
+265	zonenpcspawn	record			init-spawn	BOOL	52	1	1	0	0	
+265	zonenpcspawn	record			respawn	BOOL	53	1	1	0	0	
+265	zonenpcspawn	record			respawn-delay-min	MSEC	56	4	1	0	0	
+265	zonenpcspawn	record			respawn-delay-max	MSEC	60	4	1	0	0	
+265	zonenpcspawn	record			despawn-delay	MSEC	64	4	1	0	0	
+265	zonenpcspawn	record			act-area	REF	72	8	4	0	0	zonearea
+265	zonenpcspawn	record			act-pathway	REF	104	8	4	0	0	zonepathway
+265	zonenpcspawn	record			act-social	REF	136	8	3	0	0	social
+265	zonenpcspawn	record			act-detect	SEQ	160	1	2	0	0	
+265	zonenpcspawn	record			npc-party	TREF	168	16	1	0	0	
+265	zonenpcspawn	record			target-rule	SEQ	184	1	1	0	0	
+265	zonenpcspawn	record			boss-challenge-effect-npc-killed-group	SEQ	185	1	1	0	0	
+266	zonenpcspawnevent	record			zone	INT32	8	4	1	1	1	
+266	zonenpcspawnevent	record			id	INT8	12	1	1	1	1	
+266	zonenpcspawnevent	record			alias	STR	16	8	1	0	1	
+266	zonenpcspawnevent	record			npc-spawn	REF	24	8	1	0	1	zonenpcspawn
+266	zonenpcspawnevent	record	0	weekly-event	spawn-event-start-day-of-week	SEQ	32	1	1	0	1	
+266	zonenpcspawnevent	record	0	weekly-event	spawn-event-start-hour	INT8	33	1	1	0	1	
+266	zonenpcspawnevent	record	0	weekly-event	spawn-event-start-minute	INT8	34	1	1	0	1	
+266	zonenpcspawnevent	record	0	weekly-event	spawn-event-duration	INT16	36	2	1	0	1	
+266	zonenpcspawnevent	record	0	weekly-event	spawn-random-delay-minute	INT16	38	2	1	0	0	
+266	zonenpcspawnevent	record	0	weekly-event	event-end-despawn-force	BOOL	40	1	1	0	0	
+266	zonenpcspawnevent	record	1	npc-killed-event1	kill-count	INT8	32	1	1	0	1	
+266	zonenpcspawnevent	record	2	npc-killed-event2	target-npc	REF	32	8	6	0	1	npc
+266	zonenpcspawnevent	record	2	npc-killed-event2	kill-count	INT8	80	1	1	0	0	
+266	zonenpcspawnevent	record	2	npc-killed-event2	reset-kill-count-zone-mode	INT8	81	1	1	0	0	
+266	zonenpcspawnevent	record	3	npc-killed-event3	target-npc	REF	32	8	6	0	1	npc
+266	zonenpcspawnevent	record	3	npc-killed-event3	kill-count	INT8	80	1	1	0	0	
+266	zonenpcspawnevent	record	3	npc-killed-event3	reset-kill-count-zone-mode	INT8	81	1	1	0	0	
+267	zonenpcsquad	record			zone	INT32	8	4	1	1	1	
+267	zonenpcsquad	record			id	INT16	12	2	1	1	1	
+267	zonenpcsquad	record			alias	STR	16	8	1	0	1	
+267	zonenpcsquad	record			hate-share-distance	DISTANCE	24	2	1	0	0	
+267	zonenpcsquad	record			combat-start-hate-share	INT16	26	2	1	0	0	
+267	zonenpcsquad	record			flee-start-hate-share	INT16	28	2	1	0	0	
+267	zonenpcsquad	record			npc-bleeding-one-hate-share	INT16	30	2	1	0	0	
+267	zonenpcsquad	record			npc-bleeding-two-hate-share	INT16	32	2	1	0	0	
+267	zonenpcsquad	record			npc-bleeding-three-hate-share	INT16	34	2	1	0	0	
+267	zonenpcsquad	record			leader	INT8	36	1	1	0	0	
+267	zonenpcsquad	record			spawn	REF	40	8	20	0	0	zonenpcspawn
+267	zonenpcsquad	record			group-move	BOOL	200	1	1	0	0	
+267	zonenpcsquad	record			combat-pattern	REF	208	8	1	0	0	npcsquadcombatpattern
+267	zonenpcsquad	record			enable-damage-transfer-to-leader	BOOL	216	1	1	0	0	
+268	zonepathway	record			zone	INT32	8	4	1	1	1	
+268	zonepathway	record			id	INT16	12	2	1	1	1	
+268	zonepathway	record			waypoint	INT16	14	2	1	1	1	
+268	zonepathway	record			alias	STR	16	8	1	0	0	
+268	zonepathway	record			pos	VECTOR16	24	6	1	0	1	
+268	zonepathway	record			move-type	SEQ	30	1	1	0	1	
+268	zonepathway	record			warp-social	REF	32	8	1	0	0	social
+268	zonepathway	record			sync	INT16	40	2	1	0	0	
+268	zonepathway	record			duration	MSEC	0	0	1	0	0	
+269	zone-pc-random-spawn	record			alias	STR	16	8	1	0	1	
+269	zone-pc-random-spawn	record			zone	INT32	8	4	1	1	1	
+269	zone-pc-random-spawn	record			pc-spawn	REF	24	8	5	0	0	zonepcspawn
+269	zone-pc-random-spawn	record			pc-spawn-count	INT8	64	1	1	0	0	
+270	zonepcspawn	record			zone	INT32	8	4	1	1	1	
+270	zonepcspawn	record			id	INT16	12	2	1	1	1	
+270	zonepcspawn	record			alias	STR	16	8	1	0	1	
+270	zonepcspawn	record			pos	VECTOR16	24	6	1	0	1	
+270	zonepcspawn	record			summon-pos	VECTOR16	30	6	1	0	0	
+270	zonepcspawn	record			yaw	INT16	36	2	1	0	0	
+271	zonerespawn	record			zone	INT32	8	4	1	1	1	
+271	zonerespawn	record			id	INT16	12	2	1	1	1	
+271	zonerespawn	record			alias	STR	16	8	1	0	1	
+271	zonerespawn	record			area	REF	24	8	1	0	0	zonearea
+271	zonerespawn	record			center	VECTOR16	32	6	1	0	0	
+271	zonerespawn	record			activated-faction	REF	40	8	4	0	0	faction
+272	zonerule	record			zone	INT32	8	4	1	1	1	
+272	zonerule	record			enable-infinite-hyper-energy	BOOL	16	1	1	0	0	
+272	zonerule	record			enable-reset-combat-mode	BOOL	17	1	1	0	0	
+272	zonerule	record			reset-combat-mode-recycle-duration	MSEC	20	4	1	0	0	
+272	zonerule	record			enable-co-ownership-pouch	BOOL	24	1	1	0	0	
+272	zonerule	record			enable-pvp	BOOL	25	1	1	0	0	
+272	zonerule	record			required_inactivated_main_faction	BOOL	26	1	1	0	0	
+272	zonerule	record			apply-content-ban-id	SEQ	27	1	1	0	0	
+272	zonerule	record			allow-invite-party-in-arena	BOOL	28	1	1	0	0	
+272	zonerule	record			is-immediately-dead	BOOL	29	1	1	0	0	
+272	zonerule	record			required-available-weekly-time	REF	32	8	1	0	0	weeklytimetable
+272	zonerule	record			max-persistent-channel-count	INT16	40	2	1	0	0	
+272	zonerule	record			town	BOOL	42	1	1	0	0	
+272	zonerule	record			reentrance-pcspawn-check-later-when-enterworld	BOOL	43	1	1	0	0	
+272	zonerule	record			infinite-durability	BOOL	44	1	1	0	0	
+272	zonerule	record			enable-party-auction	BOOL	45	1	1	0	0	
+273	zonespring	record			id	INT16	8	2	1	1	1	
+273	zonespring	record			zone	INT32	12	4	1	1	1	
+273	zonespring	record			area	BOX	16	12	1	0	1	
+274	zoneteleportposition	record			alias	STR	16	8	1	0	1	
+274	zoneteleportposition	record			zone	INT32	24	4	1	0	1	
+274	zoneteleportposition	record			position	VECTOR16	28	6	1	0	1	
+274	zoneteleportposition	record			yaw	INT16	34	2	1	0	0	
+275	zoneteleportswitch	record			zone	INT32	8	4	1	1	1	
+275	zoneteleportswitch	record			id	INT16	12	2	1	1	1	
+275	zoneteleportswitch	record			alias	STR	16	8	1	0	1	
+275	zoneteleportswitch	record			position	VECTOR16	24	6	1	0	1	
+275	zoneteleportswitch	record			activate-radius	DISTANCE	30	2	1	0	1	
+275	zoneteleportswitch	record			activate-teleport	REF	32	8	1	0	1	teleport
+276	zonetriggereventcond	record			alias	STR	16	8	1	0	1	
+276	zonetriggereventcond	record			next-branch-id	INT8	24	1	1	0	0	
+276	zonetriggereventcond	record	0	weekly-event	event-day-of-week	SEQ	32	1	1	0	1	
+276	zonetriggereventcond	record	0	weekly-event	event-hour	INT8	33	1	8	0	0	
+276	zonetriggereventcond	record	0	weekly-event	event-minute	INT8	41	1	8	0	0	
+276	zonetriggereventcond	record	2	npc-killed-event	target-npc	REF	32	8	4	0	1	npc
+276	zonetriggereventcond	record	2	npc-killed-event	kill-count	INT8	64	1	1	0	0	
+276	zonetriggereventcond	record	3	npc-killed-event2	target-npc	REF	32	8	4	0	1	npc
+276	zonetriggereventcond	record	3	npc-killed-event2	kill-count	INT8	64	1	1	0	0	
+276	zonetriggereventcond	record	4	npc-survived-score-decision-timeout-event	target-npc-spawn	REF	32	8	4	0	0	zonenpcspawn
+276	zonetriggereventcond	record	4	npc-survived-score-decision-timeout-event	survived-count	INT8	64	1	1	0	0	
+276	zonetriggereventcond	record	4	npc-survived-score-decision-timeout-event	acquisition-score-type	SEQ	65	1	1	0	0	
+276	zonetriggereventcond	record	4	npc-survived-score-decision-timeout-event	acquisition-score	INT16	66	2	1	0	0	
+276	zonetriggereventcond	record	4	npc-survived-score-decision-timeout-event	goal-score-type	SEQ	68	1	1	0	1	
+276	zonetriggereventcond	record	4	npc-survived-score-decision-timeout-event	goal-score	INT16	70	2	1	0	1	
+276	zonetriggereventcond	record	4	npc-survived-score-decision-timeout-event	op	SEQ	72	1	1	0	1	
+276	zonetriggereventcond	record	4	npc-survived-score-decision-timeout-event	win-score-type	SEQ	73	1	1	0	0	
+276	zonetriggereventcond	record	5	npc-survived-timeout-event	target-npc-spawn	REF	32	8	4	0	1	zonenpcspawn
+276	zonetriggereventcond	record	5	npc-survived-timeout-event	survived-count	INT8	64	1	1	0	1	
+277	zonetriggereventstage	record			zone	INT32	8	4	1	1	1	
+277	zonetriggereventstage	record			zone-mode-set-id	INT8	12	1	1	1	1	
+277	zonetriggereventstage	record			zone-mode	INT8	13	1	1	1	1	
+277	zonetriggereventstage	record			branch-id	INT8	14	1	1	1	1	
+277	zonetriggereventstage	record			alias	STR	16	8	1	0	1	
+277	zonetriggereventstage	record			timeout-duration-minute	INT16	24	2	1	0	0	
+277	zonetriggereventstage	record			timeout-duration-second	INT16	26	2	1	0	0	
+277	zonetriggereventstage	record			next-cond	REF	32	8	2	0	0	zonetriggereventcond
+277	zonetriggereventstage	record			next-cond-branch-id	INT8	48	1	2	0	0	
+277	zonetriggereventstage	record			next-stage-setup	REF	56	8	2	0	0	npc-reset-stage
+277	zonetriggereventstage	record			broadcast-context	SEQ	72	1	1	0	0	
+277	zonetriggereventstage	record			clear-score	BOOL	73	1	1	0	0	
+277	zonetriggereventstage	record	1	stage-stand-by-guild-battle-field-entrance	min-growing-channel	INT8	80	1	1	0	0	
+277	zonetriggereventstage	record	1	stage-stand-by-guild-battle-field-entrance	channel-entry-min-level	INT8	81	1	1	0	0	
+277	zonetriggereventstage	record	1	stage-stand-by-guild-battle-field-entrance	channel-entry-max-level	INT8	82	1	1	0	0	
+277	zonetriggereventstage	record	1	stage-stand-by-guild-battle-field-entrance	total-duration-minute	INT16	84	2	2	0	0	
+277	zonetriggereventstage	record	2	stage-stand-by-persistant-zone	all-channel	BOOL	80	1	1	0	0	
+277	zonetriggereventstage	record	2	stage-stand-by-persistant-zone	max-channel	INT8	81	1	1	0	0	
+277	zonetriggereventstage	record	2	stage-stand-by-persistant-zone	max-event-channel	INT8	82	1	1	0	0	
+277	zonetriggereventstage	record	2	stage-stand-by-persistant-zone	min-growing-channel	INT8	83	1	1	0	0	
+277	zonetriggereventstage	record	2	stage-stand-by-persistant-zone	channel-entry-min-level	INT8	84	1	1	0	0	
+277	zonetriggereventstage	record	2	stage-stand-by-persistant-zone	channel-entry-max-level	INT8	85	1	1	0	0	
+277	zonetriggereventstage	record	2	stage-stand-by-persistant-zone	total-duration-minute	INT16	86	2	2	0	0	
+277	zonetriggereventstage	record	4	stage	fail-cond	REF	80	8	3	0	0	zonetriggereventcond
+277	zonetriggereventstage	record	4	stage	fail-stage-setup	REF	104	8	1	0	0	npc-reset-stage
+277	zonetriggereventstage	record	4	stage	fail-stage-add-timeout-duration-minute	INT16	112	2	1	0	0	
+277	zonetriggereventstage	record	4	stage	fail-stage-add-remained-timeout-duration	BOOL	114	1	1	0	0	

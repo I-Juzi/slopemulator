@@ -8,7 +8,7 @@ KEYFILE="$HOME/.local/state/nl-parts-pipeline/operator-access/home-gateway/codex
 cd "$MONO"
 git fetch -q "$SRC" main
 # Check every file changed in bns-server since the last subtree merge.
-LAST="$(git log --format=%B -n 200 | grep -m1 -oE '^git-subtree-split: [0-9a-f]+' | awk '{print $2}' || true)"
+LAST="$(git log --format=%B | grep -m1 -oE '^git-subtree-split: [0-9a-f]+' | awk '{print $2}' || true)"
 BAD="$(git diff --name-only ${LAST:+$LAST} FETCH_HEAD 2>/dev/null | grep -iE '\.(exe|dll|pdb|i64|idb|bin|dat|pem|key|blob|mdf|ldf|rar)$' || true)"
 [ -z "$BAD" ] || { echo "refused: binary or key files: $BAD"; exit 1; }
 if [ -f "$KEYFILE" ] && git diff ${LAST:+$LAST} FETCH_HEAD | grep -qF -f "$KEYFILE"; then echo "refused: gateway key"; exit 1; fi

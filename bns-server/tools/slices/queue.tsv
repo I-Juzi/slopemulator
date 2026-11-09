@@ -11,14 +11,14 @@ dbg-1-rust	rust	sonnet	clientdbg	Program/Tools/ClientDbg/,Cargo.toml,Cargo.lock	
 cx-01	spec	opus	-	Docs/Client/RE/	-	150	done	client RE: Process start, command line, config, main loop
 cx-02	spec	opus	-	Docs/Client/RE/	-	150	done	client RE: Network transport, framing and session crypto
 cx-03	spec	opus	-	Docs/Client/RE/	-	150	done	client RE: STS client (login to StServers)
-cx-04	spec	opus	-	Docs/Client/RE/	-	150	blocked	client RE: LobbyGate session
+cx-04	spec	opus	-	Docs/Client/RE/	-	150	paused	client RE: LobbyGate session
 cx-05	spec	opus	-	Docs/Client/RE/	-	150	done	client RE: Game session and command dispatch
 cx-06	spec	opus	-	Docs/Client/RE/	-	150	done	client RE: Movement and position sync
-cx-07	spec	opus	-	Docs/Client/RE/	-	150	blocked	client RE: Skills and combat
+cx-07	spec	opus	-	Docs/Client/RE/	-	150	paused	client RE: Skills and combat
 cx-08	spec	opus	-	Docs/Client/RE/	-	150	done	client RE: Player, NPC and world objects
 cx-09	spec	opus	-	Docs/Client/RE/	-	150	done	client RE: Items, inventory and equipment
-cx-10	spec	opus	-	Docs/Client/RE/	-	150	ready	client RE: Quests, NPC talk and zones
-cx-11	spec	opus	-	Docs/Client/RE/	-	150	ready	client RE: Party, guild, chat, mail, market
+cx-10	spec	opus	-	Docs/Client/RE/	-	150	done	client RE: Quests, NPC talk and zones
+cx-11	spec	opus	-	Docs/Client/RE/	-	150	running	client RE: Party, guild, chat, mail, market
 cx-12	spec	opus	-	Docs/Client/RE/	-	150	ready	client RE: InfoGate, ArenaD and other servers
 dfx-1	spec	opus	-	Docs/DataFile/book/	-	150	ready	datafile book: what it is, where it lives, how it is built and protected
 dfx-2	spec	opus	-	Docs/DataFile/book/	dfx-1	150	ready	datafile book: schema, client loader and table use in code
