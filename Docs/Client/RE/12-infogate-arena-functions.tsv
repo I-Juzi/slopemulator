@@ -1,0 +1,1860 @@
+addr_381	name_381	class	topic	size
+0x401690	BNSClient::isInArena(void)	BNSClient	arena	16
+0x4018a0	Data::PartyBattleFieldZoneRecordPtr::~PartyBattleFieldZoneRecordPtr(void)	Data	arena	46
+0x403ad0	Data::ArenaPortalRecordPtr::~ArenaPortalRecordPtr(void)	Data	arena	42
+0x403b00	Data::ArenaPortalRecordDuelPtr::~ArenaPortalRecordDuelPtr(void)	Data	arena	78
+0x403b80	Data::ArenaPortalRecordPublicRaidPtr::~ArenaPortalRecordPublicRaidPtr(void)	Data	arena	78
+0x4064a0	ArenaDuel::UserInfo::UserInfo(void)	ArenaDuel	arena	60
+0x4065c0	ArenaCommonLobby::AppearanceProperty::AppearanceProperty(void)	ArenaCommonLobby	arena	153
+0x406660	ArenaCommonLobby::LobbyUserProperty::LobbyUserProperty(void)	ArenaCommonLobby	arena	377
+0x406a30	ArenaCommonLobby::RoomExtraInfo::RoomExtraInfo(void)	ArenaCommonLobby	arena	79
+0x406a80	ArenaCommonLobby::RoomExtraInfo::~RoomExtraInfo(void)	ArenaCommonLobby	arena	90
+0x406ae0	ArenaCommonLobby::LobbyUserProperty::~LobbyUserProperty(void)	ArenaCommonLobby	arena	272
+0x406bf0	ArenaDungeonSinglePlayTimerEventListener::IsTimerRunning(void)	ArenaDungeonSinglePlayTimerEventListener	arena	25
+0x406e30	ArenaDungeonPartyChatRecruit::Message::Message(void)	ArenaDungeonPartyChatRecruit	arena	133
+0x406ec0	ArenaDungeonLobby::EnterableDungeonInfo::EnterableDungeonInfo(void)	ArenaDungeonLobby	arena	268
+0x407060	ArenaDungeonLobby::EnterableDungeonInfo::~EnterableDungeonInfo(void)	ArenaDungeonLobby	arena	118
+0x407280	ArenaDungeonPartyChatRecruit::Message::~Message(void)	ArenaDungeonPartyChatRecruit	arena	103
+0x4072f0	ArenaDungeonPartyChatRecruit::Message::operator=(ArenaDungeonPartyChatRecruit::Message const &)	ArenaDungeonPartyChatRecruit	arena	102
+0x4074a0	ArenaWorld::`scalar deleting destructor'(uint)	ArenaWorld	arena	58
+0x413cd0	ArenaCommonLobby::RoomExtraUserInfo::RoomExtraUserInfo(ArenaCommonLobby::RoomExtraUserInfo const &)	ArenaCommonLobby	arena	72
+0x413d20	ArenaDungeonLobby::EnterableDungeonInfo::EnterableDungeonInfo(ArenaDungeonLobby::EnterableDungeonInfo const &)	ArenaDungeonLobby	arena	711
+0x417c00	ArenaDuel::UserInfo::UserInfo(ArenaDuel::UserInfo const &)	ArenaDuel	arena	121
+0x417c80	ArenaCommonLobby::LobbyUserProperty::LobbyUserProperty(ArenaCommonLobby::LobbyUserProperty const &)	ArenaCommonLobby	arena	675
+0x417f30	ArenaDungeonPartyChatRecruit::Message::Message(ArenaDungeonPartyChatRecruit::Message const &)	ArenaDungeonPartyChatRecruit	arena	170
+0x4197a0	ArenaDungeonLobby::EnterableDungeonInfo::operator=(ArenaDungeonLobby::EnterableDungeonInfo const &)	ArenaDungeonLobby	arena	650
+0x41ce60	CommonWebBrowserCallback::CommonWebBrowserCallback(void)	CommonWebBrowserCallback	web	132
+0x41cef0	CommonWebBrowserCallback::~CommonWebBrowserCallback(void)	CommonWebBrowserCallback	web	111
+0x41d020	BattleRoyalField::BattleRoyalTelecastPartyInfo::BattleRoyalTelecastPartyInfo(void)	BattleRoyalField	arena	118
+0x41d0a0	BattleRoyalField::BattleRoyalTelecastPartyInfo::operator==(std::basic_string<wchar_t,std::char_traits<wchar_t>,std::allocator<wchar_t>>)	BattleRoyalField	arena	104
+0x41d110	BattleRoyalField::SetWarpTargetName(std::basic_string<wchar_t,std::char_traits<wchar_t>,std::allocator<wchar_t>>)	BattleRoyalField	arena	97
+0x41d180	BattleRoyalField::GetWarpTargetName(void)	BattleRoyalField	arena	27
+0x41d1a0	BattleRoyalField::BattleRoyalTelecastPartyInfoImageSet::BattleRoyalTelecastPartyInfoImageSet(void)	BattleRoyalField	arena	142
+0x41d230	BattleRoyalField::BattleRoyalTelecastPartyInfoImageSet::~BattleRoyalTelecastPartyInfoImageSet(void)	BattleRoyalField	arena	148
+0x41e0b0	Data::FactionBattleFieldZoneRecordPtr::~FactionBattleFieldZoneRecordPtr(void)	Data	arena	46
+0x41e1a0	Data::GuildBattleFieldZoneRecordPtr::~GuildBattleFieldZoneRecordPtr(void)	Data	arena	42
+0x41f550	BattleRoyalWinTitlePanel::SetResultInfo(std::basic_string<wchar_t,std::char_traits<wchar_t>,std::allocator<wchar_t>>,__int64)	BattleRoyalWinTitlePanel	arena	110
+0x41f620	BattleRoyalField::BattleRoyalTelecastPartyInfo::~BattleRoyalTelecastPartyInfo(void)	BattleRoyalField	arena	104
+0x41f790	BattleRoyalResultPanel::_BattleRoyalResult::Set(G_DuelGameFinishResultNotifyPacket const *)	BattleRoyalResultPanel	arena	76
+0x41f7e0	BattleRoyalResultPanel::_BattleRoyalResult::Clear(void)	BattleRoyalResultPanel	arena	38
+0x41f810	RankingPanel::UpdateRankingPanel(void)	RankingPanel	infogate	55
+0x41f910	AuctionPanel2::AuctionPanelWebBrowserCallback::`scalar deleting destructor'(uint)	AuctionPanel2	web	58
+0x420060	Data::FieldZoneRecordGuildBattleFieldEntrancePtr::IsValid(void)	Data	arena	78
+0x437c30	BattleRoyalField::BattleRoyalTelecastPartyInfo::BattleRoyalTelecastPartyInfo(BattleRoyalField::BattleRoyalTelecastPartyInfo const &)	BattleRoyalField	arena	125
+0x437cb0	BattleRoyalField::BattleRoyalPcInfoType::BattleRoyalPcInfoType(BattleRoyalField::BattleRoyalPcInfoType const &)	BattleRoyalField	arena	86
+0x437d10	BattleRoyalField::BattleRoyalTelecastPartyInfoImageSet::BattleRoyalTelecastPartyInfoImageSet(BattleRoyalField::BattleRoyalTelecastPartyInfoImageSet const &)	BattleRoyalField	arena	170
+0x4404a0	BNSClient::GetInfoGateSession(void)	BNSClient	infogate	16
+0x44b6e0	CommonWebBrowserCallback::SetUrlForExternalBrowser(std::basic_string<wchar_t,std::char_traits<wchar_t>,std::allocator<wchar_t>>)	CommonWebBrowserCallback	web	94
+0x44be90	Data::BattleFieldGradeRecordPtr::~BattleFieldGradeRecordPtr(void)	Data	arena	42
+0x45ec80	DamageMeterPanel::RankingInfo::RankingInfo(void)	DamageMeterPanel	infogate	41
+0x460060	Data::BattleRoyalFieldEffectPouchRecordPtr::~BattleRoyalFieldEffectPouchRecordPtr(void)	Data	arena	42
+0x466780	stdext::_Unchecked_move_backward<DamageMeterPanel::RankingInfo *,DamageMeterPanel::RankingInfo *>(DamageMeterPanel::RankingInfo *,DamageMeterPanel::RankingInfo 	stdext	infogate	63
+0x46a520	G_ArenaEventRetreivePcAssetReqPacket::G_ArenaEventRetreivePcAssetReqPacket(void)	G_ArenaEventRetreivePcAssetReqPacket	arena	87
+0x46ad90	ArenaSelectPanel::OnCloseWindowButton(EngineEventHandler *,EUiEvent *)	ArenaSelectPanel	arena	48
+0x46adc0	ArenaSelectPanel::OnEnterDungeonButton(EngineEventHandler *,EUiEvent *)	ArenaSelectPanel	arena	56
+0x46ae00	ArenaSelectPanel::OnEnterPartyBattleButton(EngineEventHandler *,EUiEvent *)	ArenaSelectPanel	arena	56
+0x46ae40	ArenaSelectPanel::OnEnterDuelButton(EngineEventHandler *,EUiEvent *)	ArenaSelectPanel	arena	56
+0x46ae80	ArenaSelectPanel::OnBindListButton(EngineEventHandler *,EUiEvent *)	ArenaSelectPanel	arena	25
+0x46aea0	ArenaSelectPanel::OnFindRoomButton(EngineEventHandler *,EUiEvent *)	ArenaSelectPanel	arena	57
+0x46aee0	ArenaSelectPanel::OnEnterChallengePartyButton(EngineEventHandler *,EUiEvent *)	ArenaSelectPanel	arena	25
+0x46af00	ArenaSelectPanel::OnEnterChallengePartyPracticeButton(EngineEventHandler *,EUiEvent *)	ArenaSelectPanel	arena	25
+0x46af20	ArenaSelectPanel::OnEnterBattleRoyalButton(EngineEventHandler *,EUiEvent *)	ArenaSelectPanel	arena	56
+0x46af60	ArenaSelectPanel::OnEnterTimeLimitGwiamdoButton(EngineEventHandler *,EUiEvent *)	ArenaSelectPanel	arena	23
+0x46af80	ArenaSelectPanel::OnEnterTimeLimitYeonwoldoButton(EngineEventHandler *,EUiEvent *)	ArenaSelectPanel	arena	23
+0x46afa0	ArenaSelectPanel::OnEnterTimeLimitGiantHeartButton(EngineEventHandler *,EUiEvent *)	ArenaSelectPanel	arena	23
+0x46afc0	Data::PartyBattleFieldZoneRecordLeadTheBallPtr::~PartyBattleFieldZoneRecordLeadTheBallPtr(void)	Data	arena	46
+0x46aff0	Data::RankingRewardRecordPtr::~RankingRewardRecordPtr(void)	Data	infogate	42
+0x46b520	Data::BattleFieldGradeRecord::Key::Key(char,char)	Data	arena	25
+0x47c690	BNSClient::GetWebRequester(void)	BNSClient	web	19
+0x47d210	GuildBattleField::Message::Message(void)	GuildBattleField	arena	50
+0x480f30	Data::RankingRewardGroupRecordPtr::~RankingRewardGroupRecordPtr(void)	Data	infogate	46
+0x481720	Data::ZoneTriggerEventStageRecordStageStandByGuildBattleFieldEntrancePtr::ZoneTriggerEventStageRecordStageStandByGuildBattleFieldEntrancePtr(DrRecordPtr const &	Data	arena	112
+0x481800	Data::ZoneTriggerEventStageRecordStageStandByGuildBattleFieldEntrancePtr::~ZoneTriggerEventStageRecordStageStandByGuildBattleFieldEntrancePtr(void)	Data	arena	78
+0x487000	BSeason::PlayerRankingInfo::~PlayerRankingInfo(void)	BSeason	infogate	9
+0x4a4260	InGameWeb::WebContentsInfo::WebContentsInfo(void)	InGameWeb	web	143
+0x4a54f0	GuildRankingInfoRewardColumnList::ViewData::ViewData(void)	GuildRankingInfoRewardColumnList	infogate	218
+0x4a55d0	GuildRankingInfoRewardColumnList::GetRowCount(void)	GuildRankingInfoRewardColumnList	infogate	33
+0x4a5750	GuildRankingInfoRewardColumnList::RewardGroupWidget::~RewardGroupWidget(void)	GuildRankingInfoRewardColumnList	infogate	22
+0x4a5770	GuildRankingInfoRewardColumnList::ViewData::~ViewData(void)	GuildRankingInfoRewardColumnList	infogate	142
+0x4a5ef0	InfoGateSession::SendPing(void)	InfoGateSession	infogate	10
+0x4a7ca0	InGameWeb::WebContentsInfo::~WebContentsInfo(void)	InGameWeb	web	105
+0x4a7d10	`InGameWeb::LoadFromConfig(void)'::`2'::WebContentsConfig::~WebContentsConfig(void)	`InGameWeb	web	119
+0x4b2d20	GuildRankingInfoRewardColumnList::RewardGroupWidget::RewardGroupWidget(GuildRankingInfoRewardColumnList::RewardGroupWidget const &)	GuildRankingInfoRewardColumnList	infogate	85
+0x4b2d80	GuildRankingInfoRewardColumnList::ViewData::ViewData(GuildRankingInfoRewardColumnList::ViewData const &)	GuildRankingInfoRewardColumnList	infogate	183
+0x4b6a70	GuildRankingInfoRewardColumnList::RewardGroupWidget::operator=(GuildRankingInfoRewardColumnList::RewardGroupWidget const &)	GuildRankingInfoRewardColumnList	infogate	94
+0x4b6ad0	GuildRankingInfoRewardColumnList::ViewData::operator=(GuildRankingInfoRewardColumnList::ViewData const &)	GuildRankingInfoRewardColumnList	infogate	122
+0x4bdb70	InviteUnratedArenaDungeonList::InvitedPc::InvitedPc(void)	InviteUnratedArenaDungeonList	arena	52
+0x4caa60	stdext::unchecked_copy<ArenaCommonLobby::RoomExtraUserInfo *,ArenaCommonLobby::RoomExtraUserInfo *>(ArenaCommonLobby::RoomExtraUserInfo *,ArenaCommonLobby::Room	stdext	arena	75
+0x4cb030	InviteUnratedArenaDungeonList::InvitedPc::InvitedPc(InviteUnratedArenaDungeonList::InvitedPc const &)	InviteUnratedArenaDungeonList	arena	82
+0x4d0780	Data::BattleRoyalFieldEffectPouchMeshRecordPtr::~BattleRoyalFieldEffectPouchMeshRecordPtr(void)	Data	arena	46
+0x4d12c0	LoadingArenaDuelPanel::LoadingPlayerInfo::LoadingPlayerInfo(void)	LoadingArenaDuelPanel	arena	19
+0x4d3e10	DelayedCall::ClassDelayedCallback<PartyBattleFieldPanel,void>::invoke(void)	DelayedCall	arena	15
+0x4d64e0	WebSessionManager::ReserveReloadOnSessionConnect(InGameWeb::WebContents)	WebSessionManager	web	28
+0x4d6870	MapBattleRoyalPlayerList::MapBattleRoyalPlayerList(void)	MapBattleRoyalPlayerList	arena	122
+0x4d6930	MapBattleRoyalPlayerList::~MapBattleRoyalPlayerList(void)	MapBattleRoyalPlayerList	arena	133
+0x4d7df0	Data::MapunitRecordGuildBattleFieldPortalPtr::~MapunitRecordGuildBattleFieldPortalPtr(void)	Data	arena	78
+0x4d8070	Data::BattleRoyalFieldEventRecordPtr::~BattleRoyalFieldEventRecordPtr(void)	Data	arena	46
+0x4de0b0	stdext::_Unchecked_move_backward<MapBattleRoyalPlayerList::BattleRoyalPlayerInfo *,MapBattleRoyalPlayerList::BattleRoyalPlayerInfo *>(MapBattleRoyalPlayerList::	stdext	arena	63
+0x4e0d80	Data::PartyBattleFieldZoneRecordOccupationWarPtr::~PartyBattleFieldZoneRecordOccupationWarPtr(void)	Data	arena	78
+0x4e0e50	Data::PartyBattleFieldZoneRecordCaptureTheFlagPtr::~PartyBattleFieldZoneRecordCaptureTheFlagPtr(void)	Data	arena	42
+0x4e30c0	PartyBattleField::BattleResult::Init(void)	PartyBattleField	arena	94
+0x4e3120	PartyBattleFieldPanel::Board_Side::Board_Side(void)	PartyBattleFieldPanel	arena	134
+0x4e31f0	PartyBattleFieldResultPanel::PcResult::PcResult(void)	PartyBattleFieldResultPanel	arena	52
+0x4e8ea0	PartyBattleField::PcInfo::PcInfo(PartyBattleField::PcInfo const &)	PartyBattleField	arena	96
+0x4e9f60	DelayedCall::Invoke<PartyBattleFieldPanel,void>(PartyBattleFieldPanel *,void (PartyBattleFieldPanel::*)(void),float,int,float)	DelayedCall	arena	90
+0x4eba90	PartyBattleField::PcInfo::operator=(PartyBattleField::PcInfo const &)	PartyBattleField	arena	96
+0x4f0770	CommonWebBrowserCallback::GetUrlForExternalBrowser(void)	CommonWebBrowserCallback	web	25
+0x50f1a0	InGameWeb::IsWebEnabled(InGameWeb::WebContents)	InGameWeb	web	96
+0x521e60	RankingPanel::MyRankingHolder::MyRankingHolder(void)	RankingPanel	infogate	246
+0x521f60	RankingPanel::MyGuildRankingHolder::MyGuildRankingHolder(void)	RankingPanel	infogate	314
+0x5220a0	RankingPanel::MyChallengePartyHolder::MyChallengePartyHolder(void)	RankingPanel	infogate	243
+0x5221a0	RankingPanel::RankerHolder::RankerHolder(void)	RankingPanel	infogate	126
+0x522220	RankingPanel::RankingListHolder::RankingListHolder(void)	RankingPanel	infogate	174
+0x5222d0	RankingPanel::RankerHolder::~RankerHolder(void)	RankingPanel	infogate	91
+0x522330	BSeason::RankingSeasonInfo::RankingSeasonInfo(void)	BSeason	infogate	43
+0x522360	BSeason::PlayerRankingInfo::PlayerRankingInfo(void)	BSeason	infogate	75
+0x5224b0	RankingWeekInfoPanel::WeekReward::WeekReward(void)	RankingWeekInfoPanel	infogate	43
+0x5224e0	RankingSeasonInfoPanel::SeasonReward::SeasonReward(void)	RankingSeasonInfoPanel	infogate	43
+0x522550	RankingPanel::MyRankingHolder::~MyRankingHolder(void)	RankingPanel	infogate	117
+0x5225d0	RankingPanel::MyGuildRankingHolder::~MyGuildRankingHolder(void)	RankingPanel	infogate	175
+0x522680	RankingPanel::RankingListHolder::~RankingListHolder(void)	RankingPanel	infogate	104
+0x5226f0	RankingPanel::MyChallengePartyHolder::~MyChallengePartyHolder(void)	RankingPanel	infogate	117
+0x5227b0	RankingRewardColumnList::RankingRewardInfo::RankingRewardInfo(void)	RankingRewardColumnList	infogate	210
+0x522890	RankingRewardColumnList::GetRowCount(void)	RankingRewardColumnList	infogate	7
+0x5228c0	RankingRewardPanel::DuelSoloInfo::DuelSoloInfo(void)	RankingRewardPanel	infogate	182
+0x5229e0	RankingRewardPanel::DuelSoloInfo::~DuelSoloInfo(void)	RankingRewardPanel	infogate	117
+0x522a60	RankingRewardColumnList::RankingRewardInfo::~RankingRewardInfo(void)	RankingRewardColumnList	infogate	117
+0x522b60	RankingSeasonInfoPanel::SeasonReward::~SeasonReward(void)	RankingSeasonInfoPanel	infogate	22
+0x522bc0	RankingWeekInfoPanel::WeekReward::~WeekReward(void)	RankingWeekInfoPanel	infogate	22
+0x52c460	RankingRewardColumnList::RankingRewardInfo::RankingRewardInfo(RankingRewardColumnList::RankingRewardInfo const &)	RankingRewardColumnList	infogate	312
+0x52faa0	RankingRewardColumnList::RankingRewardInfo::operator=(RankingRewardColumnList::RankingRewardInfo const &)	RankingRewardColumnList	infogate	131
+0x52fbf0	RankingRewardColumnList::RewardInfo::operator=(RankingRewardColumnList::RewardInfo const &)	RankingRewardColumnList	infogate	75
+0x55d060	UiArenaLobbyState::~UiArenaLobbyState(void)	UiArenaLobbyState	arena	7
+0x561d80	[thunk]:UiStateArenaDungeonLobby::ProcessNetObjectEvent`adjustor{16}' (StructPacket const *)	[thunk]:UiStateArenaDungeonLobby	arena	8
+0x5620b0	Data::PartyBattleFieldZoneRecordCaptureTheFlagPtr::PartyBattleFieldZoneRecordCaptureTheFlagPtr(Data::PartyBattleFieldZoneRecordCaptureTheFlagPtr const &)	Data	arena	112
+0x573660	Data::PartyBattleFieldZoneRecordLeadTheBallPtr::PartyBattleFieldZoneRecordLeadTheBallPtr(Data::PartyBattleFieldZoneRecordLeadTheBallPtr const &)	Data	arena	78
+0x5bd910	Data::DataManager::LoadHiddenFieldFromRankingPvEStage(std::set<Data::TableType,std::less<Data::TableType>,std::allocator<Data::TableType>> const &)	Data	infogate	346
+0x5be410	Data::DataManager::loadHiddenFieldFromFactionBattleFieldZone(std::set<Data::TableType,std::less<Data::TableType>,std::allocator<Data::TableType>> const &)	Data	arena	520
+0x5be620	Data::DataManager::loadHiddenFieldFromGuildBattleFieldZone(std::set<Data::TableType,std::less<Data::TableType>,std::allocator<Data::TableType>> const &)	Data	arena	520
+0x5bf530	Data::DataManager::loadHiddenFieldFromPartyBattleFieldZone(std::set<Data::TableType,std::less<Data::TableType>,std::allocator<Data::TableType>> const &)	Data	arena	520
+0x5c04d0	Data::DataManager::loadHiddenFieldFromBattleRoyal(std::set<Data::TableType,std::less<Data::TableType>,std::allocator<Data::TableType>> const &)	Data	arena	520
+0x71f5a0	World::LeaveArenaLobbyNotify(G_LeaveArenaLobbyNotifyPacket const *)	World	arena	35
+0x71f5d0	World::EnterArenaLobbyNotify(G_EnterArenaLobbyNotifyPacket const *)	World	arena	35
+0x71f600	World::LastestArenaLobbyRoomInfoNotify(G_LastestArenaLobbyRoomInfoNotifyPacket const *)	World	arena	32
+0x71f620	World::CreateArenaLobbyRoomNotify(G_CreateArenaLobbyRoomNotifyPacket const *)	World	arena	35
+0x720e10	World::OnConnectInfoGate(void)	World	infogate	1
+0x721530	WebUtil::isUnreservedCharacterForUrlEncodeA(char)	WebUtil	web	61
+0x7215d0	WebUtil::GetJpegFileNameFromUrl(wchar_t const *)	WebUtil	web	562
+0x721930	WebRequester::destroyEvents(void)	WebRequester	web	46
+0x721960	WebRequester::createEvents(void)	WebRequester	web	76
+0x722d90	World::GetArenaDungeon(void)	World	arena	17
+0x722db0	World::GetArenaDungeonLobby(void)	World	arena	17
+0x722dd0	World::GetArenaDuel(void)	World	arena	17
+0x722df0	World::GetArenaDuelLobby(void)	World	arena	17
+0x724ab0	World::GetPartyBattleFieldZoneRecord(void)	World	arena	346
+0x725b70	World::SetUiArenaLobby(BUiArenaLobby *)	World	arena	302
+0x726020	World::IsContentBanFactionBattleField(void)	World	arena	75
+0x7260c0	World::IsArenaDungeon(void)	World	arena	24
+0x7260e0	World::IsArenaPartyBattle(void)	World	arena	24
+0x726100	World::IsArenaDungeonLobby(void)	World	arena	47
+0x726130	World::IsArenaDuelGameStart(void)	World	arena	41
+0x726160	World::IsArenaDuel(void)	World	arena	27
+0x726180	World::IsArenaDuelLobby(void)	World	arena	50
+0x726be0	WebUtil::UrlDecodeA(std::basic_string<char,std::char_traits<char>,std::allocator<char>> const &)	WebUtil	web	434
+0x726da0	WebUtil::UrlEncodeA(std::basic_string<char,std::char_traits<char>,std::allocator<char>> const &)	WebUtil	web	446
+0x727620	WebSessionManager::SetPresenceCookie(InGameWeb::PresenceCookieValue)	WebSessionManager	web	372
+0x728ef0	World::IsBattleRoyalZone(void)	World	arena	225
+0x729ae0	World::IsTendencyFactionBattleFieldZone(int)	World	arena	354
+0x72a200	World::GetPartyBattleFieldZoneSubType(void)	World	arena	185
+0x72a3f0	World::IsPartyBattleFieldZone(void)	World	arena	226
+0x72a6c0	World::IsGuildBattleFieldEntranceZone(void)	World	arena	419
+0x72a870	World::IsGuildBattleFieldEntranceZoneChannel(int,int)	World	arena	594
+0x72abc0	World::IsFactionBattleFieldZone(int,bool)	World	arena	399
+0x72bd70	World::IsArenaEntrance(void)	World	arena	250
+0x72c300	WebUtil::UrlDecodeW(std::basic_string<wchar_t,std::char_traits<wchar_t>,std::allocator<wchar_t>> const &)	WebUtil	web	213
+0x72c3e0	WebUtil::UrlEncodeW(std::basic_string<wchar_t,std::char_traits<wchar_t>,std::allocator<wchar_t>> const &)	WebUtil	web	213
+0x72d420	World::IsBattleRoyalPcTargetCam(bool,__int64)	World	arena	117
+0x72db50	World::GetLeadTheBallPartyBattleFieldZoneRecord(void)	World	arena	280
+0x72dc70	World::GetCaptureTheFlagPartyBattleFieldZoneRecord(void)	World	arena	280
+0x72dd90	World::IsGuildBattleFieldEntranceZoneBattleMode(void)	World	arena	79
+0x730290	WebSessionManager::UpdateOptionCookie(ClientGameOption const *,InGameWeb::OptionCookieType)	WebSessionManager	web	936
+0x7321c0	World::LeaveArenaLobby(G_LeaveArenaLobbyOkPacket const *)	World	arena	62
+0x732200	World::EnterArenaLobby(G_EnterArenaLobbyOkPacket const *)	World	arena	192
+0x732640	World::createPartyBattleField(void)	World	arena	130
+0x7326d0	World::createGuildBattleField(void)	World	arena	130
+0x733c30	World::SendInfoGateEnterWorldNotifyReq(void)	World	infogate	167
+0x733d40	World::AddBattleRoyalFieldChatHistory(CHAT_HISTORY_TYPE)	World	arena	437
+0x737340	WebRequester::stopThread(void)	WebRequester	web	118
+0x7373c0	WebRequester::RequestUri(std::basic_string<wchar_t,std::char_traits<wchar_t>,std::allocator<wchar_t>> const &)	WebRequester	web	250
+0x737e10	WebUtil::OpenUrl(uint,wchar_t const *)	WebUtil	web	83
+0x739840	WebRequester::processWebRequest(void)	WebRequester	web	883
+0x73aa90	WebRequester::InternalThreadProc(void)	WebRequester	web	75
+0x73aae0	WebRequester::threadProc(void *)	WebRequester	web	37
+0x73ab10	WebRequester::startThread(void)	WebRequester	web	124
+0x741190	World::PrepareEnterArenaLobby(G_PrepareEnterArenaLobbyPacket const *)	World	arena	322
+0x7415a0	World::EnterArena(G_EnterArenaOkPacket const *)	World	arena	1186
+0x746fd0	World::invokeGameMessageArenaLobby(unsigned __int64,char *)	World	arena	1140
+0x750ab0	WebContentsGuidePanel::WebContentsGuidePanelWebBrowserCallback::Initialize(void)	WebContentsGuidePanel	web	152
+0x752e10	BUiWorld::ProcessInfoGateNetObjectEvent(StructPacket const *)	BUiWorld	infogate	46
+0x758f60	World::GetBattleRoyalFieldRecord(void)	World	arena	295
+0x759b70	UiTransitControl::loadArenaLobbyMap(void)	UiTransitControl	arena	745
+0x77dfc0	WardrobePanel::ProcessInfoGateNetObjectEvent(StructPacket const *)	WardrobePanel	infogate	39
+0x780b50	BUiWorld::ShowArenaSelectPanel(void)	BUiWorld	arena	519
+0x781ab0	WebRequester::~WebRequester(void)	WebRequester	web	156
+0x7897e0	WebRequester::WebRequester(void)	WebRequester	web	133
+0x78cbb0	InGameWebPanel::Clear(void)	InGameWebPanel	web	5
+0x7cc300	BUiWorld::PrepareEnterArenaLobby(G_PrepareEnterArenaLobbyPacket const *)	BUiWorld	arena	564
+0x7d8a50	UiTransitControl::enterArenaLobby(void)	UiTransitControl	arena	387
+0x7d93d0	UiTransitControl::enterArena(void)	UiTransitControl	arena	658
+0x7dd4e0	UiStateGuildCustomize::ProcessInfoGateNetObjectEvent(StructPacket const *)	UiStateGuildCustomize	infogate	66
+0x7dd530	UiStateGame::LoadArenaDuelUI(void)	UiStateGame	arena	241
+0x7ddce0	UiStateArenaDungeonLobby::ShowAutoModeChangeConfirm(wchar_t const *,short)	UiStateArenaDungeonLobby	arena	3
+0x7ddcf0	UiStateArenaDungeonLobby::HideGameTipBalloon(SYSTEM_MENU_TYPE)	UiStateArenaDungeonLobby	arena	45
+0x7ddd20	UiStateArenaDungeonLobby::RefreshQuestQuickSlotItem(short const *,char)	UiStateArenaDungeonLobby	arena	3
+0x7ddd30	UiStateArenaDungeonLobby::ModifyChatHistory(CHAT_HISTORY_TYPE)	UiStateArenaDungeonLobby	arena	56
+0x7ddd70	UiStateArenaDungeonLobby::WriteOption(void)	UiStateArenaDungeonLobby	arena	86
+0x7dddd0	UiStateArenaDungeonLobby::EndState(void)	UiStateArenaDungeonLobby	arena	1
+0x7ddde0	UiStateArenaDungeonLobby::ProgressCancel(WindowModalPanel *,short)	UiStateArenaDungeonLobby	arena	5
+0x7dddf0	UiStateArenaDungeonLobby::ProgressComplete(WindowModalPanel *,short)	UiStateArenaDungeonLobby	arena	5
+0x7dde00	UiStateArenaDungeonLobby::EndModal(WindowModalPanel *)	UiStateArenaDungeonLobby	arena	14
+0x7dde10	UiStateArenaDungeonLobby::StartModal(WindowModalPanel *)	UiStateArenaDungeonLobby	arena	14
+0x7dde20	UiStateArenaDungeonLobby::UnloadUI(void)	UiStateArenaDungeonLobby	arena	348
+0x7ddfb0	UiStateArenaDuelLobby::HideGameTipBalloon(SYSTEM_MENU_TYPE)	UiStateArenaDuelLobby	arena	45
+0x7ddfe0	UiStateArenaDuelLobby::ModifyChatHistory(CHAT_HISTORY_TYPE)	UiStateArenaDuelLobby	arena	19
+0x7de000	UiStateArenaDuelLobby::WriteOption(void)	UiStateArenaDuelLobby	arena	102
+0x7de070	UiStateArenaDuelLobby::EndState(void)	UiStateArenaDuelLobby	arena	1
+0x7de080	UiStateArenaDuelLobby::ProgressCancel(WindowModalPanel *,short)	UiStateArenaDuelLobby	arena	5
+0x7de090	UiStateArenaDuelLobby::EndModal(WindowModalPanel *)	UiStateArenaDuelLobby	arena	14
+0x7de0a0	UiStateArenaDuelLobby::StartModal(WindowModalPanel *)	UiStateArenaDuelLobby	arena	14
+0x7de0b0	UiStateArenaDuelLobby::UnloadUI(void)	UiStateArenaDuelLobby	arena	313
+0x7dfcc0	BUiArenaLobby::SetQuitGameWaitingMode(bool)	BUiArenaLobby	arena	27
+0x7dfce0	BUiArenaLobby::getAttachPanelFace(uint,Alignment,WidgetFace,bool,Alignment &,WidgetFace &)	BUiArenaLobby	arena	215
+0x7dfdc0	BUiArenaLobby::OnNotifyBnSTvAlarm(bool)	BUiArenaLobby	arena	48
+0x7dfdf0	BUiArenaLobby::OnNotifyPublicRaidAlarm(Data::PublicRaidRecordSubType,bool)	BUiArenaLobby	arena	31
+0x7dfe30	BUiArenaLobby::IsVisibleGameTipBalloon(SYSTEM_MENU_TYPE)	BUiArenaLobby	arena	26
+0x7dfe70	BUiArenaLobby::ModifyChatHistory(CHAT_HISTORY_TYPE)	BUiArenaLobby	arena	24
+0x7dfe90	BUiArenaLobby::OpenWhisperChatting(wchar_t const *)	BUiArenaLobby	arena	24
+0x7dfef0	BUiArenaLobby::AppendMessage(wchar_t const *)	BUiArenaLobby	arena	27
+0x7dff10	BUiArenaLobby::ShowHud(bool)	BUiArenaLobby	arena	57
+0x7dff50	BUiArenaLobby::WriteOption(void)	BUiArenaLobby	arena	189
+0x7e0010	BUiArenaLobby::ReadOption(void)	BUiArenaLobby	arena	189
+0x7e22f0	UiStateArenaDungeonLobby::ShowEmoticonSelectPanel(bool,uint)	UiStateArenaDungeonLobby	arena	116
+0x7e2370	UiStateArenaDungeonLobby::IsChatInputEditBox(uint)	UiStateArenaDungeonLobby	arena	32
+0x7e2390	UiStateArenaDungeonLobby::RefreshCurrentChatHistory(void)	UiStateArenaDungeonLobby	arena	39
+0x7e23c0	UiStateArenaDungeonLobby::AddChatMessage(CHAT_HISTORY_TYPE,ChatMessage const &)	UiStateArenaDungeonLobby	arena	75
+0x7e2410	UiStateArenaDungeonLobby::InvokePhotoAlbumIconEffect(void)	UiStateArenaDungeonLobby	arena	1
+0x7e2450	UiStateArenaDungeonLobby::enterPlayerSound(void)	UiStateArenaDungeonLobby	arena	75
+0x7e24a0	UiStateArenaDungeonLobby::~UiStateArenaDungeonLobby(void)	UiStateArenaDungeonLobby	arena	531
+0x7e26c0	UiStateArenaDuelLobby::ShowDuelRankingPanel(bool,bool,wchar_t const *)	UiStateArenaDuelLobby	infogate	135
+0x7e2750	UiStateArenaDuelLobby::ShowDuelspectateList(bool)	UiStateArenaDuelLobby	arena	24
+0x7e2770	UiStateArenaDuelLobby::ShowEmoticonSelectPanel(bool,uint)	UiStateArenaDuelLobby	arena	116
+0x7e27f0	UiStateArenaDuelLobby::IsChatInputEditBox(uint)	UiStateArenaDuelLobby	arena	32
+0x7e2810	UiStateArenaDuelLobby::AddChatMessage(CHAT_HISTORY_TYPE,ChatMessage const &)	UiStateArenaDuelLobby	arena	34
+0x7e2840	UiStateArenaDuelLobby::InvokePhotoAlbumIconEffect(void)	UiStateArenaDuelLobby	arena	1
+0x7e28c0	UiStateArenaDuelLobby::enterPlayerSound(void)	UiStateArenaDuelLobby	arena	75
+0x7e2910	UiStateArenaDuelLobby::~UiStateArenaDuelLobby(void)	UiStateArenaDuelLobby	arena	495
+0x7e4690	BUiGuildCustomize::ProcessInfoGateNetObjectEvent(StructPacket const *)	BUiGuildCustomize	infogate	36
+0x7e51f0	BUiArenaLobby::IsVisibleViewScreenShotWindow(void)	BUiArenaLobby	arena	42
+0x7e5220	BUiArenaLobby::ShowPlayReport(char)	BUiArenaLobby	arena	42
+0x7e5250	BUiArenaLobby::ShowQuitGameConfirm(char,int,int)	BUiArenaLobby	arena	102
+0x7e52c0	BUiArenaLobby::attachTooltipPanel(char,uint,uint,Alignment,Alignment,float,float,bool,bool)	BUiArenaLobby	arena	166
+0x7e5370	BUiArenaLobby::attachTooltipPanel(char,uint,Alignment,WidgetFace,float,bool,bool,bool)	BUiArenaLobby	arena	244
+0x7e5470	BUiArenaLobby::hideTooltip(char)	BUiArenaLobby	arena	88
+0x7e54d0	BUiArenaLobby::HideTooltip(void)	BUiArenaLobby	arena	35
+0x7e5500	BUiArenaLobby::ShowGuildCustomizeComponentTooltip(__int64,int,uint,Alignment,WidgetFace,float)	BUiArenaLobby	arena	183
+0x7e55f0	BUiArenaLobby::InvokeSystemMenuNotification(SYSTEM_MENU_TYPE,uint,NOTIFICATION_PUSH_EVENT_TYPE,char,wchar_t const *,wchar_t const *)	BUiArenaLobby	arena	143
+0x7e56d0	BUiArenaLobby::activateLobbyUI(UiArenaLobbyState *)	BUiArenaLobby	arena	118
+0x7e5750	BUiArenaLobby::ActivateLobbyUI(void)	BUiArenaLobby	arena	31
+0x7e57a0	BUiArenaLobby::ToggleLevelDownload(void)	BUiArenaLobby	arena	61
+0x7e57e0	BUiArenaLobby::IsVisibleSns(void)	BUiArenaLobby	arena	42
+0x7e5810	BUiArenaLobby::IsVisibleWebCharacterInfo(void)	BUiArenaLobby	arena	42
+0x7e5840	BUiArenaLobby::GetChatInputPanel(void)	BUiArenaLobby	arena	25
+0x7ea4b0	UiStateArenaDungeonLobby::IsVisibleGameTipBalloon(SYSTEM_MENU_TYPE)	UiStateArenaDungeonLobby	arena	63
+0x7ea4f0	UiStateArenaDungeonLobby::InvokeGameTipBalloon(char)	UiStateArenaDungeonLobby	arena	61
+0x7ea530	UiStateArenaDungeonLobby::GetBadgePoint(SYSTEM_MENU_TYPE)	UiStateArenaDungeonLobby	arena	35
+0x7ea560	UiStateArenaDungeonLobby::StartState(void)	UiStateArenaDungeonLobby	arena	467
+0x7ea750	UiStateArenaDuelLobby::IsVisibleDuelspectateList(void)	UiStateArenaDuelLobby	arena	42
+0x7ea780	UiStateArenaDuelLobby::IsVisibleGameTipBalloon(SYSTEM_MENU_TYPE)	UiStateArenaDuelLobby	arena	63
+0x7ea7c0	UiStateArenaDuelLobby::InvokeGameTipBalloon(char)	UiStateArenaDuelLobby	arena	61
+0x7ea800	UiStateArenaDuelLobby::GetBadgePoint(SYSTEM_MENU_TYPE)	UiStateArenaDuelLobby	arena	35
+0x7ed070	BUiArenaLobby::TogglePhotoAlbum(void)	BUiArenaLobby	arena	260
+0x7ed180	BUiArenaLobby::hideWidgetTooltip(uint)	BUiArenaLobby	arena	38
+0x7ed1b0	BUiArenaLobby::ShowTextTooltip(wchar_t const *,bool,float,float,int,int,Alignment,Alignment,bool)	BUiArenaLobby	arena	179
+0x7ed270	BUiArenaLobby::ShowTextTooltip(wchar_t const *,uint,uint,Alignment,Alignment,float,float,bool,bool)	BUiArenaLobby	arena	300
+0x7ed3a0	BUiArenaLobby::ShowTextTooltip(wchar_t const *,uint,Alignment,WidgetFace,float,bool,bool)	BUiArenaLobby	arena	302
+0x7ed4d0	BUiArenaLobby::ShowContextMenuTextTooltip(wchar_t const *,uint,Alignment,WidgetFace,float,bool,bool)	BUiArenaLobby	arena	293
+0x7ed600	BUiArenaLobby::ShowBalloonTextTooltip(wchar_t const *,uint)	BUiArenaLobby	arena	152
+0x7ed6a0	BUiArenaLobby::ShowWebCharacterInfo(bool,bool,wchar_t const *)	BUiArenaLobby	arena	158
+0x7ed740	BUiArenaLobby::ShowSns(bool,bool,wchar_t const *)	BUiArenaLobby	arena	176
+0x7ed7f0	BUiArenaLobby::ShowOption(bool,bool)	BUiArenaLobby	arena	23
+0x7ed810	BUiArenaLobby::UpdateSelfVoiceTestResult(int)	BUiArenaLobby	arena	61
+0x7ed850	BUiArenaLobby::PrepareEnterZone(G_PrepareEnterZonePacket const *)	BUiArenaLobby	arena	102
+0x7ed950	Ui::DeleteArenaLobby(void)	Ui	arena	78
+0x7efcc0	UiStateGame::ShowBattleRoyalScorePanel(bool)	UiStateGame	arena	166
+0x7f1280	UiStateGame::InitBattleRoyalObserverShortcutInput(void)	UiStateGame	arena	1960
+0x7f1a70	UiStateGame::ToggleBattleRoyalExtraScoreBoard(void)	UiStateGame	arena	66
+0x7f1e10	UiStateGame::ShowDuelRankingPanel(bool,bool,wchar_t const *)	UiStateGame	infogate	149
+0x7f25d0	UiStateGame::RequestTencentIngameShopChargeWebPage(WebBrowserIEHandler *)	UiStateGame	web	368
+0x7f2f50	UiStateArenaDungeonLobby::RefreshDungeonChatFilter(void)	UiStateArenaDungeonLobby	arena	90
+0x7f2fb0	UiStateArenaDuelLobby::IsEnableRequestSpectateList(void)	UiStateArenaDuelLobby	arena	63
+0x7f3de0	BUiLobby::RequestTencentIngameShopChargeWebPage(WebBrowserIEHandler *)	BUiLobby	web	346
+0x7f5c00	BUiArenaLobby::ShowAttendanceGoodsTooltip(int,int,char,uint,Alignment,WidgetFace,float,bool,bool)	BUiArenaLobby	arena	161
+0x7f5cb0	BUiArenaLobby::TogglePublicRaid(Data::PublicRaidRecordSubType)	BUiArenaLobby	arena	79
+0x7f5d00	BUiArenaLobby::ToggleSandBox(void)	BUiArenaLobby	arena	134
+0x7f5d90	BUiArenaLobby::ToggleOption(void)	BUiArenaLobby	arena	65
+0x7f5f40	BUiArenaLobby::ReserveOpenPopup(uint,UiPopupOwner *,short)	BUiArenaLobby	arena	43
+0x7f5f70	BUiArenaLobby::LoadScene(void)	BUiArenaLobby	arena	375
+0x7f9ab0	UiStateGame::ShowArenaLevelDownloadConfirm(EArenaType)	UiStateGame	arena	125
+0x7fa6a0	UiStateGame::ShowLeaveArenaSquare(void)	UiStateGame	arena	17
+0x7fad70	UiStateArenaDungeonLobby::GetPartyBattleFieldRatingScoreImageText(int,char)	UiStateArenaDungeonLobby	arena	606
+0x7faff0	UiStateArenaDungeonLobby::ProcessReleasedKeyEvent(BInputKey const &)	UiStateArenaDungeonLobby	arena	180
+0x7fb0b0	UiStateArenaDuelLobby::GetGradeImageText(int)	UiStateArenaDuelLobby	arena	560
+0x7fb2e0	UiStateArenaDuelLobby::GetGradeFromRatingScore(int)	UiStateArenaDuelLobby	arena	51
+0x7fb320	UiStateArenaDuelLobby::ProcessReleasedKeyEvent(BInputKey const &)	UiStateArenaDuelLobby	arena	180
+0x7fb3e0	UiStateArenaDuelLobby::StartState(void)	UiStateArenaDuelLobby	arena	579
+0x7fc720	UiGuildBattleFieldManager::checkGuildBattleFieldBossSpawnNotifyMsg(void)	UiGuildBattleFieldManager	arena	216
+0x7fc800	UiGuildBattleFieldManager::checkGuildBattleFieldSafetyAreaNotifyMsg(void)	UiGuildBattleFieldManager	arena	316
+0x7fc940	UiGuildBattleFieldManager::checkGuildBattleFieldEffectNotifyMsg(void)	UiGuildBattleFieldManager	arena	464
+0x7fcb10	UiGuildBattleFieldManager::checkCloseGuildBattleFieldZoneMsg(void)	UiGuildBattleFieldManager	arena	265
+0x7fcc20	UiGuildBattleFieldManager::checkOpenCloseEnteranceGateMsg(void)	UiGuildBattleFieldManager	arena	1097
+0x7fd070	UiGuildBattleFieldManager::PostTick(float)	UiGuildBattleFieldManager	arena	78
+0x7fda70	BUiArenaLobby::ShowViewScreenShotWindow(bool,bool)	BUiArenaLobby	arena	64
+0x7fdb50	BUiArenaLobby::ToggleCharacterInfoWindow(void)	BUiArenaLobby	arena	207
+0x7fde00	BUiArenaLobby::processInputKeyEvent(EngineEvent *)	BUiArenaLobby	arena	378
+0x7fdfd0	BUiArenaLobby::Clear(void)	BUiArenaLobby	arena	728
+0x800750	UiStateGame::UpdateBattleRoyalFieldAlivePlayerCount(int,int)	UiStateGame	arena	66
+0x801350	UiStateGame::ShowArenaSelectPanel(bool)	UiStateGame	arena	472
+0x801530	UiStateGame::ToggleArenaSelectPanel(void)	UiStateGame	arena	73
+0x801580	UiStateGame::ToggleInviteArenaDungeonNotification(void)	UiStateGame	arena	92
+0x8033f0	UiStateArenaDungeonLobby::ToggleInviteUnratedArenaDungeonNotification(void)	UiStateArenaDungeonLobby	arena	77
+0x803440	UiStateArenaDungeonLobby::ToggleInviteArenaDungeonNotification(void)	UiStateArenaDungeonLobby	arena	77
+0x8034a0	UiStateArenaDuelLobby::ShowAutoModeChangeConfirm(wchar_t const *,short)	UiStateArenaDuelLobby	arena	401
+0x803640	UiStateArenaDuelLobby::ToggleInviteUnratedDuelNotification(void)	UiStateArenaDuelLobby	arena	77
+0x8036a0	UiStateArenaDuelLobby::ToggleInviteDuelNotification(void)	UiStateArenaDuelLobby	arena	77
+0x8036f0	UiStateArenaDuelLobby::isEquipedInvalidDuelGrade(void)	UiStateArenaDuelLobby	arena	105
+0x806bb0	UiGuildBattleFieldManager::ProcessRefinerManipulateEvent(unsigned __int64,int,std::basic_string<wchar_t,std::char_traits<wchar_t>,std::allocator<wchar_t>> &)	UiGuildBattleFieldManager	arena	34
+0x806be0	GuildBattleFieldRespawnConfirmPanel::updateLeftTime(int)	GuildBattleFieldRespawnConfirmPanel	arena	247
+0x806ce0	GuildBattleFieldRespawnConfirmPanel::ApplyDescText(bool)	GuildBattleFieldRespawnConfirmPanel	arena	354
+0x806e50	GuildBattleFieldRespawnConfirmPanel::Open(ModalOwner *,char)	GuildBattleFieldRespawnConfirmPanel	arena	280
+0x806f70	GuildBattleFieldRespawnConfirmPanel::ProcessEvent(EngineEvent *)	GuildBattleFieldRespawnConfirmPanel	arena	147
+0x807ce0	BUiArenaLobby::ToggleSuggestJoinGuild(void)	BUiArenaLobby	arena	260
+0x807df0	BUiArenaLobby::ShowDisconnectServerConfirm(void)	BUiArenaLobby	arena	217
+0x807fd0	BUiArenaLobby::ShowDeleteBlackListConfirm(wchar_t const *)	BUiArenaLobby	arena	253
+0x8080d0	BUiArenaLobby::ShowExitLobbyConfirmByAAS(void)	BUiArenaLobby	arena	214
+0x8081b0	BUiArenaLobby::ShowBanishPartyConfirm(wchar_t const *)	BUiArenaLobby	arena	243
+0x8082b0	BUiArenaLobby::ShowLeavePartyConfirm(void)	BUiArenaLobby	arena	217
+0x808390	BUiArenaLobby::hideTextLinkTooltip(uint,int)	BUiArenaLobby	arena	283
+0x8084b0	BUiArenaLobby::showTextLinkTooltip(uint,int)	BUiArenaLobby	arena	401
+0x808650	BUiArenaLobby::ShowDuelChampionshipTooltip(Data::DuelDuelTypeType,bool,uint,Alignment,WidgetFace,float)	BUiArenaLobby	arena	149
+0x8086f0	BUiArenaLobby::OnNotifySuggestJoinGuild(void)	BUiArenaLobby	arena	64
+0x808730	BUiArenaLobby::UpdateSystemMenuBadgePoint(SYSTEM_MENU_TYPE,int,char,bool,wchar_t const *,wchar_t const *)	BUiArenaLobby	arena	113
+0x8087f0	BUiArenaLobby::EnableGameMessagePending(char)	BUiArenaLobby	arena	82
+0x808850	BUiArenaLobby::UpdateInstanceNotificationPanel(GameMessageHistoryChannel)	BUiArenaLobby	arena	39
+0x808880	BUiArenaLobby::ShowBnsTV(bool,bool,bool)	BUiArenaLobby	arena	433
+0x808a40	BUiArenaLobby::Hide(void)	BUiArenaLobby	arena	114
+0x80b2c0	UiStateGame::ReturnToArenaShotcutSingleReq(void)	UiStateGame	arena	327
+0x80b410	UiStateGame::ReturnToArenaLobbySingleReq(void)	UiStateGame	arena	297
+0x80b540	UiStateGame::ShowArenaFactionBattleFieldZoneConfirm(EArenaType)	UiStateGame	arena	501
+0x80b740	UiStateGame::ShowArenaLightClientConfirm(EArenaType)	UiStateGame	arena	483
+0x80da40	UiStateGame::ShowArenaDungeonPartyTypeNoneConfirm(void)	UiStateGame	arena	358
+0x80f940	UiStateArenaDuelLobby::SendRequestSpectateList(void)	UiStateArenaDuelLobby	arena	56
+0x811d30	BUiLobby::ProcessInfoGateNetObjectEvent(StructPacket const *)	BUiLobby	infogate	111
+0x812430	UiGuildBattleFieldManager::EnterLeaveObject(void)	UiGuildBattleFieldManager	arena	64
+0x812470	UiGuildBattleFieldManager::ProcessNetObjectEvent(StructPacket const *)	UiGuildBattleFieldManager	arena	51
+0x8131e0	BUiArenaLobby::ShowExitLobbyConfirm(void)	BUiArenaLobby	arena	299
+0x8133b0	BUiArenaLobby::initializeLevelDownload(void)	BUiArenaLobby	arena	186
+0x813470	BUiArenaLobby::ToggleBnsTV(void)	BUiArenaLobby	arena	138
+0x813500	BUiArenaLobby::invokeExitShotCutFailMsg(void)	BUiArenaLobby	arena	220
+0x817e00	UiStateArenaDungeonLobby::PostTick(float)	UiStateArenaDungeonLobby	arena	35
+0x818f80	UiGuildBattleFieldManager::ProcessActionSubEvent(int,PfStruct const *,BGameObject const *)	UiGuildBattleFieldManager	arena	615
+0x8192b0	UiGuildBattleFieldManager::OnChangedCreatureProperty(short,CreatureProperty const &,CreatureProperty const &)	UiGuildBattleFieldManager	arena	585
+0x8196c0	GuildBattleFieldRespawnConfirmPanel::onYesClick(void)	GuildBattleFieldRespawnConfirmPanel	arena	71
+0x81a130	BUiArenaLobby::showWidgetTooltip(uint,int,int)	BUiArenaLobby	arena	412
+0x81a2d0	BUiArenaLobby::OnClickSystemMenu(SYSTEM_MENU_TYPE,char,wchar_t const *)	BUiArenaLobby	arena	319
+0x81a4f0	BUiArenaLobby::ShowCharacterInfo(bool,bool,wchar_t const *,int,unsigned __int64)	BUiArenaLobby	arena	351
+0x81cbc0	UiStateGame::SetBattleRoyalChatView(void)	UiStateGame	arena	444
+0x8200d0	GuildBattleFieldRespawnConfirmPanel::Close(void)	GuildBattleFieldRespawnConfirmPanel	arena	65
+0x820120	BUiArenaLobby::ShowItemTooltip(unsigned __int64,wchar_t const *,ITEMTOOLTIPTYPE,uint,Alignment,WidgetFace,float,bool,bool,bool,bool,bool)	BUiArenaLobby	arena	180
+0x821ca0	BUiLoading::showArenaDungeonDefault(wchar_t const *)	BUiLoading	arena	632
+0x822220	BUiLoading::showArenaPartyBattleLobby(void)	BUiLoading	arena	178
+0x8222e0	BUiLoading::showArenaPartyBattle(void)	BUiLoading	arena	178
+0x824290	BUiArenaLobby::BUiArenaLobby(void)	BUiArenaLobby	arena	2407
+0x824de0	InGameWebPanel::Clear(void)	InGameWebPanel	web	5
+0x826310	BUiLoading::showRanking(void)	BUiLoading	infogate	282
+0x826b90	BUiArenaLobby::MappingWidget(uint)	BUiArenaLobby	arena	1357
+0x8287a0	UiStateGame::ReturnToArenaLobbyReq(void)	UiStateGame	arena	851
+0x82a0f0	UiStateGame::ShowEnterArenaConfirm(unsigned __int64,ModalOwner *,EArenaGameType)	UiStateGame	arena	1707
+0x82aa00	UiStateGame::ShowArenaDungeonConfirm(BDuelConfirmPanel::CONFIRM_UITYPE,__int64,short)	UiStateGame	arena	91
+0x82aa60	UiStateGame::ShowArenaDuelConfirm(BDuelConfirmPanel::CONFIRM_UITYPE,__int64,short)	UiStateGame	arena	91
+0x82acb0	UiStateArenaDungeonLobby::OnNotifyPublicRaidAlarm(Data::PublicRaidRecordSubType,bool)	UiStateArenaDungeonLobby	arena	15
+0x82acc0	UiStateArenaDungeonLobby::ShowArenaDungeonConfirm(BDuelConfirmPanel::CONFIRM_UITYPE,__int64,short)	UiStateArenaDungeonLobby	arena	174
+0x82ad70	UiStateArenaDuelLobby::OnNotifyPublicRaidAlarm(Data::PublicRaidRecordSubType,bool)	UiStateArenaDuelLobby	arena	15
+0x82ad80	UiStateArenaDuelLobby::UpdateDuelRatingWidget(int,uint,uint,uint,uint,bool,int,bool)	UiStateArenaDuelLobby	arena	790
+0x82b0a0	UiStateArenaDuelLobby::ShowArenaDuelConfirm(BDuelConfirmPanel::CONFIRM_UITYPE,__int64,short)	UiStateArenaDuelLobby	arena	88
+0x82b100	UiStateArenaDuelLobby::SetRatingIcon(int,UiStateArenaDuelLobby::RANKICONTYPE,uint)	UiStateArenaDuelLobby	arena	627
+0x82cd80	UiStateGame::ShowArenaDungeonEnterGuideConfirm(__int64)	UiStateGame	arena	30
+0x82d590	UiStateArenaDungeonLobby::ToggleDungeonConfirm(BDuelConfirmPanel::CONFIRM_UITYPE,__int64,short)	UiStateArenaDungeonLobby	arena	93
+0x82d5f0	UiStateArenaDungeonLobby::InvokeGameTipBalloon(uint,char,NOTIFICATION_PUSH_EVENT_TYPE,char,wchar_t const *,wchar_t const *)	UiStateArenaDungeonLobby	arena	45
+0x82d620	UiStateArenaDungeonLobby::ProcessPressedKeyEvent(BInputKey const &,bool)	UiStateArenaDungeonLobby	arena	208
+0x82d6f0	UiStateArenaDungeonLobby::ProcessEvent(EngineEvent *)	UiStateArenaDungeonLobby	arena	106
+0x82d760	UiStateArenaDuelLobby::ShowAutoInviteConfirm(wchar_t const *)	UiStateArenaDuelLobby	arena	315
+0x82d8a0	UiStateArenaDuelLobby::ToggleDuelConfirm(BDuelConfirmPanel::CONFIRM_UITYPE,__int64,short)	UiStateArenaDuelLobby	arena	93
+0x82d900	UiStateArenaDuelLobby::InvokeGameTipBalloon(uint,char,NOTIFICATION_PUSH_EVENT_TYPE,char,wchar_t const *,wchar_t const *)	UiStateArenaDuelLobby	arena	45
+0x82d930	UiStateArenaDuelLobby::ProcessPressedKeyEvent(BInputKey const &,bool)	UiStateArenaDuelLobby	arena	208
+0x82da00	UiStateArenaDuelLobby::ProgressComplete(WindowModalPanel *,short)	UiStateArenaDuelLobby	arena	297
+0x82db30	UiStateArenaDuelLobby::LoadUI(void)	UiStateArenaDuelLobby	arena	709
+0x82de00	UiStateArenaDuelLobby::ProcessEvent(EngineEvent *)	UiStateArenaDuelLobby	arena	92
+0x82e840	BUiArenaLobby::ShowPartyBattleModeFieldMapTooltip(int,uint,Alignment,WidgetFace,float)	BUiArenaLobby	arena	142
+0x82e8d0	BUiArenaLobby::ShowPublicRaidInfoTooltip(unsigned __int64,uint,Alignment,WidgetFace,float)	BUiArenaLobby	arena	149
+0x82e970	BUiArenaLobby::ShowArenaDungeonMapTooltip(int,uint,Alignment,WidgetFace,float)	BUiArenaLobby	arena	142
+0x82ea20	BUiArenaLobby::ShowContextMenu(UiActionOrigin,wchar_t const *,int,std::basic_string<wchar_t,std::char_traits<wchar_t>,std::allocator<wchar_t>> const &,std::basi	BUiArenaLobby	arena	41
+0x830130	UiStateGame::UpdateBattleRoyalObservingMode(bool)	UiStateGame	arena	1267
+0x830630	UiStateGame::UpdateBattleRoyalResultMode(bool)	UiStateGame	arena	226
+0x831670	UiStateArenaDuelLobby::RefreshQuestQuickSlotItem(short const *,char)	UiStateArenaDuelLobby	arena	26
+0x8324a0	BUiArenaLobby::OpenHyperTextLink(UiActionOrigin,wchar_t const *,bool,uint,bool)	BUiArenaLobby	arena	1204
+0x8329c0	BUiArenaLobby::ProcessReleasedKeyEvent(BInputKey const &)	BUiArenaLobby	arena	116
+0x832f00	UiStateGame::UpdateArenaDungeonInviteCount(void)	UiStateGame	arena	79
+0x833b00	UiStateArenaDungeonLobby::UpdateArenaDungeonUnratedInviteCount(void)	UiStateArenaDungeonLobby	arena	96
+0x833b60	UiStateArenaDungeonLobby::UpdateArenaDungeonInviteCount(void)	UiStateArenaDungeonLobby	arena	78
+0x833bb0	UiStateArenaDungeonLobby::AddSystemMenuBadgePoint(SYSTEM_MENU_TYPE)	UiStateArenaDungeonLobby	arena	26
+0x833bd0	UiStateArenaDungeonLobby::UpdateSystemMenuBadgePoint(SYSTEM_MENU_TYPE,int,char,bool,wchar_t const *,wchar_t const *)	UiStateArenaDungeonLobby	arena	50
+0x833c10	UiStateArenaDungeonLobby::ChangeChatInputMode(char)	UiStateArenaDungeonLobby	arena	79
+0x833c60	UiStateArenaDungeonLobby::OpenWhisperChatting(wchar_t const *)	UiStateArenaDungeonLobby	arena	23
+0x833c80	UiStateArenaDungeonLobby::ProcessNetObjectEvent(StructPacket const *)	UiStateArenaDungeonLobby	arena	737
+0x833ff0	UiStateArenaDuelLobby::UpdateDuelUnratedInviteCount(void)	UiStateArenaDuelLobby	arena	78
+0x834040	UiStateArenaDuelLobby::UpdateDuelInviteCount(void)	UiStateArenaDuelLobby	arena	112
+0x8340b0	UiStateArenaDuelLobby::AddSystemMenuBadgePoint(SYSTEM_MENU_TYPE)	UiStateArenaDuelLobby	arena	26
+0x8340d0	UiStateArenaDuelLobby::UpdateSystemMenuBadgePoint(SYSTEM_MENU_TYPE,int,char,bool,wchar_t const *,wchar_t const *)	UiStateArenaDuelLobby	arena	50
+0x834110	UiStateArenaDuelLobby::ChangeChatInputMode(char)	UiStateArenaDuelLobby	arena	79
+0x834160	UiStateArenaDuelLobby::OpenWhisperChatting(wchar_t const *)	UiStateArenaDuelLobby	arena	23
+0x8362c0	BUiArenaLobby::ShowPhotoAlbum(bool,bool,int,CreatureProperty const &)	BUiArenaLobby	arena	140
+0x837e80	UiStateGame::ProcessInfoGateNetObjectEvent(StructPacket const *)	UiStateGame	infogate	551
+0x838330	UiStateArenaDungeonLobby::OnEnterChatting(char)	UiStateArenaDungeonLobby	arena	51
+0x838370	UiStateArenaDungeonLobby::RefresheUI(void)	UiStateArenaDungeonLobby	arena	313
+0x8384b0	UiStateArenaDungeonLobby::ProcessChatChannelEvent(ChatChannelEvent *)	UiStateArenaDungeonLobby	arena	19
+0x8384d0	UiStateArenaDuelLobby::OnEnterChatting(char)	UiStateArenaDuelLobby	arena	51
+0x838510	UiStateArenaDuelLobby::ProcessChatChannelEvent(ChatChannelEvent *)	UiStateArenaDuelLobby	arena	19
+0x83b110	UiStateArenaDungeonLobby::AppendMessage(wchar_t const *)	UiStateArenaDungeonLobby	arena	27
+0x83b130	UiStateArenaDungeonLobby::ReadOption(void)	UiStateArenaDungeonLobby	arena	156
+0x83b1d0	UiStateArenaDungeonLobby::LoadUI(void)	UiStateArenaDungeonLobby	arena	910
+0x83b560	UiStateArenaDuelLobby::AppendMessage(wchar_t const *)	UiStateArenaDuelLobby	arena	27
+0x83b580	UiStateArenaDuelLobby::ReadOption(void)	UiStateArenaDuelLobby	arena	200
+0x83b650	UiStateArenaDuelLobby::RefresheUI(void)	UiStateArenaDuelLobby	arena	108
+0x83b8c0	BUiArenaLobby::PostTick(float)	BUiArenaLobby	arena	98
+0x83c840	BUiArenaLobby::ExitGame(void)	BUiArenaLobby	arena	194
+0x83c910	BUiArenaLobby::GoToLobby(void)	BUiArenaLobby	arena	290
+0x83ca40	BUiArenaLobby::GoToLogin(void)	BUiArenaLobby	arena	277
+0x83cb60	BUiArenaLobby::ReInit(uint)	BUiArenaLobby	arena	562
+0x83cf40	BUiArenaLobby::ProcessNetObjectEvent(StructPacket const *)	BUiArenaLobby	arena	250
+0x83d3c0	Ui::ExchangeArenaLobbyToArenaWorld(void)	Ui	arena	262
+0x843610	Ui::ExchangeArenaWorldToArenaLobby(void)	Ui	arena	133
+0x8527d0	BUiArenaLobby::ProcessEvent(EngineEvent *)	BUiArenaLobby	arena	1161
+0x852d30	Ui::CreateArenaLobby(void)	Ui	arena	342
+0x8581d0	UiStateArenaDungeonLobby::Show(void)	UiStateArenaDungeonLobby	arena	69
+0x858290	UiStateArenaDuelLobby::Show(void)	UiStateArenaDuelLobby	arena	141
+0x858320	UiStateArenaDuelLobby::ProcessNetObjectEvent(StructPacket const *)	UiStateArenaDuelLobby	arena	832
+0x864020	GetZoneArenaPortalRecordFieldInfo(DrAttrDef &,wchar_t const *,int)		arena	113
+0x8641a0	GetPartyBattleFieldZoneRecordFieldInfo(DrAttrDef &,wchar_t const *,int)		arena	113
+0x8642a0	GetFactionBattleFieldZoneRecordFieldInfo(DrAttrDef &,wchar_t const *,int)		arena	113
+0x864320	GetGuildBattleFieldZoneRecordFieldInfo(DrAttrDef &,wchar_t const *,int)		arena	113
+0x8657d0	GetBattleFieldGradeRecordFieldInfo(DrAttrDef &,wchar_t const *,int)		arena	113
+0x86b240	TencentIngameShopNoticeUpdater::getNpAuctionNoticeUrl(void)	TencentIngameShopNoticeUpdater	web	34
+0x86c4f0	TencentHealthyOpenPanel::TencentHealthyOpenWebBrowserCallback::Initialize(void)	TencentHealthyOpenPanel	web	153
+0x86c6c0	TencentEventNoticePanel::TencentEventNoticeWebBrowserCallback::Initialize(void)	TencentEventNoticePanel	web	152
+0x86c9d0	TencentCommunityEventPanel::TencentCommunityEventWebBrowserCallback::Initialize(void)	TencentCommunityEventPanel	web	176
+0x86cde0	TencentChargePanel::TencentChargeWebBrowserCallback::Initialize(void)	TencentChargePanel	web	415
+0x871430	TencentQRCodePanel::TencentQRCodeWebBrowserCallback::Initialize(void)	TencentQRCodePanel	web	609
+0x8731a0	TencentEventNoticePanel::TencentEventNoticeWebBrowserCallback::hideTooltip(void)	TencentEventNoticePanel	web	79
+0x8731f0	TencentEventNoticePanel::TencentEventNoticeWebBrowserCallback::onTooltipCommand(BnsCommand const &)	TencentEventNoticePanel	web	287
+0x873650	TencentCommunityEventPanel::TencentCommunityEventWebBrowserCallback::hideTooltip(void)	TencentCommunityEventPanel	web	79
+0x8736a0	TencentCommunityEventPanel::TencentCommunityEventWebBrowserCallback::onTooltipCommand(BnsCommand const &)	TencentCommunityEventPanel	web	287
+0x8778e0	SystemMenuPanel::updateGameTipBalloonArenaLobby(SYSTEM_MENU_TYPE,int,wchar_t const *,wchar_t const *)	SystemMenuPanel	arena	185
+0x87ba60	TendencyField::IsDisableMoveToArena(void)	TendencyField	arena	200
+0x88b210	Teleport::IsContentBanFactionBattleField(short)	Teleport	arena	282
+0x8990c0	SystemMenuPanel::updateEnterArenaDuelWidget(void)	SystemMenuPanel	arena	637
+0x8ba630	formatZoneArenaPortal(std::basic_string<wchar_t,std::char_traits<wchar_t>,std::allocator<wchar_t>> &,std::basic_string<wchar_t,std::char_traits<wchar_t>,std::al		arena	503
+0x8bb060	formatPartyBattleFieldZone(std::basic_string<wchar_t,std::char_traits<wchar_t>,std::allocator<wchar_t>> &,std::basic_string<wchar_t,std::char_traits<wchar_t>,st		arena	1115
+0x8bb890	formatFactionBattleFieldZone(std::basic_string<wchar_t,std::char_traits<wchar_t>,std::allocator<wchar_t>> &,std::basic_string<wchar_t,std::char_traits<wchar_t>,		arena	1115
+0x8bbcf0	formatGuildBattleFieldZone(std::basic_string<wchar_t,std::char_traits<wchar_t>,std::allocator<wchar_t>> &,std::basic_string<wchar_t,std::char_traits<wchar_t>,st		arena	1115
+0x8c5a50	formatBattleFieldGrade(std::basic_string<wchar_t,std::char_traits<wchar_t>,std::allocator<wchar_t>> &,std::basic_string<wchar_t,std::char_traits<wchar_t>,std::a		arena	646
+0x8d9160	InGameWebPanel::Clear(void)	InGameWebPanel	web	5
+0x8d9170	InGameWebPanel::Clear(void)	InGameWebPanel	web	5
+0x8d9730	InGameWebPanel::Clear(void)	InGameWebPanel	web	5
+0x8d9800	InGameWebPanel::Clear(void)	InGameWebPanel	web	5
+0x8d9810	InGameWebPanel::Clear(void)	InGameWebPanel	web	5
+0x8d9820	InGameWebPanel::Clear(void)	InGameWebPanel	web	5
+0x8d98b0	TestWebBrowserPanel::ShowPanel(bool,bool)	TestWebBrowserPanel	web	92
+0x8dac50	TencentEventNoticePanel::TencentEventNoticeWebBrowserCallback::onBnsCommand(BnsCommandDefinition::CommandMethod,wchar_t const *)	TencentEventNoticePanel	web	306
+0x8daee0	TencentCommunityEventPanel::TencentCommunityEventWebBrowserCallback::onBnsCommand(BnsCommandDefinition::CommandMethod,wchar_t const *)	TencentCommunityEventPanel	web	306
+0x8e8860	SystemMenuPanel::showTooltipArenaLobby(SYSTEM_MENU_TYPE)	SystemMenuPanel	arena	308
+0x8efd00	SystemMenuPanel::updateRankingReward(void)	SystemMenuPanel	infogate	289
+0x8fb590	TencentLobbyHomePanel::TencentLobbyHomePanelWebBrowserCallback::onBnsCommand(BnsCommandDefinition::CommandMethod,wchar_t const *)	TencentLobbyHomePanel	web	472
+0x8fc480	SystemMenuPanel::ProcessEventArenaLobby(EngineEvent *)	SystemMenuPanel	arena	215
+0x905290	SnsPanel::SnsWebBrowserCallback::Initialize(void)	SnsPanel	web	632
+0x907580	SkillPowerBookPanel::SkillPowerBookWebBrowserCallback::Initialize(void)	SkillPowerBookPanel	web	152
+0x910870	SpamFilter::ProcessInfoGateNetObjectEvent(StructPacket const *)	SpamFilter	infogate	346
+0x911f30	MapBattleRoyalPlayerList::GetJobIcon(char)	MapBattleRoyalPlayerList	arena	209
+0x950bc0	InGameWebPanel::Clear(void)	InGameWebPanel	web	5
+0x950bd0	SnsPanel::SnsWebBrowserCallback::SetStartLoading(void)	SnsPanel	web	133
+0x972670	SkillPowerBookPanel::SkillPowerBookWebBrowserCallback::onBnsCommand(BnsCommandDefinition::CommandMethod,wchar_t const *)	SkillPowerBookPanel	web	1874
+0x9770d0	SuggestJoinGuildNotificationPanel::ProcessInfoGateNetObjectEvent(StructPacket const *)	SuggestJoinGuildNotificationPanel	infogate	115
+0x9941b0	SnsPanel::SnsWebBrowserCallback::onBnsCommand(BnsCommandDefinition::CommandMethod,wchar_t const *)	SnsPanel	web	2097
+0x998760	BSeason::GetActivatedRankingSeasonInfo(char)	BSeason	infogate	51
+0x99a610	RankingWeekInfoPanel::ProcessNetObjectEvent(StructPacket const *)	RankingWeekInfoPanel	infogate	3
+0x99a620	RankingWeekInfoPanel::Clear(void)	RankingWeekInfoPanel	infogate	36
+0x99a660	RankingSeasonInfoPanel::ProcessNetObjectEvent(StructPacket const *)	RankingSeasonInfoPanel	infogate	3
+0x99a670	RankingSeasonInfoPanel::Clear(void)	RankingSeasonInfoPanel	infogate	36
+0x99a6a0	RankingRewardPanel::update(void)	RankingRewardPanel	infogate	20
+0x99a6d0	RankingPanel::getContentsId(RankingPanel::RankingContentsTabType)	RankingPanel	infogate	247
+0x99a800	RankingPanel::hideAllRnakingListPageBtn(void)	RankingPanel	infogate	199
+0x99a8d0	RankingPanel::clearRequestInfo(void)	RankingPanel	infogate	35
+0x99a900	RankingPanel::convertContentsTabToSeasonType(RankingPanel::RankingContentsTabType)	RankingPanel	infogate	60
+0x99a990	RankingPanel::Clear(void)	RankingPanel	infogate	36
+0x99aa40	RandomStorePanel::OnWebBrowserIEClosed(void)	RandomStorePanel	web	1
+0x99b050	RandomStore2ndPanel::OnWebBrowserIEClosed(void)	RandomStore2ndPanel	web	1
+0x99d3f0	RankingWeekInfoPanel::ReadOption(void)	RankingWeekInfoPanel	infogate	83
+0x99d450	RankingSeasonInfoPanel::ReadOption(void)	RankingSeasonInfoPanel	infogate	83
+0x99d4b0	RankingRewardColumnList::getShowColumnCount(void)	RankingRewardColumnList	infogate	120
+0x99d530	RankingRewardColumnList::hideColumnList(void)	RankingRewardColumnList	infogate	79
+0x99d580	RankingRewardPanel::ReadOption(void)	RankingRewardPanel	infogate	83
+0x99d5e0	RankingRewardPanel::Clear(void)	RankingRewardPanel	infogate	36
+0x99d610	RankingPanel::setVisibleContentsTabButtonListByRuleConfig(void)	RankingPanel	infogate	547
+0x99d840	RankingPanel::ReadOption(void)	RankingPanel	infogate	83
+0x99d8a0	RankingPanel::checkSeasonInfoPanel(void)	RankingPanel	infogate	170
+0x99d950	RankingPanel::selectCategoryTimeEvent(void)	RankingPanel	infogate	256
+0x99da50	RankingPanel::selectCategoryChellengeParty(void)	RankingPanel	infogate	189
+0x99db10	RankingPanel::selectCategoryChampionship(void)	RankingPanel	infogate	437
+0x99dcd0	RankingPanel::selectCategoryGuild(void)	RankingPanel	infogate	361
+0x99de40	RankingPanel::selectCategoryPlayer(void)	RankingPanel	infogate	353
+0x99dfb0	RankingPanel::updateCategoryTypeTab(void)	RankingPanel	infogate	265
+0x99e0d0	RankingPanel::updateTypeTab(void)	RankingPanel	infogate	509
+0x99e2d0	RankingPanel::updateContentsTab(void)	RankingPanel	infogate	1497
+0x9a09a0	BSeason::GetRankingRewardGroupLastIndex(int)	BSeason	infogate	304
+0x9a0d80	BSeason::CheckNeedReqPlayerRankingInfo(char)	BSeason	infogate	115
+0x9a2440	RankingRewardPanel::PostTick(float)	RankingRewardPanel	infogate	99
+0x9a2590	RankingPanel::receiveRetrieveChallengePartyLogSummaryOk(StructPacket const *)	RankingPanel	infogate	302
+0x9a26c0	RankingPanel::setBoast(void)	RankingPanel	infogate	675
+0x9a2980	RankingPanel::isNoWeekRewardbyContentsType(RankingPanel::RankingContentsTabType)	RankingPanel	infogate	405
+0x9a2b20	RankingPanel::makeNameLinkString(wchar_t const *,std::basic_string<wchar_t,std::char_traits<wchar_t>,std::allocator<wchar_t>> &)	RankingPanel	infogate	75
+0x9a2cf0	RandomStorePanel::RandomStorePanelWebBrowserCallback::Initialize(void)	RandomStorePanel	web	236
+0x9a36e0	RandomStore2ndPanel::RandomStore2ndPanelWebBrowserCallback::Initialize(void)	RandomStore2ndPanel	web	236
+0x9b45b0	RankingWeekInfoPanel::RankingWeekInfoPanel(void)	RankingWeekInfoPanel	infogate	166
+0x9b46e0	RankingSeasonInfoPanel::RankingSeasonInfoPanel(void)	RankingSeasonInfoPanel	infogate	166
+0x9b4790	RankingRewardColumnList::~RankingRewardColumnList(void)	RankingRewardColumnList	infogate	95
+0x9b47f0	RankingRewardColumnList::RankingRewardColumnList(void)	RankingRewardColumnList	infogate	83
+0x9b4850	RankingRewardPanel::ProcessNetObjectEvent(StructPacket const *)	RankingRewardPanel	infogate	388
+0x9b49e0	RankingRewardPanel::~RankingRewardPanel(void)	RankingRewardPanel	infogate	110
+0x9b5380	RankingPanel::showRnakingListPageBtn(int,int)	RankingPanel	infogate	1029
+0x9b57b0	RankingPanel::showErrorConfirm(void)	RankingPanel	infogate	390
+0x9b5940	RankingPanel::updateRankingListPageHolder(void)	RankingPanel	infogate	625
+0x9b5bd0	RankingPanel::updateMyGuildRankingHolder(void)	RankingPanel	infogate	10008
+0x9b82f0	RankingPanel::updateClosingRankingSeasonTime(void)	RankingPanel	infogate	2914
+0x9b8e60	RankingPanel::updateSeasonInfoHolder(void)	RankingPanel	infogate	1592
+0x9b9590	RankingPanel::RankingPanel(void)	RankingPanel	infogate	356
+0x9c2a20	BSeason::ProcessInfoGateNetObjectEvent(StructPacket const *)	BSeason	infogate	2579
+0x9c5410	RankingRewardPanel::RankingRewardPanel(void)	RankingRewardPanel	infogate	150
+0x9c54b0	RankingPanel::updateMyChallengePartyRankingInfo(void)	RankingPanel	infogate	1940
+0x9c5c50	RankingPanel::FillRankerListHolder(uint,int)	RankingPanel	infogate	9525
+0x9c8200	RankingPanel::updateRankingListMyRankingHolder(void)	RankingPanel	infogate	5577
+0x9c9830	RankingPanel::ShowPanel(bool,bool)	RankingPanel	infogate	69
+0x9d1550	BSeason::RequestTakeRankingReward(char,int,char)	BSeason	infogate	109
+0x9d5ac0	BSeason::GetActivatedRankingSeasonState(char)	BSeason	infogate	175
+0x9d5b70	RankingPanel::requestRankerListPage(void)	RankingPanel	infogate	112
+0x9e3da0	RankingRewardColumnList::ProcessEvent(EngineEvent *)	RankingRewardColumnList	infogate	898
+0x9e4130	RankingRewardPanel::ProcessEvent(EngineEvent *)	RankingRewardPanel	infogate	205
+0x9e95a0	RankingPanel::updateRankigListJobComboList(void)	RankingPanel	infogate	538
+0x9e97c0	RankingPanel::updateRankingListHolder(void)	RankingPanel	infogate	1888
+0x9f1330	RankingWeekInfoPanel::update(void)	RankingWeekInfoPanel	infogate	2921
+0x9f1ea0	RankingWeekInfoPanel::Show(char,int)	RankingWeekInfoPanel	infogate	362
+0x9f2010	RankingWeekInfoPanel::Start(wchar_t const *)	RankingWeekInfoPanel	infogate	774
+0x9f2320	RankingSeasonInfoPanel::update(void)	RankingSeasonInfoPanel	infogate	2788
+0x9f2e10	RankingSeasonInfoPanel::Show(char,int)	RankingSeasonInfoPanel	infogate	361
+0x9f2f80	RankingSeasonInfoPanel::Start(wchar_t const *)	RankingSeasonInfoPanel	infogate	774
+0x9f3290	RankingRewardColumnList::updateWidget(uint,int)	RankingRewardColumnList	infogate	9986
+0x9f59b0	RankingRewardColumnList::UpdateData(void)	RankingRewardColumnList	infogate	9972
+0x9f80c0	RankingRewardColumnList::Fill(uint,int,int,bool)	RankingRewardColumnList	infogate	20
+0x9f80e0	RankingRewardPanel::Show(void)	RankingRewardPanel	infogate	70
+0x9f8130	RankingRewardPanel::Start(wchar_t const *)	RankingRewardPanel	infogate	2025
+0x9f8920	RankingPanel::updateMyChallengePartySeasonInfo(void)	RankingPanel	infogate	11834
+0x9fb760	RankingPanel::updateMyChallengePartyHolder(void)	RankingPanel	infogate	1471
+0x9fbd20	RankingPanel::updateMyRankingHolder(void)	RankingPanel	infogate	19450
+0xa00a00	RankingPanel::update(void)	RankingPanel	infogate	55
+0xa00a40	RankingPanel::show(void)	RankingPanel	infogate	503
+0xa00c40	RankingPanel::ProcessInfoGateNetObjectEvent(StructPacket const *)	RankingPanel	infogate	843
+0xa00fd0	RankingPanel::ProcessNetObjectEvent(StructPacket const *)	RankingPanel	infogate	337
+0xa011a0	RankingPanel::Start(wchar_t const *)	RankingPanel	infogate	8081
+0xa0ff10	RankingWeekInfoPanel::ProcessEvent(EngineEvent *)	RankingWeekInfoPanel	infogate	487
+0xa10160	RankingSeasonInfoPanel::ProcessEvent(EngineEvent *)	RankingSeasonInfoPanel	infogate	487
+0xa104c0	RankingPanel::updateProcess(bool)	RankingPanel	infogate	1706
+0xa10b90	RankingPanel::selectRankingTypeTab(RankingPanel::RankingTabType,bool)	RankingPanel	infogate	383
+0xa10d30	RankingPanel::selectPage(int)	RankingPanel	infogate	50
+0xa10d70	RankingPanel::selectJobByCombo(int)	RankingPanel	infogate	109
+0xa10de0	RankingPanel::Show(RankingPanel::CategoryTabType,RankingPanel::RankingContentsTabType,RankingPanel::RankingTabType)	RankingPanel	infogate	439
+0xa10fa0	RankingPanel::RefreshContentsTab(void)	RankingPanel	infogate	38
+0xa13580	RankingPanel::selectPageBtn(uint)	RankingPanel	infogate	258
+0xa13690	RankingPanel::ToggleRankingPanel(void)	RankingPanel	infogate	111
+0xa1cb50	RankingPanel::ProcessEvent(EngineEvent *)	RankingPanel	infogate	2758
+0xa20680	PublicRaidSelectPanel::RaidWidget::SetData(Data::ArenaPortalPublicRaidModeType,__int64,__int64,__int64)	PublicRaidSelectPanel	arena	48
+0xa42f20	QuestIcon::updateMissionWidgetTypeArenaLobby(void)	QuestIcon	arena	1170
+0xa54fb0	PublicRaidSelectPanel::RaidWidget::IsEnablePublicRaid(Data::PublicRaidRecordPtr,Data::ArenaPortalPublicRaidModeType)	PublicRaidSelectPanel	arena	653
+0xa85f40	QuestQuickSlotList::processButtonClickedArenaLobby(uint)	QuestQuickSlotList	arena	442
+0xa9c220	QuestQuickSlotList::hyperlinkClickedArenaLobby(wchar_t const *,bool)	QuestQuickSlotList	arena	260
+0xaa2190	PTBattleRoyalField::~PTBattleRoyalField(void)	PTBattleRoyalField	arena	1
+0xaa21a0	PTBattleRoyalField::PTBattleRoyalField(void)	PTBattleRoyalField	arena	1
+0xaa8200	PTBattleRoyalField::UpdateUI(void)	PTBattleRoyalField	arena	1
+0xaa97a0	PowerBookPanel::PowerBookWebBrowserCallback::Initialize(void)	PowerBookPanel	web	313
+0xab47e0	PowerBookPanel::PowerBookWebBrowserCallback::onTooltipCommand(BnsCommand const &)	PowerBookPanel	web	180
+0xab5d00	BPTPc::GetBattleRoyalPartyMarkIconSetRef(std::basic_string<wchar_t,std::char_traits<wchar_t>,std::allocator<wchar_t>> *)	BPTPc	arena	141
+0xac7a10	PresentationWorld::playPartyBattleFieldResultKismet(char)	PresentationWorld	arena	209
+0xacbe60	BPTPc::updateBattleRoyalPartyMarkIndicator(bool)	BPTPc	arena	361
+0xad4600	BPTCreature::UpdateBattleRoyalPcGuardGauge(char,__int64,__int64,__int64)	BPTCreature	arena	207
+0xad46d0	BPTCreature::UpdateBattleRoyalPcHp(__int64,__int64,__int64)	BPTCreature	arena	200
+0xae8c60	BPTNpc::updatePartyBattleFieldLTBBall(void)	BPTNpc	arena	227
+0xb39a40	BPlayer::SetEnterArenaInfo(unsigned __int64)	BPlayer	arena	23
+0xb3b7b0	DuelResultPanel::DuelBoastPanelWebBrowserCallback::Initialize(void)	DuelResultPanel	web	195
+0xb3e2a0	PetitionPanel2::Petition2WebBrowserCallback::Initialize(void)	PetitionPanel2	web	175
+0xb3e7e0	PetitionPanel::PetitionFaqWebBrowserCallback::Initialize(void)	PetitionPanel	web	152
+0xb44160	PetitionPanel2::Petition2WebBrowserCallback::onTooltipCommand(BnsCommand const &)	PetitionPanel2	web	215
+0xb47890	PresentationWorld::playEnterZonePartyBattleFieldKismet(void)	PresentationWorld	arena	277
+0xb4b120	BPlayer::IsAllowInvitePartyInArenaZone(void)	BPlayer	arena	157
+0xb4d6d0	BPlayer::GetCurrentArenaGameType(void)	BPlayer	arena	384
+0xb6eca0	BPlayer::IsBattleRoyalFieldJobRestriction(void)	BPlayer	arena	352
+0xb6ee00	BPlayer::IsBattleRoyalFieldJobstyleRestriction(int)	BPlayer	arena	371
+0xb7d7f0	BPlayer::RequestEnterArena(void)	BPlayer	arena	431
+0xb8a570	BPlayer::ProcessInfoGateNetObjectEvent(StructPacket const *)	BPlayer	infogate	98
+0xb8eae0	InGameWebPanel::Clear(void)	InGameWebPanel	web	5
+0xb90490	PetitionPanel2::Petition2WebBrowserCallback::onBnsCommand(BnsCommandDefinition::CommandMethod,wchar_t const *)	PetitionPanel2	web	335
+0xb90e60	PetitionPanel::PetitionFaqWebBrowserCallback::onBnsCommand(BnsCommandDefinition::CommandMethod,wchar_t const *)	PetitionPanel	web	516
+0xb95ea0	BPlayer::CheckRequestEnterArena(unsigned __int64)	BPlayer	arena	1105
+0xba2170	PowerBookPanel::PowerBookWebBrowserCallback::onBnsCommand(BnsCommandDefinition::CommandMethod,wchar_t const *)	PowerBookPanel	web	1033
+0xbbb340	BPlayer::ForceMoveArenaLobby(void)	BPlayer	arena	94
+0xbc7bb0	PartyBattleFieldResultPanel::ClosePanelProcess(bool)	PartyBattleFieldResultPanel	arena	14
+0xbc7bc0	PartyBattleFieldResultPanel::OnGaugeComplete(void)	PartyBattleFieldResultPanel	arena	1
+0xbc7bd0	PartyBattleFieldResultPanel::SetCustomizeMode(bool)	PartyBattleFieldResultPanel	arena	17
+0xbc7bf0	PartyBattleFieldPanel::getBoardSide(void)	PartyBattleFieldPanel	arena	37
+0xbc7c20	PartyBattleFieldPanel::SetCustomizeMode(bool)	PartyBattleFieldPanel	arena	17
+0xbc7c90	PartyBattleField::GetPrevBetaSideScore(void)	PartyBattleField	arena	4
+0xbc7ca0	PartyBattleField::GetPrevAlphaSideScore(void)	PartyBattleField	arena	4
+0xbc7cb0	PartyBattleField::GetBetaSideScore(void)	PartyBattleField	arena	4
+0xbc7cc0	PartyBattleField::GetAlphaSideScore(void)	PartyBattleField	arena	4
+0xbc7cd0	PartyBattleField::GetBetaSideJoinPcCount(void)	PartyBattleField	arena	31
+0xbc7cf0	PartyBattleField::GetAlphaSideJoinPcCount(void)	PartyBattleField	arena	31
+0xbc7d10	PartyBattleField::OutSightObject(G_OutSightCubePacket const *)	PartyBattleField	arena	1
+0xbc80c0	ArenaDungeonLobby::updateUserNewbieDungeonList(ArenaCommonLobby::LobbyUserProperty &,__int64)	ArenaDungeonLobby	arena	45
+0xbcb070	PartyBattleFieldPanel::initBonusTimer(void)	PartyBattleFieldPanel	arena	346
+0xbcb1d0	PartyBattleFieldPanel::updateBackImg(void)	PartyBattleFieldPanel	arena	405
+0xbcb380	PartyBattleField::GetPcInfo(unsigned __int64)	PartyBattleField	arena	349
+0xbcb4e0	PartyBattleField::GetPcJoinSide(unsigned __int64)	PartyBattleField	arena	248
+0xbcb5e0	PartyBattleField::GetPlayerJoinSide(void)	PartyBattleField	arena	329
+0xbcb730	PartyBattleField::IsPcJoinGame(unsigned __int64)	PartyBattleField	arena	24
+0xbcb750	PartyBattleField::IsPlayerJoinGame(void)	PartyBattleField	arena	49
+0xbcb790	PartyBattleField::IsAllPcReady(void)	PartyBattleField	arena	213
+0xbcb870	PartyBattleField::setPcVoteCount(__int64,char,char)	PartyBattleField	arena	470
+0xbcba50	PartyBattleField::setBestDamage(void)	PartyBattleField	arena	765
+0xbcbd50	PartyBattleField::setDamageResult(__int64,__int64,__int64)	PartyBattleField	arena	496
+0xbcbf40	PartyBattleField::occupyEnvPc(unsigned __int64)	PartyBattleField	arena	362
+0xbcc0b0	PartyBattleField::killPc(unsigned __int64,unsigned __int64)	PartyBattleField	arena	602
+0xbcc7a0	PartyBattleField::GetBetaSidePcInfoByIndex(int)	PartyBattleField	arena	88
+0xbcc800	PartyBattleField::GetAlphaSidePcInfoByIndex(int)	PartyBattleField	arena	88
+0xbcc860	PartyBattleField::GetBetaSideGameReadyPcCount(void)	PartyBattleField	arena	115
+0xbcc8e0	PartyBattleField::GetAlphaSideGameReadyPcCount(void)	PartyBattleField	arena	115
+0xbcf1a0	NPAuctionPanel::getNpAuctionChargeUrl(void)	NPAuctionPanel	web	34
+0xbd0a70	PartyBattleFieldResultPanel::clearSortedPcList(void)	PartyBattleFieldResultPanel	arena	128
+0xbd0af0	PartyBattleFieldPanel::completeUIAction(uint)	PartyBattleFieldPanel	arena	590
+0xbd0d40	PartyBattleFieldPanel::updateCurScore(bool)	PartyBattleFieldPanel	arena	527
+0xbd0f50	PartyBattleFieldPanel::updateFlagWarpTimer(void)	PartyBattleFieldPanel	arena	363
+0xbd10c0	PartyBattleField::GetControlPointEnvIconIndex(unsigned __int64)	PartyBattleField	arena	708
+0xbd1580	PartyBattleField::initPlayerSkillCoolTime(void)	PartyBattleField	arena	94
+0xbd15e0	PartyBattleField::GetPartyBattleRespawnDelayLeftTime(void)	PartyBattleField	arena	81
+0xbd1640	PartyBattleField::CanGameReady(void)	PartyBattleField	arena	91
+0xbd16a0	PartyBattleField::IsMyTeam(unsigned __int64)	PartyBattleField	arena	40
+0xbd16d0	PartyBattleField::IsEndlessGame(void)	PartyBattleField	arena	363
+0xbd1840	PartyBattleField::GetCurGameStepLeftSec(void)	PartyBattleField	arena	388
+0xbd19d0	PartyBattleField::GetEnemyPcInfoByIndex(int)	PartyBattleField	arena	42
+0xbd1a00	PartyBattleField::GetFriendPcInfoByIndex(int)	PartyBattleField	arena	42
+0xbd3c10	NShopPanel::NShopWebBrowserCallback::onTooltipCommand(BnsCommand const &)	NShopPanel	web	243
+0xbd74b0	PartyBattleFieldResultPanel::sendGuildCombatState(int,int)	PartyBattleFieldResultPanel	arena	453
+0xbd7680	PartyBattleFieldResultPanel::getPartyBattleFieldBaseExp(PartyBattleResult,int)	PartyBattleFieldResultPanel	arena	250
+0xbd77a0	PartyBattleFieldResultPanel::getSelectVoteID(uint)	PartyBattleFieldResultPanel	arena	394
+0xbd7930	PartyBattleFieldResultPanel::updateVoteCount(void)	PartyBattleFieldResultPanel	arena	746
+0xbd7c20	PartyBattleFieldResultPanel::createDefaultSortPcList(void)	PartyBattleFieldResultPanel	arena	419
+0xbd7dd0	PartyBattleFieldResultPanel::EnemyPcSortByReceivedDamage(PartyBattleFieldResultPanel::SortedPcInfo const &,PartyBattleFieldResultPanel::SortedPcInfo const &)	PartyBattleFieldResultPanel	arena	211
+0xbd7eb0	PartyBattleFieldResultPanel::EnemyPcSortByAttackDamage(PartyBattleFieldResultPanel::SortedPcInfo const &,PartyBattleFieldResultPanel::SortedPcInfo const &)	PartyBattleFieldResultPanel	arena	211
+0xbd7f90	PartyBattleFieldResultPanel::EnemyPcSortByOccupyCount(PartyBattleFieldResultPanel::SortedPcInfo const &,PartyBattleFieldResultPanel::SortedPcInfo const &)	PartyBattleFieldResultPanel	arena	171
+0xbd8040	PartyBattleFieldResultPanel::EnemyPcSortByKillCount(PartyBattleFieldResultPanel::SortedPcInfo const &,PartyBattleFieldResultPanel::SortedPcInfo const &)	PartyBattleFieldResultPanel	arena	171
+0xbd80f0	PartyBattleFieldResultPanel::FriendPcSortByReceivedDamage(PartyBattleFieldResultPanel::SortedPcInfo const &,PartyBattleFieldResultPanel::SortedPcInfo const &)	PartyBattleFieldResultPanel	arena	211
+0xbd81d0	PartyBattleFieldResultPanel::FriendPcSortByAttackDamage(PartyBattleFieldResultPanel::SortedPcInfo const &,PartyBattleFieldResultPanel::SortedPcInfo const &)	PartyBattleFieldResultPanel	arena	211
+0xbd82b0	PartyBattleFieldResultPanel::FriendPcSortByOccupyCount(PartyBattleFieldResultPanel::SortedPcInfo const &,PartyBattleFieldResultPanel::SortedPcInfo const &)	PartyBattleFieldResultPanel	arena	171
+0xbd8360	PartyBattleFieldResultPanel::FriendPcSortByKillCount(PartyBattleFieldResultPanel::SortedPcInfo const &,PartyBattleFieldResultPanel::SortedPcInfo const &)	PartyBattleFieldResultPanel	arena	171
+0xbd8410	PartyBattleFieldResultPanel::checkVisibleCondition(void)	PartyBattleFieldResultPanel	arena	129
+0xbd84a0	PartyBattleFieldPanel::effectStartChangeBoard(void)	PartyBattleFieldPanel	arena	283
+0xbd85c0	PartyBattleFieldPanel::initControlPointEnv(void)	PartyBattleFieldPanel	arena	548
+0xbd87f0	PartyBattleFieldPanel::updateGuildNameLabel(void)	PartyBattleFieldPanel	arena	991
+0xbd8bd0	PartyBattleFieldPanel::checkVisibleCondition(void)	PartyBattleFieldPanel	arena	196
+0xbd8ca0	PartyBattleField::GetLTBCurrentPlaySection(void)	PartyBattleField	arena	241
+0xbd8da0	`PartyBattleField::GetFlagFieldItemId(void)'::`2'::FindFieldItemId::Find(unsigned __int64 const *,int)	`PartyBattleField	arena	424
+0xbd8f50	PartyBattleField::clearBattleResultInfo(void)	PartyBattleField	arena	196
+0xbd9020	PartyBattleField::clearGameInfo(void)	PartyBattleField	arena	249
+0xbd9150	PartyBattleField::OnChangedCreatureProperty(short,CreatureProperty const &,CreatureProperty const &)	PartyBattleField	arena	87
+0xbda880	World::GetArenaDungeonMaxMemberCount(void)	World	arena	222
+0xbdae00	BParty::CheckArenaFillVacancy(void)	BParty	arena	108
+0xbe6230	PartyBattleFieldResultPanel::gameFinishProcess(char)	PartyBattleFieldResultPanel	arena	155
+0xbe62d0	PartyBattleFieldResultPanel::updateGuildGradeHolder(void)	PartyBattleFieldResultPanel	arena	634
+0xbe6550	PartyBattleFieldResultPanel::updateGradeHolder(void)	PartyBattleFieldResultPanel	arena	1318
+0xbe6a80	PartyBattleFieldResultPanel::updateGuildRankingHolder(void)	PartyBattleFieldResultPanel	infogate	967
+0xbe6e50	PartyBattleFieldResultPanel::updateRankingHolder(void)	PartyBattleFieldResultPanel	infogate	1986
+0xbe7620	PartyBattleFieldResultPanel::playResultAction(void)	PartyBattleFieldResultPanel	arena	1352
+0xbe7b90	PartyBattleFieldResultPanel::updateWinScoreHolder(void)	PartyBattleFieldResultPanel	arena	979
+0xbe7f70	PartyBattleFieldResultPanel::updateMemberList(void)	PartyBattleFieldResultPanel	arena	3279
+0xbe8f30	PartyBattleFieldPanel::updateLTBInfo(void)	PartyBattleFieldPanel	arena	594
+0xbe9190	PartyBattleFieldPanel::maxFlagSpawnTimer(void)	PartyBattleFieldPanel	arena	506
+0xbe9390	PartyBattleFieldPanel::playOccupyAction(int,unsigned __int64)	PartyBattleFieldPanel	arena	746
+0xbe9680	PartyBattleFieldPanel::playBonusScoreAction(void)	PartyBattleFieldPanel	arena	721
+0xbe9960	PartyBattleFieldPanel::playGameStartAction(void)	PartyBattleFieldPanel	arena	331
+0xbe9ab0	PartyBattleFieldPanel::updateReadyStateLabel(void)	PartyBattleFieldPanel	arena	691
+0xbe9d70	PartyBattleFieldPanel::updateGoalScore(void)	PartyBattleFieldPanel	arena	748
+0xbea060	PartyBattleFieldPanel::updateTimer(void)	PartyBattleFieldPanel	arena	1451
+0xbea6a0	PartyBattleFieldPanel::PartyBattleFieldPanel(void)	PartyBattleFieldPanel	arena	515
+0xbea8b0	PartyBattleFieldPanel::Board_Side::Start(wchar_t const *,std::map<std::basic_string<wchar_t,std::char_traits<wchar_t>,std::allocator<wchar_t>>,uint,std::less<st	PartyBattleFieldPanel	arena	1355
+0xbeae00	PartyBattleField::GetLTBGoalBonusDurationSecond(void)	PartyBattleField	arena	226
+0xbeaef0	PartyBattleField::GetLTBCurrentGoalBonus(void)	PartyBattleField	arena	195
+0xbeafc0	PartyBattleField::IsLTBGoalPostEnv(unsigned __int64,CreatureProperty::Combat_Side &)	PartyBattleField	arena	265
+0xbeb0d0	PartyBattleField::IsLTBBallNpc(unsigned __int64)	PartyBattleField	arena	230
+0xbeb1c0	PartyBattleField::processMsgScore(int,int,short,short)	PartyBattleField	arena	270
+0xbeb2d0	PartyBattleField::processMsgMatchEnd(PartyBattleResult,bool)	PartyBattleField	arena	361
+0xbeb440	PartyBattleField::processMsgBattleEnter(void)	PartyBattleField	arena	357
+0xbeb5b0	PartyBattleField::processMsgMatchStart(void)	PartyBattleField	arena	315
+0xbeb6f0	PartyBattleField::GetFlaggedCount(unsigned __int64 const *,int)	PartyBattleField	arena	158
+0xbeb790	PartyBattleField::GetFlagFieldItemId(void)	PartyBattleField	arena	339
+0xbeb8f0	PartyBattleField::checkAndInvokeWholeEnvOccupyMsg(void)	PartyBattleField	arena	644
+0xbebb90	PartyBattleField::updateControlPointEnvContentsGroup(void)	PartyBattleField	arena	196
+0xbebc60	PartyBattleField::initialize(PfSub const *,PfRepeat const *)	PartyBattleField	arena	2416
+0xbecb70	PartyBattleField::InZoneObject(G_InZonePacket const *)	PartyBattleField	arena	570
+0xbecdb0	PartyBattleField::PartyBattleField(void)	PartyBattleField	arena	373
+0xc00470	PartyBattleFieldResultPanel::completeUIAction(uint)	PartyBattleFieldResultPanel	arena	478
+0xc00650	PartyBattleFieldResultPanel::stopUIAction(uint)	PartyBattleFieldResultPanel	arena	70
+0xc006a0	PartyBattleFieldResultPanel::updateMvpPc(void)	PartyBattleFieldResultPanel	arena	1142
+0xc00b20	PartyBattleFieldResultPanel::showVoteTimer(bool)	PartyBattleFieldResultPanel	arena	323
+0xc00c70	PartyBattleFieldResultPanel::setVoteBtnState(PartyBattleFieldResultPanel::FINISH_STATE)	PartyBattleFieldResultPanel	arena	1697
+0xc01330	PartyBattleFieldResultPanel::updateRewardHolder(void)	PartyBattleFieldResultPanel	arena	5404
+0xc02850	PartyBattleFieldResultPanel::ProcessActionSubEvent(int,PfStruct const *,BGameObject const *)	PartyBattleFieldResultPanel	arena	294
+0xc029f0	PartyBattleFieldPanel::stopUIAction(uint)	PartyBattleFieldPanel	arena	38
+0xc02a40	PartyBattleFieldPanel::startBonusTimer(CreatureProperty::Combat_Side,bool)	PartyBattleFieldPanel	arena	1306
+0xc02f60	PartyBattleFieldPanel::startFlagSpawnTimer(void)	PartyBattleFieldPanel	arena	518
+0xc03170	PartyBattleFieldPanel::updateFlagSpawnEnv(unsigned __int64)	PartyBattleFieldPanel	arena	428
+0xc03320	PartyBattleFieldPanel::playKillAction(void)	PartyBattleFieldPanel	arena	890
+0xc036a0	PartyBattleFieldPanel::updateReadyBtn(void)	PartyBattleFieldPanel	arena	566
+0xc038e0	PartyBattleFieldPanel::updateOccupyControlPointEnvIcon(bool,unsigned __int64)	PartyBattleFieldPanel	arena	1639
+0xc03f60	PartyBattleFieldPanel::clean(void)	PartyBattleFieldPanel	arena	1348
+0xc044b0	PartyBattleFieldPanel::Hide(void)	PartyBattleFieldPanel	arena	33
+0xc044e0	PartyBattleFieldPanel::Clear(void)	PartyBattleFieldPanel	arena	10
+0xc044f0	PartyBattleField::EnterLeaveObject(G_EnterLeaveBroadcastPacket const *)	PartyBattleField	arena	419
+0xc046a0	PartyBattleField::GetMyTeamFlaggedCount(void)	PartyBattleField	arena	275
+0xc047c0	PartyBattleField::DoesHoldingFlag(CreatureProperty::Combat_Side)	PartyBattleField	arena	394
+0xc10090	PartyBattleFieldResultPanel::releaseUIAction(void)	PartyBattleFieldResultPanel	arena	740
+0xc103f0	PartyBattleFieldResultPanel::showByFinishState(PartyBattleFieldResultPanel::FINISH_STATE)	PartyBattleFieldResultPanel	arena	712
+0xc106e0	PartyBattleFieldResultPanel::Hide(void)	PartyBattleFieldResultPanel	arena	60
+0xc10720	PartyBattleFieldResultPanel::Show(void)	PartyBattleFieldResultPanel	arena	58
+0xc10760	PartyBattleFieldResultPanel::ProcessNetObjectEvent(StructPacket const *)	PartyBattleFieldResultPanel	arena	247
+0xc10860	PartyBattleFieldResultPanel::EnterZoneAfterUiShow(void)	PartyBattleFieldResultPanel	arena	112
+0xc108d0	PartyBattleFieldResultPanel::LeaveZone(void)	PartyBattleFieldResultPanel	arena	62
+0xc10910	PartyBattleFieldResultPanel::InZoneObject(void)	PartyBattleFieldResultPanel	arena	231
+0xc10a00	PartyBattleFieldResultPanel::ProcessEvent(EngineEvent *)	PartyBattleFieldResultPanel	arena	1171
+0xc10f00	PartyBattleFieldResultPanel::Clear(void)	PartyBattleFieldResultPanel	arena	66
+0xc10f50	PartyBattleFieldResultPanel::Start(wchar_t const *)	PartyBattleFieldResultPanel	arena	3416
+0xc11cb0	PartyBattleFieldPanel::updateCTFControlPointEnvIcon(bool,unsigned __int64)	PartyBattleFieldPanel	arena	1156
+0xc12150	PartyBattleFieldPanel::updateEnvIcon(bool,unsigned __int64)	PartyBattleFieldPanel	arena	74
+0xc121a0	PartyBattleFieldPanel::changeCurTimerType(PartyBattleFieldPanel::TimerType)	PartyBattleFieldPanel	arena	134
+0xc12240	PartyBattleFieldPanel::checkCurTimerType(void)	PartyBattleFieldPanel	arena	100
+0xc122c0	PartyBattleFieldPanel::update(bool)	PartyBattleFieldPanel	arena	123
+0xc12340	PartyBattleFieldPanel::Show(void)	PartyBattleFieldPanel	arena	1613
+0xc12a20	PartyBattleFieldPanel::ProcessNetObjectEvent(StructPacket const *)	PartyBattleFieldPanel	arena	120
+0xc12aa0	PartyBattleFieldPanel::EnterZoneAfterUiShow(void)	PartyBattleFieldPanel	arena	91
+0xc12b00	PartyBattleFieldPanel::InZoneObject(void)	PartyBattleFieldPanel	arena	98
+0xc12b70	PartyBattleFieldPanel::Start(wchar_t const *)	PartyBattleFieldPanel	arena	987
+0xc12f50	PartyBattleField::processMsgManipulateAction(ActionState,__int64,BEnvObject *)	PartyBattleField	arena	912
+0xc132e0	PartyBattleField::IsLastFlagWarnning(void)	PartyBattleField	arena	333
+0xc13430	PartyBattleField::DoesEnemyHoldingFlag(void)	PartyBattleField	arena	71
+0xc13480	PartyBattleField::RequestGameStart(void)	PartyBattleField	arena	115
+0xc13500	PartyBattleField::RequestGameReady(void)	PartyBattleField	arena	89
+0xc1b810	PartyBattleFieldResultPanel::resultStart(void)	PartyBattleFieldResultPanel	arena	286
+0xc1b970	PartyBattleFieldPanel::updateCTFWarning(void)	PartyBattleFieldPanel	arena	675
+0xc1bc30	PartyBattleFieldPanel::PostTick(float)	PartyBattleFieldPanel	arena	216
+0xc1bd10	PartyBattleFieldPanel::OnChangedPcProperty(unsigned __int64,short,CreatureProperty const &,CreatureProperty const &)	PartyBattleFieldPanel	arena	53
+0xc1bd50	PartyBattleFieldPanel::ProcessActionSubEvent(int,PfStruct const *,BGameObject const *)	PartyBattleFieldPanel	arena	691
+0xc1c1c0	PartyBattleField::IsLastEnemyEmptyFlagStand(BEnvObject *)	PartyBattleField	arena	221
+0xc1f4f0	NPAuctionPanel::OnWebBrowserIEClosed(void)	NPAuctionPanel	web	31
+0xc24120	InGameWebPanel::Clear(void)	InGameWebPanel	web	5
+0xc24a60	NShopPanel::NShopWebBrowserCallback::onBnsCommand(BnsCommandDefinition::CommandMethod,wchar_t const *)	NShopPanel	web	448
+0xc3a130	PartyChatRecruit::UpdateArenaDungeonEnterGuideBadgePoint(void)	PartyChatRecruit	arena	70
+0xc48c10	PartyBattleField::checkAndRequestReturnToLobby(void)	PartyBattleField	arena	213
+0xc48cf0	PartyBattleField::Tick(float)	PartyBattleField	arena	84
+0xc51060	PartyBattleField::ProcessActionSubEvent(int,PfStruct const *,BGameObject const *)	PartyBattleField	arena	2594
+0xc578b0	MinimapPanel::getEnterArenaUnitTooltipText(std::basic_string<wchar_t,std::char_traits<wchar_t>,std::allocator<wchar_t>> &,unsigned __int64)	MinimapPanel	arena	3
+0xc59040	MapBattleRoyalPlayerList::GetRowCount(void)	MapBattleRoyalPlayerList	arena	19
+0xc5c050	MinimapPanel::getEnterArenaState(unsigned __int64)	MinimapPanel	arena	24
+0xc5eec0	LobbyNShopHomePanel::LobbyNShopHomeWebBrowserCallback::Initialize(void)	LobbyNShopHomePanel	web	176
+0xc5efb0	LobbyHomePanel::LobbyHomeWebBrowserCallback::Initialize(void)	LobbyHomePanel	web	657
+0xc5f9f0	Lobby::ProcessInfoGateNetObjectEvent(StructPacket const *)	Lobby	infogate	181
+0xc62bf0	MinimapPanel::PartyBattleFieldEnemyPcSortByOccupyCount(MinimapPanel::PartyBattleFieldSortedPcInfo const &,MinimapPanel::PartyBattleFieldSortedPcInfo const &)	MinimapPanel	arena	143
+0xc62c80	MinimapPanel::PartyBattleFieldEnemyPcSortByKillCount(MinimapPanel::PartyBattleFieldSortedPcInfo const &,MinimapPanel::PartyBattleFieldSortedPcInfo const &)	MinimapPanel	arena	143
+0xc62d10	MinimapPanel::PartyBattleFieldFriendPcSortByOccupyCount(MinimapPanel::PartyBattleFieldSortedPcInfo const &,MinimapPanel::PartyBattleFieldSortedPcInfo const &)	MinimapPanel	arena	143
+0xc62da0	MinimapPanel::PartyBattleFieldFriendPcSortByKillCount(MinimapPanel::PartyBattleFieldSortedPcInfo const &,MinimapPanel::PartyBattleFieldSortedPcInfo const &)	MinimapPanel	arena	143
+0xc62e30	MinimapPanel::isCreatedPartyBattleFieldSortedPcList(void)	MinimapPanel	arena	517
+0xc63040	MinimapPanel::clearPartyBattleFieldSortedPcList(void)	MinimapPanel	arena	128
+0xc65ac0	MapBattleRoyalPlayerList::AddWidget(uint,uint,uint,uint,uint,uint)	MapBattleRoyalPlayerList	arena	80
+0xc675c0	NativeCharacterInfoPanel::SetNativeCharacterInfoFromInfoGatePacket(StructPacket const *)	NativeCharacterInfoPanel	infogate	608
+0xc68430	MinimapPanel::createPartyBattleFieldDefaultSortPcList(void)	MinimapPanel	arena	397
+0xc6cde0	MinimapPanel::addEnterArenaMapUnit(short,uint,unsigned __int64,bool)	MinimapPanel	arena	2132
+0xc6f880	MapBattleRoyalPlayerList::updatePlayer(uint,MapBattleRoyalPlayerList::BattleRoyalPlayerInfo const &)	MapBattleRoyalPlayerList	arena	1665
+0xc6ff10	MapBattleRoyalPlayerList::updateWidget(uint,int)	MapBattleRoyalPlayerList	arena	178
+0xc6ffd0	MapBattleRoyalPlayerList::Fill(uint,int,int,bool)	MapBattleRoyalPlayerList	arena	29
+0xc73a00	NativeCharacterInfoPanel::ProcessInfoGateNetObjectEvent(StructPacket const *)	NativeCharacterInfoPanel	infogate	75
+0xc75c60	MinimapPanel::updatePartyBattleFieldPcList(void)	MinimapPanel	arena	1979
+0xc782e0	MinimapPanel::getBattleRoyalPCMapUnitStatus(unsigned __int64)	MinimapPanel	arena	128
+0xc789a0	MinimapPanel::updateBattleRoyalPCStatus(__int64,uint)	MinimapPanel	arena	452
+0xc78d60	MinimapPanel::getEnvGuildBattleFieldPortalTooltipText(std::basic_string<wchar_t,std::char_traits<wchar_t>,std::allocator<wchar_t>> &,MinimapPanel::MapUnitId)	MinimapPanel	arena	1622
+0xc7a190	MinimapPanel::updateEnterArenaMapUnit(short,bool)	MinimapPanel	arena	423
+0xc83a80	MapBattleRoyalPlayerList::updateList(void)	MapBattleRoyalPlayerList	arena	928
+0xc8a0f0	MinimapPanel::addEnvPartyBattleFieldLTBGoalPostMapUnit(short,unsigned __int64)	MinimapPanel	arena	1971
+0xc8cf50	MinimapPanel::getBattleRoyalPlayerUnitTooltipText(std::basic_string<wchar_t,std::char_traits<wchar_t>,std::allocator<wchar_t>> &,unsigned __int64)	MinimapPanel	arena	811
+0xc9abf0	MinimapPanel::updateEnvPartyBattleFieldLTBGoalPostMapUnit(short,bool)	MinimapPanel	arena	756
+0xc9b9a0	MinimapPanel::updateBattleRoyalPCList(void)	MinimapPanel	arena	862
+0xc9bd00	MinimapPanel::onClickBattleRoyalPlayerUnit(unsigned __int64)	MinimapPanel	arena	370
+0xca59b0	MapBattleRoyalPlayerList::ProcessEvent(EngineEvent *)	MapBattleRoyalPlayerList	arena	281
+0xca6ef0	LobbyHomePanel::LobbyHomeWebBrowserCallback::ShowJavascriptDialog(wchar_t const *,int)	LobbyHomePanel	web	19
+0xcb43b0	InGameWebPanel::Clear(void)	InGameWebPanel	web	5
+0xcb55b0	LobbyNShopPanel2::LobbyNShop2WebBrowserCallback::onBnsCommand(BnsCommandDefinition::CommandMethod,wchar_t const *)	LobbyNShopPanel2	web	402
+0xcb5890	LobbyNShopHomePanel::LobbyNShopHomeWebBrowserCallback::onBnsCommand(BnsCommandDefinition::CommandMethod,wchar_t const *)	LobbyNShopHomePanel	web	1097
+0xcbbcb0	MinimapPanel::addEnvGuildBattleFieldPortalMapUnit(short,uint)	MinimapPanel	arena	2232
+0xcc6da0	MinimapPanel::updateEnvGuildBattleFieldPortalMapUnit(short,bool)	MinimapPanel	arena	526
+0xcd74c0	LobbyHomePanel::LobbyHomeWebBrowserCallback::onBnsCommand(BnsCommandDefinition::CommandMethod,wchar_t const *)	LobbyHomePanel	web	1455
+0xcdb7e0	Lobby::getStaticServerImageURL(int,int)	Lobby	web	152
+0xcdb940	LoadingArenaPartyBattleFieldPanel::Clear(void)	LoadingArenaPartyBattleFieldPanel	arena	1
+0xcdb960	LoadingArenaLobbyPartyTypePanel::Clear(void)	LoadingArenaLobbyPartyTypePanel	arena	1
+0xcdb970	LoadingArenaLobbyPartyTypePanel::ProcessEvent(EngineEvent *)	LoadingArenaLobbyPartyTypePanel	arena	5
+0xcdb980	LoadingArenaDungeonPanel::Clear(void)	LoadingArenaDungeonPanel	arena	1
+0xcdb9a0	LoadingArenaDungeonPanel::ProcessEvent(EngineEvent *)	LoadingArenaDungeonPanel	arena	5
+0xcdb9b0	LoadingArenaDuelPanel::Clear(void)	LoadingArenaDuelPanel	arena	1
+0xcdb9c0	LoadingArenaDuelPanel::ProcessEvent(EngineEvent *)	LoadingArenaDuelPanel	arena	5
+0xcdf630	LoadingArenaPartyBattleFieldPanel::setAverageScore(void)	LoadingArenaPartyBattleFieldPanel	arena	329
+0xcdf780	LoadingArenaPartyBattleFieldPanel::initPanel(void)	LoadingArenaPartyBattleFieldPanel	arena	90
+0xcdf7e0	LoadingArenaDuelPanel::setAverageScore(void)	LoadingArenaDuelPanel	arena	411
+0xce5710	LoadingArenaPartyBattleFieldPanel::getPartyBattleFieldZoneRecordPtr(void)	LoadingArenaPartyBattleFieldPanel	arena	168
+0xce5c70	LoadingRankingPanel::GetRankingZoneSeasonContentsType(void)	LoadingRankingPanel	infogate	1156
+0xced250	LoadingChallengePartyPanel::updateMyChallengePartyRankingInfo(void)	LoadingChallengePartyPanel	infogate	1640
+0xced990	LoadingArenaPartyBattleFieldPanel::setGuildInfo(void)	LoadingArenaPartyBattleFieldPanel	arena	734
+0xcedc70	LoadingArenaPartyBattleFieldPanel::setMyRankingInfo(void)	LoadingArenaPartyBattleFieldPanel	infogate	1926
+0xcee410	LoadingArenaPartyBattleFieldPanel::LoadingArenaPartyBattleFieldPanel(void)	LoadingArenaPartyBattleFieldPanel	arena	180
+0xcee5e0	LoadingArenaDuelPanel::setSeasonInfo(void)	LoadingArenaDuelPanel	arena	518
+0xcee7f0	LoadingArenaDuelPanel::setMyRankingInfo(void)	LoadingArenaDuelPanel	infogate	2640
+0xcef250	LoadingArenaDuelPanel::LoadingArenaDuelPanel(void)	LoadingArenaDuelPanel	arena	162
+0xd0ac80	ItemPouch::GetDroppedBattleRoyalFieldEffectPouchMeshRecord(void)	ItemPouch	arena	261
+0xd0d870	LoadingRankingPanel::ShowPanel(bool,bool)	LoadingRankingPanel	infogate	111
+0xd0e030	LoadingArenaLobbyPartyTypePanel::updateDuel(void)	LoadingArenaLobbyPartyTypePanel	arena	743
+0xd0e320	LoadingArenaLobbyPartyTypePanel::updateDungeon(void)	LoadingArenaLobbyPartyTypePanel	arena	826
+0xd0e660	LoadingArenaDuelPanel::ShowPanel(bool,bool)	LoadingArenaDuelPanel	arena	418
+0xd27950	LoadingRankingPanel::updateContents(void)	LoadingRankingPanel	infogate	2911
+0xd284f0	LoadingArenaLobbyPartyTypePanel::updateContents(void)	LoadingArenaLobbyPartyTypePanel	arena	222
+0xd351f0	LoadingArenaPartyBattleFieldPanel::setMapInfo(void)	LoadingArenaPartyBattleFieldPanel	arena	769
+0xd35530	LoadingArenaPartyBattleFieldPanel::updateContents(void)	LoadingArenaPartyBattleFieldPanel	arena	81
+0xd360d0	LoadingArenaDuelPanel::setMapInfo(void)	LoadingArenaDuelPanel	arena	1193
+0xd45d40	LoadingArenaDuelPanel::setPlayerInfos(void)	LoadingArenaDuelPanel	arena	1712
+0xd463f0	LoadingArenaDuelPanel::updateContents(void)	LoadingArenaDuelPanel	arena	66
+0xd75a70	InviteUnratedArenaDungeonList::GetInviteCount(void)	InviteUnratedArenaDungeonList	arena	4
+0xd75a80	InviteUnratedArenaDungeonList::ClearReserveRoom(void)	InviteUnratedArenaDungeonList	arena	13
+0xd75a90	InviteUnratedArenaDungeonConfirmPanel::GetSystemMenuType(void)	InviteUnratedArenaDungeonConfirmPanel	arena	6
+0xd75aa0	InviteUnratedArenaDungeonConfirmPanel::onClose(void)	InviteUnratedArenaDungeonConfirmPanel	arena	12
+0xd75bc0	InviteArenaDungeonUnratedListPanel::isOkBtn(uint)	InviteArenaDungeonUnratedListPanel	arena	29
+0xd75be0	InviteArenaDungeonListPanel::isOkBtn(uint)	InviteArenaDungeonListPanel	arena	29
+0xd75c00	InviteArenaDungeonList::GetInviteCount(void)	InviteArenaDungeonList	arena	4
+0xd75c30	InviteArenaDungeonList::ClearReserveRoom(void)	InviteArenaDungeonList	arena	13
+0xd75c40	InviteArenaDungeonList::SetReserveRoom(__int64,short)	InviteArenaDungeonList	arena	26
+0xd75c60	InviteArenaDungeonConfirmPanel::GetSystemMenuType(void)	InviteArenaDungeonConfirmPanel	arena	6
+0xd75c70	InviteArenaDungeonConfirmPanel::onClose(void)	InviteArenaDungeonConfirmPanel	arena	12
+0xd77d90	InviteUnratedArenaDungeonList::GetInviteFromName(wchar_t const *)	InviteUnratedArenaDungeonList	arena	128
+0xd77e10	InviteUnratedArenaDungeonList::GetInviteFromRoomId(__int64)	InviteUnratedArenaDungeonList	arena	104
+0xd77e80	InviteUnratedArenaDungeonList::GetInviteList(char)	InviteUnratedArenaDungeonList	arena	113
+0xd780a0	InviteArenaDungeonUnratedListPanel::Clear(void)	InviteArenaDungeonUnratedListPanel	arena	1
+0xd780b0	InviteArenaDungeonListPanel::Clear(void)	InviteArenaDungeonListPanel	arena	1
+0xd780c0	InviteArenaDungeonList::GetInviteFromName(wchar_t const *)	InviteArenaDungeonList	arena	128
+0xd78140	InviteArenaDungeonList::GetInviteFromRoomId(__int64)	InviteArenaDungeonList	arena	104
+0xd781b0	InviteArenaDungeonList::GetInviteList(char)	InviteArenaDungeonList	arena	113
+0xd7aa80	InviteUnratedArenaDungeonList::GetLastInvite(void)	InviteUnratedArenaDungeonList	arena	72
+0xd7aad0	InviteUnratedArenaDungeonConfirmPanel::setInvitePlayer(void)	InviteUnratedArenaDungeonConfirmPanel	arena	171
+0xd7ad10	InviteArenaDungeonList::GetLastInvite(void)	InviteArenaDungeonList	arena	72
+0xd7ad60	InviteArenaDungeonConfirmPanel::setInvitePlayer(void)	InviteArenaDungeonConfirmPanel	arena	171
+0xd873f0	InviteUnratedArenaDungeonList::add(wchar_t const *,char,int,__int64,short,char,int)	InviteUnratedArenaDungeonList	arena	437
+0xd87690	InviteUnratedArenaDungeonConfirmPanel::attachBalloon(uint)	InviteUnratedArenaDungeonConfirmPanel	arena	489
+0xd87f10	InviteArenaDungeonList::CanEnterArenaDungeonLobby(bool)	InviteArenaDungeonList	arena	558
+0xd88140	InviteArenaDungeonList::add(wchar_t const *,char,int,__int64,short)	InviteArenaDungeonList	arena	399
+0xd883b0	InviteArenaDungeonConfirmPanel::attachBalloon(uint)	InviteArenaDungeonConfirmPanel	arena	489
+0xd95d20	InviteUnratedDuelList::add(wchar_t const *,char,int,__int64,short,ArenaCommonLobby::RoomExtraInfo const &)	InviteUnratedDuelList	arena	450
+0xd960d0	InviteUnratedArenaDungeonList::ProcessNetObjectEvent(StructPacket const *)	InviteUnratedArenaDungeonList	arena	359
+0xd962c0	InviteUnratedArenaDungeonConfirmPanel::Open(void)	InviteUnratedArenaDungeonConfirmPanel	arena	914
+0xd97bb0	InviteArenaDungeonUnratedListPanel::Open(void)	InviteArenaDungeonUnratedListPanel	arena	77
+0xd97c00	InviteArenaDungeonListPanel::update(void)	InviteArenaDungeonListPanel	arena	1119
+0xd98060	InviteArenaDungeonListPanel::Open(void)	InviteArenaDungeonListPanel	arena	77
+0xd980b0	InviteArenaDungeonList::ProcessNetObjectEvent(StructPacket const *)	InviteArenaDungeonList	arena	359
+0xda6ca0	InviteUnratedArenaDungeonConfirmPanel::Close(void)	InviteUnratedArenaDungeonConfirmPanel	arena	36
+0xda7f00	InviteArenaDungeonUnratedListPanel::Refresh(void)	InviteArenaDungeonUnratedListPanel	arena	42
+0xda7fd0	InviteArenaDungeonListPanel::Refresh(void)	InviteArenaDungeonListPanel	arena	42
+0xda80a0	InviteArenaDungeonList::InvokeErrorMessage(InviteArenaDungeonList::ENTER_DUNGEON_LOBBY_ERROR)	InviteArenaDungeonList	arena	1234
+0xda8590	InviteArenaDungeonList::showLightClientConfirm(void)	InviteArenaDungeonList	arena	451
+0xda8760	InviteArenaDungeonList::showLevelDownloadConfirm(void)	InviteArenaDungeonList	arena	101
+0xda87d0	InviteArenaDungeonConfirmPanel::Close(void)	InviteArenaDungeonConfirmPanel	arena	36
+0xda8800	InviteArenaDungeonConfirmPanel::Open(void)	InviteArenaDungeonConfirmPanel	arena	974
+0xda8bd0	InviteArenaDungeonConfirmPanel::ProcessEvent(EngineEvent *)	InviteArenaDungeonConfirmPanel	arena	114
+0xdb6390	InviteUnratedArenaDungeonConfirmPanel::onYesClick(void)	InviteUnratedArenaDungeonConfirmPanel	arena	115
+0xdb73d0	InviteArenaDungeonUnratedListPanel::processOkBtnClick(uint)	InviteArenaDungeonUnratedListPanel	arena	186
+0xdb7490	InviteArenaDungeonUnratedListPanel::ProcessEvent(EngineEvent *)	InviteArenaDungeonUnratedListPanel	arena	140
+0xdd9e30	InviteArenaDungeonList::OpenInvitePanel(__int64,short)	InviteArenaDungeonList	arena	194
+0xdd9f00	InviteArenaDungeonConfirmPanel::onYesClick(void)	InviteArenaDungeonConfirmPanel	arena	159
+0xddcd50	InviteArenaDungeonListPanel::processOkBtnClick(uint)	InviteArenaDungeonListPanel	arena	130
+0xddcde0	InviteArenaDungeonListPanel::ProcessEvent(EngineEvent *)	InviteArenaDungeonListPanel	arena	140
+0xdf82b0	InviteUnratedArenaDungeonList::RemoveTimeOver(void)	InviteUnratedArenaDungeonList	arena	195
+0xdf8380	InviteUnratedArenaDungeonList::RemoveFromName(wchar_t const *)	InviteUnratedArenaDungeonList	arena	182
+0xdf8440	InviteUnratedArenaDungeonConfirmPanel::onNoClick(void)	InviteUnratedArenaDungeonConfirmPanel	arena	87
+0xdf8860	InviteArenaDungeonUnratedListPanel::ShowPanel(bool,bool)	InviteArenaDungeonUnratedListPanel	arena	152
+0xdf8900	InviteArenaDungeonList::updateBadgePoint(void)	InviteArenaDungeonList	arena	83
+0xdf8960	InviteArenaDungeonList::RemoveTimeOver(void)	InviteArenaDungeonList	arena	175
+0xdf8a10	InviteArenaDungeonList::RemoveFromName(wchar_t const *)	InviteArenaDungeonList	arena	154
+0xdf8ab0	InviteArenaDungeonList::RemoveAll(void)	InviteArenaDungeonList	arena	34
+0xdf8ae0	InviteArenaDungeonConfirmPanel::onNoClick(void)	InviteArenaDungeonConfirmPanel	arena	87
+0xe07240	InviteArenaDungeonListPanel::ShowPanel(bool,bool)	InviteArenaDungeonListPanel	arena	152
+0xe317a0	InGameWebPanel::ShowError(bool)	InGameWebPanel	web	124
+0xe31820	InGameWeb::GetAgentName(void)	InGameWeb	web	51
+0xe31860	`InGameWeb::MakeQQLoginUri(std::basic_string<wchar_t,std::char_traits<wchar_t>,std::allocator<wchar_t>> const &)'::`6'::paramsInfo::paramsInfo(std::basic_string	`InGameWeb	web	155
+0xe31900	InGameWeb::GetNavigationFilter(int)	InGameWeb	web	59
+0xe31940	InGameWeb::GetWebSessionCookieName(void)	InGameWeb	web	26
+0xe319e0	InGameWeb::SetHomeUri(InGameWeb::WebContents,std::basic_string<wchar_t,std::char_traits<wchar_t>,std::allocator<wchar_t>>)	InGameWeb	web	94
+0xe31a40	InGameWeb::GetHomeUri(InGameWeb::WebContents)	InGameWeb	web	52
+0xe31a80	InGameWeb::SetDomainUrl(InGameWeb::WebContents,std::basic_string<wchar_t,std::char_traits<wchar_t>,std::allocator<wchar_t>>)	InGameWeb	web	94
+0xe31ae0	InGameWeb::GetDomainUrl(InGameWeb::WebContents)	InGameWeb	web	52
+0xe322b0	HTTPClient::parseURL(std::basic_string<wchar_t,std::char_traits<wchar_t>,std::allocator<wchar_t>> const &,std::basic_string<wchar_t,std::char_traits<wchar_t>,st	HTTPClient	web	701
+0xe32570	HTTPClient::setLastError(ulong,wchar_t const *)	HTTPClient	web	29
+0xe32590	HTTPClient::GetHttpResponseHeaderUnicodeString(void)	HTTPClient	web	193
+0xe32660	`HTTPClient::response(void)'::`32'::Chunk::Chunk(void)	`HTTPClient	web	14
+0xe32670	HTTPClient::close(void)	HTTPClient	web	60
+0xe33100	GuildRankingInfoPanel::ReadOption(void)	GuildRankingInfoPanel	infogate	1
+0xe33110	GuildRankingInfoPanel::WriteOption(void)	GuildRankingInfoPanel	infogate	1
+0xe33130	GuildRankingInfoPanel::ProcessNetObjectEvent(StructPacket const *)	GuildRankingInfoPanel	infogate	3
+0xe33140	GuildRankingInfoPanel::Clear(void)	GuildRankingInfoPanel	infogate	33
+0xe35190	InGameWebPanel::RetryIfFailedUntil(void)	InGameWebPanel	web	64
+0xe351d0	InGameWebPanel::ShowLoading(bool)	InGameWebPanel	web	164
+0xe35280	InGameWebPanel::ProgressCancel(WindowModalPanel *,short)	InGameWebPanel	web	99
+0xe352f0	InGameWebPanel::ProgressComplete(WindowModalPanel *,short)	InGameWebPanel	web	103
+0xe35360	InGameWebPanel::EndModal(WindowModalPanel *)	InGameWebPanel	web	46
+0xe35390	InGameWebPanel::StartModal(WindowModalPanel *)	InGameWebPanel	web	51
+0xe353d0	InGameWeb::MakeDigitalRiverUri(int)	InGameWeb	web	195
+0xe354a0	InGameWeb::MakePetitionListUri(void)	InGameWeb	web	147
+0xe35540	InGameWeb::MakeGuildGroupUri(void)	InGameWeb	web	27
+0xe35560	InGameWeb::MakeGuildDonateUri(InGameWebGuildCraftItemInfo const &,int)	InGameWeb	web	342
+0xe356c0	InGameWeb::MakeGuildCraftDonateMaterialUri(InGameWebGuildCraftItemInfo const &,InGameWebGuildCraftItemInfo const &,int)	InGameWeb	web	460
+0xe35890	InGameWeb::MakeGuildCraftSignUri(InGameWebGuildCraftItemInfo const &,InGameWebGuildCraftUnionInfo,int)	InGameWeb	web	466
+0xe35a70	InGameWeb::MakeGuildCraftProducingUri(__int64,__int64,InGameWebGuildCraftItemInfo const &,int)	InGameWeb	web	425
+0xe35c20	InGameWeb::MakeGuildCraftContractedUri(InGameWebGuildCraftItemInfo const &,__int64,int,std::vector<InGameWebGuildCraftItemBrandInfo,std::allocator<InGameWebGuil	InGameWeb	web	1755
+0xe36300	InGameWeb::MakeDuelRankingUri(bool)	InGameWeb	infogate	169
+0xe363b0	InGameWeb::MakeSnsDuelRankingUri(bool)	InGameWeb	infogate	169
+0xe36460	InGameWeb::MakeSnsGuestBookUri(wchar_t const *,wchar_t const *)	InGameWeb	web	231
+0xe36830	InGameNoticePanel::InGameNoticeWebBrowserCallback::Initialize(void)	InGameNoticePanel	web	176
+0xe36a30	HTTPClient::getContentType(char const *)	HTTPClient	web	230
+0xe37ff0	GuildRankingInfoRewardColumnList::updateWidget(uint,int)	GuildRankingInfoRewardColumnList	infogate	1331
+0xe38530	GuildRankingInfoRewardColumnList::Fill(uint,int,int,bool)	GuildRankingInfoRewardColumnList	infogate	22
+0xe38f00	GuildPanel2::updateTabButtonByArena(void)	GuildPanel2	arena	112
+0xe3e1e0	InGameWeb::MakeGoodsStoreChargeUri(void)	InGameWeb	web	199
+0xe3e2b0	InGameWeb::MakeGuildUniformDesignUri(__int64)	InGameWeb	web	1372
+0xe3e820	InGameWeb::MakeGuildCraftCompleteUri(InGameWebGuildCraftItemProductInfo const &,std::vector<InGameWebGuildCraftItemProductInfo,std::allocator<InGameWebGuildCraf	InGameWeb	web	1153
+0xe3ecb0	InGameWeb::LoadFromConfig(void)	InGameWeb	web	14773
+0xe42c00	InGameNoticePanel::InGameNoticeWebBrowserCallback::hideTooltip(void)	InGameNoticePanel	web	79
+0xe42c50	InGameNoticePanel::InGameNoticeWebBrowserCallback::onTooltipCommand(BnsCommand const &)	InGameNoticePanel	web	298
+0xe42d80	HTTPClient::getPostArguments(std::basic_string<wchar_t,std::char_traits<wchar_t>,std::allocator<wchar_t>> &)	HTTPClient	web	189
+0xe42e40	HTTPClient::getMultiPartsFormDataLength(void)	HTTPClient	web	202
+0xe42f10	HTTPClient::allocMultiPartsFormData(uchar * &,char const *)	HTTPClient	web	1351
+0xe43460	HTTPClient::GetHttpResponseUnicodeString(void)	HTTPClient	web	291
+0xe435d0	HTTPClient::~HTTPClient(void)	HTTPClient	web	186
+0xe43690	HTTPClient::HTTPClient(void)	HTTPClient	web	118
+0xe44d80	GuildRankingInfoPanel::ProcessEvent(EngineEvent *)	GuildRankingInfoPanel	infogate	93
+0xe51f40	InGameWeb::MakeGuildUniformDesignDonateUri(int,int,int)	InGameWeb	web	609
+0xe521b0	InGameWeb::MakeGuildCraftReceiveUri(InGameWebGuildCraftItemInfo const &)	InGameWeb	web	545
+0xe523e0	InGameWeb::makeTgosHomeUri(uchar const *,uchar,uint,std::basic_string<wchar_t,std::char_traits<wchar_t>,std::allocator<wchar_t>> const &,std::basic_string<wchar	InGameWeb	web	1456
+0xe52990	InGameWeb::MakeQQLoginUri(std::basic_string<wchar_t,std::char_traits<wchar_t>,std::allocator<wchar_t>> const &)	InGameWeb	web	1455
+0xe52f40	InGameWeb::MakeTgosHomeUri(std::basic_string<wchar_t,std::char_traits<wchar_t>,std::allocator<wchar_t>> const &,std::basic_string<wchar_t,std::char_traits<wchar	InGameWeb	web	185
+0xe53000	InGameWeb::MakeKillNpcBoastUri(__int64,int,__int64)	InGameWeb	web	1755
+0xe536e0	InGameWeb::MakeSnsBoastAchievementUri(int,int,__int64)	InGameWeb	web	553
+0xe53910	InGameWeb::GetSnsAddFriendUri(bool,wchar_t const *,int,wchar_t const *,int)	InGameWeb	web	686
+0xe543d0	HTTPClient::AddPostArguments(wchar_t const *,wchar_t const *,bool)	HTTPClient	web	164
+0xe55e60	GuildRankingInfoPanel::GuildRankingInfoPanel(void)	GuildRankingInfoPanel	infogate	128
+0xe655d0	InGameWebPanel::~InGameWebPanel(void)	InGameWebPanel	web	128
+0xe65650	InGameWebPanel::InGameWebPanel(void)	InGameWebPanel	web	193
+0xe6d230	GuildTabPageInformationPanel::updateGuildRanking(void)	GuildTabPageInformationPanel	infogate	3305
+0xe6fba0	GuildRankingInfoRewardColumnList::UpdateData(void)	GuildRankingInfoRewardColumnList	infogate	2566
+0xe70960	GuildRankingInfoPanel::Show(char,int,GuildRankingInfoPanel::REWARD_TYPE)	GuildRankingInfoPanel	infogate	247
+0xe80a10	InGameWebPanel::ShowPanel(bool,bool)	InGameWebPanel	web	58
+0xe80a50	InGameWeb::MakeDuelBoastUri(int,__int64,bool,int)	InGameWeb	web	3142
+0xe816a0	InGameWeb::MakeMarketSearchUri(std::basic_string<wchar_t,std::char_traits<wchar_t>,std::allocator<wchar_t>> const &)	InGameWeb	web	488
+0xe81890	InGameWeb::MakeMarketHomeUri(void)	InGameWeb	web	141
+0xe93040	InGameWebPanel::applyWebPageSizeFromMetaData(uint)	InGameWebPanel	web	429
+0xe96fb0	GuildPanel2::ProcessInfoGateNetObjectEvent(StructPacket const *)	GuildPanel2	infogate	72
+0xea0fc0	InGameWebPanel::Clear(void)	InGameWebPanel	web	110
+0xea11f0	InfoGateSession::OnError(int,int,int)	InfoGateSession	infogate	113
+0xea1440	HTTPClient::requestPost(std::basic_string<wchar_t,std::char_traits<wchar_t>,std::allocator<wchar_t>> const &,INTERNET_SCHEME,bool)	HTTPClient	web	651
+0xea18d0	HTTPClient::responseOfBytes(uchar *,ulong)	HTTPClient	web	228
+0xea19c0	HTTPClient::requestPostMultiPartsFormData(std::basic_string<wchar_t,std::char_traits<wchar_t>,std::allocator<wchar_t>> const &,INTERNET_SCHEME,bool)	HTTPClient	web	1128
+0xea1e30	HTTPClient::requestGet(std::basic_string<wchar_t,std::char_traits<wchar_t>,std::allocator<wchar_t>> const &,INTERNET_SCHEME,bool)	HTTPClient	web	497
+0xea2130	HTTPClient::connect(std::basic_string<wchar_t,std::char_traits<wchar_t>,std::allocator<wchar_t>> const &,wchar_t const *,ushort,wchar_t const *,wchar_t const *)	HTTPClient	web	375
+0xea2860	InGameWebPanel::ManageWebProcessOnShowHide(uint,WebProcessManager::WebProcessType,bool)	InGameWebPanel	web	463
+0xea4790	InGameNoticePanel::InGameNoticeWebBrowserCallback::onBnsCommand(BnsCommandDefinition::CommandMethod,wchar_t const *)	InGameNoticePanel	web	786
+0xea4c90	InfoGateSession::ProcessInfoGateNetObjectEvent(StructPacket const *)	InfoGateSession	infogate	372
+0xea5320	HTTPClient::Request(std::basic_string<wchar_t,std::char_traits<wchar_t>,std::allocator<wchar_t>> const &,HTTPClient::RequestMethod,wchar_t const *,bool)	HTTPClient	web	691
+0xea5b80	HandleAuthTokenOkPacket(InfoGateSession const *,StructPacket const *)		infogate	131
+0xead820	InGameWebPanel::ReloadHomeIfVisible(InGameWeb::WebContents)	InGameWebPanel	web	2709
+0xec91c0	GuildRankingInfoPanel::Start(wchar_t const *)	GuildRankingInfoPanel	infogate	1195
+0xede790	GuildBattleFieldHistoryColumnList::UpdateCompleted(bool)	GuildBattleFieldHistoryColumnList	arena	64
+0xede7d0	GuildBattleField::isZoneTriggerConditionDay(int,int)	GuildBattleField	arena	80
+0xede840	GuildBattleField::GetLastOccupiedEffectGuildId(void)	GuildBattleField	arena	7
+0xede850	GuildBattleField::GateTimeSortByOpenTime(GuildBattleField::GateTime const &,GuildBattleField::GateTime const &)	GuildBattleField	arena	35
+0xede880	GuildBattleField::PrepareEnterArenaLobby(G_PrepareEnterArenaLobbyPacket const *)	GuildBattleField	arena	3
+0xedf1d0	GuideMovie::SetGuideMovieUrl(wchar_t const *)	GuideMovie	web	203
+0xedfbb0	GoodsStoreChargePanel::GoodsStoreChargeWebBrowserCallback::onBnsCommand(BnsCommandDefinition::CommandMethod,wchar_t const *)	GoodsStoreChargePanel	web	3
+0xee2780	GuildBattleFieldHistoryPanel::toggleMessageList(void)	GuildBattleFieldHistoryPanel	arena	153
+0xee2820	GuildBattleFieldHistoryPanel::ProcessEvent(EngineEvent *)	GuildBattleFieldHistoryPanel	arena	54
+0xee28c0	GuildBattleField::GetGateTimeEnumerate(void)	GuildBattleField	arena	64
+0xee2fd0	Guild::GetGuildRankingRewardInfo(int,int)	Guild	infogate	179
+0xee3a00	GuideMoviePanel::GuideMovieWebBrowserCallback::Initialize(void)	GuideMoviePanel	web	253
+0xef7fc0	GuildBattleFieldHistoryColumnList::AddWidget(uint,uint,uint)	GuildBattleFieldHistoryColumnList	arena	50
+0xef8040	GuildBattleField::GetNextBossSpawnTime(void)	GuildBattleField	arena	54
+0xef8080	GuildBattleField::GetBossNpcDataID(void)	GuildBattleField	arena	332
+0xef81d0	GuildBattleField::GetRespawnDelayLeftTime(void)	GuildBattleField	arena	75
+0xef8b30	Guild::GetGuildRankingBuffRewardInfo(int)	Guild	infogate	490
+0xefd730	GuildBattleFieldHistoryColumnList::AddMessage(int,wchar_t const *)	GuildBattleFieldHistoryColumnList	arena	258
+0xefd840	GuildBattleFieldHistoryColumnList::~GuildBattleFieldHistoryColumnList(void)	GuildBattleFieldHistoryColumnList	arena	127
+0xefd960	GuildBattleField::AddPcKill(void)	GuildBattleField	arena	156
+0xefda00	GuildBattleField::SpawnNpc(unsigned __int64,unsigned __int64,bool)	GuildBattleField	arena	135
+0xefda90	GuildBattleField::GetNearestGateNextCloseTime(__int64 &)	GuildBattleField	arena	248
+0xefdb90	GuildBattleField::GetNearestGateNextOpenTime(__int64 &)	GuildBattleField	arena	248
+0xefdc90	GuildBattleField::GetNearestNextEnteranceReadyTime(__int64 &)	GuildBattleField	arena	242
+0xefdd90	GuildBattleField::IsOpenedGate(void)	GuildBattleField	arena	90
+0xefddf0	GuildBattleField::IsEnteranceTime(void)	GuildBattleField	arena	385
+0xefdf80	GuildBattleField::GetGuildBattleFieldCloseZoneTime(void)	GuildBattleField	arena	204
+0xf0ae10	GuildBattleFieldHistoryPanel::AddMessage(int,wchar_t const *)	GuildBattleFieldHistoryPanel	arena	79
+0xf0b050	GuildBattleFieldHistoryPanel::GuildBattleFieldHistoryPanel(void)	GuildBattleFieldHistoryPanel	arena	110
+0xf0b190	GuildBattleField::HasSafetyEffect(void)	GuildBattleField	arena	137
+0xf0b220	GuildBattleField::invokeRefinerOccupyMessage(unsigned __int64,__int64,wchar_t const *,unsigned __int64)	GuildBattleField	arena	834
+0xf0b570	GuildBattleField::InvokeZoneModeMessage(char)	GuildBattleField	arena	975
+0xf0b940	GuildBattleField::makeGuildBattleFieldCloseZoneTime(void)	GuildBattleField	arena	803
+0xf0bca0	GuildBattleField::ProcessRecvEnvRefinerMessage(__int64,__int64,__int64,int)	GuildBattleField	arena	379
+0xf0be20	GuildBattleField::ProcessRecvDeadMessage(__int64,__int64,__int64,__int64,bool,wchar_t const *)	GuildBattleField	arena	566
+0xf0c060	GuildBattleField::InvokeRefinerChagneStateMessage(unsigned __int64,int,int,unsigned __int64,unsigned __int64)	GuildBattleField	arena	1327
+0xf0c5a0	GuildBattleField::processReceiveGuildNameQuery(void)	GuildBattleField	arena	1591
+0xf0cbf0	GuildBattleField::ProcessNetObjectEvent(StructPacket const *)	GuildBattleField	arena	52
+0xf0cc30	GuildBattleField::GuildBattleField(void)	GuildBattleField	arena	244
+0xf17b80	BGoodsStorePanel::notifyFailureToDeliveryGoodsAtCharacterInventoryInArena(void)	BGoodsStorePanel	arena	64
+0xf1e630	GameTipBalloonPanel::invokeArenaLobby(uint,char,NOTIFICATION_PUSH_EVENT_TYPE,char,wchar_t const *,wchar_t const *)	GameTipBalloonPanel	arena	625
+0xf21390	GuildBattleFieldHistoryPanel::updateGuildMemeberCount(void)	GuildBattleFieldHistoryPanel	arena	298
+0xf214c0	GuildBattleFieldHistoryPanel::EnterLeaveObject(void)	GuildBattleFieldHistoryPanel	arena	5
+0xf214d0	GuildBattleFieldHistoryPanel::ProcessNetObjectEvent(StructPacket const *)	GuildBattleFieldHistoryPanel	arena	60
+0xf215f0	GuildBattleFieldHistoryPanel::~GuildBattleFieldHistoryPanel(void)	GuildBattleFieldHistoryPanel	arena	95
+0xf21650	GuildBattleField::makeGateTimeList(void)	GuildBattleField	arena	3855
+0xf225c0	GuildBattleField::RequestBroadcastRefinerManipulateMsg(unsigned __int64,unsigned __int64)	GuildBattleField	arena	601
+0xf22820	GuildBattleField::EnterZone(G_EnterZoneOkPacket const *)	GuildBattleField	arena	149
+0xf228c0	GuildBattleField::Tick(float)	GuildBattleField	arena	126
+0xf2bf60	GameSession::SendEnterArenaReq(void)	GameSession	arena	168
+0xf34a40	BGoodsStorePanel::initializeWebBrowser(std::map<std::basic_string<wchar_t,std::char_traits<wchar_t>,std::allocator<wchar_t>>,uint,std::less<std::basic_string<wc	BGoodsStorePanel	web	1029
+0xf3b310	GameOptionPanel::onClickGameOptionArenaLobby(char)	GameOptionPanel	arena	365
+0xf3c600	GuildBattleFieldHistoryPanel::updateContents(void)	GuildBattleFieldHistoryPanel	arena	40
+0xf3c630	GuildBattleField::checkAndRequestGuildName(unsigned __int64)	GuildBattleField	arena	287
+0xf3c750	GuildBattleField::InZoneObject(G_InZonePacket const *)	GuildBattleField	arena	819
+0xf3ca90	GuildBattleField::ProcessActionSubEvent(int,PfStruct const *,BGameObject const *)	GuildBattleField	arena	715
+0xf3dec0	Guild::receiveTakeRankingRewardForGuildBuff(StructPacket const *)	Guild	infogate	52
+0xf3df60	Guild::ProcessInfoGateNetObjectEvent(StructPacket const *)	Guild	infogate	200
+0xf4bff0	BGoodsStorePanel::updateWebBrowser(bool)	BGoodsStorePanel	web	310
+0xf4dc00	GuideMoviePanel::GuideMovieWebBrowserCallback::onBnsCommand(BnsCommandDefinition::CommandMethod,wchar_t const *)	GuideMoviePanel	web	261
+0xf6ff10	BGoodsStorePanel::GoodsStorePanelWebBrowserCallback::onCallback(BnsCommand const &)	BGoodsStorePanel	web	306
+0xf70050	BGoodsStorePanel::GoodsStorePanelWebBrowserCallback::onBnsCommand(BnsCommandDefinition::CommandMethod,wchar_t const *)	BGoodsStorePanel	web	193
+0xf78780	ArenaSelectPanel::ConvertTimeLimitFieldTypeUiToEnterAttraction(ArenaSelectPanel::UiTimeLimitFieldType)	ArenaSelectPanel	arena	32
+0xf787a0	ArenaSelectPanel::setVisibleAreaSelectButtonByRuleConfig(void)	ArenaSelectPanel	arena	152
+0xf78840	ArenaSelectPanel::ReadOption(void)	ArenaSelectPanel	arena	1
+0xf78850	ArenaSelectPanel::WriteOption(void)	ArenaSelectPanel	arena	1
+0xf78860	EnterArenaParty::ProcessNetObjectEvent(StructPacket const *)	EnterArenaParty	arena	38
+0xf78c70	DungeonLobbyStatePanel::startArenaWaitNumberTime(void)	DungeonLobbyStatePanel	arena	75
+0xf78de0	InterserverDungeonListSortText(ArenaDungeonLabelColumnList::SortData const &,ArenaDungeonLabelColumnList::SortData const &)		arena	49
+0xf78e20	InterserverDungeonListSortID(ArenaDungeonLabelColumnList::SortData const &,ArenaDungeonLabelColumnList::SortData const &)		arena	20
+0xf78e40	InterserverDungeonListSortGrade(ArenaDungeonLabelColumnList::SortData const &,ArenaDungeonLabelColumnList::SortData const &)		arena	20
+0xf78e80	DungeonLobbyPartyBattleInfoPanel::getDetailRule(Data::ArenaMatchingRuleDetailType)	DungeonLobbyPartyBattleInfoPanel	arena	22
+0xf792e0	`DungeonLobbyBattleRoyalInfoPanel::updateTimeLimitInfo(void)'::`11'::RoundInfo::RoundInfo(void)	`DungeonLobbyBattleRoyalInfoPanel	arena	14
+0xf792f0	DungeonLobbyBattleRoyalInfoPanel::Clear(void)	DungeonLobbyBattleRoyalInfoPanel	arena	1
+0xf79cc0	BattleFieldColumnList::isUseRankingContentTypeByRuleConfig(Data::SeasonContentsSeasonContentsTypeType)	BattleFieldColumnList	infogate	32
+0xf79ce0	BattleFieldColumnList::isEnableRanking(int)	BattleFieldColumnList	infogate	32
+0xf7bbd0	EventGuidePanel::EventGuideWebBrowserCallback::Initialize(void)	EventGuidePanel	web	152
+0xf7bf30	EnterArenaParty::setMemberState(unsigned __int64,EnterArenaParty::MemberState)	EnterArenaParty	arena	179
+0xf7c8c0	DungeonLobbyStatePanel::startArenaMoveCountdown(void)	DungeonLobbyStatePanel	arena	85
+0xf7c920	DungeonLobbyRoomInfoPanel::canGameModeChange(ArenaDungeonGameMode)	DungeonLobbyRoomInfoPanel	arena	54
+0xf804c0	EventGuidePanel::EventGuideWebBrowserCallback::hideTooltip(void)	EventGuidePanel	web	79
+0xf80510	EventGuidePanel::EventGuideWebBrowserCallback::onTooltipCommand(BnsCommand const &)	EventGuidePanel	web	287
+0xf80970	EnterArenaParty::clear(void)	EnterArenaParty	arena	29
+0xf80990	EnterArenaParty::LeavePartyMember(unsigned __int64)	EnterArenaParty	arena	81
+0xf809f0	EnterArenaParty::~EnterArenaParty(void)	EnterArenaParty	arena	132
+0xf80a80	EnterArenaParty::EnterArenaParty(void)	EnterArenaParty	arena	94
+0xf81100	DungeonLobbyStatePanel::startArenaGoErrorCountdown(void)	DungeonLobbyStatePanel	arena	122
+0xf81540	DungeonGuidePanel::DungeonGuideWebBrowserCallback::hideTooltip(void)	DungeonGuidePanel	web	79
+0xf81590	DungeonGuidePanel::DungeonGuideWebBrowserCallback::onTooltipCommand(BnsCommand const &)	DungeonGuidePanel	web	287
+0xf816b0	DungeonGuidePanel::DungeonGuideWebBrowserCallback::Initialize(void)	DungeonGuidePanel	web	162
+0xf82050	BattleFieldColumnList::AddWidget(BattleFieldWidgetData)	BattleFieldColumnList	arena	70
+0xf890c0	ArenaDungeonLabelColumnList::isNewbieCareDungeon(__int64)	ArenaDungeonLabelColumnList	arena	614
+0xf89330	ArenaDungeonLabelColumnList::AddWidget(uint)	ArenaDungeonLabelColumnList	arena	269
+0xf89e00	DungeonLobbyControlPanel::checkBattleFieldTime(void)	DungeonLobbyControlPanel	arena	556
+0xf8a030	DungeonLobbyControlPanel::getPartyBattleFieldTime(int &,int &,int &,int &)	DungeonLobbyControlPanel	arena	1073
+0xf8a480	DungeonLobbyControlPanel::isAlwaysBattleField(void)	DungeonLobbyControlPanel	arena	85
+0xf8b160	BattleFieldColumnList::BattleFieldColumnList(void)	BattleFieldColumnList	arena	130
+0xf96500	BEnvObject::checkUseGuildBattleFieldAirDash(void)	BEnvObject	arena	1105
+0xf99150	ArenaSelectPanel::getArenaDuelTooltipText(std::basic_string<wchar_t,std::char_traits<wchar_t>,std::allocator<wchar_t>> &)	ArenaSelectPanel	arena	1007
+0xf99750	ArenaSelectPanel::~ArenaSelectPanel(void)	ArenaSelectPanel	arena	93
+0xf9b630	ArenaDungeonLabelColumnList::ArenaDungeonLabelColumnList(void)	ArenaDungeonLabelColumnList	arena	138
+0xf9b840	DungeonLobbyPlayerSlotPanel::ShowGuildCombatRemainTimeTooltip(ArenaCommonLobby::LobbyUserProperty const *,uint)	DungeonLobbyPlayerSlotPanel	arena	109
+0xf9c450	DungeonLobbyPartySearchInputPanel::createDungeonList(ArenaDungeonGameMode)	DungeonLobbyPartySearchInputPanel	arena	802
+0xf9cf70	DungeonLobbyPartyBattleInfoPanel::getArenaLobbyRoomDetailRule(DungeonLobbyPartyBattleInfoPanel::DETAIL_RULE)	DungeonLobbyPartyBattleInfoPanel	arena	96
+0xf9ea40	DungeonLobbyBattleRoyalInfoPanel::convertImageText(std::basic_string<wchar_t,std::char_traits<wchar_t>,std::allocator<wchar_t>> &,int,wchar_t const *)	DungeonLobbyBattleRoyalInfoPanel	arena	431
+0xf9ebf0	DungeonLobbyBattleRoyalInfoPanel::updateTimeLimitInfo(void)	DungeonLobbyBattleRoyalInfoPanel	arena	3266
+0xf9f910	DungeonLobbyBattleRoyalInfoPanel::updateBattleRoyalInfo(void)	DungeonLobbyBattleRoyalInfoPanel	arena	1109
+0xf9fd80	DungeonLobbyBattleRoyalInfoPanel::DungeonLobbyBattleRoyalInfoPanel(void)	DungeonLobbyBattleRoyalInfoPanel	arena	97
+0xfa5250	BattleFieldColumnList::convertBattleFieldNameToContentsType(std::basic_string<wchar_t,std::char_traits<wchar_t>,std::allocator<wchar_t>> &,int)	BattleFieldColumnList	arena	82
+0xfa52b0	BattleFieldColumnList::updateColumnList(void)	BattleFieldColumnList	arena	498
+0xfa54b0	BattleFieldColumnList::UpdateData(void)	BattleFieldColumnList	arena	104
+0xfa75a0	DuelSkillProcess::UpdatePcAsset2(G_ArenaEventRetreivePcAsset2OkPacket const *)	DuelSkillProcess	arena	723
+0xfa7aa0	DuelResultPanel::updateRanking(int,int,char)	DuelResultPanel	infogate	1573
+0xfa8b90	GameMessageHandler::processNetObjectArenaEvent(StructPacket const *)	GameMessageHandler	arena	1348
+0xfaab50	FriendSearchPanel::ProcessInfoGateNetObjectEvent(StructPacket const *)	FriendSearchPanel	infogate	86
+0xfad970	ArenaSelectPanel::getBattleRoyalTooltipText(std::basic_string<wchar_t,std::char_traits<wchar_t>,std::allocator<wchar_t>> &)	ArenaSelectPanel	arena	2813
+0xfae490	ArenaSelectPanel::getInterserverDungeonTooltipText(std::basic_string<wchar_t,std::char_traits<wchar_t>,std::allocator<wchar_t>> &)	ArenaSelectPanel	arena	1713
+0xfaeb60	ArenaSelectPanel::Close(void)	ArenaSelectPanel	arena	61
+0xfb4060	DungeonLobbyBattleRoyalInfoPanel::ShowPanel(bool,bool)	DungeonLobbyBattleRoyalInfoPanel	arena	34
+0xfc4b90	DungeonLobbyStatePanel::updateCheckPartyBattleFieldMatching(void)	DungeonLobbyStatePanel	arena	327
+0xfc7410	DungeonLobbyBattleRoyalInfoPanel::ApplyGameMode(void)	DungeonLobbyBattleRoyalInfoPanel	arena	289
+0xfc7540	DungeonLobbyBattleRoyalInfoPanel::Start(wchar_t const *)	DungeonLobbyBattleRoyalInfoPanel	arena	670
+0xfd38a0	ArenaSelectPanel::getTimeLimitFieldTooltipText(BEnterAttraction::TimeLimitFieldType,std::basic_string<wchar_t,std::char_traits<wchar_t>,std::allocator<wchar_t>>	ArenaSelectPanel	arena	280
+0xfd39c0	ArenaSelectPanel::getChallengePartyChallengeTooltipText(std::basic_string<wchar_t,std::char_traits<wchar_t>,std::allocator<wchar_t>> &)	ArenaSelectPanel	arena	258
+0xfd3af0	ArenaSelectPanel::IsTimeLimitFieldEnabled(BEnterAttraction::TimeLimitFieldType)	ArenaSelectPanel	arena	101
+0xfd3b60	ArenaSelectPanel::IsChallengePartyPracticeEnabled(void)	ArenaSelectPanel	arena	88
+0xfd3bc0	ArenaSelectPanel::IsChallengePartyEnabled(void)	ArenaSelectPanel	arena	118
+0xfd3c40	ArenaSelectPanel::tryEnterAttraction(EnterZoneDirectType,__int64,ChallengePartyAttractionMode)	ArenaSelectPanel	arena	327
+0xfd3df0	ArenaSelectPanel::OnEnterChallengePartyButton(EUiEvent *)	ArenaSelectPanel	arena	84
+0xfd5030	DuelResultPanel::DuelBoastPanelWebBrowserCallback::ShowJavascriptDialog(wchar_t const *,int)	DuelResultPanel	web	19
+0xfd5870	InGameWebPanel::Clear(void)	InGameWebPanel	web	5
+0xfd5be0	ArenaSelectPanel::RefreshUITimeLimitField(ArenaSelectPanel::UiTimeLimitFieldType)	ArenaSelectPanel	arena	2357
+0xfd6520	ArenaSelectPanel::ProcessNetObjectEvent(StructPacket const *)	ArenaSelectPanel	arena	138
+0xfd6900	ArenaDungeonLabelColumnList::updateList(void)	ArenaDungeonLabelColumnList	arena	1662
+0xfd7010	ArenaDungeonLabelColumnList::updateWidget(uint,int)	ArenaDungeonLabelColumnList	arena	1741
+0xfd76e0	ArenaDungeonLabelColumnList::Fill(uint,int,int,bool)	ArenaDungeonLabelColumnList	arena	27
+0xfd8870	InGameWebPanel::Clear(void)	InGameWebPanel	web	5
+0xfd8a50	InGameWebPanel::Clear(void)	InGameWebPanel	web	5
+0xfdb020	EventGuidePanel::EventGuideWebBrowserCallback::onBnsCommand(BnsCommandDefinition::CommandMethod,wchar_t const *)	EventGuidePanel	web	306
+0xfe0e80	ArenaSelectPanel::IsBattleRoyalEnabled(void)	ArenaSelectPanel	arena	894
+0xfe1200	ArenaSelectPanel::IsPartyBattleEnabled(void)	ArenaSelectPanel	arena	378
+0xfe1380	ArenaSelectPanel::IsDungeonEnabled(void)	ArenaSelectPanel	arena	359
+0xfe14f0	ArenaSelectPanel::IsDuelEnabled(void)	ArenaSelectPanel	arena	359
+0xfe1660	ArenaSelectPanel::tryEnterArena(EArenaType)	ArenaSelectPanel	arena	2235
+0xfe4100	DungeonEnterGuideConfirmPanel::enterArena(void)	DungeonEnterGuideConfirmPanel	arena	1123
+0xfe4570	DungeonEnterGuideConfirmPanel::checkEnterArena(void)	DungeonEnterGuideConfirmPanel	arena	302
+0xfe46a0	BattleFieldColumnList::updateWidget(uint,int)	BattleFieldColumnList	arena	2122
+0xfe4ef0	BattleFieldColumnList::Fill(uint,int,int,bool)	BattleFieldColumnList	arena	27
+0xfea080	ArenaSelectPanel::Refresh(void)	ArenaSelectPanel	arena	10509
+0xfec990	ArenaSelectPanel::updateContents(void)	ArenaSelectPanel	arena	197
+0xfeca60	ArenaSelectPanel::openFindRoomPanel(void)	ArenaSelectPanel	arena	488
+0xff1b10	ArenaSelectPanel::OnEnterTimeLimitGiantHeartButton(EUiEvent *)	ArenaSelectPanel	arena	804
+0xff1e40	ArenaSelectPanel::OnEnterTimeLimitYeonwoldoButton(EUiEvent *)	ArenaSelectPanel	arena	804
+0xff2170	ArenaSelectPanel::OnEnterTimeLimitGwiamdoButton(EUiEvent *)	ArenaSelectPanel	arena	804
+0xff24a0	ArenaDungeonLabelColumnList::ShowTargetTooltip(uint,int)	ArenaDungeonLabelColumnList	arena	131
+0xff2530	ArenaDungeonLabelColumnList::updateSelectWidgetID(void)	ArenaDungeonLabelColumnList	arena	605
+0xff2790	ArenaDungeonLabelColumnList::UpdateCompleted(bool)	ArenaDungeonLabelColumnList	arena	9
+0xff2f90	DungeonLobbyBattleRoyalInfoPanel::ProcessEvent(EngineEvent *)	DungeonLobbyBattleRoyalInfoPanel	arena	349
+0xff39f0	ArenaSelectPanel::OnBindListButton(EUiEvent *)	ArenaSelectPanel	arena	72
+0xff4c50	ArenaSelectPanel::Start(wchar_t const *)	ArenaSelectPanel	arena	2580
+0xff6f20	ArenaDungeonLabelColumnList::SelectInternDungeonBySystem(void)	ArenaDungeonLabelColumnList	arena	312
+0xff7060	ArenaDungeonLabelColumnList::ProcessEvent(EngineEvent *)	ArenaDungeonLabelColumnList	arena	464
+0xffd690	DungeonLobbySelectGameModePanel::showGameMode(ArenaDungeonGameMode)	DungeonLobbySelectGameModePanel	arena	530
+0xffd8c0	DungeonLobbySelectGameModePanel::ChangeArenaDungeonGameMode(ArenaDungeonGameMode)	DungeonLobbySelectGameModePanel	arena	513
+0xfff920	BattleFieldColumnList::processRankingView(int)	BattleFieldColumnList	infogate	96
+0xfff980	BattleFieldColumnList::ProcessEvent(EngineEvent *)	BattleFieldColumnList	arena	292
+0xfffb90	DuelResultPanel::setRanking(void)	DuelResultPanel	infogate	649
+0x1005b70	DungeonGuidePanel::DungeonGuideWebBrowserCallback::onBnsCommand(BnsCommandDefinition::CommandMethod,wchar_t const *)	DungeonGuidePanel	web	482
+0x100a180	Friends::ProcessInfoGateNetObjectEvent(StructPacket const *)	Friends	infogate	88
+0x100a8c0	DuelLobbyStatePanel::startArenaWaitNumberTime(void)	DuelLobbyStatePanel	arena	75
+0x100cf00	DamageMeterPanel::Compare(DamageMeterPanel::RankingInfo const &,DamageMeterPanel::RankingInfo const &)	DamageMeterPanel	infogate	35
+0x100f4b0	DuelLobbyStatePanel::startArenaMoveCountdown(void)	DuelLobbyStatePanel	arena	85
+0x1010e70	DigitalRiverPanel::DigitalRiverWebBrowserCallback::Initialize(void)	DigitalRiverPanel	web	152
+0x1012870	DamageMeterPanel::getHyperTextParam(std::vector<DamageMeterPanel::RankingInfo,std::allocator<DamageMeterPanel::RankingInfo>> *,__int64)	DamageMeterPanel	infogate	1230
+0x10148a0	DuelLobbyStatePanel::startArenaGoErrorCountdown(void)	DuelLobbyStatePanel	arena	122
+0x1017e60	DigitalRiverPanel::DigitalRiverWebBrowserCallback::hideTooltip(void)	DigitalRiverPanel	web	79
+0x1017eb0	DigitalRiverPanel::DigitalRiverWebBrowserCallback::onTooltipCommand(BnsCommand const &)	DigitalRiverPanel	web	287
+0x101b500	BDuelRoomSearchConfirmPanel::isPartyBattleFieldDisableRewardWeeklyTime(void)	BDuelRoomSearchConfirmPanel	arena	502
+0x1065a50	DuelBotChallengeVirtualRacePanel::ProcessInfoGateNetObjectEvent(StructPacket const *)	DuelBotChallengeVirtualRacePanel	infogate	567
+0x10715e0	DigitalRiverPanel::DigitalRiverWebBrowserCallback::onBnsCommand(BnsCommandDefinition::CommandMethod,wchar_t const *)	DigitalRiverPanel	web	406
+0x1071be0	BDuelRoomSearchConfirmPanel::Open(unsigned __int64,ModalOwner *,char,EArenaGameType)	BDuelRoomSearchConfirmPanel	arena	1944
+0x10731d0	BDuelConfirmPanel::enterArenaDungeon(__int64,short)	BDuelConfirmPanel	arena	85
+0x1073230	BDuelConfirmPanel::enterArenaDuel(__int64,short)	BDuelConfirmPanel	arena	85
+0x109ebd0	ContentsControl::IsEnableCharacterAppearanceShotShareForExternalWebBrowser(void)	ContentsControl	web	6
+0x109ed70	ContentsControl::IsEnableTencentURLRevision(void)	ContentsControl	web	6
+0x109f430	CommonWebBrowserCallback::setNavigationFilters(uint,std::basic_string<wchar_t,std::char_traits<wchar_t>,std::allocator<wchar_t>> const * const,int,bool)	CommonWebBrowserCallback	web	258
+0x109f5b0	CommonWebBrowserCallback::SetErrorCode(wchar_t const *,wchar_t const *,WebErrorCode)	CommonWebBrowserCallback	web	61
+0x109f690	CommonWebBrowserCallback::BeginNavigation(wchar_t const *)	CommonWebBrowserCallback	web	72
+0x10a3ff0	CommonWebBrowserCallback::setNavigationFiltersBasedPublisher(uint,std::basic_string<wchar_t,std::char_traits<wchar_t>,std::allocator<wchar_t>> const &,bool)	CommonWebBrowserCallback	web	1065
+0x10a4440	CommonWebBrowserCallback::getContentsPublisherPath(std::basic_string<wchar_t,std::char_traits<wchar_t>,std::allocator<wchar_t>> &)	CommonWebBrowserCallback	web	374
+0x10a45f0	CommonWebBrowserCallback::SetLoadingComplete(void)	CommonWebBrowserCallback	web	95
+0x10a4ba0	GuildBattleFieldHistoryPanel::Clear(void)	GuildBattleFieldHistoryPanel	arena	36
+0x10a9fe0	CommonSnsWebBrowserCallback::onTooltipCommand(BnsCommand const &)	CommonSnsWebBrowserCallback	web	466
+0x10b5790	CommonWebBrowserCallback::SetDOMReady(void)	CommonWebBrowserCallback	web	186
+0x10b5cb0	ConvertBattleFieldGrade(char,int,int &)		arena	369
+0x10bfe30	ContentsClockManager::invokeFactionBattleFieldMessage(int)	ContentsClockManager	arena	86
+0x10c1a20	ContentsClockManager::makeClockAlarmBattleRoyal(void)	ContentsClockManager	arena	740
+0x10c23a0	ContentsClockManager::makeClockAlarmTrainingPartyBattleField(void)	ContentsClockManager	arena	353
+0x10c2680	ContentsClockManager::makeClockAlarmFactionBattleField(void)	ContentsClockManager	arena	408
+0x10c3630	ContentsClockManager::MakeClockAlarmGuildBattleField(bool)	ContentsClockManager	arena	228
+0x10c4620	CommonWebBrowserCallback::onLoadLocalResource(BnsCommand const &)	CommonWebBrowserCallback	web	887
+0x10c49a0	CommonWebBrowserCallback::onCommonOpenExternalBrowser(BnsCommand const &)	CommonWebBrowserCallback	web	795
+0x10c4cc0	CommonWebBrowserCallback::onCommonGuildUniformComponentTooltip(BnsCommand const &)	CommonWebBrowserCallback	web	324
+0x10c4e10	CommonWebBrowserCallback::onCommonBrandItemTooltip(BnsCommand const &)	CommonWebBrowserCallback	web	207
+0x10c4ee0	CommonSnsWebBrowserCallback::~CommonSnsWebBrowserCallback(void)	CommonSnsWebBrowserCallback	web	125
+0x10c4f60	CommonSnsWebBrowserCallback::CommonSnsWebBrowserCallback(void)	CommonSnsWebBrowserCallback	web	144
+0x10da1a0	CommonWebBrowserCallback::onJavaScriptDialog(bool,wchar_t const *,int)	CommonWebBrowserCallback	web	409
+0x10da340	CommonWebBrowserCallback::ShowJavascriptDialog(wchar_t const *,int)	CommonWebBrowserCallback	web	19
+0x10e1df0	CommonWebBrowserCallback::SetStartLoading(void)	CommonWebBrowserCallback	web	409
+0x10edbd0	CommonSnsWebBrowserCallback::DownloadScreenShot(std::basic_string<wchar_t,std::char_traits<wchar_t>,std::allocator<wchar_t>> const &,std::basic_string<wchar_t,s	CommonSnsWebBrowserCallback	web	403
+0x10edd70	CommonSnsWebBrowserCallback::DownloadScreenShotBooked(void)	CommonSnsWebBrowserCallback	web	92
+0x110a7f0	CommonWebBrowserCallback::onCommonGuildUniformPreview(BnsCommand const &)	CommonWebBrowserCallback	web	528
+0x110aa00	CommonWebBrowserCallback::onCommonItemPreview(BnsCommand const &)	CommonWebBrowserCallback	web	380
+0x110ab80	CommonSnsWebBrowserCallback::onBnsCommand(BnsCommandDefinition::CommandMethod,wchar_t const *)	CommonSnsWebBrowserCallback	web	2881
+0x11120b0	CommonWebBrowserCallback::onCommonItemHyperText(BnsCommand const &)	CommonWebBrowserCallback	web	651
+0x1112e70	ClosetGroup::ProcessInfoGateNetObjectEvent(StructPacket const *)	ClosetGroup	infogate	480
+0x1122b50	OnGamedContentsRuleConfigArenaSpectateMaxArenadSpectatorCountChanged(int)		arena	1
+0x1122b60	OnGamedContentsRuleConfigArenaSpectateEnableChanged(bool)		arena	1
+0x1122f00	BNSClient::GetArenaSession(void)	BNSClient	arena	9
+0x11230a0	BNSClient::IsConnectedArena(void)	BNSClient	arena	16
+0x1129ef0	BNSClient::LoadBattleRoyalExtraMode(void)	BNSClient	arena	653
+0x112a180	BNSClient::LoadBattleRoyalPlayerMode(void)	BNSClient	arena	377
+0x1131390	BNSClient::IsBattleRoyalObserverMode(void)	BNSClient	arena	27
+0x1131520	InfoGateSession::ReconnectInfoGate(void)	InfoGateSession	infogate	83
+0x114cdb0	BNSClient::SendToInfoGate(StructPacket const *)	BNSClient	infogate	45
+0x1151090	ChatHistory::ReadBattleRoyalOption(void)	ChatHistory	arena	1756
+0x1169d00	ChatChannelNP::LeaveArena(void)	ChatChannelNP	arena	51
+0x1170f10	ChatPanel::toggleModifyHistoryMenuArenaLobby(void)	ChatPanel	arena	55
+0x1171cd0	ChatInputPanel::changeChannelTypeBattleRoyalField(char,bool,bool)	ChatInputPanel	arena	102
+0x11723c0	ChatInputPanel::changeChannelTypeArenaDungeon(char,bool,bool)	ChatInputPanel	arena	675
+0x1172670	ChatInputPanel::changeChannelTypeArenaDuel(char,bool,bool)	ChatInputPanel	arena	735
+0x1172950	ChatInputPanel::changeChannelTypeArenaLobby(char,bool,bool)	ChatInputPanel	arena	545
+0x1178350	ChatInputPanel::sendChatMessageArenaLobby(wchar_t const *,char,int,ChatInputPanel::CHAT_TYPE)	ChatInputPanel	arena	1356
+0x117f400	ChatChannelNP::EnterArenaLobby(int,wchar_t const *,wchar_t const *,wchar_t const *,wchar_t const *,__int64,bool)	ChatChannelNP	arena	1667
+0x117fa90	ChatChannelNP::EnterArena(int,wchar_t const *,wchar_t const *)	ChatChannelNP	arena	655
+0x1184190	ChatChannel::EnterArena(int,wchar_t const *,wchar_t const *)	ChatChannel	arena	523
+0x11843e0	ChatChannel::EnterArenaLobby(int,wchar_t const *,wchar_t const *,wchar_t const *,wchar_t const *,__int64,bool)	ChatChannel	arena	3036
+0x1189720	ChatPanel::hyperlinkClickedArenaLobby(wchar_t const *,bool,bool)	ChatPanel	arena	361
+0x118a9e0	ChatInputPanel::processChatFunctionBattleRoyalByEnterKey(wchar_t const *)	ChatInputPanel	arena	2257
+0x1192890	BoastPanel::BoastPanelWebBrowserCallback::Initialize(void)	BoastPanel	web	152
+0x11930e0	BigSnsPanel::BigSnsWebBrowserCallback::Initialize(void)	BigSnsPanel	web	632
+0x11933a0	BattleRoyalWinTitlePanel::Clear(void)	BattleRoyalWinTitlePanel	arena	1
+0x11933d0	BattleRoyalScorePanel::Clear(void)	BattleRoyalScorePanel	arena	39
+0x1193400	BattleRoyalResultPanel::ProgressCancel(WindowModalPanel *,short)	BattleRoyalResultPanel	arena	5
+0x1193410	BattleRoyalResultPanel::ClosePanelProcess(bool)	BattleRoyalResultPanel	arena	14
+0x1193420	BattleRoyalResultPanel::SetCustomizeMode(bool)	BattleRoyalResultPanel	arena	17
+0x1193440	BattleRoyalFieldTakgiAlarmPanel::SetGuideText(wchar_t const *)	BattleRoyalFieldTakgiAlarmPanel	arena	36
+0x1193470	BattleRoyalFieldTakgiAlarmPanel::PlayTakgiAlarmProgressBarParticle(void)	BattleRoyalFieldTakgiAlarmPanel	arena	50
+0x11934b0	BattleRoyalFieldTakgiAlarmPanel::ShowTakgiAlarmProgressBar(bool)	BattleRoyalFieldTakgiAlarmPanel	arena	32
+0x11934d0	BattleRoyalFieldTakgiAlarmPanel::SetTakgiAlarmProgressBarAnimation(float,float,float)	BattleRoyalFieldTakgiAlarmPanel	arena	93
+0x1193570	BattleRoyalFieldTakgiAlarmPanel::Show(void)	BattleRoyalFieldTakgiAlarmPanel	arena	36
+0x11935a0	BattleRoyalFieldStartCountPanel::Clear(void)	BattleRoyalFieldStartCountPanel	arena	1
+0x11935c0	BattleRoyalFieldStartCountPanel::Show(void)	BattleRoyalFieldStartCountPanel	arena	73
+0x1193610	BattleRoyalFieldStartCountPanel::ProcessEvent(EngineEvent *)	BattleRoyalFieldStartCountPanel	arena	5
+0x1193620	BattleRoyalFieldPcInfoPanel::PostTick(float)	BattleRoyalFieldPcInfoPanel	arena	1
+0x1193630	BattleRoyalFieldPcInfoPanel::UpdateGuardGaugeWidget(char)	BattleRoyalFieldPcInfoPanel	arena	113
+0x11936b0	BattleRoyalFieldPcInfoPanel::UpdateHpWidget(void)	BattleRoyalFieldPcInfoPanel	arena	72
+0x1193700	BattleRoyalFieldPcInfoPanel::UpdateGuardGaugeData(__int64,__int64)	BattleRoyalFieldPcInfoPanel	arena	43
+0x1193730	BattleRoyalFieldPcInfoPanel::UpdateHPData(__int64,__int64)	BattleRoyalFieldPcInfoPanel	arena	43
+0x1193760	BattleRoyalFieldPcInfoPanel::Clear(void)	BattleRoyalFieldPcInfoPanel	arena	1
+0x1193790	BattleRoyalFieldAlivePanel::Clear(void)	BattleRoyalFieldAlivePanel	arena	1
+0x11937e0	BattleRoyalFieldAlivePanel::Start(wchar_t const *)	BattleRoyalFieldAlivePanel	arena	222
+0x11938c0	BattleRoyalFieldAlivePanel::Hide(void)	BattleRoyalFieldAlivePanel	arena	32
+0x11938e0	BattleRoyalFieldAlivePanel::Show(void)	BattleRoyalFieldAlivePanel	arena	32
+0x1193900	BattleRoyalFieldAlivePanel::ProcessEvent(EngineEvent *)	BattleRoyalFieldAlivePanel	arena	5
+0x1193910	BattleRoyalField::GetBattleRoyalCameraUnitOffsetYaw(void)	BattleRoyalField	arena	7
+0x1193940	BattleRoyalField::SetFreeCam(void)	BattleRoyalField	arena	55
+0x1193980	BattleRoyalField::GetCamPos(int)	BattleRoyalField	arena	66
+0x11939d0	BattleRoyalField::GetAlivePlayerCount(void)	BattleRoyalField	arena	4
+0x1193fa0	AuctionPanel2::AuctionPanelWebBrowserCallback::Initialize(void)	AuctionPanel2	web	152
+0x1195a60	AttendancePanel::OnWebBrowserIEClosed(void)	AttendancePanel	web	1
+0x1196500	CharacterInfoPanel::paserHomeUri(InGameWeb::WebContents,int)	CharacterInfoPanel	web	483
+0x1196790	CharacterInfoPanel::CharacterInfoWebBrowserCallback::Initialize(void)	CharacterInfoPanel	web	421
+0x1197b10	BoastChatShowPanel::ProcessInfoGateNetObjectEvent(StructPacket const *)	BoastChatShowPanel	infogate	130
+0x1198630	BnsTvPanel::BnsTvWebBrowserCallback::Initialize(void)	BnsTvPanel	web	253
+0x1198980	BigSnsPanel::BigSnsWebBrowserCallback::SetLoadingComplete(void)	BigSnsPanel	web	5
+0x11989d0	BattleRoyalScorePanel::ProcessEvent(EngineEvent *)	BattleRoyalScorePanel	arena	119
+0x1198a50	BattleRoyalResultPanel::EndModal(WindowModalPanel *)	BattleRoyalResultPanel	arena	46
+0x1198a80	BattleRoyalResultPanel::StartModal(WindowModalPanel *)	BattleRoyalResultPanel	arena	51
+0x1198ac0	BattleRoyalResultPanel::Clear(void)	BattleRoyalResultPanel	arena	157
+0x1198b60	BattleRoyalFieldTakgiAlarmPanel::SetTimeText(int,int)	BattleRoyalFieldTakgiAlarmPanel	arena	149
+0x1198c00	BattleRoyalFieldTakgiAlarmPanel::StopTakgiAlarmProgressBarParticle(void)	BattleRoyalFieldTakgiAlarmPanel	arena	44
+0x1198c30	BattleRoyalFieldTakgiAlarmPanel::SetTakgiAlarmProgressBar(float)	BattleRoyalFieldTakgiAlarmPanel	arena	47
+0x1198c70	BattleRoyalFieldPcInfoPanel::UpdateStraightKillCountWidget(void)	BattleRoyalFieldPcInfoPanel	arena	140
+0x1198d50	BattleRoyalField::setVisibleStartCountUi(bool)	BattleRoyalField	arena	101
+0x1198dc0	BattleRoyalField::InZoneObject(G_InZonePacket const *)	BattleRoyalField	arena	1
+0x11995b0	AuctionPanel2::AuctionPanelWebBrowserCallback::SetLoadingComplete(void)	AuctionPanel2	web	70
+0x119afe0	CharacterInfoPanel::CharacterInfoWebBrowserCallback::hideTooltip(void)	CharacterInfoPanel	web	168
+0x119c6c0	BoastChatPanel::ProcessInfoGateNetObjectEvent(StructPacket const *)	BoastChatPanel	infogate	155
+0x119d390	BnsTvPanel::BnsTvWebBrowserCallback::hideTooltip(void)	BnsTvPanel	web	122
+0x119d410	BnsTvPanel::BnsTvWebBrowserCallback::onTooltipCommand(BnsCommand const &)	BnsTvPanel	web	371
+0x119dc90	BigSnsPanel::BigSnsWebBrowserCallback::onTooltipCommand(BnsCommand const &)	BigSnsPanel	web	364
+0x119de00	BattleRoyalFieldTakgiAlarmPanel::StopTakgiAttackProgressBarParticle(void)	BattleRoyalFieldTakgiAlarmPanel	arena	60
+0x119de40	BattleRoyalFieldTakgiAlarmPanel::Hide(void)	BattleRoyalFieldTakgiAlarmPanel	arena	80
+0x119de90	BattleRoyalField::initLog(void)	BattleRoyalField	arena	370
+0x119e010	BattleRoyalField::FindPartyInfoByPartyId(__int64)	BattleRoyalField	arena	117
+0x119e090	BattleRoyalField::ChangeToFreeCamMode(void)	BattleRoyalField	arena	161
+0x119e140	BattleRoyalField::initPlayerSkillCoolTime(void)	BattleRoyalField	arena	146
+0x119e1e0	BattleRoyalField::IsDeadPcId(unsigned __int64)	BattleRoyalField	arena	66
+0x119e230	BattleRoyalField::isExistPcId(unsigned __int64)	BattleRoyalField	arena	66
+0x119e280	BattleRoyalField::GetPartyIdByPcId(unsigned __int64)	BattleRoyalField	arena	108
+0x119e2f0	BattleRoyalField::GetStraightKillCountByPcId(unsigned __int64)	BattleRoyalField	arena	103
+0x119e360	BattleRoyalField::findNameByPcId(unsigned __int64)	BattleRoyalField	arena	268
+0x11a8d60	BattleRoyalWinTitlePanel::Show(void)	BattleRoyalWinTitlePanel	arena	497
+0x11a8f60	BattleRoyalResultPanel::checkVisibleCondition(void)	BattleRoyalResultPanel	arena	76
+0x11a8fb0	BattleRoyalFieldTakgiAlarmPanel::PlayTakgiAttackProgressBarParticle(void)	BattleRoyalFieldTakgiAlarmPanel	arena	94
+0x11a9010	BattleRoyalFieldTakgiAlarmPanel::Clear(void)	BattleRoyalFieldTakgiAlarmPanel	arena	10
+0x11a9080	BattleRoyalFieldAlivePanel::checkVisibleCondition(void)	BattleRoyalFieldAlivePanel	arena	73
+0x11a90d0	BattleRoyalField::IsBattleRoyalPartyMode(void)	BattleRoyalField	arena	144
+0x11a9160	BattleRoyalField::EnterLeaveObject(G_EnterLeaveBroadcastPacket const *)	BattleRoyalField	arena	122
+0x11a91e0	BattleRoyalField::UpdateIndicatorUi(void)	BattleRoyalField	arena	214
+0x11a92c0	BattleRoyalField::escapeRewardZoneAfterTime(void)	BattleRoyalField	arena	331
+0x11a9410	BattleRoyalField::EnterZone(void)	BattleRoyalField	arena	65
+0x11a94a0	BattleRoyalField::createTakgi(void)	BattleRoyalField	arena	136
+0x11a9530	BattleRoyalField::updatePlayerPosition(__int64,float,float,float)	BattleRoyalField	arena	195
+0x11a9600	BattleRoyalField::tickProgressTimer(float)	BattleRoyalField	arena	112
+0x11a9670	BattleRoyalField::initCamera(void)	BattleRoyalField	arena	469
+0x11a9850	BattleRoyalField::init(bool)	BattleRoyalField	arena	171
+0x11a9900	BattleRoyalField::BattleRoyalTelecastPartyInfo::KillCount(void)	BattleRoyalField	arena	120
+0x11a9980	BattleRoyalField::BattleRoyalTelecastPartyInfo::KillScore(void)	BattleRoyalField	arena	117
+0x11a9a00	BattleRoyalField::BattleRoyalTelecastPartyInfo::RankingScore(void)	BattleRoyalField	infogate	117
+0x11a9a80	BattleRoyalField::BattleRoyalTelecastPartyInfo::TotalScore(void)	BattleRoyalField	arena	127
+0x11b6390	ChallengePartyResultPanel::updateRanking(int,char,bool)	ChallengePartyResultPanel	infogate	2295
+0x11c24c0	BattleRoyalWinTitlePanel::BattleRoyalWinTitlePanel(void)	BattleRoyalWinTitlePanel	arena	89
+0x11c2520	BattleRoyalScorePanel::compareKillScore(BattleRoyalField::BattleRoyalTelecastPartyInfo &,BattleRoyalField::BattleRoyalTelecastPartyInfo &)	BattleRoyalScorePanel	arena	42
+0x11c2550	BattleRoyalScorePanel::compareSurvivalScore(BattleRoyalField::BattleRoyalTelecastPartyInfo &,BattleRoyalField::BattleRoyalTelecastPartyInfo &)	BattleRoyalScorePanel	arena	42
+0x11c2580	BattleRoyalScorePanel::compareTotalScore(BattleRoyalField::BattleRoyalTelecastPartyInfo &,BattleRoyalField::BattleRoyalTelecastPartyInfo &)	BattleRoyalScorePanel	arena	42
+0x11c25b0	BattleRoyalScorePanel::~BattleRoyalScorePanel(void)	BattleRoyalScorePanel	arena	106
+0x11c26d0	BattleRoyalResultPanel::openExitConfirmRemainReward(void)	BattleRoyalResultPanel	arena	239
+0x11c27c0	BattleRoyalResultPanel::openTakeRewardFailConfirm(short)	BattleRoyalResultPanel	arena	320
+0x11c2900	BattleRoyalResultPanel::updateResult(void)	BattleRoyalResultPanel	arena	1036
+0x11c2d10	BattleRoyalResultPanel::updateRanking(void)	BattleRoyalResultPanel	infogate	2335
+0x11c3630	BattleRoyalResultPanel::~BattleRoyalResultPanel(void)	BattleRoyalResultPanel	arena	196
+0x11c3700	BattleRoyalResultPanel::BattleRoyalResultPanel(void)	BattleRoyalResultPanel	arena	333
+0x11c3850	BattleRoyalFieldTakgiAlarmPanel::ProcessEvent(EngineEvent *)	BattleRoyalFieldTakgiAlarmPanel	arena	314
+0x11c39c0	BattleRoyalFieldStartCountPanel::ConvertImageText(int,wchar_t const *,std::basic_string<wchar_t,std::char_traits<wchar_t>,std::allocator<wchar_t>> &)	BattleRoyalFieldStartCountPanel	arena	431
+0x11c3b70	BattleRoyalFieldStartCountPanel::SetStartCount(int)	BattleRoyalFieldStartCountPanel	arena	182
+0x11c3c60	BattleRoyalFieldPcInfoPanel::InitSkillName(void)	BattleRoyalFieldPcInfoPanel	arena	306
+0x11c3da0	BattleRoyalFieldPcInfoPanel::UpdateTeamIconWidget(void)	BattleRoyalFieldPcInfoPanel	arena	384
+0x11c3f20	BattleRoyalFieldPcInfoPanel::ProcessEvent(EngineEvent *)	BattleRoyalFieldPcInfoPanel	arena	349
+0x11c4080	BattleRoyalFieldPcInfoPanel::~BattleRoyalFieldPcInfoPanel(void)	BattleRoyalFieldPcInfoPanel	arena	172
+0x11c4130	BattleRoyalFieldPcInfoPanel::BattleRoyalFieldPcInfoPanel(void)	BattleRoyalFieldPcInfoPanel	arena	347
+0x11c4290	BattleRoyalFieldAlivePanel::SetGameTypeImage(void)	BattleRoyalFieldAlivePanel	arena	219
+0x11c4370	BattleRoyalFieldAlivePanel::UpdateUI(void)	BattleRoyalFieldAlivePanel	arena	177
+0x11c4460	BattleRoyalField::writePlayerLog(void)	BattleRoyalField	arena	720
+0x11c4770	BattleRoyalField::GetCamPlayerId(int)	BattleRoyalField	arena	430
+0x11c4aa0	BattleRoyalField::showKillMessage(unsigned __int64,unsigned __int64,short)	BattleRoyalField	arena	941
+0x11c4e50	BattleRoyalField::setStartCountUi(int)	BattleRoyalField	arena	85
+0x11c4eb0	BattleRoyalField::tickStartConditionGuideTimer(float)	BattleRoyalField	arena	119
+0x11c4f30	BattleRoyalField::tickStartTimer(float)	BattleRoyalField	arena	308
+0x11c67e0	AuctionPanel2::AuctionPanelWebBrowserCallback::onCancelSale(BnsCommand const &)	AuctionPanel2	web	615
+0x11d5fe0	BattleRoyalScorePanel::SortByType(std::list<BattleRoyalField::BattleRoyalTelecastPartyInfo,std::allocator<BattleRoyalField::BattleRoyalTelecastPartyInfo>> *,Bat	BattleRoyalScorePanel	arena	55
+0x11d6020	BattleRoyalFieldAlivePanel::InZoneObject(void)	BattleRoyalFieldAlivePanel	arena	59
+0x11d6060	BattleRoyalField::requestScore(void)	BattleRoyalField	arena	92
+0x11d60c0	BattleRoyalField::SendBattleRoyalRecallPlayer(std::basic_string<wchar_t,std::char_traits<wchar_t>,std::allocator<wchar_t>>)	BattleRoyalField	arena	241
+0x11d61c0	BattleRoyalField::SendBattleRoyalTeleportToPos(short,short,short)	BattleRoyalField	arena	139
+0x11d6250	BattleRoyalField::SendBattleRoyalGameFinish(void)	BattleRoyalField	arena	126
+0x11d62d0	BattleRoyalField::SendBattleRoyalGameStart(void)	BattleRoyalField	arena	126
+0x11d6350	BattleRoyalField::SendBattleRoyalKickAllPC(wchar_t const *)	BattleRoyalField	arena	278
+0x11d6470	BattleRoyalField::SendBattleRoyalFlowToTarget(std::basic_string<wchar_t,std::char_traits<wchar_t>,std::allocator<wchar_t>>)	BattleRoyalField	arena	384
+0x11d6680	BattleRoyalField::UpdateReadyPlayerCount(void)	BattleRoyalField	arena	918
+0x11d6a20	BattleRoyalField::UpdateAlivePlayerCount(void)	BattleRoyalField	arena	683
+0x11d6cd0	BattleRoyalField::refreshMinimapRankingPanel(void)	BattleRoyalField	infogate	111
+0x11d6d40	BattleRoyalField::refreshPcListByDeadEvent(unsigned __int64)	BattleRoyalField	arena	249
+0x11d6e40	BattleRoyalField::refreshPcStraightKillCountByDeadEvent(unsigned __int64,int)	BattleRoyalField	arena	317
+0x11d6f80	BattleRoyalField::refreshPcListInSameZone(void)	BattleRoyalField	arena	880
+0x11d72f0	BattleRoyalField::UpdateUiByState(void)	BattleRoyalField	arena	136
+0x11d7380	BattleRoyalField::updateObservingPCPosition(float)	BattleRoyalField	arena	213
+0x11d7460	BattleRoyalField::~BattleRoyalField(void)	BattleRoyalField	arena	442
+0x11d7620	BattleRoyalField::BattleRoyalField(void)	BattleRoyalField	arena	568
+0x11e4940	BattleRoyalWinTitlePanel::Start(wchar_t const *)	BattleRoyalWinTitlePanel	arena	230
+0x11e4a30	BattleRoyalScorePanel::updateContents(void)	BattleRoyalScorePanel	arena	2564
+0x11e5440	BattleRoyalFieldTakgiAlarmPanel::Start(wchar_t const *)	BattleRoyalFieldTakgiAlarmPanel	arena	495
+0x11e5780	BattleRoyalFieldPcInfoPanel::Start(wchar_t const *)	BattleRoyalFieldPcInfoPanel	arena	1463
+0x11e5d40	BattleRoyalField::updatePartyInfo(void)	BattleRoyalField	arena	1268
+0x11e6240	BattleRoyalField::SendBattleRoyalTeleportToTarget(std::basic_string<wchar_t,std::char_traits<wchar_t>,std::allocator<wchar_t>>)	BattleRoyalField	arena	207
+0x11e6310	BattleRoyalField::LoadExtraModeIni(void)	BattleRoyalField	arena	2892
+0x11e6e60	BattleRoyalField::tickReviveTimer(float)	BattleRoyalField	arena	98
+0x11e8310	AuctionPanel2::AuctionPanelWebBrowserCallback::onAbandonBidCommand(BnsCommand const &)	AuctionPanel2	web	292
+0x11e8750	AuctionPanel2::AuctionPanelWebBrowserCallback::onRegisterSale(BnsCommand const &)	AuctionPanel2	web	927
+0x11edb80	BattleRoyalResultPanel::updateContents(void)	BattleRoyalResultPanel	arena	220
+0x11edc60	BattleRoyalField::tickEscapeTimer(float)	BattleRoyalField	arena	104
+0x11f1210	InGameWebPanel::Clear(void)	InGameWebPanel	web	5
+0x11f1220	CharacterInfoPanel::CharacterInfoWebBrowserCallback::showItemTooltip(__int64,wchar_t const *,bool)	CharacterInfoPanel	web	311
+0x11f1360	CharacterInfoPanel::CharacterInfoWebBrowserCallback::onTooltipCommand(BnsCommand const &)	CharacterInfoPanel	web	639
+0x11f1a90	InGameWebPanel::Clear(void)	InGameWebPanel	web	5
+0x11f2360	InGameWebPanel::Clear(void)	InGameWebPanel	web	5
+0x11f2370	BattleRoyalField::Tick(float)	BattleRoyalField	arena	117
+0x11f2780	InGameWebPanel::Clear(void)	InGameWebPanel	web	5
+0x11f2790	AuctionPanel2::AuctionPanelWebBrowserCallback::onTooltipCommand(BnsCommand const &)	AuctionPanel2	web	1793
+0x11f8ec0	BnsTvPanel::BnsTvWebBrowserCallback::onBnsCommand(BnsCommandDefinition::CommandMethod,wchar_t const *)	BnsTvPanel	web	306
+0x11f9000	BigSnsPanel::BigSnsWebBrowserCallback::onBnsCommand(BnsCommandDefinition::CommandMethod,wchar_t const *)	BigSnsPanel	web	548
+0x11fe9a0	BattleRoyalFieldPcInfoPanel::UpdatePassiveEffectWidget(void)	BattleRoyalFieldPcInfoPanel	arena	1961
+0x12084b0	BattleRoyalFieldPcInfoPanel::ProcessPassiveEffectEvent(GS_ActionsPassiveEffectSubPacket const *)	BattleRoyalFieldPcInfoPanel	arena	446
+0x1208680	BattleRoyalFieldPcInfoPanel::UpdateAllWidget(void)	BattleRoyalFieldPcInfoPanel	arena	360
+0x12087f0	BattleRoyalFieldPcInfoPanel::UpdateAllData(__int64)	BattleRoyalFieldPcInfoPanel	arena	651
+0x1208a80	BattleRoyalField::UpdatePcInfoUI(__int64)	BattleRoyalField	arena	126
+0x1208b00	BattleRoyalField::AttachCameraToTarget(__int64)	BattleRoyalField	arena	589
+0x1208d50	BattleRoyalField::AttachCameraToTarget(wchar_t const *)	BattleRoyalField	arena	369
+0x1208ed0	BattleRoyalField::ProcessNetObjectEvent(StructPacket const *)	BattleRoyalField	arena	1367
+0x120b450	AuctionPanel2::AuctionPanelWebBrowserCallback::onBnsCommand(BnsCommandDefinition::CommandMethod,wchar_t const *)	AuctionPanel2	web	2449
+0x120c530	BattleRoyalResultPanel::Hide(void)	BattleRoyalResultPanel	arena	81
+0x120c5a0	BattleRoyalField::LeaveZone(void)	BattleRoyalField	arena	213
+0x120c740	BattleRoyalField::ProcessActionSubEvent(int,PfStruct const *,BGameObject const *)	BattleRoyalField	arena	1768
+0x1217c80	BoardGachaPanel::ProcessInfoGateNetObjectEvent(StructPacket const *)	BoardGachaPanel	infogate	131
+0x1218f10	BattleRoyalResultPanel::update(bool)	BattleRoyalResultPanel	arena	1628
+0x1219570	BattleRoyalResultPanel::Show(void)	BattleRoyalResultPanel	arena	217
+0x1219820	BattleRoyalResultPanel::Start(wchar_t const *)	BattleRoyalResultPanel	arena	1426
+0x1226960	BattleRoyalResultPanel::EnterZoneAfterUiShow(void)	BattleRoyalResultPanel	arena	59
+0x122c110	BnsTv::ProcessInfoGateNetObjectEvent(StructPacket const *)	BnsTv	infogate	90
+0x122f530	BattleRoyalField::SendBattleRoyalReturnToWorld(wchar_t const *)	BattleRoyalField	arena	267
+0x122f640	BattleRoyalField::RequestLeaveBattleRoyalField(void)	BattleRoyalField	arena	385
+0x12319f0	BattleRoyalResultPanel::ProgressComplete(WindowModalPanel *,short)	BattleRoyalResultPanel	arena	62
+0x1231a30	BattleRoyalResultPanel::ProcessEvent(EngineEvent *)	BattleRoyalResultPanel	arena	943
+0x12320c0	CharacterInfoPanel::CharacterInfoWebBrowserCallback::onBnsCommand(BnsCommandDefinition::CommandMethod,wchar_t const *)	CharacterInfoPanel	web	2906
+0x1235cb0	AttendanceCalendarPanel::OnWebBrowserIEClosed(void)	AttendanceCalendarPanel	web	1
+0x1235e20	ArenaWorld::OutSightObject(G_OutSightCubePacket const *)	ArenaWorld	arena	56
+0x1235e60	ArenaWorld::InSightObject(G_InSightCubePacket const *)	ArenaWorld	arena	56
+0x1235ea0	ArenaWorld::InZoneObject(G_InZonePacket const *)	ArenaWorld	arena	56
+0x1235ee0	ArenaWorld::EncounterOutOfSightObject(G_EncounterOutOfSightBroadcastPacket const *)	ArenaWorld	arena	56
+0x1235f20	ArenaWorld::EnterLeaveObject(G_EnterLeaveBroadcastPacket const *)	ArenaWorld	arena	56
+0x1235f60	ArenaWorld::LeaveZone(G_LeaveZonePacket const *)	ArenaWorld	arena	56
+0x1235fa0	ArenaWorld::EnterZone(G_EnterZoneOkPacket const *)	ArenaWorld	arena	56
+0x1235fe0	ArenaWorld::PrepareEnterArenaLobby(G_PrepareEnterArenaLobbyPacket const *)	ArenaWorld	arena	56
+0x1236020	ArenaWorld::ProcessEvent(EngineEvent *)	ArenaWorld	arena	5
+0x1236030	ArenaWorld::ProcessNetObjectEvent(StructPacket const *)	ArenaWorld	arena	49
+0x1236070	ArenaWorld::ProcessActionSubEvent(int,PfStruct const *,BGameObject const *)	ArenaWorld	arena	65
+0x12360d0	ArenaSquarePanel::Clear(void)	ArenaSquarePanel	arena	1
+0x12360e0	BArenaEnterNotificationPanel::getSystemMenuIconId(void)	BArenaEnterNotificationPanel	arena	87
+0x1236140	BArenaEnterNotificationPanel::onClose(void)	BArenaEnterNotificationPanel	arena	12
+0x1236150	BArenaEnterNotificationPanel::GetProgressArenaType(void)	BArenaEnterNotificationPanel	arena	19
+0x1236170	BArenaEnterNotificationPanel::GetSystemMenuType(void)	BArenaEnterNotificationPanel	arena	38
+0x12361a0	BArenaEnterNotificationPanel::EndModal(WindowModalPanel *)	BArenaEnterNotificationPanel	arena	14
+0x12361b0	BArenaEnterNotificationPanel::StartModal(WindowModalPanel *)	BArenaEnterNotificationPanel	arena	14
+0x12361c0	BArenaEnterNotificationPanel::Clear(void)	BArenaEnterNotificationPanel	arena	1
+0x12361d0	ArenaLobby::ProcessEvent(EngineEvent *)	ArenaLobby	arena	5
+0x12361e0	ArenaLobby::ProcessNetObjectEvent(StructPacket const *)	ArenaLobby	arena	45
+0x1236210	ArenaDungeonPartyChatRecruit::SetUsePromoteBattleRoyalFilter(bool)	ArenaDungeonPartyChatRecruit	arena	7
+0x1236220	ArenaDungeonPartyChatRecruit::SetUsePromotePartyBattleFilter(bool)	ArenaDungeonPartyChatRecruit	arena	7
+0x1236230	ArenaDungeonPartyChatRecruit::SetUsePromoteDungeonFilter(bool)	ArenaDungeonPartyChatRecruit	arena	7
+0x1236240	ArenaDungeonPartyChatRecruit::IsPartyRecruitmentMessage(char,wchar_t const *)	ArenaDungeonPartyChatRecruit	arena	246
+0x1236390	ArenaDungeonLobby::GetSelectMapCount(void)	ArenaDungeonLobby	arena	30
+0x12363b0	ArenaDungeonLobby::HaveSelectMap(void)	ArenaDungeonLobby	arena	27
+0x12363d0	ArenaDungeonLobby::GetSelectMapIndex(int)	ArenaDungeonLobby	arena	13
+0x12363e0	ArenaDungeonLobby::ResetSelectMapIndex(void)	ArenaDungeonLobby	arena	13
+0x12363f0	ArenaDungeonLobby::IsSelectMap(int)	ArenaDungeonLobby	arena	37
+0x1236420	ArenaDungeonLobby::setSlotPos(EOWorldInfo &,char)	ArenaDungeonLobby	arena	309
+0x1236570	ArenaDungeonLobby::IsDungeonLobbyMessage(char,wchar_t const *)	ArenaDungeonLobby	arena	253
+0x1236670	ArenaDungeonLobby::ProcessEvent(EngineEvent *)	ArenaDungeonLobby	arena	5
+0x1236740	ArenaDungeon::OutSightObject(G_OutSightCubePacket const *)	ArenaDungeon	arena	5
+0x1236750	ArenaDungeon::InSightObject(G_InSightCubePacket const *)	ArenaDungeon	arena	5
+0x1236760	ArenaDungeon::InZoneObject(G_InZonePacket const *)	ArenaDungeon	arena	5
+0x1236770	ArenaDungeon::EncounterOutOfSightObject(G_EncounterOutOfSightBroadcastPacket const *)	ArenaDungeon	arena	5
+0x1236780	ArenaDungeon::EnterLeaveObject(G_EnterLeaveBroadcastPacket const *)	ArenaDungeon	arena	5
+0x1236790	ArenaDungeon::LeaveZone(G_LeaveZonePacket const *)	ArenaDungeon	arena	5
+0x12367a0	ArenaDungeon::PrepareEnterArena(G_PrepareEnterArenaPacket const *)	ArenaDungeon	arena	19
+0x12367c0	ArenaDungeon::ProcessEvent(EngineEvent *)	ArenaDungeon	arena	5
+0x12367d0	ArenaDuelLobby::setSlotPos(EOWorldInfo &,char)	ArenaDuelLobby	arena	309
+0x1236920	ArenaDuelLobby::IsDuelLobbyMessage(char,wchar_t const *)	ArenaDuelLobby	arena	253
+0x1236a20	ArenaDuelLobby::ProcessEvent(EngineEvent *)	ArenaDuelLobby	arena	5
+0x1236a50	ArenaDuel::GetTeamRoundInfo(bool)	ArenaDuel	arena	23
+0x1236a70	ArenaDuel::SetReserveBattleOrder(char)	ArenaDuel	arena	7
+0x1236a80	ArenaDuel::OutSightObject(G_OutSightCubePacket const *)	ArenaDuel	arena	5
+0x1236a90	ArenaDuel::PrepareEnterArena(G_PrepareEnterArenaPacket const *)	ArenaDuel	arena	11
+0x1236aa0	ArenaDuel::PrepareEnterArenaLobby(G_PrepareEnterArenaLobbyPacket const *)	ArenaDuel	arena	12
+0x1236ab0	ArenaDuel::ProcessEvent(EngineEvent *)	ArenaDuel	arena	5
+0x1236ac0	ArenaCommonLobby::GetTeamRatingScoreForMatching(int)	ArenaCommonLobby	arena	5
+0x1236ad0	ArenaCommonLobby::setArenaLobbyWaitingNumber(int)	ArenaCommonLobby	arena	4
+0x1236b00	ArenaCommonLobby::setMatchReadyState(bool)	ArenaCommonLobby	arena	4
+0x1236b10	ArenaCommonLobby::SetAllowFillVacancy(bool)	ArenaCommonLobby	arena	4
+0x1236b20	ArenaCommonLobby::GetAllowFillVacancy(void)	ArenaCommonLobby	arena	4
+0x1236b30	ArenaCommonLobby::setLockProgressState(bool)	ArenaCommonLobby	arena	4
+0x1236b40	ArenaCommonLobby::GetUserCount(void)	ArenaCommonLobby	arena	4
+0x1236b50	ArenaCommonLobby::composeGuildProperty(ArenaCommonLobby::GuildProperty const &,std::basic_string<wchar_t,std::char_traits<wchar_t>,std::allocator<wchar_t>> &)	ArenaCommonLobby	arena	155
+0x1236bf0	ArenaCommonLobby::composeCustomProperty(ArenaCommonLobby::AppearanceProperty const &,std::basic_string<wchar_t,std::char_traits<wchar_t>,std::allocator<wchar_t>	ArenaCommonLobby	arena	660
+0x1236e90	ArenaCommonLobby::decomposeCustomProperty(ArenaCommonLobby::AppearanceProperty &,std::basic_string<wchar_t,std::char_traits<wchar_t>,std::allocator<wchar_t>> co	ArenaCommonLobby	arena	325
+0x1237020	ArenaCommonLobby::composeAppearanceProperty(ArenaCommonLobby::AppearanceProperty const &,std::basic_string<wchar_t,std::char_traits<wchar_t>,std::allocator<wcha	ArenaCommonLobby	arena	504
+0x1237220	ArenaCommonLobby::decomposeAppearanceProperty(ArenaCommonLobby::AppearanceProperty &,std::basic_string<wchar_t,std::char_traits<wchar_t>,std::allocator<wchar_t>	ArenaCommonLobby	arena	389
+0x1239230	BAccount::ProcessInfoGateNetObjectEvent(StructPacket const *)	BAccount	infogate	39
+0x123a0d0	ArenaWorld::~ArenaWorld(void)	ArenaWorld	arena	165
+0x123a180	ArenaWorld::ArenaWorld(void)	ArenaWorld	arena	57
+0x123a1c0	ArenaTeamInitVoiceManager::getVoiceChatMemberChatId(std::basic_string<wchar_t,std::char_traits<wchar_t>,std::allocator<wchar_t>>)	ArenaTeamInitVoiceManager	arena	314
+0x123a300	ArenaTeamInitVoiceManager::isVoiceBlockedState(std::basic_string<wchar_t,std::char_traits<wchar_t>,std::allocator<wchar_t>>)	ArenaTeamInitVoiceManager	arena	308
+0x123a440	ArenaTeamInitVoiceManager::isVoiceEnableSpeakAuthState(std::basic_string<wchar_t,std::char_traits<wchar_t>,std::allocator<wchar_t>>)	ArenaTeamInitVoiceManager	arena	312
+0x123a580	ArenaTeamInitVoiceManager::isJoinedVoiceChatMember(std::basic_string<wchar_t,std::char_traits<wchar_t>,std::allocator<wchar_t>>)	ArenaTeamInitVoiceManager	arena	312
+0x123a6c0	ArenaTeamInitVoiceManager::checkAndInitTeamVoiceBlock(void)	ArenaTeamInitVoiceManager	arena	343
+0x123a8e0	BArenaEnterNotificationPanel::InitializePartyState(void)	BArenaEnterNotificationPanel	arena	384
+0x123aa60	BArenaEnterNotificationPanel::ProgressCancel(WindowModalPanel *,short)	BArenaEnterNotificationPanel	arena	62
+0x123aaa0	BArenaEnterNotificationPanel::ProgressComplete(WindowModalPanel *,short)	BArenaEnterNotificationPanel	arena	55
+0x123aae0	ArenaLobby::PrepareEnterArena(G_PrepareEnterArenaPacket const *)	ArenaLobby	arena	86
+0x123ab40	ArenaLobby::LeaveArenaLobbyNotify(G_LeaveArenaLobbyNotifyPacket const *)	ArenaLobby	arena	123
+0x123abc0	ArenaLobby::EnterArenaLobbyNotify(G_EnterArenaLobbyNotifyPacket const *)	ArenaLobby	arena	123
+0x123ac40	ArenaLobby::LastestArenaLobbyRoomInfoNotify(G_LastestArenaLobbyRoomInfoNotifyPacket const *)	ArenaLobby	arena	123
+0x123acc0	ArenaLobby::CreateArenaLobbyRoomNotify(G_CreateArenaLobbyRoomNotifyPacket const *)	ArenaLobby	arena	123
+0x123ad40	ArenaLobby::~ArenaLobby(void)	ArenaLobby	arena	151
+0x123ade0	ArenaLobby::ArenaLobby(void)	ArenaLobby	arena	46
+0x123ae40	ArenaDungeonPartyChatRecruit::IsEmptyFilterKey(void)	ArenaDungeonPartyChatRecruit	arena	32
+0x123ae60	ArenaDungeonPartyChatRecruit::DeleteFilterKey(int)	ArenaDungeonPartyChatRecruit	arena	169
+0x123af10	ArenaDungeonPartyChatRecruit::isInFilterKey(int)	ArenaDungeonPartyChatRecruit	arena	115
+0x123af90	ArenaDungeonPartyChatRecruit::UseFilter(void)	ArenaDungeonPartyChatRecruit	arena	32
+0x123afb0	ArenaDungeonPartyBattleMapTooltipPanel::ProcessEvent(EngineEvent *)	ArenaDungeonPartyBattleMapTooltipPanel	arena	27
+0x123afd0	ArenaDungeonMapTooltipPanel::ProcessEvent(EngineEvent *)	ArenaDungeonMapTooltipPanel	arena	27
+0x123aff0	ArenaDungeonLobby::GetPlayerGuildName(std::basic_string<wchar_t,std::char_traits<wchar_t>,std::allocator<wchar_t>> &)	ArenaDungeonLobby	arena	95
+0x123b050	ArenaDungeonLobby::IsPartyBattleMode(ArenaDungeonGameMode)	ArenaDungeonLobby	arena	32
+0x123b070	ArenaDungeonLobby::GetSeasonContentsTypeByGameMode(void)	ArenaDungeonLobby	arena	47
+0x123b0f0	ArenaDungeonLobby::getRequiredWeapon(char,Data::Cave2RecordPtr)	ArenaDungeonLobby	arena	909
+0x123b4c0	ArenaDungeonLobby::getRequiredWeapon(char,Data::DungeonRecordPtr,int)	ArenaDungeonLobby	arena	2741
+0x123bfb0	ArenaDungeonLobby::GetMapInfo(int)	ArenaDungeonLobby	arena	59
+0x123bff0	ArenaDungeonLobby::GetSelectMapInfo(int)	ArenaDungeonLobby	arena	22
+0x123c050	ArenaDungeonLobby::clearReserveRoom(void)	ArenaDungeonLobby	arena	49
+0x123c0a0	ArenaDungeon::~ArenaDungeon(void)	ArenaDungeon	arena	49
+0x123c0e0	ArenaDungeon::ArenaDungeon(void)	ArenaDungeon	arena	60
+0x123c190	ArenaDuelLobby::GetSeasonContentsType(void)	ArenaDuelLobby	arena	92
+0x123c230	ArenaDuelLobby::clearReserveRoom(void)	ArenaDuelLobby	arena	49
+0x123c270	ArenaDuel::addHasInterferenceSkillCount(unsigned __int64)	ArenaDuel	arena	96
+0x123c2d0	ArenaDuel::addUsedInterferenceSkillCount(unsigned __int64)	ArenaDuel	arena	96
+0x123c330	ArenaDuel::GetTagSkillCount(unsigned __int64)	ArenaDuel	arena	104
+0x123c3a0	ArenaDuel::GetHasInterferenceSkillCount(unsigned __int64)	ArenaDuel	arena	104
+0x123c410	ArenaDuel::GetUsedInterferenceSkillCount(unsigned __int64)	ArenaDuel	arena	104
+0x123c480	ArenaDuel::GetTagSkillCount(void)	ArenaDuel	arena	51
+0x123c540	ArenaDuel::GetInterferenceSkillLeftCount(__int64)	ArenaDuel	arena	45
+0x123c570	ArenaDuel::GetInterferenceSkillLeftCount(void)	ArenaDuel	arena	117
+0x123c5f0	ArenaDuel::IsChampionship(void)	ArenaDuel	arena	6
+0x123c600	ArenaDuel::IsTeamMode(void)	ArenaDuel	arena	83
+0x123c660	ArenaDuel::GetPlayerTeamId(void)	ArenaDuel	arena	344
+0x123c7c0	ArenaDuel::GetSaveCombatSide(unsigned __int64)	ArenaDuel	arena	104
+0x123c830	ArenaDuel::GetTeamId(unsigned __int64)	ArenaDuel	arena	104
+0x123c8a0	ArenaDuel::IsAllOccupied(void)	ArenaDuel	arena	90
+0x123c900	ArenaDuel::IsOccupied(unsigned __int64)	ArenaDuel	arena	120
+0x123c980	ArenaDuel::IsLeaved(unsigned __int64)	ArenaDuel	arena	120
+0x123ca00	ArenaDuel::setBattleToken(unsigned __int64,char)	ArenaDuel	arena	128
+0x123ca80	ArenaDuel::GetBattleState(__int64)	ArenaDuel	arena	104
+0x123caf0	ArenaDuel::HasPlayerToken(void)	ArenaDuel	arena	150
+0x123cb90	ArenaDuel::setBattleOrder(unsigned __int64,char)	ArenaDuel	arena	123
+0x123cc10	ArenaDuel::GetRoundFinishLeftTime(void)	ArenaDuel	arena	80
+0x123cc60	ArenaCommonLobby::MakeRoomExtraInfo(ArenaCommonLobby::RoomExtraInfo const &,char *,short)	ArenaCommonLobby	arena	693
+0x123cf20	ArenaCommonLobby::IsMyReadyState(ArenaCommonLobby::ReadyType)	ArenaCommonLobby	arena	168
+0x123cfd0	ArenaCommonLobby::openChatChannel(__int64,char,int,bool)	ArenaCommonLobby	arena	443
+0x123d190	ArenaCommonLobby::GetUserPropertyFromSlotIndex(int)	ArenaCommonLobby	arena	99
+0x123d200	ArenaCommonLobby::GetUserProperty(int)	ArenaCommonLobby	arena	124
+0x123d280	ArenaCommonLobby::GetUserProperty(short,__int64)	ArenaCommonLobby	arena	122
+0x123d300	ArenaCommonLobby::GetMySlotIndex(void)	ArenaCommonLobby	arena	201
+0x123d3d0	ArenaCommonLobby::IsLeader(void)	ArenaCommonLobby	arena	198
+0x123d4a0	ArenaCommonLobby::decomposeGuildProperty(ArenaCommonLobby::GuildProperty &,std::basic_string<wchar_t,std::char_traits<wchar_t>,std::allocator<wchar_t>> const &)	ArenaCommonLobby	arena	338
+0x1241020	ArenaTeamInitVoiceManager::checkAndInitTeamVoiceEnableSpeakAuth(void)	ArenaTeamInitVoiceManager	arena	569
+0x1241260	ArenaTeamInitVoiceManager::clearTeamVoiceStateList(void)	ArenaTeamInitVoiceManager	arena	119
+0x12412e0	ArenaTeamInitVoiceManager::ProcessChatChannelEvent(ChatChannelEvent const *)	ArenaTeamInitVoiceManager	arena	81
+0x12413b0	ArenaTeamInitVoiceManager::ArenaTeamInitVoiceManager(void)	ArenaTeamInitVoiceManager	arena	221
+0x1241490	ArenaDungeonTeamInitVoiceManager::ProcessActionSubEvent(int,PfStruct const *,BGameObject const *)	ArenaDungeonTeamInitVoiceManager	arena	40
+0x12414f0	ArenaDungeonPartyRecruitTimerEventListener::StopTimer(void)	ArenaDungeonPartyRecruitTimerEventListener	arena	60
+0x1241530	ArenaDungeonPartyChatRecruit::SetAutoSendRecruitment(bool)	ArenaDungeonPartyChatRecruit	arena	60
+0x1241570	ArenaDungeonPartyChatRecruit::GetFilterState(int)	ArenaDungeonPartyChatRecruit	arena	201
+0x1241640	ArenaDungeonPartyChatRecruit::RefreshChatMessage(void)	ArenaDungeonPartyChatRecruit	arena	607
+0x12418a0	ArenaDungeonPartyChatRecruit::FreeFilterKey(void)	ArenaDungeonPartyChatRecruit	arena	24
+0x12418c0	ArenaDungeonPartyChatRecruit::Clear(void)	ArenaDungeonPartyChatRecruit	arena	69
+0x1241910	ArenaDungeonPartyChatRecruit::CanModifyAuthority(void)	ArenaDungeonPartyChatRecruit	arena	58
+0x1241990	ArenaDungeonPartyChatRecruit::GetLeftRewriteTime(void)	ArenaDungeonPartyChatRecruit	arena	22
+0x12419b0	ArenaDungeonPartyChatRecruit::CanRewrite(void)	ArenaDungeonPartyChatRecruit	arena	67
+0x1241a50	ArenaDungeonLobby::IsEnterableMap(wchar_t const *,short,bool)	ArenaDungeonLobby	arena	290
+0x1241ca0	ArenaDungeonLobby::IsCurrentDuplicatedJob(void)	ArenaDungeonLobby	arena	176
+0x1241d50	ArenaDungeonLobby::updateSlotTranslate(void)	ArenaDungeonLobby	arena	318
+0x1241e90	ArenaDungeonLobby::setUserGuildInfo(short,__int64,__int64,char)	ArenaDungeonLobby	arena	132
+0x1241f20	ArenaDungeonLobby::GetTeamGuildScore(char)	ArenaDungeonLobby	arena	98
+0x1241f90	ArenaDungeonLobby::GetTeamGuildName(char)	ArenaDungeonLobby	arena	114
+0x12420a0	ArenaDungeonSinglePlayTimerEventListener::StopTimer(void)	ArenaDungeonSinglePlayTimerEventListener	arena	70
+0x12420f0	ArenaDungeon::PrepareEnterArenaLobby(G_PrepareEnterArenaLobbyPacket const *)	ArenaDungeon	arena	23
+0x1242140	ArenaDuelLobby::IsEnableRequestSpectateList(int)	ArenaDuelLobby	arena	93
+0x12421b0	ArenaDuel::GetRoundStandbyTime(void)	ArenaDuel	arena	103
+0x1242220	ArenaDuel::GetObserverSkillProcessFromId(__int64)	ArenaDuel	arena	53
+0x1242260	ArenaDuel::SetObserverCameraState(ArenaDuel::ObserverCameraState)	ArenaDuel	arena	51
+0x12422a0	ArenaDuel::getAllReadyCnt(void)	ArenaDuel	arena	480
+0x1242480	ArenaDuel::ready(unsigned __int64)	ArenaDuel	arena	47
+0x12424b0	ArenaDuel::CanPlayerUseSkill(void)	ArenaDuel	arena	108
+0x1242520	ArenaDuel::GetEnemyTeamSlotIndex(unsigned __int64)	ArenaDuel	arena	142
+0x12425b0	ArenaDuel::GetSaveCombatSidePlayer(void)	ArenaDuel	arena	67
+0x1242600	ArenaDuel::IsEnemyTeam(unsigned __int64)	ArenaDuel	arena	47
+0x1242630	ArenaDuel::IsPlayerTeam(unsigned __int64)	ArenaDuel	arena	47
+0x1242660	ArenaDuel::CanExitGame(void)	ArenaDuel	arena	119
+0x12426e0	ArenaDuel::CanReturnToArenaLobby(void)	ArenaDuel	arena	236
+0x12427e0	ArenaDuel::IsAllReady(void)	ArenaDuel	arena	101
+0x1242850	ArenaDuel::IsCurrentRoundMax(void)	ArenaDuel	arena	347
+0x12429b0	ArenaDuel::IsReady(unsigned __int64)	ArenaDuel	arena	64
+0x12429f0	ArenaDuel::CanReady(unsigned __int64)	ArenaDuel	arena	39
+0x1242a20	ArenaCommonLobby::IsHaveGuildCombatReadyMember(void)	ArenaCommonLobby	arena	192
+0x1243480	ArenaCommonLobby::removeUser(short,__int64)	ArenaCommonLobby	arena	1179
+0x1243920	ArenaCommonLobby::setUnReady(ArenaCommonLobby::ReadyType,short,__int64)	ArenaCommonLobby	arena	107
+0x1243990	ArenaCommonLobby::setReady(ArenaCommonLobby::ReadyType,short,__int64)	ArenaCommonLobby	arena	184
+0x1243a50	ArenaCommonLobby::sendMyExtraUserInfo(void)	ArenaCommonLobby	arena	729
+0x1243d40	ArenaCommonLobby::ResetAppearanceHandle(void)	ArenaCommonLobby	arena	1043
+0x1244160	ArenaCommonLobby::CanLeaveLobby(void)	ArenaCommonLobby	arena	46
+0x1244190	ArenaCommonLobby::CanLeaveRoom(void)	ArenaCommonLobby	arena	43
+0x12441c0	ArenaCommonLobby::setLoadComplete(short,__int64)	ArenaCommonLobby	arena	107
+0x1244230	ArenaCommonLobby::CanJoinRoom(void)	ArenaCommonLobby	arena	37
+0x1244260	ArenaCommonLobby::IsAllLoadComplete(void)	ArenaCommonLobby	arena	73
+0x12442b0	ArenaCommonLobby::GetUserProperty(wchar_t const *)	ArenaCommonLobby	arena	143
+0x1244340	ArenaCommonLobby::GetMyTeamId(void)	ArenaCommonLobby	arena	52
+0x1244380	ArenaCommonLobby::GetMyTeamLeaderName(std::basic_string<wchar_t,std::char_traits<wchar_t>,std::allocator<wchar_t>> &)	ArenaCommonLobby	arena	211
+0x1244460	ArenaLobbySort::CompareLobbyUser	ArenaLobbySort	arena	326
+0x1248f90	ArenaTeamInitVoiceManager::setTeamVoiceStateList(void)	ArenaTeamInitVoiceManager	arena	717
+0x1249260	ArenaSquarePanel::ShowLeaveArenaSuqare(void)	ArenaSquarePanel	arena	134
+0x12492f0	BPlayer::ApplyArenaPortalKey(wchar_t const *)	BPlayer	arena	404
+0x1249490	BArenaEnterNotificationPanel::GetArenaTypeByArenaPortalKey(__int64)	BArenaEnterNotificationPanel	arena	335
+0x12495e0	BArenaEnterNotificationPanel::setArenaType(unsigned __int64)	BArenaEnterNotificationPanel	arena	28
+0x1249600	ArenaDungeonTeamInitVoiceManager::setTeamLeader(void)	ArenaDungeonTeamInitVoiceManager	arena	183
+0x1249740	ArenaDungeonPartyRecruitTimerEventListener::StartTimer(float)	ArenaDungeonPartyRecruitTimerEventListener	arena	152
+0x12497e0	ArenaDungeonPartyChatRecruit::addRecruitment(ArenaDungeonPartyChatRecruit::Message const *)	ArenaDungeonPartyChatRecruit	arena	97
+0x1249850	ArenaDungeonPartyChatRecruit::AddFilterKey(int)	ArenaDungeonPartyChatRecruit	arena	130
+0x12498e0	ArenaDungeonPartyChatRecruit::~ArenaDungeonPartyChatRecruit(void)	ArenaDungeonPartyChatRecruit	arena	192
+0x12499a0	ArenaDungeonPartyChatRecruit::ArenaDungeonPartyChatRecruit(void)	ArenaDungeonPartyChatRecruit	arena	253
+0x124a020	ArenaDungeonLobby::IsRandomPartyBattleFieldTime(void)	ArenaDungeonLobby	arena	229
+0x124a110	ArenaDungeonLobby::CanMatchStart(bool)	ArenaDungeonLobby	arena	404
+0x124a2b0	ArenaDungeonLobby::isPartyBattleFieldDisableRewardWeeklyTime(void)	ArenaDungeonLobby	arena	515
+0x124a4c0	ArenaDungeonLobby::GetRequiredLevelPlayerCount(void)	ArenaDungeonLobby	arena	382
+0x124a640	ArenaDungeonLobby::CheckGuildFlagBearer(void)	ArenaDungeonLobby	arena	160
+0x124a6e0	ArenaDungeonLobby::GetLeaderGuildID(void)	ArenaDungeonLobby	arena	161
+0x124a790	ArenaDungeonLobby::GetGuildMemberCount(void)	ArenaDungeonLobby	arena	189
+0x124a850	ArenaDungeonLobby::IsGuildMatchTime(void)	ArenaDungeonLobby	arena	301
+0x124a980	ArenaDungeonLobby::getPartyBattleModeGameModeBySelectMap(short)	ArenaDungeonLobby	arena	415
+0x124ab20	ArenaDungeonLobby::GetBattleFieldModeMatchTypeFromTime(void)	ArenaDungeonLobby	arena	640
+0x124ada0	ArenaDungeonLobby::CanBattleFieldModeMatchStart(void)	ArenaDungeonLobby	arena	315
+0x124b0f0	ArenaDungeonLobby::IsFullMember(bool,int &)	ArenaDungeonLobby	arena	578
+0x124b520	ArenaDungeonLobby::FindMemberNameCannotEnableMatch(std::vector<std::basic_string<wchar_t,std::char_traits<wchar_t>,std::allocator<wchar_t>>,std::allocator<std::	ArenaDungeonLobby	arena	932
+0x124b8d0	ArenaDungeonLobby::GetMainStepMapInfo(int)	ArenaDungeonLobby	arena	509
+0x124bad0	ArenaDungeonLobby::updateSlotIndex(void)	ArenaDungeonLobby	arena	322
+0x124bc20	ArenaDungeonLobby::CheckInviteState(wchar_t const *)	ArenaDungeonLobby	arena	771
+0x124bf50	ArenaDungeonSinglePlayTimerEventListener::StartTimer(float)	ArenaDungeonSinglePlayTimerEventListener	arena	152
+0x124bff0	ArenaDungeon::CheckPartyTypeNone(void)	ArenaDungeon	arena	130
+0x124c080	ArenaDungeon::ProcessNetObjectEvent(StructPacket const *)	ArenaDungeon	arena	93
+0x124c0e0	ArenaDuelTeamInitVoiceManager::setTeamLeader(void)	ArenaDuelTeamInitVoiceManager	arena	183
+0x124c1a0	ArenaDuelTeamInitVoiceManager::ProcessActionSubEvent(int,PfStruct const *,BGameObject const *)	ArenaDuelTeamInitVoiceManager	arena	76
+0x124c1f0	ArenaDuelLobby::isDuelDisableRewardWeeklyTime(void)	ArenaDuelLobby	arena	422
+0x124c3a0	ArenaDuelLobby::updateSlotIndex(void)	ArenaDuelLobby	arena	322
+0x124c4f0	ArenaDuelLobby::CheckInviteState(wchar_t const *,bool)	ArenaDuelLobby	arena	342
+0x124c650	ArenaDuel::GetPlayerSummonedSpawnPosition(short &,short &,short &,short &)	ArenaDuel	arena	967
+0x124ca20	ArenaDuel::CanUseInterferenceSkill(void)	ArenaDuel	arena	245
+0x124cb20	ArenaDuel::GetRoundMaxCount(void)	ArenaDuel	arena	300
+0x124cef0	ArenaDuel::GetDuelPcName(wchar_t const *)	ArenaDuel	arena	614
+0x124d160	ArenaDuel::GetDuelPcNameFromId(unsigned __int64)	ArenaDuel	arena	191
+0x124d220	ArenaDuel::IsHiddenNameFromId(unsigned __int64)	ArenaDuel	arena	262
+0x124d330	ArenaDuel::GetDuelCameWorldPosIndex(void)	ArenaDuel	arena	322
+0x124d480	ArenaDuel::GetDuelType(void)	ArenaDuel	arena	317
+0x124d5c0	ArenaDuel::UpdateObserverCameraInterferenceToFreeCam(unsigned __int64)	ArenaDuel	arena	183
+0x124d680	ArenaDuel::UpdateObserverCameraMainToFreeCam(unsigned __int64)	ArenaDuel	arena	183
+0x124d740	ArenaDuel::reserveCreature(char,char,wchar_t const *,char,int)	ArenaDuel	arena	847
+0x124da90	ArenaDuel::IsBlockSpecialSkill(void)	ArenaDuel	arena	169
+0x124db40	ArenaDuel::IsUnratedGame(void)	ArenaDuel	arena	1016
+0x124df40	ArenaDuel::GetPlayerTeamName(unsigned __int64)	ArenaDuel	arena	277
+0x124e060	ArenaDuel::IsEnemyTeamByName(std::basic_string<wchar_t,std::char_traits<wchar_t>,std::allocator<wchar_t>>)	ArenaDuel	arena	280
+0x124e2d0	ArenaCommonLobby::ParsingRoomExtraInfo(ArenaCommonLobby::RoomExtraInfo &,char const *,short)	ArenaCommonLobby	arena	864
+0x124e630	ArenaCommonLobby::writeOtherTeamAppearanceProperty(void)	ArenaCommonLobby	arena	491
+0x124e820	ArenaCommonLobby::IsMyTeamMemberAllReady(ArenaCommonLobby::ReadyType)	ArenaCommonLobby	arena	164
+0x124e8d0	ArenaCommonLobby::addUser(ArenaCommonLobby::LobbyUserProperty const &)	ArenaCommonLobby	arena	171
+0x124e980	ArenaCommonLobby::isAllReady(ArenaCommonLobby::ReadyType)	ArenaCommonLobby	arena	151
+0x124eab0	ArenaCommonLobby::ArenaCommonLobby(void)	ArenaCommonLobby	arena	33
+0x125bfd0	ArenaSquarePanel::updateLeaveBtnText(void)	ArenaSquarePanel	arena	319
+0x125c1b0	ArenaDungeonMapTooltipPanel::ArenaDungeonMapTooltipPanel(void)	ArenaDungeonMapTooltipPanel	arena	181
+0x125c270	ArenaDungeonLobby::notifyDiableReward(void)	ArenaDungeonLobby	arena	74
+0x125c2c0	ArenaDungeonLobby::unfreezeGameMode(void)	ArenaDungeonLobby	arena	55
+0x125c300	ArenaDungeonLobby::checkedMapEnterEnable(bool)	ArenaDungeonLobby	arena	267
+0x125c410	ArenaDungeonLobby::IsPartyFieldBattleUnratedJoin(void)	ArenaDungeonLobby	arena	399
+0x125c5a0	ArenaDungeonLobby::IsEnterablePartyBattleMap(short)	ArenaDungeonLobby	arena	73
+0x125c5f0	ArenaDungeonLobby::IsDungeonBind(__int64)	ArenaDungeonLobby	arena	370
+0x125c770	ArenaDungeonLobby::CanImmediatelyStart(void)	ArenaDungeonLobby	arena	482
+0x125c960	ArenaDungeonLobby::setUserDungeonInfo(std::basic_string<wchar_t,std::char_traits<wchar_t>,std::allocator<wchar_t>>,PfVarBin const *)	ArenaDungeonLobby	arena	419
+0x125cb10	ArenaDungeonLobby::setUserDungeonInfo(short,__int64,PfVarBin const *)	ArenaDungeonLobby	arena	136
+0x125cba0	ArenaDungeonLobby::parsingRoomMemberPacket(GR_ArenaLobbyRoomTeamListRptBody const *,ArenaCommonLobby::LoadCompleteModifyType)	ArenaDungeonLobby	arena	679
+0x125ce50	ArenaDungeonLobby::leaveRoomMemberPacket(GR_ArenaLobbyRoomTeamListRptBody const *)	ArenaDungeonLobby	arena	660
+0x125d0f0	ArenaDungeonLobby::removeUserMessage(short,__int64,ArenaLobbyRoomLeaveReason)	ArenaDungeonLobby	arena	445
+0x125d2d0	ArenaDungeonLobby::CheckUnratedInviteBaseState(void)	ArenaDungeonLobby	arena	100
+0x125d340	ArenaDungeonLobby::CheckUnratedInviteState(wchar_t const *,bool)	ArenaDungeonLobby	arena	275
+0x125d460	ArenaDungeonLobby::setRoomPassword(short)	ArenaDungeonLobby	arena	136
+0x125d4f0	ArenaDungeonLobby::~ArenaDungeonLobby(void)	ArenaDungeonLobby	arena	218
+0x125d5d0	ArenaDuelLobby::notifyDiableReward(void)	ArenaDuelLobby	arena	74
+0x125d870	ArenaDuelLobby::invokeErrorMessage(ArenaDuelLobby::ErrorMessageType)	ArenaDuelLobby	arena	780
+0x125dbc0	ArenaDuelLobby::parsingRoomMemberPacket(GR_ArenaLobbyRoomTeamListRptBody const *,ArenaCommonLobby::LoadCompleteModifyType)	ArenaDuelLobby	arena	524
+0x125ddd0	ArenaDuelLobby::leaveRoomMemberPacket(GR_ArenaLobbyRoomTeamListRptBody const *)	ArenaDuelLobby	arena	660
+0x125e070	ArenaDuelLobby::removeUserMessage(short,__int64,ArenaLobbyRoomLeaveReason)	ArenaDuelLobby	arena	445
+0x125e250	ArenaDuelLobby::CheckUnratedInviteBaseState(void)	ArenaDuelLobby	arena	68
+0x125e2a0	ArenaDuelLobby::CheckUnratedInviteState(wchar_t const *,bool)	ArenaDuelLobby	arena	275
+0x125e3c0	ArenaDuelLobby::setRoomPassword(short)	ArenaDuelLobby	arena	136
+0x125e450	ArenaDuelLobby::setMode(Data::DuelDuelTypeType)	ArenaDuelLobby	arena	208
+0x125e520	ArenaDuelLobby::setMatchRule(Data::ArenaMatchingRuleDetailType)	ArenaDuelLobby	arena	273
+0x125e640	ArenaDuelLobby::~ArenaDuelLobby(void)	ArenaDuelLobby	arena	153
+0x125e6e0	ArenaDuel::GetInterferenceIndicatorIconSetRef(unsigned __int64,std::basic_string<wchar_t,std::char_traits<wchar_t>,std::allocator<wchar_t>> *)	ArenaDuel	arena	784
+0x125eaa0	ArenaDuel::IsDeadPcHide(__int64)	ArenaDuel	arena	268
+0x125ebb0	ArenaDuel::addTagSkillCount(unsigned __int64)	ArenaDuel	arena	209
+0x125ec90	ArenaDuel::CanUseTagSkill(void)	ArenaDuel	arena	423
+0x125ee40	ArenaDuel::canTakeTagToken(void)	ArenaDuel	arena	69
+0x125ee90	ArenaDuel::UpdateObserverCameraState(void)	ArenaDuel	arena	435
+0x125f050	ArenaDuel::setDuelState(ArenaDuel::DuelState)	ArenaDuel	arena	270
+0x125f160	ArenaDuel::setReadyCnt(GS_ActionsDuelRoundReadiedPcListSubPacket const *)	ArenaDuel	arena	120
+0x125f1e0	ArenaDuel::GetUserInfoList(std::list<ArenaDuel::UserInfo,std::allocator<ArenaDuel::UserInfo>> &)	ArenaDuel	arena	88
+0x125f240	ArenaDuel::IsTeamLastBattlePc(unsigned __int64)	ArenaDuel	arena	232
+0x125f330	ArenaDuel::~ArenaDuel(void)	ArenaDuel	arena	264
+0x125f440	ArenaDuel::ArenaDuel(__int64)	ArenaDuel	arena	701
+0x125f700	ArenaCommonLobby::setTeamLeader(short,__int64)	ArenaCommonLobby	arena	356
+0x125f870	ArenaCommonLobby::updateAppearanceHandle(void)	ArenaCommonLobby	arena	3458
+0x12735a0	ArenaWorld::PrepareEnterArena(G_PrepareEnterArenaPacket const *)	ArenaWorld	arena	414
+0x1273740	ArenaSquarePanel::ShowPanel(bool,bool)	ArenaSquarePanel	arena	5
+0x1273750	BArenaEnterNotificationPanel::getEnterArenaFailMessage(std::basic_string<wchar_t,std::char_traits<wchar_t>,std::allocator<wchar_t>> &,int)	BArenaEnterNotificationPanel	arena	811
+0x1273af0	BArenaEnterNotificationPanel::SendEnterArenaFinalDecision(bool)	BArenaEnterNotificationPanel	arena	91
+0x1273b50	BArenaEnterNotificationPanel::SendEnterArenaPartyAgreement(bool)	BArenaEnterNotificationPanel	arena	321
+0x1273ca0	BArenaEnterNotificationPanel::Initialize(unsigned __int64,BArenaEnterNotificationPanel::ArenaEnterNotificationType,float,float)	BArenaEnterNotificationPanel	arena	554
+0x1273ed0	BArenaEnterNotificationPanel::~BArenaEnterNotificationPanel(void)	BArenaEnterNotificationPanel	arena	167
+0x1273f80	BArenaEnterNotificationPanel::BArenaEnterNotificationPanel(void)	BArenaEnterNotificationPanel	arena	358
+0x12740f0	ArenaLobby::SendFindUserGM(wchar_t const *)	ArenaLobby	arena	133
+0x1274180	ArenaLobby::SendMoveToArenaGM(int)	ArenaLobby	arena	87
+0x12741e0	ArenaLobby::LeaveArenaLobby(G_LeaveArenaLobbyOkPacket const *)	ArenaLobby	arena	447
+0x12743a0	ArenaDungeonPartyChatRecruit::ConvertFullTextFormat(ArenaDungeonPartyChatRecruit::Message const *,std::basic_string<wchar_t,std::char_traits<wchar_t>,std::alloc	ArenaDungeonPartyChatRecruit	arena	1353
+0x1274be0	ArenaDungeonLobby::SendRoomOption(void)	ArenaDungeonLobby	arena	638
+0x1274e60	ArenaDungeonLobby::SendChangeTeamLeader(wchar_t const *)	ArenaDungeonLobby	arena	108
+0x1274ed0	ArenaDungeonLobby::checkEnableByQuest(Data::DifficultyTypeDifficultyTypeType,char,Data::DungeonRecordPtr,ArenaDungeonLobby::EnterableDungeonInfo &)	ArenaDungeonLobby	arena	476
+0x12750b0	ArenaDungeonLobby::AddSelectMap(int,bool,bool)	ArenaDungeonLobby	arena	442
+0x1275270	ArenaDungeonLobby::ToggleSelectMap(int,bool)	ArenaDungeonLobby	arena	558
+0x12754a0	ArenaDungeonLobby::ToggleSelectMapIndex(int,bool)	ArenaDungeonLobby	arena	21
+0x12754c0	ArenaDungeonLobby::invokeErrorMessage(ArenaDungeonLobby::ErrorMessageType)	ArenaDungeonLobby	arena	507
+0x12756d0	ArenaDungeonLobby::applyUserProperty(void)	ArenaDungeonLobby	arena	114
+0x12757d0	ArenaDungeonLobby::SendUnratedInvite(wchar_t const *,bool,char)	ArenaDungeonLobby	arena	772
+0x1275ae0	ArenaDungeonLobby::SendInvite(wchar_t const *,short)	ArenaDungeonLobby	arena	425
+0x1275c90	ArenaDungeonLobby::SendUnReady(ArenaCommonLobby::ReadyType)	ArenaDungeonLobby	arena	84
+0x1275cf0	ArenaDungeonLobby::SendReady(ArenaCommonLobby::ReadyType)	ArenaDungeonLobby	arena	393
+0x1275e80	ArenaDungeonLobby::SendRoomMode(ArenaDungeonGameMode,Data::ArenaMatchingRuleDetailType)	ArenaDungeonLobby	arena	525
+0x1276090	ArenaDuelLobby::applyUserProperty(void)	ArenaDuelLobby	arena	114
+0x1276110	ArenaDuelLobby::SendRequestSpectateList(int)	ArenaDuelLobby	arena	354
+0x1276280	ArenaDuelLobby::SendJoinSpectateGame(wchar_t const *)	ArenaDuelLobby	arena	324
+0x12763d0	ArenaDuelLobby::SendJoinUnratedRoom(__int64,short,char)	ArenaDuelLobby	arena	150
+0x1276470	ArenaDuelLobby::SendUnratedInvite(wchar_t const *,bool,char)	ArenaDuelLobby	arena	802
+0x12767a0	ArenaDuelLobby::SendInvite(wchar_t const *,short,bool)	ArenaDuelLobby	arena	475
+0x1276980	ArenaDuelLobby::SendUnReady(ArenaCommonLobby::ReadyType)	ArenaDuelLobby	arena	84
+0x12769e0	ArenaDuelLobby::SendReady(ArenaCommonLobby::ReadyType)	ArenaDuelLobby	arena	239
+0x1276ad0	ArenaDuelLobby::SendRoomMode(Data::ArenaMatchingRuleDetailType)	ArenaDuelLobby	arena	113
+0x1276be0	ArenaDuel::upeateEnterLeaveObject(G_EnterLeaveBroadcastPacket const *)	ArenaDuel	arena	2032
+0x12773d0	ArenaDuel::SetSpectateCamera(ArenaDuel::ObserverCameraState)	ArenaDuel	arena	1702
+0x1277aa0	ArenaDuel::SendTagToken(void)	ArenaDuel	arena	110
+0x1277b10	ArenaDuel::UpdateObserverCameraQuater(void)	ArenaDuel	arena	615
+0x1277d80	ArenaDuel::SendWarpRoundCenter(void)	ArenaDuel	arena	144
+0x1277e10	ArenaDuel::SendSpectateReturnToArenaLobby(void)	ArenaDuel	arena	354
+0x1277f80	ArenaDuel::SendReturnToArenaLobby(void)	ArenaDuel	arena	364
+0x12780f0	ArenaDuel::SendGameStartGM(void)	ArenaDuel	arena	87
+0x12781c0	ArenaDuel::ReturnToDuelLobbyReq(void)	ArenaDuel	arena	410
+0x1278360	ArenaDuel::UpdateBattleStateMark(void)	ArenaDuel	arena	365
+0x12784d0	ArenaDuel::setBattleState(unsigned __int64,ArenaDuel::BattleState)	ArenaDuel	arena	122
+0x1278550	ArenaDuel::EnterLeaveObject(G_EnterLeaveBroadcastPacket const *)	ArenaDuel	arena	18
+0x12785e0	ArenaCommonLobby::lastestUpdateRoomInfoPacket(G_LastestArenaLobbyRoomInfoNotifyPacket const *)	ArenaCommonLobby	arena	215
+0x12786c0	ArenaCommonLobby::SendJoin(__int64,short)	ArenaCommonLobby	arena	236
+0x12787b0	ArenaCommonLobby::LeaveRoom(void)	ArenaCommonLobby	arena	116
+0x1278830	ArenaCommonLobby::LeaveLobby(void)	ArenaCommonLobby	arena	150
+0x12788d0	ArenaCommonLobby::SendRoomPassword(short)	ArenaCommonLobby	arena	99
+0x1278940	ArenaCommonLobby::StopArenaLobbyWaiting(void)	ArenaCommonLobby	arena	95
+0x12789a0	ArenaCommonLobby::StopMatched(void)	ArenaCommonLobby	arena	74
+0x12789f0	ArenaCommonLobby::StopMatching(ArenaCommonLobby::MatchCancelReasonType)	ArenaCommonLobby	arena	108
+0x1278a60	ArenaCommonLobby::SendSkipMatch(void)	ArenaCommonLobby	arena	90
+0x1278ac0	ArenaCommonLobby::SendMatchStart(void)	ArenaCommonLobby	arena	141
+0x1278b50	ArenaCommonLobby::SendBanish(wchar_t const *)	ArenaCommonLobby	arena	268
+0x1278c60	ArenaCommonLobby::SendLeaveArenaLobby(void)	ArenaCommonLobby	arena	101
+0x1278cd0	ArenaCommonLobby::SendLobbyWaitingNumber(void)	ArenaCommonLobby	arena	74
+0x127f130	BAccount::OnReconnectInfoGate(void)	BAccount	infogate	109
+0x1281690	ArenaSquarePanel::Start(wchar_t const *)	ArenaSquarePanel	arena	257
+0x12817a0	ArenaLobby::EnterArenaLobby(G_EnterArenaLobbyOkPacket const *)	ArenaLobby	arena	311
+0x12818e0	ArenaDungeonPartyChatRecruit::parsingMessageProperty(std::basic_string<wchar_t,std::char_traits<wchar_t>,std::allocator<wchar_t>> const &,unsigned __int64,short	ArenaDungeonPartyChatRecruit	arena	1207
+0x1281de0	ArenaDungeonPartyBattleMapTooltipPanel::Start(wchar_t const *)	ArenaDungeonPartyBattleMapTooltipPanel	arena	441
+0x1282390	ArenaDungeonLobby::updateCheckMapSelectFree(void)	ArenaDungeonLobby	arena	307
+0x12824d0	ArenaDungeonLobby::SendDuplicatedJob(bool)	ArenaDungeonLobby	arena	23
+0x12824f0	ArenaDungeonLobby::parsingRoomMapList(GR_ArenaLobbyRoomMapOptionListRptBody const *)	ArenaDungeonLobby	arena	495
+0x12826e0	ArenaDungeonLobby::MatchStart(void)	ArenaDungeonLobby	arena	73
+0x1282770	ArenaDungeonLobby::moveReserveRoom(void)	ArenaDungeonLobby	arena	94
+0x12827d0	ArenaDungeonLobby::allMatchStartReady(void)	ArenaDungeonLobby	arena	224
+0x12828b0	ArenaDungeonSinglePlayTimerEventListener::TimerExpired(void)	ArenaDungeonSinglePlayTimerEventListener	arena	198
+0x1282980	ArenaDungeon::EnterZone(G_EnterZoneOkPacket const *)	ArenaDungeon	arena	352
+0x1282ae0	ArenaDuelLobby::moveReserveRoom(void)	ArenaDuelLobby	arena	94
+0x1282b40	ArenaDuelLobby::allMatchStartReadyMessage(void)	ArenaDuelLobby	arena	105
+0x1282bb0	ArenaDuelLobby::SetAllowSpectate(bool)	ArenaDuelLobby	arena	31
+0x1282bd0	ArenaDuelLobby::EnterLobby(void)	ArenaDuelLobby	arena	127
+0x1282c50	ArenaDuel::SetSpectatorBattleState(void)	ArenaDuel	arena	330
+0x1282da0	ArenaDuel::SendGameReady(__int64)	ArenaDuel	arena	341
+0x1282f00	ArenaDuel::roundStart(void)	ArenaDuel	arena	662
+0x12831a0	ArenaDuel::updateBattleInterferenceState(void)	ArenaDuel	arena	389
+0x1283330	ArenaDuel::setBattleCombatSide(unsigned __int64,char)	ArenaDuel	arena	270
+0x1283460	ArenaDuel::OnChangedCreatureProperty(unsigned __int64,short,CreatureProperty const &,CreatureProperty const &)	ArenaDuel	arena	452
+0x12892f0	ArenaDuel::encounterCreature(unsigned __int64)	ArenaDuel	arena	462
+0x12894c0	ArenaDuel::roundEnter(void)	ArenaDuel	arena	390
+0x1289650	ArenaDuel::leave(unsigned __int64)	ArenaDuel	arena	696
+0x1289910	ArenaDuel::enter(unsigned __int64)	ArenaDuel	arena	357
+0x1289a80	ArenaDuel::InSightObject(G_InSightCubePacket const *)	ArenaDuel	arena	95
+0x1289ae0	ArenaDuel::EncounterOutOfSightObject(G_EncounterOutOfSightBroadcastPacket const *)	ArenaDuel	arena	95
+0x1289b40	ArenaDuel::LeaveZone(G_LeaveZonePacket const *)	ArenaDuel	arena	166
+0x1289bf0	ArenaCommonLobby::checkChatAppearance(void)	ArenaCommonLobby	arena	347
+0x1289d50	ArenaCommonLobby::SendGo(void)	ArenaCommonLobby	arena	152
+0x128aa60	BArenaEnterNotificationPanel::ProcessEvent(EngineEvent *)	BArenaEnterNotificationPanel	arena	302
+0x128ab90	ArenaDungeonLobby::setRoomState(ArenaCommonLobby::RoomState)	ArenaDungeonLobby	arena	490
+0x128ad80	ArenaDungeonLobby::reset(void)	ArenaDungeonLobby	arena	584
+0x128afd0	ArenaDungeonLobby::ArenaDungeonLobby(void)	ArenaDungeonLobby	arena	299
+0x128b100	ArenaDuelLobby::setRoomState(ArenaCommonLobby::RoomState)	ArenaDuelLobby	arena	197
+0x128bdb0	ArenaLobby::PrepareEnterArenaLobby(G_PrepareEnterArenaLobbyPacket const *)	ArenaLobby	arena	467
+0x128bf90	ArenaDungeonLobby::PrepareEnterArenaLobby(G_PrepareEnterArenaLobbyPacket const *)	ArenaDungeonLobby	arena	162
+0x128c040	ArenaDuelLobby::PrepareEnterArenaLobby(G_PrepareEnterArenaLobbyPacket const *)	ArenaDuelLobby	arena	185
+0x128c100	ArenaDuelLobby::parsingCreateRoomPacket(G_CreateArenaLobbyRoomNotifyPacket const *)	ArenaDuelLobby	arena	642
+0x128c3c0	ArenaDuelLobby::modifyRoomInfoPacket(G_EnterArenaLobbyOkPacket const *)	ArenaDuelLobby	arena	221
+0x128c950	ArenaDuelLobby::ProcessNetObjectEvent(StructPacket const *)	ArenaDuelLobby	arena	3152
+0x128e550	BArenaEnterNotificationPanel::updatePartyMemberState(void)	BArenaEnterNotificationPanel	arena	745
+0x128e840	BArenaEnterNotificationPanel::updateButton(void)	BArenaEnterNotificationPanel	arena	788
+0x128eb70	BArenaEnterNotificationPanel::Update(void)	BArenaEnterNotificationPanel	arena	2323
+0x128f570	BArenaEnterNotificationPanel::OnChangedCreatureProperty(short,CreatureProperty const &,CreatureProperty const &)	BArenaEnterNotificationPanel	arena	28
+0x128f610	ArenaDungeonLobby::MakeDungeonInfo(Data::InterDungeonListRecordPtr,ArenaDungeonLobby::EnterableDungeonInfo &)	ArenaDungeonLobby	arena	4336
+0x12a3370	BArenaEnterNotificationPanel::Close(bool)	BArenaEnterNotificationPanel	arena	113
+0x12a33f0	BArenaEnterNotificationPanel::Open(uint,WindowNotificationPanel::Type)	BArenaEnterNotificationPanel	arena	261
+0x12a3500	ArenaDungeonPartyBattleMapTooltipPanel::Show(int)	ArenaDungeonPartyBattleMapTooltipPanel	arena	1874
+0x12a3c60	ArenaDungeonMapTooltipPanel::Show(int)	ArenaDungeonMapTooltipPanel	arena	6448
+0x12a5590	ArenaDungeonLobby::makeEnabledDungeonList(void)	ArenaDungeonLobby	arena	794
+0x12a58b0	ArenaDungeonLobby::EnterLobby(void)	ArenaDungeonLobby	arena	209
+0x12a5990	ArenaDuel::roundFinish(void)	ArenaDuel	arena	167
+0x12a5a40	ArenaDuel::ProcessNetObjectEvent(StructPacket const *)	ArenaDuel	arena	656
+0x12a5cd0	ArenaDuel::ProcessActionSubEvent(int,PfStruct const *,BGameObject const *)	ArenaDuel	arena	1489
+0x12a88f0	BArenaEnterNotificationPanel::OnChangePartyMemberState(__int64,char)	BArenaEnterNotificationPanel	arena	227
+0x12a89e0	ArenaLobby::EnterLobby(void)	ArenaLobby	arena	29
+0x12aa740	ActionIcon2::InitializeEnterArenaMaterial(uint,wchar_t const *,wchar_t const *,wchar_t const *)	ActionIcon2	arena	1297
+0x12b2cc0	BArenaEnterNotificationPanel::processEnterArenaFail(int)	BArenaEnterNotificationPanel	arena	1061
+0x12b3120	BArenaEnterNotificationPanel::UpdateKeepSession(bool)	BArenaEnterNotificationPanel	arena	154
+0x12b31c0	BArenaEnterNotificationPanel::CheckAndShowKeepSessionNotification(void)	BArenaEnterNotificationPanel	arena	344
+0x12b3320	BArenaEnterNotificationPanel::OnGaugeComplete(void)	BArenaEnterNotificationPanel	arena	607
+0x12b3580	BArenaEnterNotificationPanel::Start(wchar_t const *)	BArenaEnterNotificationPanel	arena	774
+0x12b3890	BArenaEnterNotificationPanel::ProcessNetObjectEvent(StructPacket const *)	BArenaEnterNotificationPanel	arena	3263
+0x12b7650	BArenaEnterNotificationPanel::onNoClick(void)	BArenaEnterNotificationPanel	arena	140
+0x12b76e0	BArenaEnterNotificationPanel::onYesClick(void)	BArenaEnterNotificationPanel	arena	928
+0x12b7a80	BArenaEnterNotificationPanel::LeaveZone(void)	BArenaEnterNotificationPanel	arena	36
+0x12b9b50	ArenaDungeonPartyChatRecruit::SendRecruitment(ArenaDungeonPartyChatRecruit::Message &,bool)	ArenaDungeonPartyChatRecruit	arena	459
+0x12b9d20	ArenaDungeonPartyChatRecruit::SendAutoRecruitment(void)	ArenaDungeonPartyChatRecruit	arena	72
+0x12b9d70	ArenaDungeonLobby::setMode(ArenaDungeonGameMode)	ArenaDungeonLobby	arena	476
+0x12bbfc0	ArenaDungeonPartyRecruitTimerEventListener::TimerExpired(void)	ArenaDungeonPartyRecruitTimerEventListener	arena	74
+0x12bc010	ArenaDungeonLobby::parsingRoomMatchOption(G_SetArenaLobbyRoomMatchOptionNotifyPacket const *)	ArenaDungeonLobby	arena	155
+0x12bc0b0	ArenaDungeonLobby::parsingCreateRoomPacket(G_CreateArenaLobbyRoomNotifyPacket const *)	ArenaDungeonLobby	arena	1020
+0x12bc500	ArenaDungeonLobby::modifyRoomInfoPacket(G_EnterArenaLobbyOkPacket const *)	ArenaDungeonLobby	arena	201
+0x12bdeb0	ArenaDungeonLobby::ProcessNetObjectEvent(StructPacket const *)	ArenaDungeonLobby	arena	4668
+0x12c3370	ArenaDungeon::ReturnToDungeonLobbyFromPublicRaidReq(Data::ArenaPortalRecordPtr)	ArenaDungeon	arena	315
+0x12c34b0	ArenaDungeon::ReturnToDungeonLobbyReq(char)	ArenaDungeon	arena	334
+0x12c3d30	ArenaSquarePanel::LeaveArenaSuqare(void)	ArenaSquarePanel	arena	84
+0x12c3d90	ArenaSquarePanel::ProcessEvent(EngineEvent *)	ArenaSquarePanel	arena	63
+0x1397bc0	ArenaLobbySort::`dynamic initializer for 'playerName''	ArenaLobbySort	arena	23
+0x1397be0	`dynamic initializer for 'ArenaDuel::_reserveTeleporttoNameGM''	`dynamic initializer for 'ArenaDuel	arena	23
+0x1397c00	`dynamic initializer for 'ArenaDungeon::_reserveTeleportToNameByBattleRoyalPlayer''	`dynamic initializer for 'ArenaDungeon	arena	23
+0x1397c20	`dynamic initializer for 'ArenaDungeonSinglePlayTimerEventListener::_timerId''	`dynamic initializer for 'ArenaDungeonSinglePlayTimerEventListener	arena	12
+0x1397c30	`dynamic initializer for 'ArenaDungeonPartyRecruitTimerEventListener::_timerId''	`dynamic initializer for 'ArenaDungeonPartyRecruitTimerEventListener	arena	12
+0x1398240	`dynamic initializer for 'InGameWeb::_webContentsInfo''	`dynamic initializer for 'InGameWeb	web	36
+0x1398270	`dynamic initializer for 'InGameWeb::_navigationFilters''	`dynamic initializer for 'InGameWeb	web	39
+0x1398970	`dynamic atexit destructor for 'ArenaDungeonSinglePlayTimerEventListener::_timerId''	`dynamic atexit destructor for 'ArenaDungeonSinglePlayTimerEventListener	arena	1
+0x1398980	`dynamic atexit destructor for 'ArenaDungeonPartyRecruitTimerEventListener::_timerId''	`dynamic atexit destructor for 'ArenaDungeonPartyRecruitTimerEventListener	arena	1
+0x1398d80	`dynamic atexit destructor for 'InGameWeb::_webContentsInfo''	`dynamic atexit destructor for 'InGameWeb	web	20
+0x1398da0	`dynamic atexit destructor for 'InGameWeb::_navigationFilters''	`dynamic atexit destructor for 'InGameWeb	web	21
