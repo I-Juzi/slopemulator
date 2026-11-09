@@ -232,6 +232,10 @@ def run(sid, dry, push):
         set_status(row["id"], "blocked")
         print("commit failed:\n" + out)
         return 1
+    # main may have moved while the slice ran (queue or card commits). Rebase first.
+    rc, out = sh(["git", "rebase", "-q", "main"], wt)
+    if rc:
+        sh(["git", "rebase", "--abort"], wt)
     rc, out = sh(["git", "merge", "-q", "--ff-only", branch], REPO)
     if rc:
         set_status(row["id"], "blocked")

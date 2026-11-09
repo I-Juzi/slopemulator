@@ -16,6 +16,7 @@ members = [
     "Program/Platform/StServers/StsCore",
     "Program/Platform/StServers/DbSrv",
     "Program/Platform/StServers/RouteSrv",
+    "Program/Platform/StServers/CliGate",
     "Program/Tools/DataFile/BnsData",
     "Program/Tools/DataFile/BnsModel",
     "Program/Tools/DataFile/BnsSchema",

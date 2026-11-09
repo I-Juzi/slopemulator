@@ -1,0 +1,20 @@
+[package]
+name = "cligate"
+version = "0.1.0"
+edition = "2021"
+publish = false
+description = "Client gate of the StServers port: SRP login through AuthSrv, session state, logout, idle timeout."
+
+[dependencies]
+sts-core = { path = "../StsCore" }
+sts = { path = "../../Sts" }
+base64 = "0.22"
+tokio = { version = "1", features = ["rt-multi-thread", "net", "io-util", "sync", "time", "macros", "signal"] }
+
+[dev-dependencies]
+routesrv = { path = "../RouteSrv" }
+tokio = { version = "1", features = ["rt-multi-thread", "net", "io-util", "sync", "time", "macros", "signal"] }
+
+[[bin]]
+name = "CliGate"
+path = "src/main.rs"
