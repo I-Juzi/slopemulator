@@ -239,10 +239,46 @@ def run(sid, dry, push):
         f"queue: {row['id']} done\n\nCo-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>", "--", "tools/slices/queue.tsv"], REPO)
     sh(["git", "worktree", "remove", "--force", str(wt)], REPO)
     sh(["git", "branch", "-q", "-D", branch], REPO)
+    if row["kind"] == "spec":
+        chain_rust(row)
     if push:
         rc, out = sh(["bash", "tools/push_github.sh"], REPO)
         print(out.strip().splitlines()[-1] if out.strip() else f"push rc={rc}")
     print(f"DONE {row['id']} ({tokens:,} tokens, {sum(r['s'] for r in log)} s)")
+    return 0
+
+
+def chain_rust(row):
+    """After a spec slice: queue its Rust card (<id>-rust) if the card exists."""
+    rid = f"{row['id']}-rust"
+    card = REPO / f"Docs/Plan/cards/{rid}.md"
+    _, rows = load()
+    if not card.is_file() or any(r["id"] == rid for r in rows):
+        return
+    text = card.read_text()
+    crate = re.search(r"cargo (?:test|clippy) -p ([\w-]+)", text)
+    files = re.search(r"^## Files\n(.*?)(?=^## |\Z)", text, re.S | re.M)
+    paths = [m.split()[0] for m in re.findall(r"^- `([^`]+)`", files.group(1), re.M)] if files else []
+    title = re.search(r"^# (.+)$", text, re.M)
+    if not crate or not paths:
+        print(f"chain: {rid} not queued (no crate or Files list in card)")
+        return
+    paths.append("Cargo.lock")
+    t = (title.group(1).split(":", 1)[-1].strip() if title else rid).replace("\t", " ")
+    with QUEUE.open("a") as f:
+        f.write("\t".join([rid, "rust", "sonnet", crate.group(1), ",".join(paths), row["id"], "120", "ready", t]) + "\n")
+    sh(["git", "add", "tools/slices/queue.tsv"], REPO)
+    sh(["git", "-c", "user.name=Claude", "-c", "user.email=noreply@anthropic.com", "commit", "-q", "-m",
+        f"queue: add {rid}\n\nCo-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>", "--", "tools/slices/queue.tsv"], REPO)
+    print(f"chain: queued {rid} ({crate.group(1)})")
+
+
+def loop(push, max_slices):
+    """Run ready slices one by one. Skip past blocked ones. Stop on empty queue or no quota."""
+    for _ in range(max_slices):
+        rc = run(None, False, push)
+        if rc in (2, 75):
+            return rc
     return 0
 
 
@@ -260,11 +296,14 @@ def status():
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("cmd", choices=("status", "run"))
+    ap.add_argument("cmd", choices=("status", "run", "loop"))
     ap.add_argument("id", nargs="?")
     ap.add_argument("--dry-run", action="store_true")
     ap.add_argument("--no-push", action="store_true")
+    ap.add_argument("--max", type=int, default=8, help="loop: maximum slices")
     a = ap.parse_args()
+    if a.cmd == "loop":
+        return loop(not a.no_push, a.max)
     return status() if a.cmd == "status" else run(a.id, a.dry_run, not a.no_push)
 
 
