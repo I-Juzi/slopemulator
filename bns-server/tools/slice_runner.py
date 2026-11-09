@@ -40,6 +40,9 @@ ALLOW = {
 RULES = {"rust": REPO / "tools/slices/builder-rules.md", "spec": REPO / "tools/slices/spec-rules.md"}
 BAD_EXT = re.compile(r"\.(exe|dll|pdb|i64|idb|bin|dat|pem|key|blob|mdf|ldf|rar|pfx|cer|crt)$", re.I)
 TAIL = 40
+# Extra gate commands per crate (cross builds).
+EXTRA_GATE = {"clientdbg": [["cargo", "build", "-q", "-p", "clientdbg", "--release", "--target", "i686-pc-windows-gnu"],
+                           ["bash", "-c", "i686-w64-mingw32-objdump -p target/i686-pc-windows-gnu/release/clientdbg.dll | grep -q GPluginInfo"]]}
 LIMIT_5H, LIMIT_7D = 90, 99   # cswap rule (memory: cswap-account-switching)
 
 
@@ -169,7 +172,8 @@ def gate(row, wt):
     if row["kind"] == "rust":
         c = row["crate"]
         for cmd in (["cargo", "fmt", "-p", c, "--", "--check"], ["cargo", "test", "-q", "-p", c],
-                    ["cargo", "clippy", "-q", "-p", c, "--all-targets", "--", "-D", "warnings"]):
+                    ["cargo", "clippy", "-q", "-p", c, "--all-targets", "--", "-D", "warnings"],
+                    *EXTRA_GATE.get(c, [])):
             rc, out = sh(cmd, wt)
             if rc:
                 return f"$ {' '.join(cmd)}\n" + "\n".join(out.splitlines()[-TAIL:])
