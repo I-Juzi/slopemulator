@@ -1,0 +1,172 @@
+addr_381	kind	name_381	name_gm_419	section
+0x4014b0	func	int __cdecl EngineUnitToServerUnit(float)		
+0x4022c0	func	EOWorldInfo::EOWorldInfo(void)		
+0x4a3b40	func	G_MoveItemListReqPacket::~G_MoveItemListReqPacket(void)		
+0x4a5e90	func	HyperMoveType::HyperMoveType(void)		
+0x4d5c40	func	G_MoveReqPacket::~G_MoveReqPacket(void)		
+0x4d6c70	func	void BPTPlayer::StartHyperMove(int)		
+0x4d6c90	func	void BPTPlayer::EndHyperMove(void)		
+0x50cf00	func	void MoveListMaker::SetHandle(class EInterface::Handle)		
+0x514000	func	void std::vector<class EOWorldInfo,class std::allocator<class EOWorldInfo>>::push_back(class EOWorldInfo const &)		
+0x5140a0	func	void std::vector<class EOWorldInfo,class std::allocator<class EOWorldInfo>>::clear(void)		
+0x515bc0	func	class std::_Vector_iterator<class EOWorldInfo,class std::allocator<class EOWorldInfo>> std::vector<class EOWorldInfo,class std::allocator<class EOWorl		
+0x515c70	func	class std::_Vector_iterator<class EOWorldInfo,class std::allocator<class EOWorldInfo>> std::vector<class EOWorldInfo,class std::allocator<class EOWorl		
+0x515cd0	func	class EOWorldInfo * std::vector<class EOWorldInfo,class std::allocator<class EOWorldInfo>>::_Ufill(class EOWorldInfo *,unsigned int,class EOWorldInfo 		
+0x517810	func	void std::vector<class EOWorldInfo,class std::allocator<class EOWorldInfo>>::_Insert_n(class std::_Vector_iterator<class EOWorldInfo,class std::alloca		
+0x51b660	func	class EOWorldInfo * std::vector<class EOWorldInfo,class std::allocator<class EOWorldInfo>>::_Umove<class EOWorldInfo *>(class EOWorldInfo *,class EOWo		
+0x51b690	func	void __cdecl std::fill<class EOWorldInfo *,class EOWorldInfo>(class EOWorldInfo *,class EOWorldInfo *,class EOWorldInfo const &)		
+0x51c3f0	func	class EOWorldInfo * __cdecl std::_Copy_opt<class EOWorldInfo *,class EOWorldInfo *>(class EOWorldInfo *,class EOWorldInfo *,class EOWorldInfo *,struct		
+0x51c440	func	void __cdecl std::_Uninit_fill_n<class EOWorldInfo *,unsigned int,class EOWorldInfo,class std::allocator<class EOWorldInfo>>(class EOWorldInfo *,unsig		
+0x51e110	func	class EOWorldInfo * __cdecl std::_Copy_backward_opt<class EOWorldInfo *,class EOWorldInfo *>(class EOWorldInfo *,class EOWorldInfo *,class EOWorldInfo		
+0x51fbe0	func	class EOWorldInfo * __cdecl std::_Uninit_copy<class EOWorldInfo *,class EOWorldInfo *,class std::allocator<class EOWorldInfo>>(class EOWorldInfo *,cla		
+0x55e010	func	bool std::vector<class EOWorldInfo,class std::allocator<class EOWorldInfo>>::empty(void)const		
+0x55e050	func	class EOWorldInfo & std::vector<class EOWorldInfo,class std::allocator<class EOWorldInfo>>::back(void)		
+0x749550	func	World::ProcessNetObjectEvent		§3.4
+0x7616a0	func	void BUiWorld::SprintEnd(float,float)		
+0x7616c0	func	void BUiWorld::SprintStart(float,float)		
+0x780dc0	func	void BUiWorld::SprintInitialize(float)		
+0x7dd8c0	func	void UiStateGame::UpdateSprintVisible(void)		
+0x7e86b0	func	void UiStateGame::SprintEnd(float,float)		
+0x7e86d0	func	void UiStateGame::SprintStart(float,float)		
+0x7f6850	func	bool Tracker::getWorldInfo(unsigned __int64,class EOWorldInfo &)		
+0x801fc0	func	void UiStateGame::SprintInitialize(float)		
+0x809370	func	void Tracker::addTrail(class Vector,class std::vector<class EOWorldInfo,class std::allocator<class EOWorldInfo>> &,bool)		
+0x82f020	func	void Tracker::Follow(float,class std::vector<class EOWorldInfo,class std::allocator<class EOWorldInfo>> &,bool)		
+0x904e80	func	void SprintPanel::StopCombatSprintCountDown(void)		
+0x904ec0	func	void SprintPanel::StartCombatSprintCountDown(float)		
+0x904f20	func	void SprintPanel::readSprintImage(void)		
+0x905000	func	void SprintPanel::startCasting(float,float,bool)		
+0x905130	func	void SprintPanel::SprintEnd(float,float)		
+0x9051b0	func	void SprintPanel::SprintStart(float,float)		
+0x90a390	func	void SprintPanel::LeaveZone(void)		
+0x9105a0	func	void SprintPanel::showSprintValue(bool)		
+0x9107a0	func	void SprintPanel::ReadOption(void)		
+0x91d770	func	void SprintPanel::setCombatSprintCountDownValue(int)		
+0x91d8b0	func	void SprintPanel::setSprintValue(int,int)		
+0x91da20	func	void SprintPanel::updateLeftTime(int)		
+0x91dac0	func	void SprintPanel::UpdateWidget(void)		
+0x91db20	func	void SprintPanel::endCasting(void)		
+0x91db80	func	void SprintPanel::SetSprintBlock(bool)		
+0x91dca0	func	void SprintPanel::ChangeSprintMode(enum SprintPanel::SprintType,float,float)		
+0x91de20	func	bool SprintPanel::ProcessEvent(class EngineEvent *)		
+0x91e070	func	SprintPanel::SprintPanel(void)		
+0x93b6a0	func	void SprintPanel::Start(wchar_t const *)		
+0x999050	func	void ReplayCommonPanel::setSprintBlock(bool)		
+0x9d2550	func	bool ReplayRecorder::addSprintCommand(float,float,int)		
+0x9d26d0	func	void ReplayRecorder::SprintEnd(float,float)		
+0x9d26f0	func	void ReplayRecorder::SprintStart(float,float)		
+0x9dd7e0	func	void ReplayRecorder::SetSprintBlockState(bool)		
+0xa20e50	func	bool BPTPlayerSummoned::IsGlide(void)		
+0xa25ba0	func	void BPTPlayerSummoned::StopGlide(void)		
+0xa2a8b0	func	bool PTTakgi::CreateTakgi(class EOWorldInfo &)		
+0xa4c870	func	void BPTPlayerSummoned::SyncRuleMoveLocation(void)		
+0xa4ca10	func	void BPTPlayerSummoned::SetMoveDest(class EOWorldInfo &,char)		
+0xaa0e50	func	vslot 72	BPTPlayer::ClientSetYaw	§3.6
+0xaa0f30	func	void BPTPlayer::StopGlide(void)		
+0xaa1010	func	sub_AA1010	BPTPlayer::OnLand	§3.5
+0xaa10f0	func	vslot 150	BPTPlayer::BlockRotate	§3.5
+0xaa1aa0	func	bool BPTCreature::IsGlide(void)		
+0xaa2d70	func	void BPTPlayer::SetCanCombatHyperMove(bool)		
+0xaa2e20	func	vslot 71	BPTPlayer::ServerSetYaw	§3.6
+0xaa33a0	func	sub_AA33A0	BPTPlayer::walkFail	§3.5
+0xaa347c	data	walkFail jump table		§3.5
+0xaa3494	data	walkFail index bytes		§3.5
+0xaa7010	func	void BPTCreature::SetWorldInfo(void)		
+0xaa71c0	func	void BPTCreature::MoveTurnBack(float,float,float,int)		
+0xaaa110	func	BPTPlayer::SyncRuleMoveLocation		§3.6
+0xaaa270	func	vslot 76	BPTPlayer::MoveTurnBack	§3.6
+0xaaa2c0	func	vslot 75	BPTPlayer::MoveMount	§3.6
+0xaaa3a0	func	vslot 74	BPTPlayer::MoveDash	§3.6
+0xaaa440	func	vslot 73	BPTPlayer::MoveKnockBack	§3.6
+0xaac290	func	bool PTFishing::createFishingFloatHandle(class EOWorldInfo &)		
+0xab0950	func	void BPTPlayer::setCombatHyperMoveCoolTimeEvent(void)		
+0xab23c0	func	vslot 79	BPTPlayer::Warp	§3.6
+0xac9d20	func	vslot 78	BPTPlayer::AirDash	§3.6
+0xae1cf0	func	void SetCombatHyperMoveCoolTimeTimerListener::TimerExpired(void)		
+0xaf2510	func	void BPTPlayer::RequestCombatHyperMove(void)		
+0xafb350	func	vslot 161	BPTPlayer::SetIdleAnim	§3.5
+0xafb560	func	sub_AFB560	BPTPlayer::SetWorldInfo (vslot 81)	§3.2
+0xafb780	func	BPTPlayer vslot 70	BPTPlayer::Move	§3.6
+0xaff1c0	func	void BPTPlayer::resetMoveState(void)		
+0xaff4e0	func	void BPTPlayer::setMoveByAuto(bool)		
+0xb15dd0	func	BPTPlayer::ProcessNetObjectEvent		§3.4 §3.5
+0xb16830	func	vslot 77	BPTPlayer::MoveStop ?	§3.6
+0xb2a2f0	func	void BPTPlayer::setMoveByKeyboard(bool)		
+0xb36040	func	BPTPlayer::Tick		§4.1
+0xc57220	func	bool MoveListMaker::isValidArea(float,float)		
+0xc57270	func	void MoveListMaker::ChangeMoveKey(bool,short)		
+0xc572d0	func	void MoveListMaker::EnterZone(void)		
+0xc5ac10	func	void MoveTypeMaker::SetMoveType(struct MoveTypeData *,int &,char,int,char,float,class EOWorldInfo)		
+0xc5ad00	func	void MoveListMaker::summonedWarp(float,float,float,int,bool)		
+0xc5ae90	func	void MoveListMaker::playerWarp(float,float,float,int,bool)		
+0xc5aff0	func	void MoveListMaker::setSummonedMove(float,float,float,int,bool)		
+0xc5b180	func	void MoveListMaker::setPlayerMove(float,float,float,int,bool)		
+0xc5b340	func	void MoveListMaker::checkSummonedMove(void)		
+0xc5b3e0	func	void MoveListMaker::checkRotate(void)		
+0xc5b580	func	void MoveListMaker::ClearMoveList(void)		
+0xc5b7f0	func	class Vector MoveListMaker::GetLastPosition(void)const		
+0xc5b840	func	void MoveListMaker::Warp(float,float,float,int,bool)		
+0xc5b890	func	void MoveListMaker::SyncServerMove(float,float,float,int,bool)		
+0xc5b8f0	func	void MoveListMaker::SetArea(short,short,short,short)		
+0xc60da0	func	enum MoveTypeMaker::Result MoveCombatFall::Get(struct MoveTypeData *,int &,float &,char,float,float,class EOWorldInfo)		
+0xc613a0	func	enum MoveTypeMaker::Result MoveCombatSwim::Get(struct MoveTypeData *,int &,float &,char,float,float,class EOWorldInfo)		
+0xc61730	func	MoveListMaker::MoveListMaker(char)		
+0xc74470	func	void MoveListMaker::makeCell(float,float,float)		
+0xc88ea0	func	void MoveListMaker::ResetBindDungeonQuest(void)		
+0xc99130	func	void MoveListMaker::getPortalDesc(int,int)		
+0xc99a00	func	void MoveListMaker::sendCombatHyperMovePacket(void)		
+0xc99a70	func	void MoveListMaker::ReqAcquireQuest(void)		
+0xc99ad0	func	void MoveListMaker::ReqTurnBackFromPortalAndDisposeQuest(void)		
+0xc99c20	func	void MoveListMaker::ReqTurnBackFromPortal(void)		
+0xcb1130	func	enum MoveTypeMaker::Result MoveSprintJumpEnd::Get(struct MoveTypeData *,int &,float &,char,float,float,class EOWorldInfo)		
+0xcb26d0	func	void MoveListMaker::checkMove(void)		
+0xcc4ce0	func	void MoveListMaker::sendWalkPacket(__int64,bool,bool)		
+0xcc5300	func	void MoveListMaker::SetSummonedForceMove(int,float,float,float,int,int,int)		
+0xcc5510	func	void MoveListMaker::ReqEnterPortal(int)		
+0xcc55b0	func	sub_CC55B0	MoveListMaker flush with reason ?	§2.2
+0xcc7f30	func	void MoveListMaker::summonedTick(float)		
+0xcc82b0	func	void MoveListMaker::playerTick(float)		
+0xcc93d0	func	void MoveListMaker::Tick(float)		
+0xe31ed0	func	void HyperMove::acquireHyperMove(char)		
+0xe32210	func	void HyperMove::Ready(void)		
+0xe32220	func	HyperMove::~HyperMove(void)		
+0xe82b90	func	void HyperMove::Tick(float)	FALSE 381 name; real tick is 0xe94110	
+0xe93ee0	func	void HyperMove::End(bool)		
+0xe93fc0	func	void HyperMove::Start(char)		
+0xe94110	func	sub_E94110	HyperMove::Tick (real)	§4.1
+0xe9cd90	func	void HyperMove::updateSprintBlockState(void)		
+0xe9ce40	func	void HyperMove::set(int,char,char,bool)		
+0xe9d1c0	func	void HyperMove::Block(bool)		
+0xe9d410	func	void HyperMove::Set(bool)		
+0xe9d520	func	void HyperMove::UpdateSkill(int,bool)		
+0xea1270	func	void HyperMove::UpdateMax(void)		
+0xee0640	func	void Glide::BlockGlide(bool)		
+0xee06f0	func	Glide::~Glide(void)		
+0xee0700	func	Glide::Glide(void)		
+0xee1090	func	HandleWarpToPosFailPacket		§4.5
+0xee10a0	func	HandleTurnFailPacket		§2.4
+0xef16b0	func	HandleAirDashFailPacket		§4.5
+0xef1770	func	HandleChangeMoveKeyPacket		§3.4
+0xef1870	func	HandleMoveFailPacket		§3.5
+0xf43c60	func	void Glide::Set(void)		
+0xf7c100	func	class EInterface::Handle __cdecl CreateObjectEngineHandle(enum EngineObjType const &,class EOWorldInfo const &,bool,bool,wchar_t const *,...)		
+0x109ecb0	func	bool __cdecl ContentsControl::IsEnableSprintKey(void)		
+0x1118750	func	UseAction (G_AirDashReq 1219)		§4.5
+0x11aef50	func	void NewCharEquipWindowPanel::showSprintTooltip(unsigned int)		
+0x1236420	func	void ArenaDungeonLobby::setSlotPos(class EOWorldInfo &,char)		
+0x12367d0	func	void ArenaDuelLobby::setSlotPos(class EOWorldInfo &,char)		
+0x12451c0	func	void BAchievementProgress::NotifyPlayerMove(class EOWorldInfo)		
+0x12459f0	func	void BAchievementManager::NotifyPlayerMove(class EOWorldInfo)		
+0x14e4fa0	string	Msg.Teleport.Fail.Sprint		§4.5
+0x14e4fd4	string	Msg.Teleport.Fail.Swim		§4.5
+0x14e5004	string	Msg.Teleport.Fail.Move		§4.5
+0x15e97dc	vtable	const MoveSprintJumpEnd::`vftable'		
+0x16241a0	vtable	BPTPlayer vtable (381)	??_7BPTPlayer@@6BBPTControlledCreature@@@ (GM 0x1bb3750)	§3.6
+0x1641608	string	Sprint (SprintPanel)		§4.2
+0x1641618	string	SprintBlock (SprintPanel)		§4.2
+0x165b998	vtable	const SprintPanel::`vftable'		
+0x16b03ac	string	Msg.EnterZone.Sprint.Infinity		§4.5
+0x1871b60	data	flt_1871B60 = 850.0 trace range		§3.2
+0x197bb18	data	YAW_TO_DEGREE_CONVERTER		§1.5
+0x197bb1c	data	DEGREE_TO_YAW_CONVERTER		§1.5
+0x197be20	data	YAW_TO_DEGREE_CONVERTER_0		
