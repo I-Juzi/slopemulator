@@ -1,0 +1,24 @@
+id	id_hex	name	direction	sender_381	reply_handler_381
+1001	0x3e9	Sts/Connect	C>S req	0xc08300	none (txn 0, not recorded)
+1002	0x3ea	Sts/Ping	C>S req	0xc067e0 (vt12, 30 s keepalive)	no case in 0xc25140
+1201	0x4b1	COMMON_PRES_USER_INFO	S>C notify	-	0xbd4320 -> 0xbd3d10
+1501	0x5dd	Slot/ListSlots	C>S req	0xc068c0, 0xc06a50, 0xc06be0	OK 0xc1df90 / fail 0xbce0b0
+1601	0x641	Gate custom message	C>S req	0xc05fe0	OK 0xbdcf10 / fail 0xbdceb0
+3101	0xc1d	Auth/LoginStart	C>S req	0xc076d0	OK 0xc16af0 -> 3102 / fail 0xc21c10
+3102	0xc1e	Auth/KeyData	C>S req	0xc074b0	OK 0xc16ad0 -> 3103 / fail 0xc21c10
+3103	0xc1f	Auth/LoginFinish	C>S req	0xc073a0	OK 0xc24d80 / fail 0xc21c10
+3105	0xc21	Auth/Logout	C>S req	0xc075b0	OK 0xbdd2b0 / fail 0xbce0d0
+3106	0xc22	GameAccount/ListMyAccounts	C>S req	0xc06d60	OK 0xc16990 -> 3107 / fail 0xbce0b0
+3107	0xc23	Auth/RequestGameToken	C>S req	0xc063c0	OK 0xbf2c70 / fail 0xbce030
+3110	0xc26	Auth/RequestToken	C>S req	0xc24710	OK 0xc24340 / fail 0xc24130
+3111	0xc27	Auth/LoginTokenStart	C>S req	0xc08200	OK 0xc16b40 -> 3112 / fail 0xc21c10
+3112	0xc28	Auth/TokenKeyData	C>S req	0xc07890	OK 0xc16b10 -> 3103 / fail 0xc21c10
+3113	0xc29	Auth/VerifyMobiOtp	C>S req	0xc07190	OK 0xc16a80 / fail 0xbdd440
+3114	0xc2a	Auth/GetMyUserInfo	C>S req	0xc072a0	OK 0xbcdf70
+3116	0xc2c	Auth/VerifySecondaryAuth	C>S req	0xc07080	OK 0xc16a30 / fail 0xbdd2d0
+3117	0xc2d	Auth/GetSecurityCardCodeIndex	C>S req	0xc06e60	OK 0xbd3e10 / fail 0xbd3dd0
+3118	0xc2e	Auth/RegisterSecondaryPassword	C>S req	0xc06f70	no case found
+3201	0xc81	CLI_PRES_LOGOUT_USER	S>C req, C>S reply	0xc06110 (reply, msgType 2)	request 0xc08430
+3202	0xc82	COMMON_PRES_MESSAGE	C>S req	0xc064d0	no case found
+3501	0xdad	CLI_SLOT_SET_DATA	C>S req	0xc26f90	no case found
+3761	0xeb1	CLI_FRIEND_PROPOSAL_ACCEPTED	S>C notify	-	0xbd4320 -> 0xbce060

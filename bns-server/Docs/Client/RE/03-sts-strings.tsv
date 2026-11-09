@@ -1,0 +1,41 @@
+address	text	xref	function
+0x15f2674	./StsMsgCli32.dll	0xbc90ce	?Create@NPStsMsgLib@@QAE_NPBVNPLibLog@@@Z
+0x15f2698	CreateStsMsg	0xbc90a0	NPStsMsgLib::Create (ASCII, GetProcAddress)
+0x15f26a8	CleanUpStsMsg	0xbc90a0	NPStsMsgLib::Create (ASCII, GetProcAddress)
+0x15f26c8	[np-reconnect] OnError reason:%d, req:%d, errorCode:%d, networkErrorCode:%d	0xc22400	?OnError@NPSession@@EAEXHHH@Z
+0x15f2760	E:\DailyBuild02\Client-Common-0.0.381\depot\Branch\381NC\Program\ue4\BNSR\Source\ClientEXE\Private\NPSession.cpp	0xc21fe6,0xc22129,0xc22200	?OnConnect@NPSession@@EAEXXZ;?ReceiveLoginFailure@NPSession@@AAE_NPBVPacket@@@Z;?SendWebLoginRequest@NPSession@@QAE_NXZ
+0x15f2848	NPSession Detect Disconnect : req:%d, errorCode:%d, networkErrCode:%d, pcName:%s	0xc224af	?OnError@NPSession@@EAEXHHH@Z
+0x15f28f0	[np-reconnect] failed to send initial connect message while reconnecting	0xc221f4	?OnConnect@NPSession@@EAEXXZ
+0x15f2988	[np-reconnect] failed to send Auth/LoginTokenStart while reconnecting	0xc2225f	?OnConnect@NPSession@@EAEXXZ
+0x15f2a18	[np-reconnect] OnClose reason:%d	0xc43ecf	?OnClose@NPSession@@EAEXH@Z
+0x15f2a5c	accountId=	0xbc8da0	makeInnovaAuthnTokenStr
+0x15f2a78	address=	0xbc8da0	makeInnovaAuthnTokenStr
+0x15f2a94	tencent	0xc07890	SendWebLoginTokenKeyData
+0x15f2aa0	[np-reconnect] failed reconnecting to ip:%s, port:%d	0xc2211d	?SendWebLoginRequest@NPSession@@QAE_NXZ
+0x15f2b0c	customize	0xc06a88,0xc1e00e	?ReceiveCharacterListSuccess@NPSession@@AAE_NPBVPacket@@@Z;sub_C06A50
+0x15f2b20	activity	0xc068fe,0xc1e21a	?ReceiveCharacterListSuccess@NPSession@@AAE_NPBVPacket@@@Z;sub_C068C0
+0x15f2b34	<FriendName>	0xc065f8	?SendPresenceMessageWhisper@NPSession@@QAE_NU_GUID@@PB_W@Z
+0x15f2b50	</FriendName>	0xc0662c	?SendPresenceMessageWhisper@NPSession@@QAE_NU_GUID@@PB_W@Z
+0x15f2b6c	<Msg>	0xc0663b	?SendPresenceMessageWhisper@NPSession@@QAE_NU_GUID@@PB_W@Z
+0x15f2b78	</Msg>	0xc06659	?SendPresenceMessageWhisper@NPSession@@QAE_NU_GUID@@PB_W@Z
+0x15f2b88	[np-reconnect] reconnected. retry count:%d	0xc24dfb	?ReceiveLoginFinishSuccess@NPSession@@AAE_NPBVPacket@@@Z
+0x15f2be0	UI.LoginOtp.OtpExpired.Reserve	0xc24ea2	?ReceiveLoginFinishSuccess@NPSession@@AAE_NPBVPacket@@@Z
+0x15f2c20	ErrAccountNotFound	0xc21ca8	?ReceiveLoginFailure@NPSession@@AAE_NPBVPacket@@@Z
+0x15f2c48	ErrBadParam	0xc21cec	?ReceiveLoginFailure@NPSession@@AAE_NPBVPacket@@@Z
+0x15f2c60	ErrBadPasswd	0xc21d36	?ReceiveLoginFailure@NPSession@@AAE_NPBVPacket@@@Z
+0x15f2c7c	ErrDoubleLogin	0xc21d99	?ReceiveLoginFailure@NPSession@@AAE_NPBVPacket@@@Z
+0x15f2c9c	ErrAccsNotAllowedIp	0xc21ddc	?ReceiveLoginFailure@NPSession@@AAE_NPBVPacket@@@Z
+0x15f2cc8	UI.LoginOtp.OtpExpired.ExitGame.Confirm	0xc21ec2	?ReceiveLoginFailure@NPSession@@AAE_NPBVPacket@@@Z
+0x15f2d18	[np-reconnect] failed to reconnect NP on retry count:%d. cmd:%d transaction:%d, msgType:%d, error:%d, reason:%s	0xc21fda	?ReceiveLoginFailure@NPSession@@AAE_NPBVPacket@@@Z
+0x15f2df8	<o k='32767' v='1'/>	0xc16827,0xc1e15c	slot data (1501 replies)
+0x15f2e10	protocol	0xbdcf73	?ReceiveCustomMessageSuccess@NPSession@@AAE_NPBVPacket@@@Z
+0x15f2e24	command	0x14422d0,0x1488130,0x194ebc4	?
+0x15f2e34	result	0x5b569d,0x5b59a7,0xbdcfb0	?ReceiveCustomMessageSuccess@NPSession@@AAE_NPBVPacket@@@Z;?loadConditionAndResult@ContextScriptLoader@@AAE_NAAULoaderC
+0x15f2e6c	/game/sso?	0x739119,0xc244b5	?ReceiveTokenSuccess@NPSession@@AAE_NPBVPacket@@@Z;sub_738F80
+0x15f2e84	/login/sso?	0x739112,0xc244ae	?ReceiveTokenSuccess@NPSession@@AAE_NPBVPacket@@@Z;sub_738F80
+0x15f2e9c	app_id	0x738826,0x738ce5,0x738da2	sub_738760;sub_738BF0
+0x15f2eac	&target_app_id	0x73885c,0x738d1b,0x739161	sub_738760;sub_738BF0;sub_738F80
+0x15f2ecc	&authn_token=	0x739197,0xc2451e	?ReceiveTokenSuccess@NPSession@@AAE_NPBVPacket@@@Z;sub_738F80
+0x15f2ee8	&return_url=	0x738892,0x738d51,0x7391ba	sub_738760;sub_738BF0;sub_738F80
+0x15f2f08	UI.Confirm.FailedToCharge.NullAuthnToken	0xc245cc	?ReceiveTokenSuccess@NPSession@@AAE_NPBVPacket@@@Z
+0x15f2f60	UI.Confirm.FailedToCharge.FailedToReceiveToken	0xc24220	?ReceiveTokenFailure@NPSession@@AAE_NPBVPacket@@@Z
