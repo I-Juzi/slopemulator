@@ -80,6 +80,18 @@ Session delete: sub_1400F3F40 (unlink and free).
 | 5 | Store the row data on the session (sub_1400F57B0, sub_1400F5630) ❓. |
 | 6 | Reply (line 4189): `<Reply><Session>GUID</Session><UserId>GUID</UserId><UserName>row UserName</UserName><UserCenter>row UserCenter</UserCenter><KeyData>…</KeyData></Reply>` (KeyData writer sub_1400F72D0). |
 
+### 3.3 UserId in the STS `t` header
+
+| Item | Fact | Source |
+| --- | --- | --- |
+| `t` parse | Form 2: GUID text, then optional `;params`. The GUID is the UserId. Form 3: text `kind:value`. Then UserId = zero and the text is kept (+24, value after `:` at +32). | sub_1401191A0 |
+| Check | `t` parse fails → ErrBadParam 10, module 5, line 166 `AuMain: invalid to header`. UserId zero → ErrBadParam 10, module 5, line 170 `AuMain: missing userId`. | sub_1400D7710 |
+| Result | AuthSrv does not resolve a name to a UserId itself. Each request (also LoginStart) must arrive with a GUID `t`. | sub_1400D7710 |
+| Resolver table | At start AuthSrv registers, for protocol `Auth`: `login` → `$Name.GetIdByLoginName`, (one more kind, name not read) → `$Name.GetIdByUserName`, `gacct` → `$GameAccount.GetUserIdByAcct`, `userid` → `$Name.GetIdByUserId`. Each has the value 3002 and a flag (4, or 0 for `userid`). | sub_1400D7840, sub_140157E70 |
+| Table use | The table is joined into one comma-separated text (sub_140156870) and used by the STS service code (sub_14014F470). | sub_140156870 |
+
+So a caller sends LoginStart with `t=login:<LoginName>`, and a component before AuthSrv (the router side) calls `Name.GetIdByLoginName` and changes `t` to the GUID form ❓. The resolver is not in AuthSrv. The meaning of 3002 and of the flag is not decoded ❓. For the Rust port: the handler gets the UserId as an input (see the Rust card). A test resolver can map LoginName to UserId.
+
 ## 4. SRP-6a server (`CSrpServer`, vtable 0x1401BA5C8)
 
 ### 4.1 Group, hash and number format
@@ -156,3 +168,136 @@ must have the same K.
 | 8 | Step OK → reply code 0, module 6, line 7500: `<Reply>[<KeyData>Base64</KeyData>][<Complete/><SessionKey>Base64 K</SessionKey>]</Reply>`. KeyData only if out data is not empty. Complete and SessionKey only when the step completes. The session stays for LoginFinish. Log `LOGIN, <login name>` when complete. |
 
 CliGate uses `SessionKey` for the RC4 filter (11 §4).
+
+## 6. LoginFinish (id 23 and id 27, sub_1400E6380)
+
+| Step | Fact | Source |
+| --- | --- | --- |
+| 1 | Find the session by request `<Session>`. | sub_1400E6380 |
+| 2 | Path in scope: no SecondaryAuthSrv (dword_140283180 = 0) and no PC-cafe data. Then call the finish routine and delete the session. | sub_1400E6380, sub_1400F4250, sub_1400F3F40 |
+| 3 | Reply elements, in this order: `LoginName`, `UserId`, `UserName`, `UserCenter`, `UserStatus`, `Roles`, `PcCafe/PcCafeCode` (only if set), `PasswordUntil` (only if set), `ExternalAccounts`. | sub_1400F4250 |
+
+The error code when the session is not found is not verified for this handler ❓. KeyData (§5) uses 3101 for the same case.
+
+## 7. Tokens
+
+### 7.1 Token lifetime (config, sub_1400D6CF0)
+
+| INI section | Key | Default | Stored as | Source |
+| --- | --- | --- | --- | --- |
+| `TokenTimeout` | `App` | 1800 s | 1 800 000 ms (dword_140283870, read by sub_1400D68D0) | sub_1400D6CF0 |
+| `TokenTimeout` | `Game` | 300 s | 300 000 ms (dword_140283874) | sub_1400D6CF0 |
+| `TokenType` | `App`, `Game` | 0 | dword_140283890, dword_140283894 ❓ (use not decoded) | sub_1400D6CF0 |
+
+### 7.2 RequestToken (id 32, sub_1400E8190)
+
+The handler gets the user record (arg 1) and the UserId (arg 2). The caller finds the user record ❓ (not decoded).
+
+| Step | Fact | Source |
+| --- | --- | --- |
+| 1 | User record +164 (UserStatus) must be 1. Else ErrPermission 49 `Invalid UserStatus`. | sub_1400E8190 |
+| 2 | Request AppId (request +792, 16 bytes) must not be all zero. Else ErrBadParam 10 `missing appId`. | sub_1400E8190 |
+| 3 | Make the app token (§7.3) with AppId, request +304 (issuer AppId ❓), request +96 (client address, IPv4), request +832 (text ❓). Fail → code 4 `app token create failed`. | sub_1400E8190, sub_1400E07A0 |
+| 4 | Token text = `<UserId GUID text>:<token GUID text>` (format `%s:%s`, max 75 bytes). GUID text as §8.1. | sub_1400E8190, sub_140128270 |
+| 5 | Reply code 0 (line 8114): `<Reply><AuthnToken>token text</AuthnToken></Reply>`. | sub_1400E8190 |
+
+### 7.3 App token store (`CAppToken`, 0x1B0 bytes)
+
+| Step | Fact | Source |
+| --- | --- | --- |
+| 1 | Each user record has a list of app tokens (head at user +296, link offset at user +280). | sub_1400E07A0 |
+| 2 | If a token with the same AppId (token +308) exists: log kind 3 (`OVERWRITTEN`), unlink it and delete it. There is one token for each (user, AppId). | sub_1400E07A0 |
+| 3 | Token id = new GUID. If GUID make fails: 16 random bytes (as §2). | sub_1400E07A0 (sub_140103E20, sub_14010DBB0) |
+| 4 | Make the record, add it to the user list, start a timer with the app lifetime (§7.1), log kind 0 (`CREATE`). | sub_1400E07A0, sub_140144EB0 |
+
+Record fields (sub_1400D95B0):
+
+| Offset | Field |
+| --- | --- |
+| +32 | UserId (16 bytes) |
+| +48 | token GUID as text (max 257 bytes) |
+| +308 | AppId (16 bytes) |
+| +324 | issuer address text (max 55 bytes) |
+| +380 | expiry tick = `timeGetTime()` + app lifetime ms |
+| +384 | `TokenInfo` sub-object |
+| +392 | value from request +304 (16 bytes) |
+| +408 | copy of request +832 text |
+
+Request fields for tokens (parser sub_140110FC0):
+
+| Request offset | Element | Note |
+| --- | --- | --- |
+| +760 | `AccountAlias` | text |
+| +792 | `AppId` | GUID. If it is not given or is zero, the parser copies request +304 into it. | 
+| +984 | `GameCode` | text |
+
+### 7.4 RequestGameToken (id 30, sub_1400E7F50)
+
+| Step | Fact | Source |
+| --- | --- | --- |
+| 1 | User record +164 (UserStatus) must be 1. Else ErrPermission 49 `invalid user status`. | sub_1400E7F50 |
+| 2 | `GameCode` (+984) and `AccountAlias` (+760) are both required. Else ErrBadParam 10 `missing parameter`. | sub_1400E7F50 |
+| 3 | Make the STS request `GameAccount/ListAccounts` with the UserId (user +12) and body `<Request><GameCode>…</GameCode></Request>`. | sub_1400E7F50, sub_140114360 |
+| 4 | Make a `CAuTxn` (0x160 bytes, state 19). Copy GameCode (max 16 bytes) to txn +104, AccountAlias (max 65 bytes) to txn +120, client address text (max 55 bytes) to txn +185. Txn +312 = request +832 text. | sub_1400E7F50, sub_1400DD6A0 |
+| 5 | Send with timeout 25 000 ms (sub_140135670, flag value 3103 ❓). | sub_1400E7F50 |
+
+Reply of `ListAccounts`, state 19 (`CAuTxn` vtable 0x1401AA238, slot +32 sub_1400F22C0 → sub_1400F4A40):
+
+| Step | Fact |
+| --- | --- |
+| 1 | No reply body → code 4 `request game token reply, missing data`. |
+| 2 | Find the first `GameAccount` child whose `Alias` is equal to txn AccountAlias (byte compare, sub_1401014B0, case-sensitive ❓). |
+| 3 | No match, or no `GameAccountId` → code 4 `request game token, missing game account`. Empty `GameAccountId` → code 4 `request game token, invalid data`. |
+| 4 | Make the game token (§7.5). Fail → code 4 `request game token, create token failed`. |
+| 5 | Reply code 0 (line 1376): `<Reply><Token>GUID text</Token></Reply>`. The token is the game token GUID (token +32), GUID text as §8.1 (sub_140129F90 → sub_140128270). |
+
+### 7.5 Game token store (`CGameToken`, 0xC0 bytes)
+
+| Step | Fact | Source |
+| --- | --- | --- |
+| 1 | Make the record (sub_1400D9790). Add it to a list on the user record (head at user +264, link offset at user +256). | sub_1400E0A10 |
+| 2 | Start a timer with the game lifetime (§7.1, sub_1400D68E0). | sub_1400E0A10, sub_140144EB0 |
+| 3 | There is no "replace the old token" step (different from §7.3). | sub_1400E0A10 |
+
+| Offset | Field | Source |
+| --- | --- | --- |
+| +32 | token: new GUID. If GUID make fails: 16 random bytes. | sub_1400D9790 |
+| +48 | GameCode (max 16 bytes) | sub_1400D9790 |
+| +64 | GameAccountId text (heap copy, length at +76) | sub_1400D9790 |
+| +104 | client address text (max 55 bytes) | sub_1400D9790 |
+| +160 | expiry tick = `timeGetTime()` + game lifetime ms | sub_1400D9790 |
+| +168 | copy of request +832 text (length at +180) | sub_1400D9790 |
+
+ConsumeGameToken (id 31, sub_1400E3D70) uses this store. It is not decoded ❓.
+
+### 7.6 App token log (§7.3)
+
+Log line (sub_1400DA5E0): `APPTOKEN,<kind>,UserId,…,AppId,…,Token,…,IssuerAppId,…,IssuerAddress,…,ExpireTimeMs,…`. Kinds 0–8: `CREATE`, `REVOKE`, `TIMEDOUT`, `OVERWRITTEN`, `VERIFY_SUCCEED`, `VERIFY_INVALID`, `VERIFY_WRONGLOCATION`, `REVOKE_ALL`, `VERIFY_NOTFOUND`. Other values: `UNDEFINED`. The case-to-name order comes from the string order in the function ❓.
+
+## 8. DB calls
+
+### 8.1 `AcctLoginInfoById` (LoginStart, §3.1 step 4)
+
+| Item | Fact | Source |
+| --- | --- | --- |
+| Logical DB | `AcctDb` (off_1402322A8) | sub_1400E6910 |
+| Schema version | `v2016102001` | sub_1400E6910 |
+| Proc table | `procs.tsv` row 18 | — |
+| Params | one param `<G>` = UserId as GUID text `%08X-%04X-%04X-%02X%02X-%02X%02X%02X%02X%02X%02X` (upper case). Byte order: bytes 0–3 as u32le, 4–5 as u16le, 6–7 as u16le, then bytes 8–15 in order. Example: bytes `00..0F` → `03020100-0504-0706-0809-0A0B0C0D0E0F`. | sub_140112570, sub_140128270 |
+| Rows | the reply uses the first row only (§3.2 step 2) | sub_140112500 |
+
+Row columns:
+
+The column names come from the handoff of auth-1 and from the readers named below. The types are from the use in AuthSrv, except Salt and Verifier (sizes from §4.2). The other types are not verified ❓.
+
+| Column | Type | Use | Source |
+| --- | --- | --- | --- |
+| `UserId` | GUID | user ref | sub_1400D0410 |
+| `UserCenter` | int | reply `UserCenter` | sub_140128A20 |
+| `UserName` | string | reply `UserName` | sub_140128A20 |
+| `Salt` | Base64 → 8 bytes | SRP s (§4.2) | sub_14012CA30, sub_1400D1170 |
+| `Verifier` | Base64 → 128 bytes | SRP v (§4.2) | sub_14012CA30, sub_1400D1170 |
+| `PasswordUntil` | time | LoginFinish `PasswordUntil` | sub_1400F57B0 |
+| `ValidateType` | int | validation mode | sub_1400F5630 |
+| `Validated` | bool | session +380 (§5 step 7) | sub_1400F5630 |
+| `Roles/RoleId` | u32 list | session +472 (§2) | sub_1400F57B0, sub_1400DED50 |
