@@ -1,0 +1,156 @@
+addr_381	name	size	note
+0x401600	BNSClient::GetUi(void)	16	
+0x401610	BNSClient::GetLobby(void)	16	
+0x401620	BNSClient::GetWorld(void)	16	
+0x401630	BNSClient::GetAccount(void)	16	
+0x401640	BNSClient::GetNPSession(void)	16	
+0x401650	BNSClient::GetLobbyGateSession(void)	16	
+0x401670	BNSClient::GetXmlReader(void)	16	
+0x401680	BNSClient::GetPresentationWorld(void)	16	
+0x401690	BNSClient::isInArena(void)	16	
+0x4016a0	BNSClient::GetDuelBotBrain(void)	19	
+0x41c0f0	BNSClient::GetWebSessionManager(void)	16	
+0x41c100	BNSClient::GetBnsTv(void)	19	
+0x4402e0	ClientEventQueue::Pop(void)	118	
+0x4404a0	BNSClient::GetInfoGateSession(void)	16	
+0x4404b0	BNSClient::SetWebLoginUserName(std::basic_string<wchar_t,std::char_traits<wchar_t>,std::allocator<wchar_t>>)	90	
+0x440510	BNSClient::SetWebLoginTempPassword(std::basic_string<wchar_t,std::char_traits<wchar_t>,std::allocator<wchar_t>>)	90	
+0x440570	BNSClient::SetWebLoginGarenaToken(std::basic_string<wchar_t,std::char_traits<wchar_t>,std::allocator<wchar_t>>)	90	
+0x4405d0	BNSClient::GetPackDataXmlReaderIO(void)	19	
+0x4405f0	BNSClient::GetPackLocalXmlReaderIO(void)	19	
+0x440610	BNSClient::GetTencentClientSecurity(void)	19	
+0x440630	BNSClient::GetTencentSafeMode(void)	19	
+0x440650	BNSClient::GetInnovaClientSecurity(void)	19	
+0x440670	BNSClient::GetItemGraphs(void)	19	
+0x440690	BNSClient::GetVirtualMemoryMB(void)	26	
+0x45d3d0	BNSClient::GetSpammerCheck(void)	19	
+0x46a4c0	BNSClient::GetDuelObserverMultiLanguage(void)	26	
+0x47c690	BNSClient::GetWebRequester(void)	19	
+0x4a38e0	BNSClient::GetWebProcessManager(void)	16	
+0x4a38f0	BNSClient::GetClientDebugger(void)	19	
+0x520c50	BNSClient::GetReplay(void)	16	
+0x520c60	BNSClient::GetDisconnectWSALastError(void)	19	
+0x532aa0	BNSClient::GetSkillTracer(void)	19	
+0x55bde0	BNSClient::GetDeliberativeBodyLoadingImage(void)	26	
+0x5d0230	LocalizeUnit::PublisherName(void)	26	
+0x5d0250	LocalizeUnit::LanguageName(void)	27	
+0x5d0270	LocalizeUnit::FullPath(void)	263	
+0x5d0380	LocalizeUnit::PublisherPath(void)	219	
+0x7072d0	PackXmlReaderIO::GetFileName(void)	35	
+0x707300	PackXmlReaderIO::GetFileSize(void)	15	
+0x707310	PackXmlReaderIO::Read(uchar *,uint *)	116	
+0x707400	PackXmlReaderIO::Close(void)	93	
+0x707460	PackXmlReaderIO::Next(void)	42	
+0x7074c0	PackXmlReaderIO::Open(wchar_t const *,wchar_t const *,bool)	265	
+0x7075d0	PackXmlReaderIO::~PackXmlReaderIO(void)	100	
+0x707640	PackXmlReaderIO::PackXmlReaderIO(void)	110	
+0x7076b0	PackXmlReaderIO::Initialize(std::basic_string<wchar_t,std::char_traits<wchar_t>,std::allocator<wchar_t>>,bool,uchar cons	305	
+0x7235c0	BNSClient::SetQATestMode(bool)	364	
+0x74ef10	GetClientVersion(void)	229	
+0x752030	executeVersionCommand(void)	99	
+0x7520a0	GetClientVersionString(void)	121	
+0x8c7c40	BNSClient::HandleSafeMode(short)	54	
+0x900260	LanguageLocale::Destroy(void)	44	
+0x900290	LanguageLocale::Create(Language)	666	
+0x101ff70	DelayedCall::Tick(float)	665	
+0x10a0110	ClientSystemText::SetAdditionalMsg(std::basic_string<wchar_t,std::char_traits<wchar_t>,std::allocator<wchar_t>>)	106	
+0x10a0180	ClientSystemText::read(std::basic_string<wchar_t,std::char_traits<wchar_t>,std::allocator<wchar_t>>,std::basic_string<wc	333	
+0x10a02d0	ClientSystemText::ResetSystemText(void)	37	
+0x10a28d0	ContentsControl::InitializeBeforeLoadConfig(void)	114	
+0x10a4df0	ClientSystemText::SetFile(std::basic_string<wchar_t,std::char_traits<wchar_t>,std::allocator<wchar_t>>,std::basic_string	322	
+0x10a8f10	ContentsControl::InitializeAfterLoadConfig(void)	863	
+0x10b75d0	ClientSystemText::GetSystemText(void)	499	
+0x10b77d0	ClientSystemText::readAll(wchar_t const *,wchar_t const *)	1041	
+0x10b7bf0	ClientSystemText::ReadAll(void)	82	
+0x10c4530	ConfigLoader::LoadRuleConfig(void)	236	
+0x10c8f80	ClientSystemText::~ClientSystemText(void)	180	
+0x10c9040	ClientSystemText::ClientSystemText(std::basic_string<wchar_t,std::char_traits<wchar_t>,std::allocator<wchar_t>>,std::bas	337	
+0x10dce00	ClientLog::Initialize(void)	126	
+0x10e24b0	ClientGameGuard::Tick(void)	5	
+0x1122160	SetUpKeyConfigEnabledByClientConfig(void)	71	
+0x11228d0	ClientExecutionLog::AppendOSName(void)	407	
+0x1122a70	ClientExecutionLog::AppendBaseDirName(void)	65	
+0x1122ac0	ClientExecutionLog::AppendBinaryName(void)	65	
+0x1122b10	ClientExecutionLog::~ClientExecutionLog(void)	1	
+0x1122b20	ClientExecutionLog::ClientExecutionLog(void)	1	
+0x1122c10	BNSClient::GetSkillTrainSimpleContextKey(void)	275	
+0x1122d30	BNSClient::GetNetworkLayerStates(uint &,uint &,uint &,uint &,uint &,uint &,uint &,uint &,uint &,uint &,uint &,uint &)	216	
+0x1122e10	BNSClient::CreateWebSessionCookie(wchar_t const *)	61	
+0x1122e60	BNSClient::IsFullClient(void)	115	
+0x1122ee0	BNSClient::GetTencentCross(void)	17	
+0x1122f00	BNSClient::GetArenaSession(void)	9	
+0x1122f10	BNSClient::GetGameSession(void)	9	
+0x1122f20	BNSClient::IsUsePackedData(void)	3	
+0x1122f30	BNSClient::SetTclsJumpSignature(uchar const *,uchar)	67	
+0x1122f80	UnloadEngine(void)	117	
+0x11230a0	BNSClient::IsConnectedArena(void)	16	
+0x11230b0	BNSClient::IsConnectedGame(void)	16	
+0x11230d0	BNSClient::IsConnectedNP(void)	16	
+0x1123100	BNSClient::ReturnToLobbyFromReplay(void)	36	
+0x1123160	InitializeClientModuleNames(void)	1431	
+0x11289c0	SetUpDefaultCamTargetControlConfigTemplet(CreatureProperty::Race,CreatureProperty::Sex)	167	
+0x1128a70	SetUpDefaultTemplet(void)	574	
+0x11291f0	ClientExecutionLog::AppendCommandLine(void)	383	
+0x1129370	ClientExecutionLog::AppendBinaryVersion(void)	162	
+0x1129420	ClientExecutionLog::AppendServerIP(void)	184	
+0x11294e0	ClientExecutionLog::MakeLogXmlFile(std::basic_string<char,std::char_traits<char>,std::allocator<char>> &)	322	
+0x1129630	BNSClient::IsObserverMode(void)	64	
+0x1129670	BNSClient::SetWorkingDirectory(void)	321	
+0x11297c0	BNSClient::LoadLocaleInfo(void)	417	
+0x1129970	BNSClient::SetDefaultLocaleInfo(void)	43	
+0x1129bf0	BNSClient::GetWebDataDirectoryPath(wchar_t *,int,bool)	319	
+0x1129d30	BNSClient::GetDataDirectoryPath(wchar_t *,int,bool)	241	
+0x1129e30	BNSClient::GetLastTickState(void)	117	
+0x1129eb0	BNSClient::OnLogin(void)	57	
+0x1129ef0	BNSClient::LoadBattleRoyalExtraMode(void)	653	
+0x112a180	BNSClient::LoadBattleRoyalPlayerMode(void)	377	
+0x112a300	BNSClient::LoadDuelExtraMode(void)	809	
+0x112fcc0	GetMydocumentPath(wchar_t *,int)	1074	
+0x1130100	getLocalOptionFilePath(wchar_t *,int,bool)	1105	
+0x1130ed0	ClientExecutionLog::AppendMachineIP(void)	295	
+0x1131000	ClientExecutionLog::AddSystemInfo(EngineSystemInfo &)	38	
+0x1131030	ClientExecutionLog::Startup(HINSTANCE__ *)	615	
+0x11312a0	BNSClient::RefreshData(wchar_t const *)	192	
+0x1131360	BNSClient::IsDuelObserverMode(void)	39	
+0x1131390	BNSClient::IsBattleRoyalObserverMode(void)	27	
+0x11313b0	BNSClient::SaveLocaleInfo(void)	355	
+0x1137100	saveLocalOption(void)	686	
+0x11375c0	BNSClient::Login(wchar_t const *,ushort,int,wchar_t const *,wchar_t const *,ushort,wchar_t const *,wchar_t const *)	46	
+0x113ed60	BNSClient::DoCommandLine(void)	3181	
+0x113f9d0	BNSClient::EnterReplay(void)	186	false name: gets ClientSystemText object; arg = error code
+0x114bf80	BNSClient::LoadData(wchar_t const *,wchar_t const *)	399	
+0x114c110	InitializeTCLS(ulong &)	1460	
+0x114c6d0	LoadEngine(void)	785	
+0x114c9f0	LoadXmlData(void)	254	
+0x114cbe0	BNSClient::LoadSystemText(void)	130	
+0x114cdb0	BNSClient::SendToInfoGate(StructPacket const *)	45	
+0x114ce20	BNSClient::SendToGamed(StructPacket const *,bool)	849	
+0x114d230	BNSClient::BNSClient(void)	476	
+0x11566b0	SetUpDefaultChatTabTemplet(void)	1325	
+0x1157ee0	BNSClient::EnterGameForNPWithLobbyGate(ulong,ushort,__int64,__int64,short)	248	
+0x115b640	SetUpVipGrade(void)	40	
+0x115b6b0	saveSyncOption(void)	263	
+0x115bd30	ClientGameGuard::Tick(void)	184	
+0x115e820	LoadOption(void)	580	
+0x115ea70	BNSClient::UpdateWebSessionCookie(void)	22	
+0x115eb30	BNSClient::ReceivePacket(int,int,StructPacket const *)	52	
+0x1166f20	BNSClient::RequestWebSessionToken(bool)	99	
+0x1166f90	BNSClient::ReturnToLobby(void)	69	
+0x1167300	ClientExecutionLog::SendPostArguments(void *)	702	
+0x11675c0	ClientExecutionLog::SendLog(void)	99	
+0x1167630	BNSClient::Tick(float)	1129	
+0x1167ac0	BNSClient::Logout(void)	81	
+0x116dc90	BNSClient::Cleanup(void)	1811	
+0x116f530	BNSClient::ReplayTick(float)	32	
+0x116f550	BNSClient::Initialize(HINSTANCE__ *)	6516	
+0x11902b0	BNSClient::PostTick(float)	514	
+0x11904c0	BNSClient::MainFramework(HINSTANCE__ *,HINSTANCE__ *,int)	2715	
+0x1190f60	WinMain(x,x,x,x)	365	
+0x5d0460	sub_5D0460 publisher name -> enum	98	
+0x5d04d0	sub_5D04D0 language name -> enum	98	
+0x5d0540	sub_5D0540 text-lang code -> enum	98	
+0x5d05b0	sub_5D05B0 publisher+language pair check	60	
+0x10a9de0	sub_10A9DE0 load release.config2.xml	170	
+0x10e21a0	sub_10E21A0 start checks (3000/3002)	757	
+0x10d17e0	sub_10D17E0 start check (3002)	250	
+0x114b560	ClientGameGuard::GetGameGuardInitializeError	1718	
