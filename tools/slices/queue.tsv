@@ -2,4 +2,4 @@ id	kind	model	crate	paths	deps	turns	status	title
 rbc-1	spec	opus	-	Docs/Platform/StServers/14-route-client.md	-	80	done	route bus client spec (IDA)
 rbc-1-rust	rust	sonnet	sts-core	Program/Platform/StServers/StsCore/,Cargo.lock	rbc-1	120	done	route bus client in sts-core
 cg-1	spec	opus	-	Docs/Platform/StServers/11-cligate-protocol.md	-	80	done	CliGate service part spec (IDA)
-auth-1	spec	opus	-	Docs/Platform/StServers/15-authsrv.md	cg-1	80	ready	AuthSrv login and token spec (IDA)
+auth-1	spec	opus	-	Docs/Platform/StServers/15-authsrv.md	cg-1	80	done	AuthSrv login and token spec (IDA)
