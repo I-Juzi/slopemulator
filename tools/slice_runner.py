@@ -281,10 +281,43 @@ def chain_rust(row):
     print(f"chain: queued {rid} ({crate.group(1)})")
 
 
+def salvage():
+    """Merge blocked slices whose gate passed but whose ff merge failed (main moved)."""
+    recs = [json.loads(l) for l in LEDGER.read_text().splitlines() if l.strip()] if LEDGER.is_file() else []
+    last = {r["slice"]: r.get("gate") for r in recs}
+    _, rows = load()
+    for row in rows:
+        wt, branch = WT_ROOT / row["id"], f"slice/{row['id']}"
+        if row["status"] != "blocked" or last.get(row["id"]) != "pass" or not wt.is_dir():
+            continue
+        _, ahead = sh(["git", "rev-list", "--count", f"main..{branch}"], REPO)
+        if ahead.strip() in ("", "0"):
+            continue
+        rc, _ = sh(["git", "rebase", "-q", "main"], wt)
+        if rc:
+            sh(["git", "rebase", "--abort"], wt)
+            print(f"salvage: {row['id']} rebase conflict, left blocked")
+            continue
+        rc, out = sh(["git", "merge", "-q", "--ff-only", branch], REPO)
+        if rc:
+            print(f"salvage: {row['id']} merge failed:\n{out}")
+            continue
+        set_status(row["id"], "done")
+        sh(["git", "-c", "user.name=Claude", "-c", "user.email=noreply@anthropic.com", "commit", "-q", "-m",
+            f"queue: {row['id']} done (salvaged)\n\nCo-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>", "--", "tools/slices/queue.tsv"], REPO)
+        sh(["git", "worktree", "remove", "--force", str(wt)], REPO)
+        sh(["git", "branch", "-q", "-D", branch], REPO)
+        if row["kind"] == "spec":
+            chain_rust(row)
+        print(f"salvage: {row['id']} merged")
+
+
 def loop(push, max_slices):
     """Run ready slices one by one. Skip past blocked ones. Stop on empty queue or no quota."""
+    salvage()
     for _ in range(max_slices):
         rc = run(None, False, push)
+        salvage()
         if rc in (2, 75):
             return rc
     return 0
