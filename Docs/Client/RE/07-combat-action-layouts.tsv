@@ -1,0 +1,447 @@
+table	def_381	create_381	variant	variant_name	path	depth	type	size	offset_381	subdef_381	gm_field_name	gm_field_type
+GS_Actions	0x1496734	0x57b7d0	1	ClientMove	0	0	T_INT64	8	8		creatureId	__int64
+GS_Actions	0x1496734	0x57b7d0	1	ClientMove	1	0	T_SU	2	16		x	__int16
+GS_Actions	0x1496734	0x57b7d0	1	ClientMove	2	0	T_SU	2	18		y	__int16
+GS_Actions	0x1496734	0x57b7d0	1	ClientMove	3	0	T_SU	2	20		z	__int16
+GS_Actions	0x1496734	0x57b7d0	1	ClientMove	4	0	T_INT16	2	22		yaw	__int16
+GS_Actions	0x1496734	0x57b7d0	1	ClientMove	5	0	T_INT16	2	24		duration	__int16
+GS_Actions	0x1496734	0x57b7d0	1	ClientMove	6	0	T_INT8	1	26		standingSocial	char
+GS_Actions	0x1496734	0x57b7d0	1	ClientMove	7	0	T_REPEAT	2	28	0x14958e8	moveHistory	PfRepeat
+GS_Actions	0x1496734	0x57b7d0	1	ClientMove	7/0	1	T_INT8	1	8			
+GS_Actions	0x1496734	0x57b7d0	1	ClientMove	7/1	1	T_INT8	1	9			
+GS_Actions	0x1496734	0x57b7d0	1	ClientMove	7/2	1	T_INT8	1	10			
+GS_Actions	0x1496734	0x57b7d0	1	ClientMove	7/3	1	T_INT8	1	11			
+GS_Actions	0x1496734	0x57b7d0	1	ClientMove	7/4	1	T_INT8	1	12			
+GS_Actions	0x1496748	0x57b7d0	2	ClientMoveAndEventJump	0	0	T_INT64	8	8		creatureId	__int64
+GS_Actions	0x1496748	0x57b7d0	2	ClientMoveAndEventJump	1	0	T_SU	2	16		x	__int16
+GS_Actions	0x1496748	0x57b7d0	2	ClientMoveAndEventJump	2	0	T_SU	2	18		y	__int16
+GS_Actions	0x1496748	0x57b7d0	2	ClientMoveAndEventJump	3	0	T_SU	2	20		z	__int16
+GS_Actions	0x1496748	0x57b7d0	2	ClientMoveAndEventJump	4	0	T_INT16	2	22		yaw	__int16
+GS_Actions	0x1496748	0x57b7d0	2	ClientMoveAndEventJump	5	0	T_INT16	2	24		duration	__int16
+GS_Actions	0x1496748	0x57b7d0	2	ClientMoveAndEventJump	6	0	T_INT8	1	26		standingSocial	char
+GS_Actions	0x1496748	0x57b7d0	2	ClientMoveAndEventJump	7	0	T_REPEAT	2	28	0x14958fc	moveHistory	PfRepeat
+GS_Actions	0x1496748	0x57b7d0	2	ClientMoveAndEventJump	7/0	1	T_INT8	1	8			
+GS_Actions	0x1496748	0x57b7d0	2	ClientMoveAndEventJump	7/1	1	T_INT8	1	9			
+GS_Actions	0x1496748	0x57b7d0	2	ClientMoveAndEventJump	7/2	1	T_INT8	1	10			
+GS_Actions	0x1496748	0x57b7d0	2	ClientMoveAndEventJump	7/3	1	T_INT8	1	11			
+GS_Actions	0x1496748	0x57b7d0	2	ClientMoveAndEventJump	7/4	1	T_INT8	1	12			
+GS_Actions	0x1496748	0x57b7d0	2	ClientMoveAndEventJump	7/5	1	T_INT16	2	14			
+GS_Actions	0x149675c	0x57b820	3	Skill	0	0	T_INT64	8	8		casterId	__int64
+GS_Actions	0x149675c	0x57b820	3	Skill	1	0	T_INT32	4	16		skillId	int
+GS_Actions	0x149675c	0x57b820	3	Skill	2	0	T_INT8	1	20		skillVariationId	char
+GS_Actions	0x149675c	0x57b820	3	Skill	3	0	T_INT8	1	21		skillBuildUpLevel	char
+GS_Actions	0x149675c	0x57b820	3	Skill	4	0	T_INT8	1	22		skillInstanceId	char
+GS_Actions	0x149675c	0x57b820	3	Skill	5	0	T_INT16	2	24		yaw	__int16
+GS_Actions	0x149675c	0x57b820	3	Skill	6	0	T_INT16	2	26		next_yaw	__int16
+GS_Actions	0x149675c	0x57b820	3	Skill	7	0	T_INT16	2	28		relative_skill_yaw	__int16
+GS_Actions	0x149675c	0x57b820	3	Skill	8	0	T_INT16	2	30		increasing_flow_step	__int16
+GS_Actions	0x149675c	0x57b820	3	Skill	9	0	T_INT8	1	32		flowStep	char
+GS_Actions	0x149675c	0x57b820	3	Skill	10	0	T_INT8	1	33		state	char
+GS_Actions	0x149675c	0x57b820	3	Skill	11	0	T_INT16	2	34		duration	__int16
+GS_Actions	0x149675c	0x57b820	3	Skill	12	0	T_SUB	0	36	0x1496428	skillTarget	PfSub
+GS_Actions	0x1496770	0x57b8e0	4	SkillCancel	0	0	T_INT64	8	8		casterId	__int64
+GS_Actions	0x1496770	0x57b8e0	4	SkillCancel	1	0	T_INT32	4	16		skillId	int
+GS_Actions	0x1496770	0x57b8e0	4	SkillCancel	2	0	T_INT8	1	20		skillVariationId	char
+GS_Actions	0x1496770	0x57b8e0	4	SkillCancel	3	0	T_INT8	1	21		skillBuildUpLevel	char
+GS_Actions	0x1496770	0x57b8e0	4	SkillCancel	4	0	T_INT8	1	22		skillInstanceId	char
+GS_Actions	0x1496770	0x57b8e0	4	SkillCancel	5	0	T_INT16	2	24		yaw	__int16
+GS_Actions	0x1496770	0x57b8e0	4	SkillCancel	6	0	T_INT16	2	26		increasing_flow_step	__int16
+GS_Actions	0x1496770	0x57b8e0	4	SkillCancel	7	0	T_INT8	1	28		flowStep	char
+GS_Actions	0x1496770	0x57b8e0	4	SkillCancel	8	0	T_INT16	2	30		duration	__int16
+GS_Actions	0x1496770	0x57b8e0	4	SkillCancel	9	0	T_INT8	1	32		cancelTime	char
+GS_Actions	0x1496770	0x57b8e0	4	SkillCancel	10	0	T_INT32	4	36		remain_global_recycle_time	int
+GS_Actions	0x1496770	0x57b8e0	4	SkillCancel	11	0	T_INT32	4	40		remain_recycle_time	int
+GS_Actions	0x1496770	0x57b8e0	4	SkillCancel	12	0	T_INT8	1	44		skill_result	char
+GS_Actions	0x1496770	0x57b8e0	4	SkillCancel	13	0	T_SUB	0	48	0x1496428	skillTarget	PfSub
+GS_Actions	0x1496784	0x57bde0	5	SkillHit	0	0	T_INT64	8	8		casterId	__int64
+GS_Actions	0x1496784	0x57bde0	5	SkillHit	1	0	T_INT64	8	16		targetId	__int64
+GS_Actions	0x1496784	0x57bde0	5	SkillHit	2	0	T_INT32	4	24		skillId	int
+GS_Actions	0x1496784	0x57bde0	5	SkillHit	3	0	T_INT8	1	28		skillVariationId	char
+GS_Actions	0x1496784	0x57bde0	5	SkillHit	4	0	T_INT8	1	29		skillBuildUpLevel	char
+GS_Actions	0x1496784	0x57bde0	5	SkillHit	5	0	T_INT8	1	30		skillInstanceId	char
+GS_Actions	0x1496784	0x57bde0	5	SkillHit	6	0	T_INT8	1	31		skillState	char
+GS_Actions	0x1496784	0x57bde0	5	SkillHit	7	0	T_INT8	1	32		hitCode	char
+GS_Actions	0x1496798	0x57ba60	6	Effect	0	0	T_INT32	4	4		EffectId	int
+GS_Actions	0x1496798	0x57ba60	6	Effect	1	0	T_INT16	2	8		EffectSlotIndex	__int16
+GS_Actions	0x1496798	0x57ba60	6	Effect	2	0	T_INT64	8	16		casterId	__int64
+GS_Actions	0x1496798	0x57ba60	6	Effect	3	0	T_INT64	8	24		targetId	__int64
+GS_Actions	0x1496798	0x57ba60	6	Effect	4	0	T_INT8	1	32		state	char
+GS_Actions	0x1496798	0x57ba60	6	Effect	5	0	T_INT8	1	33		skillInstanceId	char
+GS_Actions	0x1496798	0x57ba60	6	Effect	6	0	T_PROP_PAIR	0	36		prop	PropertyPair
+GS_Actions	0x1496798	0x57ba60	6	Effect	7	0	T_PROP_PAIR	0	48		extraProp	PropertyPair
+GS_Actions	0x1496798	0x57ba60	6	Effect	8	0	T_SUB	0	60	0x14962e8	effectData	PfSub
+GS_Actions	0x14967ac	0x57bb70	7	PassiveEffect	0	0	T_INT64	8	8		casterId	__int64
+GS_Actions	0x14967ac	0x57bb70	7	PassiveEffect	1	0	T_INT64	8	16		targetId	__int64
+GS_Actions	0x14967ac	0x57bb70	7	PassiveEffect	2	0	T_SUB	0	24	0x14964a0	passiveEffect	PfSub
+GS_Actions	0x14967c0	0x57bc00	8	ManipulateAction	0	0	T_INT64	8	8		casterId	__int64
+GS_Actions	0x14967c0	0x57bc00	8	ManipulateAction	1	0	T_INT64	8	16		EnvObjId	__int64
+GS_Actions	0x14967c0	0x57bc00	8	ManipulateAction	2	0	T_INT8	1	24		actionState	char
+GS_Actions	0x14967c0	0x57bc00	8	ManipulateAction	3	0	T_REPEAT	2	28	0x149611c	fishInfo	PfRepeat
+GS_Actions	0x14967c0	0x57bc00	8	ManipulateAction	3/0	1	T_INT16	2	8			
+GS_Actions	0x14967c0	0x57bc00	8	ManipulateAction	3/1	1	T_INT32	4	12			
+GS_Actions	0x14967d4	0x57be40	9	EnvDiceResult	0	0	T_INT64	8	8		casterId	__int64
+GS_Actions	0x14967d4	0x57be40	9	EnvDiceResult	1	0	T_INT64	8	16		EnvObjId	__int64
+GS_Actions	0x14967d4	0x57be40	9	EnvDiceResult	2	0	T_INT8	1	24		dice_index	char
+GS_Actions	0x14967e8	0x57be40	10	NpcManipulateAction	0	0	T_INT64	8	8		casterId	__int64
+GS_Actions	0x14967e8	0x57be40	10	NpcManipulateAction	1	0	T_INT64	8	16		npcObjId	__int64
+GS_Actions	0x14967e8	0x57be40	10	NpcManipulateAction	2	0	T_INT8	1	24		actionState	char
+GS_Actions	0x14967fc	0x57b7d0	11	EnvObject	0	0	T_INT64	8	8		EnvObjId	__int64
+GS_Actions	0x14967fc	0x57b7d0	11	EnvObject	1	0	T_INT8	1	16		state	char
+GS_Actions	0x14967fc	0x57b7d0	11	EnvObject	2	0	T_INT32	4	20		hp	int
+GS_Actions	0x14967fc	0x57b7d0	11	EnvObject	3	0	T_INT8	1	24		enable	char
+GS_Actions	0x14967fc	0x57b7d0	11	EnvObject	4	0	T_INT8	1	25		empty	char
+GS_Actions	0x14967fc	0x57b7d0	11	EnvObject	5	0	T_REPEAT	2	28	0x149553c	exceptQuestCases	PfRepeat
+GS_Actions	0x14967fc	0x57b7d0	11	EnvObject	5/0	1	T_INT16	2	8			
+GS_Actions	0x14967fc	0x57b7d0	11	EnvObject	5/1	1	T_INT8	1	10			
+GS_Actions	0x14967fc	0x57b7d0	11	EnvObject	5/2	1	T_INT8	1	11			
+GS_Actions	0x1496810	0x57bd50	12	RefinerEnvObject	0	0	T_INT64	8	8		EnvObjId	__int64
+GS_Actions	0x1496810	0x57bd50	12	RefinerEnvObject	1	0	T_INT8	1	16		state	char
+GS_Actions	0x1496810	0x57bd50	12	RefinerEnvObject	2	0	T_INT32	4	20		hp	int
+GS_Actions	0x1496810	0x57bd50	12	RefinerEnvObject	3	0	T_INT8	1	24		enable	char
+GS_Actions	0x1496810	0x57bd50	12	RefinerEnvObject	4	0	T_INT8	1	25		empty	char
+GS_Actions	0x1496810	0x57bd50	12	RefinerEnvObject	5	0	T_INT32	4	28		faction_score	int
+GS_Actions	0x1496810	0x57bd50	12	RefinerEnvObject	6	0	T_INT64	8	32		next_state_time	__int64
+GS_Actions	0x1496810	0x57bd50	12	RefinerEnvObject	7	0	T_INT64	8	40		guildId	__int64
+GS_Actions	0x1496810	0x57bd50	12	RefinerEnvObject	8	0	T_REPEAT	2	48	0x149553c	exceptQuestCases	PfRepeat
+GS_Actions	0x1496810	0x57bd50	12	RefinerEnvObject	8/0	1	T_INT16	2	8			
+GS_Actions	0x1496810	0x57bd50	12	RefinerEnvObject	8/1	1	T_INT8	1	10			
+GS_Actions	0x1496810	0x57bd50	12	RefinerEnvObject	8/2	1	T_INT8	1	11			
+GS_Actions	0x1496824	0x57bde0	13	TakeRefinerReward	0	0	T_INT64	8	8		EnvObjId	__int64
+GS_Actions	0x1496824	0x57bde0	13	TakeRefinerReward	1	0	T_INT64	8	16		pcId	__int64
+GS_Actions	0x1496824	0x57bde0	13	TakeRefinerReward	2	0	T_INT64	8	24		itemDataKey	__int64
+GS_Actions	0x1496824	0x57bde0	13	TakeRefinerReward	3	0	T_INT16	2	32		itemCount	__int16
+GS_Actions	0x1496838	0x5a3cf0	14	PlayManipulateCinematic	0	0	T_INT64	8	8		pcId	__int64
+GS_Actions	0x1496838	0x5a3cf0	14	PlayManipulateCinematic	1	0	T_INT64	8	16		EnvObjId	__int64
+GS_Actions	0x1496838	0x5a3cf0	14	PlayManipulateCinematic	2	0	T_INT64	8	24		cinematic	__int64
+GS_Actions	0x149684c	0x57c520	15	GatherSource	0	0	T_INT64	8	8		GatherSourceId	__int64
+GS_Actions	0x149684c	0x57c520	15	GatherSource	1	0	T_INT8	1	16		state	char
+GS_Actions	0x1496860	0x57c090	16	Equip	0	0	T_INT64	8	8		casterId	__int64
+GS_Actions	0x1496860	0x57c090	16	Equip	1	0	T_INT8	1	16		equipType	char
+GS_Actions	0x1496860	0x57c090	16	Equip	2	0	T_INT8	1	17		equipState	char
+GS_Actions	0x1496860	0x57c090	16	Equip	3	0	T_INT32	4	20		equipItem	int
+GS_Actions	0x1496860	0x57c090	16	Equip	4	0	T_INT16	2	24		duration	__int16
+GS_Actions	0x1496874	0x57be40	17	NpcChangeWeaponAndStance	0	0	T_INT64	8	8		casterId	__int64
+GS_Actions	0x1496874	0x57be40	17	NpcChangeWeaponAndStance	1	0	T_INT64	8	16		weapon	__int64
+GS_Actions	0x1496874	0x57be40	17	NpcChangeWeaponAndStance	2	0	T_INT8	1	24		weapon_changed	char
+GS_Actions	0x1496874	0x57be40	17	NpcChangeWeaponAndStance	3	0	T_INT8	1	25		stance	char
+GS_Actions	0x1496874	0x57be40	17	NpcChangeWeaponAndStance	4	0	T_INT8	1	26		stance_changed	char
+GS_Actions	0x1496888	0x57c520	18	Social	0	0	T_INT64	8	8		from	__int64
+GS_Actions	0x1496888	0x57c520	18	Social	1	0	T_INT32	4	16		id	int
+GS_Actions	0x1496888	0x57c520	18	Social	2	0	T_INT16	2	20		yaw	__int16
+GS_Actions	0x149689c	0x57c520	19	CancelSocial	0	0	T_INT64	8	8		from	__int64
+GS_Actions	0x149689c	0x57c520	19	CancelSocial	1	0	T_INT32	4	16		id	int
+GS_Actions	0x14968b0	0x57c4f0	20	SurroundSocial	0	0	T_INT32	4	4		id	int
+GS_Actions	0x14968c4	0x57bde0	21	CreateFieldItem	0	0	T_INT64	8	8		caster	__int64
+GS_Actions	0x14968c4	0x57bde0	21	CreateFieldItem	1	0	T_INT64	8	16		id	__int64
+GS_Actions	0x14968c4	0x57bde0	21	CreateFieldItem	2	0	T_INT64	8	24		npcDeadBodyId	__int64
+GS_Actions	0x14968c4	0x57bde0	21	CreateFieldItem	3	0	T_INT32	4	32		fieldItemId	int
+GS_Actions	0x14968c4	0x57bde0	21	CreateFieldItem	4	0	T_INT8	1	36		state	char
+GS_Actions	0x14968c4	0x57bde0	21	CreateFieldItem	5	0	T_INT16	2	38		remainedExplosion	__int16
+GS_Actions	0x14968d8	0x57bde0	22	SpawnFieldItem	0	0	T_INT64	8	8		id	__int64
+GS_Actions	0x14968d8	0x57bde0	22	SpawnFieldItem	1	0	T_INT32	4	16		fieldItemId	int
+GS_Actions	0x14968d8	0x57bde0	22	SpawnFieldItem	2	0	T_SU	2	20		x	__int16
+GS_Actions	0x14968d8	0x57bde0	22	SpawnFieldItem	3	0	T_SU	2	22		y	__int16
+GS_Actions	0x14968d8	0x57bde0	22	SpawnFieldItem	4	0	T_SU	2	24		z	__int16
+GS_Actions	0x14968d8	0x57bde0	22	SpawnFieldItem	5	0	T_INT8	1	26		state	char
+GS_Actions	0x14968d8	0x57bde0	22	SpawnFieldItem	6	0	T_INT16	2	28		remainedDecomposition	__int16
+GS_Actions	0x14968d8	0x57bde0	22	SpawnFieldItem	7	0	T_INT16	2	30		remainedExplosion	__int16
+GS_Actions	0x14968d8	0x57bde0	22	SpawnFieldItem	8	0	T_SU	2	32		from_x	__int16
+GS_Actions	0x14968d8	0x57bde0	22	SpawnFieldItem	9	0	T_SU	2	34		from_y	__int16
+GS_Actions	0x14968ec	0x57be10	23	DropFieldItem	0	0	T_INT64	8	8		caster	__int64
+GS_Actions	0x14968ec	0x57be10	23	DropFieldItem	1	0	T_INT64	8	16		id	__int64
+GS_Actions	0x14968ec	0x57be10	23	DropFieldItem	2	0	T_INT32	4	24		fieldItemId	int
+GS_Actions	0x14968ec	0x57be10	23	DropFieldItem	3	0	T_SU	2	28		x	__int16
+GS_Actions	0x14968ec	0x57be10	23	DropFieldItem	4	0	T_SU	2	30		y	__int16
+GS_Actions	0x14968ec	0x57be10	23	DropFieldItem	5	0	T_SU	2	32		z	__int16
+GS_Actions	0x14968ec	0x57be10	23	DropFieldItem	6	0	T_INT8	1	34		state	char
+GS_Actions	0x14968ec	0x57be10	23	DropFieldItem	7	0	T_INT16	2	36		remainedDecomposition	__int16
+GS_Actions	0x14968ec	0x57be10	23	DropFieldItem	8	0	T_INT16	2	38		remainedExplosion	__int16
+GS_Actions	0x14968ec	0x57be10	23	DropFieldItem	9	0	T_INT8	1	40		dropState	char
+GS_Actions	0x1496900	0x57bde0	24	CreateCampfire	0	0	T_INT64	8	8		id	__int64
+GS_Actions	0x1496900	0x57bde0	24	CreateCampfire	1	0	T_INT32	4	16		campfireId	int
+GS_Actions	0x1496900	0x57bde0	24	CreateCampfire	2	0	T_INT64	8	24		ownerId	__int64
+GS_Actions	0x1496900	0x57bde0	24	CreateCampfire	3	0	T_SU	2	32		x	__int16
+GS_Actions	0x1496900	0x57bde0	24	CreateCampfire	4	0	T_SU	2	34		y	__int16
+GS_Actions	0x1496900	0x57bde0	24	CreateCampfire	5	0	T_SU	2	36		z	__int16
+GS_Actions	0x1496900	0x57bde0	24	CreateCampfire	6	0	T_INT16	2	38		remainDuration	__int16
+GS_Actions	0x1496914	0x5a2080	25	Campfire	0	0	T_INT64	8	8		id	__int64
+GS_Actions	0x1496914	0x5a2080	25	Campfire	1	0	T_INT16	2	16		remainDuration	__int16
+GS_Actions	0x1496928	0x577a80	26	DestroyCampfire	0	0	T_INT64	8	8		id	__int64
+GS_Actions	0x149693c	0x57c520	27	PickupFieldItem	0	0	T_INT64	8	8		caster	__int64
+GS_Actions	0x149693c	0x57c520	27	PickupFieldItem	1	0	T_INT64	8	16		id	__int64
+GS_Actions	0x1496950	0x5a3cf0	28	DecomposeFieldItem	0	0	T_INT64	8	8		id	__int64
+GS_Actions	0x1496950	0x5a3cf0	28	DecomposeFieldItem	1	0	T_INT64	8	16		owner	__int64
+GS_Actions	0x1496950	0x5a3cf0	28	DecomposeFieldItem	2	0	T_INT32	4	24		fieldItemId	int
+GS_Actions	0x1496950	0x5a3cf0	28	DecomposeFieldItem	3	0	T_INT8	1	28		reason	char
+GS_Actions	0x1496964	0x57be40	29	PickupFieldItemAction	0	0	T_INT64	8	8		caster	__int64
+GS_Actions	0x1496964	0x57be40	29	PickupFieldItemAction	1	0	T_INT64	8	16		id	__int64
+GS_Actions	0x1496964	0x57be40	29	PickupFieldItemAction	2	0	T_INT8	1	24		actionState	char
+GS_Actions	0x1496978	0x57be40	30	PickupDeadBodyAction	0	0	T_INT64	8	8		caster	__int64
+GS_Actions	0x1496978	0x57be40	30	PickupDeadBodyAction	1	0	T_INT64	8	16		id	__int64
+GS_Actions	0x1496978	0x57be40	30	PickupDeadBodyAction	2	0	T_INT8	1	24		actionState	char
+GS_Actions	0x149698c	0x57be40	31	PutdownFieldItemAction	0	0	T_INT64	8	8		caster	__int64
+GS_Actions	0x149698c	0x57be40	31	PutdownFieldItemAction	1	0	T_INT64	8	16		id	__int64
+GS_Actions	0x149698c	0x57be40	31	PutdownFieldItemAction	2	0	T_SU	2	24		x	__int16
+GS_Actions	0x149698c	0x57be40	31	PutdownFieldItemAction	3	0	T_SU	2	26		y	__int16
+GS_Actions	0x149698c	0x57be40	31	PutdownFieldItemAction	4	0	T_SU	2	28		z	__int16
+GS_Actions	0x149698c	0x57be40	31	PutdownFieldItemAction	5	0	T_INT8	1	30		actionState	char
+GS_Actions	0x14969a0	0x5a1f20	32	KillBossNpcByGuild	0	0	T_INT32	4	4		npcDataId	int
+GS_Actions	0x14969a0	0x5a1f20	32	KillBossNpcByGuild	1	0	T_STRING	0	8		guildName	PfString
+GS_Actions	0x14969b4	0x57bee0	33	SpawnNpcDeadBody	0	0	T_INT64	8	8		id	__int64
+GS_Actions	0x14969b4	0x57bee0	33	SpawnNpcDeadBody	1	0	T_INT32	4	16		deadbodyZoneIndex	int
+GS_Actions	0x14969b4	0x57bee0	33	SpawnNpcDeadBody	2	0	T_INT64	8	24		npcId	__int64
+GS_Actions	0x14969b4	0x57bee0	33	SpawnNpcDeadBody	3	0	T_INT32	4	32		dataId	int
+GS_Actions	0x14969b4	0x57bee0	33	SpawnNpcDeadBody	4	0	T_REPEAT	2	36	0x14956a4	authorizedList	PfRepeat
+GS_Actions	0x14969b4	0x57bee0	33	SpawnNpcDeadBody	4/0	1	T_INT64	8	8			
+GS_Actions	0x14969b4	0x57bee0	33	SpawnNpcDeadBody	4/1	1	T_INT8	1	16			
+GS_Actions	0x14969b4	0x57bee0	33	SpawnNpcDeadBody	4/2	1	T_INT8	1	17			
+GS_Actions	0x14969b4	0x57bee0	33	SpawnNpcDeadBody	5	0	T_INT64	8	48		openerId	__int64
+GS_Actions	0x14969b4	0x57bee0	33	SpawnNpcDeadBody	6	0	T_SU	2	56		x	__int16
+GS_Actions	0x14969b4	0x57bee0	33	SpawnNpcDeadBody	7	0	T_SU	2	58		y	__int16
+GS_Actions	0x14969b4	0x57bee0	33	SpawnNpcDeadBody	8	0	T_SU	2	60		z	__int16
+GS_Actions	0x14969b4	0x57bee0	33	SpawnNpcDeadBody	9	0	T_INT8	1	62		state	char
+GS_Actions	0x14969b4	0x57bee0	33	SpawnNpcDeadBody	10	0	T_INT8	1	63		itemPouchAppearance	char
+GS_Actions	0x14969b4	0x57bee0	33	SpawnNpcDeadBody	11	0	T_INT8	1	64		itemPouchAdditionalInfo	char
+GS_Actions	0x14969b4	0x57bee0	33	SpawnNpcDeadBody	12	0	T_REPEAT	2	68	0x149553c	exceptQuestCases	PfRepeat
+GS_Actions	0x14969b4	0x57bee0	33	SpawnNpcDeadBody	12/0	1	T_INT16	2	8			
+GS_Actions	0x14969b4	0x57bee0	33	SpawnNpcDeadBody	12/1	1	T_INT8	1	10			
+GS_Actions	0x14969b4	0x57bee0	33	SpawnNpcDeadBody	12/2	1	T_INT8	1	11			
+GS_Actions	0x14969c8	0x577a80	34	DecomposeNpcDeadBody	0	0	T_INT64	8	8		id	__int64
+GS_Actions	0x14969dc	0x57bfd0	35	NpcDeadBody	0	0	T_INT64	8	8		id	__int64
+GS_Actions	0x14969dc	0x57bfd0	35	NpcDeadBody	1	0	T_INT8	1	16		state	char
+GS_Actions	0x14969dc	0x57bfd0	35	NpcDeadBody	2	0	T_INT8	1	17		itemPouchAppearance	char
+GS_Actions	0x14969dc	0x57bfd0	35	NpcDeadBody	3	0	T_INT8	1	18		itemPouchAdditionalInfo	char
+GS_Actions	0x14969dc	0x57bfd0	35	NpcDeadBody	4	0	T_INT64	8	24		ownerId	__int64
+GS_Actions	0x14969dc	0x57bfd0	35	NpcDeadBody	5	0	T_REPEAT	2	32	0x14956a4	authorizedList	PfRepeat
+GS_Actions	0x14969dc	0x57bfd0	35	NpcDeadBody	5/0	1	T_INT64	8	8			
+GS_Actions	0x14969dc	0x57bfd0	35	NpcDeadBody	5/1	1	T_INT8	1	16			
+GS_Actions	0x14969dc	0x57bfd0	35	NpcDeadBody	5/2	1	T_INT8	1	17			
+GS_Actions	0x14969f0	0x57c060	36	SetDroppedPouch	0	0	T_INT64	8	8		id	__int64
+GS_Actions	0x14969f0	0x57c060	36	SetDroppedPouch	1	0	T_INT32	4	16		droppedPouchZoneIndex	int
+GS_Actions	0x14969f0	0x57c060	36	SetDroppedPouch	2	0	T_INT16	2	20		battleRoyalFieldEffectPouchDataId	__int16
+GS_Actions	0x14969f0	0x57c060	36	SetDroppedPouch	3	0	T_INT64	8	24		npcDataId	__int64
+GS_Actions	0x14969f0	0x57c060	36	SetDroppedPouch	4	0	T_INT64	8	32		npcDeadBodyId	__int64
+GS_Actions	0x14969f0	0x57c060	36	SetDroppedPouch	5	0	T_INT64	8	40		openerId	__int64
+GS_Actions	0x14969f0	0x57c060	36	SetDroppedPouch	6	0	T_SU	2	48		x	__int16
+GS_Actions	0x14969f0	0x57c060	36	SetDroppedPouch	7	0	T_SU	2	50		y	__int16
+GS_Actions	0x14969f0	0x57c060	36	SetDroppedPouch	8	0	T_SU	2	52		z	__int16
+GS_Actions	0x14969f0	0x57c060	36	SetDroppedPouch	9	0	T_INT8	1	54		state	char
+GS_Actions	0x14969f0	0x57c060	36	SetDroppedPouch	10	0	T_INT8	1	55		itemPouchAppearance	char
+GS_Actions	0x14969f0	0x57c060	36	SetDroppedPouch	11	0	T_INT8	1	56		itemPouchAdditionalInfo	char
+GS_Actions	0x1496a04	0x577a80	37	DecomposeDroppedPouch	0	0	T_INT64	8	8		id	__int64
+GS_Actions	0x1496a18	0x5a3cf0	38	DroppedPouch	0	0	T_INT64	8	8		id	__int64
+GS_Actions	0x1496a18	0x5a3cf0	38	DroppedPouch	1	0	T_INT8	1	16		state	char
+GS_Actions	0x1496a18	0x5a3cf0	38	DroppedPouch	2	0	T_INT8	1	17		itemPouchAppearance	char
+GS_Actions	0x1496a18	0x5a3cf0	38	DroppedPouch	3	0	T_INT8	1	18		itemPouchAdditionalInfo	char
+GS_Actions	0x1496a18	0x5a3cf0	38	DroppedPouch	4	0	T_INT64	8	24		openerId	__int64
+GS_Actions	0x1496a2c	0x5a2080	39	LootObject	0	0	T_INT64	8	8		id	__int64
+GS_Actions	0x1496a2c	0x5a2080	39	LootObject	1	0	T_INT16	2	16		questId	__int16
+GS_Actions	0x1496a2c	0x5a2080	39	LootObject	2	0	T_INT8	1	18		missionId	char
+GS_Actions	0x1496a2c	0x5a2080	39	LootObject	3	0	T_INT8	1	19		caseIndex	char
+GS_Actions	0x1496a40	0x57c520	40	PickupDeadBody	0	0	T_INT64	8	8		caster	__int64
+GS_Actions	0x1496a40	0x57c520	40	PickupDeadBody	1	0	T_INT64	8	16		targetId	__int64
+GS_Actions	0x1496a54	0x57c520	41	ManufactureItem	0	0	T_INT32	4	4		reciepeId	int
+GS_Actions	0x1496a54	0x57c520	41	ManufactureItem	1	0	T_INT64	8	8		casterId	__int64
+GS_Actions	0x1496a54	0x57c520	41	ManufactureItem	2	0	T_INT8	1	16		state	char
+GS_Actions	0x1496a54	0x57c520	41	ManufactureItem	3	0	T_INT16	2	18		duration	__int16
+GS_Actions	0x1496a68	0x57be40	42	GatherAction	0	0	T_INT64	8	8		caster	__int64
+GS_Actions	0x1496a68	0x57be40	42	GatherAction	1	0	T_INT64	8	16		id	__int64
+GS_Actions	0x1496a68	0x57be40	42	GatherAction	2	0	T_INT8	1	24		state	char
+GS_Actions	0x1496a7c	0x57be40	43	LootAction	0	0	T_INT64	8	8		caster	__int64
+GS_Actions	0x1496a7c	0x57be40	43	LootAction	1	0	T_INT64	8	16		id	__int64
+GS_Actions	0x1496a7c	0x57be40	43	LootAction	2	0	T_INT8	1	24		state	char
+GS_Actions	0x1496a90	0x57c090	44	PickupItemAction	0	0	T_INT64	8	8		caster	__int64
+GS_Actions	0x1496a90	0x57c090	44	PickupItemAction	1	0	T_INT64	8	16		id	__int64
+GS_Actions	0x1496a90	0x57c090	44	PickupItemAction	2	0	T_INT8	1	24		state	char
+GS_Actions	0x1496aa4	0x57c520	45	RestorationAction	0	0	T_INT64	8	8		caster	__int64
+GS_Actions	0x1496aa4	0x57c520	45	RestorationAction	1	0	T_INT8	1	16		state	char
+GS_Actions	0x1496ab8	0x57be40	46	HelpRestorationAction	0	0	T_INT64	8	8		caster	__int64
+GS_Actions	0x1496ab8	0x57be40	46	HelpRestorationAction	1	0	T_INT64	8	16		target	__int64
+GS_Actions	0x1496ab8	0x57be40	46	HelpRestorationAction	2	0	T_INT8	1	24		state	char
+GS_Actions	0x1496acc	0x57c0c0	47	RepairWithCampfireAction	0	0	T_INT64	8	8		caster	__int64
+GS_Actions	0x1496acc	0x57c0c0	47	RepairWithCampfireAction	1	0	T_INT64	8	16		campfireId	__int64
+GS_Actions	0x1496acc	0x57c0c0	47	RepairWithCampfireAction	2	0	T_INT16	2	24		repairItemEquipPos	__int16
+GS_Actions	0x1496acc	0x57c0c0	47	RepairWithCampfireAction	3	0	T_INT32	4	28		repairDuration	int
+GS_Actions	0x1496acc	0x57c0c0	47	RepairWithCampfireAction	4	0	T_INT8	1	32		state	char
+GS_Actions	0x1496ae0	0x57c520	48	TeleportAction	0	0	T_INT64	8	8		caster	__int64
+GS_Actions	0x1496ae0	0x57c520	48	TeleportAction	1	0	T_INT8	1	16		state	char
+GS_Actions	0x1496af4	0x57c0f0	49	Warp	0	0	T_INT64	8	8		creatureId	__int64
+GS_Actions	0x1496af4	0x57c0f0	49	Warp	1	0	T_INT8	1	16		inout	char
+GS_Actions	0x1496af4	0x57c0f0	49	Warp	2	0	T_SU	2	18		x	__int16
+GS_Actions	0x1496af4	0x57c0f0	49	Warp	3	0	T_SU	2	20		y	__int16
+GS_Actions	0x1496af4	0x57c0f0	49	Warp	4	0	T_SU	2	22		z	__int16
+GS_Actions	0x1496af4	0x57c0f0	49	Warp	5	0	T_INT16	2	24		yaw	__int16
+GS_Actions	0x1496af4	0x57c0f0	49	Warp	6	0	T_INT8	1	26		type	char
+GS_Actions	0x1496af4	0x57c0f0	49	Warp	7	0	T_INT32	4	28		social	int
+GS_Actions	0x1496af4	0x57c0f0	49	Warp	8	0	T_INT16	2	32		duration	__int16
+GS_Actions	0x1496b08	0x57c0f0	50	Airdash	0	0	T_INT64	8	8		creatureId	__int64
+GS_Actions	0x1496b08	0x57c0f0	50	Airdash	1	0	T_INT64	8	16		airdashId	__int64
+GS_Actions	0x1496b08	0x57c0f0	50	Airdash	2	0	T_INT8	1	24		inout	char
+GS_Actions	0x1496b08	0x57c0f0	50	Airdash	3	0	T_SU	2	26		x	__int16
+GS_Actions	0x1496b08	0x57c0f0	50	Airdash	4	0	T_SU	2	28		y	__int16
+GS_Actions	0x1496b08	0x57c0f0	50	Airdash	5	0	T_SU	2	30		z	__int16
+GS_Actions	0x1496b08	0x57c0f0	50	Airdash	6	0	T_INT16	2	32		yaw	__int16
+GS_Actions	0x1496b1c	0x57c520	51	EscapeFromCaveAction	0	0	T_INT64	8	8		caster	__int64
+GS_Actions	0x1496b1c	0x57c520	51	EscapeFromCaveAction	1	0	T_INT8	1	16		state	char
+GS_Actions	0x1496b30	0x57c4f0	52	ZoneEventStep	0	0	T_INT8	1	4		step	char
+GS_Actions	0x1496b44	0x57c190	53	ZoneMode	0	0	T_SUB	0	4	0x1496504	zone_mode	PfSub
+GS_Actions	0x1496b58	0x57c190	54	ZoneScore	0	0	T_SUB	0	4	0x14965e0	zone_score	PfSub
+GS_Actions	0x1496b6c	0x57c190	55	ZoneAttractionState	0	0	T_SUB	0	4	0x1496630	attraction_state	PfSub
+GS_Actions	0x1496b80	0x57c600	56	BossSpawnTimeInGuildBattleField	0	0	T_INT64	8	8		boss_spawn_time	__int64
+GS_Actions	0x1496b94	0x57c600	57	BossCombatStartTimeInGuildBattleField	0	0	T_INT64	8	8		boss_combat_start_time	__int64
+GS_Actions	0x1496ba8	0x57c600	58	LastOccupiedEffectGuildInGuildBattleField	0	0	T_INT64	8	8		last_occupied_effect_guildId	__int64
+GS_Actions	0x1496bbc	0x57b600	59	JackpotFactionScoreInJackpotBossZone	0	0	T_INT32	4	4		jackpot_faction_score_1	int
+GS_Actions	0x1496bbc	0x57b600	59	JackpotFactionScoreInJackpotBossZone	1	0	T_INT32	4	8		jackpot_faction_score_2	int
+GS_Actions	0x1496bd0	0x57c280	60	TakeFactionScore	0	0	T_INT64	8	8		killedId	__int64
+GS_Actions	0x1496bd0	0x57c280	60	TakeFactionScore	1	0	T_INT64	8	16		killerId	__int64
+GS_Actions	0x1496bd0	0x57c280	60	TakeFactionScore	2	0	T_REPEAT	2	24	0x1495ca8	pcList	PfRepeat
+GS_Actions	0x1496bd0	0x57c280	60	TakeFactionScore	2/0	1	T_INT64	8	8			
+GS_Actions	0x1496bd0	0x57c280	60	TakeFactionScore	2/1	1	T_INT32	4	16			
+GS_Actions	0x1496bd0	0x57c280	60	TakeFactionScore	2/2	1	T_INT32	4	20			
+GS_Actions	0x1496be4	0x57be40	61	GiveFactionScoreToRefiner	0	0	T_INT64	8	8		caster	__int64
+GS_Actions	0x1496be4	0x57be40	61	GiveFactionScoreToRefiner	1	0	T_INT64	8	16		refinerId	__int64
+GS_Actions	0x1496be4	0x57be40	61	GiveFactionScoreToRefiner	2	0	T_INT32	4	24		faction_score	int
+GS_Actions	0x1496be4	0x57be40	61	GiveFactionScoreToRefiner	3	0	T_INT8	1	28		actionState	char
+GS_Actions	0x1496bf8	0x57c600	62	DuelEnter	0	0	T_INT64	8	8		pcId	__int64
+GS_Actions	0x1496c0c	0x57c520	63	DuelLeave	0	0	T_INT64	8	8		pcId	__int64
+GS_Actions	0x1496c0c	0x57c520	63	DuelLeave	1	0	T_INT8	1	16		deported	char
+GS_Actions	0x1496c20	0x57c600	64	DuelDelegateEmcee	0	0	T_INT64	8	8		pcId	__int64
+GS_Actions	0x1496c34	0x57c310	65	DuelOrderChosePcList	0	0	T_REPEAT	2	4	0x1495564	pcList	PfRepeat
+GS_Actions	0x1496c34	0x57c310	65	DuelOrderChosePcList	0/0	1	T_INT64	8	8			
+GS_Actions	0x1496c48	0x57c310	66	DuelOrderResultList	0	0	T_REPEAT	2	4	0x1495578	resultList	PfRepeat
+GS_Actions	0x1496c48	0x57c310	66	DuelOrderResultList	0/0	1	T_INT64	8	8			
+GS_Actions	0x1496c48	0x57c310	66	DuelOrderResultList	0/1	1	T_INT8	1	16			
+GS_Actions	0x1496c5c	0x57c310	67	DuelRoundReadiedPcList	0	0	T_REPEAT	2	4	0x149558c	pcList	PfRepeat
+GS_Actions	0x1496c5c	0x57c310	67	DuelRoundReadiedPcList	0/0	1	T_INT64	8	8			
+GS_Actions	0x1496c70	0x57c600	68	DuelTagTokenOwner	0	0	T_INT8	1	4		team_side	char
+GS_Actions	0x1496c70	0x57c600	68	DuelTagTokenOwner	1	0	T_INT64	8	8		pcId	__int64
+GS_Actions	0x1496c84	0x57c600	69	DuelGameStart	0	0	T_INT64	8	8		duel_key	__int64
+GS_Actions	0x1496c98	0x57c460	70	DuelMemberDisplaySkill2	0	0	T_INT64	8	8		pcId	__int64
+GS_Actions	0x1496c98	0x57c460	70	DuelMemberDisplaySkill2	1	0	T_REPEAT	2	16	0x1495604	skill_list	PfRepeat
+GS_Actions	0x1496c98	0x57c460	70	DuelMemberDisplaySkill2	1/0	1	T_INT32	4	8			
+GS_Actions	0x1496c98	0x57c460	70	DuelMemberDisplaySkill2	1/1	1	T_INT8	1	12			
+GS_Actions	0x1496c98	0x57c460	70	DuelMemberDisplaySkill2	1/2	1	T_INT8	1	13			
+GS_Actions	0x1496cac	0x57c4f0	71	DuelRoundStart	0	0	T_INT8	1	4		round	char
+GS_Actions	0x1496cc0	0x57c310	72	DuelInterferenceBonusPcList	0	0	T_REPEAT	2	4	0x14955a0	pcList	PfRepeat
+GS_Actions	0x1496cc0	0x57c310	72	DuelInterferenceBonusPcList	0/0	1	T_INT64	8	8			
+GS_Actions	0x1496cd4	0x57c520	73	DuelDeath	0	0	T_INT64	8	8		attacker_pcId	__int64
+GS_Actions	0x1496cd4	0x57c520	73	DuelDeath	1	0	T_INT64	8	16		dead_pcId	__int64
+GS_Actions	0x1496ce8	0x57c4f0	74	DuelRoundFinish	0	0	T_INT8	1	4		round	char
+GS_Actions	0x1496ce8	0x57c4f0	74	DuelRoundFinish	1	0	T_INT8	1	5		roundResult	char
+GS_Actions	0x1496cfc	0x57c520	75	DuelWinByDecision	0	0	T_INT64	8	8		alpha_damage	__int64
+GS_Actions	0x1496cfc	0x57c520	75	DuelWinByDecision	1	0	T_INT64	8	16		beta_damage	__int64
+GS_Actions	0x1496d10	0x57c4f0	76	DuelGameFinish	0	0	T_INT8	1	4		gameResult	char
+GS_Actions	0x1496d10	0x57c4f0	76	DuelGameFinish	1	0	T_INT8	1	5		exist_duel_game_finish_result	char
+GS_Actions	0x1496d24	0x57c600	77	PartyBattleDelegateEmcee	0	0	T_INT64	8	8		pc_id	__int64
+GS_Actions	0x1496d38	0x57c600	78	PartyBattleEnter	0	0	T_INT64	8	8		pc_id	__int64
+GS_Actions	0x1496d4c	0x57c600	79	PartyBattleLeave	0	0	T_INT64	8	8		pc_id	__int64
+GS_Actions	0x1496d60	0x57c600	80	PartyBattleReady	0	0	T_INT64	8	8		pc_id	__int64
+GS_Actions	0x1496d74	0x57c600	81	PartyBattleStart	0	0	T_INT64	8	8		party_battle_key	__int64
+GS_Actions	0x1496d88	0x57be40	82	PartyBattleDeath	0	0	T_INT64	8	8		victim_pc	__int64
+GS_Actions	0x1496d88	0x57be40	82	PartyBattleDeath	1	0	T_INT64	8	16		killer_pc	__int64
+GS_Actions	0x1496d88	0x57be40	82	PartyBattleDeath	2	0	T_INT16	2	24		killer_pc_straight_kill_count	__int16
+GS_Actions	0x1496d9c	0x57c520	83	PartyBattleContext	0	0	T_INT64	8	8		context1	__int64
+GS_Actions	0x1496d9c	0x57c520	83	PartyBattleContext	1	0	T_INT64	8	16		context2	__int64
+GS_Actions	0x1496db0	0x57c4f0	84	PartyBattleGameFinish	0	0	T_INT8	1	4		result	char
+GS_Actions	0x1496db0	0x57c4f0	84	PartyBattleGameFinish	1	0	T_INT8	1	5		exist_party_battle_finish_result	char
+GS_Actions	0x1496dc4	0x57c520	85	PartyBattleVote	0	0	T_INT64	8	8		pc_id	__int64
+GS_Actions	0x1496dc4	0x57c520	85	PartyBattleVote	1	0	T_INT8	1	16		voting_score	char
+GS_Actions	0x1496dd8	0x57c310	86	PartyBattleVoteFinish	0	0	T_REPEAT	2	4	0x1496040	result	PfRepeat
+GS_Actions	0x1496dd8	0x57c310	86	PartyBattleVoteFinish	0/0	1	T_INT64	8	8			
+GS_Actions	0x1496dd8	0x57c310	86	PartyBattleVoteFinish	0/1	1	T_INT8	1	16			
+GS_Actions	0x1496dd8	0x57c310	86	PartyBattleVoteFinish	0/2	1	T_INT8	1	17			
+GS_Actions	0x1496dec	0x57c520	87	WarpToGuildMemberAction	0	0	T_INT64	8	8		caster	__int64
+GS_Actions	0x1496dec	0x57c520	87	WarpToGuildMemberAction	1	0	T_INT8	1	16		state	char
+GS_Actions	0x1496e00	0x57c520	88	CallGuildMemberAction	0	0	T_INT64	8	8		caster	__int64
+GS_Actions	0x1496e00	0x57c520	88	CallGuildMemberAction	1	0	T_INT8	1	16		state	char
+GS_Actions	0x1496e14	0x57c520	89	WarpToGuildMeetingPlaceAction	0	0	T_INT64	8	8		caster	__int64
+GS_Actions	0x1496e14	0x57c520	89	WarpToGuildMeetingPlaceAction	1	0	T_INT8	1	16		state	char
+GS_Actions	0x1496e28	0x57c550	90	BossNpcHPInfo	0	0	T_STRUCT	0	8	0x14951cc	boss_npc_hp_info	BossNpcHpInfo
+GS_Actions	0x1496e28	0x57c550	90	BossNpcHPInfo	0/0	1	T_INT64	8	8			
+GS_Actions	0x1496e28	0x57c550	90	BossNpcHPInfo	0/1	1	T_INT64	8	16			
+GS_Actions	0x1496e28	0x57c550	90	BossNpcHPInfo	0/2	1	T_INT64	8	24			
+GS_Actions	0x1496e3c	0x57c600	91	PublicRaidStandby	0	0	T_INT64	8	8		public_raid_standby_time	__int64
+GS_Actions	0x1496e50	0x57c5d0	92	PublicRaidStart	-	0	(no field)	0				
+GS_Actions	0x1496e64	0x57c5d0	93	PublicRaidFinish	-	0	(no field)	0				
+GS_Actions	0x1496e78	0x57c600	94	PublicRaidEnter	0	0	T_INT64	8	8		pc_id	__int64
+GS_Actions	0x1496e8c	0x57c600	95	PublicRaidLeave	0	0	T_INT64	8	8		pc_id	__int64
+GS_Actions	0x1496ea0	0x5a2080	96	SpawnSquadCreature	0	0	T_INT64	8	8		CreatureId	__int64
+GS_Actions	0x1496ea0	0x5a2080	96	SpawnSquadCreature	1	0	T_INT64	8	16		SquadLeaderId	__int64
+GS_Actions	0x1496eb4	0x57c600	97	BattleRoyalFieldStandby	0	0	T_INT64	8	8		battle_royal_field_standby_time	__int64
+GS_Actions	0x1496ec8	0x57c5d0	98	BattleRoyalFieldStart	-	0	(no field)	0				
+GS_Actions	0x1496edc	0x57c5d0	99	BattleRoyalFieldFinish	-	0	(no field)	0				
+GS_Actions	0x1496ef0	0x57be40	100	BattleRoyalFieldEnter	0	0	T_INT64	8	8		pc_id	__int64
+GS_Actions	0x1496ef0	0x57be40	100	BattleRoyalFieldEnter	1	0	T_INT64	8	16		party_id	__int64
+GS_Actions	0x1496ef0	0x57be40	100	BattleRoyalFieldEnter	2	0	T_INT8	1	24		pc_state	char
+GS_Actions	0x1496f04	0x57c600	101	BattleRoyalFieldLeave	0	0	T_INT64	8	8		pc_id	__int64
+GS_Actions	0x1496f18	0x57be40	102	BattleRoyalFieldDeath	0	0	T_INT64	8	8		victim_pc	__int64
+GS_Actions	0x1496f18	0x57be40	102	BattleRoyalFieldDeath	1	0	T_INT64	8	16		killer_pc	__int64
+GS_Actions	0x1496f18	0x57be40	102	BattleRoyalFieldDeath	2	0	T_INT16	2	24		killer_pc_straight_kill_count	__int16
+GS_Actions	0x1496f2c	0x57c630	103	BattleRoyalEventAreaInfo	0	0	T_INT32	4	4		event_data_id	int
+GS_Actions	0x1496f2c	0x57c630	103	BattleRoyalEventAreaInfo	1	0	T_INT8	1	8		index	char
+GS_Actions	0x1496f2c	0x57c630	103	BattleRoyalEventAreaInfo	2	0	T_INT32	4	12		x	int
+GS_Actions	0x1496f2c	0x57c630	103	BattleRoyalEventAreaInfo	3	0	T_INT32	4	16		y	int
+GS_SkillTarget	0x149643c	0x577a80	1	TargetData	0	0	T_INT64	8	8		targetId	__int64
+GS_SkillTarget	0x1496450	0x5a3c60	2	PositionData	0	0	T_SU	2	4		x	__int16
+GS_SkillTarget	0x1496450	0x5a3c60	2	PositionData	1	0	T_SU	2	6		y	__int16
+GS_SkillTarget	0x1496450	0x5a3c60	2	PositionData	2	0	T_SU	2	8		z	__int16
+GS_SkillTarget	0x1496464	0x5a3c60	3	ModifiedPositionData	0	0	T_SU	2	4		x	__int16
+GS_SkillTarget	0x1496464	0x5a3c60	3	ModifiedPositionData	1	0	T_SU	2	6		y	__int16
+GS_SkillTarget	0x1496464	0x5a3c60	3	ModifiedPositionData	2	0	T_SU	2	8		z	__int16
+GS_SkillTarget	0x1496478	0x57b300	4	PositionListData	0	0	T_REPEAT	2	4	0x1495654	positionList	PfRepeat
+GS_SkillTarget	0x1496478	0x57b300	4	PositionListData	0/0	1	T_SU	2	8			
+GS_SkillTarget	0x1496478	0x57b300	4	PositionListData	0/1	1	T_SU	2	10			
+GS_SkillTarget	0x1496478	0x57b300	4	PositionListData	0/2	1	T_SU	2	12			
+GS_SkillTarget	0x149648c	0x5a2080	5	LinkLaserData	0	0	T_INT64	8	8		target_from_id	__int64
+GS_SkillTarget	0x149648c	0x5a2080	5	LinkLaserData	1	0	T_INT64	8	16		target_to_id	__int64
+GS_Effects	0x14962fc	0x57b5d0	1	NoneEffect	-	0	(no field)	0				
+GS_Effects	0x1496310	0x5a3cc0	2	PassiveEffectDuration	0	0	T_INT16	2	4		duration	__int16
+GS_Effects	0x1496324	0x5a3c60	3	AttackEffect	0	0	T_INT32	4	4		damage	int
+GS_Effects	0x1496324	0x5a3c60	3	AttackEffect	1	0	T_INT8	1	8		hitCode	char
+GS_Effects	0x1496338	0x5a3c60	4	AttackPassiveEffect	0	0	T_INT32	4	4		damage	int
+GS_Effects	0x1496338	0x5a3c60	4	AttackPassiveEffect	1	0	T_INT8	1	8		hitCode	char
+GS_Effects	0x1496338	0x5a3c60	4	AttackPassiveEffect	2	0	T_INT16	2	10		duration	__int16
+GS_Effects	0x149634c	0x5a2080	5	UnlinkEffect	0	0	T_INT8	1	4		linkType	char
+GS_Effects	0x149634c	0x5a2080	5	UnlinkEffect	1	0	T_INT64	8	8		linkerId	__int64
+GS_Effects	0x149634c	0x5a2080	5	UnlinkEffect	2	0	T_INT64	8	16		linkeeId	__int64
+GS_Effects	0x1496360	0x577a80	6	DashEffect	0	0	T_SU	2	4		x	__int16
+GS_Effects	0x1496360	0x577a80	6	DashEffect	1	0	T_SU	2	6		y	__int16
+GS_Effects	0x1496360	0x577a80	6	DashEffect	2	0	T_SU	2	8		z	__int16
+GS_Effects	0x1496360	0x577a80	6	DashEffect	3	0	T_INT16	2	10		yaw	__int16
+GS_Effects	0x1496360	0x577a80	6	DashEffect	4	0	T_INT16	2	12		duration	__int16
+GS_Effects	0x1496374	0x5a3cf0	7	KnockbackEffect	0	0	T_SU	2	4		x	__int16
+GS_Effects	0x1496374	0x5a3cf0	7	KnockbackEffect	1	0	T_SU	2	6		y	__int16
+GS_Effects	0x1496374	0x5a3cf0	7	KnockbackEffect	2	0	T_SU	2	8		z	__int16
+GS_Effects	0x1496374	0x5a3cf0	7	KnockbackEffect	3	0	T_INT16	2	10		yaw	__int16
+GS_Effects	0x1496374	0x5a3cf0	7	KnockbackEffect	4	0	T_INT16	2	12		duration	__int16
+GS_Effects	0x1496374	0x5a3cf0	7	KnockbackEffect	5	0	T_INT64	8	16		damage	__int64
+GS_Effects	0x1496374	0x5a3cf0	7	KnockbackEffect	6	0	T_INT64	8	24		wallDamage	__int64
+GS_Effects	0x1496388	0x577a80	8	DiffPropertyEffect	0	0	T_INT8	1	4		type	char
+GS_Effects	0x1496388	0x577a80	8	DiffPropertyEffect	1	0	T_INT64	8	8		diff	__int64
+GS_Effects	0x149639c	0x5a3cc0	9	DetachInfo	0	0	T_INT8	1	4		detachReason	char
+GS_Effects	0x14963b0	0x577a80	10	ReplacePositionEffect	0	0	T_SU	2	4		caster_x	__int16
+GS_Effects	0x14963b0	0x577a80	10	ReplacePositionEffect	1	0	T_SU	2	6		caster_y	__int16
+GS_Effects	0x14963b0	0x577a80	10	ReplacePositionEffect	2	0	T_SU	2	8		caster_z	__int16
+GS_Effects	0x14963b0	0x577a80	10	ReplacePositionEffect	3	0	T_SU	2	10		target_x	__int16
+GS_Effects	0x14963b0	0x577a80	10	ReplacePositionEffect	4	0	T_SU	2	12		target_y	__int16
+GS_Effects	0x14963b0	0x577a80	10	ReplacePositionEffect	5	0	T_SU	2	14		target_z	__int16
+GS_Effects	0x14963c4	0x5a3cf0	11	DrainEffect	0	0	T_INT64	8	8		caster_heal_hp	__int64
+GS_Effects	0x14963c4	0x5a3cf0	11	DrainEffect	1	0	T_INT16	2	16		caster_heal_sp	__int16
+GS_Effects	0x14963c4	0x5a3cf0	11	DrainEffect	2	0	T_INT64	8	24		target_damage	__int64
+GS_Effects	0x14963d8	0x577a80	12	PassiveEffectAttachFail	0	0	T_INT8	1	4		failCode	char
+GS_Effects	0x14963d8	0x577a80	12	PassiveEffectAttachFail	1	0	T_INT64	8	8		damage	__int64
+GS_Effects	0x14963ec	0x5a3cc0	13	InitializeRecycleTimeEffect	0	0	T_INT8	1	4		recycle_group_1	char
+GS_Effects	0x14963ec	0x5a3cc0	13	InitializeRecycleTimeEffect	1	0	T_INT8	1	5		recycle_group_id_1	char
+GS_Effects	0x14963ec	0x5a3cc0	13	InitializeRecycleTimeEffect	2	0	T_INT8	1	6		recycle_group_2	char
+GS_Effects	0x14963ec	0x5a3cc0	13	InitializeRecycleTimeEffect	3	0	T_INT8	1	7		recycle_group_id_2	char
+GS_Effects	0x1496400	0x5a3c60	14	ModifyRecycleTimeEffect	0	0	T_INT8	1	4		recycle_group	char
+GS_Effects	0x1496400	0x5a3c60	14	ModifyRecycleTimeEffect	1	0	T_INT8	1	5		recycle_group_id	char
+GS_Effects	0x1496400	0x5a3c60	14	ModifyRecycleTimeEffect	2	0	T_INT32	4	8		recycle_group_modify_time	int
+GS_Effects	0x1496414	0x5a2080	15	ShooterLockOnEffect	0	0	T_INT64	8	8		lock_on_target_id	__int64
+GS_Effects	0x1496414	0x5a2080	15	ShooterLockOnEffect	1	0	T_INT16	2	16		duration	__int16
+GS_PassiveEffectInfo	0x14964b4	0x57b390	1	PassiveEffectFullSync	0	0	T_PROP_SYNC	0	8		passiveEffect	EffectPropertySync
+GS_PassiveEffectInfo	0x14964c8	0x57b3d0	2	PassiveEffectFullSyncForEnterZone	0	0	T_INT64	8	8		curTime	__int64
+GS_PassiveEffectInfo	0x14964c8	0x57b3d0	2	PassiveEffectFullSyncForEnterZone	1	0	T_PROP_SYNC	0	16		passiveEffect	EffectPropertySync
+GS_PassiveEffectInfo	0x14964dc	0x5a3cc0	3	PassiveEffectDetachCountSync	0	0	T_INT16	2	4		EffectSlotIndex	__int16
+GS_PassiveEffectInfo	0x14964dc	0x5a3cc0	3	PassiveEffectDetachCountSync	1	0	T_INT8	1	6		detachCount	char
+GS_PassiveEffectInfo	0x14964f0	0x5a3cc0	4	PassiveEffectDetach	0	0	T_INT16	2	4		EffectSlotIndex	__int16
