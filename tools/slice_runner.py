@@ -72,9 +72,42 @@ def pick(rows, sid):
         if sid and r["id"] != sid:
             continue
         deps = [d for d in r["deps"].split(",") if d and d != "-"]
+        if r["status"] == "paused" and r["id"] in paused():
+            return r
+    for r in rows:
+        if sid and r["id"] != sid:
+            continue
+        deps = [d for d in r["deps"].split(",") if d and d != "-"]
         if r["status"] == "ready" and all(d in done for d in deps):
             return r
     return None
+
+
+# A session stopped by a usage limit is "paused": worktree and session id are kept, the next run resumes it.
+PAUSED = Path.home() / ".cache/bns-slices/paused.json"
+RESUME_PROMPT = "A usage limit stopped you. Continue the card from where you stopped. Do not redo finished work."
+
+
+def paused():
+    try:
+        return json.loads(PAUSED.read_text())
+    except (OSError, ValueError):
+        return {}
+
+
+def set_paused(sid, session):
+    d = paused()
+    if session:
+        d[sid] = session
+    else:
+        d.pop(sid, None)
+    PAUSED.parent.mkdir(parents=True, exist_ok=True)
+    PAUSED.write_text(json.dumps(d))
+
+
+def hit_limit(rec):
+    r = (rec.get("result") or "").lower()
+    return "hit your" in r and "limit" in r
 
 
 # ---------- accounts ----------
@@ -133,7 +166,7 @@ def run_session(row, wt, prompt, resume=None):
            "turns": data.get("num_turns"), "s": int(time.time() - t0),
            "input": u.get("input_tokens", 0), "cache_write": u.get("cache_creation_input_tokens", 0),
            "cache_read": u.get("cache_read_input_tokens", 0), "output": u.get("output_tokens", 0),
-           "cost_usd_equiv": data.get("total_cost_usd")}
+           "cost_usd_equiv": data.get("total_cost_usd"), "result": str(data.get("result") or "")[-300:]}
     return rec
 
 
@@ -208,9 +241,19 @@ def run(sid, dry, push):
             return 1
     set_status(row["id"], "running")
     log = []
-    rec = run_session(row, wt, prompt)
+    resume = paused().get(row["id"])
+    rec = run_session(row, wt, RESUME_PROMPT if resume else prompt, resume=resume)
     rec["account"], rec["acct_5h"], rec["acct_7d"] = acct["n"], acct["5h"], acct["7d"]
     log.append(rec)
+    if hit_limit(rec):
+        set_paused(row["id"], rec.get("session") or resume)
+        rec["gate"] = "paused"
+        with LEDGER.open("a") as f:
+            f.write(json.dumps(rec) + "\n")
+        set_status(row["id"], "paused")
+        print(f"PAUSED {row['id']} (usage limit). Resume later in session {rec.get('session') or resume}")
+        return 75
+    set_paused(row["id"], None)
     fail = gate(row, wt)
     if fail and rec.get("session"):
         rep = run_session(row, wt, "The gate failed. Fix only this. Then run the checks again and update the handoff.\n\n" + fail,
