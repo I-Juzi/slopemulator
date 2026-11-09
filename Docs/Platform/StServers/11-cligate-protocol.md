@@ -322,3 +322,81 @@ Header changes before send:
 Real client trace: RequestToken is sent two times (two AppIds) after
 LoginFinish. AuthSrv makes the token (card auth-1).
 
+## 12. Session lifecycle
+
+### 12.1 Session states
+
+The client conn keeps its state in three fields. There is no state enum.
+
+| State | conn+328 Session | conn+304 bit 2 | conn+300 login time | Allowed Auth commands | Source |
+| --- | --- | --- | --- | --- | --- |
+| Connected | empty | 0 | 0 | LoginStart, LoginTokenStart, 18, 20, CreateAccount | sub_1400CFA50, §3 |
+| LoginStarted | set | 0 | 0 | KeyData | sub_1400D4030, sub_1400D0130 |
+| KeyDataComplete | set | 1 | 0 | LoginFinish | sub_1400D2E60, sub_1400D07B0 |
+| LoggedIn | freed | 1 | timeGetTime() (≠ 0) | RequestToken, RequestGameToken, LogoutMyClient, generic gate path | sub_1400D35C0, §11 |
+| Closed | — | — | — | none | sub_1400D4390 |
+
+LoginStart or LoginTokenStart in any state first does Reset (§12.2), so the
+state goes back to Connected (§3).
+
+### 12.2 Reset (sub_1400D4390)
+
+| Step | Fact |
+| --- | --- |
+| 1 | Write one log line with format `%s, %s, %S, %s`: tag, UserId, client address, login name |
+| 2 | Tag = `LOGOUT` if conn+300 ≠ 0 (logged in), else `DISCONNECT` |
+| 3 | Clear conn+300, UserId (conn+248), UserCenter, names, Session and the random buffers |
+| 4 | Clear flag conn+304 bit 2 |
+| 5 | If the conn was logged in: log out the gate user (StsGate user record, §10.3) and give the socket a new client id ❓ (the exact call is not decoded) |
+
+Reset does not close the socket. The caller closes it.
+
+### 12.3 Client Auth/LogoutMyClient (97) (sub_1400D1150)
+
+| Condition | Result |
+| --- | --- |
+| Logged in (conn+300 ≠ 0) | Reset (§12.2), reply 200 OK with no body, then close the socket (vtable+72 ❓). Line 1733 |
+| Not logged in | ErrUserNotOnline 3007, module 1, line 1736. The socket stays open |
+
+CliGate does not send LogoutMyClient to AuthSrv ❓ (no forward call found in sub_1400D1150).
+
+### 12.4 Bus request `Cli/Logout` (sub_1400D6A00 → sub_1400CEB30 → sub_1400D0EE0)
+
+A backend service (for example AuthSrv for a duplicate login) sends `Cli/Logout` to CliGate.
+
+| Item | Fact |
+| --- | --- |
+| Body | `<ClientId>` (u32), `<UserId>` (GUID), optional `<Force>` (string `Force` used in sub_1400D0EE0) |
+| No match | No conn has this ClientId and UserId: ErrClientNotFound 3018 |
+| `<Force>` present | Reset (§12.2), close the socket. Reply OK to the requester ❓ |
+| No `<Force>` | CliGate sends a request to the game client (`t` = user). On the client reply (LogoutReply sub_1400D4600): reply to the requester, Reset, close the socket |
+| Client reply timeout | Report message `CCliConn::LogoutReply` (§9.4) |
+| Presence command 14 | Same path as `Cli/Logout` ❓ (command name not decoded) |
+
+### 12.5 Client idle timeout
+
+| Item | Fact | Source |
+| --- | --- | --- |
+| Config | `[IdleTimeout]` value in seconds, read at config load | sub_1400D6030 → sub_1400CF050 |
+| Unit | seconds × 1000 = ms | sub_1400D5FB0 |
+| Default and minimum | 300 000 ms (300 s). A smaller value becomes 300 000 | sub_1400D5FB0 |
+| Log | `The idle timeout of ClientManager(%s) : %u seconds` and `The idle timeout of Old ClientManager(%s) : %u seconds` | sub_1400CF050 |
+| Disconnect | The socket layer closes a socket with no traffic for the timeout. Log `StsSocket::%u, Disconnect - idle timeout for (%s)` | sub_140138A90 |
+| Skip | If cfg `DisableIdleDisconnect` is set, log `StsSocket::%u, Disconnect skipped by cfg(DisableIdleDisconnect) - idle timeout for (%s)` and do not close ❓ (cfg source not found) | sub_140138A90 |
+| On close | Socket close calls Reset (§12.2): log tag `LOGOUT` or `DISCONNECT` | sub_1400D4390 |
+
+### 12.6 AuthSrv lost
+
+No special code was found ❓. Open txns end with ErrTimeout 42 after 25 000 ms
+(§9.1) and the client gets the error (§9.4). The client session stays open.
+Rust phase 1: same behaviour. When the route client reports `ProviderLost` for
+`Auth`, do nothing more.
+
+### 12.7 Log strings
+
+| Log | Source |
+| --- | --- |
+| `LOGIN`, `LOGIN-FAILED` | sub_1400D2E60 |
+| `LOGOUT`, `DISCONNECT` (format `%s, %s, %S, %s`) | sub_1400D4390 |
+| `The idle timeout of ClientManager(%s) : %u seconds` | sub_1400CF050 |
+| `StsSocket::%u, Disconnect - idle timeout for (%s)` | sub_140138A90 |
