@@ -21,6 +21,7 @@ members = [
     "Program/Tools/DataFile/BnsModel",
     "Program/Tools/DataFile/BnsSchema",
     "Program/Tools/ClientKey",
+    "Program/Tools/ClientDbg",
 ]
 exclude = ["Program/Tools/BnsEdit"]
 resolver = "2"
