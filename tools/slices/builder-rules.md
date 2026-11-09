@@ -19,3 +19,8 @@ cargo clippy -p <crate> --all-targets -- -D warnings
 ```
 
 Last step: write `Docs/Plan/handoffs/<slice id>.md`, 30 lines or fewer, with these sections: Done (with test names), Not done, ❓, Blocked.
+
+Context budget (each tool result is read again on every later turn):
+- Run cargo with `-q` and pipe it through `tail -40`.
+- For Rust interfaces, run `python3 tools/rust_api.py <crate dir>`. Read a source file only in the line range that you need.
+- Read each spec section one time. Read only the line ranges that the card gives.

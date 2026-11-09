@@ -34,8 +34,8 @@ MCP = PROJECT / ".mcp.json"
 GATEWAY_KEY = Path.home() / ".local/state/nl-parts-pipeline/operator-access/home-gateway/codex-handover/worker-api-key"
 TOOLS = "Read,Edit,Write,Bash,Grep,Glob"
 ALLOW = {
-    "rust": "Read,Grep,Glob,Bash(cargo:*),Bash(rg:*),Bash(git diff:*),Bash(git status:*),Bash(python3 tools/spec_index.py:*)",
-    "spec": "Read,Grep,Glob,mcp__ida__*,Bash(rg:*),Bash(git diff:*),Bash(git status:*),Bash(python3 tools/spec_index.py:*)",
+    "rust": "Read,Grep,Glob,Bash(cargo:*),Bash(rg:*),Bash(git diff:*),Bash(git status:*),Bash(python3 tools/spec_index.py:*),Bash(python3 tools/rust_api.py:*)",
+    "spec": "Read,Grep,Glob,mcp__ida__*,Bash(rg:*),Bash(git diff:*),Bash(git status:*),Bash(python3 tools/spec_index.py:*),Bash(python3 tools/rust_api.py:*)",
 }
 RULES = {"rust": REPO / "tools/slices/builder-rules.md", "spec": REPO / "tools/slices/spec-rules.md"}
 BAD_EXT = re.compile(r"\.(exe|dll|pdb|i64|idb|bin|dat|pem|key|blob|mdf|ldf|rar|pfx|cer|crt)$", re.I)
