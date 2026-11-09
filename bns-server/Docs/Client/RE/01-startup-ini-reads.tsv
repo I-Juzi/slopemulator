@@ -1,0 +1,117 @@
+api	call_addr	function	section	key	default	file_strings_in_function
+GetPrivateProfileStringW	0x79e609	BUiWorld::makeScreenShotEXIFString(std::basic_string<char,std::char_tr	Version	ProductVersion	0	..\bin\Version.ini
+GetPrivateProfileStringW	0x7c3929	BUiWorld::ReInit(uint)	Version	ProductVersion	0	..\bin\Version.ini
+GetPrivateProfileStringW	0x7f095a	UiStateGame::InitDuelObserverCameraInput(void)	CameraShortCut	CamAlpahaTeam	0	extraMode.ini
+GetPrivateProfileStringW	0x7f09a6	UiStateGame::InitDuelObserverCameraInput(void)	CameraShortCut	CamAlphaInterference	0	extraMode.ini
+GetPrivateProfileStringW	0x7f09f2	UiStateGame::InitDuelObserverCameraInput(void)	CameraShortCut	CamBetaTeam	0	extraMode.ini
+GetPrivateProfileStringW	0x7f0a42	UiStateGame::InitDuelObserverCameraInput(void)	CameraShortCut	CamBetaInterference	0	extraMode.ini
+GetPrivateProfileStringW	0x7f0a92	UiStateGame::InitDuelObserverCameraInput(void)	CameraShortCut	CamPlayer	0	extraMode.ini
+GetPrivateProfileStringW	0x7f0ae2	UiStateGame::InitDuelObserverCameraInput(void)	CameraShortCut	CamFree	0	extraMode.ini
+GetPrivateProfileStringW	0x7f0b32	UiStateGame::InitDuelObserverCameraInput(void)	CameraShortCut	CamFixed1	0	extraMode.ini
+GetPrivateProfileStringW	0x7f0b82	UiStateGame::InitDuelObserverCameraInput(void)	CameraShortCut	CamFixed2	0	extraMode.ini
+GetPrivateProfileStringW	0x7f0bd2	UiStateGame::InitDuelObserverCameraInput(void)	CameraShortCut	CamFixed3	0	extraMode.ini
+GetPrivateProfileStringW	0x7f0c22	UiStateGame::InitDuelObserverCameraInput(void)	CameraShortCut	CamFixed4	0	extraMode.ini
+GetPrivateProfileStringW	0x7f0c72	UiStateGame::InitDuelObserverCameraInput(void)	CameraShortCut	CamFixed5	0	extraMode.ini
+GetPrivateProfileStringW	0x7f0cc2	UiStateGame::InitDuelObserverCameraInput(void)	CameraShortCut	CamFitPawns	0	extraMode.ini
+GetPrivateProfileStringW	0x7f0d12	UiStateGame::InitDuelObserverCameraInput(void)	CameraShortCut	ToggleSkillHistory	0	extraMode.ini
+GetPrivateProfileStringW	0x7f0d62	UiStateGame::InitDuelObserverCameraInput(void)	CameraShortCut	ReturnToArenaLobby	0	extraMode.ini
+GetPrivateProfileStringW	0x7f0db2	UiStateGame::InitDuelObserverCameraInput(void)	CameraShortCut	GameStart	0	extraMode.ini
+GetPrivateProfileStringW	0x7f0e02	UiStateGame::InitDuelObserverCameraInput(void)	CameraShortCut	WarpCenter	0	extraMode.ini
+GetPrivateProfileStringW	0x7f0e52	UiStateGame::InitDuelObserverCameraInput(void)	CameraShortCut	CamFreeNormal	0	extraMode.ini
+GetPrivateProfileStringW	0x7f0ea2	UiStateGame::InitDuelObserverCameraInput(void)	CameraShortCut	CamFreeFast	0	extraMode.ini
+GetPrivateProfileStringW	0x7f0ef2	UiStateGame::InitDuelObserverCameraInput(void)	CameraShortCut	CamFreeSlow	0	extraMode.ini
+GetPrivateProfileStringW	0x7f0f42	UiStateGame::InitDuelObserverCameraInput(void)	CameraShortCut	CamQuater	0	extraMode.ini
+GetPrivateProfileStringW	0x7f0f92	UiStateGame::InitDuelObserverCameraInput(void)	CameraShortCut	CamFreeMoveUp	0	extraMode.ini
+GetPrivateProfileStringW	0x7f0fc3	UiStateGame::InitDuelObserverCameraInput(void)	CameraShortCut	CamFreeMoveDown	0	extraMode.ini
+GetPrivateProfileStringW	0x7f0ff4	UiStateGame::InitDuelObserverCameraInput(void)	CameraShortCut	CamFitPawnsHeight	0	extraMode.ini
+GetPrivateProfileStringW	0x7f1046	UiStateGame::InitDuelObserverCameraInput(void)	CameraShortCut	CamFitPawnsDistance	0	extraMode.ini
+GetPrivateProfileStringW	0x7f1096	UiStateGame::InitDuelObserverCameraInput(void)	CameraShortCut	CamFitPawnsHeightByRadius	0	extraMode.ini
+GetPrivateProfileStringW	0x7f10e8	UiStateGame::InitDuelObserverCameraInput(void)	CameraShortCut	CamFreeFastSpeed	0	extraMode.ini
+GetPrivateProfileStringW	0x7f113a	UiStateGame::InitDuelObserverCameraInput(void)	CameraShortCut	CamFreeSlowSpeed	0	extraMode.ini
+GetPrivateProfileStringW	0x7f118a	UiStateGame::InitDuelObserverCameraInput(void)	CameraShortCut	CamQuaterDistance	0	extraMode.ini
+GetPrivateProfileStringW	0x7f11e3	UiStateGame::InitDuelObserverCameraInput(void)	CameraShortCut	CamQuaterAngle	0	extraMode.ini
+GetPrivateProfileStringW	0x7f1235	UiStateGame::InitDuelObserverCameraInput(void)	CameraShortCut	CamQuaterFOV	0	extraMode.ini
+GetPrivateProfileStringW	0x7f13d6	UiStateGame::InitBattleRoyalObserverShortcutInput(void)	ShortCut	ReturnToArenaLobby	ebp	battleRoyalExtraMode.ini
+GetPrivateProfileStringW	0x7f1421	UiStateGame::InitBattleRoyalObserverShortcutInput(void)	ShortCut	GameStart	ebp	battleRoyalExtraMode.ini
+GetPrivateProfileStringW	0x7f1471	UiStateGame::InitBattleRoyalObserverShortcutInput(void)	ShortCut	GameFinish	ebp	battleRoyalExtraMode.ini
+GetPrivateProfileStringW	0x7f14c1	UiStateGame::InitBattleRoyalObserverShortcutInput(void)	ShortCut	CamFree	ebp	battleRoyalExtraMode.ini
+GetPrivateProfileStringW	0x7f1511	UiStateGame::InitBattleRoyalObserverShortcutInput(void)	ShortCut	CamFreeNormal	ebp	battleRoyalExtraMode.ini
+GetPrivateProfileStringW	0x7f1561	UiStateGame::InitBattleRoyalObserverShortcutInput(void)	ShortCut	CamFreeFast	ebp	battleRoyalExtraMode.ini
+GetPrivateProfileStringW	0x7f15b1	UiStateGame::InitBattleRoyalObserverShortcutInput(void)	ShortCut	CamFreeSlow	ebp	battleRoyalExtraMode.ini
+GetPrivateProfileStringW	0x7f1601	UiStateGame::InitBattleRoyalObserverShortcutInput(void)	ShortCut	CamFreeMoveUp	ebp	battleRoyalExtraMode.ini
+GetPrivateProfileStringW	0x7f1631	UiStateGame::InitBattleRoyalObserverShortcutInput(void)	ShortCut	CamFreeMoveDown	ebp	battleRoyalExtraMode.ini
+GetPrivateProfileStringW	0x7f1661	UiStateGame::InitBattleRoyalObserverShortcutInput(void)	ShortCut	ToggleSkillHistory	ebp	battleRoyalExtraMode.ini
+GetPrivateProfileStringW	0x7f16b1	UiStateGame::InitBattleRoyalObserverShortcutInput(void)	ShortCut	ToggleWorldMap	ebp	battleRoyalExtraMode.ini
+GetPrivateProfileStringW	0x7f1701	UiStateGame::InitBattleRoyalObserverShortcutInput(void)	ShortCut	ResizeMiniMap	ebp	battleRoyalExtraMode.ini
+GetPrivateProfileStringW	0x7f1751	UiStateGame::InitBattleRoyalObserverShortcutInput(void)	ShortCut	AlphaMiniMap	ebp	battleRoyalExtraMode.ini
+GetPrivateProfileStringW	0x7f17a1	UiStateGame::InitBattleRoyalObserverShortcutInput(void)	ShortCut	ToggleScoreResult	ebp	battleRoyalExtraMode.ini
+GetPrivateProfileStringW	0x7f182b	UiStateGame::InitBattleRoyalObserverShortcutInput(void)	ShortCut	eax	0	battleRoyalExtraMode.ini
+GetPrivateProfileStringW	0x7f18a6	UiStateGame::InitBattleRoyalObserverShortcutInput(void)	ShortCut	ecx	0	battleRoyalExtraMode.ini
+GetPrivateProfileStringW	0x7f1926	UiStateGame::InitBattleRoyalObserverShortcutInput(void)	ShortCut	edx	0	battleRoyalExtraMode.ini
+GetPrivateProfileStringW	0x7f1979	UiStateGame::InitBattleRoyalObserverShortcutInput(void)	CameraSetting	CamFreeFastSpeed	0	battleRoyalExtraMode.ini
+GetPrivateProfileStringW	0x7f19d7	UiStateGame::InitBattleRoyalObserverShortcutInput(void)	CameraSetting	CamFreeSlowSpeed	0	battleRoyalExtraMode.ini
+GetPrivateProfileStringW	0x805272	BUiLobby::makeScreenShotEXIFString(std::basic_string<char,std::char_tr	Version	ProductVersion	esi	..\bin\Version.ini
+GetPrivateProfileStringW	0x818d40	BUiLobby::ReInit(uint)	Version	ProductVersion	0	..\bin\Version.ini
+GetPrivateProfileStringW	0x826b2e	BUiGuildCustomize::ReInit(uint)	Version	ProductVersion	0	..\bin\Version.ini
+GetPrivateProfileStringW	0x83cd01	BUiArenaLobby::ReInit(uint)	Version	ProductVersion	0	..\bin\Version.ini
+GetPrivateProfileStringW	0x10a024c	ClientSystemText::read(std::basic_string<wchar_t,std::char_traits<wcha	eax	this	edx	
+GetPrivateProfileStringW	0x10e25c9	ClientGameSecurity::InitGameGuard(void)	Country	GameGuard	KR	Local.ini
+GetPrivateProfileStringW	0x11298a8	BNSClient::LoadLocaleInfo(void)	Locale	Publisher	ebx	Local.ini
+GetPrivateProfileStringW	0x11298f9	BNSClient::LoadLocaleInfo(void)	Locale	Language	ebx	Local.ini
+GetPrivateProfileStringW	0x112a009	BNSClient::LoadBattleRoyalExtraMode(void)	Mode	LoadingImage	ebx	battleRoyalExtraMode.ini
+GetPrivateProfileStringW	0x112a0ba	BNSClient::LoadBattleRoyalExtraMode(void)	Mode	DuelObserverMultiLanguage	ebx	battleRoyalExtraMode.ini
+GetPrivateProfileStringW	0x112a130	BNSClient::LoadBattleRoyalExtraMode(void)	ShortCut	CamQuater	ebx	battleRoyalExtraMode.ini
+GetPrivateProfileStringW	0x112a284	BNSClient::LoadBattleRoyalPlayerMode(void)	Mode	LoadingImage	ebx	battleRoyalPlayerMode.ini
+GetPrivateProfileStringW	0x112a57c	BNSClient::LoadDuelExtraMode(void)	Mode	DuelObserverMultiLanguage	0	extraMode.ini
+GetPrivateProfileStringW	0x112a5d2	BNSClient::LoadDuelExtraMode(void)	Mode	LoadingImage	0	extraMode.ini
+GetPrivateProfileStringW	0x1190b0f	BNSClient::MainFramework(HINSTANCE__ *,HINSTANCE__ *,int)	Version	ProductVersion	ebx	..\bin\Version.ini | Splash.bmp
+GetPrivateProfileStringW	0x11e6496	BattleRoyalField::LoadExtraModeIni(void)	ecx	Name	ebx	battleRoyalExtraMode.ini
+GetPrivateProfileStringW	0x11e6535	BattleRoyalField::LoadExtraModeIni(void)	ecx	Leader	ebx	battleRoyalExtraMode.ini
+GetPrivateProfileStringW	0x11e65b6	BattleRoyalField::LoadExtraModeIni(void)	edx	NameplateImageset	ebx	battleRoyalExtraMode.ini
+GetPrivateProfileStringW	0x11e661c	BattleRoyalField::LoadExtraModeIni(void)	eax	TooltipImageset	ebx	battleRoyalExtraMode.ini
+GetPrivateProfileStringW	0x11e6682	BattleRoyalField::LoadExtraModeIni(void)	ecx	CharacterListImageset	ebx	battleRoyalExtraMode.ini
+GetPrivateProfileStringW	0x11e66e8	BattleRoyalField::LoadExtraModeIni(void)	edx	MapUnitImageset	ebx	battleRoyalExtraMode.ini
+GetPrivateProfileStringW	0x11e674e	BattleRoyalField::LoadExtraModeIni(void)	eax	MapUnitDisableImageset	ebx	battleRoyalExtraMode.ini
+GetPrivateProfileStringW	0x11e67b4	BattleRoyalField::LoadExtraModeIni(void)	ecx	TeamImageset	ebx	battleRoyalExtraMode.ini
+GetPrivateProfileStringW	0x11e689e	BattleRoyalField::LoadExtraModeIni(void)	eax	Name	ebx	battleRoyalExtraMode.ini
+GetPrivateProfileStringW	0x11e694c	BattleRoyalField::LoadExtraModeIni(void)	CameraSetting	eax	ebx	battleRoyalExtraMode.ini
+GetPrivateProfileStringW	0x11e6b8b	BattleRoyalField::LoadExtraModeIni(void)	PcInfo	edx	ebx	battleRoyalExtraMode.ini
+GetPrivateProfileStringW	0x11e6c1c	BattleRoyalField::LoadExtraModeIni(void)	CameraUnit	yaw	ebx	battleRoyalExtraMode.ini
+GetPrivateProfileStringW	0x11e6ca6	BattleRoyalField::LoadExtraModeIni(void)	CameraUnit	offsetX	ebx	battleRoyalExtraMode.ini
+GetPrivateProfileStringW	0x11e6d2d	BattleRoyalField::LoadExtraModeIni(void)	CameraUnit	offsetY	ebx	battleRoyalExtraMode.ini
+GetPrivateProfileStringW	0x11e6dab	BattleRoyalField::LoadExtraModeIni(void)	CameraUnit	offsetZ	ebx	battleRoyalExtraMode.ini
+GetPrivateProfileIntW	0x906c56	SkillTracer::LoadIni(void)	SkillTrace	Enabled	0	extraMode.ini | battleRoyalPlayerMode.ini
+GetPrivateProfileIntW	0x906c7a	SkillTracer::LoadIni(void)	SkillTrace	TraceFailureByClient	0	extraMode.ini | battleRoyalPlayerMode.ini
+GetPrivateProfileIntW	0x906cd1	SkillTracer::LoadIni(void)	SkillTrace	edx	0	extraMode.ini | battleRoyalPlayerMode.ini
+GetPrivateProfileIntW	0x906cf5	SkillTracer::LoadIni(void)	SkillTrace	TraceSuccess	0	extraMode.ini | battleRoyalPlayerMode.ini
+GetPrivateProfileIntW	0x906d17	SkillTracer::LoadIni(void)	SkillTrace	LatencyThresholdMillisecond	100	extraMode.ini | battleRoyalPlayerMode.ini
+GetPrivateProfileIntW	0x906d3c	SkillTracer::LoadIni(void)	SkillTrace	EncryptLogFile	0	extraMode.ini | battleRoyalPlayerMode.ini
+GetPrivateProfileIntW	0x906d5e	SkillTracer::LoadIni(void)	SkillTrace	MaxMemorySizeMB	10	extraMode.ini | battleRoyalPlayerMode.ini
+GetPrivateProfileIntW	0x1129fbf	BNSClient::LoadBattleRoyalExtraMode(void)	Mode	TelecastMode	ebx	battleRoyalExtraMode.ini
+GetPrivateProfileIntW	0x1129fdb	BNSClient::LoadBattleRoyalExtraMode(void)	Mode	DeliberativeBodyMode	ebx	battleRoyalExtraMode.ini
+GetPrivateProfileIntW	0x112a054	BNSClient::LoadBattleRoyalExtraMode(void)	Mode	DuelObserverUI	ebx	battleRoyalExtraMode.ini
+GetPrivateProfileIntW	0x112a072	BNSClient::LoadBattleRoyalExtraMode(void)	Mode	EnableReturnToLobby	ebx	battleRoyalExtraMode.ini
+GetPrivateProfileIntW	0x112a090	BNSClient::LoadBattleRoyalExtraMode(void)	Mode	DuelUseTeenVersion	ebx	battleRoyalExtraMode.ini
+GetPrivateProfileIntW	0x112a0fa	BNSClient::LoadBattleRoyalExtraMode(void)	Mode	DuelObserverMaxCameraDistance	ebx	battleRoyalExtraMode.ini
+GetPrivateProfileIntW	0x112a25b	BNSClient::LoadBattleRoyalPlayerMode(void)	Mode	DeliberativeBodyMode	ebx	battleRoyalPlayerMode.ini
+GetPrivateProfileIntW	0x112a2d4	BNSClient::LoadBattleRoyalPlayerMode(void)	Mode	DuelUseTeenVersion	ebx	battleRoyalPlayerMode.ini
+GetPrivateProfileIntW	0x112a3be	BNSClient::LoadDuelExtraMode(void)	Mode	TelecastMode	0	extraMode.ini
+GetPrivateProfileIntW	0x112a3da	BNSClient::LoadDuelExtraMode(void)	Mode	DeliberativeBodyMode	0	extraMode.ini
+GetPrivateProfileIntW	0x112a3f7	BNSClient::LoadDuelExtraMode(void)	Mode	DeliberativeBodyChatIndex	0	extraMode.ini
+GetPrivateProfileIntW	0x112a40d	BNSClient::LoadDuelExtraMode(void)	Mode	DuelRoomOption	0	extraMode.ini
+GetPrivateProfileIntW	0x112a423	BNSClient::LoadDuelExtraMode(void)	Mode	UseDeliberativeBodyModePowerBook	0	extraMode.ini
+GetPrivateProfileIntW	0x112a43f	BNSClient::LoadDuelExtraMode(void)	Mode	DuelObserverUI	0	extraMode.ini
+GetPrivateProfileIntW	0x112a45c	BNSClient::LoadDuelExtraMode(void)	Mode	DuelManualReady	0	extraMode.ini
+GetPrivateProfileIntW	0x112a479	BNSClient::LoadDuelExtraMode(void)	Mode	DuelGameType	0	extraMode.ini
+GetPrivateProfileIntW	0x112a48f	BNSClient::LoadDuelExtraMode(void)	Mode	DuelObserverMaxCameraDistance	0	extraMode.ini
+GetPrivateProfileIntW	0x112a4a5	BNSClient::LoadDuelExtraMode(void)	Mode	DuelUseNagle	0	extraMode.ini
+GetPrivateProfileIntW	0x112a4c2	BNSClient::LoadDuelExtraMode(void)	Mode	DuelUseTeenVersion	0	extraMode.ini
+GetPrivateProfileIntW	0x112a4ef	BNSClient::LoadDuelExtraMode(void)	Mode	DuelSkillLog	0	extraMode.ini
+GetPrivateProfileIntW	0x112a50d	BNSClient::LoadDuelExtraMode(void)	Mode	DuelEnableReadyRequest	0	extraMode.ini
+GetPrivateProfileIntW	0x112a52c	BNSClient::LoadDuelExtraMode(void)	Mode	IgnoreGodSay	0	extraMode.ini
+GetPrivateProfileIntW	0x112a54b	BNSClient::LoadDuelExtraMode(void)	Mode	EnableReturnToLobby	0	extraMode.ini
+GetPrivateProfileIntW	0x11e6e1e	BattleRoyalField::LoadExtraModeIni(void)	Mode	UseLog	ebx	battleRoyalExtraMode.ini
+GetPrivateProfileSectionW	0x10b7918	ClientSystemText::readAll(wchar_t const *,wchar_t const *)	ecx	edx	128	
+WritePrivateProfileStringW	0x11314c9	BNSClient::SaveLocaleInfo(void)	Locale	Publisher	eax	Local.ini
+WritePrivateProfileStringW	0x11314e3	BNSClient::SaveLocaleInfo(void)	Locale	Language	eax	Local.ini
+WritePrivateProfileStringW	0x11314fa	BNSClient::SaveLocaleInfo(void)	Locale	Universe	ecx	Local.ini

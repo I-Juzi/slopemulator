@@ -40,6 +40,7 @@ ALLOW = {
 RULES = {"rust": REPO / "tools/slices/builder-rules.md", "spec": REPO / "tools/slices/spec-rules.md"}
 BAD_EXT = re.compile(r"\.(exe|dll|pdb|i64|idb|bin|dat|pem|key|blob|mdf|ldf|rar|pfx|cer|crt)$", re.I)
 TAIL = 40
+WAIT_STEP_S, WAIT_MAX_S = 900, 12 * 3600   # loop: poll for quota every 15 min, up to 12 h
 # Extra gate commands per crate (cross builds).
 EXTRA_GATE = {"clientdbg": [["cargo", "build", "-q", "-p", "clientdbg", "--release", "--target", "i686-pc-windows-gnu"],
                            ["bash", "-c", "i686-w64-mingw32-objdump -p target/i686-pc-windows-gnu/release/clientdbg.dll | grep -q GPluginInfo"]]}
@@ -318,6 +319,14 @@ def loop(push, max_slices):
     for _ in range(max_slices):
         rc = run(None, False, push)
         salvage()
+        waited = 0
+        while rc == 75 and waited < WAIT_MAX_S:
+            # All accounts over the 5h limit: wait for a reset instead of stopping.
+            print(f"no quota; wait {WAIT_STEP_S // 60} min ({waited // 60} min so far)", flush=True)
+            time.sleep(WAIT_STEP_S)
+            waited += WAIT_STEP_S
+            rc = run(None, False, push)
+            salvage()
         if rc in (2, 75):
             return rc
     return 0
