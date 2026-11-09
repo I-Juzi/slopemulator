@@ -1,0 +1,75 @@
+address	name_381	role
+0xbc90a0	NPStsMsgLib::Create	load StsMsgCli32.dll, get CreateStsMsg/CleanUpStsMsg
+0xbc9060	NPStsMsgLib::Cleanup	clear init flag +16
+0xbc9050	NPStsMsgLib::GetTransactionId	return ++0x1b2f440
+0xbc9160	NPStsMsgLib::NPStsMsgLib	ctor
+0xbce2e0	NPRequestPacket::NPRequestPacket	ctor(txn, cmd), size 0xFA94
+0xbce0f0	sub_BCE0F0	IStsMsg::Build into NPRequestPacket; needs result 1 and nLen>0
+0xbdd680	NPSession::RecordPacket	insert txn -> {cmd, customCommand} into _msglist 0x1a16c70
+0xbd3e50	sub_BD3E50	erase txn from _msglist after a reply
+0xbd3f20	sub_BD3F20	Parse callback: txn -> ECommand from _msglist
+0x47d530	sub_47D530	Session send
+0x4e2af0	NPSession vt0 dtor	
+0x4031e0	NPSession vt1 Id	return 2
+0x4e2590	NPSession vt2 Version	return 122
+0x403a90	NPSession vt3 CryptAlgorithm	return 0
+0xc223a0	NPSession::OnError	vt4; reconnect start or quit panel
+0xc22150	NPSession::OnConnect	vt6; Initialize lib, send 1001 + 3101/3111
+0xc43e80	NPSession::OnClose	vt8; log, step=1
+0xc253d0	NPSession::OnRecv	vt10; dispatch by message type
+0x4e25a0	NPSession vt12 SendPing	calls 0xc067e0 (1002)
+0xbc8e80	NPSession vt17 PacketSize	
+0xbce1e0	NPSession vt18 IsCompleted	IStsMsg::WriteReceiveData
+0xbd41d0	NPSession vt19 ToPacket	IStsMsg::Parse -> NPResponsePacket
+0xbce170	NPSession vt20 ToStream	copy NPRequestPacket _buffer
+0xc24c50	NPSession::Tick	token timer, reconnect state machine
+0xbd40c0	NPSession::SendLoginRequest	connect slot 2 (password path)
+0xc220a0	NPSession::SendWebLoginRequest	connect slot 2 (web/reconnect path)
+0xc08300	NPSession::SendInitialConnectMessage	1001
+0xc076d0	NPSession::SendLoginStartMessage	3101
+0xc074b0	sub_C074B0	3102 KeyData
+0xc073a0	sub_C073A0	3103 LoginFinish
+0xc08200	NPSession::SendWebLoginTokenStart	3111
+0xc07890	NPSession::SendWebLoginTokenKeyData	3112
+0xc075b0	NPSession::SendLogoutRequest	3105
+0xc06d60	sub_C06D60	3106 ListMyAccounts
+0xc063c0	sub_C063C0	3107 RequestGameToken
+0xc24710	NPSession::SendTokenRequest	3110
+0xc07190	sub_C07190	3113 VerifyMobiOtp
+0xc072a0	sub_C072A0	3114 GetMyUserInfo
+0xc07080	sub_C07080	3116 VerifySecondaryAuth
+0xc06e60	NPSession::SendGetSecurityCardCodeIndexRequest	3117
+0xc06f70	NPSession::SendRegisterSecondaryPassword	3118
+0xc06110	sub_C06110	3201 reply (msgType 2), delayed call
+0xc064d0	NPSession::SendPresenceMessageWhisper	3202
+0xc067e0	sub_C067E0	1002 ping
+0xc068c0	sub_C068C0	1501 'activity'
+0xc06a50	sub_C06A50	1501 'customize'
+0xc06be0	sub_C06BE0	1501
+0xc05fe0	NPSession::SendMsgRequest	generic (1601 custom message)
+0xc26f90	NPSession::SendCustomizeDataSaveRequest	3501
+0xc25140	sub_C25140	response dispatcher
+0xc08430	sub_C08430	server request handler (3201)
+0xbd4320	sub_BD4320	notify handler (1201, 3761)
+0xc21c10	NPSession::ReceiveLoginFailure	error -> LOBBY_EVENT 7/8
+0xc24d80	NPSession::ReceiveLoginFinishSuccess	3103 OK
+0xc24340	NPSession::ReceiveTokenSuccess	3110 OK
+0xc24130	NPSession::ReceiveTokenFailure	3110 fail
+0xbdd440	NPSession::ReceiveVerifyMobiOtpFailure	3113 fail
+0xbdd2d0	NPSession::ReceiveVerifySecondaryAuthFailure	3116 fail
+0xbcdf70	NPSession::ReceiveGetMyUserInfoSuccess	3114 OK
+0xc1df90	NPSession::ReceiveCharacterListSuccess	1501 OK
+0xbdcf10	NPSession::ReceiveCustomMessageSuccess	1601 OK
+0xc16990	sub_C16990	3106 OK -> 3107
+0xbc8e20	printResponse	log response
+0xbc8da0	makeInnovaAuthnTokenStr	web token text
+0x1129a90	sub_1129A90	open quit-game confirm, BNSClient+0x74 = state
+0x5d2840	sub_5D2840	IsConnected(session)
+0x5d26e0	sub_5D26E0	request disconnect(reason)
+0x5d28f0	keepalive	every 30.0 s SendPing on each session (02-transport)
+0x4e9e20	sub_4E9E20	register delayed call to 0xc06110
+0x7ff420	TitleLoginPanel::loginReq	UI entry
+0xce5910	Lobby::RequestLogin	
+0x7e3600	UiLobbyStateLogin::ProcessNPEvent	
+0xc5dec0	LoginGuidePanel::ProcessNPEvent	
+0xc9ffc0	LoginOtpPanel::ProcessNPEvent	
