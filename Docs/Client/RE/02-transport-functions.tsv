@@ -1,0 +1,89 @@
+address	doc_name	kind	ida_name_381	section
+0x1a4da00	Network	global	dword_1A4DA00	1.1
+0x5d3030	Network connect switch	func	sub_5D3030	1.1
+0x19499b8	slot name table	data	off_19499B8	4.1
+0x15896b8	GameSession	vtable	off_15896B8	1.2
+0x15e9a80	LobbyGateSession	vtable	off_15E9A80	1.2
+0x15a8608	InfoGateSession	vtable	off_15A8608	1.2
+0x5cf200	Connection ctor	func	sub_5CF200	1.3
+0x5ced90	RecvBuffer ctor	func	??0ActivatedTeleport@@QAE@XZ	1.3
+0x5cf400	Connection::connect	func	sub_5CF400	4.3
+0x5cfa40	postSend	func	sub_5CFA40	4.4
+0x5cfad0	postRecv	func	sub_5CFAD0	4.4
+0x5cfb70	recvNext	func	sub_5CFB70	4.4
+0x5cff70	Connection::sendNext	func	?sendNext@Connection@@AAE_NXZ	4.4
+0x5d0080	dispatch	func	sub_5D0080	4.4
+0x5d2930	Network::SocketError	func	?SocketError@Network@@SAXPB_WHJ0ZZ	4.3
+0x5d54b0	thread start	func	sub_5D54B0	4.2
+0x5d5a80	thread entry	func	StartAddress	4.2
+0x5d5ab0	thread loop	func	sub_5D5AB0	4.2
+0x5d28f0	keepalive ping	func	sub_5D28F0	4.2
+0x5d0910	event 11 handler	func	sub_5D0910	4.2
+0x5d2d80	connection event	func	sub_5D2D80	4.4
+0x5d5d30	command queue	func	sub_5D5D30	4.2
+0x5d2cf0	command switch	func	sub_5D2CF0	4.2
+0x5d33c0	Network::Disconnect	func	sub_5D33C0	5.1
+0x5d3440	command 4	func	sub_5D3440	4.2
+0x5d61d0	queue lock	func	sub_5D61D0	4.2
+0x5d5820	signal	func	sub_5D5820	4.2
+0x5d25d0	connect by host name	func	??1SeasonContentsTimeAttackRecord@@UAE@XZ	4.1
+0x5d2680	connect request	func	sub_5D2680	4.1
+0x5d2840	slot check	func	sub_5D2840	4.1
+0x5d2740	Network::Send	func	sub_5D2740	4.4
+0x5d27c0	handshake param	func	sub_5D27C0	3.4
+0x5d24c0	cleanup request	func	sub_5D24C0	4.2
+0x5d4a20	Session::PacketSize	func	sub_5D4A20	2.2
+0x5d4a40	Session::IsCompleted	func	sub_5D4A40	2.3
+0x5d4c10	Session::ToPacket	func	sub_5D4C10	2.4
+0x5d4d20	Session::ToStream	func	sub_5D4D20	2.4
+0x5d4b00	Session::SetHandshakeParam	func	sub_5D4B00	3.4
+0x5d4b10	Session::SetDaemonBroadcastKey	func	sub_5D4B10	3.4
+0x5d4b90	Session::SetZoneBroadcastKey	func	sub_5D4B90	3.4
+0x60f8a0	PPUtil::PacketSize	func	?PacketSize@PPUtil@@SAGPBTEncHeader@@@Z	2.1
+0x60fd40	PPUtil::Encrypt	func	?Encrypt@PPUtil@@SAHAAW4ErrCode@PacketProcessor@@PAVCrypto@@GPBEHPAEH@Z	2.1
+0x60fb10	PPUtil::EncryptHandshake	func	?EncryptHandshake@PPUtil@@SAHAAW4ErrCode@PacketProcessor@@AAPAVCrypto@@1AAPAVCry	3.4
+0x60fa60	setupPrivateCrypto	func	?setupPrivateCrypto@PPUtil@@CA_NPAVCrypto@@PAEPAH@Z	3.4
+0x60f8f0	PPUtil::SetupSessionCrypto	func	?SetupSessionCrypto@PPUtil@@SA_NAAW4ErrCode@PacketProcessor@@W4Type@Crypto@@AAPA	3.4
+0x60f870	PPUtil::SessionEncCode	func	?SessionEncCode@PPUtil@@SAGH_N@Z	3.3
+0x60f7d0	PPUtil::AllocateKeyExchanger	func	?AllocateKeyExchanger@PPUtil@@SAPAVCryptoKey@@W4Exchange@2@@Z	3.2
+0x6076b0	PacketProcessor::Create	func	?Create@PacketProcessor@@SAPAV1@W4Type@1@W4Algorithm@1@@Z	3.1
+0x1870c4c	AuthPacketProcessor	vtable	??_7AuthPacketProcessor@@6B@	3.1
+0x1870c74	GamePacketProcessor	vtable	??_7GamePacketProcessor@@6B@	3.1
+0x608740	Auth SetSessionKey	func	?SetSessionKey@AuthPacketProcessor@@UAE_NPBEH@Z	3.1
+0x6088e0	Auth Encrypt	func	?Encrypt@AuthPacketProcessor@@UAEHPBEHPAEH_N@Z	3.3
+0x6089a0	Auth Decrypt	func	?Decrypt@AuthPacketProcessor@@UAEHPBEHPAEHPA_N@Z	3.3
+0x608d10	Game SetSessionKey	func	?SetSessionKey@GamePacketProcessor@@UAE_NPBEH@Z	3.1
+0x608e20	Game SetLocalBroadcastKey	func	?SetLocalBroadcastKey@GamePacketProcessor@@UAE_NPBEH@Z	3.5
+0x608e90	Game SetHandshakeParameter	func	?SetHandshakeParameter@GamePacketProcessor@@UAE_NPBEH@Z	3.1
+0x608f10	Game Encrypt	func	?Encrypt@GamePacketProcessor@@UAEHPBEHPAEH_N@Z	3.3
+0x608fb0	Game Decrypt	func	?Decrypt@GamePacketProcessor@@UAEHPBEHPAEHPA_N@Z	3.3
+0x609240	SetExternalUncompressFunc	func	?SetExternalUncompressFunc@GamePacketProcessor@@UAE_NP6AHPAEPAHPBEH2H@Z2H@Z	3.5
+0x60b010	Crypto::Create	func	?Create@Crypto@@SAPAV1@W4Type@1@PAXH@Z	3.2
+0x60af60	Crypto::InstanceSize	func	?InstanceSize@Crypto@@SAHW4Type@1@@Z	3.2
+0x1870cf4	Aes128	vtable	??_7Aes128@@6B@	3.2
+0x611730	Aes128::Setup	func	?Setup@Aes128@@UAE_NPBEHH@Z	3.2
+0x611750	Aes128::Encrypt	func	?Encrypt@Aes128@@UBE_NPBEHPAEPAH@Z	3.2
+0x6117c0	Aes128::Decrypt	func	?Decrypt@Aes128@@UBE_NPBEHPAEPAH@Z	3.2
+0x607ff0	CryptoKey::Initialize	func	?Initialize@CryptoKey@@SA_NXZ	3.2
+0x6081d0	CryptoKey::generateRsaKey	func	?generateRsaKey@CryptoKey@@CA_NHPAEPAH@Z	3.4
+0x1870c9c	Dh	vtable	??_7Dh@@6B@	3.2
+0x60ece0	Dh::Setup	func	?Setup@Dh@@UAE_NH@Z	3.2
+0x60ed90	Dh::Start	func	?Start@Dh@@UAE_NPBEHPAEPAH@Z	3.2
+0x60efb0	Dh::Process	func	?Process@Dh@@UAE_NPBEHPAEPAH@Z	3.2
+0x60f030	Dh::GetKey	func	?GetKey@Dh@@UBE_NPAEPAH@Z	3.2
+0x13f6f80	handshake key blob (keyhere)	data	unk_13F6F80	3.4
+0x13f7004	DH param blob (keyhere)	data	unk_13F7004	3.4
+0xcb8660	LobbyGateSession::ReceiveHelloOk	func	?ReceiveHelloOk@LobbyGateSession@@QAEXPBVStructPacket@@@Z	3.4
+0xf70280	HandleHelloOkPacket	func	?HandleHelloOkPacket@@YA_NPBVGameSession@@PBVStructPacket@@@Z	3.4
+0xee11d0	GameSession::SetHandshakeFinish	func	?SetHandshakeFinish@GameSession@@QAEXXZ	3.4
+0x47d7a0	GameSession::SendPing	func	?SendPing@GameSession@@UBE_NXZ	3.4
+0x5ced10	ZSTD_decompress_usingDict	func	_ZSTD_decompress_usingDict	3.5
+0x5ceb00	CompressUtil::CompressConfigration	func	?CompressConfigration@CompressUtil@@SAPAEPAEIAAI@Z	3.5
+0x1131520	InfoGateSession::ReconnectInfoGate	func	?ReconnectInfoGate@InfoGateSession@@QAE_NXZ	5.3
+0x127f130	BAccount::OnReconnectInfoGate	func	?OnReconnectInfoGate@BAccount@@QAEXXZ	5.3
+0x520c60	BNSClient::GetDisconnectWSALastError	func	?GetDisconnectWSALastError@BNSClient@@SAHXZ	5.1
+0x1157ee0	BNSClient::EnterGameForNPWithLobbyGate	func	?EnterGameForNPWithLobbyGate@BNSClient@@SA_NKG_J0F@Z	4.1
+0x5fd5d0	PacketParser::Create	func	?Create@PacketParser@@SAPAV1@HPAVPacketParserHandler@@PAVPacketPool@@@Z	6
+0x5fd770	PacketParser::ParseData	func	?ParseData@PacketParser@@QAEHPADH@Z	6
+0x186c338	Connection.cpp path	string	aEDailybuild02C_0	anchor
+0x159ba78	InfoGate connect error log	string	off_159BA78	4.3
