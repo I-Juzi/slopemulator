@@ -11,7 +11,7 @@ dbg-1-rust	rust	sonnet	clientdbg	Program/Tools/ClientDbg/,Cargo.toml,Cargo.lock	
 dbg-2-rust	rust	sonnet	clientdbg	Program/Tools/ClientDbg/,Cargo.lock	dbg-1-rust	150	ready	clientdbg live debugger part 2
 cx-01	spec	opus	-	Docs/Client/RE/	-	150	done	client RE: Process start, command line, config, main loop
 cx-02	spec	opus	-	Docs/Client/RE/	-	150	done	client RE: Network transport, framing and session crypto
-cx-03	spec	opus	-	Docs/Client/RE/	-	150	running	client RE: STS client (login to StServers)
+cx-03	spec	opus	-	Docs/Client/RE/	-	150	done	client RE: STS client (login to StServers)
 cx-04	spec	opus	-	Docs/Client/RE/	-	150	ready	client RE: LobbyGate session
 cx-05	spec	opus	-	Docs/Client/RE/	-	150	ready	client RE: Game session and command dispatch
 cx-06	spec	opus	-	Docs/Client/RE/	-	150	ready	client RE: Movement and position sync
