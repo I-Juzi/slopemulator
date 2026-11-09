@@ -21,3 +21,8 @@ Context budget (each tool result is read again on every later turn):
 Last steps:
 1. Write the Rust card for the next slice with `Docs/Plan/card-template.md`. Path: `Docs/Plan/cards/<slice id>-rust.md`. Give exact spec line ranges, Rust signatures and test cases.
 2. Write `Docs/Plan/handoffs/<slice id>.md`, 30 lines or fewer: Done, Not done, ❓, Blocked.
+
+## Order of work
+- Write each verified fact into the spec at once. Do not keep facts only in the conversation.
+- Write the Rust card early, before the last topic. Update it at the end. A slice without the card cannot chain to Rust.
+- You have no general Bash. Do not try `tools/slice_runner.py`. Check the gate rules by hand.
