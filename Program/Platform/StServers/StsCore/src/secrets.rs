@@ -43,9 +43,17 @@ pub mod names {
 #[derive(Debug)]
 pub enum SecretError {
     /// The config says `keyhere` and no source has a value.
-    Missing { name: String, env: String, path: PathBuf },
+    Missing {
+        name: String,
+        env: String,
+        path: PathBuf,
+    },
     /// The file exists but cannot be read.
-    Io { name: String, path: PathBuf, source: io::Error },
+    Io {
+        name: String,
+        path: PathBuf,
+        source: io::Error,
+    },
     /// The value is not valid UTF-8 (text secrets only).
     NotText { name: String },
 }
@@ -59,7 +67,11 @@ impl fmt::Display for SecretError {
                 path.display()
             ),
             Self::Io { name, path, source } => {
-                write!(f, "secret '{name}': cannot read {}: {source}", path.display())
+                write!(
+                    f,
+                    "secret '{name}': cannot read {}: {source}",
+                    path.display()
+                )
             }
             Self::NotText { name } => write!(f, "secret '{name}' is not UTF-8 text"),
         }
@@ -87,7 +99,13 @@ impl fmt::Debug for SecretStore {
 /// Environment variable name for a secret name.
 pub fn env_name(name: &str) -> String {
     let mut s = String::from("STS_SECRET_");
-    s.extend(name.chars().map(|c| if c.is_ascii_alphanumeric() { c.to_ascii_uppercase() } else { '_' }));
+    s.extend(name.chars().map(|c| {
+        if c.is_ascii_alphanumeric() {
+            c.to_ascii_uppercase()
+        } else {
+            '_'
+        }
+    }));
     s
 }
 
@@ -99,14 +117,20 @@ pub fn is_placeholder(value: &str) -> bool {
 impl SecretStore {
     /// Store from the process environment.
     pub fn from_env() -> Self {
-        let dir = std::env::var_os("STS_SECRETS_DIR").map_or_else(|| PathBuf::from("secrets"), PathBuf::from);
-        let env = std::env::vars().filter(|(k, _)| k.starts_with("STS_SECRET_")).collect();
+        let dir = std::env::var_os("STS_SECRETS_DIR")
+            .map_or_else(|| PathBuf::from("secrets"), PathBuf::from);
+        let env = std::env::vars()
+            .filter(|(k, _)| k.starts_with("STS_SECRET_"))
+            .collect();
         Self { dir, env }
     }
 
     /// Store with an explicit directory and variables (tests, tools).
     pub fn new(dir: impl Into<PathBuf>, env: impl IntoIterator<Item = (String, String)>) -> Self {
-        Self { dir: dir.into(), env: env.into_iter().collect() }
+        Self {
+            dir: dir.into(),
+            env: env.into_iter().collect(),
+        }
     }
 
     pub fn dir(&self) -> &Path {
@@ -129,8 +153,16 @@ impl SecretStore {
                 warn_if_open(name, &path);
                 Ok(b)
             }
-            Err(e) if e.kind() == io::ErrorKind::NotFound => Err(SecretError::Missing { name: name.into(), env, path }),
-            Err(source) => Err(SecretError::Io { name: name.into(), path, source }),
+            Err(e) if e.kind() == io::ErrorKind::NotFound => Err(SecretError::Missing {
+                name: name.into(),
+                env,
+                path,
+            }),
+            Err(source) => Err(SecretError::Io {
+                name: name.into(),
+                path,
+                source,
+            }),
         }
     }
 
@@ -162,7 +194,10 @@ fn warn_if_open(name: &str, path: &Path) {
     use std::os::unix::fs::PermissionsExt;
     if let Ok(m) = fs::metadata(path) {
         if m.permissions().mode() & 0o077 != 0 {
-            eprintln!("warning: secret '{name}' file {} is readable by others; use chmod 600", path.display());
+            eprintln!(
+                "warning: secret '{name}' file {} is readable by others; use chmod 600",
+                path.display()
+            );
         }
     }
 }
@@ -183,8 +218,14 @@ mod tests {
 
     #[test]
     fn env_names() {
-        assert_eq!(env_name("db.AcctDb.password"), "STS_SECRET_DB_ACCTDB_PASSWORD");
-        assert_eq!(env_name(names::TOKEN_SIGNING_KEY), "STS_SECRET_AUTH_TOKEN_PRIVATE_PEM");
+        assert_eq!(
+            env_name("db.AcctDb.password"),
+            "STS_SECRET_DB_ACCTDB_PASSWORD"
+        );
+        assert_eq!(
+            env_name(names::TOKEN_SIGNING_KEY),
+            "STS_SECRET_AUTH_TOKEN_PRIVATE_PEM"
+        );
     }
 
     #[test]
@@ -197,10 +238,19 @@ mod tests {
     fn env_wins_over_file() {
         let d = tmpdir("env");
         fs::write(d.join("db.AcctDb.password"), "from-file\n").unwrap();
-        let s = SecretStore::new(&d, [("STS_SECRET_DB_ACCTDB_PASSWORD".into(), "from-env".into())]);
-        assert_eq!(s.resolve("db.AcctDb.password", "keyhere").unwrap(), "from-env");
+        let s = SecretStore::new(
+            &d,
+            [("STS_SECRET_DB_ACCTDB_PASSWORD".into(), "from-env".into())],
+        );
+        assert_eq!(
+            s.resolve("db.AcctDb.password", "keyhere").unwrap(),
+            "from-env"
+        );
         let s = SecretStore::new(&d, []);
-        assert_eq!(s.resolve("db.AcctDb.password", " keyhere ").unwrap(), "from-file");
+        assert_eq!(
+            s.resolve("db.AcctDb.password", " keyhere ").unwrap(),
+            "from-file"
+        );
         fs::remove_dir_all(d).unwrap();
     }
 
@@ -220,7 +270,10 @@ mod tests {
         let s = SecretStore::new("/nonexistent-dir", []);
         let e = s.resolve("route.tls.key", "keyhere").unwrap_err();
         let msg = e.to_string();
-        assert!(msg.contains("route.tls.key") && msg.contains("STS_SECRET_ROUTE_TLS_KEY"), "{msg}");
+        assert!(
+            msg.contains("route.tls.key") && msg.contains("STS_SECRET_ROUTE_TLS_KEY"),
+            "{msg}"
+        );
         assert!(matches!(e, SecretError::Missing { .. }));
     }
 

@@ -35,7 +35,12 @@ pub struct StsError {
 
 impl StsError {
     pub fn new(code: u32, module: u32, line: u32) -> Self {
-        Self { code, module, line, ..Self::default() }
+        Self {
+            code,
+            module,
+            line,
+            ..Self::default()
+        }
     }
 
     pub fn with_text(mut self, text: impl Into<String>) -> Self {
@@ -49,8 +54,17 @@ impl StsError {
 
     pub fn to_element(&self, local_server: u32) -> Element {
         let mut e = Element::new("Error");
-        let server = if self.server == 0 { local_server } else { self.server };
-        for (name, v) in [("code", self.code), ("server", server), ("module", self.module), ("line", self.line)] {
+        let server = if self.server == 0 {
+            local_server
+        } else {
+            self.server
+        };
+        for (name, v) in [
+            ("code", self.code),
+            ("server", server),
+            ("module", self.module),
+            ("line", self.line),
+        ] {
             if v != 0 {
                 e = e.attr(name, (v as i32).to_string());
             }
@@ -81,7 +95,15 @@ impl StsError {
 
 impl fmt::Display for StsError {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-        write!(f, "{}({}) server {} module {} line {}", self.name(), self.code, self.server, self.module, self.line)
+        write!(
+            f,
+            "{}({}) server {} module {} line {}",
+            self.name(),
+            self.code,
+            self.server,
+            self.module,
+            self.line
+        )
     }
 }
 impl std::error::Error for StsError {}
@@ -128,7 +150,10 @@ mod tests {
         let e = StsError::new(ERR_BAD_DATA, 0, 0);
         assert_eq!(e.to_element(0).to_xml(), "<Error code=\"4\"/>\n");
         let e = StsError::new(ERR_BAD_PARAM, module::ROUTE, 1115);
-        assert_eq!(e.to_element(3).to_xml(), "<Error code=\"10\" server=\"3\" module=\"2\" line=\"1115\"/>\n");
+        assert_eq!(
+            e.to_element(3).to_xml(),
+            "<Error code=\"10\" server=\"3\" module=\"2\" line=\"1115\"/>\n"
+        );
         assert_eq!(StsError::from_element(&e.to_element(3)).server, 3);
     }
 }

@@ -16,12 +16,19 @@ pub struct Element {
 
 impl Element {
     pub fn new(name: impl Into<String>) -> Self {
-        Self { name: name.into(), ..Self::default() }
+        Self {
+            name: name.into(),
+            ..Self::default()
+        }
     }
 
     /// `<Name>text</Name>`; an empty text gives `<Name/>`.
     pub fn text(name: impl Into<String>, text: impl Into<String>) -> Self {
-        Self { name: name.into(), text: text.into(), ..Self::default() }
+        Self {
+            name: name.into(),
+            text: text.into(),
+            ..Self::default()
+        }
     }
 
     pub fn int(name: impl Into<String>, value: i64) -> Self {
@@ -82,7 +89,10 @@ impl Element {
     }
 
     pub fn attr_value(&self, name: &str) -> Option<&str> {
-        self.attrs.iter().find(|(n, _)| n == name).map(|(_, v)| v.as_str())
+        self.attrs
+            .iter()
+            .find(|(n, _)| n == name)
+            .map(|(_, v)| v.as_str())
     }
 
     pub fn attr_u32(&self, name: &str, default: u32) -> u32 {
@@ -154,7 +164,8 @@ impl Element {
                 }
                 Event::CData(t) => {
                     if let Some(top) = stack.last_mut() {
-                        top.text.push_str(std::str::from_utf8(&t).map_err(|_| ParseError)?);
+                        top.text
+                            .push_str(std::str::from_utf8(&t).map_err(|_| ParseError)?);
                     }
                 }
                 Event::GeneralRef(r) => {
@@ -178,11 +189,15 @@ impl Element {
 }
 
 fn start(e: &quick_xml::events::BytesStart<'_>) -> Result<Element, ParseError> {
-    let name = std::str::from_utf8(e.name().as_ref()).map_err(|_| ParseError)?.to_owned();
+    let name = std::str::from_utf8(e.name().as_ref())
+        .map_err(|_| ParseError)?
+        .to_owned();
     let mut el = Element::new(name);
     for a in e.attributes() {
         let a = a.map_err(|_| ParseError)?;
-        let key = std::str::from_utf8(a.key.as_ref()).map_err(|_| ParseError)?.to_owned();
+        let key = std::str::from_utf8(a.key.as_ref())
+            .map_err(|_| ParseError)?
+            .to_owned();
         let value = a.unescape_value().map_err(|_| ParseError)?.into_owned();
         el.attrs.push((key, value));
     }
@@ -237,8 +252,14 @@ mod tests {
     #[test]
     fn writer_layout_matches_builder() {
         let mut reply = Element::new("Reply");
-        reply.push(Element::int("UserId", 5)).push(Element::text("Empty", ""));
-        reply.push(Element::new("Error").attr("code", "4").attr("text", "a\"<&"));
+        reply
+            .push(Element::int("UserId", 5))
+            .push(Element::text("Empty", ""));
+        reply.push(
+            Element::new("Error")
+                .attr("code", "4")
+                .attr("text", "a\"<&"),
+        );
         assert_eq!(
             reply.to_xml(),
             "<Reply>\n<UserId>5</UserId>\n<Empty/>\n<Error code=\"4\" text=\"a&quot;&lt;&amp;\"/>\n</Reply>\n"

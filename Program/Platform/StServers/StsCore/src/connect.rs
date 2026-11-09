@@ -16,8 +16,8 @@
 
 use crate::route::Location;
 use crate::xml::Element;
-use sts::Frame;
 use std::net::SocketAddr;
+use sts::Frame;
 
 pub const CONN_CLIENT: u32 = 300;
 pub const CONN_CLIENT_AUTH: u32 = 301;
@@ -39,17 +39,24 @@ pub struct ConnectInfo {
 }
 
 fn header<'a>(frame: &'a Frame, name: &str) -> Option<&'a str> {
-    frame.headers.iter().find(|h| h.name.eq_ignore_ascii_case(name)).map(|h| h.value.as_str())
+    frame
+        .headers
+        .iter()
+        .find(|h| h.name.eq_ignore_ascii_case(name))
+        .map(|h| h.value.as_str())
 }
 
 /// Value of `key=` inside a `;`-separated header value. `None` key → the
 /// leading token without `=`.
 pub fn header_param<'a>(value: &'a str, key: Option<&str>) -> Option<&'a str> {
-    value.split(';').map(str::trim).find_map(|part| match (key, part.split_once('=')) {
-        (None, None) if !part.is_empty() => Some(part),
-        (Some(k), Some((n, v))) if n.trim().eq_ignore_ascii_case(k) => Some(v.trim()),
-        _ => None,
-    })
+    value
+        .split(';')
+        .map(str::trim)
+        .find_map(|part| match (key, part.split_once('=')) {
+            (None, None) if !part.is_empty() => Some(part),
+            (Some(k), Some((n, v))) if n.trim().eq_ignore_ascii_case(k) => Some(v.trim()),
+            _ => None,
+        })
 }
 
 fn num(s: Option<&str>) -> u32 {
@@ -74,7 +81,10 @@ impl ConnectInfo {
             } else {
                 CONN_CLIENT
             };
-            return Some(Self { conn_type, ..Self::default() });
+            return Some(Self {
+                conn_type,
+                ..Self::default()
+            });
         };
         let p = |k| num(header_param(h, Some(k)));
         let addr: SocketAddr = header_param(h, Some("address"))?.parse().ok()?;
@@ -98,7 +108,8 @@ impl ConnectInfo {
             version_flags: p("version"),
             ..Self::default()
         };
-        (info.conn_type != 0 && info.process != 0 && info.build != 0 && info.program != 0).then_some(info)
+        (info.conn_type != 0 && info.process != 0 && info.build != 0 && info.program != 0)
+            .then_some(info)
     }
 
     pub fn from_body(e: &Element, own_program: u32) -> Option<Self> {
@@ -126,7 +137,10 @@ impl ConnectInfo {
             let loc = e.get_text("Location")?;
             let (addr, rest) = loc.split_once(';')?;
             location.addr = Some(addr.parse().ok()?);
-            let nums: Vec<u32> = rest.split(';').map(crate::xml::parse_u32).collect::<Option<_>>()?;
+            let nums: Vec<u32> = rest
+                .split(';')
+                .map(crate::xml::parse_u32)
+                .collect::<Option<_>>()?;
             if !(3..=4).contains(&nums.len()) {
                 return None;
             }
@@ -178,8 +192,17 @@ mod tests {
 
     fn connect(headers: Vec<(&str, &str)>) -> Frame {
         Frame {
-            start: StartLine::Request { protocol: "Sts".into(), command: "Connect".into() },
-            headers: headers.into_iter().map(|(n, v)| Header { name: n.into(), value: v.into() }).collect(),
+            start: StartLine::Request {
+                protocol: "Sts".into(),
+                command: "Connect".into(),
+            },
+            headers: headers
+                .into_iter()
+                .map(|(n, v)| Header {
+                    name: n.into(),
+                    value: v.into(),
+                })
+                .collect(),
             body: vec![],
         }
     }
@@ -188,7 +211,13 @@ mod tests {
     fn header_form_roundtrip() {
         let info = ConnectInfo {
             conn_type: 2,
-            location: Location { addr: Some("10.0.0.1:6600".parse().unwrap()), product: 1, index: 2, deployment: 3, epoch: 4 },
+            location: Location {
+                addr: Some("10.0.0.1:6600".parse().unwrap()),
+                product: 1,
+                index: 2,
+                deployment: 3,
+                epoch: 4,
+            },
             process: 99,
             program: 101,
             build: 381,
@@ -200,9 +229,24 @@ mod tests {
 
     #[test]
     fn client_forms() {
-        assert_eq!(ConnectInfo::from_frame(&connect(vec![]), 0).unwrap().conn_type, 300);
-        assert_eq!(ConnectInfo::from_frame(&connect(vec![("authorization", "x")]), 0).unwrap().conn_type, 301);
-        assert_eq!(ConnectInfo::from_frame(&connect(vec![("upgrade", "websocket")]), 0).unwrap().conn_type, 302);
+        assert_eq!(
+            ConnectInfo::from_frame(&connect(vec![]), 0)
+                .unwrap()
+                .conn_type,
+            300
+        );
+        assert_eq!(
+            ConnectInfo::from_frame(&connect(vec![("authorization", "x")]), 0)
+                .unwrap()
+                .conn_type,
+            301
+        );
+        assert_eq!(
+            ConnectInfo::from_frame(&connect(vec![("upgrade", "websocket")]), 0)
+                .unwrap()
+                .conn_type,
+            302
+        );
     }
 
     #[test]
