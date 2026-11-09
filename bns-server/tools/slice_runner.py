@@ -43,7 +43,7 @@ TAIL = 40
 WAIT_STEP_S, WAIT_MAX_S = 900, 12 * 3600   # loop: poll for quota every 15 min, up to 12 h
 # Extra gate commands per crate (cross builds).
 EXTRA_GATE = {"clientdbg": [["cargo", "build", "-q", "-p", "clientdbg", "--release", "--target", "i686-pc-windows-gnu"],
-                           ["bash", "-c", "i686-w64-mingw32-objdump -p target/i686-pc-windows-gnu/release/clientdbg.dll | grep -q GPluginInfo"]]}
+                           ["bash", "-c", "i686-w64-mingw32-objdump -p \"${CARGO_TARGET_DIR:-target}/i686-pc-windows-gnu/release/clientdbg.dll\" | grep -q GPluginInfo"]]}
 LIMIT_5H, LIMIT_7D = 90, 99   # cswap rule (memory: cswap-account-switching)
 
 
