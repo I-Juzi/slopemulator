@@ -1,0 +1,336 @@
+addr_381	kind	doc_name	ida_name_381	note	section
+0xf44030	func	GameSession::onRecv	sub_F44030	Session vtbl slot 23; PacketDest filter + GamePacketHandler call	§1.3
+0x149ec40	data	GamePacketHandler	dword_149EC40	handler table, 1599 x fn ptr (.rdata)	§2
+0x1496f40	data	GamePacket_define		StructPacket::Def table, 1599 x 20 B (.rdata)	§3
+0x1953620	data	MainCommand name table		1600 x wchar_t* (None..G_CMD_MAX)	§2
+0x1952fd8	data	safe-mode packet flags	byte_1952FD8	1599 x byte, read by 0x865e90	§1.3
+0x865e90	func	TencentSafeMode::IsSafeModePacket	sub_865E90	cmd < 1599 ? flag[cmd] : 0	§1.3
+0x114ce20	func	BNSClient::SendToGamed	BNSClient::SendToGamed	PacketDest routing + TaskSession lock	§1.4
+0x47d530	func	GameSession send helper	sub_47D530	null check, connected check, Network::Send 0x5d2740, else delete	§1.4
+0x5d2840	func	Network::IsConnected(session)	sub_5D2840	slot id 0..9 and connection[id] != 0	§1.3
+0x5d26e0	func	Session::Close(session, reason)	sub_5D26E0	posts close event 0x5d6030 (reason 105 for unknown command)	§1.3
+0x401690	func	BNSClient::isInArena	BNSClient::isInArena	BNSClient+0x38 byte	§1.2
+0x11230a0	func	BNSClient::IsConnectedArena	BNSClient::IsConnectedArena	connected(BNSClient+0x28)	§1.2
+0x11230b0	func	BNSClient::IsConnectedGame	BNSClient::IsConnectedGame	connected(BNSClient+0x24)	§1.2
+0x1a4c0f8	data	BNSClient instance pointer		global	§1.2
+0x1a4c0fc	data	TaskSession instance pointer	dword_1A4C0FC	global	§4
+0x1a4c312	data	send-block flag	byte_1A4C312	byte; 1 = SendToGamed drops every packet ❓	§1.4
+0xefbf40	func	GameSession::GameSession	GameSession::GameSession	cmdmax 1599, define 0x1496f40	§1.1
+0xf2c0c0	func	GameSession::OnConnect	sub_F2C0C0	builds and sends G_HelloReq (11)	§1.5
+0xefbd80	func	GameSession::OnClose	GameSession::OnClose	DisconnectGameReason -> BNSClient::DisconnectProcess	§1.6
+0xf44150	func	GameSession::OnError	GameSession::OnError	same map as OnClose with code 0	§1.6
+0xf4b550	func	GameSession::onStreamError	GameSession::onStreamError	hex dump of max 900 bytes to ClientLog line 569	§1.6
+0xee1130	func	GameSession::IsUrgent	sub_EE1130	command == 17 (G_ServerPingNotify)	§1.5
+0x47d7a0	func	GameSession::SendPing	GameSession::SendPing	calls G_PingReq builder 0xf3b2a0	§1.5
+0xf3b2a0	func	G_PingReq builder (16)	sub_F3B2A0		§1.5
+0xf3b230	func	GameSession::SendServerPingReply (18)	sub_F3B230	G_ServerPingReq: pingCount, serverTime	§1.5
+0xf4b430	func	HandleServerPingNotifyPacket (17)	sub_F4B430	replies with 18 unless 0x1a4c312 set	§1.5
+0xf70280	func	HandleHelloOkPacket (12)	HandleHelloOkPacket	GameD: SendContentsRuleListReq; ArenaD: SendEnterArenaReq	§1.5
+0xf2bef0	func	GameSession::SendContentsRuleListReq (929)	sub_F2BEF0		§1.5
+0xf2bf60	func	GameSession::SendEnterArenaReq	GameSession::SendEnterArenaReq		§1.5
+0x1129a90	func	BNSClient::DisconnectProcess	sub_1129A90	(code, 0, 0, event)	§1.6
+0x749550	func	World::ProcessNetObjectEvent	World::ProcessNetObjectEvent	2nd level switch on command; 925 handlers go here	§2.2
+0x128c650	func	BAccount::ProcessNetObjectEvent	BAccount::ProcessNetObjectEvent	32 handlers go here	§2.2
+0x115eb30	func	BNSClient::ReceivePacket(syncId, cmd)	BNSClient::ReceivePacket	414/415 -> ReceivedPing; else TaskSession::Received	§4
+0x5d52c0	func	PacketSession structure2stream (field writer)	sub_5D52C0	recursive	§3.3
+0x5d4f20	func	PacketSession::setField (field reader)	PacketSession::setField	recursive	§3.3
+0x5d4810	func	PropertyPair decode	sub_5D4810	T_PROP_PAIR body	§3.3
+0x54c9c0	func	TaskSession::PlayInfoForNetworkLatencyLog::PlayInfoForNetworkLatencyLog	TaskSession::PlayInfoForNetworkLatencyLog::PlayInfoForNetworkLatencyLo	sync groups	§4
+0x867740	func	TaskSession::initializeSessionToTaskGroupTable	TaskSession::initializeSessionToTaskGroupTable	sync groups	§4
+0x867870	func	GetPacketSyncEnumString	GetPacketSyncEnumString	sync groups	§4
+0x86ec40	func	TaskSession::GetMoveLatency	TaskSession::GetMoveLatency	sync groups	§4
+0x86ec70	func	TaskSession::GetTaskSkillLatencyAvg	TaskSession::GetTaskSkillLatencyAvg	sync groups	§4
+0x86ecf0	func	TaskSession::GetLastSentPacketSyncId	TaskSession::GetLastSentPacketSyncId	sync groups	§4
+0x86ed10	func	TaskSession::IsLocked	TaskSession::IsLocked	sync groups	§4
+0x86ed60	func	TaskSession::SentPing	TaskSession::SentPing	sync groups	§4
+0x86ed90	func	TaskSession::Sent	TaskSession::Sent	sync groups	§4
+0x86ee10	func	TaskSession::Initialize	TaskSession::Initialize	sync groups	§4
+0x876e50	func	TaskSession::Update	TaskSession::Update	sync groups	§4
+0x876ed0	func	TaskSession::InitializeLatencyLogModule	TaskSession::InitializeLatencyLogModule	sync groups	§4
+0x880be0	func	TaskSession::GetTaskSkillHistory	TaskSession::GetTaskSkillHistory	sync groups	§4
+0x880d20	func	TaskSession::GetTaskPingHistory	TaskSession::GetTaskPingHistory	sync groups	§4
+0x880f40	func	TaskSession::AddTaskHistory	TaskSession::AddTaskHistory	sync groups	§4
+0x880fa0	func	TaskSession::Received	TaskSession::Received	sync groups	§4
+0x8810e0	func	TaskSession::writeNetworkLatencyLog	TaskSession::writeNetworkLatencyLog	sync groups	§4
+0x881340	func	TaskSession::TaskSession	TaskSession::TaskSession	sync groups	§4
+0x8a5e50	func	TaskSession::getPlayInfoForNetworkLatencyLog	TaskSession::getPlayInfoForNetworkLatencyLog	sync groups	§4
+0x8b7e60	func	TaskSession::reportNetStateToLocal	TaskSession::reportNetStateToLocal	sync groups	§4
+0x8b7fe0	func	TaskSession::requestReportLatency	TaskSession::requestReportLatency	sync groups	§4
+0x8b8080	func	TaskSession::requestRoundTripTimeForPingCheck	TaskSession::requestRoundTripTimeForPingCheck	sync groups	§4
+0x8cca00	func	TaskSession::reportNetStateToServer	TaskSession::reportNetStateToServer	sync groups	§4
+0x8d67e0	func	TaskSession::AddPingHistory	TaskSession::AddPingHistory	sync groups	§4
+0x8d68c0	func	TaskSession::ReceivedPing	TaskSession::ReceivedPing	sync groups	§4
+0x8d69d0	func	TaskSession::Tick	TaskSession::Tick	sync groups	§4
+0x1a16cf8	data	packetSessionToTaskGroupTable	packetSessionToTaskGroupTable	sync groups	§4
+0x561d80	func	[thunk]:UiStateArenaDungeonLobby::ProcessNetObjectEvent`adjustor{16}' 	[thunk]:UiStateArenaDungeonLobby::ProcessNetObjectEvent`adjustor{16}' 	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0x730660	func	WebSessionManager::ProcessNetObjectEvent	WebSessionManager::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0x749550	func	World::ProcessNetObjectEvent	World::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0x754e30	func	WardrobePurchaseConfirmPanel::ProcessNetObjectEvent	WardrobePurchaseConfirmPanel::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0x773cc0	func	VoiceChatHUDPanel::ProcessNetObjectEvent	VoiceChatHUDPanel::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0x791320	func	WarehousePanel::ProcessNetObjectEvent	WarehousePanel::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0x792400	func	Vip::ProcessNetObjectEvent	Vip::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0x7adc20	func	WeaponGemPanel::ProcessNetObjectEvent	WeaponGemPanel::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0x7b8110	func	WardrobePanel::ProcessNetObjectEvent	WardrobePanel::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0x7bf040	func	UiTradeManager::ProcessNetObjectEvent	UiTradeManager::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0x7def10	func	BUiGuildCustomize::ProcessNetObjectEvent	BUiGuildCustomize::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0x8091e0	func	TradeShelf::ProcessNetObjectEvent	TradeShelf::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0x80a790	func	UiStateGuildCustomize::ProcessNetObjectEvent	UiStateGuildCustomize::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0x80f860	func	UiStateCSA::ProcessNetObjectEvent	UiStateCSA::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0x812470	func	UiGuildBattleFieldManager::ProcessNetObjectEvent	UiGuildBattleFieldManager::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0x833c80	func	UiStateArenaDungeonLobby::ProcessNetObjectEvent	UiStateArenaDungeonLobby::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0x83cf40	func	BUiArenaLobby::ProcessNetObjectEvent	BUiArenaLobby::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0x84d110	func	UiStatePersonalCustomize::ProcessNetObjectEvent	UiStatePersonalCustomize::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0x8530a0	func	UiStateTalk::ProcessNetObjectEvent	UiStateTalk::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0x855b90	func	UiPartyManager::ProcessNetObjectEvent	UiPartyManager::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0x858320	func	UiStateArenaDuelLobby::ProcessNetObjectEvent	UiStateArenaDuelLobby::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0x860330	func	UiStateGame::ProcessNetObjectEvent	UiStateGame::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0x8711a0	func	TencentQTalk::ProcessNetObjectEvent	TencentQTalk::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0x88f500	func	TeamPanel::ProcessNetObjectEvent	TeamPanel::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0x899730	func	SystemInventoryPanel::ProcessNetObjectEvent	SystemInventoryPanel::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0x899a00	func	SurveyRewardPanel::ProcessNetObjectEvent	SurveyRewardPanel::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0x8a04e0	func	TencentIngameShopPanel::ProcessNetObjectEvent	TencentIngameShopPanel::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0x8b3b30	func	TencentExpBoost::ProcessNetObjectEvent	TencentExpBoost::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0x8c79a0	func	TendencyFieldQuestQuickSlotPanel::ProcessNetObjectEvent	TendencyFieldQuestQuickSlotPanel::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0x8cc800	func	TeamPanel2::ProcessNetObjectEvent	TeamPanel2::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0x8d7db0	func	TargetStatusPanel2::ProcessNetObjectEvent	TargetStatusPanel2::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0x8debb0	func	Teleport::ProcessNetObjectEvent	Teleport::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0x8f9c90	func	BTeam::ProcessNetObjectEvent	BTeam::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0x8ff010	func	SystemMenuPanel::ProcessNetObjectEvent	SystemMenuPanel::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0x9011a0	func	SkillTrainingFieldJumpConfirmPanel::ProcessNetObjectEvent	SkillTrainingFieldJumpConfirmPanel::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0x907060	func	BSkillSimpleControlPanel::ProcessNetObjectEvent	BSkillSimpleControlPanel::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0x907670	func	BSkillIconViewPanel::ProcessNetObjectEvent	BSkillIconViewPanel::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0x909c90	func	BSummoned::ProcessNetObjectEvent	BSummoned::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0x9134d0	func	SkillTrainingRoomDescriptionPanel::ProcessNetObjectEvent	SkillTrainingRoomDescriptionPanel::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0x931f90	func	SkillTrainingRoomQuickStartPanel::ProcessNetObjectEvent	SkillTrainingRoomQuickStartPanel::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0x937320	func	SkillBarPanel::ProcessNetObjectEvent	SkillBarPanel::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0x947e40	func	SkillTrainingRoomResultPanel::ProcessNetObjectEvent	SkillTrainingRoomResultPanel::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0x94e460	func	SkillTrainJobStylePanel::ProcessNetObjectEvent	SkillTrainJobStylePanel::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0x964430	func	SkillScoreResultPanel::ProcessNetObjectEvent	SkillScoreResultPanel::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0x9677e0	func	BSkillBook::ProcessNetObjectEvent	BSkillBook::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0x96a730	func	SkillTrainingRoomSelectionPanel::ProcessNetObjectEvent	SkillTrainingRoomSelectionPanel::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0x96b0b0	func	SkillTrainingRoomControlPanel::ProcessNetObjectEvent	SkillTrainingRoomControlPanel::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0x977160	func	SuggestJoinGuildNotificationPanel::ProcessNetObjectEvent	SuggestJoinGuildNotificationPanel::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0x982c80	func	SkillComboPanel::ProcessNetObjectEvent	SkillComboPanel::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0x989f40	func	SkillTrainingRoomComboPanel::ProcessNetObjectEvent	SkillTrainingRoomComboPanel::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0x98a540	func	SkillSkin::ProcessNetObjectEvent	SkillSkin::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0x98e170	func	SlatePanel::ProcessNetObjectEvent	SlatePanel::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0x98e490	func	SlateApplyStonePanel::ProcessNetObjectEvent	SlateApplyStonePanel::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0x993080	func	SummonedBeautyShopPanel::ProcessNetObjectEvent	SummonedBeautyShopPanel::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0x994a40	func	SkillTrainingRoom::ProcessNetObjectEvent	SkillTrainingRoom::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0x99a610	func	RankingWeekInfoPanel::ProcessNetObjectEvent	RankingWeekInfoPanel::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0x99a660	func	RankingSeasonInfoPanel::ProcessNetObjectEvent	RankingSeasonInfoPanel::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0x9a20b0	func	RepairCostTooltipPanel::ProcessNetObjectEvent	RepairCostTooltipPanel::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0x9b4850	func	RankingRewardPanel::ProcessNetObjectEvent	RankingRewardPanel::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0x9be940	func	RandomboxDepotPanel::ProcessNetObjectEvent	RandomboxDepotPanel::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0x9c4a80	func	RefinerInfoPanel::ProcessNetObjectEvent	RefinerInfoPanel::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0x9df250	func	ReplayRecorder::ProcessNetObjectEvent	ReplayRecorder::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0xa00fd0	func	RankingPanel::ProcessNetObjectEvent	RankingPanel::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0xa13700	func	RandomStoreRewardConfirmPanel::ProcessNetObjectEvent	RandomStoreRewardConfirmPanel::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0xa14590	func	RandomStore2ndPanel::ProcessNetObjectEvent	RandomStore2ndPanel::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0xa16b00	func	RandomStorePanel::ProcessNetObjectEvent	RandomStorePanel::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0xa1dcb0	func	QuestMappingPanel::ProcessNetObjectEvent	QuestMappingPanel::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0xa28680	func	PCQQGroupListPanel::ProcessNetObjectEvent	PCQQGroupListPanel::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0xa2a670	func	PublicRaidSelectPanel::ProcessNetObjectEvent	PublicRaidSelectPanel::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0xa555b0	func	PublicRaidQTEEscapePanel::ProcessNetObjectEvent	PublicRaidQTEEscapePanel::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0xa559b0	func	PublicRaidQTECrashEventPanel::ProcessNetObjectEvent	PublicRaidQTECrashEventPanel::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0xa6ba60	func	QQGroupPanel::ProcessNetObjectEvent	QQGroupPanel::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0xa70ce0	func	QQRecentContactUserPanel::ProcessNetObjectEvent	QQRecentContactUserPanel::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0xa8a950	func	QuestGuideNotificationPanel::ProcessNetObjectEvent	QuestGuideNotificationPanel::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0xa902f0	func	QuestJournalPanel::ProcessNetObjectEvent	QuestJournalPanel::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0xa9bc40	func	QQMessenger::ProcessNetObjectEvent	QQMessenger::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0xa9d250	func	QuestQuickSlotPanel::ProcessNetObjectEvent	QuestQuickSlotPanel::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0xa9e5b0	func	BQuestJournal::ProcessNetObjectEvent	BQuestJournal::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0xaa2180	func	BPTCampfire::ProcessNetObjectEvent	BPTCampfire::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0xab4cd0	func	PtPet::ProcessNetObjectEvent	PtPet::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0xb15c80	func	Production::ProcessNetObjectEvent	Production::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0xb15dd0	func	BPTPlayer::ProcessNetObjectEvent	BPTPlayer::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0xb234f0	func	ProductionPanel::ProcessNetObjectEvent	ProductionPanel::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0xb281c0	func	ProductionNotificationPanel2::ProcessNetObjectEvent	ProductionNotificationPanel2::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0xb282d0	func	ProductionNotificationPanel::ProcessNetObjectEvent	ProductionNotificationPanel::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0xb2f8c0	func	ProductionPanel2::ProcessNetObjectEvent	ProductionPanel2::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0xb32350	func	Production2::ProcessNetObjectEvent	Production2::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0xb54c80	func	PlayReport::ProcessNetObjectEvent	PlayReport::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0xb598f0	func	PlayerAbilityRemasterPanel::ProcessNetObjectEvent	PlayerAbilityRemasterPanel::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0xb5a330	func	PlayerAbilityPanel::ProcessNetObjectEvent	PlayerAbilityPanel::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0xb60550	func	Petition::ProcessNetObjectEvent	Petition::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0xb79090	func	PlayerStatusPanel::ProcessNetObjectEvent	PlayerStatusPanel::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0xb79aa0	func	PlayerExpPanel::ProcessNetObjectEvent	PlayerExpPanel::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0xb97240	func	PetitionPanel::ProcessNetObjectEvent	PetitionPanel::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0xb9e0a0	func	PickupItemPanel::ProcessNetObjectEvent	PickupItemPanel::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0xba50f0	func	PlayerEffectStatusPanel::ProcessNetObjectEvent	PlayerEffectStatusPanel::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0xba65f0	func	PcTooltipPanel::ProcessNetObjectEvent	PcTooltipPanel::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0xba8c90	func	PlayReportPanel::ProcessNetObjectEvent	PlayReportPanel::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0xbb12e0	func	PersonalCustomizeConfirmPanel::ProcessNetObjectEvent	PersonalCustomizeConfirmPanel::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0xbb5030	func	PartySearchPanel::ProcessNetObjectEvent	PartySearchPanel::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0xbbfe10	func	BPlayer::ProcessNetObjectEvent	BPlayer::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0xbc37a0	func	PresentationWorld::ProcessNetObjectEvent	PresentationWorld::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0xbc9510	func	TalkContributeGuildReputationPanel::ProcessNetObjectEvent	TalkContributeGuildReputationPanel::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0xc10760	func	PartyBattleFieldResultPanel::ProcessNetObjectEvent	PartyBattleFieldResultPanel::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0xc12a20	func	PartyBattleFieldPanel::ProcessNetObjectEvent	PartyBattleFieldPanel::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0xc1c850	func	PartyAuction::ProcessNetObjectEvent	PartyAuction::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0xc231a0	func	NPAuctionPanel::ProcessNetObjectEvent	NPAuctionPanel::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0xc390b0	func	NpcTooltipPanel::ProcessNetObjectEvent	NpcTooltipPanel::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0xc438b0	func	PartyAuctionPanel::ProcessNetObjectEvent	PartyAuctionPanel::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0xc46810	func	PartyMatch::ProcessNetObjectEvent	PartyMatch::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0xc4bac0	func	BParty::ProcessNetObjectEvent	BParty::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0xc60ce0	func	MysteriousStoreManager::ProcessNetObjectEvent	MysteriousStoreManager::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0xc6f710	func	Mark::ProcessNetObjectEvent	Mark::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0xc817f0	func	MegaphoneChatPanel::ProcessNetObjectEvent	MegaphoneChatPanel::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0xc926f0	func	MentoringTypeSelectPanel::ProcessNetObjectEvent	MentoringTypeSelectPanel::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0xc93310	func	MentoringNotificationPanel::ProcessNetObjectEvent	MentoringNotificationPanel::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0xcc16f0	func	MentoringPanel::ProcessNetObjectEvent	MentoringPanel::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0xcc2650	func	MasterDistributionPanel::ProcessNetObjectEvent	MasterDistributionPanel::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0xcd14e0	func	Mentoring::ProcessNetObjectEvent	Mentoring::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0xcd2840	func	MinimapPanel::ProcessNetObjectEvent	MinimapPanel::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0xcf9ab0	func	JobStyleGaugePanel::ProcessNetObjectEvent	JobStyleGaugePanel::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0xd1b8e0	func	JumpingLevel2Panel::ProcessNetObjectEvent	JumpingLevel2Panel::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0xd30de0	func	ItemPouch::ProcessNetObjectEvent	ItemPouch::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0xd51800	func	ItemTooltipPanel::ProcessNetObjectEvent	ItemTooltipPanel::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0xd5c8f0	func	ItemTransformPanel::ProcessNetObjectEvent	ItemTransformPanel::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0xd6cc00	func	ItemStorePanel::ProcessNetObjectEvent	ItemStorePanel::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0xd6e220	func	ItemWarningConfirmPanel::ProcessNetObjectEvent	ItemWarningConfirmPanel::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0xd73940	func	JumpingLevelPanel::ProcessNetObjectEvent	JumpingLevelPanel::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0xd740d0	func	JumpingLevelConfirmPanel::ProcessNetObjectEvent	JumpingLevelConfirmPanel::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0xd95ef0	func	InviteUnratedDuelList::ProcessNetObjectEvent	InviteUnratedDuelList::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0xd960d0	func	InviteUnratedArenaDungeonList::ProcessNetObjectEvent	InviteUnratedArenaDungeonList::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0xd97210	func	InviteDuelList::ProcessNetObjectEvent	InviteDuelList::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0xd980b0	func	InviteArenaDungeonList::ProcessNetObjectEvent	InviteArenaDungeonList::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0xdc98b0	func	ItemCleanerPanel::ProcessNetObjectEvent	ItemCleanerPanel::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0xdf35c0	func	ItemGraphPanel::ProcessNetObjectEvent	ItemGraphPanel::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0xdfb3a0	func	InventoryEquipPanel::ProcessNetObjectEvent_InventoryItemListOkCmd	InventoryEquipPanel::ProcessNetObjectEvent_InventoryItemListOkCmd	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0xe06be0	func	ItemBarPanel::ProcessNetObjectEvent	ItemBarPanel::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0xe0a890	func	ItemGrowth2Panel::ProcessNetObjectEvent	ItemGrowth2Panel::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0xe0d470	func	ItemFusionPanel::ProcessNetObjectEvent	ItemFusionPanel::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0xe2faa0	func	NewInventoryPanel2::ProcessNetObjectEvent	NewInventoryPanel2::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0xe31410	func	IntensionInventoryPanel::ProcessNetObjectEvent	IntensionInventoryPanel::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0xe33130	func	GuildRankingInfoPanel::ProcessNetObjectEvent	GuildRankingInfoPanel::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0xe37260	func	GuildUniformBuyListPanel::ProcessNetObjectEvent	GuildUniformBuyListPanel::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0xe37910	func	GuildPageManagementAuthorityNormalPanel::ProcessNetObjectEvent	GuildPageManagementAuthorityNormalPanel::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0xe44110	func	GuildVoiceChatMemberPanel::ProcessNetObjectEvent	GuildVoiceChatMemberPanel::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0xe57500	func	GuildMark::ProcessNetObjectEvent	GuildMark::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0xe68d40	func	GuildVoiceChatConfirmPanel::ProcessNetObjectEvent	GuildVoiceChatConfirmPanel::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0xe6b440	func	GuildPageManagementNoticePanel::ProcessNetObjectEvent	GuildPageManagementNoticePanel::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0xe6baf0	func	GuildPageManagementLevelupPanel::ProcessNetObjectEvent	GuildPageManagementLevelupPanel::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0xe83d70	func	GuildTabPageManagementPanel::ProcessNetObjectEvent	GuildTabPageManagementPanel::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0xe86270	func	GuildCustomizePurchasePanel::ProcessNetObjectEvent	GuildCustomizePurchasePanel::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0xe86a50	func	GuildCustomizePanel::ProcessNetObjectEvent	GuildCustomizePanel::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0xe9f740	func	GuildInfoList::ProcessNetObjectEvent	GuildInfoList::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0xea2d20	func	InGameNoticePanel::ProcessNetObjectEvent	InGameNoticePanel::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0xeacad0	func	IntensionManager::ProcessNetObjectEvent	IntensionManager::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0xeaf410	func	Guild2MemberInfoPanel::ProcessNetObjectEvent	Guild2MemberInfoPanel::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0xed00c0	func	GuildDesignPanel::ProcessNetObjectEvent	GuildDesignPanel::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0xed1d90	func	IntensionPanel::ProcessNetObjectEvent	IntensionPanel::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0xed25c0	func	GuildPanel2::ProcessNetObjectEvent	GuildPanel2::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0xedf180	func	GuideMoviePanel::ProcessNetObjectEvent	GuideMoviePanel::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0xee2220	func	InviteGuildConfirmPanel::ProcessNetObjectEvent	InviteGuildConfirmPanel::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0xf0cbf0	func	GuildBattleField::ProcessNetObjectEvent	GuildBattleField::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0xf1ea20	func	GameTip::ProcessNetObjectEvent	GameTip::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0xf214d0	func	GuildBattleFieldHistoryPanel::ProcessNetObjectEvent	GuildBattleFieldHistoryPanel::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0xf23b50	func	Guild2BankPanel::ProcessNetObjectEvent	Guild2BankPanel::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0xf2c010	func	TendencyField::ProcessNetObjectEvent	TendencyField::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0xf4a460	func	GoodsInventory::ProcessNetObjectEvent	GoodsInventory::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0xf4c250	func	BGoodsStorePanel::ProcessNetObjectEvent	BGoodsStorePanel::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0xf4d330	func	BGoodsStore::ProcessNetObjectEvent	BGoodsStore::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0xf50240	func	GuildCraft::ProcessNetObjectEvent	GuildCraft::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0xf5b780	func	InvitedGuildAllianceNotificationPanel::ProcessNetObjectEvent	InvitedGuildAllianceNotificationPanel::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0xf5bba0	func	InvitedGuildNotificationPanel::ProcessNetObjectEvent	InvitedGuildNotificationPanel::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0xf6a460	func	InventoryPlayerInfoPanel::ProcessNetObjectEvent	InventoryPlayerInfoPanel::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0xf6b370	func	GuildChatRecruit::ProcessNetObjectEvent	GuildChatRecruit::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0xf6de30	func	Guild::ProcessNetObjectEvent	Guild::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0xf76ae0	func	GuideMovie::ProcessNetObjectEvent	GuideMovie::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0xf78740	func	BEnvObject::ProcessNetObjectEvent	BEnvObject::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0xf78860	func	EnterArenaParty::ProcessNetObjectEvent	EnterArenaParty::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0xf7c510	func	EnergyPointRewardPanel::ProcessNetObjectEvent	EnergyPointRewardPanel::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0xf7c530	func	EnergyPointRewardListPanel::ProcessNetObjectEvent	EnergyPointRewardListPanel::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0xf9b2f0	func	DungeonLobbyStatePanel::ProcessNetObjectEvent	DungeonLobbyStatePanel::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0xf9e6e0	func	DungeonLobbyControlPanel::ProcessNetObjectEvent	DungeonLobbyControlPanel::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0xfa5c80	func	DuelSpectateColumnList::ProcessNetObjectEvent	DuelSpectateColumnList::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0xfa6400	func	DuelSpectateListPanel::ProcessNetObjectEvent	DuelSpectateListPanel::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0xfaf840	func	EnergyPointPanel::ProcessNetObjectEvent	EnergyPointPanel::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0xfb0550	func	EnergyPointHUDPanel::ProcessNetObjectEvent	EnergyPointHUDPanel::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0xfc1810	func	ExpTooltipPanel::ProcessNetObjectEvent	ExpTooltipPanel::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0xfd6520	func	ArenaSelectPanel::ProcessNetObjectEvent	ArenaSelectPanel::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0xfe26c0	func	EnergyPointSystem::ProcessNetObjectEvent	EnergyPointSystem::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0xfe5460	func	DuelResultPanel::ProcessNetObjectEvent	DuelResultPanel::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0xfe7300	func	GameMessageHandler::ProcessNetObjectEvent	GameMessageHandler::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0xfe7de0	func	Fishing::ProcessNetObjectEvent	Fishing::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0xff1a90	func	EnvObjectTooltipPanel::ProcessNetObjectEvent	EnvObjectTooltipPanel::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0xffa460	func	DungeoninitializeConfirmPanel::ProcessNetObjectEvent	DungeoninitializeConfirmPanel::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0xffee90	func	DuelTeamMemberPanel::ProcessNetObjectEvent	DuelTeamMemberPanel::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0x10092b0	func	DungeonNotificationPanel::ProcessNetObjectEvent	DungeonNotificationPanel::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0x1012d40	func	DamageMeterPanel::ProcessNetObjectEvent	DamageMeterPanel::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0x10142b0	func	BCreature::ProcessNetObjectEvent	BCreature::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0x10167b0	func	DuelBotBrain::ProcessNetObjectEvent	DuelBotBrain::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0x102dcc0	func	DuelProgressPanel::ProcessNetObjectEvent	DuelProgressPanel::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0x102f240	func	DuelLobbyStatePanel::ProcessNetObjectEvent	DuelLobbyStatePanel::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0x102f9f0	func	DuelLobbyControlPanel::ProcessNetObjectEvent	DuelLobbyControlPanel::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0x10334c0	func	DuelBotChallengePanel::ProcessNetObjectEvent	DuelBotChallengePanel::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0x1049ba0	func	CreateGuildPanel::ProcessNetObjectEvent	CreateGuildPanel::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0x1065cc0	func	DuelBotChallengeVirtualRacePanel::ProcessNetObjectEvent	DuelBotChallengeVirtualRacePanel::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0x1075260	func	DuelBotChallengeCardSelectionPanel::ProcessNetObjectEvent	DuelBotChallengeCardSelectionPanel::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0x1075c00	func	DiscoveryAreaList::ProcessNetObjectEvent	DiscoveryAreaList::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0x1081b70	func	DuelBotTrainingRoom::ProcessNetObjectEvent	DuelBotTrainingRoom::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0x1084790	func	DuelBotTrainingRoomRewardPanel::ProcessNetObjectEvent	DuelBotTrainingRoomRewardPanel::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0x10862c0	func	DuelBotTrainingRoomResultPanel::ProcessNetObjectEvent	DuelBotTrainingRoomResultPanel::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0x10874c0	func	DuelBotTrainingRoomMatchSelectionPanel::ProcessNetObjectEvent	DuelBotTrainingRoomMatchSelectionPanel::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0x1089830	func	DuelBotChallengeResultPanel::ProcessNetObjectEvent	DuelBotChallengeResultPanel::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0x10943c0	func	DragonJadeRefinementPanel::ProcessNetObjectEvent	DragonJadeRefinementPanel::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0x1095350	func	DeliveryBox::ProcessNetObjectEvent	DeliveryBox::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0x1098be0	func	DeliveryPanel::ProcessNetObjectEvent	DeliveryPanel::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0x109abf0	func	DuelBotChallenge::ProcessNetObjectEvent	DuelBotChallenge::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0x109dba0	func	Convoy::ProcessNetObjectEvent	Convoy::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0x10d99b0	func	ContentQuotaManager::ProcessNetObjectEvent	ContentQuotaManager::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0x10df500	func	ContentsJournalPanel::ProcessNetObjectEvent	ContentsJournalPanel::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0x1107c30	func	ContentsClockManager::ProcessNetObjectEvent	ContentsClockManager::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0x110a030	func	ContentsJournal2Panel::ProcessNetObjectEvent	ContentsJournal2Panel::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0x11123c0	func	BCollectingManager::ProcessNetObjectEvent	BCollectingManager::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0x1113050	func	ClosetGroup::ProcessNetObjectEvent	ClosetGroup::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0x111d1e0	func	BContextProcess::ProcessNetObjectEvent	BContextProcess::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0x1150620	func	ChatInputPanel::ProcessNetObjectEvent	ChatInputPanel::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0x117bc70	func	ChoiceRewardConfirmPanel::ProcessNetObjectEvent	ChoiceRewardConfirmPanel::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0x117fd60	func	ChatChannelNP::ProcessNetObjectEvent	ChatChannelNP::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0x11918f0	func	BCampfire::ProcessNetObjectEvent	BCampfire::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0x1196bb0	func	ChallengePartyConfirmPanel::ProcessNetObjectEvent	ChallengePartyConfirmPanel::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0x1197990	func	BossCombatStatusPanel::ProcessNetObjectEvent	BossCombatStatusPanel::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0x11b5ea0	func	ChangeSummonedNamePanel::ProcessNetObjectEvent	ChangeSummonedNamePanel::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0x11b8040	func	ChallengePartyPatternResultPanel::ProcessNetObjectEvent	ChallengePartyPatternResultPanel::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0x11b8f00	func	ChallengeParty::ProcessNetObjectEvent	ChallengeParty::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0x11bc7c0	func	BoastChatPanel::ProcessNetObjectEvent	BoastChatPanel::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0x11c5500	func	BAutoModeSystem::ProcessNetObjectEvent	BAutoModeSystem::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0x11d8ec0	func	AuctionPanel2::ProcessNetObjectEvent	AuctionPanel2::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0x11de890	func	BCharacterBindManager::ProcessNetObjectEvent	BCharacterBindManager::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0x11e09e0	func	ChallengePartyAttraction::ProcessNetObjectEvent	ChallengePartyAttraction::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0x11e2b80	func	BoardGachaRewardPanel::ProcessNetObjectEvent	BoardGachaRewardPanel::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0x1201b20	func	AuctionHouse::ProcessNetObjectEvent	AuctionHouse::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0x1208ed0	func	BattleRoyalField::ProcessNetObjectEvent	BattleRoyalField::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0x120c320	func	ChallengePartyResultPanel::ProcessNetObjectEvent	ChallengePartyResultPanel::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0x120fd70	func	NewCharEquipWindowPanel::ProcessNetObjectEvent	NewCharEquipWindowPanel::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0x1212970	func	ChallengeTodayPanel::ProcessNetObjectEvent	ChallengeTodayPanel::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0x12149b0	func	InvitedChallengePartyNotificationPanel::ProcessNetObjectEvent	InvitedChallengePartyNotificationPanel::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0x1217980	func	BoardGachaPanel::ProcessNetObjectEvent	BoardGachaPanel::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0x1218490	func	BoardGachaManager::ProcessNetObjectEvent	BoardGachaManager::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0x121c310	func	AutoModeOptionPanel::ProcessNetObjectEvent	AutoModeOptionPanel::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0x1228f90	func	AuctionPanel::ProcessNetObjectEvent	AuctionPanel::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0x122d190	func	AttendanceTimeTablePanel::ProcessNetObjectEvent	AttendanceTimeTablePanel::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0x1236030	func	ArenaWorld::ProcessNetObjectEvent	ArenaWorld::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0x12361e0	func	ArenaLobby::ProcessNetObjectEvent	ArenaLobby::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0x123ddd0	func	AppearancePictorialBook::ProcessNetObjectEvent	AppearancePictorialBook::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0x123e3e0	func	AchievementTooltipPanel::ProcessNetObjectEvent	AchievementTooltipPanel::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0x124c080	func	ArenaDungeon::ProcessNetObjectEvent	ArenaDungeon::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0x1252f60	func	AccountContentsPanelInfo::ProcessNetObjectEvent	AccountContentsPanelInfo::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0x12669f0	func	BAchievementProgress::ProcessNetObjectEvent	BAchievementProgress::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0x128c650	func	BAccount::ProcessNetObjectEvent	BAccount::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0x128c950	func	ArenaDuelLobby::ProcessNetObjectEvent	ArenaDuelLobby::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0x1297280	func	AchievementNotificationPanel::ProcessNetObjectEvent	AchievementNotificationPanel::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0x1297980	func	BAchievementManager::ProcessNetObjectEvent	BAchievementManager::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0x12a5a40	func	ArenaDuel::ProcessNetObjectEvent	ArenaDuel::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0x12a8870	func	BAbilityPointPanel::ProcessNetObjectEvent	BAbilityPointPanel::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0x12a9180	func	AchievementPanel::ProcessNetObjectEvent	AchievementPanel::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0x12af3c0	func	AccountContentsPanelBadgeEquip::ProcessNetObjectEvent	AccountContentsPanelBadgeEquip::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0x12b3890	func	BArenaEnterNotificationPanel::ProcessNetObjectEvent	BArenaEnterNotificationPanel::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0x12b75b0	func	Attendance::ProcessNetObjectEvent	Attendance::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0x12baf40	func	AccountContentsPanelCompose::ProcessNetObjectEvent	AccountContentsPanelCompose::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0x12bbc60	func	AccountContentsPanelBadge::ProcessNetObjectEvent	AccountContentsPanelBadge::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0x12bbf80	func	AccountContentsPanel::ProcessNetObjectEvent	AccountContentsPanel::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0x12bdeb0	func	ArenaDungeonLobby::ProcessNetObjectEvent	ArenaDungeonLobby::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
+0x12bfcf0	func	AreaInfoPanel::ProcessNetObjectEvent	AreaInfoPanel::ProcessNetObjectEvent	ProcessNetObjectEvent receiver (381 name, verify)	§2.2
