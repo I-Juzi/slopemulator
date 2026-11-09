@@ -139,8 +139,186 @@ Required: ConnType, Process, Program, Build (Program −1 → own program id). A
 
 ## 8. Open items
 
-| Item | Next action |
+| Item | Status |
 | --- | --- |
-| Certificate loader sub_1400D6030 | decode file format |
-| LoginFinishGateReply body | decode the full reply XML |
+| Certificate loader sub_1400D6030 | Out of scope. Only LoginTokenStart (§5) uses it. The SRP login (§4) does not. |
+| LoginFinishGateReply body | Closed, see §10 |
+| RequestToken path | Closed, see §11 |
+
+## 9. Forwarding to AuthSrv (route bus)
+
+### 9.1 Send path
+
+```
+CliConn handler ─► build new frame (Auth/<Cmd>, own body) ─► sub_1400CEF30
+  ─► new CCliConnTxn (0x50 bytes) ─► sub_140114980 ─► sub_140114A10 (StsGate send)
+  ─► route link qword_1402AF250 vtable+32 (with txn, timeout) ─► RouteSrv ─► AuthSrv
+```
+
+| Item | Fact | Source |
+| --- | --- | --- |
+| Frame | CliGate does not forward the client frame. It builds a new request with its own body. | sub_1400E3D90, sub_1400E3B30 |
+| Txn record | `CCliConnTxn`: +40 conn pointer, +48 client request id, +64 reply callback (pointer to member), linked into the conn list at conn+72 | sub_1400CEF30 |
+| Timeout | 25 000 ms for each Auth call (0x61A8). StsGate also uses 25 000 when the caller gives 0 and no txn. | sub_1400D09E0, sub_140114A10 |
+| Route check | StsGate looks up protocol and command in the route table for the conn program (conn+388). Unknown → ErrBadParam 10, module 8000, line 2405, text `StsGate: unknown protocol or command` | sub_1400FAFA0, sub_140114A10 |
+| Client id lost | ErrBadParam 10, module 8000, text `StsGate: clientId not found, %u` | sub_140114A10 |
+| Header `f` | If the frame has no `f` header with `appid`, StsGate adds `f` from the client app info (socket conn+424) | sub_140114A10 |
+| NetAdjust | Protocol `Auth`: command id 1 (AccessTest) gets a local reply `NetAdjust: access allowed` (module 8009, line 1646). Other Auth commands go on. | sub_14017E990 |
+
+### 9.2 IP check gate (socket conn+1108)
+
+The first request of each client socket goes out wrapped in a
+`CStsGateIpCheckTxn` (sub_140108CD0). StsGate adds `t` = socket conn+1080 to it.
+
+| State | Meaning | Next request | Source |
+| --- | --- | --- | --- |
+| 0 | no check yet | wrap in IpCheck txn, send, state → 1 | sub_140114A10 |
+| 1 | check pending | ErrTransPending 3006, module 8000, line 2496 | sub_140114A10 |
+| 2 | allowed | normal send (vtable+32 with txn, vtable+40 without) | sub_140114A10 |
+| 3 | flooding | route link vtable+0 (client id), ErrFlooding 3005, line 2513 | sub_140114A10 |
+| 4 | IP not allowed | route link vtable+8 (client id), ErrNotAllowedIp 3721, line 2521 | sub_140114A10 |
+
+The IpCheck reply sets state 2, 3 or 4 ❓ (the reply handler is not decoded).
+Rust phase 1: no IP check. Start every socket in state 2.
+
+### 9.3 Target header `t` per command
+
+| Command | `t` | Source |
+| --- | --- | --- |
+| LoginStart | none. The protocol `Auth` selects the AuthSrv provider. | sub_1400E3D90 |
+| KeyData, and later calls with a user | `<center>$<UserId>`. `center` = own datacenter (dword_1402B02C8, from StServer.ini, log `StsRoute: Datacenter changed`). `UserId` = GUID as `%08X-%04X-%04X-%02X%02X-%02X%02X%02X%02X%02X%02X`. | sub_1400E3B30, sub_1400E91D0, sub_1400E8DF0, sub_1400FC170 |
+
+The userid key form matches `[InstantGlobalForwards]` (Auth and ExAuth by userid):
+RouteSrv sends the key to the AuthSrv that owns the user. The `t` form is
+`Target::Key` in `sts-core` route.rs.
+
+The user reference comes from the LoginStart reply body: `<UserId>` (GUID),
+`<UserCenter>` (u32), `<UserName>` (sub_1400FC8F0 with prefix `User`). CliGate
+keeps UserId at conn+248, UserCenter at conn+240, UserName at conn+176 (64 chars)
+(sub_1400D4030). If UserId or UserCenter is missing:
+ErrBadParam line 1302 `CliConn: login start, invalid userref`.
+
+### 9.4 Reply path
+
+| Item | Fact | Source |
+| --- | --- | --- |
+| Dispatch | The txn reply calls the callback with (conn, txn, error, reply frame). Reply frame is null on error. | sub_1400D53C0 |
+| Final | If error code ≠ 0xFFFFFFFF, the txn clears its conn pointer (one reply only) | sub_1400D53C0 |
+| Conn gone | The txn conn pointer is 0, so the reply is dropped | sub_1400D53C0, sub_1400CE490 |
+| Client id | The reply goes to the client with the client request id from txn+48 (`ClientReply`, conn+8 vtable+152) | sub_1400D4030 |
+| Error | The backend error goes to the client unchanged (code, server, module, line, text) | sub_1400D4030 |
+| Timeout | Code 42: CliGate also sends a report message with the user, the address, tag `Cli` and the reply name (for example `CCliConn::LoginStartReply`) | sub_1400D5410 |
+| Bad reply | No body → ErrBadParam module 1 line 1293; no `Session` → 1297; no `KeyData` → 1306 | sub_1400D4030 |
+| LoginStart OK | conn+328 = Session string. Client gets `<Reply><KeyData>…</KeyData></Reply>`, status 200 | sub_1400D4030 |
+| LoginStart error | Session cleared; conn+296 += 1; at 3 the client socket closes (vtable+40) | sub_1400D4030 |
+
+## 10. LoginFinish chain (3 backend calls)
+
+LoginFinish makes three calls in sequence. The client gets one reply, from step 3.
+
+```
+Client Auth/LoginFinish
+ └► step 1  Auth/LoginFinish           t=<dc>$<UserId>  ─► AuthSrv      reply cb sub_1400D3B20
+     └► step 2  Access/GetAppUserRights t=0$<UserId>    ─► rights svc ❓ reply cb sub_1400D2A90
+         └► step 3  Presence/Login      (StsGate login) ─► Presence ❓   reply cb sub_1400D35C0
+             └► client reply <Reply>… (§10.4)
+```
+
+### 10.1 Step 1, Auth/LoginFinish (sub_1400D07B0, reply sub_1400D3B20)
+
+| Item | Fact |
+| --- | --- |
+| Precheck | conn+300 = 0 (not logged in) and conn+304 bit 2 (KeyData complete). Else ErrPermission 49, module 1, line 1681 |
+| Precheck | Session (conn+328) present. Else ErrPermission 49, line 1686 |
+| No body | ErrBadParam 10, text `CliConn: login finish, missing body` |
+| Frame | The client frame is used. CliGate removes the client headers `t`, `f`, `p`, sets body child `<Session>` = conn+328, copies the frame, adds `t` = `<dc>$<UserId>` (§9.3) |
+| Reply error | Session cleared; error to client unchanged |
+| Reply has `<AuthType>` | Secondary auth needed. Client gets `<Reply><AuthType/>[<Status/>]</Reply>` (module 1, line 1777). The login stops here. |
+| Reply no body | ErrBadParam line 1763 `CliConn: login finish reply auth, missing body`; session cleared |
+| Reply OK | CliGate keeps: `<Licenses>` (copied to conn+560), `<Roles><RoleId>…` (u32 list), `<PcCafe><PcCafeCode>` (32 chars), `<PasswordUntil>` (32 chars), `<UserStatus>` (u32). Then step 2. |
+
+### 10.2 Step 2, Access/GetAppUserRights (sub_140117B40, sub_14016F460, reply sub_1400D2A90)
+
+| Item | Fact |
+| --- | --- |
+| Request | `POST /Access/GetAppUserRights`, `t` = `0$<UserId>` (center 0 = local) |
+| Body | `<Request><AppId>GUID</AppId><AppSecret></AppSecret><RedirectUri></RedirectUri></Request>`. AppId = Game.ini `[Configurations]` appId for the StServer.ini ConfigName (sub_1400D67F0). AppSecret and RedirectUri are empty strings. |
+| Reply error | error to client unchanged |
+| No txn record | ErrBadData 4 to the client |
+| No body | ErrBadParam line 2200 `CliConn: missing body` |
+| No `<AccessMask>` | ErrBadParam line 2204 `CliConn: missing accessMask` |
+| OK | AccessMask = strtoi64 (base 0). CliGate stores it on the gate user (sub_140119F70). Then step 3. |
+
+### 10.3 Step 3, Presence/Login (sub_140118010, builder sub_1400E7600)
+
+CliGate makes a `StsGateUserConn` record for the user (0x608 bytes) and sends
+`POST /Presence/Login`. The body is `<Request>` with: `UserStatus`, `Location`,
+`User…`, `Alias`, `GameCode`, `WorldCode`, `GameAccountId`, `ClientNetAddress`,
+`Status`/`AppDataSet`/`Aliases`/`Channels`/`Groups`/`Locations`/`ExternalAccounts`
+flags, `ExternalAccount{AuthProviderCode, ExternalAccountKey, ExternalAccountName,
+ExternalAccountData, ExternalUserAppKey}`, `AppId`, `AppSecret`, `RedirectUri`,
+`Roles type="array"{RoleId}`, `PcCafe{PcCafeCode}`. The exact field values are ❓.
+
+Rust phase 1: no Presence service exists. Do step 3 locally (no request) and
+send the client reply of §10.4 with an empty gate body.
+
+### 10.4 LoginFinishGateReply (sub_1400D35C0): client reply body
+
+| Order | Element | Source of value |
+| --- | --- | --- |
+| 1 | `<UserId>`, `<UserCenter>` (prefix `User`, sub_1400FDDB0) | conn+248, conn+240 |
+| 2 | `<Roles type="array">` with one `<RoleId>` per role | gate user roles (sub_14011A100, user +1480) |
+| 3 | `<PasswordUntil>` if not empty | step 1 record +73 |
+| 4 | each child of the Presence/Login reply body, except `UserCenter` and `UserId` | step 3 reply |
+| 5 | raw XML from conn+600 if not empty (the stored Licenses ❓) | conn+600 |
+
+| Item | Fact |
+| --- | --- |
+| Logged in | If the error code ≤ 0: conn+300 = timeGetTime() (login time, non-zero = logged in) |
+| Session | conn+328 is freed in all cases |
+| Error | error to client unchanged, no body |
+| Status | 200 with `s: <id>R` |
+
+## 11. RequestToken (32) and RequestGameToken (30)
+
+Both use the same handler code (sub_1400D1B10 and sub_1400D1940 are equal).
+
+| Step | Fact | Source |
+| --- | --- | --- |
+| 1 | Refresh the client app info of the gate conn (arg 130) ❓ | sub_1401178E0 |
+| 2 | If the login used an external account (conn+408 ≠ 0): replace body `<AuthProviderCode>` with conn+440 | sub_1400D1B10 |
+| 3 | One-way request (no request id): forward without txn | sub_14011A630 |
+| 4 | Else: new CCliConnTxn with callback `ClientReply` (sub_1400CED50); forward the client frame through the generic gate path | sub_14011A3A0 → sub_140113F90 |
+
+### 11.1 Generic gate path (sub_140113F90), user conn
+
+| Check | Result | Line |
+| --- | --- | --- |
+| client id unknown | ErrBadParam 10 `StsGate: clientId not found, %u` | 2560 |
+| unknown protocol/command, user conn | ErrPermission 49, text `permission denied '%s/%s', not logged in` (or `, game server`, or `, <user name>`) | 2603 |
+| rate limit (conn+1104, 270000) ❓ | ErrFlooding 3005 `request flooding, …`; route link vtable+0 (client id) | 2610 |
+| not logged in (conn+1116 = 0) | ErrPermission 49 | 2628 |
+| client `f` header does not match the user | ErrBadParam `StsGate: invalid from header` | 2685 |
+| `f` without user name | ErrBadParam `StsGate: incomplete from header` | 2689, 2697 |
+| `f` name not the game prefix | ErrBadParam `StsGate: masquerading as non-game user, %s` | 2711 |
+
+Header changes before send:
+1. Remove the client headers `p`, `v`, `r`.
+2. Set `f` = the logged-in user (UserId, center, alias or user name) (sub_1400E9650).
+3. Add the client app info (`appid`) to `f` (sub_1400FCFB0).
+4. If `t` has no center: resolve the user name with `$Name.GetUserNameById` or
+   `$Name.GetIdByUserId`, then set `t` again ❓ (sub_1400E54C0).
+5. Send with txn and 25 000 ms (vtable+32), or without txn (vtable+40).
+
+### 11.2 ClientReply (sub_1400CED50)
+
+| Item | Fact |
+| --- | --- |
+| Error | error to client with id txn+48 |
+| OK | Remove header `t` from the backend reply. Copy the full reply (status, headers, body) to the client with id txn+48. |
+| Partial | If the backend reply is not final, the client gets it with code 0xFFFFFFFF (partial, `s: <id>r`); the txn stays open |
+| Timeout 42 | report message `CCliConn::ClientReply` (§9.4) |
+
+Real client trace: RequestToken is sent two times (two AppIds) after
+LoginFinish. AuthSrv makes the token (card auth-1).
 
