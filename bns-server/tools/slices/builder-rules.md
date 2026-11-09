@@ -20,6 +20,12 @@ cargo clippy -p <crate> --all-targets -- -D warnings
 
 Last step: write `Docs/Plan/handoffs/<slice id>.md`, 30 lines or fewer, with these sections: Done (with test names), Not done, ❓, Blocked.
 
+Shell commands (the session runs in "don't ask" mode):
+- Bash accepts only a command that starts with `cargo`, `rg`, `git diff`, `git status` or `python3 tools/rust_api.py` / `python3 tools/spec_index.py`.
+- Run each command alone from the worktree root. Do not use `cd`, `ls`, `echo`, `wc`, `;` or `&&`. A pipe into `tail` is allowed.
+- To list files, use Glob. To read files, use Read. To search, use Grep.
+- A denied command has the wrong shape. It is not a block. Write it again in the allowed shape and continue. Never stop the slice because of a denied command.
+
 Context budget (each tool result is read again on every later turn):
 - Run cargo with `-q` and pipe it through `tail -40`.
 - For Rust interfaces, run `python3 tools/rust_api.py <crate dir>`. Read a source file only in the line range that you need.

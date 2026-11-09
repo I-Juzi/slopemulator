@@ -8,11 +8,10 @@ auth-1b	spec	opus	-	Docs/Platform/StServers/15-authsrv.md	auth-1	100	done	AuthSr
 cg-1b-rust	rust	sonnet	cligate	Cargo.toml,Cargo.lock,Program/Platform/StServers/CliGate/Cargo.toml,Program/Platform/StServers/CliGate/src/lib.rs,Program/Platform/StServers/CliGate/src/main.rs,Program/Platform/StServers/CliGate/src/auth_cmd.rs,Program/Platform/StServers/CliGate/src/session.rs,Program/Platform/StServers/CliGate/src/crypt.rs,Program/Platform/StServers/CliGate/src/conn.rs,Program/Platform/StServers/CliGate/src/gate.rs,Program/Platform/StServers/CliGate/tests/cligate.rs,Cargo.lock	cg-1b	120	done	CliGate crate, phase 1
 cx-00	spec	opus	-	Docs/Client/RE/	-	150	done	client RE: Binary inventory and method
 dbg-1-rust	rust	sonnet	clientdbg	Program/Tools/ClientDbg/,Cargo.toml,Cargo.lock	cx-01,cx-02	150	done	clientdbg live debugger part 1
-dbg-2-rust	rust	sonnet	clientdbg	Program/Tools/ClientDbg/,Cargo.lock	dbg-1-rust	150	ready	clientdbg live debugger part 2
 cx-01	spec	opus	-	Docs/Client/RE/	-	150	done	client RE: Process start, command line, config, main loop
 cx-02	spec	opus	-	Docs/Client/RE/	-	150	done	client RE: Network transport, framing and session crypto
 cx-03	spec	opus	-	Docs/Client/RE/	-	150	done	client RE: STS client (login to StServers)
-cx-04	spec	opus	-	Docs/Client/RE/	-	150	ready	client RE: LobbyGate session
+cx-04	spec	opus	-	Docs/Client/RE/	-	150	running	client RE: LobbyGate session
 cx-05	spec	opus	-	Docs/Client/RE/	-	150	ready	client RE: Game session and command dispatch
 cx-06	spec	opus	-	Docs/Client/RE/	-	150	ready	client RE: Movement and position sync
 cx-07	spec	opus	-	Docs/Client/RE/	-	150	ready	client RE: Skills and combat
@@ -29,6 +28,7 @@ cx-15	spec	opus	-	Docs/Client/RE/	-	150	ready	client RE: Engine, rendering, asse
 cx-16	spec	opus	-	Docs/Client/RE/	-	150	ready	client RE: Error codes, log strings, telemetry
 cx-18	spec	opus	-	Docs/Client/RE/	-	150	ready	client RE: GM debugger and builder UI (plan B)
 cx-17	spec	opus	-	Docs/Client/RE/,Docs/Client/client-exe-reversing.md,Docs/Client/README.md	cx-00,cx-01,cx-02,cx-03,cx-04,cx-05,cx-06,cx-07,cx-08,cx-09,cx-10,cx-11,cx-12,dfx-3,cx-14,cx-15,cx-16,cx-18	150	ready	client RE: Coverage audit and open items
+dbg-2-rust	rust	sonnet	clientdbg	Program/Tools/ClientDbg/,Cargo.lock	dbg-1-rust	150	hold	clientdbg live debugger part 2
 auth-1b-rust	rust	sonnet	authsrv	Cargo.toml,Cargo.lock,Program/Platform/StServers/AuthSrv/Cargo.toml,Program/Platform/StServers/AuthSrv/src/lib.rs,Program/Platform/StServers/AuthSrv/src/main.rs,Program/Platform/StServers/AuthSrv/src/srp.rs,Program/Platform/StServers/AuthSrv/src/db.rs,Program/Platform/StServers/AuthSrv/src/session.rs,Program/Platform/StServers/AuthSrv/src/token.rs,Program/Platform/StServers/AuthSrv/src/handlers.rs,Program/Platform/StServers/AuthSrv/tests/srp.rs,Program/Platform/StServers/AuthSrv/tests/login.rs,Program/Platform/StServers/AuthSrv/tests/token.rs,Cargo.lock	auth-1b	120	ready	AuthSrv crate (login, SRP, tokens)
 dbg-3-rust	rust	sonnet	clientdbg	Program/Tools/ClientDbg/,Cargo.lock	dbg-2-rust	150	hold	clientdbg sampling profiler
 perf-1	ops	-	-	-	-	0	hold	DXVK trial on the client (operator task)
