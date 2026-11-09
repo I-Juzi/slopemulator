@@ -23,16 +23,25 @@ use tokio::{
 pub const DEFAULT_TIMEOUT: Duration = Duration::from_millis(25_000);
 
 pub fn header<'a>(f: &'a Frame, name: &str) -> Option<&'a str> {
-    f.headers.iter().find(|h| h.name.eq_ignore_ascii_case(name)).map(|h| h.value.as_str())
+    f.headers
+        .iter()
+        .find(|h| h.name.eq_ignore_ascii_case(name))
+        .map(|h| h.value.as_str())
 }
 
 pub fn headers_all<'a>(f: &'a Frame, name: &'a str) -> impl Iterator<Item = &'a str> + 'a {
-    f.headers.iter().filter(move |h| h.name.eq_ignore_ascii_case(name)).map(|h| h.value.as_str())
+    f.headers
+        .iter()
+        .filter(move |h| h.name.eq_ignore_ascii_case(name))
+        .map(|h| h.value.as_str())
 }
 
 pub fn set_header(f: &mut Frame, name: &str, value: impl Into<String>) {
     f.headers.retain(|h| !h.name.eq_ignore_ascii_case(name));
-    f.headers.push(Header { name: name.into(), value: value.into() });
+    f.headers.push(Header {
+        name: name.into(),
+        value: value.into(),
+    });
 }
 
 pub fn transaction(f: &Frame) -> Option<Transaction> {
@@ -41,7 +50,10 @@ pub fn transaction(f: &Frame) -> Option<Transaction> {
 
 pub fn request(protocol: &str, command: &str, body: Option<&Element>) -> Frame {
     Frame {
-        start: StartLine::Request { protocol: protocol.into(), command: command.into() },
+        start: StartLine::Request {
+            protocol: protocol.into(),
+            command: command.into(),
+        },
         headers: vec![],
         body: body.map(|b| b.to_xml().into_bytes()).unwrap_or_default(),
     }
@@ -60,12 +72,23 @@ pub fn default_reason(status: u32) -> &'static str {
 
 pub fn reply_ok(id: u32, body: Option<&Element>) -> Frame {
     let mut f = Frame {
-        start: StartLine::Response { status: 200, reason: "OK".into() },
+        start: StartLine::Response {
+            status: 200,
+            reason: "OK".into(),
+        },
         headers: vec![],
         body: body.map(|b| b.to_xml().into_bytes()).unwrap_or_default(),
     };
     if id != 0 {
-        f.headers.push(Transaction { id, complete: Some(true), sequence: 0 }.to_header().expect("id != 0"));
+        f.headers.push(
+            Transaction {
+                id,
+                complete: Some(true),
+                sequence: 0,
+            }
+            .to_header()
+            .expect("id != 0"),
+        );
     }
     f
 }
@@ -73,22 +96,55 @@ pub fn reply_ok(id: u32, body: Option<&Element>) -> Frame {
 /// Reply with a raw body. `complete = false` gives a partial reply `s:<id>r<seq>`;
 /// a final reply after partials carries `R<seq>` (StsInetSocket sub_1400DF2D0,
 /// sequence counter in sub_1400EC5D0: partials 1, 2, …; final = count + 1).
-pub fn reply_raw(id: u32, status: u32, reason: &str, body: Vec<u8>, complete: bool, sequence: u32) -> Frame {
-    let mut f = Frame { start: StartLine::Response { status, reason: reason.into() }, headers: vec![], body };
+pub fn reply_raw(
+    id: u32,
+    status: u32,
+    reason: &str,
+    body: Vec<u8>,
+    complete: bool,
+    sequence: u32,
+) -> Frame {
+    let mut f = Frame {
+        start: StartLine::Response {
+            status,
+            reason: reason.into(),
+        },
+        headers: vec![],
+        body,
+    };
     if id != 0 {
-        f.headers.push(Transaction { id, complete: Some(complete), sequence }.to_header().expect("id != 0"));
+        f.headers.push(
+            Transaction {
+                id,
+                complete: Some(complete),
+                sequence,
+            }
+            .to_header()
+            .expect("id != 0"),
+        );
     }
     f
 }
 
 pub fn reply_error(id: u32, err: &StsError, local_server: u32) -> Frame {
     let mut f = Frame {
-        start: StartLine::Response { status: 400, reason: err.name().into() },
+        start: StartLine::Response {
+            status: 400,
+            reason: err.name().into(),
+        },
         headers: vec![],
         body: err.to_element(local_server).to_xml().into_bytes(),
     };
     if id != 0 {
-        f.headers.push(Transaction { id, complete: Some(true), sequence: 0 }.to_header().expect("id != 0"));
+        f.headers.push(
+            Transaction {
+                id,
+                complete: Some(true),
+                sequence: 0,
+            }
+            .to_header()
+            .expect("id != 0"),
+        );
     }
     f
 }
@@ -98,7 +154,11 @@ pub fn reply_result(f: &Frame) -> Result<Option<Element>, StsError> {
     let StartLine::Response { status, reason } = &f.start else {
         return Err(StsError::new(ERR_BAD_DATA, 0, 0));
     };
-    let body = if f.body.is_empty() { None } else { Some(Element::parse(&f.body).map_err(|_| StsError::new(ERR_BAD_DATA, 0, 0))?) };
+    let body = if f.body.is_empty() {
+        None
+    } else {
+        Some(Element::parse(&f.body).map_err(|_| StsError::new(ERR_BAD_DATA, 0, 0))?)
+    };
     if *status < 300 {
         return Ok(body);
     }
@@ -117,7 +177,11 @@ pub struct FrameReader<R> {
 
 impl<R: AsyncRead + Unpin> FrameReader<R> {
     pub fn new(inner: R) -> Self {
-        Self { inner, buf: Vec::new(), codec: Codec::default() }
+        Self {
+            inner,
+            buf: Vec::new(),
+            codec: Codec::default(),
+        }
     }
 
     /// `Ok(None)` = clean end of stream.
@@ -150,7 +214,9 @@ impl<R: AsyncRead + Unpin> FrameReader<R> {
 }
 
 pub async fn write_frame<W: AsyncWrite + Unpin>(w: &mut W, f: &Frame) -> std::io::Result<()> {
-    let bytes = Codec::default().encode(f).map_err(|e| std::io::Error::new(std::io::ErrorKind::InvalidInput, e))?;
+    let bytes = Codec::default()
+        .encode(f)
+        .map_err(|e| std::io::Error::new(std::io::ErrorKind::InvalidInput, e))?;
     w.write_all(&bytes).await
 }
 
@@ -198,7 +264,8 @@ impl Incoming {
     /// Partial reply number `sequence` (1, 2, …).
     pub fn reply_partial(&self, body: Vec<u8>, sequence: u32) {
         if self.id() != 0 {
-            self.peer.send(reply_raw(self.id(), 200, "OK", body, false, sequence));
+            self.peer
+                .send(reply_raw(self.id(), 200, "OK", body, false, sequence));
         }
     }
 }
@@ -213,7 +280,11 @@ impl Peer {
         let (rd, mut wr) = tokio::io::split(stream);
         let (out, mut out_rx) = mpsc::unbounded_channel::<Frame>();
         let (in_tx, in_rx) = mpsc::unbounded_channel();
-        let peer = Self { out, pending: Pending::default(), next_id: Arc::new(AtomicU32::new(1)) };
+        let peer = Self {
+            out,
+            pending: Pending::default(),
+            next_id: Arc::new(AtomicU32::new(1)),
+        };
         tokio::spawn(async move {
             while let Some(f) = out_rx.recv().await {
                 if write_frame(&mut wr, &f).await.is_err() {
@@ -256,7 +327,10 @@ impl Peer {
             }
             return;
         }
-        let _ = in_tx.send(Incoming { frame, peer: self.clone() });
+        let _ = in_tx.send(Incoming {
+            frame,
+            peer: self.clone(),
+        });
     }
 
     pub fn send(&self, f: Frame) {
@@ -313,9 +387,16 @@ mod tests {
                 }
             }
         });
-        let r = client.call_xml(request("Test", "Ok", None), DEFAULT_TIMEOUT).await.unwrap().unwrap();
+        let r = client
+            .call_xml(request("Test", "Ok", None), DEFAULT_TIMEOUT)
+            .await
+            .unwrap()
+            .unwrap();
         assert_eq!(r.text, "7");
-        let e = client.call_xml(request("Test", "Bad", None), DEFAULT_TIMEOUT).await.unwrap_err();
+        let e = client
+            .call_xml(request("Test", "Bad", None), DEFAULT_TIMEOUT)
+            .await
+            .unwrap_err();
         assert_eq!((e.code, e.server, e.module, e.line), (10, 9, 2, 1115));
     }
 
@@ -328,10 +409,15 @@ mod tests {
             while let Some(req) = rx.recv().await {
                 req.reply_partial(b"<V>1".to_vec(), 1);
                 req.reply_partial(b"2".to_vec(), 2);
-                req.peer.send(reply_raw(req.id(), 200, "OK", b"3</V>\n".to_vec(), true, 3));
+                req.peer
+                    .send(reply_raw(req.id(), 200, "OK", b"3</V>\n".to_vec(), true, 3));
             }
         });
-        let r = client.call_xml(request("Test", "P", None), DEFAULT_TIMEOUT).await.unwrap().unwrap();
+        let r = client
+            .call_xml(request("Test", "P", None), DEFAULT_TIMEOUT)
+            .await
+            .unwrap()
+            .unwrap();
         assert_eq!(r.text, "123");
     }
 }

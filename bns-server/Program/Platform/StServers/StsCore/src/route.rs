@@ -17,8 +17,14 @@ pub struct Location {
 
 impl Location {
     pub fn format(&self, extra: u32) -> String {
-        let addr = self.addr.map(|a| a.to_string()).unwrap_or_else(|| "0.0.0.0:0".into());
-        let mut s = format!("{addr} {} {} {} {}", self.product, self.index, self.deployment, self.epoch);
+        let addr = self
+            .addr
+            .map(|a| a.to_string())
+            .unwrap_or_else(|| "0.0.0.0:0".into());
+        let mut s = format!(
+            "{addr} {} {} {} {}",
+            self.product, self.index, self.deployment, self.epoch
+        );
         if extra != 0 {
             s.push_str(&format!(" {extra}"));
         }
@@ -34,7 +40,13 @@ impl Location {
             return None;
         }
         Some((
-            Self { addr: Some(addr), product: nums[0], index: nums[1], deployment: nums[2], epoch: nums[3] },
+            Self {
+                addr: Some(addr),
+                product: nums[0],
+                index: nums[1],
+                deployment: nums[2],
+                epoch: nums[3],
+            },
             nums.get(4).copied().unwrap_or(0),
         ))
     }
@@ -164,7 +176,11 @@ impl BlockSlot {
     }
     fn parse(s: &str) -> Option<Self> {
         let (id, st) = s.split_once('/').unwrap_or((s, ""));
-        let id = if id.is_empty() { 0 } else { id.parse::<u32>().ok()? & 0xFF_FFFF };
+        let id = if id.is_empty() {
+            0
+        } else {
+            id.parse::<u32>().ok()? & 0xFF_FFFF
+        };
         let mut v = id;
         if !st.is_empty() {
             let d: Vec<u32> = st.chars().map(|c| c.to_digit(16)).collect::<Option<_>>()?;
@@ -239,7 +255,10 @@ pub struct RouteMessage {
 
 impl RouteMessage {
     pub fn new(cmd: RouteCmd) -> Self {
-        Self { cmd: Some(cmd), ..Self::default() }
+        Self {
+            cmd: Some(cmd),
+            ..Self::default()
+        }
     }
 
     /// Mask for this message: the command mask, or for MultiRouterChanged
@@ -261,13 +280,22 @@ impl RouteMessage {
         use field::*;
         let mut e = Element::new("Message");
         if m & SUB_CMD != 0 {
-            e.push(Element::text("SubCmd", self.sub_cmd.map_or("Invalid", RouteCmd::name)));
+            e.push(Element::text(
+                "SubCmd",
+                self.sub_cmd.map_or("Invalid", RouteCmd::name),
+            ));
         }
         if m & ROUTER != 0 {
-            e.push(Element::text("Router", self.router.unwrap_or_default().format(0)));
+            e.push(Element::text(
+                "Router",
+                self.router.unwrap_or_default().format(0),
+            ));
         }
         if m & PROVIDER != 0 {
-            e.push(Element::text("Provider", self.provider.unwrap_or_default().format(0)));
+            e.push(Element::text(
+                "Provider",
+                self.provider.unwrap_or_default().format(0),
+            ));
         }
         if m & CLIENT != 0 {
             e.push_nonzero("Client", self.client);
@@ -294,10 +322,16 @@ impl RouteMessage {
             }
             let n = 1usize.checked_shl(self.block_bits).unwrap_or(0);
             if m & CURRENT != 0 && !self.current.is_empty() {
-                p.push(Element::text("Current", blocks_text(&self.current[..n.min(self.current.len())])));
+                p.push(Element::text(
+                    "Current",
+                    blocks_text(&self.current[..n.min(self.current.len())]),
+                ));
             }
             if m & DESIRED != 0 && !self.desired.is_empty() {
-                p.push(Element::text("Desired", blocks_text(&self.desired[..n.min(self.desired.len())])));
+                p.push(Element::text(
+                    "Desired",
+                    blocks_text(&self.desired[..n.min(self.desired.len())]),
+                ));
             }
             if m & FORWARDS != 0 && !self.forwards.is_empty() {
                 let mut fa = Element::array("Forwards");
@@ -306,7 +340,11 @@ impl RouteMessage {
                     fe.push(Element::text("Scope", f.scope.clone()));
                     fe.push(Element::text("NameDb", f.name_db.clone()));
                     fe.push_nonzero("NotFound", f.not_found);
-                    for (on, n) in [(f.no_cache, "NoCache"), (f.use_no_name, "UseNoName"), (f.use_local_center, "UseLocalCenter")] {
+                    for (on, n) in [
+                        (f.no_cache, "NoCache"),
+                        (f.use_no_name, "UseNoName"),
+                        (f.use_local_center, "UseLocalCenter"),
+                    ] {
                         if on {
                             fe.push(Element::new(n));
                         }
@@ -331,7 +369,10 @@ impl RouteMessage {
             }
         }
         if m & LISTS != 0 {
-            for (list, item, members) in [("Providers", "Provider", &self.providers), ("Routers", "Router", &self.routers)] {
+            for (list, item, members) in [
+                ("Providers", "Provider", &self.providers),
+                ("Routers", "Router", &self.routers),
+            ] {
                 let mut a = Element::array(list);
                 for mb in members {
                     let mut it = Element::new(item)
@@ -410,9 +451,15 @@ impl RouteMessage {
             }
         }
         if let Some(t) = e.get("ProtocolTemplate") {
-            m.template = Some((t.get_text("Name").unwrap_or_default().into(), t.get_u32("Build", 0)));
+            m.template = Some((
+                t.get_text("Name").unwrap_or_default().into(),
+                t.get_u32("Build", 0),
+            ));
         }
-        for (list, item, dst) in [("Providers", "Provider", &mut m.providers), ("Routers", "Router", &mut m.routers)] {
+        for (list, item, dst) in [
+            ("Providers", "Provider", &mut m.providers),
+            ("Routers", "Router", &mut m.routers),
+        ] {
             if let Some(a) = e.get(list) {
                 for it in a.all(item) {
                     dst.push(Member {
@@ -440,10 +487,20 @@ impl RouteMessage {
     pub fn request_target(&self) -> (String, Option<Target>) {
         let m = self.mask();
         if m & field::T_BLOCK != 0 {
-            return (self.name.clone(), Some(Target::Block { center: 0, block: self.block, protocol: None }));
+            return (
+                self.name.clone(),
+                Some(Target::Block {
+                    center: 0,
+                    block: self.block,
+                    protocol: None,
+                }),
+            );
         }
         if m & field::T_DIRECT != 0 {
-            return (self.name.clone(), Some(Target::Direct(self.provider.unwrap_or_default())));
+            return (
+                self.name.clone(),
+                Some(Target::Direct(self.provider.unwrap_or_default())),
+            );
         }
         ("Route".into(), None)
     }
@@ -459,7 +516,11 @@ pub enum Target {
     /// `<c>@<scope>:<name>[;rest]`
     Forward { center: u32, address: String },
     /// `<c>#<hex block>`, optional `protocol` attribute.
-    Block { center: u32, block: u32, protocol: Option<String> },
+    Block {
+        center: u32,
+        block: u32,
+        protocol: Option<String>,
+    },
 }
 
 impl Target {
@@ -474,14 +535,24 @@ impl Target {
         }
         let rest = &s[split + 1..];
         match s.as_bytes()[split] {
-            b'$' => Some(Self::Key { center, key: rest.into() }),
-            b'@' => Some(Self::Forward { center, address: rest.into() }),
+            b'$' => Some(Self::Key {
+                center,
+                key: rest.into(),
+            }),
+            b'@' => Some(Self::Forward {
+                center,
+                address: rest.into(),
+            }),
             b'#' => {
                 let (hex, attrs) = rest.split_once(';').unwrap_or((rest, ""));
                 let protocol = attrs
                     .split(';')
                     .find_map(|kv| kv.trim().strip_prefix("protocol=").map(Into::into));
-                Some(Self::Block { center, block: u32::from_str_radix(hex, 16).ok()?, protocol })
+                Some(Self::Block {
+                    center,
+                    block: u32::from_str_radix(hex, 16).ok()?,
+                    protocol,
+                })
             }
             _ => None,
         }
@@ -492,7 +563,11 @@ impl Target {
             Self::Direct(l) => format!("*{}", l.format(0)),
             Self::Key { center, key } => format!("{center}${key}"),
             Self::Forward { center, address } => format!("{center}@{address}"),
-            Self::Block { center, block, protocol } => match protocol {
+            Self::Block {
+                center,
+                block,
+                protocol,
+            } => match protocol {
                 Some(p) => format!("{center}#{block:X};protocol={p}"),
                 None => format!("{center}#{block:X}"),
             },
@@ -516,7 +591,13 @@ mod tests {
     use super::*;
 
     fn loc() -> Location {
-        Location { addr: Some("10.1.2.3:6000".parse().unwrap()), product: 1, index: 2, deployment: 3, epoch: 4 }
+        Location {
+            addr: Some("10.1.2.3:6000".parse().unwrap()),
+            product: 1,
+            index: 2,
+            deployment: 3,
+            epoch: 4,
+        }
     }
 
     #[test]
@@ -532,7 +613,8 @@ mod tests {
             x,
             "<Message>\n<Provider>10.1.2.3:6000 1 2 3 4</Provider>\n<Protocol>\n<Name>Auth</Name>\n<Build>381</Build>\n<Topology>Grid</Topology>\n<BlockBits>5</BlockBits>\n</Protocol>\n</Message>\n"
         );
-        let back = RouteMessage::from_element(m.cmd, &Element::parse(x.as_bytes()).unwrap()).unwrap();
+        let back =
+            RouteMessage::from_element(m.cmd, &Element::parse(x.as_bytes()).unwrap()).unwrap();
         assert_eq!(back, m);
     }
 
@@ -544,11 +626,21 @@ mod tests {
         m.topology = Topology::Basic;
         m.current = vec![BlockSlot(7), BlockSlot(7 | 1 << 24 | 2 << 27)];
         m.desired = m.current.clone();
-        m.providers = vec![Member { code: 7, location: loc(), server_flags: 0, service_flags: 1 }];
-        m.connections = vec![Connection { router_code: 1, code: 7, epoch: 4 }];
+        m.providers = vec![Member {
+            code: 7,
+            location: loc(),
+            server_flags: 0,
+            service_flags: 1,
+        }];
+        m.connections = vec![Connection {
+            router_code: 1,
+            code: 7,
+            epoch: 4,
+        }];
         let x = m.to_element().to_xml();
         assert!(x.contains("<Current>7,7/12</Current>"), "{x}");
-        let back = RouteMessage::from_element(m.cmd, &Element::parse(x.as_bytes()).unwrap()).unwrap();
+        let back =
+            RouteMessage::from_element(m.cmd, &Element::parse(x.as_bytes()).unwrap()).unwrap();
         assert_eq!(back, m);
     }
 
@@ -558,13 +650,22 @@ mod tests {
             let mut m = RouteMessage::new(RouteCmd::BlocksFound);
             m.current = vec![BlockSlot(provider)];
             assert!(m.to_element().get("Protocol").unwrap().has("Current"));
-            assert_eq!(RouteMessage::from_element(m.cmd, &m.to_element()).unwrap(), m);
+            assert_eq!(
+                RouteMessage::from_element(m.cmd, &m.to_element()).unwrap(),
+                m
+            );
         }
     }
 
     #[test]
     fn targets() {
-        for s in ["*10.1.2.3:6000 1 2 3 4", "0$alice", "3@Name:x;y", "0#1F", "0#1F;protocol=Auth"] {
+        for s in [
+            "*10.1.2.3:6000 1 2 3 4",
+            "0$alice",
+            "3@Name:x;y",
+            "0#1F",
+            "0#1F;protocol=Auth",
+        ] {
             assert_eq!(Target::parse(s).unwrap().format(), s);
         }
         assert!(Target::parse("64$x").is_none());

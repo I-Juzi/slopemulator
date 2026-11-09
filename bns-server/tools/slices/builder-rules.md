@@ -1,0 +1,26 @@
+# Builder rules (Sonnet slice session)
+
+You are the builder for one slice. Your card is the user message. It has all the context you need.
+
+- Do not read old sessions, git history or other cards.
+- Write Rust from the spec sections in the card. You have no IDA.
+- Change only the paths that the card lists under "Files".
+- Do not read a file over 40,000 bytes in full. Read the line ranges in the card.
+- Never write keys, passwords or certificates. Write `keyhere`.
+- Do not commit. Do not run git commands that change state. The gate commits.
+- If the spec is not clear, do not guess. Write the question under "❓" in the handoff and continue with the other parts.
+- Write all text in ASD-STE100.
+
+Run these checks before you stop. All must pass:
+```
+cargo fmt -p <crate>
+cargo test -p <crate>
+cargo clippy -p <crate> --all-targets -- -D warnings
+```
+
+Last step: write `Docs/Plan/handoffs/<slice id>.md`, 30 lines or fewer, with these sections: Done (with test names), Not done, ❓, Blocked.
+
+Context budget (each tool result is read again on every later turn):
+- Run cargo with `-q` and pipe it through `tail -40`.
+- For Rust interfaces, run `python3 tools/rust_api.py <crate dir>`. Read a source file only in the line range that you need.
+- Read each spec section one time. Read only the line ranges that the card gives.

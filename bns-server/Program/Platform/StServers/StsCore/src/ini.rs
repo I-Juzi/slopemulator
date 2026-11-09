@@ -14,7 +14,10 @@ pub struct Section {
 
 impl Section {
     pub fn get(&self, key: &str) -> Option<&str> {
-        self.entries.iter().find(|(k, _)| k.eq_ignore_ascii_case(key)).map(|(_, v)| v.as_str())
+        self.entries
+            .iter()
+            .find(|(k, _)| k.eq_ignore_ascii_case(key))
+            .map(|(_, v)| v.as_str())
     }
 
     /// Value, or `default` when the key is missing.
@@ -49,7 +52,12 @@ impl Ini {
     pub fn parse_bytes(bytes: &[u8]) -> Self {
         let text = match bytes {
             [0xFF, 0xFE, rest @ ..] => {
-                let units: Vec<u16> = rest.as_chunks::<2>().0.iter().map(|c| u16::from_le_bytes(*c)).collect();
+                let units: Vec<u16> = rest
+                    .as_chunks::<2>()
+                    .0
+                    .iter()
+                    .map(|c| u16::from_le_bytes(*c))
+                    .collect();
                 String::from_utf16_lossy(&units)
             }
             [0xEF, 0xBB, 0xBF, rest @ ..] => String::from_utf8_lossy(rest).into_owned(),
@@ -66,8 +74,13 @@ impl Ini {
                 continue;
             }
             if let Some(name) = line.strip_prefix('[').and_then(|l| l.strip_suffix(']')) {
-                ini.sections.push(Section { name: name.trim().to_owned(), entries: vec![] });
-            } else if let (Some((k, v)), Some(sec)) = (line.split_once('='), ini.sections.last_mut()) {
+                ini.sections.push(Section {
+                    name: name.trim().to_owned(),
+                    entries: vec![],
+                });
+            } else if let (Some((k, v)), Some(sec)) =
+                (line.split_once('='), ini.sections.last_mut())
+            {
                 sec.entries.push((k.trim().to_owned(), v.trim().to_owned()));
             }
         }
@@ -75,7 +88,9 @@ impl Ini {
     }
 
     pub fn section(&self, name: &str) -> Option<&Section> {
-        self.sections.iter().find(|s| s.name.eq_ignore_ascii_case(name))
+        self.sections
+            .iter()
+            .find(|s| s.name.eq_ignore_ascii_case(name))
     }
 
     pub fn get(&self, section: &str, key: &str) -> Option<&str> {
@@ -83,7 +98,8 @@ impl Ini {
     }
 
     pub fn int_or(&self, section: &str, key: &str, default: i64) -> i64 {
-        self.section(section).map_or(default, |s| s.int_or(key, default))
+        self.section(section)
+            .map_or(default, |s| s.int_or(key, default))
     }
 }
 
@@ -99,6 +115,9 @@ mod tests {
         assert_eq!(ini.int_or("ThreadTasks", "ThreadTasks", 0), 50);
         let mut wide = vec![0xFF, 0xFE];
         wide.extend(text.encode_utf16().flat_map(|u| u.to_le_bytes()));
-        assert_eq!(Ini::parse_bytes(&wide).get("Sql.AcctDb", "Password"), Some("keyhere"));
+        assert_eq!(
+            Ini::parse_bytes(&wide).get("Sql.AcctDb", "Password"),
+            Some("keyhere")
+        );
     }
 }
