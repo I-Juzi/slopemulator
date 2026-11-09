@@ -1,0 +1,263 @@
+id	name	direction	handler_381	handler_gm_name	handler_route	struct_size	builder_381	builder_ida_name_381	inventory_lock_reset	fields
+55	G_MessageByItemReqCmd	C2S				28	0x7378e0	World::SendMessageByItem		16:text:STRING; 24:font_color_index:INT8/1; 26:consumeItemBagPos:INT16/2
+56	G_MessageByItemCmd	S2C	0xef65d0	HandleMessageByItemPacket	own	44				16:fromWorldId:INT16/2; 20:fromName:STRING; 28:range:INT8/1; 32:text:STRING; 40:font_color_index:INT8/1
+57	G_MessageByItemFailCmd	S2C	0xef6590	HandleMessageByItemFailPacket	own	20				16::INT16/2
+79	G_ChangeFieldItemUseCountCmd	S2C	0xef1530	HandleChangeFieldItemUseCountPacket	World::ProcessNetObjectEvent	20				16:useCount:INT16/2
+80	G_RebuyItemListReqCmd	C2S				16	0xd22eb0	ItemStorePanel::requestRebuyItemList		
+81	G_RebuyItemListOkCmd	S2C	0xef0f20	HandleRebuyItemListOkPacket	own	28				16:items:REPEAT/2;   8:index:INT8/1;   12:item:SUB
+82	G_RebuyItemListFailCmd	S2C	0xef0ef0	HandleRebuyItemListFailPacket	own	20				16::INT16/2
+176	G_ChangePartyPickupRuleReqCmd	C2S				40	0xc14000 0xc14090 0xc14120 0xc141b0	BParty::RequestChangePickupOption		16:pickupRule:INT8/1; 17:auctionItemGrade:INT8/1; 24:dedicated_member:INT64/8; 32:partyAuctionStartPrice:INT64/8
+177	G_ChangePartyPickupRuleOkCmd	S2C	0xeee9a0	HandleChangePartyPickupRuleOkPacket	World::ProcessNetObjectEvent	40				16:pickupRule:INT8/1; 17:auctionItemGrade:INT8/1; 24:dedicated_member:INT64/8; 32:partyAuctionStartPrice:INT64/8
+178	G_ChangePartyPickupRuleFailCmd	S2C	0xeee960	HandleChangePartyPickupRuleFailPacket	World::ProcessNetObjectEvent	20				16::INT16/2
+205	G_BidCurrentAuctionItemReqCmd	C2S				32	0xc138d0	PartyAuction::RequestAuctionBid		16:price:INT64/8; 24:CurrentItemIndex:INT8/1
+206	G_BidCurrentAuctionItemOkCmd	S2C	0xeee3e0	HandleBidCurrentAuctionItemOkPacket	World::ProcessNetObjectEvent	32				16:pcId:INT64/8; 24:price:INT64/8
+207	G_BidCurrentAuctionItemFailCmd	S2C	0xeee3a0	HandleBidCurrentAuctionItemFailPacket	World::ProcessNetObjectEvent	20				16::INT16/2
+208	G_GiveUpCurrentAuctionItemReqCmd	C2S				20	0xc13820	PartyAuction::RequestAuctionGiveup		16:CurrentItemIndex:INT8/1
+209	G_GiveUpCurrentAuctionItemOkCmd	S2C	0xeee360	HandleGiveUpCurrentAuctionItemOkPacket	World::ProcessNetObjectEvent	24				16:pcId:INT64/8
+210	G_GiveUpCurrentAuctionItemFailCmd	S2C	0xeee320	HandleGiveUpCurrentAuctionItemFailPacket	World::ProcessNetObjectEvent	20				16::INT16/2
+211	G_DistributionCurrentAuctionItemReqCmd	C2S				16	0xc13770	PartyAuction::RequestDistributionAuctionItem		
+212	G_DistributionCurrentAuctionItemOkCmd	S2C	0xeee2e0	HandleDistributionCurrentAuctionItemOkPacket	World::ProcessNetObjectEvent	24				16:distrubutionPrice:INT64/8
+213	G_DistributionCurrentAuctionItemFailCmd	S2C	0xeee2a0	HandleDistributionCurrentAuctionItemFailPacket	World::ProcessNetObjectEvent	20				16::INT16/2
+330	G_SuggestTradeMoneyReqCmd	C2S				24	0x8146d0	TradeShelf::RequestRegisterMoney		16:money:INT64/8
+331	G_SuggestTradeMoneyOtherCmd	S2C	0xeec820	HandleSuggestTradeMoneyOtherPacket	World::ProcessNetObjectEvent	32				16:trader:INT64/8; 24:money:INT64/8
+332	G_SuggestTradeMoneyMineCmd	S2C	0xeec7e0	HandleSuggestTradeMoneyMinePacket	World::ProcessNetObjectEvent	24				16:money:INT64/8
+793	G_GetGoodsCountFromAccountInventoryReqCmd	C2S				16	0xf39d50	GoodsInventory::requestMtxGoodsCount		
+794	G_GetGoodsCountFromAccountInventoryOkCmd	S2C	0xef29f0	HandleGetGoodsCountFromAccountInventoryOkPacket	BAccount::ProcessNetObjectEvent	20				16:goods_count:INT32/4
+795	G_GetGoodsCountFromAccountInventoryFailCmd	S2C	0xef2990	HandleGetGoodsCountFromAccountInventoryFailPacket	BAccount::ProcessNetObjectEvent	20				16::INT16/2
+796	G_ListGoodsFromAccountInventoryReqCmd	C2S				20	0xf39c00	GoodsInventory::requestMtxGoodsList		16:language_code:INT8/1
+797	G_ListGoodsFromAccountInventoryOkCmd	S2C	0xef2930	HandleListGoodsFromAccountInventoryOkPacket	BAccount::ProcessNetObjectEvent	28				16:goods_info_list:REPEAT/2;   8:goods_id:INT64/8;   16:goods_number:INT32/4;   20:is_refundable:INT8/1;   21:use_refund_expiration_date:INT8/1;   24:refund_expiration_date:INT64/8;   32:delivery_date:INT64/8;   40:sender_desc:STRING;   48:sender_message:STRING;   56:first_request_from_code:INT16/2;   58:owner_world_id:INT16/2;   64:owner_pc_id:INT64/8;   72:goods_icon_id:INT32/4;   76:goods_name:STRING;   84:goods_desc:STRING;   92:goods_restriction_condition:VBIN;   100:customized_goods_attribute:VBIN;   108:goods_item_list:REPEAT/2;     8:item_number:INT32/4;     12:item_amount:INT32/4;     16:item_data_id:INT32/4;     20:item_expiration_duration:INT32/4;     24:customized_item_attribute1:VBIN;     32:customized_item_attribute2:VBIN
+798	G_ListGoodsFromAccountInventoryFailCmd	S2C	0xef28d0	HandleListGoodsFromAccountInventoryFailPacket	BAccount::ProcessNetObjectEvent	20				16::INT16/2
+799	G_TakeGoodsFromAccountInventoryReqCmd	C2S				32	0xf39990	GoodsInventory::RequestTakeMtxGoods		16:goods_id:INT64/8; 24:language_code:INT8/1
+800	G_TakeGoodsFromAccountInventoryOkCmd	S2C	0xef2870	HandleTakeGoodsFromAccountInventoryOkPacket	BAccount::ProcessNetObjectEvent	40				16:goods_id:INT64/8; 24:warehouse_goods_list:REPEAT/2;   8:label_id:INT64/8;   16:goods_number:INT32/4;   20:sender_desc:STRING;   28:sender_message:STRING;   40:purchase_time:INT64/8;   48:registration_time:INT64/8;   56:first_request_from_code:INT16/2;   58:owner_world_id:INT16/2;   64:owner_pc_id:INT64/8;   72:goods_icon_id:INT32/4;   76:goods_name:STRING;   84:goods_desc:STRING;   92:goods_restriction_condition:VBIN;   100:customized_goods_attribute:VBIN;   108:goods_display_list:REPEAT/2;     8:language_code:INT8/1;     12:goods_display_name:STRING;     20:goods_display_desc:STRING;   120:warehouse_item_list:REPEAT/2;     8:item_instance_id:INT64/8;     16:goods_item_number:INT32/4;     20:item_data_id:INT32/4;     24:item_amount:INT32/4;     28:usable_duration:INT32/4;     32:item_state:INT8/1;     36:customized_item_attribute1:VBIN;     44:customized_item_attribute2:VBIN
+801	G_TakeGoodsFromAccountInventoryFailCmd	S2C	0xef2810	HandleTakeGoodsFromAccountInventoryFailPacket	BAccount::ProcessNetObjectEvent	20				16::INT16/2
+802	G_RetrieveWarehouseLobbyServiceItemListReqCmd	C2S				32	0xf39740 0xf3a010 0xf422f0 0xf42ee0	GoodsInventory::requestLobbyServiceItemListInWorld		16:search_type:INT8/1; 24:search_key:INT64/8
+803	G_RetrieveWarehouseLobbyServiceItemListOkCmd	S2C	0xee7880	HandleRetrieveWarehouseLobbyServiceItemListOkPacket	World::ProcessNetObjectEvent	48				16:req_search_type:INT8/1; 24:req_search_key:INT64/8; 32:search_count:INT32/4; 36:item_list:REPEAT/2;   8:item_info:STRUCT;     8:owner_pc_id:INT64/8;     16:item_instance_id:INT64/8;     24:label_id:INT64/8;     32:item_data_id:INT32/4;     36:item_state:INT8/1
+804	G_RetrieveWarehouseLobbyServiceItemListFailCmd	S2C	0xee78c0	HandleRetrieveWarehouseLobbyServiceItemListFailPacket	World::ProcessNetObjectEvent	32				16:reason:INT16/2; 18:req_search_type:INT8/1; 24:req_search_key:INT64/8
+805	G_RetrieveWarehouseItemListReqCmd	C2S				40	0xf39aa0 0xf39e40 0xf3a010 0xf422f0	GoodsInventory::RequestRetrieveNextPageWarehouseGoods		16:search_type:INT8/1; 24:search_key:INT64/8; 32:language_code:INT8/1
+806	G_RetrieveWarehouseItemListOkCmd	S2C	0xef2ab0	HandleRetrieveWarehouseItemListOkPacket	BAccount::ProcessNetObjectEvent	72				16:req_search_type:INT8/1; 24:req_search_key:INT64/8; 32:search_count:INT32/4; 40:total_warehouse_goods_count:INT64/8; 48:total_warehouse_item_count:INT64/8; 56:warehouse_goods_item_list:REPEAT/2;   8:label_id:INT64/8;   16:goods_number:INT32/4;   20:sender_desc:STRING;   28:sender_message:STRING;   40:purchase_time:INT64/8;   48:registration_time:INT64/8;   56:first_request_from_code:INT16/2;   58:owner_world_id:INT16/2;   64:owner_pc_id:INT64/8;   72:goods_icon_id:INT32/4;   76:goods_name:STRING;   84:goods_desc:STRING;   92:goods_restriction_condition:VBIN;   100:customized_goods_attribute:VBIN;   108:goods_display_list:REPEAT/2;     8:language_code:INT8/1;     12:goods_display_name:STRING;     20:goods_display_desc:STRING;   120:warehouse_item_list:REPEAT/2;     8:item_instance_id:INT64/8;     16:goods_item_number:INT32/4;     20:item_data_id:INT32/4;     24:item_amount:INT32/4;     28:usable_duration:INT32/4;     32:item_state:INT8/1;     36:customized_item_attribute1:VBIN;     44:customized_item_attribute2:VBIN
+807	G_RetrieveWarehouseItemListFailCmd	S2C	0xef2a50	HandleRetrieveWarehouseItemListFailPacket	BAccount::ProcessNetObjectEvent	32				16:reason:INT16/2; 18:req_search_type:INT8/1; 24:req_search_key:INT64/8
+808	G_AccountInventoryChangeNotifyCmd	S2C	0xef27b0	HandleAccountInventoryChangeNotifyPacket	BAccount::ProcessNetObjectEvent	48				16:notification_type:INT8/1; 20:item_list:REPEAT/2;   8:item_instance_id:INT64/8;   16:label_id:INT64/8;   24:item_data_id:INT32/4; 32:item_list_remain:INT8/1; 40:goods_label_id_min:INT64/8
+809	G_ExtendJumpingCharacterCreationQuotaWithWarehouseItemReqCmd	C2S				40	0xd1b270	JumpingLevelConfirmPanel::requestCreationQuotaJumpingCharacter		16:label_id:INT64/8; 24:item_instance_id:INT64/8; 32:item_data_id:INT32/4
+810	G_ExtendJumpingCharacterCreationQuotaWithWarehouseItemOkCmd	S2C	0xef2750	HandleExtendJumpingCharacterCreationQuotaWithWarehouseItemOkPacket	BAccount::ProcessNetObjectEvent	40				16:label_id:INT64/8; 24:item_instance_id:INT64/8; 32:remain_quota:INT32/4
+811	G_ExtendJumpingCharacterCreationQuotaWithWarehouseItemFailCmd	S2C	0xef26f0	HandleExtendJumpingCharacterCreationQuotaWithWarehouseItemFailPacket	BAccount::ProcessNetObjectEvent	40				16:reason:INT16/2; 24:label_id:INT64/8; 32:item_instance_id:INT64/8
+817	G_ApplyNewChargeItemNotifyCmd	S2C	0xef2330	HandleApplyNewChargeItemNotifyPacket	World::ProcessNetObjectEvent	28				16:remain_play_time:INT32/4; 20:item_id:INT32/4; 24:reservations:INT16/2
+830	G_PassingItemAbilityReqCmd	C2S				64	0x4a3910 0x57c660 0x57c6c0 0x57c740			16:id:INT64/8; 24:targetItem:REPEAT/2;   8:pos:INT16/2;   10:count:INT16/2; 36:mainIngredient:REPEAT/2;   8:pos:INT16/2;   10:count:INT16/2; 48:fixedIngredient:REPEAT/2;   8:pos:INT16/2;   10:count:INT16/2
+831	G_PassingItemAbilityOkCmd	S2C	0xee83c0	HandlePassingItemAbilityOkPacket	World::ProcessNetObjectEvent	32			yes	16:recipe:INT64/8; 24:pos:INT16/2
+832	G_PassingItemAbilityFailCmd	S2C	0xee8380	HandlePassingItemAbilityFailPacket	World::ProcessNetObjectEvent	32			yes	16:failReason:INT16/2; 24:recipe:INT64/8
+833	G_PickGemCardReqCmd	C2S				44	0x4a3950 0x4ef830 0x4ef860 0x5903d0			16:ingredient_type:INT8/1; 20:mainIngredient:REPEAT/2;   8:pos:INT16/2;   10:count:INT16/2; 32:subIngredient:REPEAT/2;   8:pos:INT16/2;   10:count:INT16/2
+834	G_PickGemCardOkCmd	S2C	0xef1ff0	HandlePickGemCardOkPacket	World::ProcessNetObjectEvent	16				
+835	G_PickGemCardFailCmd	S2C	0xef1fb0	HandlePickGemCardFailPacket	World::ProcessNetObjectEvent	20				16::INT16/2
+928	G_PickupItemFromEnvWorldNotifyCmd	S2C	0xef1c30	HandlePickupItemFromEnvWorldNotifyPacket	World::ProcessNetObjectEvent	40				16:pc_name:STRING; 24:itemKey:INT64/8; 32:itemCount:INT16/2
+934	G_PutItemIntoClosetReqCmd	C2S				20	0x10dbb10	ClosetGroup::MoveInventoryToClostReq		16:bagPos:INT16/2
+935	G_PutItemIntoClosetOkCmd	S2C	0xef1b30	HandlePutItemIntoClosetOkPacket	World::ProcessNetObjectEvent	20				16:closetGroupID:INT32/4
+936	G_PutItemIntoClosetFailCmd	S2C	0xef1af0	HandlePutItemIntoClosetFailPacket	World::ProcessNetObjectEvent	20				16::INT16/2
+937	G_TakeItemFromClosetReqCmd	C2S				24	0x10db6a0	ClosetGroup::MoveClosetToInventoryReq		16:closetGroupID:INT32/4; 20:targetBagPos:INT16/2
+938	G_TakeItemFromClosetOkCmd	S2C	0xef1a30	HandleTakeItemFromClosetOkPacket	World::ProcessNetObjectEvent	20				16:closetGroupID:INT32/4
+939	G_TakeItemFromClosetFailCmd	S2C	0xef19f0	HandleTakeItemFromClosetFailPacket	World::ProcessNetObjectEvent	20				16::INT16/2
+944	G_RetrieveMysteriousStoreReqCmd	C2S				24	0xc98d10			16:npc:INT64/8
+945	G_RetrieveMysteriousStoreOkCmd	S2C	0xeea2c0	HandleRetrieveMysteriousStoreOkPacket	World::ProcessNetObjectEvent	40				16:npc:INT64/8; 24:items:REPEAT/2;   8:itemId:INT64/8;   16:itemCount:INT16/2;   24:buyPriceKey:INT64/8; 36:alreadyBought:INT8/1
+946	G_RetrieveMysteriousStoreFailCmd	S2C	0xeea280	HandleRetrieveMysteriousStoreFailPacket	World::ProcessNetObjectEvent	32				16:failReason:INT16/2; 24:npc:INT64/8
+947	G_ChangeWeaponAppearanceReqCmd	C2S				36	0x4a3980			16:change_type:INT8/1; 18:targetWeaponBagPos:INT16/2; 20:applyingWeaponBagPos:INT16/2; 24:costItems:REPEAT/2;   8:pos:INT16/2;   10:count:INT16/2
+948	G_ChangeWeaponAppearanceOkCmd	S2C	0xeea1c0	HandleChangeWeaponAppearanceOkPacket	World::ProcessNetObjectEvent	36			yes	16:change_type:INT8/1; 20:targetWeaponDataId:INT32/4; 24:targetWeaponLevel:INT8/1; 28:applyingWeaponDataId:INT32/4; 32:applyingWeaponLevel:INT8/1
+949	G_ChangeWeaponAppearanceFailCmd	S2C	0xeea180	HandleChangeWeaponAppearanceFailPacket	World::ProcessNetObjectEvent	20			yes	16::INT16/2
+1008	G_SellOldItemReqCmd	C2S				32	0x4bc380			16:depot:INT8/1; 20:items:REPEAT/2;   8:pos:INT16/2;   10:count:INT16/2
+1009	G_SellOldItemFailCmd	S2C	0xee9500	HandleSellOldItemFailPacket	World::ProcessNetObjectEvent	20				16::INT16/2
+1010	G_ExchangeItemReqCmd	C2S				48	0x4a39b0			16:depot:INT8/1; 24:id:INT64/8; 32:requiredItem:REPEAT/2;   8:pos:INT16/2;   10:count:INT16/2
+1011	G_ExchangeItemOkCmd	S2C	0xee94c0	HandleExchangeItemOkPacket	World::ProcessNetObjectEvent	28			yes	16:items:REPEAT/2;   8:pos:INT16/2;   10:count:INT16/2
+1012	G_ExchangeItemFailCmd	S2C	0xee9480	HandleExchangeItemFailPacket	World::ProcessNetObjectEvent	20			yes	16::INT16/2
+1118	G_SetClosetItemUsedReqCmd	C2S				28	0x10fc720	BCollectingManager::SetUsedItem		16:closetGroupIdList:REPEAT/2;   8:id:INT32/4
+1119	G_SetClosetItemUsedOkCmd	S2C	0xee7ec0	HandleSetClosetItemUsedOkPacket	World::ProcessNetObjectEvent	28				16:closetGroupIdList:REPEAT/2;   8:id:INT32/4
+1120	G_SetClosetItemUsedFailCmd	S2C	0xee7e80	HandleSetClosetItemUsedFailPacket	World::ProcessNetObjectEvent	20				16::INT16/2
+1140	G_ChangeBadgeEquipPageReqCmd	C2S				20	0xe89d50	Inventory::SendChangeEquipBadgePage		16:badgePage:INT8/1
+1141	G_ChangeBadgeEquipPageNotifyCmd	S2C	0xee7900	HandleChangeBadgeEquipPageNotifyPacket	World::ProcessNetObjectEvent	20				16:badgePage:INT8/1
+1142	G_ChangeBadgeEquipPageFailCmd	S2C	0xee7940	HandleChangeBadgeEquipPageFailPacket	World::ProcessNetObjectEvent	20				16::INT16/2
+1143	G_SynthesisBadgeReqCmd	C2S				40	0x401180			16:badgeItems:REPEAT/2;   8:depot:INT8/1;   10:pos:INT16/2;   12:count:INT16/2; 28:costItems:REPEAT/2;   8:pos:INT16/2;   10:count:INT16/2
+1144	G_SynthesisBadgeOkCmd	S2C	0xee7a40	HandleSynthesisBadgeOkPacket	World::ProcessNetObjectEvent	24				16:itemDataKey:INT64/8
+1145	G_SynthesisBadgeFailCmd	S2C	0xee7a00	HandleSynthesisBadgeFailPacket	World::ProcessNetObjectEvent	20				16:failReason:INT16/2
+1146	G_SynthesisBadgeRecipeDataReqCmd	C2S				16	0x127db00	AccountContentsPanelCompose::requestBadgeRecipeDataPacket		
+1147	G_SynthesisBadgeRecipeDataOkCmd	S2C	0xee79c0	HandleSynthesisBadgeRecipeDataOkPacket	World::ProcessNetObjectEvent	28				16:recipe:REPEAT/2;   8:category:INT8/1;   12:score:INT32/4;   16:item_grade_list:REPEAT/2;     8:item_grade:INT8/1;     12:item_grade_result_rate:INT32/4
+1148	G_SynthesisBadgeRecipeDataFailCmd	S2C	0xee7980	HandleSynthesisBadgeRecipeDataFailPacket	World::ProcessNetObjectEvent	20				16::INT16/2
+1176	G_BoardGachaDrawByItemReqCmd	C2S				40	0x41c0d0 0x5893b0 0x58ef60 0x58efc0			16:board_id:INT64/8; 24:draw_pos:INT8/1; 28:cost_items:REPEAT/2;   8:pos:INT16/2;   10:count:INT16/2
+1177	G_BoardGachaDrawByItemOkCmd	S2C	0xee70c0	HandleBoardGachaDrawByItemOkPacket	World::ProcessNetObjectEvent	28				16:info:STRUCT;   4:draw_pos:INT8/1;   5:draw_number:INT8/1; 24:participation_count:INT32/4
+1178	G_BoardGachaDrawByItemFailCmd	S2C	0xee7080	HandleBoardGachaDrawByItemFailPacket	World::ProcessNetObjectEvent	20				16::INT16/2
+1188	G_SetSlateAmpSlotReqCmd	C2S				20	0x93d500			16:page_no:INT8/1; 17:amp_slot_pos:INT8/1; 18:item_bag_pos:INT16/2
+1189	G_SetSlateAmpSlotOkCmd	S2C	0xee6e00	HandleSetSlateAmpSlotOkPacket	World::ProcessNetObjectEvent	16				
+1190	G_SetSlateAmpSlotFailCmd	S2C	0xee6dc0	HandleSetSlateAmpSlotFailPacket	World::ProcessNetObjectEvent	20				16::INT16/2
+1236	G_UseEquippedReqCmd	C2S				40	0x10f7ae0	BControlledPlayingActions::RequestRepairWithCampfireRequest		16:equipPos:INT16/2; 24:targetId:INT64/8; 32:yaw:INT16/2
+1237	G_UseEquippedToGroundReqCmd	C2S				28	0x10f7ae0	BControlledPlayingActions::RequestRepairWithCampfireRequest		16:equipPos:INT16/2; 18:x:INT16/2; 20:y:INT16/2; 22:z:INT16/2; 24:yaw:INT16/2
+1238	G_UseEquippedFailCmd	S2C	0xef15d0	HandleUseEquippedFailPacket	own	20				16::INT16/2
+1242	G_UseFieldItemReqCmd	C2S				32	0x10d36c0			16:targetId:INT64/8; 24:yaw:INT16/2; 26:skillIndex:INT8/1
+1243	G_UseFieldItemToGroundReqCmd	C2S				28	0x10d36c0			16:x:SU/2; 18:y:SU/2; 20:z:SU/2; 22:yaw:INT16/2; 24:skillIndex:INT8/1
+1244	G_UseFieldItemFailCmd	S2C	0xee1070	HandleUseFieldItemFailPacket	own	20				16::INT16/2
+1245	G_ThrowFieldItemReqCmd	C2S				24	0x10d36c0			16:x:SU/2; 18:y:SU/2; 20:z:SU/2; 22:yaw:INT16/2
+1246	G_ThrowFieldItemFailCmd	S2C	0xee1060	HandleThrowFieldItemFailPacket	own	20				16::INT16/2
+1247	G_PickupFieldItemReqCmd	C2S				24	0x10d4450	BControlledPlayingActions::RequestPickupFieldItem		16:fieldItemId:INT64/8
+1248	G_PickupFieldItemFailCmd	S2C	0xef14f0	HandlePickupFieldItemFailPacket	World::ProcessNetObjectEvent	20				16::INT16/2
+1249	G_PutdownFieldItemReqCmd	C2S				24	0x10d4270 0x10dd760			16:x:SU/2; 18:y:SU/2; 20:z:SU/2
+1250	G_PutdownFieldItemFailCmd	S2C	0xef14b0	HandlePutdownFieldItemFailPacket	World::ProcessNetObjectEvent	20				16::INT16/2
+1251	G_PickupDeadBodyReqCmd	C2S				24	0x10d25c0 0x10d4360			16:targetId:INT64/8
+1252	G_PickupDeadBodyFailCmd	S2C	0xef1470	HandlePickupDeadBodyFailPacket	World::ProcessNetObjectEvent	20				16::INT16/2
+1255	G_GiveFactionScoreToRefinerReqCmd	C2S				24	0x10d5a10 0x10d5b20	BControlledPlayingActions::RequestRefinerGiveSocrePacket		16:targetId:INT64/8
+1256	G_GiveFactionScoreToRefinerNotifyCmd	S2C	0xeef070	HandleGiveFactionScoreToRefinerNotifyPacket	World::ProcessNetObjectEvent	16				
+1257	G_GiveFactionScoreToRefinerFailCmd	S2C	0xeef030	HandleGiveFactionScoreToRefinerFailPacket	World::ProcessNetObjectEvent	20				16::INT16/2
+1258	G_TakeRefinerRewardReqCmd	C2S				24	0x10d4850	BControlledPlayingActions::RequestTakeRefinerRewardPacket		16:targetId:INT64/8
+1259	G_TakeRefinerRewardFailCmd	S2C	0xeeeff0	HandleTakeRefinerRewardFailPacket	World::ProcessNetObjectEvent	20			yes	16::INT16/2
+1296	G_OpenItemPouchReqCmd	C2S				24	0x10d5120 0x10d5290	BControlledPlayingActions::RequestOpenPrivatePouch		16:object:INT64/8
+1297	G_OpenItemPouchOkCmd	S2C	0xef09a0	HandleOpenItemPouchOkPacket	World::ProcessNetObjectEvent	48				16:object:INT64/8; 24:money:INT32/4; 28:drropped_pouch_id:INT16/2; 32:items:REPEAT/2;   8:dataKey:INT64/8;   16:dataIndex:INT8/1;   18:count:INT16/2;   20:additionalInfo:INT8/1
+1298	G_OpenItemPouchFailCmd	S2C	0xef0970	HandleOpenItemPouchFailPacket	own	20				16::INT16/2
+1299	G_PrivateItemPouchListReqCmd	C2S				24	0x10d5120 0x10d5290	BControlledPlayingActions::RequestOpenPrivatePouch		16:object:INT64/8
+1300	G_PrivateItemPouchListOkCmd	S2C	0xef0930	HandlePrivateItemPouchListOkPacket	World::ProcessNetObjectEvent	40				16:object:INT64/8; 24:money:INT32/4; 28:items:REPEAT/2;   8:dataKey:INT64/8;   16:dataIndex:INT8/1;   18:count:INT16/2;   20:additionalInfo:INT8/1
+1301	G_PrivateItemPouchListFailCmd	S2C	0xef08f0	HandlePrivateItemPouchListFailPacket	World::ProcessNetObjectEvent	20				16::INT16/2
+1302	G_DistributionPouchAuthorizedListNotifyCmd	S2C	0xef08b0	HandleDistributionPouchAuthorizedListNotifyPacket	World::ProcessNetObjectEvent	40				16:object:INT64/8; 24:authorities:REPEAT/2;   8:pc_name:STRING;   16:job:INT8/1
+1303	G_CloseItemPouchReqCmd	C2S				24	0x10d51e0	BControlledPlayingActions::RequestClosePouch		16:npcDeadBody:INT64/8
+1304	G_CloseItemPouchNotifyCmd	S2C	0xef0870	HandleCloseItemPouchNotifyPacket	World::ProcessNetObjectEvent	24				16:npcDeadBody:INT64/8
+1305	G_CloseItemPouchFailCmd	S2C	0xef0830	HandleCloseItemPouchFailPacket	World::ProcessNetObjectEvent	20				16::INT16/2
+1306	G_PickupItemReqCmd	C2S				40	0x44a2b0 0x44a2d0 0x597d10 0x597ef0			16:pouchId:INT64/8; 24:pouchType:INT8/1; 28:items:REPEAT/2;   8:index:INT8/1
+1307	G_PickupItemFailRepeatCmd	S2C	0xef07f0	HandlePickupItemFailRepeatPacket	World::ProcessNetObjectEvent	28			yes	16:fail:REPEAT/2;   8:index:INT8/1;   10:failReason:INT16/2
+1308	G_PickupItemOkCmd	S2C	0xef07b0	HandlePickupItemOkPacket	World::ProcessNetObjectEvent	40			yes	16:pouchId:INT64/8; 24:pouchType:INT8/1; 28:items:REPEAT/2;   8:index:INT8/1;   10:count:INT16/2
+1309	G_PickupItemFailCmd	S2C	0xef0770	HandlePickupItemFailPacket	World::ProcessNetObjectEvent	20			yes	16::INT16/2
+1310	G_PickupItemNotifyCmd	S2C	0xef0730	HandlePickupItemNotifyPacket	World::ProcessNetObjectEvent	56				16:pouchId:INT64/8; 24:pickupPc:INT64/8; 32:toTeamMember:INT8/1; 36:items:REPEAT/2;   8:itemKey:INT64/8;   16:count:INT16/2; 48:money:INT32/4
+1315	G_TakeMoneyByNpcDeadBodyNotifyCmd	S2C	0xef0630	HandleTakeMoneyByNpcDeadBodyNotifyPacket	World::ProcessNetObjectEvent	32				16:pouchId:INT64/8; 24:money:INT32/4
+1316	G_DistributeItemReqCmd	C2S				48	0x44a370 0x5980e0 0x598170			16:pouchId:INT64/8; 24:receiver_name:STRING; 32:items:REPEAT/2;   8:index:INT8/1
+1317	G_DistributeItemFailRepeatCmd	S2C	0xef0570	HandleDistributeItemFailRepeatPacket	World::ProcessNetObjectEvent	28			yes	16:fail:REPEAT/2;   8:index:INT8/1;   10:failReason:INT16/2
+1318	G_DistributeItemOkCmd	S2C	0xef05f0	HandleDistributeItemOkPacket	World::ProcessNetObjectEvent	48			yes	16:pouchId:INT64/8; 24:receiver_name:STRING; 32:items:REPEAT/2;   8:index:INT8/1;   10:count:INT16/2
+1319	G_DistributeItemFailCmd	S2C	0xef05b0	HandleDistributeItemFailPacket	World::ProcessNetObjectEvent	20			yes	16::INT16/2
+1320	G_DistributeItemNotifyCmd	S2C	0xef0530	HandleDistributeItemNotifyPacket	World::ProcessNetObjectEvent	56				16:pouchId:INT64/8; 24:receiver_pc_id:INT64/8; 32:toTeamMember:INT8/1; 36:items:REPEAT/2;   8:itemKey:INT64/8;   16:count:INT16/2; 48:money:INT32/4
+1325	G_ManufactureItemReqCmd	C2S				32	0x598490			16:reciepeId:INT32/4; 20:item_pos:REPEAT/2;   8:pos:INT16/2
+1326	G_ManufactureItemResultCmd	S2C	0xef0430	HandleManufactureItemResultPacket	World::ProcessNetObjectEvent	24				16:reciepeId:INT32/4; 20:success:INT8/1
+1327	G_ManufactureItemFailCmd	S2C	0xef0400	HandleManufactureItemFailPacket	own	20				16::INT16/2
+1328	G_ExpandInventoryReqCmd	C2S				48	0x46a5c0 0xfdb7e0	G_ExpandInventoryReqPacket::~G_ExpandInventoryReqPacket		16:depot:INT8/1; 24:npcId:INT64/8; 32:consumeItems:REPEAT/2;   8:pos:INT16/2;   10:count:INT16/2
+1329	G_ExpandInventoryOkCmd	S2C	0xef03d0	HandleExpandInventoryOkPacket	own	20				16:inventoryType:INT8/1
+1330	G_ExpandInventoryFailCmd	S2C	0xef03a0	HandleExpandInventoryFailPacket	own	20				16::INT16/2
+1331	G_InventoryItemListReqCmd	C2S				16	0xe8d480			
+1332	G_InventoryItemListOkCmd	S2C	0xef1430	HandleInventoryItemListOkPacket	World::ProcessNetObjectEvent	32			yes	16:itemReason:INT8/1; 20:item:REPEAT/2;   8:item:SUB
+1333	G_InventoryItemListFailCmd	S2C	0xee1050	HandleInventoryItemListFailPacket	own	20			yes	16::INT16/2
+1334	G_DisposeItemReqCmd	C2S				20	0xe91c50	Inventory::RequestDisposeItem		16:bagPos:INT16/2; 18:count:INT16/2
+1335	G_DisposeItemFailCmd	S2C	0xef1060	HandleDisposeItemFailPacket	own	32			yes	16:failReason:INT16/2; 24:itemDataKey:INT64/8
+1336	G_MoveItemReqCmd	C2S				40	0xe91e00	Inventory::RequestMoveItemPosition		16:srcDepot:INT8/1; 18:srcPos:INT16/2; 20:count:INT16/2; 22:destDepot:INT8/1; 24:destPos:INT16/2; 32:npcId:INT64/8
+1337	G_MoveItemFailCmd	S2C	0xef1010	HandleMoveItemFailPacket	BAccount::ProcessNetObjectEvent	20			yes	16::INT16/2
+1338	G_MoveItemListReqCmd	C2S				56	0x4a39d0 0x4a3a00 0xeba8d0			16:npcId:INT64/8; 24:srcDepot:INT8/1; 25:destDepot:INT8/1; 28:stackList:REPEAT/2;   8:srcPos:INT16/2;   10:srcCount:INT16/2;   12:destPos:INT16/2; 40:moveList:REPEAT/2;   8:srcPos:INT16/2;   10:srcCount:INT16/2;   12:destPos:INT16/2
+1339	G_MoveItemListOkCmd	S2C	0xef0d90	HandleMoveItemListOkPacket	World::ProcessNetObjectEvent	16			yes	
+1340	G_MoveItemListFailCmd	S2C	0xef0dd0	HandleMoveItemListFailPacket	BAccount::ProcessNetObjectEvent	20			yes	16:failReason:INT16/2; 18:index:INT8/1
+1341	G_BuyReqCmd	C2S				40				16:seller:INT64/8; 24:items:REPEAT/2;   8:index:INT8/1;   10:count:INT16/2
+1342	G_BuyFailCmd	S2C	0xef0fb0	HandleBuyFailPacket	own	20			yes	16::INT16/2
+1343	G_Buy2ReqCmd	C2S				40	0x4cfa70 0x4cfa90 0x4cfb30 0x598b70			16:seller:INT64/8; 24:storeIndex:INT8/1; 25:itemIndex:INT8/1; 26:count:INT16/2; 28:consumeItems:REPEAT/2;   8:pos:INT16/2;   10:count:INT16/2
+1344	G_Buy2FailCmd	S2C	0xef0f80	HandleBuy2FailPacket	own	20			yes	16::INT16/2
+1345	G_MysteriousBuyReqCmd	C2S				40	0x4cfa70 0x4cfa90 0x4cfb30 0x598ad0			16:seller:INT64/8; 24:itemIndex:INT8/1; 28:consumeItems:REPEAT/2;   8:pos:INT16/2;   10:count:INT16/2
+1346	G_MysteriousBuyOkCmd	S2C	0xeea240	HandleMysteriousBuyOkPacket	World::ProcessNetObjectEvent	16				
+1347	G_MysteriousBuyFailCmd	S2C	0xeea200	HandleMysteriousBuyFailPacket	World::ProcessNetObjectEvent	20			yes	16::INT16/2
+1348	G_SellReqCmd	C2S				40	0x4cfb50			16:buyer:INT64/8; 24:items:REPEAT/2;   8:pos:INT16/2;   10:count:INT16/2
+1349	G_SellFailCmd	S2C	0xef0f50	HandleSellFailPacket	own	20			yes	16::INT16/2
+1354	G_EquipItemReqCmd	C2S				24	0x10d4070	BControlledPlayingActions::RequestEquipPacket		16:depot:INT8/1; 18:pos:INT16/2; 20:equipDepot:INT8/1; 22:equipPos:INT16/2
+1355	G_EquipItemFailCmd	S2C	0xef0fe0	HandleEquipItemFailPacket	own	20			yes	16::INT16/2
+1356	G_EquipItemListReqCmd	C2S				28	0x44a3a0			16:equipList:REPEAT/2;   8:depot:INT8/1;   10:pos:INT16/2;   12:equipPos:INT16/2
+1357	G_EquipItemListOkCmd	S2C	0xeeba20	HandleEquipItemListOkPacket	World::ProcessNetObjectEvent	16			yes	
+1358	G_EquipItemListFailCmd	S2C	0xee1020	HandleEquipItemListFailPacket	own	20			yes	16:failReason:INT16/2; 18:index:INT8/1
+1359	G_UnequipItemReqCmd	C2S				24	0x10d3ec0	BControlledPlayingActions::RequestUnequipPacket		16:equipDepot:INT8/1; 18:equipPos:INT16/2; 20:targetDepot:INT8/1; 22:targetPos:INT16/2
+1360	G_UnequipItemFailCmd	S2C	0xef0e60	HandleUnequipItemFailPacket	own	20			yes	16::INT16/2
+1361	G_UnequipItemListReqCmd	C2S				28				16:unequipList:REPEAT/2;   8:equipPos:INT16/2;   10:bagPos:INT16/2
+1362	G_UnequipItemListOkCmd	S2C	0xeeba60	HandleUnequipItemListOkPacket	World::ProcessNetObjectEvent	16			yes	
+1363	G_UnequipItemListFailCmd	S2C	0xee1010	HandleUnequipItemListFailPacket	own	20			yes	16:failReason:INT16/2; 18:index:INT8/1
+1364	G_AttachGemToWeaponReqCmd	C2S				28	0x4a3ab0			16:attachList:REPEAT/2;   8:weaponDepot:INT8/1;   10:weaponPos:INT16/2;   12:gemBagPos:INT16/2;   14:socketPos:INT8/1;   15:isEnchantGem:INT8/1
+1365	G_AttachGemToWeaponOkCmd	S2C	0xef0e20	HandleAttachGemToWeaponOkPacket	World::ProcessNetObjectEvent	16			yes	
+1366	G_AttachGemToWeaponFailCmd	S2C	0xef0d30	HandleAttachGemToWeaponFailPacket	own	20			yes	16:failReason:INT16/2; 18:index:INT8/1
+1367	G_DetachGemFromWeaponReqCmd	C2S				24	0xe918e0	Inventory::RequestDetachGem		16:weaponDepot:INT8/1; 18:weaponPos:INT16/2; 20:socketPos:INT8/1; 21:isEnchantGem:INT8/1
+1368	G_DetachGemFromWeaponFailCmd	S2C	0xef0d00	HandleDetachGemFromWeaponFailPacket	own	20			yes	16::INT16/2
+1369	G_OpenWeaponGemSlotReqCmd	C2S				32	0xe90fc0			16:weaponDepot:INT8/1; 18:weaponPos:INT16/2; 20:consumeItems:REPEAT/2;   8:pos:INT16/2;   10:count:INT16/2
+1370	G_OpenWeaponGemSlotOkCmd	S2C	0xef0cc0	HandleOpenWeaponGemSlotOkPacket	World::ProcessNetObjectEvent	20			yes	16:socketPos:INT8/1
+1371	G_OpenWeaponGemSlotFailCmd	S2C	0xef0c90	HandleOpenWeaponGemSlotFailPacket	own	20			yes	16::INT16/2
+1372	G_ExpandWeaponGemSlotReqCmd	C2S				24	0xe91200			16:weaponDepot:INT8/1; 18:weaponPos:INT16/2; 20:expanderBagPos:INT16/2
+1373	G_ExpandWeaponGemSlotOkCmd	S2C	0xef0c50	HandleExpandWeaponGemSlotOkPacket	World::ProcessNetObjectEvent	24			yes	16:socketPos:INT8/1; 20:slotId:INT32/4
+1374	G_ExpandWeaponGemSlotFailCmd	S2C	0xef0c20	HandleExpandWeaponGemSlotFailPacket	own	20			yes	16::INT16/2
+1375	G_AddWeaponGemSlotReqCmd	C2S				24	0xe91170			16:weaponDepot:INT8/1; 18:weaponPos:INT16/2; 20:consumeItemBagPos:INT16/2
+1376	G_AddWeaponGemSlotOkCmd	S2C	0xef0bf0	HandleAddWeaponGemSlotOkPacket	own	24			yes	16:socketPos:INT8/1; 20:slotId:INT32/4
+1377	G_AddWeaponGemSlotFailCmd	S2C	0xef0bc0	HandleAddWeaponGemSlotFailPacket	own	20			yes	16::INT16/2
+1378	G_DeleteWeaponGemSlotReqCmd	C2S				36	0xe8fc30			16:weaponDepot:INT8/1; 18:weaponPos:INT16/2; 20:socketPos:INT8/1; 21:consumeItemIndex:INT8/1; 24:consumeItems:REPEAT/2;   8:pos:INT16/2;   10:count:INT16/2
+1379	G_DeleteWeaponGemSlotOkCmd	S2C	0xef0b90	HandleDeleteWeaponGemSlotOkPacket	own	16			yes	
+1380	G_DeleteWeaponGemSlotFailCmd	S2C	0xef0b60	HandleDeleteWeaponGemSlotFailPacket	own	20			yes	16::INT16/2
+1381	G_IdentifyItemReqCmd	C2S				20	0xe8f940			16:weaponBagPos:INT16/2; 18:groceryBagPos:INT16/2
+1382	G_IdentifyItemFailCmd	S2C	0xef0b30	HandleIdentifyItemFailPacket	own	20			yes	16::INT16/2
+1383	G_UnsealItem2ReqCmd	C2S				32	0x4a3ad0			16:targetItemBagPos:INT16/2; 18:consumeItemIndex:INT8/1; 20:consumeItems:REPEAT/2;   8:pos:INT16/2;   10:count:INT16/2
+1384	G_UnsealItem2FailCmd	S2C	0xef0b00	HandleUnsealItem2FailPacket	own	20			yes	16::INT16/2
+1385	G_RepairReqCmd	C2S				40	0xe90740			16:repairer:INT64/8; 24:items:REPEAT/2;   8:depot:INT8/1;   10:pos:INT16/2
+1386	G_RepairFailCmd	S2C	0xef0ad0	HandleRepairFailPacket	own	20			yes	16::INT16/2
+1387	G_RepairWithCampfireReqCmd	C2S				32	0x10e9b60			16:campfireId:INT64/8; 24:repairItemEquipPos:INT16/2
+1388	G_RepairWithCampfireFailCmd	S2C	0xef0aa0	HandleRepairWithCampfireFailPacket	own	20			yes	16::INT16/2
+1392	G_SealItemReqCmd	C2S				32	0x4a3af0			16:targetItemBagPos:INT16/2; 20:consumeItems:REPEAT/2;   8:pos:INT16/2;   10:count:INT16/2
+1393	G_SealItemOkCmd	S2C	0xef0a70	HandleSealItemOkPacket	own	16			yes	
+1394	G_SealItemFailCmd	S2C	0xef0a40	HandleSealItemFailPacket	own	20			yes	16::INT16/2
+1395	G_DecomposeItem2ReqCmd	C2S				52	0x4a3b10 0x4a3b40			16:depot:INT8/1; 18:targetBagPos:INT16/2; 20:consumeItemIndex:INT8/1; 24:consumeItems:REPEAT/2;   8:pos:INT16/2;   10:count:INT16/2; 36:decomposeType:INT8/1; 37:decomposeRewardType:INT8/1; 40:selectedItemList:REPEAT/2;   8:index:INT8/1;   16:dataKey:INT64/8
+1396	G_DecomposeItem2OkCmd	S2C	0xef0a10	HandleDecomposeItem2OkPacket	own	48				16:depot:INT8/1; 18:bagPos:INT16/2; 20:decomposeType:INT8/1; 24:itemDataKey:INT64/8; 32:acquireItemDepot:INT8/1; 36:acquireItemDataKey:REPEAT/2;   8:itemDataKey:INT64/8
+1397	G_DecomposeItem2FailCmd	S2C	0xef09e0	HandleDecomposeItem2FailPacket	own	20			yes	16::INT16/2
+1398	G_RevealItemAbilityReqCmd	C2S				36	0xf3a690			16:primaryGemDepot:INT8/1; 18:primaryGemPos:INT16/2; 20:secondaryGemBagPos:INT16/2; 22:equipGemPieceIndex:INT8/1; 24:items:REPEAT/2;   8:pos:INT16/2;   10:count:INT16/2
+1399	G_RevealItemAbilityFailCmd	S2C	0xef0370	HandleRevealItemAbilityFailPacket	own	20				16::INT16/2
+1400	G_AttachEquipGemPieceReqCmd	C2S				36	0x4a3bf0			16:primaryGemDepot:INT8/1; 18:primaryGemPos:INT16/2; 20:secondaryGemBagPos:INT16/2; 24:items:REPEAT/2;   8:pos:INT16/2;   10:count:INT16/2
+1401	G_AttachEquipGemPieceFailCmd	S2C	0xef0340	HandleAttachEquipGemPieceFailPacket	own	20			yes	16::INT16/2
+1402	G_GrowthItemReqCmd	C2S				36	0x4a3c10			16:seedItemDepot:INT8/1; 18:seedItemPos:INT16/2; 20:feedItemBagPos:INT16/2; 22:BMItemBagPos:INT16/2; 24:consumeItems:REPEAT/2;   8:pos:INT16/2;   10:count:INT16/2
+1403	G_GrowthItemOkCmd	S2C	0xef0300	HandleGrowthItemOkPacket	World::ProcessNetObjectEvent	32			yes	16:itemDataKey:INT64/8; 24:exp:INT32/4
+1404	G_GrowthItemFailCmd	S2C	0xef02d0	HandleGrowthItemFailPacket	own	20			yes	16::INT16/2
+1405	G_AwakeningItemReqCmd	C2S				48	0x4a3cd0 0x4a3d00 0x4a3db0 0x599f70			16:seedItemDepot:INT8/1; 18:seedItemPos:INT16/2; 20:feedItemBagPos:INT16/2; 24:BMItems:REPEAT/2;   8:pos:INT16/2;   10:count:INT16/2; 36:consumeItems:REPEAT/2;   8:pos:INT16/2;   10:count:INT16/2
+1406	G_AwakeningItemOkCmd	S2C	0xef0290	HandleAwakeningItemOkPacket	World::ProcessNetObjectEvent	24			yes	16:itemDataKey:INT64/8
+1407	G_AwakeningItemFailCmd	S2C	0xef0260	HandleAwakeningItemFailPacket	own	20			yes	16::INT16/2
+1408	G_FeedingRandomStatEquipGemReqCmd	C2S				48	0x4a3cd0 0x4a3d00 0x4a3db0 0x599e70			16:seedItemDepot:INT8/1; 18:seedItemPos:INT16/2; 20:feedItemBagPos:INT16/2; 24:BMItems:REPEAT/2;   8:pos:INT16/2;   10:count:INT16/2; 36:consumeItems:REPEAT/2;   8:pos:INT16/2;   10:count:INT16/2
+1409	G_FeedingRandomStatEquipGemOkCmd	S2C	0xef0220	HandleFeedingRandomStatEquipGemOkPacket	World::ProcessNetObjectEvent	56			yes	16:itemDataKey:INT64/8; 24:mainAbilityDiff:STRUCT;   4:ability_type:INT8/1;   8:old_ability_value:INT32/4;   12:new_ability_value:INT32/4; 40:subAbilityDiff:REPEAT/2;   8:diff_info:STRUCT;     4:ability_type:INT8/1;     8:old_ability_value:INT32/4;     12:new_ability_value:INT32/4
+1410	G_FeedingRandomStatEquipGemFailCmd	S2C	0xef01f0	HandleFeedingRandomStatEquipGemFailPacket	own	20			yes	16::INT16/2
+1411	G_TakeWarehouseItemReqCmd	C2S				40	0xf39550	GoodsInventory::requestTakeWarehouseGoodsItemInQueue		16:label_id:INT64/8; 24:item_instance_id:INT64/8; 32:item_data_id:INT32/4
+1412	G_TakeWarehouseItemOkCmd	S2C	0xef25d0	HandleTakeWarehouseItemOkPacket	BAccount::ProcessNetObjectEvent	32				16:label_id:INT64/8; 24:item_instance_id:INT64/8
+1413	G_TakeWarehouseItemFailCmd	S2C	0xef2570	HandleTakeWarehouseItemFailPacket	BAccount::ProcessNetObjectEvent	20			yes	16::INT16/2
+1414	G_LockItemReqCmd	C2S				20	0xe8f030			16:depot:INT8/1; 18:pos:INT16/2
+1415	G_LockItemFailCmd	S2C	0xef2530	HandleLockItemFailPacket	World::ProcessNetObjectEvent	20			yes	16::INT16/2
+1416	G_UnlockItemReqCmd	C2S				20	0xe8ef50	Inventory::RequestItemUnLock		16:depot:INT8/1; 18:pos:INT16/2
+1417	G_UnlockItemFailCmd	S2C	0xef24f0	HandleUnlockItemFailPacket	World::ProcessNetObjectEvent	24			yes	16:failReason:INT16/2; 20:remainDuration:INT32/4
+1418	G_SetItemLockExpirationTimeReqCmd	C2S				20	0xe8ee60			16:depot:INT8/1; 18:pos:INT16/2
+1419	G_SetItemLockExpirationTimeFailCmd	S2C	0xef24b0	HandleSetItemLockExpirationTimeFailPacket	World::ProcessNetObjectEvent	20			yes	16::INT16/2
+1426	G_SetItemUsedReqCmd	C2S				28	0x10fc720	BCollectingManager::SetUsedItem		16:items:REPEAT/2;   8:depot:INT8/1;   10:pos:INT16/2
+1427	G_SetItemUsedFailCmd	S2C	0xee7d80	HandleSetItemUsedFailPacket	World::ProcessNetObjectEvent	20				16::INT16/2
+1430	G_R_EnchantToItemReqCmd	C2S				32	0xe92670			16:targetItemDepot:INT8/1; 18:targetItemPos:INT16/2; 24:costGroupKey:INT64/8
+1431	G_R_EnchantToItemOkCmd	S2C	0xee6a80	HandleR_EnchantToItemOkPacket	World::ProcessNetObjectEvent	40				16:prevItemDataKey:INT64/8; 24:itemDataKey:INT64/8; 32:enchantPoint:INT16/2; 34:enchantCount:INT8/1; 35:enchantCrack:INT8/1; 36:result:INT8/1
+1432	G_R_EnchantToItemFailCmd	S2C	0xee6a40	HandleR_EnchantToItemFailPacket	World::ProcessNetObjectEvent	20				16::INT16/2
+1433	G_R_ResetEnchantItemInfoReqCmd	C2S				20	0xe92600	IntensionManager::RequestResetEnchantItemInfo		16:targetItemDepot:INT8/1; 18:targetItemPos:INT16/2
+1434	G_R_ResetEnchantItemInfoOkCmd	S2C	0xee6a00	HandleR_ResetEnchantItemInfoOkPacket	World::ProcessNetObjectEvent	16				
+1435	G_R_ResetEnchantItemInfoFailCmd	S2C	0xee69c0	HandleR_ResetEnchantItemInfoFailPacket	World::ProcessNetObjectEvent	20				16::INT16/2
+1436	G_R_RestoreEnchantFailedItemReqCmd	C2S				32	0xe924f0			16:targetItemDepot:INT8/1; 18:targetItemPos:INT16/2; 20:variableProbabilityCostItemBagPos:INT16/2; 24:fixationProbabilityCostGroupKey:INT64/8
+1437	G_R_RestoreEnchantFailedItemOkCmd	S2C	0xee6980	HandleR_RestoreEnchantFailedItemOkPacket	World::ProcessNetObjectEvent	40				16:prevItemDataKey:INT64/8; 24:itemDataKey:INT64/8; 32:result:INT8/1
+1438	G_R_RestoreEnchantFailedItemFailCmd	S2C	0xee6940	HandleR_RestoreEnchantFailedItemFailPacket	World::ProcessNetObjectEvent	20				16::INT16/2
+1439	G_R_ResetEnchantRestoreInfoReqCmd	C2S				20	0xe92590	IntensionManager::RequestResetEnchantRestoreInfo		16:targetItemDepot:INT8/1; 18:targetItemPos:INT16/2
+1440	G_R_ResetEnchantRestoreInfoOkCmd	S2C	0xee6900	HandleR_ResetEnchantRestoreInfoOkPacket	World::ProcessNetObjectEvent	16				
+1441	G_R_ResetEnchantRestoreInfoFailCmd	S2C	0xee68c0	HandleR_ResetEnchantRestoreInfoFailPacket	World::ProcessNetObjectEvent	20				16::INT16/2
+1442	G_R_PolishToItemReqCmd	C2S				48	0x4a3de0			16:targetItemDepot:INT8/1; 18:targetItemPos:INT16/2; 20:fixRandomOptionInfos:REPEAT/2;   8:slot_no:INT8/1; 32:fixRandomOptionCostGroupKey:INT64/8; 40:polishCostGroupKey:INT64/8
+1443	G_R_PolishToItemOkCmd	S2C	0xee6880	HandleR_PolishToItemOkPacket	World::ProcessNetObjectEvent	48				16:reason:INT8/1; 24:itemDataKey:INT64/8; 32:slots:REPEAT/2;   8:slot_no:INT8/1;   16:effect_group_key:INT64/8;   24:effect_key:INT64/8
+1444	G_R_PolishToItemFailCmd	S2C	0xee6840	HandleR_PolishToItemFailPacket	World::ProcessNetObjectEvent	20				16::INT16/2
+1445	G_ProcessItemFusionReqCmd	C2S				32	0xdb43c0	Teleport::FindTeleportByZone		16:items:REPEAT/2;   8:pos:INT16/2;   10:count:INT16/2; 28:subitemPos:INT16/2
+1446	G_ProcessItemFusionOkCmd	S2C	0xee6b80	HandleProcessItemFusionOkPacket	World::ProcessNetObjectEvent	24				16:itemDataKey:INT64/8
+1447	G_ProcessItemFusionFailCmd	S2C	0xee6b40	HandleProcessItemFusionFailPacket	World::ProcessNetObjectEvent	20				16:failReason:INT16/2
+1491	G_ExpandSkillPageReqCmd	C2S				40	0x532c40 0x532c70			16:skillPage:INT8/1; 20:skillPageName:STRING; 28:consumeItems:REPEAT/2;   8:pos:INT16/2;   10:count:INT16/2
+1492	G_ExpandSkillPage2OkCmd	S2C	0xeea6e0	HandleExpandSkillPage2OkPacket	World::ProcessNetObjectEvent	48				16:skill_page:INT8/1; 17:enable:INT8/1; 20:name:STRING; 28:job_style:INT8/1; 29:trait_selection_tier1:INT8/1; 30:trait_selection_tier2:INT8/1; 31:trait_selection_tier3:INT8/1; 32:trait_selection_tier4:INT8/1; 33:trait_selection_tier5:INT8/1; 36:acquired_skill_list:REPEAT/2;   8:skill_id:INT32/4;   12:skill_variation_id:INT8/1;   13:skill_build_up_level:INT8/1
+1493	G_ExpandSkillPageFailCmd	S2C	0xeea7a0	HandleExpandSkillPageFailPacket	World::ProcessNetObjectEvent	20				16::INT16/2
+1551	G_MarketSearchItemReqCmd	C2S				48	0x11db510			16:search_type:INT8/1; 17:order_type:INT8/1; 18:price_type:INT8/1; 19:search_key_sale_type:INT8/1; 20:search_key_data_id:INT32/4; 24:search_key_sale_price:INT64/8; 32:search_key_unit_price:INT64/8; 40:search_key_index_id:INT64/8
+1552	G_MarketSearchItemOkCmd	S2C	0xeec020	HandleMarketSearchItemOkPacket	World::ProcessNetObjectEvent	112				16:prev_search_key:STRUCT;   4:search_key_sale_type:INT8/1;   8:search_key_data_id:INT32/4;   16:search_key_sale_price:INT64/8;   24:search_key_unit_price:INT64/8;   32:search_key_index_id:INT64/8; 56:next_search_key:STRUCT;   4:search_key_sale_type:INT8/1;   8:search_key_data_id:INT32/4;   16:search_key_sale_price:INT64/8;   24:search_key_unit_price:INT64/8;   32:search_key_index_id:INT64/8; 96:search_result_list:REPEAT/2;   8:search_result_info:STRUCT;     8:sale_id:INT64/8;     16:sale_type:INT8/1;     18:seller_world_id:INT16/2;     20:seller_name:STRING;     32:sale_price:INT64/8;     40:unit_price:INT64/8;     48:bid_unit_price:INT64/8;     56:top_bid_price:INT64/8;     64:searcher_relation:INT8/1;     72:searcher_bid_id:INT64/8;     80:sale_rest_time:INT32/4;     84:item_data_id:INT32/4;     88:item_amount:INT32/4;     92:item_gear_score:INT32/4;     96:item_data:VBIN
+1553	G_MarketSearchItemFailCmd	S2C	0xeebfe0	HandleMarketSearchItemFailPacket	World::ProcessNetObjectEvent	20				16:fail_reason:INT16/2
+1554	G_RetrieveInstantSaleItemLowestPriceReqCmd	C2S				20	0x11db2e0			16:item_data_id:INT32/4
+1555	G_RetrieveInstantSaleItemLowestPriceOkCmd	S2C	0xeebfa0	HandleRetrieveInstantSaleItemLowestPriceOkPacket	World::ProcessNetObjectEvent	32				16:item_data_id:INT32/4; 24:lowest_price:INT64/8
+1556	G_RetrieveInstantSaleItemLowestPriceFailCmd	S2C	0xeebf60	HandleRetrieveInstantSaleItemLowestPriceFailPacket	World::ProcessNetObjectEvent	24				16:fail_reason:INT16/2; 20:item_data_id:INT32/4
+1566	G_RandomStoreInfoReqCmd	C2S				16	0x9d5be0 0x9d7510	RandomStoreRewardConfirmPanel::requestBonusReward		
+1567	G_RandomStoreInfoOkCmd	S2C	0xeea660	HandleRandomStoreInfoOkPacket	World::ProcessNetObjectEvent	28				16:randomStoreInfo:REPEAT/2;   8:randomStoreNumber:INT8/1;   16:randomStoreData:PROP_SYNC
+1568	G_RandomStoreInfoFailCmd	S2C	0xeea620	HandleRandomStoreInfoFailPacket	World::ProcessNetObjectEvent	20				16::INT16/2
+1569	G_RandomStoreDrawReqCmd	C2S				44	0x520cd0 0x520d00 0x520d30 0x59d8e0			16:randomStoreNumber:INT8/1; 17:bmType:INT8/1; 18:drawCount:INT8/1; 20:goodsNumber:INT32/4; 24:goodsPrice:VBIN; 32:consumeItems:REPEAT/2;   8:pos:INT16/2;   10:count:INT16/2
+1570	G_RandomStoreDrawOkCmd	S2C	0xeea5e0	HandleRandomStoreDrawOkPacket	World::ProcessNetObjectEvent	168				16:randomStoreNumber:INT8/1; 24:randomStoreData:PROP_SYNC
+1571	G_RandomStoreDrawFailCmd	S2C	0xeea580	HandleRandomStoreDrawFailPacket	BAccount::ProcessNetObjectEvent	20				16:failReason:INT16/2; 18:randomStoreNumber:INT8/1
+1572	G_ExpandRandomStoreSlotReqCmd	C2S				44	0x520cd0 0x520d00 0x520d30 0x59d7a0			16:randomStoreNumber:INT8/1; 17:openSlotIndex:INT8/1; 18:bmType:INT8/1; 20:goodsNumber:INT32/4; 24:goodsPrice:VBIN; 32:consumeItems:REPEAT/2;   8:pos:INT16/2;   10:count:INT16/2
+1573	G_ExpandRandomStoreSlotOkCmd	S2C	0xeea540	HandleExpandRandomStoreSlotOkPacket	World::ProcessNetObjectEvent	20				16:randomStoreNumber:INT8/1; 17:openSlotIndex:INT8/1
+1574	G_ExpandRandomStoreSlotFailCmd	S2C	0xeea500	HandleExpandRandomStoreSlotFailPacket	World::ProcessNetObjectEvent	20				16:failReason:INT16/2; 18:randomStoreNumber:INT8/1; 19:openSlotIndex:INT8/1
+1575	G_BuyRandomStoreItemReqCmd	C2S				32	0x520e00 0x520e20			16:randomStoreNumber:INT8/1; 17:drawIndex:INT8/1; 18:slotIndex:INT8/1; 20:consumeItems:REPEAT/2;   8:pos:INT16/2;   10:count:INT16/2
+1576	G_BuyRandomStoreItemOkCmd	S2C	0xeea480	HandleBuyRandomStoreItemOkPacket	World::ProcessNetObjectEvent	20				16:randomStoreNumber:INT8/1; 17:drawIndex:INT8/1; 18:purchaseSlotIndex:INT8/1
+1577	G_BuyRandomStoreItemFailCmd	S2C	0xeea4c0	HandleBuyRandomStoreItemFailPacket	World::ProcessNetObjectEvent	24				16:failReason:INT16/2; 18:randomStoreNumber:INT8/1; 19:drawIndex:INT8/1; 20:slotIndex:INT8/1
+1578	G_TakeRandomStoreDrawRewardReqCmd	C2S				20	0x9d5be0 0x9d7510	RandomStoreRewardConfirmPanel::requestBonusReward		16:randomStoreNumber:INT8/1; 17:optionalRewardIndex:INT8/1
+1579	G_TakeRandomStoreDrawRewardOkCmd	S2C	0xeea440	HandleTakeRandomStoreDrawRewardOkPacket	World::ProcessNetObjectEvent	24				16:randomStoreNumber:INT8/1; 20:drawRewardAccumulateCount:INT32/4
+1580	G_TakeRandomStoreDrawRewardFailCmd	S2C	0xeea400	HandleTakeRandomStoreDrawRewardFailPacket	World::ProcessNetObjectEvent	20				16:failReason:INT16/2; 18:randomStoreNumber:INT8/1; 19:optionalRewardIndex:INT8/1
+1581	G_TransformItemReqCmd	C2S				88	0x4a3e00 0x4a3e50	StsMsgLib::_StsMsgResponseGetSecurityCardCodeIndex::_StsMsgResponseGetSecurityCa		16:id:INT64/8; 24:transformUpgradeGrocery:REPEAT/2;   8:pos:INT16/2;   10:count:INT16/2; 36:mainIngredient:REPEAT/2;   8:pos:INT16/2;   10:count:INT16/2; 48:subIngredient:REPEAT/2;   8:pos:INT16/2;   10:count:INT16/2; 60:fixedIngredient:REPEAT/2;   8:pos:INT16/2;   10:count:INT16/2; 72:retryByInstantPayment:INT8/1; 76:goodsNumber:INT32/4; 80:goodsPrice:VBIN
+1582	G_TransformItemOkCmd	S2C	0xef20f0	HandleTransformItemOkPacket	World::ProcessNetObjectEvent	48			yes	16:recipe:INT64/8; 24:pos:INT16/2; 26:TransformItemGroup:INT8/1; 27:successByRandomFailureExp:INT8/1; 28:isRetry:INT8/1; 29:random_result:INT8/1; 32:items:REPEAT/2;   8:itemKey:INT64/8;   16:count:INT16/2
+1583	G_TransformItemFailCmd	S2C	0xef20b0	HandleTransformItemFailPacket	World::ProcessNetObjectEvent	32			yes	16:failReason:INT16/2; 24:recipe:INT64/8
+1584	G_BuyCollectionItemsReqCmd	C2S				36	0x44a480 0x44a4b0			16:totalGoodsPrice:VBIN; 24:shoppingList:REPEAT/2;   8:goodsNumber:INT32/4;   12:goodsPrice:VBIN;   24:closetGroupKey:INT64/8;   32:collectionItemKey:INT64/8
+1585	G_BuyCollectionItemsOkCmd	S2C	0xef2070	HandleBuyCollectionItemsOkPacket	World::ProcessNetObjectEvent	28				16:purchasedList:REPEAT/2;   8:closetGroupKey:INT64/8;   16:collectionItemKey:INT64/8
+1586	G_BuyCollectionItemsFailCmd	S2C	0xef2030	HandleBuyCollectionItemsFailPacket	World::ProcessNetObjectEvent	20				16:failReason:INT16/2
