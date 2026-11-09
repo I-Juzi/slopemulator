@@ -1,2 +1,2 @@
 id	kind	model	crate	paths	deps	turns	status	title
-rbc-1	spec	opus	-	Docs/Platform/StServers/14-route-client.md	-	80	ready	route bus client spec (IDA)
+rbc-1	spec	opus	-	Docs/Platform/StServers/14-route-client.md	-	80	done	route bus client spec (IDA)
