@@ -21,11 +21,25 @@ paths inside the original binaries (`...\depot\Branch\381NC\Program\Server\...`)
 | `Program/Platform/StServers/StsCore` | StServers framework | STS messages, Connect, Route types, INI, errors (crate `sts-core`) |
 | `Program/Platform/StServers/DbSrv` | `DbSrv.exe` | Stored-procedure gateway to SQL Server (crate `dbsrv`) |
 | `Program/Platform/StServers/RouteSrv` | `RouteSrv.exe` | Service bus router (crate `routesrv`, in progress) |
-| `Program/Tools` | — | Data file tools, BnsEdit, emulator scripts, client key tool |
+| `Program/Platform/StServers/CliGate` | `CliGate.exe` | Client gate for the platform login, phase 1 (crate `cligate`) |
+| `Program/Tools` | — | Data file tools, BnsEdit, emulator scripts, client key tool, live client debugger (`ClientDbg`) |
 | `Program/output` | `Program\output` | Build output (not in git) |
 | `Docs/` | — | Specs and status for each part |
+| `Docs/Plan/` | — | Work cards and handoffs for the slice pipeline |
+| `tools/` | — | Slice runner, push script, spec and API index tools |
 
-## Status (8 Nov 2026)
+## Plan
+
+The work goes in 4 phases. Reverse engineering comes first, so that the port uses specs and not guesses.
+
+| # | Phase | State |
+| --- | --- | --- |
+| 1 | Client 381 full reverse engineering | **Done** (10 Nov 2026) |
+| 2 | StServers (NP platform) full reverse engineering | Next |
+| 3 | 2020 server set full reverse engineering (GameDaemon and others) | Waiting |
+| 4 | Port to Rust from the specs | Some parts done (see Status) |
+
+## Status (10 Nov 2026)
 
 | Part | State | Tracker |
 | --- | --- | --- |
@@ -34,8 +48,29 @@ paths inside the original binaries (`...\depot\Branch\381NC\Program\Server\...`)
 | GameDaemon 381 | 502 client handlers: 74 ported, 423 partial, 5 not started | `Docs/Server/GameDaemon/09-parity.md`, `parity-ledger.tsv` |
 | CacheGate, AchievementDaemon, RankingDaemon, SmartCouponDaemon | Ported; parity reviews done | `Docs/Server/<name>/README.md` |
 | STS client login (`sts`) | SRP-6a login server; real-client login not yet verified | `Docs/Platform/Sts/STATUS.md` |
-| StServers (original NP platform) | **Rust port parity 3 %** (1 of 49 services ported, 1 in progress); analysis 18 % | `Docs/Platform/StServers/README.md` |
-| Client 381 (reversing) | Notes: packets, framing, datafiles, command list | `Docs/Client/README.md` |
+| StServers (original NP platform) | DbSrv ported. RouteSrv phase 1, CliGate phase 1, route bus client in `sts-core`. AuthSrv analysed | `Docs/Platform/StServers/README.md` |
+| Client 381 reverse engineering | **Done**: 18 chapters (start-up, transport and crypto, STS, LobbyGate, game dispatch, movement, combat, items, quests, social, InfoGate/arena, data files, UI, engine, errors), command and enum tables | `Docs/Client/RE/INDEX.md` |
+| Client data files | Book: 10 chapters (format, protection, schema, loader, versions, server side, tools, one merged XML source for client and server) | `Docs/DataFile/book/00-index.md` |
+| Live client debugger (`ClientDbg`) | Part 1: plugin in the client, host on Linux | `Program/Tools/ClientDbg/README.md` |
+
+Next work in the queue (`tools/slices/queue.tsv`):
+
+| Card | What |
+| --- | --- |
+| `ids-1-rust` | Crate `packet-ids`: official packet and enum names from the client RE tables, instead of bare numbers |
+| `dfx-4-rust` | Tool `bnsxml`: dump client and server data to XML, merge, build both sides again |
+| Phase 2 cards | StServers full reverse engineering |
+
+## How the work is done
+
+| Step | Who | Output |
+| --- | --- | --- |
+| Reverse engineering (IDA) | Claude Opus | Spec chapters in `Docs/` and a Rust card in `Docs/Plan/cards/` |
+| Rust code from a card | Claude Sonnet | Crate code, tests, handoff in `Docs/Plan/handoffs/` |
+| Help jobs | Sol (Codex) | Scripts and checks |
+| Gate | `tools/slice_runner.py` | fmt, test, clippy, allowed paths; then commit and push |
+
+Original bugs in the NCSoft code (for example out-of-bounds reads) are copied as named `quirk_<name>` functions, because game data and scripts can depend on them.
 
 Build and check:
 
