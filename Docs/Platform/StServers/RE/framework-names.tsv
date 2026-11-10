@@ -1,0 +1,90 @@
+hash	hellosrv_addr	name	role
+6c39541dcf1e3d3f	0x1400cf070	ExeWritePlatformLog	append fatal text to NcPlatform.log
+0b4f1caca627d4ed	0x1400cf370	ExeFatal	fatal error: log, NcPlatform.log, exit
+1c1cb5c83b4b8ce3	0x1400d2560	CptReadKeyCfg	Certificate KeyBits EncryptedKey Key
+896977c10aec9906	0x1400d5640	IniGetValues	ini, section, key, &count -> value list
+3dbb1c1051e4e696	0x1400d5990	IniGetStr	ini, section, key, index, default -> wchar*
+fa1dea37ae2544c1	0x1400d5a20	IniValueAsStr	value list, index, default
+631d22429be9201a	0x1400d5a40	IniGetInt	ini, section, key, index, default -> int
+0c14d875f3eca141	0x1400d5af0	IniValueAsInt	value list, index, default
+6aff9cdc2dae6113	0x1400e6ac0	StsHttpAddCommands	register admin HTTP test pages
+d23a53aaacce8fe2	0x1400ef360	StsTimerDestroy	remove timer of notify
+44d6b914cf5d1428	0x1400ef6e0	StsTimerSchedule	set due time, negative -> 120000
+ab4a38b166fd5546	0x1400ef7d0	StsTimerThread	run due timers, OnTimer returns next ms
+835bcd7d1b321ab5	0x1400efb50	StsTimerSet	notify, ms (-1 stop), flag
+d5ab8a1213ddbc9d	0x1400f00f0	StsMainLoop	main loop with thread pool
+feac58d486270041	0x1400f02c0	StsReadShutdownCfg	DisableShutdownTimeout
+a3616f363239be98	0x1400f0300	StsShutdownTick	run shutdown phase, watchdog 120000 ms
+b020ee9a1da933ae	0x1400f0490	StsPhaseClientQueryDestroy	phase: client QueryDestroy
+a486893969a9a788	0x1400f0530	StsPhaseClientStartCleanup	phase: client StartCleanup
+fe30ea6a0c554b91	0x1400f05b0	StsPhaseMainCompleteDestroy	phase: destroy
+32fc4b200fce7346	0x1400f05f0	StsPhaseMainInitializeApp	phase: init app
+b048dcb42580c372	0x1400f0710	StsPhaseMainStartCleanup	phase: stop monitor and ports
+adf947b676087154	0x1400f0770	StsPhaseServerQueryDestroy	phase: server QueryDestroy
+07380b01030b0198	0x1400f0810	StsPhaseServerStartCleanup	phase: server StartCleanup
+15ebeb0833415c0f	0x1400f0d30	StsSetServerType	set server type id and program name
+ea963ff8894b5c27	0x1400f1c90	StsConfigLoad	load ini file
+31b42b8b18d82047	0x1400f1eb0	StsConfigMonitorAdd	watch an ini file, call notify on change
+5e9e76f65eaa1345	0x1400f7980	NetCfgInt	NetCfgLookup + int
+5ed25d535a355df1	0x1400f79b0	NetCfgLookup	Network override lookup: key forms x section forms
+7d2db0b732339339	0x1400fa020	StsSocketReadDisableCfg	DisableTransTimeout DisableIdleDisconnect
+24a5ba72594a2178	0x1400fca90	TlsReadCfg	[Tls] Method Certificate CipherList key lengths
+8f1b52aaa6d19d76	0x140100e50	RouteReadGeneralCfg	Route.ini [General]
+56ea417a1199a92e	0x1401047c0	StsRouteInit	route client init, Route.ini
+62076779c93f3e2e	0x140104980	StsRouteStart	start route client with socket factory
+1638c284ffc8c349	0x140104d60	StsRouteReply	send reply on route bus
+e5d05a97885f35bc	0x140104d80	StsRouteSend	send message on route bus
+f6de43f1a308a1ac	0x140106170	StsServiceCounterCfg	[ServiceCounter]
+bfa4f9809383e8f0	0x140107a40	StsAppCommonStart	counters page, SpawnSrv conn, StServer.ini monitor
+1c6392383c1539eb	0x140107de0	NameMapInit	build name->id hash from {name,id} table
+a58bd97acc2adeb7	0x140107ef0	NameMapFind	name -> id
+83149bcf61cb0aea	0x140119220	StrPrintfW	swprintf with size
+82dd58babee4f6ce	0x140119c60	StsLog	log line with level
+726cce5f3761021e	0x14011be20	StsInitPaths	read StServer.ini [Logs], set log/crash paths, error log, crash handler
+b952564bb078a790	0x14011c040	StsAppStart	module handle, error report setup
+92f6e438760dee39	0x14011c0f0	StsCrashHandler	unhandled exception, write dump
+c3ebddd134f2ebab	0x14011c380	StsRunApp	app start, main loop, stop
+465a7685066f9255	0x14011c410	StsCmdMain	parse command line, pick run mode, PID file, start
+1c43f65caaf17635	0x14011c9f0	StsSetServiceName	service name = program + AppIndex
+cef89e9c77846ff1	0x14011caf0	StsInstallService	install Windows service
+dddaf439cf51f093	0x14011cdd0	StsServiceMain	Windows service main
+08d5f922ebe4e157	0x14011ce50	StsUsage	print command line usage
+d1bca136a9f01c00	0x14011d070	StsPidFileOpen	create <name><index>.pid
+8e53e8bbd1e693c7	0x140124cf0	StsReadLoggingCfg	[Logging] mail and [Logs] log agent
+70eb0a6fea2f21f8	0x1400ec7f0	TxnOnReply	match reply to txn, call txn reply slot
+9fb2a689935bbcea	0x1400ec070	StsSocketTxnTimer	txn timeout timer on socket
+7d2db0b732339339	0x1400fa020	StsSocketReadDisableCfg	socket read-disable config
+46591968897077a4	0x1401049a0	SendToProviderTxn	send request with reply txn and timeout
+7454f37e471ae161	0x1400d8160	MsgInit	init message object
+c07a20ae8af307ac	0x1400d8260	MsgFree	free message object
+b077786f37f932bc	0x140104770	ReplyError	send error reply
+7ba589da8cbeabf9	0x1400c84e0	ThreadPoolsStart	start worker thread pools
+0716c74f3d94e50a	0x1400c7130	ThreadPoolInit	init one thread pool
+aeabc656777f39cd	0x1400c6fe0	ThreadCreate	create worker thread
+7ff5675264c783e2	0x1400c8810	ThreadPoolSetCount	set pool thread count
+bf1668a727ef37bc	0x1400c7af0	PoolWorker	worker thread loop
+3682db2e79753668	0x1400c7600	WakeThread	wake pool thread
+6f5c105c4cd04471	0x1400c86e0	CpuCount	count CPUs
+8793ade96dc4b0b9	0x1400f9da0	SocketIdleTimer	idle socket disconnect timer
+03065010abc70a56	0x1400f8630	SocketMgrInit	socket manager init
+f5f8d4042e347a0f	0x1400c9de0	ChangeMonitorStart	start file change monitor
+4d8d67b2da30af13	0x1400c9f00	ChangeThread	file change thread
+8f291e1995f2ccaa	0x1400ca230	ChangeWatchFile	add file to change monitor
+57570ea61dab6130	0x1400f1740	ConfigMonitorTimer	config reload timer
+8f1b52aaa6d19d76	0x140100e50	RouteReadGeneralCfg	route general config
+7dd983eaf84cb055	0x140103770	RouteRegRetry	route register retry timer
+f7038065195d208c	0x140103120	RouteRegReply	route register reply
+31c61d2fcb3b42a5	0x1400fe160	RouteAddBackLog	queue message while route down
+08704e0f640bdf8a	0x140100d80	RouteBackLogTimeout	backlog timeout
+f38ba08eef259503	0x1400e73f0	ErrInit	init error record
+d9bd865d6ccbf62e	0x1400e7580	ErrFromXml	read error record from XML
+ef18d3b8016deabd	0x1400e7ac0	ErrToXml	write error record to XML
+0ca24c15255f4e0a	0x14011f3a0	StsHttpPagesInit	register admin HTTP pages
+f12e27710315fa42	0x1400e66c0	StsHttpAddPage	add one admin HTTP page
+223b79bd3d43b7d9	0x1400e6dd0	StsHttpServeFile	serve static file or 404
+f5eaaeb12648be08	0x1400e6b70	StsHttpServerHeader	write HTTP Server header
+2ef6a7b3f50cf821	0x14011e810	StsHttpCmd	run console command from HTTP
+eed63f72db602dfa	0x14011b660	StsIsPing	test for POST /Sts/Ping
+a78dafed65b90463	0x1400d60d0	CptRsa	make RSA context
+a1a0c958b652ba52	0x1400d6370	CptAes	make AES context
+5d9ab2fb7967ef3d	0x1400f7dc0	CounterLog	write Counter log line
