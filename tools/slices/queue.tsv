@@ -37,20 +37,20 @@ dfx-4	spec	opus	-	Docs/DataFile/book/	dfx-3	150	done	datafile: one merged XML so
 ids-1-rust	rust	sonnet	packet-ids,packet,lobbygate,sts,sts-core,dbsrv,cligate,routesrv	Program/Server/PacketIds/,Cargo.toml,Cargo.lock,Program/Server/Packet/,Program/Server/LobbyGate/,Program/Platform/	-	150	done	official packet and enum names instead of bare numbers
 ids-2-rust	rust	sonnet	gamedaemon	Program/Server/GameDaemon/,Cargo.lock	ids-1-rust	150	done	official packet names in GameDaemon
 st-00	spec	opus	-	Docs/Platform/StServers/RE/	-	150	done	StServers RE: shared framework
-st-01	spec	opus	-	Docs/Platform/StServers/RE/	st-00	150	hold	StServers RE: gate library, CliGate, SessionGateSrv
-st-02	spec	opus	-	Docs/Platform/StServers/RE/	st-00	150	hold	StServers RE: AuthSrv, AppAuthSrv
-st-03	spec	opus	-	Docs/Platform/StServers/RE/	st-00	150	hold	StServers RE: GameAccountSrv, SlotSrv, SpawnSrv, WorldSrv
-st-04	spec	opus	-	Docs/Platform/StServers/RE/	st-01	150	hold	StServers RE: GameGate, AppGate, MwGate, WebGate
-st-05	spec	opus	-	Docs/Platform/StServers/RE/	st-00	150	hold	StServers RE: RouteSrv, ForwardSrv, SvcDispatcher, CacheSrv, DbSrv audit
-st-06	spec	opus	-	Docs/Platform/StServers/RE/	st-00	150	hold	StServers RE: AccessSrv, BanSrv, RoleSrv, PrivacySrv
-st-07	spec	opus	-	Docs/Platform/StServers/RE/	st-09	150	hold	StServers RE: ExAuthSrv, ExAuthnSrv, IpCheckSrv
-st-08	spec	opus	-	Docs/Platform/StServers/RE/	st-00	150	hold	StServers RE: FriendSrv, PresenceSrv, ProfileSrv, NameSrv
-st-09	spec	opus	-	Docs/Platform/StServers/RE/	st-00	150	hold	StServers RE: member library, GradeSrv, GradeMembersSrv, LevelSrv
-st-10	spec	opus	-	Docs/Platform/StServers/RE/	st-09	150	hold	StServers RE: GoodsSrv, ShowcaseSrv, PromotionStampSrv
-st-11	spec	opus	-	Docs/Platform/StServers/RE/	st-09	150	hold	StServers RE: AuctionSrv, VirtualCurrencySrv, WishSrv
-st-12	spec	opus	-	Docs/Platform/StServers/RE/	st-00	150	hold	StServers RE: PurchaseSrv, PurchaseLimitSrv, ChargeSrv, DeliverySrv
-st-13	spec	opus	-	Docs/Platform/StServers/RE/	st-00	150	hold	StServers RE: RefundSrv, WarehouseSrv
-st-14	spec	opus	-	Docs/Platform/StServers/RE/	st-00	150	hold	StServers RE: CouponSrv, RewardSrv
-st-15	spec	opus	-	Docs/Platform/StServers/RE/	st-00	150	hold	StServers RE: ApiGate, ApiManageSrv, EventLogSrv, SysInfoSrv
-st-16	spec	opus	-	Docs/Platform/StServers/RE/	st-00	150	hold	StServers RE: ApiSrv
-st-17	spec	opus	-	Docs/Platform/StServers/RE/,Docs/Platform/StServers/README.md	st-01,st-02,st-03,st-04,st-05,st-06,st-07,st-08,st-09,st-10,st-11,st-12,st-13,st-14,st-15,st-16	150	hold	StServers RE: coverage audit and open items
+st-01	spec	opus	-	Docs/Platform/StServers/RE/	st-00	150	ready	StServers RE: gate library, CliGate, SessionGateSrv
+st-02	spec	opus	-	Docs/Platform/StServers/RE/	st-00	150	ready	StServers RE: AuthSrv, AppAuthSrv
+st-03	spec	opus	-	Docs/Platform/StServers/RE/	st-00	150	ready	StServers RE: GameAccountSrv, SlotSrv, SpawnSrv, WorldSrv
+st-04	spec	opus	-	Docs/Platform/StServers/RE/	st-01	150	ready	StServers RE: GameGate, AppGate, MwGate, WebGate
+st-05	spec	opus	-	Docs/Platform/StServers/RE/	st-00	150	ready	StServers RE: RouteSrv, ForwardSrv, SvcDispatcher, CacheSrv, DbSrv audit
+st-06	spec	opus	-	Docs/Platform/StServers/RE/	st-00	150	ready	StServers RE: AccessSrv, BanSrv, RoleSrv, PrivacySrv
+st-07	spec	opus	-	Docs/Platform/StServers/RE/	st-09	150	ready	StServers RE: ExAuthSrv, ExAuthnSrv, IpCheckSrv
+st-08	spec	opus	-	Docs/Platform/StServers/RE/	st-00	150	ready	StServers RE: FriendSrv, PresenceSrv, ProfileSrv, NameSrv
+st-09	spec	opus	-	Docs/Platform/StServers/RE/	st-00	150	ready	StServers RE: member library, GradeSrv, GradeMembersSrv, LevelSrv
+st-10	spec	opus	-	Docs/Platform/StServers/RE/	st-09	150	ready	StServers RE: GoodsSrv, ShowcaseSrv, PromotionStampSrv
+st-11	spec	opus	-	Docs/Platform/StServers/RE/	st-09	150	ready	StServers RE: AuctionSrv, VirtualCurrencySrv, WishSrv
+st-12	spec	opus	-	Docs/Platform/StServers/RE/	st-00	150	ready	StServers RE: PurchaseSrv, PurchaseLimitSrv, ChargeSrv, DeliverySrv
+st-13	spec	opus	-	Docs/Platform/StServers/RE/	st-00	150	ready	StServers RE: RefundSrv, WarehouseSrv
+st-14	spec	opus	-	Docs/Platform/StServers/RE/	st-00	150	ready	StServers RE: CouponSrv, RewardSrv
+st-15	spec	opus	-	Docs/Platform/StServers/RE/	st-00	150	ready	StServers RE: ApiGate, ApiManageSrv, EventLogSrv, SysInfoSrv
+st-16	spec	opus	-	Docs/Platform/StServers/RE/	st-00	150	ready	StServers RE: ApiSrv
+st-17	spec	opus	-	Docs/Platform/StServers/RE/,Docs/Platform/StServers/README.md	st-01,st-02,st-03,st-04,st-05,st-06,st-07,st-08,st-09,st-10,st-11,st-12,st-13,st-14,st-15,st-16	150	ready	StServers RE: coverage audit and open items
