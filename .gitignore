@@ -34,3 +34,5 @@ __pycache__/
 *worker-api-key*
 ida/
 logs/
+# Session work files (never commit)
+/.scratch/
