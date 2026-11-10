@@ -21,6 +21,11 @@ Context budget (each tool result is read again on every later turn):
 - For Rust interfaces, run `python3 tools/rust_api.py <crate dir>`. Do not read Rust source files.
 - Write facts into the spec file as soon as you verify them. Do not keep them only in the conversation.
 
+## Original bugs (quirks)
+- The original code has bugs, for example out-of-bounds reads, reads of uninitialized memory, wrong indexes and integer overflow. Game data and scripts can depend on what these bugs return. A port that fixes them silently breaks that content.
+- Do not fix a bug in the spec. Write a "Quirk" row: address, what the code does, the value it actually gets (for example the next field in the struct, the old buffer contents, or zero), and which data or script can reach it.
+- Give the quirk a short name (`quirk_<name>`), so that the Rust code and the tests can cite it.
+
 Last steps:
 1. Unless the card says "No Rust card", write the Rust card for the next slice with `Docs/Plan/card-template.md`. Path: `Docs/Plan/cards/<slice id>-rust.md`. Give exact spec line ranges, Rust signatures and test cases.
 2. Write `Docs/Plan/handoffs/<slice id>.md`, 30 lines or fewer: Done, Not done, ❓, Blocked.

@@ -11,6 +11,12 @@ You are the builder for one slice. Your card is the user message. It has all the
 - If the spec is not clear, do not guess. Write the question under "❓" in the handoff and continue with the other parts.
 - Write all text in ASD-STE100.
 
+Original bugs (quirks):
+- The spec marks original bugs as "Quirk" (out-of-bounds reads, uninitialized reads, wrong indexes, overflow). Copy the behaviour. Do not fix it. Game data and scripts can depend on it.
+- Put each quirk in a named function or branch `quirk_<name>`, with a comment that cites the spec section.
+- Never panic on bad input. An out-of-bounds index gives the value that the spec says (for example the neighbour field or zero), not a panic and not an error.
+- Add one test for each quirk with the input that triggers it.
+
 Run these checks before you stop. All must pass:
 ```
 cargo fmt -p <crate>
