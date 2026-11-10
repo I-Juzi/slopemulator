@@ -1,0 +1,8 @@
+service	database	schema	proc	builder	call_site
+SessionGateSrv	SessionDb	v2015102301	CreatePersistentSession	0x1400D8160	0x1400D825D
+SessionGateSrv	SessionDb	v2015102301	ChangeUserId	0x1400D85E0	0x1400D863C
+SessionGateSrv	SessionDb	v2015102301	RevokePersistentSession	0x1400D8480	0x1400D84E4
+SessionGateSrv	SessionDb	v2015102301	RevokePersistentAppSession	0x1400D8480	0x1400D855B
+SessionGateSrv	SessionDb	v2015102301	GetPersistentSession	0x1400CE2B0	0x1400CE313
+SessionGateSrv	SessionDb	v2015102301	GetPersistentSession	0x1400CFAF0	0x1400CFE58
+SessionGateSrv	SessionDb	v2015102301	RemovePersistentSession	0x1400D83D0	0x1400D842C

@@ -1,0 +1,21 @@
+service	command	id	handler	request	reply	errors
+SessionGateSrv	Auth/LoginWebStart	26	0x1400CE6A0	body; _RequestAddr, Location, Persistent	Auth reply via CSgTxnAcctLogin 0x1400DB870	4/271 no body
+SessionGateSrv	Auth/LoginTrusted	25	0x1400CE6A0	same as LoginWebStart	same	4/271
+SessionGateSrv	Auth/LoginToken	53	0x1400CE6A0	same	same	4/271
+SessionGateSrv	Auth/LoginWebTokenStart	54	0x1400CE6A0	same	same	4/271
+SessionGateSrv	MobileAuth/Login	1	0x1400CE6A0	same	same	4/271
+SessionGateSrv	MobileAuth/LoginTrusted	2	0x1400CE6A0	same	same	4/271
+SessionGateSrv	Session/CheckSession	1	0x1400CEC60	Location	Reply{UserId,UserCenter,UserName,UserStatus,[ExternalAccount{AuthProviderCode,ExternalAccountKey,ExternalAccountName,ExternalUserAppKey}],LoginName}	10/673
+SessionGateSrv	Session/CreateSession	2	0x1400CF0A0	UserId,UserName,UserCenter,UserStatus,Location,IsAuthenticated,Persistent,_RequestAddr,ExternalAccount fields	session vtable +480 ❓	10/594, 10/610, 10/613
+SessionGateSrv	Session/Event	3	0x1400CE910	After	session vtable +416/+432 ❓	10/890
+SessionGateSrv	Session/LoginFinish	5	0x1400CF410	RegisterVerifiedIp,_RequestAddr	Auth LoginFinish reply via CSgTxnAcctLoginFinish 0x1400DB9C0	10/397, 3308/400, 10/406
+SessionGateSrv	Session/Logout	6	0x1400CF6A0	To header (no session)	Reply (empty) or error 0	10/322, 10/379, 4/359
+SessionGateSrv	Session/VerifySecondaryAuth	7	0x1400D0AB0	AuthType,Value,Force	Auth reply via CSgTxnAcctVerifySecondaryAuth 0x1400DC280	10/434, 3308/437, 10/454
+SessionGateSrv	Session/RevokePersistentSession	8	0x1400D00F0	UserId, AppIds/AppId*	Reply (empty)	10/916, 10/921, 10/938
+SessionGateSrv	Session/Validate	9	0x1400D05D0	inner Auth request (UserNameNew, AuthProviderCode)	reply of inner txn	10/537, 10/515
+SessionGateSrv	Session/UpdateTimeout	10	0x1400D0470	TimeoutMs	error 0	10/744, 10/757
+SessionGateSrv	Session/Relogin	11	0x1400CFAF0	Location,SessionSecret,_RequestAddr	via GetPersistentSession reply ❓	10/775, 10/781
+SessionGateSrv	Session/Forward	12	0x1400CEA40	inner request	inner reply via CSgTxnForward 0x1400DCE70	10/967
+SessionGateSrv	Session/Login	4	none	-	-	not in table 0x1400D1280
+SessionGateSrv	Session/Invalid	13	none	-	-	not in table 0x1400D1280
+CliGate	(client commands)	see chapter	0x1400D4AD0	see chapter §2.2 tables	see chapter §2.2	see chapter §2.2
