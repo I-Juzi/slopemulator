@@ -26,6 +26,12 @@ Context budget (each tool result is read again on every later turn):
 - Do not fix a bug in the spec. Write a "Quirk" row: address, what the code does, the value it actually gets (for example the next field in the struct, the old buffer contents, or zero), and which data or script can reach it.
 - Give the quirk a short name (`quirk_<name>`), so that the Rust code and the tests can cite it.
 
+## Exploits (do not copy)
+- An exploit is a bug or a trust gap that a player can use for gain: item dupes, skipped cooldowns, wrong reward counts, actions without the right state or distance. The 2020 server comes from the retail era, so the retail exploits are probably in it.
+- Do not copy an exploit. Write an "Exploit" row: address, what the original does, how a player can use it, and the fix. The server never trusts a value that comes from the client or from the client data files. It uses its own data and its own state.
+- Give it a name (`exploit_<name>`). Check each item in `Docs/Plan/known-exploits.md` that your topic touches.
+- If you are not sure if a bug is a quirk or an exploit, mark it ❓ and write both readings.
+
 Last steps:
 1. Unless the card says "No Rust card", write the Rust card for the next slice with `Docs/Plan/card-template.md`. Path: `Docs/Plan/cards/<slice id>-rust.md`. Give exact spec line ranges, Rust signatures and test cases.
 2. Write `Docs/Plan/handoffs/<slice id>.md`, 30 lines or fewer: Done, Not done, ❓, Blocked.
