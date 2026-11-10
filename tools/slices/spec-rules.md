@@ -14,12 +14,14 @@ Context budget (each tool result is read again on every later turn):
 - Each turn reads the full context again. The number of turns is the main cost. Target: 40 IDA calls or fewer for the whole slice.
 - Work in batches. For each topic, first run 1 survey script that covers the whole topic: all handlers, their callees, xrefs, strings, constants and enums. Then run only the follow-up calls that the survey shows you need.
 - Send independent tool calls in the same turn.
-- Keep each IDA result under 3,000 tokens (about 7,000 characters). A batch result can use the full limit.
+- Keep each IDA result under 1,500 tokens (about 3,500 characters). Only the first survey of a topic can use 3,000 tokens.
+- Never print a full function, string table or xref list. Filter in Python and print counts plus the rows you need. If a list is long, print the first 20 rows and the count.
 - Do not print full pseudocode. Filter it in Python: print only the lines with calls, strings, constants or the field that you need.
 - Write the chapter in large edits (one topic per edit), not one fact per edit.
 - Do not read files outside the worktree and the `.i64` copy.
 - For Rust interfaces, run `python3 tools/rust_api.py <crate dir>`. Do not read Rust source files.
 - Write facts into the spec file as soon as you verify them. Do not keep them only in the conversation.
+- The runner cuts long work into stages of about 45 turns. At the end of a stage it asks you for a progress note, and a new session continues from it. Facts that are only in the conversation are lost.
 
 ## Original bugs (quirks)
 - The original code has bugs, for example out-of-bounds reads, reads of uninitialized memory, wrong indexes and integer overflow. Game data and scripts can depend on what these bugs return. A port that fixes them silently breaks that content.
