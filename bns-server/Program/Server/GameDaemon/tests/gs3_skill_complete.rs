@@ -612,3 +612,587 @@ fn task_execution_rejects_another_pc_or_a_mismatched_task_identity() {
     t.summon = true;
     assert!(unsupported(&h.execute(&t)));
 }
+
+fn list_fixture(h: &mut H) {
+    h.state().skill_list = SkillLookup::Found(SkillListState {
+        reply_owner: Some(PC_ID),
+        ..SkillListState::default()
+    });
+}
+fn list(h: &mut H) -> &mut SkillListState {
+    let SkillLookup::Found(state) = &mut h.state().skill_list else {
+        panic!("list fixture missing")
+    };
+    state
+}
+fn list_entry(id: u32, enabled: u8, bytes: [u8; 2]) -> Option<SkillListEntry> {
+    Some(SkillListEntry { enabled, id, bytes })
+}
+
+#[test]
+fn skill_list_wrapper_failure_and_queue_are_separate_from_list_send() {
+    let mut h = H::new();
+    list_fixture(&mut h);
+    h.session.pc.as_mut().unwrap().zone = None;
+    assert_eq!(h.receive(113, &[]).replies, message(115, 2));
+    h.session.pc.as_mut().unwrap().zone = Some(9);
+    h.services.skill_queue_result = Gate::Fail;
+    assert_eq!(h.receive(113, &[]).replies, message(115, 2));
+    h.services.skill_queue_result = Gate::Pass;
+    // The wrapper has no explicit PC-kind gate or body check.
+    h.session.pc.as_mut().unwrap().native_kind = 2;
+    assert!(h.receive(113, &[0xFF]).replies.is_empty());
+    assert_eq!(
+        h.services.skill_tasks.last(),
+        Some(&task(113, SkillTaskKind::SkillList))
+    );
+    let before = h.state().clone();
+    assert_eq!(
+        h.execute(&task(113, SkillTaskKind::SkillList)).replies,
+        vec![Message {
+            command: 114,
+            body: vec![0, 0]
+        }]
+    );
+    assert_eq!(*h.state(), before);
+}
+
+#[test]
+fn skill_list_exact_nested_counts_filters_and_native_order() {
+    let mut h = H::new();
+    list_fixture(&mut h);
+    list(&mut h).pages = [
+        SkillListPage {
+            flags: 1,
+            map_size: 5,
+            value: -1,
+            entries: vec![
+                list_entry(0x12345678, 2, [0x80, 0xFF]),
+                None,
+                list_entry(5, 0, [1, 2]),
+                list_entry(1, 1, [3, 4]),
+                list_entry(1, 1, [3, 4]),
+            ],
+        },
+        // Bit 1 alone does not select a page.
+        SkillListPage {
+            flags: 2,
+            map_size: 1,
+            value: 2,
+            entries: vec![list_entry(9, 1, [1, 2])],
+        },
+        // Zero native size suppresses a page even if the mock has entries.
+        SkillListPage {
+            flags: 1,
+            map_size: 0,
+            value: 3,
+            entries: vec![list_entry(10, 1, [1, 2])],
+        },
+        SkillListPage {
+            flags: 0xFF,
+            map_size: 1,
+            value: -128,
+            entries: vec![None],
+        },
+        SkillListPage {
+            flags: 1,
+            map_size: 2,
+            value: 127,
+            entries: vec![list_entry(u32::MAX, 0xFF, [0, 0x80])],
+        },
+    ];
+    let before = h.state().clone();
+    let out = h.execute(&task(113, SkillTaskKind::SkillList));
+    assert_eq!(
+        out.replies,
+        vec![Message {
+            command: 114,
+            body: vec![
+                3, 0, // Three groups.
+                1, 0xFF, 3, 0, // Group 1, value -1, three entries.
+                0x78, 0x56, 0x34, 0x12, 0x80, 0xFF, 1, 0, 0, 0, 3, 4, 1, 0, 0, 0, 3,
+                4, // No deduplication or new sort.
+                4, 0x80, 0, 0, // Included page with no emitted entries.
+                5, 127, 1, 0, 0xFF, 0xFF, 0xFF, 0xFF, 0, 0x80,
+            ]
+        }]
+    );
+    assert_eq!(*h.state(), before);
+    assert!(out.skill_effects.is_empty() && out.broadcasts.is_empty());
+    assert!(out.daemon_requests.is_empty() && out.kicks.is_empty());
+}
+
+#[test]
+fn skill_list_all_five_groups_include_zero_entry_groups() {
+    let mut h = H::new();
+    list_fixture(&mut h);
+    for page in &mut list(&mut h).pages {
+        page.flags = 1;
+        page.map_size = u64::MAX;
+    }
+    assert_eq!(
+        h.execute(&task(113, SkillTaskKind::SkillList)).replies,
+        vec![Message {
+            command: 114,
+            body: vec![5, 0, 1, 0, 0, 0, 2, 0, 0, 0, 3, 0, 0, 0, 4, 0, 0, 0, 5, 0, 0, 0],
+        }]
+    );
+}
+
+#[test]
+fn skill_list_capacity_includes_size_command_and_both_counts() {
+    let mut h = H::new();
+    list_fixture(&mut h);
+    let page = &mut list(&mut h).pages[0];
+    page.flags = 1;
+    page.map_size = 665;
+    page.entries = vec![list_entry(7, 1, [1, 2]); 665];
+    let t = task(113, SkillTaskKind::SkillList);
+    let out = h.execute(&t);
+    assert_eq!(out.replies.len(), 1);
+    assert_eq!(out.replies[0].body.len() + 4, 4000);
+    assert_eq!(&out.replies[0].body[..6], &[1, 0, 1, 0, 0x99, 2]);
+    list(&mut h).pages[0].entries.push(list_entry(8, 1, [1, 2]));
+    let out = h.execute(&t);
+    assert!(unsupported(&out));
+    assert!(out.replies.is_empty());
+    // A second group alone also exceeds this exactly full packet.
+    list(&mut h).pages[0].entries.pop();
+    list(&mut h).pages[1].flags = 1;
+    list(&mut h).pages[1].map_size = 1;
+    assert!(unsupported(&h.execute(&t)));
+}
+
+#[test]
+fn skill_list_unknown_or_changed_owner_does_not_send_an_empty_list() {
+    let mut h = H::new();
+    let t = task(113, SkillTaskKind::SkillList);
+    assert!(unsupported(&h.execute(&t)));
+    h.state().skill_list = SkillLookup::Missing;
+    assert!(unsupported(&h.execute(&t)));
+    list_fixture(&mut h);
+    list(&mut h).reply_owner = None;
+    assert!(unsupported(&h.execute(&t)));
+    list(&mut h).reply_owner = Some(PC_ID + 1);
+    assert!(unsupported(&h.execute(&t)));
+    h.services = MemoryServices::default();
+    assert!(unsupported(&h.execute(&t)));
+}
+
+fn exchange_task(amount: i32) -> SkillTask {
+    task(
+        83,
+        CombatTask::ExchangeFactionScore {
+            npc: TARGET,
+            amount,
+        }
+        .into(),
+    )
+}
+fn exchange_fixture(h: &mut H) {
+    h.state().exchange = SkillLookup::Found(ExchangeFactionState {
+        position: [0; 3],
+        score: 20,
+        npc: SkillLookup::Found(ExchangeFactionNpc {
+            native_kind: 4,
+            position: [100, 0, 0],
+            record: Some(ExchangeFactionRecord {
+                enabled: true,
+                maximum_level: 5,
+                multiplier: 2,
+            }),
+        }),
+    });
+    h.services.skill_completion.faction_level = Some(5);
+}
+fn exchange(h: &mut H) -> &mut ExchangeFactionState {
+    let SkillLookup::Found(state) = &mut h.state().exchange else {
+        panic!("exchange fixture missing")
+    };
+    state
+}
+fn exchange_npc(h: &mut H) -> &mut ExchangeFactionNpc {
+    let SkillLookup::Found(npc) = &mut exchange(h).npc else {
+        panic!("NPC fixture missing")
+    };
+    npc
+}
+
+#[test]
+fn exchange_wrapper_gates_and_queue_do_not_run_the_task() {
+    let mut h = H::new();
+    exchange_fixture(&mut h);
+    let body = [TARGET.to_le_bytes().as_slice(), &20i32.to_le_bytes()].concat();
+    h.world.arena = true;
+    h.session.pc.as_mut().unwrap().user_present = false;
+    assert_eq!(h.receive(83, &[]).replies, message(85, 5));
+    h.world.arena = false;
+    assert_eq!(h.receive(83, &[]).replies, message(85, 336));
+    h.session.pc.as_mut().unwrap().user_present = true;
+    h.session.pc.as_mut().unwrap().zone = None;
+    assert_eq!(h.receive(83, &body).replies, message(85, 1));
+    h.session.pc.as_mut().unwrap().zone = Some(9);
+    h.session.pc.as_mut().unwrap().native_kind = 2;
+    assert_eq!(h.receive(83, &body).replies, message(85, 1));
+    h.session.pc.as_mut().unwrap().native_kind = 1;
+    h.services.skill_queue_result = Gate::Fail;
+    assert_eq!(h.receive(83, &body).replies, message(85, 1));
+    h.services.skill_queue_result = Gate::Pass;
+    let out = h.receive(83, &body);
+    assert!(out.replies.is_empty());
+    assert_eq!(h.services.skill_tasks.last(), Some(&exchange_task(20)));
+    assert!(h.services.skill_completion.faction_level_calls.is_empty());
+}
+
+#[test]
+fn exchange_npc_and_record_gates_precede_level_and_range() {
+    let t = exchange_task(-1);
+    for case in 0..4 {
+        let mut h = H::new();
+        exchange_fixture(&mut h);
+        match case {
+            0 => exchange(&mut h).npc = SkillLookup::Missing,
+            1 => exchange_npc(&mut h).native_kind = 2,
+            2 => exchange_npc(&mut h).record = None,
+            3 => exchange_npc(&mut h).record.as_mut().unwrap().enabled = false,
+            _ => unreachable!(),
+        }
+        h.services.skill_completion.faction_level = None;
+        assert_eq!(h.execute(&t).replies, message(85, 333));
+        assert!(h.services.skill_completion.faction_level_calls.is_empty());
+    }
+}
+
+#[test]
+fn exchange_level_gate_is_positive_limit_and_strictly_greater() {
+    for (maximum, level, rejected) in [
+        (5, 6, true),
+        (5, 5, false),
+        (0, 100, false),
+        (-1, 100, false),
+        (5, -1, false),
+    ] {
+        let mut h = H::new();
+        exchange_fixture(&mut h);
+        exchange_npc(&mut h).record.as_mut().unwrap().maximum_level = maximum;
+        exchange_npc(&mut h).position = [101, 0, 0];
+        h.services.skill_completion.faction_level = Some(level);
+        assert_eq!(
+            h.execute(&exchange_task(0)).replies,
+            message(85, if rejected { 333 } else { 334 })
+        );
+        assert_eq!(
+            h.services.skill_completion.faction_level_calls,
+            vec![exchange_task(0)]
+        );
+    }
+}
+
+#[test]
+fn exchange_range_uses_signed_server_xyz_with_inclusive_3d_boundary() {
+    let mut h = H::new();
+    exchange_fixture(&mut h);
+    for position in [[100, 0, 0], [-100, 0, 0], [0, 0, 100], [60, 80, 0]] {
+        exchange_npc(&mut h).position = position;
+        assert_eq!(h.execute(&exchange_task(0)).replies, message(85, 335));
+    }
+    for position in [[101, 0, 0], [60, 80, 1], [0, 0, -101]] {
+        exchange_npc(&mut h).position = position;
+        assert_eq!(h.execute(&exchange_task(0)).replies, message(85, 334));
+    }
+    exchange(&mut h).position = [i16::MIN; 3];
+    exchange_npc(&mut h).position = [i16::MAX; 3];
+    assert_eq!(h.execute(&exchange_task(20)).replies, message(85, 334));
+}
+
+#[test]
+fn exchange_amount_precedes_signed_multiplier_and_stops_before_mutation() {
+    for amount in [i32::MIN, -1, 0, 1, 20, 21, i32::MAX] {
+        for multiplier in [-128, -1, 0, 1, 127] {
+            let mut h = H::new();
+            exchange_fixture(&mut h);
+            exchange_npc(&mut h).record.as_mut().unwrap().multiplier = multiplier;
+            let before = h.state().clone();
+            let out = h.execute(&exchange_task(amount));
+            if !(1..=20).contains(&amount) {
+                assert_eq!(out.replies, message(85, 335));
+            } else if multiplier <= 0 {
+                assert_eq!(out.replies, message(85, 333));
+            } else {
+                assert!(unsupported(&out));
+                assert!(out.replies.is_empty());
+            }
+            assert_eq!(*h.state(), before);
+            assert!(out.skill_effects.is_empty() && out.broadcasts.is_empty());
+            assert!(out.daemon_requests.is_empty() && out.kicks.is_empty());
+        }
+    }
+    let mut h = H::new();
+    exchange_fixture(&mut h);
+    exchange(&mut h).score = -1;
+    assert_eq!(h.execute(&exchange_task(1)).replies, message(85, 335));
+}
+
+#[test]
+fn exchange_unknown_dependencies_do_not_invent_replies() {
+    let mut h = H::new();
+    let t = exchange_task(1);
+    assert!(unsupported(&h.execute(&t)));
+    h.state().exchange = SkillLookup::Missing;
+    assert!(unsupported(&h.execute(&t)));
+    exchange_fixture(&mut h);
+    exchange(&mut h).npc = SkillLookup::Unknown;
+    assert!(unsupported(&h.execute(&t)));
+    exchange_fixture(&mut h);
+    h.services.skill_completion.faction_level = None;
+    assert!(unsupported(&h.execute(&t)));
+    h.services = MemoryServices::default();
+    assert!(unsupported(&h.execute(&t)));
+}
+
+fn mastery_task(shorts: [i16; 2], bytes: [i8; 5]) -> SkillTask {
+    task(117, SkillTaskKind::SetMasteryStatPoint { shorts, bytes })
+}
+fn mastery_fixture(h: &mut H) {
+    h.state().mastery = SkillLookup::Found(MasteryStatState {
+        native_kind: 1,
+        life_state: 0,
+        combat_flags: 0,
+        owner: SkillLookup::Found(MasteryStatOwner {
+            object_id: PC_ID,
+            native_kind: 1,
+            table_key: -128,
+            job: 0xFE,
+            additional_points: 2,
+        }),
+    });
+    h.services.skill_completion.mastery_limits = Some(
+        [(
+            -128,
+            MasteryStatLimit {
+                total: 8,
+                attacker: 6,
+                defender: 7,
+            },
+        )]
+        .into(),
+    );
+    h.services.skill_completion.mastery_costs = Some(Default::default());
+}
+fn mastery(h: &mut H) -> &mut MasteryStatState {
+    let SkillLookup::Found(state) = &mut h.state().mastery else {
+        panic!("mastery fixture missing")
+    };
+    state
+}
+fn mastery_owner(h: &mut H) -> &mut MasteryStatOwner {
+    let SkillLookup::Found(owner) = &mut mastery(h).owner else {
+        panic!("mastery owner missing")
+    };
+    owner
+}
+fn mastery_body(shorts: [i16; 2], bytes: [i8; 5]) -> Vec<u8> {
+    shorts
+        .into_iter()
+        .flat_map(i16::to_le_bytes)
+        .chain(bytes.map(|b| b as u8))
+        .collect()
+}
+
+#[test]
+fn mastery_wrapper_zone_kind_values_and_queue_keep_native_order() {
+    let mut h = H::new();
+    let invalid = mastery_body([-1, -1], [-1; 5]);
+    h.session.pc.as_mut().unwrap().zone = None;
+    assert_eq!(h.receive(117, &[]).replies, message(119, 2));
+    h.session.pc.as_mut().unwrap().zone = Some(9);
+    h.session.pc.as_mut().unwrap().native_kind = 2;
+    let out = h.receive(117, &invalid);
+    assert_eq!(out.replies, message(119, 2));
+    assert!(!out.logs.is_empty());
+    assert_eq!(h.receive(117, &[]).replies, message(119, 2));
+    h.session.pc.as_mut().unwrap().native_kind = 1;
+    assert!(unsupported(&h.receive(117, &[])));
+    for (shorts, bytes) in [
+        ([-1, 0], [0; 5]),
+        ([0, -1], [0; 5]),
+        ([0; 2], [0, 0, -128, 0, 0]),
+    ] {
+        assert_eq!(
+            h.receive(117, &mastery_body(shorts, bytes)).replies,
+            message(119, 2)
+        );
+    }
+    assert!(h.services.skill_tasks.is_empty());
+    let body = mastery_body([2, 3], [1, 2, 3, 4, 127]);
+    h.services.skill_queue_result = Gate::Fail;
+    assert_eq!(h.receive(117, &body).replies, message(119, 2));
+    h.services.skill_queue_result = Gate::Pass;
+    assert!(h.receive(117, &body).replies.is_empty());
+    assert_eq!(
+        h.services.skill_tasks.last(),
+        Some(&mastery_task([2, 3], [1, 2, 3, 4, 127]))
+    );
+    assert!(h.services.skill_completion.mastery_limit_calls.is_empty());
+}
+
+#[test]
+fn mastery_task_kind_life_and_combat_gates_precede_owner_lookup() {
+    let t = mastery_task([0; 2], [0; 5]);
+    let mut h = H::new();
+    mastery_fixture(&mut h);
+    mastery(&mut h).owner = SkillLookup::Unknown;
+    mastery(&mut h).native_kind = 2;
+    mastery(&mut h).life_state = 1;
+    mastery(&mut h).combat_flags = 1;
+    assert_eq!(h.execute(&t), Outcome::default());
+    mastery(&mut h).native_kind = 1;
+    for life in [1, 2] {
+        mastery(&mut h).life_state = life;
+        let out = h.execute(&t);
+        assert_eq!(out.replies, message(119, 2));
+        assert!(!out.logs.is_empty());
+    }
+    for life in [0, 3, 255] {
+        mastery(&mut h).life_state = life;
+        assert_eq!(h.execute(&t).replies, message(119, 701));
+    }
+    mastery(&mut h).combat_flags = 0xFE;
+    assert!(unsupported(&h.execute(&t)));
+    assert!(h.services.skill_completion.mastery_limit_calls.is_empty());
+}
+
+#[test]
+fn mastery_owner_and_limit_unknowns_do_not_invent_replies() {
+    let t = mastery_task([0; 2], [0; 5]);
+    let mut h = H::new();
+    assert!(unsupported(&h.execute(&t)));
+    h.state().mastery = SkillLookup::Missing;
+    assert!(unsupported(&h.execute(&t)));
+    for owner in [SkillLookup::Unknown, SkillLookup::Missing] {
+        mastery_fixture(&mut h);
+        mastery(&mut h).owner = owner;
+        assert!(unsupported(&h.execute(&t)));
+    }
+    mastery_fixture(&mut h);
+    mastery_owner(&mut h).native_kind = 2;
+    assert_eq!(h.execute(&t).replies, message(119, 2));
+    mastery_owner(&mut h).native_kind = 1;
+    mastery_owner(&mut h).object_id += 1;
+    assert!(unsupported(&h.execute(&t)));
+    assert!(h.services.skill_completion.mastery_limit_calls.is_empty());
+    mastery_fixture(&mut h);
+    h.services.skill_completion.mastery_limits = None;
+    assert!(unsupported(&h.execute(&t)));
+    h.services.skill_completion.mastery_limits = Some(Default::default());
+    assert_eq!(h.execute(&t).replies, message(119, 2));
+    assert_eq!(
+        h.services.skill_completion.mastery_limit_calls,
+        vec![-128, -128]
+    );
+    h.services = MemoryServices::default();
+    assert!(unsupported(&h.execute(&t)));
+}
+
+#[test]
+fn mastery_allocation_limits_are_signed_and_precede_cost_lookup() {
+    for (shorts, additional, rejected) in [
+        ([6, 5], 2, true),  // Total 10.
+        ([7, 0], 2, true),  // Attacker limit 6.
+        ([0, 8], 2, true),  // Defender limit 7.
+        ([6, 4], 2, false), // Inclusive total and attacker limits.
+        ([3, 7], 2, false), // Inclusive defender limit.
+        ([0, 0], -9, true), // Negative total, not unsigned.
+        ([0, 0], -8, false),
+        ([6, 7], i16::MAX, false), // No short-width sum overflow.
+    ] {
+        let mut h = H::new();
+        mastery_fixture(&mut h);
+        mastery_owner(&mut h).additional_points = additional;
+        let out = h.execute(&mastery_task(shorts, [0; 5]));
+        if rejected {
+            assert_eq!(out.replies, message(119, 2));
+        } else {
+            assert!(unsupported(&out));
+            assert!(out.replies.is_empty());
+        }
+        assert_eq!(h.services.skill_completion.mastery_limit_calls, vec![-128]);
+        assert!(h.services.skill_completion.mastery_cost_calls.is_empty());
+    }
+    let mut h = H::new();
+    mastery_fixture(&mut h);
+    assert_eq!(
+        h.execute(&mastery_task([7, 0], [1; 5])).replies,
+        message(119, 2)
+    );
+    assert!(h.services.skill_completion.mastery_cost_calls.is_empty());
+}
+
+#[test]
+fn mastery_positive_pick_keys_keep_job_bits_and_native_lookup_order() {
+    let mut h = H::new();
+    mastery_fixture(&mut h);
+    let keys = [0xFE0100, 0xFE7F02, 0xFE0204];
+    h.services.skill_completion.mastery_costs = Some(keys.map(|key| (key, 1)).into());
+    // Negative picks are not reachable through receive, but the native helper skips them.
+    let t = mastery_task([2, 3], [1, 0, 127, -128, 2]);
+    let before = h.state().clone();
+    let out = h.execute(&t);
+    assert!(unsupported(&out));
+    assert!(out.replies.is_empty());
+    assert_eq!(h.services.skill_completion.mastery_cost_calls, keys);
+    assert_eq!(*h.state(), before);
+    assert!(out.skill_effects.is_empty() && out.broadcasts.is_empty());
+    assert!(out.daemon_requests.is_empty() && out.kicks.is_empty());
+}
+
+#[test]
+fn mastery_missing_pick_stops_before_later_lookups() {
+    let mut h = H::new();
+    mastery_fixture(&mut h);
+    h.services.skill_completion.mastery_costs = Some([(0xFE0100, 1)].into());
+    let out = h.execute(&mastery_task([0; 2], [1; 5]));
+    assert_eq!(out.replies, message(119, 2));
+    assert_eq!(
+        h.services.skill_completion.mastery_cost_calls,
+        vec![0xFE0100, 0xFE0101]
+    );
+    h.services.skill_completion.mastery_costs = None;
+    let out = h.execute(&mastery_task([0; 2], [1; 5]));
+    assert!(unsupported(&out));
+    assert!(out.replies.is_empty());
+    assert_eq!(
+        h.services.skill_completion.mastery_cost_calls.last(),
+        Some(&0xFE0100)
+    );
+}
+
+#[test]
+fn mastery_signed_cost_budget_keeps_equality_and_negative_costs() {
+    for (costs, rejected) in [
+        ([2, 4], true),
+        ([2, 3], false),
+        ([-1, 6], false),
+        ([i16::MAX, i16::MAX], true),
+        ([i16::MIN, i16::MIN], false),
+    ] {
+        let mut h = H::new();
+        mastery_fixture(&mut h);
+        h.services.skill_completion.mastery_costs =
+            Some([(0xFE0100, costs[0]), (0xFE0101, costs[1])].into());
+        let before = h.state().clone();
+        let out = h.execute(&mastery_task([2, 3], [1, 1, 0, 0, 0]));
+        if rejected {
+            assert_eq!(out.replies, message(119, 2));
+        } else {
+            assert!(unsupported(&out));
+            assert!(out.replies.is_empty());
+        }
+        assert_eq!(*h.state(), before);
+        assert_eq!(
+            h.services.skill_completion.mastery_cost_calls,
+            vec![0xFE0100, 0xFE0101]
+        );
+        assert!(out.skill_effects.is_empty() && out.daemon_requests.is_empty());
+    }
+}

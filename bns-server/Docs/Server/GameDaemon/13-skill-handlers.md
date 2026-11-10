@@ -460,22 +460,45 @@ MemoryServices supplies explicit gauge read values and a mock property result; a
 - **State:** No direct vitality/resource/cooldown mutation in wrapper.
 - **❓ Missing:** Task recharge eligibility, cap/cost/time rules, success reply, vitality mutation and persistence.
 
-## 113 — G_SkillList2ReqCmd — partial
+## 113 — G_SkillList2ReqCmd — done
 
 - **381:** `0x140386160`. **348:** `HandleGame_SkillList2Req`.
 - **Wire:** No body decoder.
 - **Checks/order:** Require zone. Create task vtable `0x140BC1C58`, kind 82. Common setup; queue. No explicit native-kind gate here.
 - **Failure/output:** Missing zone or queue failure sends 115, `hh`, reason 2. Instruction reads confirm the omitted register. No immediate success or direct backend/kick call.
-- **State:** No direct skill list change.
-- **❓ Missing:** Fetch task, complete list layout, recipients, table/storage dependency and deferred failures.
+- **Task `0x1405A1B30`:** Resolve attached PC through task +32 → +16. Pass PC +19744 to `0x14059B550`. A missing parent supplies address 19744, which the serializer dereferences. It is not a safe empty-list or new failure-reply path. Rust stops unsupported for a missing attached PC.
+- **Serializer `0x14059B550`:** Read the owner pointer from the supplied skill manager, then use that owner's manager at +19744. Build command **114** with literal **`hCccCicc;;`** at `0x140D845B8`. This is not command 113 or 115. Read the string bytes with `idc.get_strlit_contents`. Open one outer counted group, then scan indices 0..4 in order.
+
+| Manager offset | Group 0 | Group 1 | Group 2 | Group 3 | Group 4 |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| Flag byte | +237 | +304 | +372 | +440 | +508 |
+| Map head pointer | +8 | +24 | +40 | +56 | +72 |
+| Map size qword | +16 | +32 | +48 | +64 | +80 |
+| Value byte | +587 | +588 | +589 | +590 | +591 |
+| Emitted group byte | 1 | 2 | 3 | 4 | 5 |
+
+- **Group selection:** Include a group only if its flag mask 1 is set and its native map size is nonzero. Do not substitute the filtered entry count for map size. Emit group index+1:c and raw value:c, then one nested count:h. A selected group can have zero emitted entries.
+- **Entries `0x14059A540`:** Traverse the group's native ordered tree in-order. Skip null values and values with byte +74 ==0. For every other value, append DWORD +56:i and bytes +48:c/+49:c. Increment the nested ushort count after each append. There is no additional skill/table/acquisition check, deduplication, sorting or lower-bound validation. ❓ Typed names for the two entry bytes and group value bytes remain unproved; preserve raw values.
+- **Exact body:** Outer count:h, then each selected group `(group:c,value:c,entry_count:h,entries:[id:i,byte48:c,byte49:c])`. Send once through the skill manager owner's virtual +584. Close both descriptor groups and release the packet. No task failure packet, immediate broadcast, list mutation, table lookup, DB/daemon request or kick appears. The task does not load skills from storage.
+- **Composition boundary:** The ordinary packet starts with size short 2. The encoder has a 4000-byte total buffer, including size and command. `0x14069D470` reserves two bytes per count and checks capacity. `0x14069E340` calls `0x1406AA0C0`; its `c` case writes one byte and `i` writes four bytes. Overflow logs/asserts and enters `0x14069B3B0`, not a defined command-115 rejection. Rust stops unsupported before total size exceeds 4000. It does not send a truncated list or invent a failure reason.
+- **Rust contract:** Run only a retained command-113 task through `execute_skill_task`. Services supplies the live manager-owner route and all five pages in native tree order. The owner must match the reply context. Unknown/missing owner state stops unsupported. Queueing does not read or send the list. Synthetic tests cover the exact bytes, filters, empty lists and capacity boundary.
+- **Completion:** All game-logic paths are read. The shared packet transport and native composition-assert paths remain explicit adapter boundaries. Sources: build 381.8867, `ida/delegate/gamed/GameDaemon.exe.i64`, `0x140386160`, task vtable `0x140BC1C58` +72 → `0x1405A1B30`, `0x14059B550`, `0x14059A540`, `0x14069D470`, `0x14000C7B0`, `0x14069E340`, `0x1406AA0C0`. Instructions at `0x140386278..0x14038628F` confirm queue failure 115/2.
 
 ## 117 — G_SetMasteryStatPointReqCmd — partial
 
 - **381:** `0x140387500`. **348:** `HandleGame_SetMasteryStatPointReq`.
-- **Wire:** `hhhccccc`: two shorts and five bytes. ❓ Named allocation fields are not recovered. Decode return is ignored.
+- **Wire:** `hhhccccc`: attacker allocation:h, defender allocation:h, five raw pick-value bytes:c. Decode return is ignored. Wide logs `0x140D85AD0`, `0x140D85990` and `0x140D85CF0` name the attacker/defender points. ❓ Typed names for the five pick bytes remain open.
 - **Checks/order:** Require zone. Create task vtable `0x140C7E0C0`, kind 269. Require PC kind 1. Require each signed short >=0. Attach task. Require each of the five signed bytes >=0, in order. Store shorts +144/+146 and bytes +148..+152; queue.
 - **Failure/output:** Zone/kind/value/queue failures send 119, `hh`, reason 2. Instructions confirm the shared failure register. No wrapper total-point, money or table gate. No immediate success or direct backend/kick call.
-- **❓ Missing:** Task, available-point totals, cap/property calculations, state mutation and success/persistence.
+- **Task `0x1405A2670`:** Resolve attached PC through task +32 → +16. Native dereferences a missing PC. A non-PC kind returns without a reply. Life-state byte +578 in {1,2} logs and sends 119/2. Otherwise flags byte +888 mask 1 logs and sends 119/701. Both use literal `hh`; the extra native argument -1 is not part of that descriptor. Other life-state bytes do not reject here.
+- **Allocation helper `0x1405A02D0`, ordered checks:** Read owner from the skill manager at attached PC +19744. Require owner kind 1, else false. Resolve manager-slot-1803 record by signed owner byte +284; missing record returns false. Let `total=record.i16[44]+manager.i16[580]`, `A=attacker`, `D=defender`, all signed. Require `A+D<=total`, then `A<=record.i16[50]`, then `D<=record.i16[52]`. For indices 0..4, only positive signed pick bytes cause a slot-1827 lookup. The 32-bit key is `index | (u8(pick)<<8) | (u8(owner.byte[100])<<16)`. Missing record returns false immediately. Sum each selected record's signed short +16. Require `total-D-A>=sum`; equality passes. Negative table costs are not rejected or clamped. All these failures precede mutation and cause task reply 119/2, `hh`.
+- **Accepted allocation helper:** Set manager property 13 to A and property 14 to D through `0x140696F20`, then properties 16..20 to the five signed pick bytes, in order. The property object is manager +184. Ignore all setter returns. Call `0x140319CD0(daemon+3112,owner,manager+184)`, then return true. There is no rollback on a setter or persistence-send failure.
+- **Persistence helper `0x140319CD0`, read at call level:** Zero owner DB ID +20744 logs and returns. Otherwise compose native descriptor `hQCqqchb;` at `0x140B69EA8` and copy the dirty property buffer. Empty or failed property serialization logs without a send. A nonempty buffer closes its counted group and calls `0x14032AB10`. ❓ Exact command, routing, acknowledgement and dirty-buffer failure semantics remain unread. Do not treat this as a direct SQL procedure or invent a successful save.
+- **Refresh `0x1405E8700`:** Runs only after allocation helper success. Daemon short +2752 must equal 1; otherwise false. If owner effect controller +2336 exists, call `0x1405B5F00(controller,16,7,3)` first. Then daemon byte +4152 ==1 or `0x1405E7DB0(PC)` in {3,4} bypasses `0x1405A0670(PC+19744)`. Otherwise that helper must return true. False logs and sends 119/2 after any completed allocation/persistence work. No rollback appears.
+- **Effect helper `0x1405A0670`, read at call level:** Require daemon mode 1, owner PC and a slot-1803 record. Read stored allocations and five stored picks. Resolve positive-pick costs through slot 1827. All zero values return true without adding an effect. Negative remaining total sends command 120 with literal `h`, then returns false; the task then sends 119/2. Other paths merge slot-1815 and slot-939 effect data into effect 658, invoke the effect factory, then apply the allocation and pick effects through `0x1405AF590` and `0x1405BB110`. Errors can occur after effects changed. ❓ Upper key bytes and some optimized merge operations need instruction proof; do not use the earlier validation key as proof of the refresh key.
+- **Task success:** Only when both helpers return true, send 118, literal `hhhccccc`, with the two queued shorts and five queued bytes unchanged. Success body has nine bytes. It does not report recomputed allocation values. Instructions at `0x1405A2792..0x1405A2827` prove generic failure 119/2 and success framing.
+- **Rust boundary:** Run only a retained task. Services supplies live PC/manager-owner state and table results. Query each positive pick in native index order. Unknown state stops unsupported. The port covers the kind/life/combat and complete allocation-validation prefix. It stops before property 13, persistence or refresh, so it never sends 118 for incomplete work. The receive wrapper checks zone and PC kind before value rejection; a wrong kind keeps its diagnostic log.
+- **❓ Missing:** Property-13/14/16..20 schema/setter callbacks and partial-write behavior; full dirty-property transport `0x140319CD0`/`0x14032AB10`; effect removal `0x1405B5F00`; refresh key packing/merge arithmetic and effect-factory continuations/broadcasts; permission helper `0x1405E7DB0`; exact symbolic table and pick-field names. Keep this section partial. Sources: build 381.8867, `ida/delegate/gamed/GameDaemon.exe.i64`, task vtable `0x140C7E0C0` +72 → `0x1405A2670`, `0x1405A02D0`, `0x1405E8700`, `0x140319CD0`, `0x1405A0670`. Descriptor strings used `idc.get_strlit_contents`; wide logs used `ida_nalt.STRTYPE_C_16`.
 
 ## 1485 — G_SkillPageTotalReqCmd — partial
 
@@ -547,8 +570,23 @@ These wrappers do not themselves prove faction ownership or NPC service validity
 - **Wire:** `hqi`: NPC object ID:q, requested amount:i. Decode return is ignored.
 - **Checks/order:** Common faction T1. Require attached user PC +20696, PC byte +20752 ==0, user DWORD +120 ==0 (336). Decode. Require zone (1, then assert/log). Create task vtable `0x140BC2808`, kind 60. Require PC kind 1 (1, assert/log). Common setup; store NPC ID +144 and amount +152; queue (1).
 - **Failure/output:** 85, `hh`, requester only. T1 uses 5. No immediate success or direct backend/kick call.
-- **Deferred subset:** Doc 07 part 3 records `0x140517ED0`: compare signed server PC/NPC XYZ; squared 3D distance <=10000, else 85/334. Equality passes. This is not a wrapper check.
-- **❓ Missing:** Task and remaining exchange-helper checks, faction/amount/cap rules, table fields, mutation, success and persistence.
+- **Task `0x140517ED0`, ordered gates:** Resolve the attached PC from task +32 → +16. Resolve NPC ID +144 in the captured zone's creature manager +16232 through `0x140259CA0`. Missing NPC or native kind !=4 sends 85/333. Require NPC record +3456 and its byte +228 !=0; else 333. Compute current faction level through `0x140260E70(PC.i32[348])`. If record signed short +230 >0 and less than that level, send 333. Compare signed server PC/NPC XYZ +268/+270/+272 with signed 64-bit squared 3D distance; >10000 sends 334. Equality passes. Require signed request amount >0 and <=PC signed DWORD +552; else 335. Require record signed byte +232 >0; else 333. All task failures use 85, `hh`, through the attached PC. No mutation occurs before these gates.
+- **NPC lookup `0x140259CA0`:** For ID high word 4, use unsigned low DWORD as an array index. Require index !=0 and <=manager unsigned short +58. Read the slot from manager +32, then its contained object pointer. The lookup does not compare the full ID again. Other supported kinds can resolve but fail the task's native-kind-4 gate. This is not an NPC ownership or faction-equality gate.
+- **Faction level `0x140260E70`:** Iterate manager-slot-1071 records in native iterator order. Start level at 1. Each nonnull record replaces level with signed byte +8. If signed reputation <record signed DWORD +16, return level-1. Otherwise continue. End returns the last level. Missing manager/iterator yields 1. ❓ Exact symbolic table/field names and iterator order remain open. Rust obtains this live helper result through `Services::skill_faction_level`; its default is Unknown.
+- **Accepted arithmetic:** Let `A` be positive amount, `M` the positive signed record byte +232, and `L=(A-1)/10+1` with signed integer division. Compare signed rule-config DWORD +288 with full-width L. Select its low word when config <L; otherwise select L's low word. Sign-extend the selected word. Multiply M, that signed word and A with 32-bit wrapping multiplication to obtain reputation delta. The instructions at `0x140518106..0x140518147` prove narrowing before multiplication. Do not use a saturating multiply or a full-width minimum.
+- **Accepted sequence:** Save reputation and computed level. Zero the 24-byte delta header. Call `0x14026C350(PC,delta,buffer,0)`, then `0x14026C800(PC,-A,buffer)`. If live PC DWORD +552 is zero, call `0x14026C800` again with zero. Ignore these helper returns. Flush through `0x140260850`, then send 84 with literal `h`, empty body. Recompute reputation/level for diagnostics. No rollback branch appears in this task.
+- **Mutation callees, read at call level:** `0x14026C350` requires PC byte +328 !=0 and nonnegative signed delta. It adds with 32-bit arithmetic, applies rule-config signed DWORD +56 and slot-1071 threshold +16, then sets property 115 through `0x140696F20`; a changed value appends property 115 through `0x140273E10`. `0x14026C800` also requires byte +328 !=0. This request supplies nonpositive changes, so its positive-score user scaling branch does not run. It clamps the sum against zero and `0x14026EAA0`, sets changed property 154, appends its delta and scans effect group 13. Effects outside their record DWORD +184/+188 score interval call `0x1405B53F0`. A failed property operation can leave earlier work complete. The task still proceeds to 84.
+- **Cap `0x14026EAA0`:** Resolve current level through slot 1071. Missing record or nonpositive signed DWORD +20 returns zero. Otherwise add `(record.i32[20]*PC.i16[1864])/100` to that base, then return zero for a negative result. ❓ Exact overflow and signed division instructions in this helper remain unproved.
+- **Reports:** After 84, PC kind 1 can call report `0x14020AC20` operation 10 when config +537 is set, optional game-log event 78 when daemon +2728 → +32 exists, and `0x1406A6E10` event 1019 when config +436 and its sink exist. Keep these optional sinks unsupported. No direct gameplay DB request or connection kick appears in the task.
+- **Rust boundary:** Run only a retained task through `execute_skill_task`. Live attached-PC state, NPC lookup and faction level come from Services. Unknown state stops unsupported. The port implements all verified rejection gates in native order. It stops before the first accepted mutation; it does not send 84 for an incomplete exchange.
+- **❓ Missing:** Slot-1071 iterator/table contract; property-115/154 setter callbacks and partial-write semantics; delta append and flush framing/recipients; effect-group removal `0x1405B53F0` and its broadcasts/persistence; exact cap arithmetic. Keep this section partial. Sources: build 381.8867, `ida/delegate/gamed/GameDaemon.exe.i64`, `0x1403769D0`, `0x14028DFC0`, `0x140517ED0`, `0x140259CA0`, `0x140260E70`, `0x14026C350`, `0x14026C800`, `0x14026EAA0`. Descriptor bytes were read with `idc.get_strlit_contents`; wide logs used `ida_nalt.STRTYPE_C_16`.
+
+## 85 — G_ExchangeFactionScoreFailCmd — done
+
+- **Completion:** This is an s2c packet, not a receive handler. Build-381 dispatch slot `0x1407D9F80+85*8` is zero. Source: build 381.8867, `ida/delegate/gamed/GameDaemon.exe.i64`, slot `0x1407DA228`, wrapper `0x1403769D0`, task `0x140517ED0`, and `parity-ledger.tsv` row 85. No receive port or task belongs to ID 85.
+- **Wire:** Command 85 and literal `hh`. Body: one little-endian reason short. The descriptor bytes at `0x1408B8848` are `hh`.
+- **Send paths:** Command 83 sends 5 for T1, 336 for its user gate and 1 for zone/kind/queue failure. Its task sends 333 for invalid NPC/record/level/multiplier, 334 for range and 335 for amount. See command 83 for native order. Rust emits these exact reason bodies. Accepted exchange uses command 84, not 85.
+- **State:** Encoding this failure does not mutate gameplay state, send a backend request or kick a connection. The parent command 83 remains partial at accepted mutations. ID 85's done state applies only to this failure-packet contract.
 
 ## 125 — G_JoinFactionReqCmd — partial
 
@@ -816,17 +854,21 @@ Source: `Program/Server/GameDaemon/src/handlers/skills.rs`, tests `tests/gs1_ski
 | 134, 135, 137, 139, 142 | Zone, caster kind, queue | Actions |
 | 821 | Log only | — |
 | 824 | Feature byte; disabled → 826 reason 1 with UTC | Recharge action |
-| 113, 117, 1485, 1488, 1491, 1494 | Decode, range checks, PC kind, queue | Page actions |
+| 113 | Done: wrapper 115/2, retained task, exact 114 nested list, five group filters and native entry order | Live manager state; 4000-byte native composition assertion |
+| 117 | Partial: wrapper order, retained task, kind/life/combat, signed allocation limits and ordered pick costs; exact 119/2 and 119/701 | Property writes, dirty-property persistence and effect refresh |
+| 1485, 1488, 1491, 1494 | Decode, range checks, PC kind, queue | Page actions |
 | 1497 | Rate gate, all reasons in spec order, trait table through `Services::trait_max_level` | Train action |
 | 1389 | 470, T2 → 7, zone → 1, wrong kind logs only | Unlock action |
 
 ## Rust port status (part 2)
 
-Source: `Program/Server/GameDaemon/src/handlers/skills2.rs`, tests `tests/gs2_combat.rs`.
+Source: `Program/Server/GameDaemon/src/handlers/skills2.rs`, tests `tests/gs2_combat.rs` and `tests/gs3_skill_complete.rs`.
 
 | Command | Rust state | Boundary |
 | --- | --- | --- |
-| 83, 125, 127, 129 | T1 → 5, config +2105 (not 83), U0 → 336 (83), zone/kind with log, queue | Faction tasks |
+| 83 | Partial: wrapper gates, retained task, NPC/record/level, signed range, amount and multiplier; exact 85/333/334/335 | Accepted property, effect and delta mutations |
+| 85 | Done: s2c `hh` failure contract; no receive handler | Parent command 83 remains partial |
+| 125, 127, 129 | T1 → 5, config +2105, zone with log, queue | Faction tasks |
 | 131 | Full: raw qwords, call counter with overflow log | — |
 | 1253, 1264 | U0 → 676 (1264), records 0..16 with duplicate check, target kind 32/4, queue | Manipulate actions |
 | 1255, 1258 | Zone, PC kind, target kind 32, queue | Refiner action/task |
@@ -856,18 +898,38 @@ Dispatch adds `QueuedRequest` audit entries after `Queued`.
 The tests now include those entries.
 No live server test ran.
 
+## Batch validation — 83, 85, 113, 117
+
+Checks ran on 2026-11-08 with the workspace manifest.
+The preceding 71/74/77 results belong to the previous batch.
+
+| Check | Result |
+| --- | --- |
+| `cargo fmt -p gamedaemon` | Passed |
+| `cargo test --workspace` | 1178 passed, 0 failed, 6 ignored |
+| `gs3_skill_complete` suite | 38 passed; 18 tests added in this batch; included in the workspace count |
+| `cargo clippy --workspace --all-targets -- -D warnings` | Passed |
+
+Synthetic tests check receive/task separation, gate order, exact reply bytes, signed arithmetic, unknown dependencies and mutation boundaries.
+Command 113 tests also check all five groups, native entry order, empty groups and the exact 4000-byte packet limit.
+No live server test ran.
+
 ## Coverage and remaining work
 
-All 51 requested receive wrappers were read.
-Commands 77, 131, 821 and 1231 are done.
-The other 47 sections identify unread game paths with ❓.
-This batch covers 71, 74 and 77 only.
-ID 85 in the requested list is an s2c failure command, `G_ExchangeFactionScoreFailCmd`, not a receive handler.
+All 51 receive wrappers in this document were read.
+Commands 77, 113, 131, 821 and 1231 are done.
+The other 46 receive sections identify unread game paths with ❓.
+ID 85 is an additional s2c failure command, `G_ExchangeFactionScoreFailCmd`, not a receive handler.
+Its packet contract is done.
+Parent command 83 remains partial.
 The ledger has no build-381 receive address for 85; its send source is `0x140517ED0`.
 No handler is not-started.
 A missing DB procedure or broadcast name in a partial section means unresolved, not absent.
 No anti-cheat or licence implementation was followed.
-The 71/74/77 batch changes this document, `skills.rs`, the minimum service/output lines in `handlers/mod.rs`, and `tests/gs3_skill_complete.rs`.
+The current batch covers 83, 85, 113 and 117.
+It stops before the accepted mutations in 83 and 117.
+The next requested ID is 125.
+This batch changes this document, `skills.rs`, `skills2.rs`, the minimum service lines in `handlers/mod.rs`, and `tests/gs3_skill_complete.rs`.
 It does not change the ledger, build files or binaries.
 Synthetic Rust tests cover this batch; no live server test ran.
 The remaining partial sections do not establish complete Rust parity.
@@ -880,7 +942,8 @@ The remaining partial sections do not establish complete Rust parity.
 | 74 | partial |
 | 77 | done |
 | 83 | partial |
-| 113 | partial |
+| 85 | done |
+| 113 | done |
 | 117 | partial |
 | 125 | partial |
 | 127 | partial |
