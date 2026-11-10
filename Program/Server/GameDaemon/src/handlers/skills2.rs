@@ -3,8 +3,8 @@
 //! combat entry functions. Build 381.8867.
 //!
 //! Entry functions decode, gate and queue a `SkillTask` with a `CombatTask`
-//! kind through `Services::queue_skill`. Task bodies (including the 636/788/
-//! 1029/1032/1053/1065/1208/1209 task routines that the spec reads) are
+//! kind through `Services::queue_skill`. Command 83 has an explicit task
+//! rejection prefix. Its accepted mutations and the other task bodies remain
 //! adapter boundaries.
 use super::items2::u0_passes;
 use super::skills::{pc_task, queue, UNCHECKED_DECODE};
@@ -90,6 +90,31 @@ pub enum CombatTask {
     /// 1209, kind 366, scheduled by `0x140603BD0`.
     AutoCombatStop { option: u8, reason: u8 },
 }
+/// Live attached-PC state for command 83. The NPC lookup uses the task's zone.
+#[derive(Clone, Debug, PartialEq, Eq)]
+pub struct ExchangeFactionState {
+    pub position: [i16; 3],
+    /// Signed PC DWORD +552, not an amount supplied by the client.
+    pub score: i32,
+    pub npc: SkillLookup<ExchangeFactionNpc>,
+}
+
+#[derive(Clone, Debug, PartialEq, Eq)]
+pub struct ExchangeFactionNpc {
+    pub native_kind: u16,
+    pub position: [i16; 3],
+    pub record: Option<ExchangeFactionRecord>,
+}
+
+#[derive(Clone, Debug, PartialEq, Eq)]
+pub struct ExchangeFactionRecord {
+    /// NPC record byte +228.
+    pub enabled: bool,
+    /// NPC record signed short +230 and signed byte +232.
+    pub maximum_level: i16,
+    pub multiplier: i8,
+}
+
 impl From<CombatTask> for SkillTaskKind {
     fn from(task: CombatTask) -> Self {
         SkillTaskKind::Combat(task)
@@ -211,6 +236,76 @@ pub fn handle_exchange_faction_score(ctx: &mut Context<'_>, req: &[u8]) -> Outco
         amount: amount as i32,
     };
     zone_kind_queue(ctx, 83, F, 1, true, kind)
+}
+
+/// parity: 85 13-skill-handlers.md#85--g_exchangefactionscorefailcmd--done done
+fn exchange_failure(reason: u16) -> Outcome {
+    Outcome::reason(85, reason)
+}
+
+/// parity: 83 13-skill-handlers.md#83--g_exchangefactionscorereqcmd--partial partial
+pub(super) fn execute_exchange_faction_score(
+    ctx: &mut Context<'_>,
+    task: &SkillTask,
+    amount: i32,
+) -> Outcome {
+    let Some(state) = ctx.services.skill_completion_state() else {
+        return Outcome::unsupported("❓ exchange live attached-PC state");
+    };
+    let exchange = match &state.exchange {
+        SkillLookup::Found(exchange) => exchange,
+        SkillLookup::Unknown | SkillLookup::Missing => {
+            return Outcome::unsupported(
+                "❓ exchange attached-PC pointer is dereferenced natively",
+            );
+        }
+    };
+    let npc = match &exchange.npc {
+        SkillLookup::Unknown => return Outcome::unsupported("❓ exchange live zone NPC lookup"),
+        SkillLookup::Missing => return exchange_failure(333),
+        SkillLookup::Found(npc) => npc,
+    };
+    if npc.native_kind != 4 {
+        return exchange_failure(333);
+    }
+    let Some(record) = &npc.record else {
+        return exchange_failure(333);
+    };
+    if !record.enabled {
+        return exchange_failure(333);
+    }
+    // Copy the remaining live fields before the separate opaque level query.
+    let (position, score, npc_position, maximum_level, multiplier) = (
+        exchange.position,
+        exchange.score,
+        npc.position,
+        record.maximum_level,
+        record.multiplier,
+    );
+    let Some(level) = ctx.services.skill_faction_level(task) else {
+        return Outcome::unsupported("❓ exchange faction-level iterator 0x140260E70");
+    };
+    if maximum_level > 0 && i32::from(maximum_level) < level {
+        return exchange_failure(333);
+    }
+    let distance_squared: i64 = position
+        .into_iter()
+        .zip(npc_position)
+        .map(|(pc, npc)| {
+            let delta = i64::from(pc) - i64::from(npc);
+            delta * delta
+        })
+        .sum();
+    if distance_squared > 10_000 {
+        return exchange_failure(334);
+    }
+    if amount <= 0 || amount > score {
+        return exchange_failure(335);
+    }
+    if multiplier <= 0 {
+        return exchange_failure(333);
+    }
+    Outcome::unsupported("❓ exchange property setters, effect removal and delta flush")
 }
 
 /// parity: 125 13-skill-handlers.md#125--g_joinfactionreqcmd--partial partial

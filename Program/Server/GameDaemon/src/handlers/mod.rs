@@ -679,6 +679,18 @@ pub trait Services {
     fn set_skill_gauge_full(&mut self, _task: &SkillTask) -> Gate {
         Gate::Unknown
     }
+    /// Live command-83 faction level from 0x140260E70. None means unknown.
+    fn skill_faction_level(&mut self, _task: &SkillTask) -> Option<i32> {
+        None
+    }
+    /// Command 117, manager slot 1803 by signed PC byte +284.
+    fn skill_mastery_limit(&mut self, _key: i8) -> SkillLookup<MasteryStatLimit> {
+        SkillLookup::Unknown
+    }
+    /// Command 117, manager slot 1827 signed short +16 by packed pick key.
+    fn skill_mastery_cost(&mut self, _key: u32) -> SkillLookup<i16> {
+        SkillLookup::Unknown
+    }
     /// Doc 13 manager slot 2379: Some(None) = no record, Some(Some(max level)).
     fn trait_max_level(&mut self, _id: u32) -> Option<Option<i8>> {
         None
@@ -1086,6 +1098,30 @@ impl Services for MemoryServices {
             .gauge_property_calls
             .push(task.clone());
         self.skill_completion.gauge_property_result
+    }
+    fn skill_faction_level(&mut self, task: &SkillTask) -> Option<i32> {
+        self.skill_completion.faction_level_calls.push(task.clone());
+        self.skill_completion.faction_level
+    }
+    fn skill_mastery_limit(&mut self, key: i8) -> SkillLookup<MasteryStatLimit> {
+        self.skill_completion.mastery_limit_calls.push(key);
+        match &self.skill_completion.mastery_limits {
+            None => SkillLookup::Unknown,
+            Some(table) => table
+                .get(&key)
+                .cloned()
+                .map_or(SkillLookup::Missing, SkillLookup::Found),
+        }
+    }
+    fn skill_mastery_cost(&mut self, key: u32) -> SkillLookup<i16> {
+        self.skill_completion.mastery_cost_calls.push(key);
+        match &self.skill_completion.mastery_costs {
+            None => SkillLookup::Unknown,
+            Some(table) => table
+                .get(&key)
+                .copied()
+                .map_or(SkillLookup::Missing, SkillLookup::Found),
+        }
     }
     fn trait_max_level(&mut self, id: u32) -> Option<Option<i8>> {
         Some(self.trait_levels.as_ref()?.get(&id).copied())

@@ -3,9 +3,9 @@
 //! functions. Build 381.8867.
 //!
 //! Entry functions decode, gate and queue a `SkillTask` through
-//! `Services::queue_skill`. Action creation, initialization and the task
-//! actions are adapter boundaries. Coordinates (`u`) decode as shorts, as in
-//! doc 11 and the doc 13 notation.
+//! `Services::queue_skill`. Retained tasks run through `execute_skill_task`.
+//! Unread actions and accepted mutations stop at explicit adapter boundaries.
+//! Coordinates (`u`) decode as shorts, as in doc 11 and the doc 13 notation.
 use super::items::reason_u64;
 use super::items2::{pairs, u0_passes};
 use super::*;
@@ -251,6 +251,61 @@ pub enum SkillEffect {
     GatherOperationReplaced,
 }
 
+#[derive(Clone, Debug, PartialEq, Eq)]
+pub struct MasteryStatState {
+    pub native_kind: u16,
+    pub life_state: u8,
+    pub combat_flags: u8,
+    pub owner: SkillLookup<MasteryStatOwner>,
+}
+
+#[derive(Clone, Debug, PartialEq, Eq)]
+pub struct MasteryStatOwner {
+    pub object_id: u64,
+    pub native_kind: u16,
+    /// Signed PC byte +284; unsigned job byte +100 in the pick-table key.
+    pub table_key: i8,
+    pub job: u8,
+    pub additional_points: i16,
+}
+
+#[derive(Clone, Debug, PartialEq, Eq)]
+pub struct MasteryStatLimit {
+    /// Slot-1803 signed shorts +44/+50/+52.
+    pub total: i16,
+    pub attacker: i16,
+    pub defender: i16,
+}
+
+#[derive(Clone, Debug, Default, PartialEq, Eq)]
+pub struct SkillListState {
+    /// Owner read from the attached PC's skill manager, not a wire field.
+    pub reply_owner: Option<u64>,
+    pub pages: [SkillListPage; 5],
+}
+
+/// Native ordered-map traversal for one of the five command-113 groups.
+#[derive(Clone, Debug, Default, PartialEq, Eq)]
+pub struct SkillListPage {
+    /// Bytes +237/+304/+372/+440/+508. Only bit 0 selects a group.
+    pub flags: u8,
+    /// The native map size is a separate gate, not a filtered entry count.
+    pub map_size: u64,
+    /// Signed bytes +587..+591, encoded as their low byte.
+    pub value: i8,
+    /// Native in-order traversal. None represents a null map value.
+    pub entries: Vec<Option<SkillListEntry>>,
+}
+
+#[derive(Clone, Debug, PartialEq, Eq)]
+pub struct SkillListEntry {
+    /// Object byte +74 !=0 selects an entry.
+    pub enabled: u8,
+    pub id: u32,
+    /// Raw object bytes +48/+49. Do not infer their typed meaning.
+    pub bytes: [u8; 2],
+}
+
 /// An adapter supplies live state when the task runs, not when it is queued.
 #[derive(Clone, Debug, Default, PartialEq, Eq)]
 pub struct SkillCompletionState {
@@ -259,6 +314,9 @@ pub struct SkillCompletionState {
     pub recall_geometry: SkillLookup<RecallGeometry>,
     pub gauge: SkillLookup<SpecialGaugeState>,
     pub gather: SkillLookup<GatherCancelState>,
+    pub exchange: SkillLookup<ExchangeFactionState>,
+    pub skill_list: SkillLookup<SkillListState>,
+    pub mastery: SkillLookup<MasteryStatState>,
 }
 
 /// Mock results for opaque scheduler, gauge reads and property operations.
@@ -272,6 +330,13 @@ pub struct MemorySkillCompletion {
     pub gauge_reads: Vec<SkillTask>,
     pub gauge_property_result: Gate,
     pub gauge_property_calls: Vec<SkillTask>,
+    pub faction_level: Option<i32>,
+    pub faction_level_calls: Vec<SkillTask>,
+    /// None = unknown table; a known map without a key = missing record.
+    pub mastery_limits: Option<std::collections::BTreeMap<i8, MasteryStatLimit>>,
+    pub mastery_costs: Option<std::collections::BTreeMap<u32, i16>>,
+    pub mastery_limit_calls: Vec<i8>,
+    pub mastery_cost_calls: Vec<u32>,
 }
 impl Default for MemorySkillCompletion {
     fn default() -> Self {
@@ -283,6 +348,12 @@ impl Default for MemorySkillCompletion {
             gauge_reads: vec![],
             gauge_property_result: Gate::Unknown,
             gauge_property_calls: vec![],
+            faction_level: None,
+            faction_level_calls: vec![],
+            mastery_limits: None,
+            mastery_costs: None,
+            mastery_limit_calls: vec![],
+            mastery_cost_calls: vec![],
         }
     }
 }
@@ -730,6 +801,13 @@ pub fn execute_skill_task(ctx: &mut Context<'_>, task: &SkillTask) -> Outcome {
         }
         (SkillTaskKind::SpecialSkillGaugeFull, 74, false) => execute_special_gauge(ctx, task),
         (SkillTaskKind::GatherCancel, 77, false) => execute_gather_cancel(ctx, task),
+        (SkillTaskKind::SkillList, 113, false) => execute_skill_list(ctx, task),
+        (SkillTaskKind::SetMasteryStatPoint { shorts, bytes }, 117, false) => {
+            execute_mastery_stat_point(ctx, task, *shorts, *bytes)
+        }
+        (SkillTaskKind::Combat(CombatTask::ExchangeFactionScore { amount, .. }), 83, false) => {
+            super::skills2::execute_exchange_faction_score(ctx, task, *amount)
+        }
         _ => Outcome::unsupported("❓ skill task/action continuation"),
     }
 }
@@ -914,6 +992,128 @@ fn execute_gather_cancel(ctx: &mut Context<'_>, task: &SkillTask) -> Outcome {
     out
 }
 
+/// parity: 113 13-skill-handlers.md#113--g_skilllist2reqcmd--done done
+fn execute_skill_list(ctx: &mut Context<'_>, task: &SkillTask) -> Outcome {
+    let Some(state) = ctx.services.skill_completion_state() else {
+        return Outcome::unsupported("❓ skill-list live manager state");
+    };
+    let list = match &state.skill_list {
+        SkillLookup::Found(list) => list,
+        SkillLookup::Missing | SkillLookup::Unknown => {
+            return Outcome::unsupported("❓ skill-list attached PC/manager pointer");
+        }
+    };
+    if list.reply_owner != Some(task.caster) {
+        return Outcome::unsupported("❓ skill-list manager-owner reply route");
+    }
+    // Native capacity includes the outer size and command (four bytes).
+    const BODY_CAPACITY: usize = 3996;
+    const OVERFLOW: &str = "❓ skill-list native 4000-byte composition assertion";
+    let mut body = vec![0, 0];
+    let mut group_count = 0u16;
+    for (index, page) in list.pages.iter().enumerate() {
+        if page.flags & 1 == 0 || page.map_size == 0 {
+            continue;
+        }
+        if body.len() + 4 > BODY_CAPACITY {
+            return Outcome::unsupported(OVERFLOW);
+        }
+        body.extend([index as u8 + 1, page.value as u8]);
+        let count_offset = body.len();
+        body.extend([0, 0]);
+        let mut count = 0u16;
+        for entry in page.entries.iter().flatten().filter(|e| e.enabled != 0) {
+            if body.len() + 6 > BODY_CAPACITY {
+                return Outcome::unsupported(OVERFLOW);
+            }
+            body.extend(entry.id.to_le_bytes());
+            body.extend(entry.bytes);
+            count += 1;
+        }
+        body[count_offset..count_offset + 2].copy_from_slice(&count.to_le_bytes());
+        group_count += 1;
+    }
+    body[..2].copy_from_slice(&group_count.to_le_bytes());
+    Outcome::reply(114, body)
+}
+
+fn mastery_failure(reason: u16) -> Outcome {
+    let mut out = Outcome::reason(119, reason);
+    out.logs.push("mastery stat: task validation failed");
+    out
+}
+
+/// parity: 117 13-skill-handlers.md#117--g_setmasterystatpointreqcmd--partial partial
+fn execute_mastery_stat_point(
+    ctx: &mut Context<'_>,
+    task: &SkillTask,
+    shorts: [i16; 2],
+    bytes: [i8; 5],
+) -> Outcome {
+    let Some(state) = ctx.services.skill_completion_state() else {
+        return Outcome::unsupported("❓ mastery stat live attached-PC state");
+    };
+    let mastery = match &state.mastery {
+        SkillLookup::Found(mastery) => mastery,
+        SkillLookup::Missing | SkillLookup::Unknown => {
+            return Outcome::unsupported("❓ mastery stat attached-PC pointer");
+        }
+    };
+    if mastery.native_kind != 1 {
+        return Outcome::default();
+    }
+    if matches!(mastery.life_state, 1 | 2) {
+        return mastery_failure(2);
+    }
+    if mastery.combat_flags & 1 != 0 {
+        return mastery_failure(701);
+    }
+    let owner = match &mastery.owner {
+        SkillLookup::Found(owner) => owner.clone(),
+        SkillLookup::Missing | SkillLookup::Unknown => {
+            return Outcome::unsupported("❓ mastery stat skill-manager owner pointer");
+        }
+    };
+    if owner.native_kind != 1 {
+        return mastery_failure(2);
+    }
+    if owner.object_id != task.caster {
+        return Outcome::unsupported("❓ mastery stat skill-manager owner changed");
+    }
+    let limit = match ctx.services.skill_mastery_limit(owner.table_key) {
+        SkillLookup::Unknown => return Outcome::unsupported("❓ mastery stat slot-1803 table"),
+        SkillLookup::Missing => return mastery_failure(2),
+        SkillLookup::Found(limit) => limit,
+    };
+    let [attacker, defender] = shorts.map(i32::from);
+    let total = i32::from(limit.total) + i32::from(owner.additional_points);
+    if attacker + defender > total {
+        return mastery_failure(2);
+    }
+    if attacker > i32::from(limit.attacker) {
+        return mastery_failure(2);
+    }
+    if defender > i32::from(limit.defender) {
+        return mastery_failure(2);
+    }
+    let mut cost = 0i32;
+    for (index, pick) in bytes.into_iter().enumerate() {
+        if pick <= 0 {
+            continue;
+        }
+        let key = index as u32 | (u32::from(pick as u8) << 8) | (u32::from(owner.job) << 16);
+        match ctx.services.skill_mastery_cost(key) {
+            SkillLookup::Unknown => return Outcome::unsupported("❓ mastery stat slot-1827 table"),
+            SkillLookup::Missing => return mastery_failure(2),
+            SkillLookup::Found(value) => cost += i32::from(value),
+        }
+    }
+    if total - defender - attacker < cost {
+        return mastery_failure(2);
+    }
+    Outcome::unsupported("❓ mastery stat property writes, persistence and effect refresh")
+}
+
 // ---- Vitality, skill list, mastery points, pages ----------------------------------
 
 /// parity: 824 13-skill-handlers.md#824--g_rechargevitalityreqcmd--partial partial
@@ -943,7 +1143,7 @@ pub fn handle_recharge_vitality(ctx: &mut Context<'_>, _: &[u8]) -> Outcome {
     queue(ctx, task, fail)
 }
 
-/// parity: 113 13-skill-handlers.md#113--g_skilllist2reqcmd--partial partial
+/// parity: 113 13-skill-handlers.md#113--g_skilllist2reqcmd--done done
 pub fn handle_skill_list(ctx: &mut Context<'_>, _: &[u8]) -> Outcome {
     let pc = ctx.pc();
     let Some(zone) = pc.zone else {
@@ -970,20 +1170,28 @@ pub fn handle_set_mastery_stat_point(ctx: &mut Context<'_>, req: &[u8]) -> Outco
         }
         Some((shorts, bytes))
     })();
+    let Some(zone) = ctx.pc().zone else {
+        return Outcome::reason(119, 2);
+    };
+    if ctx.pc().native_kind != 1 {
+        let mut out = Outcome::reason(119, 2);
+        out.logs.push("mastery stat: caster is not a PC");
+        return out;
+    }
     let Some((shorts, bytes)) = fields else {
         return Outcome::unsupported(UNCHECKED_DECODE);
     };
     if shorts.iter().any(|&s| s < 0) || bytes.iter().any(|&b| b < 0) {
-        // Zone and PC kind come first, but use the same reason 2.
         return Outcome::reason(119, 2);
     }
-    pc_task(
-        ctx,
-        117,
-        119,
-        2,
-        SkillTaskKind::SetMasteryStatPoint { shorts, bytes },
-    )
+    let task = SkillTask {
+        command: 117,
+        caster: ctx.pc().object_id,
+        summon: false,
+        zone,
+        kind: SkillTaskKind::SetMasteryStatPoint { shorts, bytes },
+    };
+    queue(ctx, task, Outcome::reason(119, 2))
 }
 
 /// parity: 1488 13-skill-handlers.md#1488--g_changeskillpagereqcmd--partial partial
