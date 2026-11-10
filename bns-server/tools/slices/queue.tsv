@@ -38,7 +38,7 @@ ids-1-rust	rust	sonnet	packet-ids,packet,lobbygate,sts,sts-core,dbsrv,cligate,ro
 ids-2-rust	rust	sonnet	gamedaemon	Program/Server/GameDaemon/,Cargo.lock	ids-1-rust	150	done	official packet names in GameDaemon
 st-00	spec	opus	-	Docs/Platform/StServers/RE/	-	150	done	StServers RE: shared framework
 st-01	spec	opus	-	Docs/Platform/StServers/RE/	st-00	150	done	StServers RE: gate library, CliGate, SessionGateSrv
-st-02	spec	opus	-	Docs/Platform/StServers/RE/	st-00	150	ready	StServers RE: AuthSrv, AppAuthSrv
+st-02	spec	opus	-	Docs/Platform/StServers/RE/	st-00	150	done	StServers RE: AuthSrv, AppAuthSrv
 st-03	spec	opus	-	Docs/Platform/StServers/RE/	st-00	150	ready	StServers RE: GameAccountSrv, SlotSrv, SpawnSrv, WorldSrv
 st-04	spec	opus	-	Docs/Platform/StServers/RE/	st-01	150	ready	StServers RE: GameGate, AppGate, MwGate, WebGate
 st-05	spec	opus	-	Docs/Platform/StServers/RE/	st-00	150	ready	StServers RE: RouteSrv, ForwardSrv, SvcDispatcher, CacheSrv, DbSrv audit

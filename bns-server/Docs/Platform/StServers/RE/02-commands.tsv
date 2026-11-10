@@ -1,0 +1,160 @@
+service	command	id	handler	path	request	reply	errors	calls_out	procs	note
+AuthSrv	Auth/AccessTest	1	-	pre1 0x1400C94A0	-	-	51/1/2669			error {51, module 1, line 2669}, no text
+AuthSrv	Auth/ActivateAccount	2	0x1400E0F20	main 0x1400F3770	❓	❓	3338/6/6569			
+AuthSrv	Auth/AuthenticateToken	3	0x1400E1150	main 0x1400F3770	❓	❓	0/6/6683			
+AuthSrv	Auth/ChangeExpiredPassword	4	0x1400E14A0	main 0x1400F3770	❓	❓	 missing current password			needs current password then = ChangePassword 0x1400E32B0
+AuthSrv	Auth/ChangeMyUserName	5	0x1400E2680	main 0x1400F3770	❓	❓	 missing parameter		?,IsUserNameChangeable(Incomplete)	
+AuthSrv	Auth/ChangeMyUserNameIncomplete	6	0x1400E28E0	main 0x1400F3770	❓	❓			IsUserNameChangeableIncomplete	
+AuthSrv	Auth/ChangeMyPassword	7	0x1400E14A0	main 0x1400F3770	❓	❓	 missing current password			same as id 4
+AuthSrv	Auth/ChangeLoginName	8	0x1400E1510	main 0x1400F3770	❓	❓	4/6/6814;10/6/6808		CheckTentativeLoginName	
+AuthSrv	Auth/ChangeLoginNameStart	9	0x1400E1C10	main 0x1400F3770	❓	❓	10/6/6903		IsLoginNameChangeable	
+AuthSrv	Auth/ChangePassword	10	0x1400E32B0	main 0x1400F3770	❓	❓	0/6/6932		AcctLoginInfoById	
+AuthSrv	Auth/ChangeUserName	11	0x1400E3AF0	main 0x1400F3770	❓	❓		Name/CheckNames		
+AuthSrv	Auth/CreateLoginSession	12	0x1400E41E0	main 0x1400F3770	❓	❓	 session create failed.	Auth/LoadLoginInfoOnLocal	AcctLoginInfoById	
+AuthSrv	Auth/DeactivateAccount	13	0x1400E43E0	main 0x1400F3770	❓	❓	3339/6/6587		DeactivateAccount	
+AuthSrv	Auth/DeleteUser	14	0x1400E7AD0	main 0x1400F3770	❓	❓			?,CreateNameSessionForRNRA(+NonUnique)	
+AuthSrv	Auth/DeleteLocalUser	15	0x1400E4600	main 0x1400F3770	❓	❓		Follow/RemoveUser,Friend/RemoveUser,MobileAuth/RemoveMobileInfo,MobileFriend/UserRemoved,Presence/RemoveUser,Privacy/RemoveUser,Role/DeleteUser,Update/Update		
+AuthSrv	Auth/DeleteTentativeUser	16	0x1400C8590	pre2 0x1400C9180	❓	❓				
+AuthSrv	Auth/ExpirePassword	17	0x1400E4730	main 0x1400F3770	❓	❓	10/6/8052;10/6/8048		AcctExpirePassword	also id 16..? no; ExpirePassword
+AuthSrv	Auth/GetMyUserInfo	18	0x1400E5090	main 0x1400F3770	❓	❓		AppAuth/ListAppGroups,ExAuth/GetExternalAccountInfo		
+AuthSrv	Auth/GetUserEmail	19	0x1400E4F50	main 0x1400F3770	❓	❓				
+AuthSrv	Auth/GetUserInfo	20	0x1400E5090	main 0x1400F3770	❓	❓		AppAuth/ListAppGroups,ExAuth/GetExternalAccountInfo		
+AuthSrv	Auth/KeyData	21	0x1400E5B30	main 0x1400F3770	❓	❓	3320/6/7487;0/6/7500;11/6/7483 missing keydata.|invalid keydata.|invalid keydatalen.			
+AuthSrv	Auth/LoginStart	22	0x1400E6910	main 0x1400F3770	❓	❓	 missing login name|session create failed.	Auth/LoadLoginInfoOnLocal	AcctLoginInfoById	
+AuthSrv	Auth/LoginFinish	23	0x1400E6380	main 0x1400F3770	❓	❓	0/6/7651	ICafe/CheckIp,IpVerify/RegisterIp,IpVerify/VerifyIp,Role/Inquiry,SecondaryAuth/ListLoginServices		
+AuthSrv	Auth/LoginCancel	24	0x1400E6010	main 0x1400F3770	❓	❓				
+AuthSrv	Auth/LoginTrusted	25	0x1400E6B50	main 0x1400F3770	❓	❓		Auth/LoadLoginInfoOnLocal	AcctLoginInfoById	
+AuthSrv	Auth/LoginWebStart	26	0x1400E6B50	main 0x1400F3770	❓	❓		Auth/LoadLoginInfoOnLocal	AcctLoginInfoById	
+AuthSrv	Auth/LoginWebFinish	27	0x1400E6380	main 0x1400F3770	❓	❓	0/6/7651	ICafe/CheckIp,IpVerify/RegisterIp,IpVerify/VerifyIp,Role/Inquiry,SecondaryAuth/ListLoginServices		
+AuthSrv	Auth/LoginInternal	28	0x1400E67E0	main 0x1400F3770	❓	❓	 session create failed.	ICafe/CheckIp		
+AuthSrv	Auth/RevokeAuthnToken	29	0x1400E8460	main 0x1400F3770	❓	❓	0/6/7873;0/6/7843			
+AuthSrv	Auth/RequestGameToken	30	0x1400E7F50	main 0x1400F3770	❓	❓	 invalid user status|missing parameter	GameAccount/ListAccounts		
+AuthSrv	Auth/ConsumeGameToken	31	0x1400E3D70	main 0x1400F3770	❓	❓	10/6/7933;10/6/7940;10/6/7947	Role/Inquiry		see chapter 1.6
+AuthSrv	Auth/RequestToken	32	0x1400E8190	main 0x1400F3770	❓	❓	0/6/8114 Invalid UserStatus|missing appId|app token create failed			
+AuthSrv	Auth/RemoveAccount	33	0x1400E7AD0	main 0x1400F3770	❓	❓			?,CreateNameSessionForRNRA(+NonUnique)	
+AuthSrv	Auth/RemoveMyAccount	34	0x1400E7AD0	main 0x1400F3770	❓	❓			?,CreateNameSessionForRNRA(+NonUnique)	
+AuthSrv	Auth/VerifyMobiOtp	35	0x1400E8A90	main 0x1400F3770	❓	❓				= VerifySecondaryAuth 0x1400E8B10
+AuthSrv	Auth/VerifySecondPwd	36	0x1400E8AD0	main 0x1400F3770	❓	❓				= VerifySecondaryAuth 0x1400E8B10
+AuthSrv	Auth/GetSecurityCardCodeIndex	37	0x1400E4C50	main 0x1400F3770	❓	❓	3101/6/8266;49/6/8274;3101/6/8259	SecondaryAuth/GetSecurityCardCodeIndex		
+AuthSrv	Auth/VerifySecondaryAuth	38	0x1400E8B10	main 0x1400F3770	❓	❓	49/6/8387	SecondaryAuth/VerifyIpToken,SecondaryAuth/VerifyOtp,SecondaryAuth/VerifySecondPassword,SecondaryAuth/VerifySecurityCard		
+AuthSrv	Auth/Forward	39	0x1400E49B0	main 0x1400F3770	❓	❓	 invalid forward msg	SecondaryAuth/GetSecurityCardCodeIndex,SecondaryAuth/VerifyIpToken,SecondaryAuth/VerifyOtp,SecondaryAuth/VerifySecondPassword,SecondaryAuth/VerifySecurityCard		
+AuthSrv	Auth/MergeInternal	40	0x1400E6EC0	main 0x1400F3770	❓	❓	3002/6/8604;3002/6/8586		AcctUpdateMergedUsers	
+AuthSrv	Auth/Authenticate	41	0x1400E1010	main 0x1400F3770	❓	❓				
+AuthSrv	Auth/AddBanWord	42	0x1400CAC90	pre1 0x1400C94A0	❓	❓		Name/AddBanWord		
+AuthSrv	Auth/AddNetAddressRoles	43	0x1400CEED0	pre1 0x1400C94A0	❓	❓				needs RoleSrv conn (type 1121); forward to Role via 0x1400F9590
+AuthSrv	Auth/CheckLoginName	44	0x1400CB490	pre1 0x1400C94A0	❓	❓		Name/CheckNames		
+AuthSrv	Auth/CheckUserName	45	0x1400CB930	pre1 0x1400C94A0	❓	❓		Name/CheckNames		
+AuthSrv	Auth/CreateAccount	46	0x1400C8490	pre2 0x1400C9180	❓	❓				
+AuthSrv	Auth/CreateRole	47	0x1400CEED0	pre1 0x1400C94A0	❓	❓				needs RoleSrv conn (type 1121); forward to Role via 0x1400F9590
+AuthSrv	Auth/CreateTentativeAccount	48	0x1400C8510	pre2 0x1400C9180	❓	❓				
+AuthSrv	Auth/DeleteRole	49	0x1400CEED0	pre1 0x1400C94A0	❓	❓				needs RoleSrv conn (type 1121); forward to Role via 0x1400F9590
+AuthSrv	Auth/GetUsersInfo	50	0x1400CC000	pre2 0x1400C9180	❓	❓		Auth/GetUserInfo		
+AuthSrv	Auth/ListRoles	51	0x1400CEED0	pre1 0x1400C94A0	❓	❓				needs RoleSrv conn (type 1121); forward to Role via 0x1400F9590
+AuthSrv	Auth/ListNetAddressRoles	52	0x1400CEED0	pre1 0x1400C94A0	❓	❓				needs RoleSrv conn (type 1121); forward to Role via 0x1400F9590
+AuthSrv	Auth/LoginToken	53	0x1400CCBB0	pre2 0x1400C9180	❓	❓		Auth/Authenticate,Auth/AuthenticateToken,ExAuth/AuthenticateToken		
+AuthSrv	Auth/LoginWebTokenStart	54	0x1400CCBB0	pre2 0x1400C9180	❓	❓		Auth/Authenticate,Auth/AuthenticateToken,ExAuth/AuthenticateToken		
+AuthSrv	Auth/RemoveBanWord	55	0x1400CDF60	pre1 0x1400C94A0	❓	❓		Name/RemoveBanWord		
+AuthSrv	Auth/RemoveNetAddressRoles	56	0x1400CEED0	pre1 0x1400C94A0	❓	❓				needs RoleSrv conn (type 1121); forward to Role via 0x1400F9590
+AuthSrv	Auth/RequestGuestToken	57	0x1400CE500	pre1 0x1400C94A0	❓	❓				needs ExAuthSrv conn; forward to ExAuth
+AuthSrv	Auth/TokenKeyData	58	0x1400CCBB0	pre2 0x1400C9180	❓	❓		Auth/Authenticate,Auth/AuthenticateToken,ExAuth/AuthenticateToken		
+AuthSrv	Auth/GetExternalAccounts	59	0x1400CBE20	pre1 0x1400C94A0	❓	❓		ExAuth/GetExternalAccounts		
+AuthSrv	Auth/PageExternalAccountChanges	60	0x1400CD800	pre1 0x1400C94A0	❓	❓		ExAuth/PageExternalAccountChanges		
+AuthSrv	Auth/AddUserRole	61	0x1400CEED0	pre1 0x1400C94A0	❓	❓				needs RoleSrv conn (type 1121); forward to Role via 0x1400F9590
+AuthSrv	Auth/AssociateExternalAccount	62	0x1400CB090	pre1 0x1400C94A0	❓	❓	 exauthsrv not found|AuConn: missing parameter	ExAuth/AssociateExternalAccount		
+AuthSrv	Auth/AssociateMyExternalAccount	63	0x1400CB290	pre1 0x1400C94A0	❓	❓	 exauthsrv not found|AuConn: missing parameter	ExAuth/AssociateMyExternalAccount		
+AuthSrv	Auth/CheckPassword	64	0x1400CB6C0	pre2 0x1400C9180	❓	❓	 AuConn: missing login name or password	Auth/LoadLoginInfoOnLocal		
+AuthSrv	Auth/DeactivateUser	65	0x1400E44D0	main 0x1400F3770	❓	❓			DeactivateUser	
+AuthSrv	Auth/GetExternalAccountInfo	66	0x1400CBD00	pre1 0x1400C94A0	❓	❓				
+AuthSrv	Auth/DissociateExternalAccount	67	0x1400CBB60	pre1 0x1400C94A0	❓	❓		ExAuth/DissociateExternalAccount		
+AuthSrv	Auth/ListUserRoles	68	0x1400CEED0	pre1 0x1400C94A0	❓	❓				needs RoleSrv conn (type 1121); forward to Role via 0x1400F9590
+AuthSrv	Auth/IsLoginNameChangeable	69	0x1400E5860	main 0x1400F3770	❓	❓				
+AuthSrv	Auth/IsUserNameChangeable	70	0x1400E58E0	main 0x1400F3770	❓	❓			IsUserNameChangeable(Incomplete)	
+AuthSrv	Auth/IsUserNameChangeableIncomplete	71	0x1400E5A10	main 0x1400F3770	❓	❓			IsUserNameChangeableIncomplete	
+AuthSrv	Auth/GetLoginNameChangeable	72	0x1400E4BB0	main 0x1400F3770	❓	❓			GetLoginNameChangeable(Incomplete)	
+AuthSrv	Auth/GetLoginNameChangeableIncomplete	73	0x1400E4BB0	main 0x1400F3770	❓	❓			GetLoginNameChangeable(Incomplete)	
+AuthSrv	Auth/GetUserNameChangeable	74	0x1400E5610	main 0x1400F3770	❓	❓			GetUserNameChangeable(Incomplete)	
+AuthSrv	Auth/GetUserNameChangeableIncomplete	75	0x1400E5740	main 0x1400F3770	❓	❓			GetUserNameChangeableIncomplete	
+AuthSrv	Auth/PageLoginNameChanges	76	0x1400CD260	pre2 0x1400C9180	❓	❓	 AuConn: no pageIndex|AuConn: unsupported command|AuConn: invalid date format		List*Changes	
+AuthSrv	Auth/PageLoginNameOwners	77	0x1400CD260	pre2 0x1400C9180	❓	❓	 AuConn: no pageIndex|AuConn: unsupported command|AuConn: invalid date format		List*Changes	
+AuthSrv	Auth/PagePasswordChanges	78	0x1400CD260	pre2 0x1400C9180	❓	❓	 AuConn: no pageIndex|AuConn: unsupported command|AuConn: invalid date format		List*Changes	
+AuthSrv	Auth/PageUserNameChanges	79	0x1400CD260	pre2 0x1400C9180	❓	❓	 AuConn: no pageIndex|AuConn: unsupported command|AuConn: invalid date format		List*Changes	
+AuthSrv	Auth/PageMergedUsers	80	0x1400CD950	pre2 0x1400C9180	❓	❓	 AuConn: invalid userid|AuConn: no size or index|AuConn: invalid date format		AcctListMergedUsers	
+AuthSrv	Auth/ReactivateUser	81	0x1400E7880	main 0x1400F3770	❓	❓			ReactivateUser	
+AuthSrv	Auth/ReissueValidateToken	82	0x1400C8690	pre2 0x1400C9180	❓	❓				
+AuthSrv	Auth/ReissueEmailToken	83	0x1400E79B0	main 0x1400F3770	❓	❓	10/6/0		AcctResetSession	
+AuthSrv	Auth/RemoveUserRole	84	0x1400CEED0	pre1 0x1400C94A0	❓	❓				needs RoleSrv conn (type 1121); forward to Role via 0x1400F9590
+AuthSrv	Auth/ValidateEmail	85	0x1400C8790	pre2 0x1400C9180	❓	❓				
+AuthSrv	Auth/ValidateEmailToken	86	0x1400E8880	main 0x1400F3770	❓	❓			AcctGetSessionDataById	
+AuthSrv	Auth/ChangeLoginNameFinish	87	0x1400E1A50	main 0x1400F3770	❓	❓			AcctValidateNameSession	
+AuthSrv	Auth/ChangeLoginNameCancel	88	0x1400E1960	main 0x1400F3770	❓	❓	3028/6/6839		GetSessionDataForCancelRCLN	
+AuthSrv	Auth/UpdateExAccessToken	89	0x1400CE860	pre1 0x1400C94A0	❓	❓		ExAuth/UpdateExAccessToken		
+AuthSrv	Auth/RequestExAccessToken	90	0x1400CE360	pre1 0x1400C94A0	❓	❓		ExAuth/RequestExAccessToken		
+AuthSrv	Auth/IsBlockedPassword	91	0x1400CC590	pre2 0x1400C9180	❓	❓	 AuConn: has no passwordHash2		IsBannedPassword	
+AuthSrv	Auth/AddBlockedPassword	92	0x1400CAE80	pre2 0x1400C9180	❓	❓	 AuConn: has no passwordHash2|AuConn: has no banPasswordType		AddValidBannedPassword	
+AuthSrv	Auth/RemoveBlockedPassword	93	0x1400CE150	pre2 0x1400C9180	❓	❓	 AuConn: has no passwordHash2|AuConn: has no banPasswordType		RemoveBannedPassword	
+AuthSrv	Auth/PageVerifiedIps	94	0x1400CDD00	pre1 0x1400C94A0	❓	❓		IpVerify/PageIps		
+AuthSrv	Auth/UnregisterVerifiedIp	95	0x1400CE620	pre1 0x1400C94A0	❓	❓		IpVerify/UnregisterIp		
+AuthSrv	Auth/LoginTokenStart	96	-	pre1 0x1400C94A0	-	-	51/1/2669			same as AccessTest
+AuthSrv	Auth/LogoutMyClient	97	-	pre1 0x1400C94A0	-	-	51/1/2669			same as AccessTest
+AuthSrv	Auth/RequestCryptKey	98	0x1400E7D10	main 0x1400F3770	❓	❓	0/6/8472;4/6/8465			
+AuthSrv	Auth/WaitForAllowedLogin	99	-	pre1 0x1400C94A0	-	-	51/1/2669			same as AccessTest
+AuthSrv	Auth/SetDbProcForTest	100	-	pre2 0x1400C9180	-	-				pre2 0x1400C9180: SetDbProcs 0x1400D10E0(req +1240) then reply 0x1400D0E10
+AuthSrv	Auth/LoadUserInfo	101	0x1400CC8E0	pre2 0x1400C9180	❓	❓			AcctInfo	
+AuthSrv	Auth/LoadUserInfoOnLocal	102	0x1400CCA50	pre2 0x1400C9180	❓	❓			AcctInfo	
+AuthSrv	Auth/LoadLoginInfoOnLocal	103	0x1400CC780	pre2 0x1400C9180	❓	❓			AcctLoginInfoById	
+AuthSrv	Auth/LoadTentativeUserInfoOnLocal	104	0x1400C8610	pre2 0x1400C9180	❓	❓				
+AuthSrv	Auth/NotifyLoginNameChanged	105	0x1400E7330	pre3 0x1400DF820	❓	❓	10/6/7304	Access/Kick,EventLog/LogEvent,Update/Update		
+AuthSrv	Auth/NotifyUserNameChanged	106	0x1400E7580	pre3 0x1400DF820	❓	❓	10/6/7354	Update/Update		
+AuthSrv	Auth/NotifyPasswordChanged	107	0x1400E74D0	pre3 0x1400DF820	❓	❓		Access/Kick		
+AuthSrv	Auth/NotifyAccountRemoved	108	0x1400E7250	pre3 0x1400DF820	❓	❓		Follow/RemoveUser,Friend/RemoveUser,MobileAuth/RemoveMobileInfo,MobileFriend/UserRemoved,Presence/RemoveUser,Privacy/RemoveUser,Update/Update		
+AuthSrv	Auth/NotifyUserStatusChanged	109	0x1400E7700	pre3 0x1400DF820	❓	❓	10/6/7383	IpAuthz/RemoveUser,IpVerify/DeleteUser		
+AuthSrv	Auth/Flush	110	0x1400E4960	pre3 0x1400DF820	❓	❓
+AppAuthSrv	AppAuth/Invalid	0	-	AaOnMessage 0x1400C8290 default	-	-	52/5/169 Invalid Command			also unknown names (parse id 49)
+AppAuthSrv	AppAuth/RegisterApp	1	0x1400C7B90	L	AppId,AppName,AppType,AppStatus,IsExternalApp,AccessMask	AppId	missing parameters; bad register app reply		RegisterApp	TX 8 -> 0x1400DC670; zero AppId -> new GUID 0x1400EA6A0
+AppAuthSrv	AppAuth/UnregisterApp	2	0x1400D27F0	A	AppId	Reply			UnregisterApp	TX 10 -> 0x1400DD4A0 (evicts cache)
+AppAuthSrv	AppAuth/ChangeApp	3	0x1400D0490	A	AppId,AppName,AppType,AppStatus,AccessMask	Reply	invalid parameter	Update ❓ (0x1400D9130)	ChangeApp	TX 9 (0x1400D6790) -> 0x1400D9130
+AppAuthSrv	AppAuth/GetAppRights	4	0x1400D1170	A,C	AppId	AccessMask				cache only
+AppAuthSrv	AppAuth/GetAppInfo	5	0x1400D0F60	A,C	AppId	AppName,AppType,AppStatus				cache only
+AppAuthSrv	AppAuth/Authenticate	6	0x1400CF340	A,C	AppId,AppSecret,RedirectUri	AccessMask,AppGroupCode,AppServiceCode	2/1261; 2/1269; app authenticate failed; invalid redirect uri; missing appsecret			cache only
+AppAuthSrv	AppAuth/Authorize	7	0x1400D02B0	A	AppId,UserId,Scopes	AuthzCode	1482 invalid parameter; invaild data from token server	Token.Instant/RequestToken	AddUserAppAgreement	TX 16 (0x1400D5EC0) -> 0x1400DD150 -> TX 18 0x1400D84E0
+AppAuthSrv	AppAuth/Token	8	0x1400D2280	A	GrantType,AuthzCode,RefreshToken,AppSecret	AccessToken,Expiration,RefreshToken,RefreshTokenExpiration	1529; 1541; invalid grantType; missing parameter:authz_code; refreshToken required, but refreshToken is null; external app should not use 'grant_credentials' grantType.; parsing token failed; app authenticate failed; 1523; 1572; 1585; 1610; 1628	Token.Instant/ValidateToken (grant 1)	GetUserAppAgreement;AddAccessToken;RefreshAccessToken	grant 1: TX 17 -> (external: TX 19) -> TX 27; grant 2: TX 27; grant 3: TX 28 (chapter 2.8)
+AppAuthSrv	AppAuth/ListAppGroups	9	0x1400D1B10	A,C	AppId,AppGroupType	AppGroupId[]	invalid group type			cache only
+AppAuthSrv	AppAuth/GetAppGroupCode	10	0x1400D0DC0	A,C	AppId	AppGroupCode	has no app group code			cache only
+AppAuthSrv	AppAuth/AddSecret	11	0x1400CEE00	A	AppId,SecretType,RedirectUri	KeyId,AppSecret or PublicKey/PrivateKey	already exist server secret; already exist native app secret; invalid secret type.		AddServerSecret;AddNativeAppSecret	TX 11 (0x1400D6900) -> 0x1400D7DE0
+AppAuthSrv	AppAuth/GetSecrets	12	0x1400D1820	A,C	AppId	Keys[Key{KeyId,SecretType,AppSecret,RedirectUri / PublicKey,PrivateKey}]				cache only
+AppAuthSrv	AppAuth/RemoveSecret	13	0x1400D2180	A	KeyId,SecretType	Reply	invalid secret type		RemoveSecret	TX 15 -> 0x1400DCF90
+AppAuthSrv	AppAuth/ChangeServerSecret	14	0x1400D0710	A	KeyId,RedirectUri	Reply			ChangeServerSecret	TX 14 -> 0x1400D9730
+AppAuthSrv	AppAuth/ExportSecrets	15	0x1400D09C0	A,C	AppId	AppId,AppName,AppType,AppStatus,IsExternalApp,AccessMask,Keys(incl. PrivateKey),AppGroups				cache only; see abuse note
+AppAuthSrv	AppAuth/AddAppMember	16	0x1400CEC30	A	AppId,UserId,MemberType,LoginName	Reply	missing userid or memberType is zero		AddAppMember	TX 23 -> 0x1400DCEE0
+AppAuthSrv	AppAuth/RemoveAppMember	17	0x1400D1FF0	A	AppId,UserId	Reply	missing userid		RemoveAppMember	TX 24
+AppAuthSrv	AppAuth/CheckAppMember	18	0x1400D0810	A	AppId,UserId,MemberType	Reply	missing userid or memberType is zero		CheckAppMember	TX 25
+AppAuthSrv	AppAuth/GetAppMembers	19	0x1400D1080	A	AppId	App[]{UserId,MemberType,LoginName}			GetAppMembers	TX 26 -> 0x1400DA720
+AppAuthSrv	AppAuth/GetMemberApps	20	0x1400C73A0	L	UserId	App[]{AppId,AppName}	missing userid		GetMemberApps	TX 20 -> 0x1400DB630
+AppAuthSrv	AppAuth/GetMemberAppGroups	21	0x1400C7230	L	UserId	AppGroup[]	missing userid		GetMemberAppGroups	TX 21 -> 0x1400DB450
+AppAuthSrv	AppAuth/AddMemberAppGroup	22	0x1400C5820	L	AppGroupId,UserId,MemberType,LoginName	Reply	missing userid; missing appGroupId; missing memberType		AddMemberAppGroup	TX 22 -> 0x1400DCEE0
+AppAuthSrv	AppAuth/AuthenticateBearerToken	23	0x1400C5BC0	L	Token	AccessTokenType,AppId,UserId,PermissionMask,EffectiveUntil	10/5/435 invalid token; 4/5/461 parsing token failed; access token expired		GetAccessToken	TX 12 (0x1400D6630) -> 0x1400D9EF0
+AppAuthSrv	AppAuth/AuthenticateJwtToken	24	0x1400CF660	A	Token,TokenRequired	AppId,AccessMask,TokenType,AppGroupCode,AppServiceCode	1309; 1329; 1336; 1376; invalid jwt format; expired jwt; invalid iat; failed verify signatrue; server app secret not found; native app secret not found; no exist jwt		GetAccessToken ❓	TX 29 (0x1400D6A40) -> 0x1400D97E0
+AppAuthSrv	AppAuth/GetAccessToken	25	0x1400C6AF0	L	Token or RefreshToken,TokenDataType	token data	invalid token data		GetAccessToken	TX 12 -> 0x1400D9EF0
+AppAuthSrv	AppAuth/CreateGroup	26	0x1400C64F0	L	AppGroupName,AppGroupDesc,AppGroupType,AppGroupCode	AppGroupId	missing or invalid parameters		CreateAppGroup	TX 36 -> 0x1400D9930
+AppAuthSrv	AppAuth/DeleteGroup	27	0x1400C6840	L	AppGroupId	AppId[]	10/5/279 invalid groupId		DeleteAppGroup	TX 37 (0x1400D6140) -> 0x1400D9CA0
+AppAuthSrv	AppAuth/GetGroupInfo	28	0x1400C70D0	L	AppGroupId	AppGroupName,AppGroupDesc,AppGroupType,AppGroupCode,Apps[]	invalid app group Id		GetAppGroupInfo;ListAppGroupApps	TX 39 -> 0x1400DAF00 -> TX 40 0x1400DB220
+AppAuthSrv	AppAuth/ListGroups	29	0x1400C78A0	L	AppGroupType	AppGroup[]{AppGroupId,AppGroupName,AppGroupDesc,AppGroupCode}	invalid group type		ListAppGroups	TX 43 -> 0x1400DBF60
+AppAuthSrv	AppAuth/ListGroupApps	30	0x1400C7760	L	AppGroupId	App[]	invalid group id		ListAppGroupApps	TX 44 -> 0x1400DBDC0
+AppAuthSrv	AppAuth/RegisterGroupApp	31	0x1400D1E30	A	AppId,AppGroupName,AppGroupType	Reply	invalid appid or appgroupid; bad data		RegisterAppGroupApp	TX 41 -> 0x1400DCB50
+AppAuthSrv	AppAuth/UnregisterGroupApp	32	0x1400D28F0	A	AppGroupId,AppId	Reply	invalid appid or appgroupid		UnregisterAppGroupApp	TX 42 -> 0x1400DD810
+AppAuthSrv	AppAuth/GetPermissions	33	0x1400C7510	L	PermissionIds	Permissions[]	missing permissionIds		GetPermissions	TX 7 -> 0x1400DB8D0
+AppAuthSrv	AppAuth/CreatePermission	34	0x1400C6690	L	PermissionName,AccessMask,SecureLevel	PermissionId	missing accessmask; missing permission name		CreatePermission	TX 4 -> 0x1400D9A90
+AppAuthSrv	AppAuth/ChangePermission	35	0x1400C61F0	L	PermissionId,AccessMask,SecureLevel	Reply	missing permission id		ChangePermission	TX 5 -> 0x1400D9730
+AppAuthSrv	AppAuth/DeletePermission	36	0x1400C69A0	L	PermissionId	Reply			DeletePermission	TX 6 -> 0x1400D9730
+AppAuthSrv	AppAuth/RegisterExternalApp	37	0x1400C7DB0	L	AppGroupCode,AuthProviderCode,ExternalAppKey,ExternalAppSecret,RedirectUriData,ExternalScopeData	Reply	missing <field>		AddExternalSecret	TX 45 (0x1400D6290) -> 0x1400DC860
+AppAuthSrv	AppAuth/UnregisterExternalApp	38	0x1400C8070	L	AppGroupCode,AuthProviderCode	Reply	missing authProviderCode; missing appGroupCode		RemoveExternalSecret	TX 46 (0x1400D64B0) -> 0x1400DD5A0
+AppAuthSrv	AppAuth/ChangeExternalAppInfo	39	0x1400C5F30	L	same as 37	Reply	missing <field>		ChangeExternalSecret	TX 47 -> 0x1400D9410 ❓
+AppAuthSrv	AppAuth/GetExternalAppInfo	40	0x1400C6E80/0x1400D1250	L or A (AppId set -> A)	AppId or AppGroupCode,AuthProviderCode	ExternalApps[]	missing appId and appGroupCode		GetExternalSecret;ListExternalSecrets	TX 48 -> 0x1400DAC00
+AppAuthSrv	AppAuth/AppDataUpdated	41	0x1400D3CC0	grid (AaAppDispatch)	AppId	-				evicts cached app ❓
+AppAuthSrv	AppAuth/GetAppData	42	0x1400CDEA0	grid (AaAppDispatch)	AppId	Reply				cache dump ❓
+AppAuthSrv	AppAuth/CleanAppData	43	0x1400CCBE0	grid (AaAppDispatch)	❓	Reply
+AppAuthSrv	AppAuth/CreateAppServiceCode	44	0x1400C6390	L	AppServiceCode	Reply	missing appServiceCode		CreateAppServiceCode	TX 49 -> 0x1400D9730
+AppAuthSrv	AppAuth/AddAppServiceCodeRegion	45	0x1400C5660	L	AppServiceCode,RegionCode	Reply	missing regionCode; missing appServiceCode		AddAppServiceCodeRegion	TX 50
+AppAuthSrv	AppAuth/AddRegionalAppGroup	46	0x1400C59E0	L	AppGroupId,AppServiceCode,RegionCode	Reply	missing appGroupId; missing appServiceCode ❓; missing regionCode ❓		AddRegionalAppGroup	TX 51 -> 0x1400D81C0
+AppAuthSrv	AppAuth/GetAppServiceCode	47	0x1400C6C80	L	AppGroupCode+AppGroupType or AppId	AppServiceCode,RegionCode,AppGroupCode			GetAppServiceCodeByAppGroupCode;GetAppServiceCodeByAppId	TX 52 -> 0x1400DAA10
+AppAuthSrv	AppAuth/ListRegionalAppGroups	48	0x1400C79F0	L	AppServiceCode,AppGroupType (optional)	RegionalAppGroups[]{RegionCode,AppGroupId,AppGroupType}			ListRegionalAppGroupsByAppServiceCodeAndAppGroupType;ListRegionalAppGroupsByAppServiceCode	TX 53 -> 0x1400DC1D0
