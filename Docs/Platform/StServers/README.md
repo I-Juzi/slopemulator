@@ -23,22 +23,23 @@ Updated 8 Nov 2026.
 | STS message, framing, errors, INI, XML | `sts-core` | Ported (used by DbSrv) | `../Sts/01-transport.md`, `../Sts/02-messages.md` |
 | Connect handshake | `sts-core::connect` | Ported | `11-cligate-protocol.md` |
 | Route message, commands, locations, `t` targets | `sts-core::route` | Types ported | `13-routesrv.md` |
-| Route bus client (service → RouteSrv registration) | — | Not ported yet (RouteSrv phase 1 now exists) | `13-routesrv.md` §3 |
+| Route bus client (service → RouteSrv registration) | `sts-core::route_client` | Ported (15 tests) | `14-route-client.md` |
 | Socket transaction map (`p`/`t`/`s` headers) | `routesrv::relay` | Ported in RouteSrv (25000 ms map) | `13-routesrv.md` §8.1 |
 | Secrets loader (`keyhere` → real value at start-up) | `sts-core::secrets` | Ported; DbSrv uses it. Names and rules: `secrets/README.md` | — |
 | TLS between servers | — | Not ported yet; key = `keyhere` | `13-routesrv.md` §6 |
 | Admin HTTP pages | — | Not ported yet (low priority) | `../Sts/10-stservers-original.md` |
 
-## Port parity (8 Nov 2026)
+## Port parity (10 Nov 2026)
 
 Counted by service type. The 49 types are the services that `StServer.ini` starts.
 Scoring: Ported = 100 %, In progress = 50 %, all other states = 0 %.
 
 | Measure | Count | Percent |
 | --- | --- | --- |
-| **Rust port parity** | 1 ported + 1 in progress of 49 | **3 %** |
+| **Rust port parity** | 1 ported + 2 in progress of 49 | **4 %** |
 | Ported (DbSrv) | 1 of 49 | 2 % |
-| Analysed or decompiled (no Rust yet) | 7 of 49 | 14 % |
+| In progress (RouteSrv, CliGate) | 2 of 49 | 4 % |
+| Analysed or decompiled (no Rust yet) | 6 of 49 | 12 % |
 | Not started | 40 of 49 | 82 % |
 | By process count (DbSrv runs 33 instances) | 33 of 81 processes ported | 41 % ❓ misleading, one binary |
 
@@ -55,8 +56,8 @@ The percent changes when a service reaches "Ported". RouteSrv is next.
 | --- | --- | --- |
 | DbSrv (33 instances) | **Ported** | All reply, error and partial rules verified live on SQL Server. Not ported yet: RouteSrv registration. Storage path: not used. Spec `12-dbsrv-contract.md` |
 | RouteSrv | **In progress** | Phase 1 crate `routesrv` (19 tests): Connect, service commands, Direct/Key/Block routing, reply relay. ❓ key hash, provider codes and command reply shapes are local choices. Not yet: forward scope, multi-router, TLS. Spec `13-routesrv.md`, crate `Program/Platform/StServers/RouteSrv/README.md` |
-| CliGate | Analysed | Client gate, port 6600. Spec `11-cligate-protocol.md`. The `sts` crate covers the client login path today |
-| AuthSrv | Analysed (partial) | Login, SRP verifier from `PlatformAcctDb.dbo.Users` |
+| CliGate | **In progress** | Phase 1 crate `cligate` (22 tests): login flow, logout, idle and auth timeouts, key routing through RouteSrv. Spec `11-cligate-protocol.md`. The `sts` crate still covers the client login path today |
+| AuthSrv | Analysed | Login, SRP verifier, LoginFinish, DB calls, app and game tokens. Spec `15-authsrv.md`. Rust card `auth-1b-rust` waits for the RE phases. Not done: ConsumeGameToken, pre-checks |
 | GameGate | Analysed (partial) | Daemon gate for LobbyGate/GameDaemon, 74 commands |
 | SessionGateSrv, GameAccountSrv, SlotSrv, SpawnSrv | Decompiled | Next after RouteSrv |
 | AccessSrv, ApiGate, ApiManageSrv, ApiSrv, AppAuthSrv, AppGate, AuctionSrv, BanSrv, CacheSrv, ChargeSrv, CouponSrv, DeliverySrv, EventLogSrv, ExAuthSrv, ExAuthnSrv, ForwardSrv, FriendSrv, GoodsSrv, GradeMembersSrv, GradeSrv, IpCheckSrv, LevelSrv, MwGate, NameSrv, PresenceSrv, PrivacySrv, ProfileSrv, PromotionStampSrv, PurchaseLimitSrv, PurchaseSrv, RefundSrv, RewardSrv, RoleSrv, ShowcaseSrv, SvcDispatcher, SysInfoSrv, VirtualCurrencySrv, WarehouseSrv, WebGate, WishSrv | Not ported yet | Order follows the login and in-game flow |
