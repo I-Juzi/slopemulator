@@ -30,12 +30,20 @@ slopemulator/
 │   │   │   ├── LobbyGate/      Gate server (build 381)
 │   │   │   ├── LobbyDaemon/    Lobby daemon (build 307)
 │   │   │   ├── GameDaemon/     Game server (build 381)
+│   │   │   ├── CacheGate/      Gate in front of CacheDaemon (348)
+│   │   │   ├── AchievementDaemon/  Achievements (348)
+│   │   │   ├── RankingDaemon/  Ranking boards and seasons (348)
+│   │   │   ├── SmartCouponDaemon/  Game-event coupons (348)
 │   │   │   └── Data/
 │   │   │       ├── Lmxb/       LMXBOSLB codec
 │   │   │       └── GameData/   Typed game data
 │   │   ├── Platform/
 │   │   │   ├── Sts/            NP / STS login server
-│   │   │   └── StServers/      StsCore, DbSrv, RouteSrv, CliGate
+│   │   │   └── StServers/      Original NP platform services
+│   │   │       ├── StsCore/    Framework: STS messages, Connect, route bus client
+│   │   │       ├── DbSrv/      Stored-procedure gateway (ported)
+│   │   │       ├── RouteSrv/   Service bus router (phase 1)
+│   │   │       └── CliGate/    Platform client gate (phase 1)
 │   │   └── Tools/
 │   │       ├── BnsEdit/        BnsEdit GUI editor (own Cargo project)
 │   │       ├── ClientKey/      Handshake RSA-1024 key generator and client patcher
@@ -43,10 +51,11 @@ slopemulator/
 │   │       ├── DataFile/       Data file crates (BnsData, BnsModel, BnsSchema)
 │   │       └── Emu/            Python handshake / session emulator for build 381
 │   ├── Docs/                   Specs and status for each part
-│   │   ├── Server/             LobbyGate, LobbyDaemon, GameDaemon
+│   │   ├── Server/             LobbyGate, LobbyDaemon, GameDaemon, CacheGate, AchievementDaemon, RankingDaemon, SmartCouponDaemon
 │   │   ├── Client/RE/          Client 381 reverse engineering (18 chapters)
-│   │   ├── Platform/           STS login, StServers specs
+│   │   ├── Platform/           STS login, StServers specs and port tracker
 │   │   ├── Plan/               Work cards and handoffs
+│   │   ├── Reviews/            Parity reviews against the 348 binaries
 │   │   └── DataFile/           Data file formats, data file book
 │   └── tools/                  Slice runner, push script, index tools
 ├── launcher-src/               BnsLauncher fork for the private server (C#, MIT)
@@ -55,7 +64,7 @@ slopemulator/
 └── dist/bnsedit-v1/            BnsEdit v1 builds (Linux, Windows)
 ```
 
-## Server parity
+## Server parity (10 Nov 2026)
 
 How much of each original NCSoft server binary is ported to Rust.
 The original binaries come from the `Service_348_8349` server set (not in this repository).
@@ -91,6 +100,23 @@ console library, so small servers are mostly that library.
 
 Not counted: `ncgagent.exe`, `ncguardserver64.dll` and `ggauth64_27.dll` (anti-cheat, left out on purpose),
 `bsw.exe` and `StartServer` (service tools).
+
+### StServers (original NP platform)
+
+The platform services that `StServer.ini` starts: 49 service types, 81 processes.
+Scoring: Ported = 100 %, In progress = 50 %. Tracker: [`bns-server/Docs/Platform/StServers/README.md`](bns-server/Docs/Platform/StServers/README.md).
+
+| Service | Rust crate | State | Ported % |
+| --- | --- | --- | --- |
+| DbSrv (33 instances) | `dbsrv` | Ported; replies, errors and partial rules checked live on SQL Server | `██████████` **100 %** |
+| RouteSrv | `routesrv` | Phase 1 (19 tests): Connect, routing, reply relay. Not yet: forward scope, multi-router, TLS | `█████░░░░░` **50 %** |
+| CliGate | `cligate` | Phase 1 (22 tests): login flow, logout, timeouts, key routing | `█████░░░░░` **50 %** |
+| Shared framework | `sts-core` | Messages, Connect, route types, route bus client, secrets loader | (used by all) |
+| AuthSrv, GameGate, SessionGateSrv, GameAccountSrv, SlotSrv, SpawnSrv | — | Analysed or decompiled, no Rust yet | 0 % |
+| 40 other services | — | Not started | 0 % |
+| **All 49 service types** | | | `▍░░░░░░░░░` **4 %** |
+
+Phase 2 of the plan reverses all of StServers before more porting.
 
 ### Porting plan for the remaining servers
 
