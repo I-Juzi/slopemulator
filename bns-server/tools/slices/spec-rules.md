@@ -11,9 +11,12 @@ You reverse one slice in IDA and write its spec. Your card is the user message.
 - Write all text in ASD-STE100.
 
 Context budget (each tool result is read again on every later turn):
-- Keep each IDA result under 1,500 tokens (about 3,400 characters).
+- Each turn reads the full context again. The number of turns is the main cost. Target: 40 IDA calls or fewer for the whole slice.
+- Work in batches. For each topic, first run 1 survey script that covers the whole topic: all handlers, their callees, xrefs, strings, constants and enums. Then run only the follow-up calls that the survey shows you need.
+- Send independent tool calls in the same turn.
+- Keep each IDA result under 3,000 tokens (about 7,000 characters). A batch result can use the full limit.
 - Do not print full pseudocode. Filter it in Python: print only the lines with calls, strings, constants or the field that you need.
-- Put many functions in one `execute_python` call. Each call must answer one question.
+- Write the chapter in large edits (one topic per edit), not one fact per edit.
 - Do not read files outside the worktree and the `.i64` copy.
 - For Rust interfaces, run `python3 tools/rust_api.py <crate dir>`. Do not read Rust source files.
 - Write facts into the spec file as soon as you verify them. Do not keep them only in the conversation.
