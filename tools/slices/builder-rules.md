@@ -18,6 +18,13 @@ Original bugs (quirks):
 - Add one test for each quirk with the input that triggers it.
 
 
+Abuse notes (all slices):
+- The port copies the original behaviour, also when a player can abuse it. Full parity comes first.
+- If you see a way that a player can abuse the code (dupe, skipped check, trusted client value, missing rate limit, race), do not fix it and do not ignore it. Write it in `Docs/Plan/abuse-notes/<slice id>.md`.
+- One table row for each case: | name | file:line or address | what a player can do | how to fix it later |
+- Use the names in `Docs/Plan/known-exploits.md` if one fits. Else give a new name `exploit_<name>`.
+- This file is always an allowed path. Write it in addition to the handoff.
+
 Run these checks before you stop. All must pass:
 ```
 cargo fmt -p <crate>

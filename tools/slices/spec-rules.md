@@ -28,6 +28,13 @@ Context budget (each tool result is read again on every later turn):
 
 - If a quirk looks like a player exploit (see `Docs/Plan/known-exploits.md`), add "exploit" and the list name to its row. Still copy it. Exploit fixes come after full parity.
 
+Abuse notes (all slices):
+- The port copies the original behaviour, also when a player can abuse it. Full parity comes first.
+- If you see a way that a player can abuse the code (dupe, skipped check, trusted client value, missing rate limit, race), do not fix it and do not ignore it. Write it in `Docs/Plan/abuse-notes/<slice id>.md`.
+- One table row for each case: | name | file:line or address | what a player can do | how to fix it later |
+- Use the names in `Docs/Plan/known-exploits.md` if one fits. Else give a new name `exploit_<name>`.
+- This file is always an allowed path. Write it in addition to the handoff.
+
 Last steps:
 1. Unless the card says "No Rust card", write the Rust card for the next slice with `Docs/Plan/card-template.md`. Path: `Docs/Plan/cards/<slice id>-rust.md`. Give exact spec line ranges, Rust signatures and test cases.
 2. Write `Docs/Plan/handoffs/<slice id>.md`, 30 lines or fewer: Done, Not done, ❓, Blocked.
