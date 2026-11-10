@@ -168,10 +168,19 @@ fn duplicate_and_alias_headers_fail() {
 fn repeated_route_targets_round_trip() {
     let bytes = b"POST /Auth/Test STS/1.0\r\nt:0#1\r\nT:0#2\r\nl:0\r\n\r\n";
     let frame = Codec::default().decode(bytes).unwrap().unwrap().0;
-    assert_eq!(frame.headers, vec![
-        Header { name: "t".into(), value: "0#1".into() },
-        Header { name: "t".into(), value: "0#2".into() },
-    ]);
+    assert_eq!(
+        frame.headers,
+        vec![
+            Header {
+                name: "t".into(),
+                value: "0#1".into()
+            },
+            Header {
+                name: "t".into(),
+                value: "0#2".into()
+            },
+        ]
+    );
     round_trip(&frame);
 }
 #[test]

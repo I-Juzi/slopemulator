@@ -81,7 +81,11 @@ impl wire::AppTokenIssuer for LocalAppTokens {
             AppIds::Any => true,
             AppIds::List(ids) => ids.iter().any(|id| id == app_id),
         };
-        let printable: String = app_id.chars().filter(|c| c.is_ascii_graphic()).take(64).collect();
+        let printable: String = app_id
+            .chars()
+            .filter(|c| c.is_ascii_graphic())
+            .take(64)
+            .collect();
         if !allowed {
             eprintln!("sts-local: RequestToken refused for AppId {printable}");
             return Err(crate::password::LoginError::Forbidden);

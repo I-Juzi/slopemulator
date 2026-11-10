@@ -2,7 +2,10 @@
 
 use dbsrv::{config, exec::Executor, server::DbServer};
 use std::sync::Arc;
-use sts_core::{ini::Ini, secrets::{names, SecretStore}};
+use sts_core::{
+    ini::Ini,
+    secrets::{names, SecretStore},
+};
 
 fn usage() -> ! {
     eprintln!("usage: DbSrv --config Db.ini --db <Logical> [--db <Logical>…] [--listen addr:port] [--server-id N]");
@@ -26,13 +29,17 @@ async fn main() -> std::io::Result<()> {
             _ => usage(),
         }
     }
-    let (Some(path), false) = (config_path, dbs.is_empty()) else { usage() };
+    let (Some(path), false) = (config_path, dbs.is_empty()) else {
+        usage()
+    };
     let ini = Ini::load(&path)?;
     let secrets = SecretStore::from_env();
     let mut execs = Vec::new();
     for db in &dbs {
         let cfg = config::SqlConfig::from_ini(&ini, db).and_then(|mut c| {
-            c.password = secrets.resolve(&names::db_password(db), &c.password).map_err(|e| e.to_string())?;
+            c.password = secrets
+                .resolve(&names::db_password(db), &c.password)
+                .map_err(|e| e.to_string())?;
             Ok(c)
         });
         match cfg {
@@ -47,5 +54,9 @@ async fn main() -> std::io::Result<()> {
     let server = Arc::new(DbServer::new(execs, server_id, workers));
     let listener = tokio::net::TcpListener::bind(&listen).await?;
     eprintln!("DbSrv: {} on {listen}, {workers} workers", dbs.join(", "));
-    server.serve(listener, async { let _ = tokio::signal::ctrl_c().await; }).await
+    server
+        .serve(listener, async {
+            let _ = tokio::signal::ctrl_c().await;
+        })
+        .await
 }

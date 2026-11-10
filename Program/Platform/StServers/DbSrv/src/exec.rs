@@ -50,7 +50,9 @@ pub fn return_code(rv: i32) -> u32 {
 /// One ODBC diagnostic line (sub_1400D3A50): `[rc] [api] [proc]: message\n`.
 pub fn diag(api: &str, proc_name: &str, driver: &str, e: &tiberius::error::Error) -> String {
     let msg = match e {
-        tiberius::error::Error::Server(t) => format!("[Microsoft][{driver}][SQL Server]{}", t.message()),
+        tiberius::error::Error::Server(t) => {
+            format!("[Microsoft][{driver}][SQL Server]{}", t.message())
+        }
         other => format!("[Microsoft][{driver}]{other}"),
     };
     format!("[-1] [{api}] [{proc_name}]: {msg}\n")
@@ -80,12 +82,19 @@ fn bracket(ident: &str) -> String {
 /// `@Name` with `[A-Za-z0-9_@#$]` only.
 fn param_name(n: &str) -> Option<String> {
     let n = n.strip_prefix('@').unwrap_or(n);
-    (!n.is_empty() && n.len() < 128 && n.bytes().all(|b| b.is_ascii_alphanumeric() || b"_@#$".contains(&b))).then(|| format!("@{n}"))
+    (!n.is_empty()
+        && n.len() < 128
+        && n.bytes()
+            .all(|b| b.is_ascii_alphanumeric() || b"_@#$".contains(&b)))
+    .then(|| format!("@{n}"))
 }
 
 /// Builds the batch text and the bound values. `tvp_types[i]` is the
 /// table type of param `i` (`[schema].[name]`), when it is a table.
-pub fn batch(req: &ExecRequest, tvp_types: &[Option<String>]) -> Result<(String, Vec<Option<String>>), String> {
+pub fn batch(
+    req: &ExecRequest,
+    tvp_types: &[Option<String>],
+) -> Result<(String, Vec<Option<String>>), String> {
     let mut sql = String::from("DECLARE @__rv int = -1;\n");
     let mut binds: Vec<Option<String>> = Vec::new();
     let mut args = Vec::new();
@@ -98,13 +107,25 @@ pub fn batch(req: &ExecRequest, tvp_types: &[Option<String>]) -> Result<(String,
             Value::Null => bind(None, &mut binds),
             Value::VarChar(s) | Value::NVarChar(s) => bind(Some(s.clone()), &mut binds),
             Value::Table(rows) => {
-                let ty = tvp_types.get(i).cloned().flatten().ok_or_else(|| format!("param {} is not a table type", i + 1))?;
+                let ty = tvp_types
+                    .get(i)
+                    .cloned()
+                    .flatten()
+                    .ok_or_else(|| format!("param {} is not a table type", i + 1))?;
                 let var = format!("@__t{}", i + 1);
                 sql.push_str(&format!("DECLARE {var} {ty};\n"));
                 for chunk in rows.chunks(1000) {
                     let values: Vec<String> = chunk
                         .iter()
-                        .map(|r| format!("({})", r.iter().map(|c| bind(c.clone(), &mut binds)).collect::<Vec<_>>().join(",")))
+                        .map(|r| {
+                            format!(
+                                "({})",
+                                r.iter()
+                                    .map(|c| bind(c.clone(), &mut binds))
+                                    .collect::<Vec<_>>()
+                                    .join(",")
+                            )
+                        })
                         .collect();
                     sql.push_str(&format!("INSERT INTO {var} VALUES {};\n", values.join(",")));
                 }
@@ -112,14 +133,21 @@ pub fn batch(req: &ExecRequest, tvp_types: &[Option<String>]) -> Result<(String,
             }
         };
         args.push(match &p.name {
-            Some(n) => format!("{} = {arg}", param_name(n).ok_or_else(|| format!("bad parameter name {n}"))?),
+            Some(n) => format!(
+                "{} = {arg}",
+                param_name(n).ok_or_else(|| format!("bad parameter name {n}"))?
+            ),
             None => arg,
         });
     }
     if binds.len() > 2000 {
         return Err("too many values".into());
     }
-    sql.push_str(&format!("EXEC @__rv = {}.{}", bracket(&req.schema), bracket(&req.proc_name)));
+    sql.push_str(&format!(
+        "EXEC @__rv = {}.{}",
+        bracket(&req.schema),
+        bracket(&req.proc_name)
+    ));
     if !args.is_empty() {
         sql.push(' ');
         sql.push_str(&args.join(", "));
@@ -141,7 +169,10 @@ enum Fail {
 
 impl Executor {
     pub fn new(cfg: SqlConfig) -> Self {
-        Self { cfg, idle: Mutex::new(Vec::new()) }
+        Self {
+            cfg,
+            idle: Mutex::new(Vec::new()),
+        }
     }
 
     pub async fn connect(&self) -> Result<Conn, tiberius::error::Error> {
@@ -164,8 +195,16 @@ impl Executor {
         }
     }
 
-    async fn tvp_types(&self, conn: &mut Conn, req: &ExecRequest) -> Result<Vec<Option<String>>, tiberius::error::Error> {
-        if !req.params.iter().any(|p| matches!(p.value, Value::Table(_))) {
+    async fn tvp_types(
+        &self,
+        conn: &mut Conn,
+        req: &ExecRequest,
+    ) -> Result<Vec<Option<String>>, tiberius::error::Error> {
+        if !req
+            .params
+            .iter()
+            .any(|p| matches!(p.value, Value::Table(_)))
+        {
             return Ok(vec![]);
         }
         let full = format!("{}.{}", bracket(&req.schema), bracket(&req.proc_name));
@@ -181,7 +220,13 @@ impl Executor {
             .await?;
         let types: Vec<(i32, String, String)> = rows
             .iter()
-            .filter_map(|r| Some((r.get::<i32, _>(0)?, r.get::<&str, _>(1)?.to_owned(), r.get::<&str, _>(2)?.to_owned())))
+            .filter_map(|r| {
+                Some((
+                    r.get::<i32, _>(0)?,
+                    r.get::<&str, _>(1)?.to_owned(),
+                    r.get::<&str, _>(2)?.to_owned(),
+                ))
+            })
             .collect();
         Ok(req
             .params
@@ -219,7 +264,8 @@ impl Executor {
         let mut retried = false;
         loop {
             let Some(mut conn) = self.take().await else {
-                return Err(StsError::new(ERR_SQL_TIMEOUT, MODULE_EXEC, 928).with_text("stmt allocation is failed"));
+                return Err(StsError::new(ERR_SQL_TIMEOUT, MODULE_EXEC, 928)
+                    .with_text("stmt allocation is failed"));
             };
             match self.run(&mut conn, req, out).await {
                 Ok(rv) => {
@@ -227,7 +273,8 @@ impl Executor {
                     return match rv {
                         (0, _) => Ok(()),
                         (rv, text) => {
-                            let mut e = StsError::new(return_code(rv), MODULE_EXEC, 1001).with_text(text);
+                            let mut e =
+                                StsError::new(return_code(rv), MODULE_EXEC, 1001).with_text(text);
                             match aux(&out.buf) {
                                 Some(a) => match sts_core::Element::parse(a.as_bytes()) {
                                     Ok(el) => e = e.with_extra(el),
@@ -257,18 +304,35 @@ impl Executor {
     }
 
     /// `Ok((return value, diagnostic text))` once the `<Response>` is written.
-    async fn run(&self, conn: &mut Conn, req: &ExecRequest, out: &mut Output) -> Result<(i32, String), Fail> {
+    async fn run(
+        &self,
+        conn: &mut Conn,
+        req: &ExecRequest,
+        out: &mut Output,
+    ) -> Result<(i32, String), Fail> {
         let driver = self.cfg.driver.clone();
-        let before = |api: &str, e: tiberius::error::Error| Fail::Before { text: diag(api, &req.proc_name, &driver, &e), dead: is_dead(&e) };
-        let tvp = self.tvp_types(conn, req).await.map_err(|e| before("SQLBindParameter", e))?;
-        let (sql, binds) = batch(req, &tvp).map_err(|m| Fail::Before { text: format!("[-1] [SQLBindParameter] [{}]: {m}\n", req.proc_name), dead: false })?;
+        let before = |api: &str, e: tiberius::error::Error| Fail::Before {
+            text: diag(api, &req.proc_name, &driver, &e),
+            dead: is_dead(&e),
+        };
+        let tvp = self
+            .tvp_types(conn, req)
+            .await
+            .map_err(|e| before("SQLBindParameter", e))?;
+        let (sql, binds) = batch(req, &tvp).map_err(|m| Fail::Before {
+            text: format!("[-1] [SQLBindParameter] [{}]: {m}\n", req.proc_name),
+            dead: false,
+        })?;
         let mut q = Query::new(sql);
         for b in binds {
             q.bind(b);
         }
         let mut stream = q.query(conn).await.map_err(|e| before("SqlExecute", e))?;
         // The first item tells whether the call itself failed.
-        let first = stream.try_next().await.map_err(|e| before("SqlExecute", e))?;
+        let first = stream
+            .try_next()
+            .await
+            .map_err(|e| before("SqlExecute", e))?;
         let mark = out.buf.len();
         out.raw("<Response type=\"array\">");
         let mut rv = -1;
@@ -284,7 +348,16 @@ impl Executor {
                     if cols.take().is_some() && !is_return {
                         out.raw("</Set>");
                     }
-                    let c: Vec<_> = m.columns().iter().map(|c| (c.name().chars().take(64).collect::<String>(), c.column_type())).collect();
+                    let c: Vec<_> = m
+                        .columns()
+                        .iter()
+                        .map(|c| {
+                            (
+                                c.name().chars().take(64).collect::<String>(),
+                                c.column_type(),
+                            )
+                        })
+                        .collect();
                     is_return = c.len() == 1 && c[0].0 == RETURN_COLUMN;
                     if !is_return {
                         started = true;
@@ -351,9 +424,15 @@ mod tests {
 
     #[test]
     fn aux_rule() {
-        assert_eq!(aux(b"<Response type=\"array\"><Set type=\"array\"></Set></Response>\n"), None);
+        assert_eq!(
+            aux(b"<Response type=\"array\"><Set type=\"array\"></Set></Response>\n"),
+            None
+        );
         assert!(aux(b"<Response type=\"array\"></Response>\n").is_some());
-        assert!(aux(b"<Response type=\"array\"><Set type=\"array\"><Row><a>1</a></Row></Set></Response>\n").is_some());
+        assert!(aux(
+            b"<Response type=\"array\"><Set type=\"array\"><Row><a>1</a></Row></Set></Response>\n"
+        )
+        .is_some());
         assert_eq!(aux(b"<Row/></Set></Response>\n"), None);
     }
 
@@ -363,9 +442,18 @@ mod tests {
             schema: "v1".into(),
             proc_name: "p_Get".into(),
             params: vec![
-                Param { name: None, value: Value::text("a") },
-                Param { name: None, value: Value::Null },
-                Param { name: None, value: Value::Table(vec![vec![Some("x".into()), None]]) },
+                Param {
+                    name: None,
+                    value: Value::text("a"),
+                },
+                Param {
+                    name: None,
+                    value: Value::Null,
+                },
+                Param {
+                    name: None,
+                    value: Value::Table(vec![vec![Some("x".into()), None]]),
+                },
             ],
         };
         let (sql, binds) = batch(&req, &[None, None, Some("[dbo].[T]".into())]).unwrap();
@@ -374,9 +462,21 @@ mod tests {
             "DECLARE @__rv int = -1;\nDECLARE @__t3 [dbo].[T];\nINSERT INTO @__t3 VALUES (@P3,@P4);\nEXEC @__rv = [v1].[p_Get] @P1, @P2, @__t3;\nSELECT @__rv AS [__DbSrvReturn];"
         );
         assert_eq!(binds, vec![Some("a".into()), None, Some("x".into()), None]);
-        let named = ExecRequest { params: vec![Param { name: Some("@Id".into()), value: Value::text("5") }], ..req.clone() };
+        let named = ExecRequest {
+            params: vec![Param {
+                name: Some("@Id".into()),
+                value: Value::text("5"),
+            }],
+            ..req.clone()
+        };
         assert!(batch(&named, &[]).unwrap().0.contains("[p_Get] @Id = @P1;"));
-        let bad = ExecRequest { params: vec![Param { name: Some("a;b".into()), value: Value::Null }], ..req };
+        let bad = ExecRequest {
+            params: vec![Param {
+                name: Some("a;b".into()),
+                value: Value::Null,
+            }],
+            ..req
+        };
         assert!(batch(&bad, &[]).is_err());
     }
 }

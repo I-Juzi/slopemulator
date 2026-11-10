@@ -2,37 +2,136 @@
 //! This does not change `game::GamePacket` or its strict trailing-byte policy.
 //! Handler prefix decoders permit extra bytes. Unused bodies stay opaque.
 //! `Q` decodes to I8; c to U8. Repeats use two-byte unsigned counts.
+// The command consts keep the official names (for example `G_HelloReqCmd`).
+#![allow(non_upper_case_globals)]
 
 use bloodlib::packet::{self, DecodeLimits, PacketError, Value};
+use packet_ids::GameCmd;
+
+/// Command IDs as `u16` consts. Each const has the official name of its `GameCmd` variant,
+/// so that a name in the code, the docs and IDA is the same text.
+macro_rules! u16_commands {
+    ($($name:ident),* $(,)?) => {
+        $(
+            const $name: u16 = GameCmd::$name.id() as u16;
+        )*
+    };
+}
+
+u16_commands!(
+    G_HelloReqCmd,
+    G_MobileHelloReqCmd,
+    G_PingReqCmd,
+    G_ServerPingReqCmd,
+    G_GameKeyAuthReqCmd,
+    G_NPTokenAuthReqCmd,
+    G_LobbyTokenAuthReqCmd,
+    G_ReturnToLobbyReqCmd,
+    G_CleanUserConnectionInfoInCligateReqCmd,
+    G_EnterWorldReqCmd,
+    G_QueryWaitingNumberReqCmd,
+    G_LeaveWorldReqCmd,
+    G_EnterZoneReqCmd,
+    G_MoveReqCmd,
+    G_TurnReqCmd,
+    G_ActivatedTeleportListReqCmd,
+    G_DetectTeleportSwitchReqCmd,
+    G_ReturnToBaseCampReqCmd,
+    G_ClearLogoutPartyMemberReqCmd,
+    G_ClearLogoutTeamMemberReqCmd,
+    G_EnterPortalReqCmd,
+    G_TurnBackFromPortalReqCmd,
+    G_ChannelListReqCmd,
+    G_ChangeChannelReqCmd,
+    G_SaveClientOptionReqCmd,
+    G_ClientConfigReqCmd,
+    G_AutoLogoutCheckReqCmd,
+    G_CheckRoundTripTimeReqCmd,
+    G_WriteLatencyLogReqCmd,
+    G_CurrentUTCTimeReqCmd,
+    G_ReturnToGameReqCmd,
+    G_ExtendJumpingCharacterCreationQuotaWithWarehouseItemReqCmd,
+    G_UpgradeJumpingCharacterStateWithCreationQuotaReqCmd,
+    G_QQLogoutReqCmd,
+    G_ContentsRuleListReqCmd,
+    G_EnterZoneDirectReqCmd,
+    G_LeaveZoneDirectReqCmd,
+    G_UseJumpingCharacterTicketReqCmd,
+    G_ClientRunReqCmd,
+    G_AirDashReqCmd,
+    G_WarpToPosReqCmd,
+    G_UseTeleportReqCmd,
+    G_UseCaveEscapeReqCmd,
+);
 
 pub const COMMANDS: [u16; 43] = [
-    11, 13, 16, 18, 19, 22, 23, 26, 29, 31, 34, 38, 42, 64, 66, 99, 102, 145, 174, 262, 296, 298,
-    300, 303, 305, 307, 411, 414, 416, 422, 648, 809, 812, 887, 929, 981, 984, 1149, 1210, 1219,
-    1221, 1223, 1239,
+    G_HelloReqCmd,
+    G_MobileHelloReqCmd,
+    G_PingReqCmd,
+    G_ServerPingReqCmd,
+    G_GameKeyAuthReqCmd,
+    G_NPTokenAuthReqCmd,
+    G_LobbyTokenAuthReqCmd,
+    G_ReturnToLobbyReqCmd,
+    G_CleanUserConnectionInfoInCligateReqCmd,
+    G_EnterWorldReqCmd,
+    G_QueryWaitingNumberReqCmd,
+    G_LeaveWorldReqCmd,
+    G_EnterZoneReqCmd,
+    G_MoveReqCmd,
+    G_TurnReqCmd,
+    G_ActivatedTeleportListReqCmd,
+    G_DetectTeleportSwitchReqCmd,
+    G_ReturnToBaseCampReqCmd,
+    G_ClearLogoutPartyMemberReqCmd,
+    G_ClearLogoutTeamMemberReqCmd,
+    G_EnterPortalReqCmd,
+    G_TurnBackFromPortalReqCmd,
+    G_ChannelListReqCmd,
+    G_ChangeChannelReqCmd,
+    G_SaveClientOptionReqCmd,
+    G_ClientConfigReqCmd,
+    G_AutoLogoutCheckReqCmd,
+    G_CheckRoundTripTimeReqCmd,
+    G_WriteLatencyLogReqCmd,
+    G_CurrentUTCTimeReqCmd,
+    G_ReturnToGameReqCmd,
+    G_ExtendJumpingCharacterCreationQuotaWithWarehouseItemReqCmd,
+    G_UpgradeJumpingCharacterStateWithCreationQuotaReqCmd,
+    G_QQLogoutReqCmd,
+    G_ContentsRuleListReqCmd,
+    G_EnterZoneDirectReqCmd,
+    G_LeaveZoneDirectReqCmd,
+    G_UseJumpingCharacterTicketReqCmd,
+    G_ClientRunReqCmd,
+    G_AirDashReqCmd,
+    G_WarpToPosReqCmd,
+    G_UseTeleportReqCmd,
+    G_UseCaveEscapeReqCmd,
 ];
 
 /// None is an unused body, not an exact-length check.
 pub fn format(command: u16) -> Option<&'static str> {
     Some(match command {
-        11 => "hhqsqb",
-        13 => "hhsChh;",
-        18 | 414 => "hqq",
-        23 => "hhqq",
-        31 => "hic",
-        42 => "hiuuuh",
-        64 => "hcuuuuuuiiiiiihhhcCQcccccch;Chhh;",
-        66 => "hch",
-        102 | 303 | 1239 => "hh",
-        298 => "huuuh",
-        305 => "hQb",
-        416 => "hQiiiii",
-        809 => "hqqi",
-        981 => "hQqcChh;",
-        984 => "h",
-        1149 => "hqqqc",
-        1210 => "hcc",
-        1219 => "hq",
-        1223 => "hhh",
+        G_HelloReqCmd => "hhqsqb",
+        G_MobileHelloReqCmd => "hhsChh;",
+        G_ServerPingReqCmd | G_CheckRoundTripTimeReqCmd => "hqq",
+        G_LobbyTokenAuthReqCmd => "hhqq",
+        G_EnterWorldReqCmd => "hic",
+        G_EnterZoneReqCmd => "hiuuuh",
+        G_MoveReqCmd => "hcuuuuuuiiiiiihhhcCQcccccch;Chhh;",
+        G_TurnReqCmd => "hch",
+        G_DetectTeleportSwitchReqCmd | G_ChangeChannelReqCmd | G_UseCaveEscapeReqCmd => "hh",
+        G_TurnBackFromPortalReqCmd => "huuuh",
+        G_SaveClientOptionReqCmd => "hQb",
+        G_WriteLatencyLogReqCmd => "hQiiiii",
+        G_ExtendJumpingCharacterCreationQuotaWithWarehouseItemReqCmd => "hqqi",
+        G_EnterZoneDirectReqCmd => "hQqcChh;",
+        G_LeaveZoneDirectReqCmd => "h",
+        G_UseJumpingCharacterTicketReqCmd => "hqqqc",
+        G_ClientRunReqCmd => "hcc",
+        G_AirDashReqCmd => "hq",
+        G_UseTeleportReqCmd => "hhh",
         _ => return None,
     })
 }
@@ -75,7 +174,7 @@ impl Request {
         };
         let limits = DecodeLimits {
             blob_bytes: 4000,
-            string_units: if matches!(command, 11 | 13) {
+            string_units: if matches!(command, G_HelloReqCmd | G_MobileHelloReqCmd) {
                 40
             } else {
                 usize::MAX

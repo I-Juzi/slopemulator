@@ -14,14 +14,15 @@ use base64::{engine::general_purpose::STANDARD, Engine};
 use md5::Md5;
 use num_bigint::BigUint;
 use num_traits::Zero;
+use packet_ids::StsCmd;
 use rand::{CryptoRng, RngCore};
 use sha2::{Digest, Sha256};
 use std::{sync::Arc, time::Instant};
 
 /// Library reply ID of the `LoginTokenStart` reply.
-pub const TOKEN_START_REPLY_ID: u32 = 3111;
+pub const TOKEN_START_REPLY_ID: u32 = StsCmd::Auth_LoginTokenStart.id() as u32;
 /// ❓ Reply ID of the `TokenKeyData` reply. 3112 is the best guess from the ID table.
-pub const TOKEN_KEY_DATA_REPLY_ID: u32 = 3112;
+pub const TOKEN_KEY_DATA_REPLY_ID: u32 = StsCmd::Auth_TokenKeyData.id() as u32;
 /// Suite 4 sizes (`unk_180056928`): MAC 16, cipher key 128, IV 0.
 pub const MAC_LEN: usize = 16;
 pub const CIPHER_KEY_LEN: usize = 128;

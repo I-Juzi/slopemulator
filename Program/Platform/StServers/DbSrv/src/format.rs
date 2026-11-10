@@ -95,7 +95,9 @@ pub fn cell(ty: ColumnType, data: &ColumnData<'_>) -> Option<String> {
         ColumnData::F64(v) => {
             let v = (*v)?;
             match ty {
-                ColumnType::Money | ColumnType::Money4 => decimal((v * 10_000.0).round() as i128, 4),
+                ColumnType::Money | ColumnType::Money4 => {
+                    decimal((v * 10_000.0).round() as i128, 4)
+                }
                 _ => v.to_string(),
             }
         }
@@ -116,7 +118,11 @@ pub fn cell(ty: ColumnType, data: &ColumnData<'_>) -> Option<String> {
         }
         ColumnData::SmallDateTime(v) => {
             let v = (*v)?;
-            format!("{} {}", date(DAYS_1900 + v.days() as i64), time(v.seconds_fragments() as u64 * 60, 0))
+            format!(
+                "{} {}",
+                date(DAYS_1900 + v.days() as i64),
+                time(v.seconds_fragments() as u64 * 60, 0)
+            )
         }
         ColumnData::Time(v) => {
             let v = (*v)?;
@@ -125,7 +131,11 @@ pub fn cell(ty: ColumnType, data: &ColumnData<'_>) -> Option<String> {
         ColumnData::Date(v) => date((*v)?.days() as i64),
         ColumnData::DateTime2(v) => {
             let v = (*v)?;
-            format!("{} {}", date(v.date().days() as i64), time(v.time().increments(), v.time().scale()))
+            format!(
+                "{} {}",
+                date(v.date().days() as i64),
+                time(v.time().increments(), v.time().scale())
+            )
         }
         ColumnData::DateTimeOffset(v) => {
             let v = (*v)?;
@@ -133,12 +143,20 @@ pub fn cell(ty: ColumnType, data: &ColumnData<'_>) -> Option<String> {
             // The stored value is UTC; the text shows local time and the offset.
             let scale = dt.time().scale();
             let unit = 10i128.pow(scale as u32);
-            let total = (dt.date().days() as i128 * 86_400 * unit) + dt.time().increments() as i128 + v.offset() as i128 * 60 * unit;
+            let total = (dt.date().days() as i128 * 86_400 * unit)
+                + dt.time().increments() as i128
+                + v.offset() as i128 * 60 * unit;
             let days = total.div_euclid(86_400 * unit);
             let rest = total.rem_euclid(86_400 * unit) as u64;
             let off = v.offset();
             let sign = if off < 0 { '-' } else { '+' };
-            format!("{} {} {sign}{:02}:{:02}", date(days as i64), time(rest, scale), off.unsigned_abs() / 60, off.unsigned_abs() % 60)
+            format!(
+                "{} {} {sign}{:02}:{:02}",
+                date(days as i64),
+                time(rest, scale),
+                off.unsigned_abs() / 60,
+                off.unsigned_abs() % 60
+            )
         }
     })
 }
@@ -153,10 +171,20 @@ mod tests {
     fn dates() {
         // 2016-10-20 = 42661 days after 1900-01-01; 12:34:56.789 ≈ 13577037 ticks.
         let ticks = ((12 * 3600 + 34 * 60 + 56) * 300) as u32 + 237; // .790
-        assert_eq!(cell(ColumnType::Datetime, &ColumnData::DateTime(Some(DateTime::new(42661, ticks)))).unwrap(), "2016-10-20 12:34:56.790");
+        assert_eq!(
+            cell(
+                ColumnType::Datetime,
+                &ColumnData::DateTime(Some(DateTime::new(42661, ticks)))
+            )
+            .unwrap(),
+            "2016-10-20 12:34:56.790"
+        );
         assert_eq!(date(0), "0001-01-01");
         let d2 = DateTime2::new(Date::new(DAYS_1900 as u32), Time::new(1234567, 7));
-        assert_eq!(cell(ColumnType::Datetime2, &ColumnData::DateTime2(Some(d2))).unwrap(), "1900-01-01 00:00:00.1234567");
+        assert_eq!(
+            cell(ColumnType::Datetime2, &ColumnData::DateTime2(Some(d2))).unwrap(),
+            "1900-01-01 00:00:00.1234567"
+        );
     }
 
     #[test]
@@ -167,9 +195,22 @@ mod tests {
         assert_eq!(decimal(7, 0), "7");
         assert_eq!(decimal(0, 0), "0");
         let n = Numeric::new_with_scale(-1205, 1);
-        assert_eq!(cell(ColumnType::Decimaln, &ColumnData::Numeric(Some(n))).unwrap(), "-120.5");
-        assert_eq!(cell(ColumnType::Money, &ColumnData::F64(Some(1234.56))).unwrap(), "1234.5600");
+        assert_eq!(
+            cell(ColumnType::Decimaln, &ColumnData::Numeric(Some(n))).unwrap(),
+            "-120.5"
+        );
+        assert_eq!(
+            cell(ColumnType::Money, &ColumnData::F64(Some(1234.56))).unwrap(),
+            "1234.5600"
+        );
         assert_eq!(cell(ColumnType::Int4, &ColumnData::I32(None)), None);
-        assert_eq!(cell(ColumnType::BigVarBin, &ColumnData::Binary(Some(vec![0xAB, 1].into()))).unwrap(), "AB01");
+        assert_eq!(
+            cell(
+                ColumnType::BigVarBin,
+                &ColumnData::Binary(Some(vec![0xAB, 1].into()))
+            )
+            .unwrap(),
+            "AB01"
+        );
     }
 }

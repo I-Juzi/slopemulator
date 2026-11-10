@@ -2,6 +2,7 @@
 use crate::{daemon::LobbyDaemon, wire::invalid};
 use bloodlib::packet::{compose, decode_fields, decompose, DecodeLimits, Value};
 use packet::fragments::compose_fragments;
+use packet_ids::LobbyCmd;
 use std::{
     collections::HashMap,
     io,
@@ -228,7 +229,12 @@ impl LoginHub {
                 }
                 .map_err(p)?;
                 if !added || daemon.send_packet(request).await.is_err() {
-                    deliver_fail(entry, if cmd == 7 { 5 } else { 8 }, 2).await;
+                    let fail = if cmd == 7 {
+                        LobbyCmd::L_LoginWithNPTokenFail
+                    } else {
+                        LobbyCmd::L_LoginWithLobbyTokenFail
+                    };
+                    deliver_fail(entry, fail.id(), 2).await;
                 }
             }
             8 | 11 | 14 | 17 => {
@@ -246,12 +252,12 @@ impl LoginHub {
                     gate.and_then(|gate| s.gates.remove(&gate))
                 };
                 if let Some(entry) = entry {
-                    deliver_fail(
-                        entry,
-                        if cmd <= 11 { 5 } else { 8 },
-                        map_reason(cmd, *reason),
-                    )
-                    .await;
+                    let fail = if cmd <= 11 {
+                        LobbyCmd::L_LoginWithNPTokenFail
+                    } else {
+                        LobbyCmd::L_LoginWithLobbyTokenFail
+                    };
+                    deliver_fail(entry, fail.id(), map_reason(cmd, *reason)).await;
                 }
             }
             10 | 16 => {
@@ -278,9 +284,12 @@ impl LoginHub {
                     v[7] = Value::I8(i8::from(teen != 0));
                 }
                 v.push(Value::Bytes(broadcast.to_vec()));
-                let packets =
-                    compose_fragments(if cmd == 10 { 4 } else { 7 }, &format!("hi{format}K"), &v)
-                        .map_err(p)?;
+                let ok = if cmd == 10 {
+                    LobbyCmd::L_LoginWithNPTokenOk
+                } else {
+                    LobbyCmd::L_LoginWithLobbyTokenOk
+                };
+                let packets = compose_fragments(ok.id(), &format!("hi{format}K"), &v).map_err(p)?;
                 let _ = entry
                     .tx
                     .send(Delivery {

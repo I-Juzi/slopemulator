@@ -2,6 +2,7 @@
 use crate::{config::ContentsConfig, wire::invalid};
 use bloodlib::packet::{compose, Value};
 use packet::fragments::compose_fragments;
+use packet_ids::LobbyCmd;
 use std::io;
 
 pub struct ContentsRules {
@@ -49,7 +50,7 @@ impl ContentsRules {
         }
         lines.push(vec![Value::Bytes(b"</config>".to_vec())]);
         let packets = compose_fragments(
-            107,
+            LobbyCmd::L_ContentsRuleListOk.id(),
             "hihhiCb;",
             &[
                 Value::I16(74),
@@ -66,7 +67,14 @@ impl ContentsRules {
             *last = now;
             self.packets.clone()
         } else {
-            vec![compose("hE", &[Value::I16(108), Value::I16(234)]).expect("fixed fail")]
+            vec![compose(
+                "hE",
+                &[
+                    Value::I16(LobbyCmd::L_ContentsRuleListFail.id()),
+                    Value::I16(234),
+                ],
+            )
+            .expect("fixed fail")]
         }
     }
 }

@@ -12,6 +12,7 @@ use bloodlib::{
     packet::{compose, decompose, DecodeLimits, Value},
     session::SessionPacketCrypt,
 };
+use packet_ids::LobbyCmd;
 use rand::{rngs::OsRng, RngCore};
 use std::{
     io,
@@ -258,9 +259,16 @@ impl Server {
             let (plain, _) = session.decrypt(&frame, 4000).map_err(protocol)?;
             let packet = inner_packet(&plain)?;
             let cmd = i16::from_le_bytes([packet[2], packet[3]]);
-            tracing::debug!(cmd, len = packet.len(), authed = client_key != 0, "client packet");
-            match cmd {
-                3 | 6 if client_key == 0 => {
+            tracing::debug!(
+                cmd,
+                len = packet.len(),
+                authed = client_key != 0,
+                "client packet"
+            );
+            match LobbyCmd::from_id(cmd) {
+                Some(LobbyCmd::L_LoginWithNPTokenReq | LobbyCmd::L_LoginWithLobbyTokenReq)
+                    if client_key == 0 =>
+                {
                     let login = decode_login(packet, cmd)?;
                     let key = self
                         .next_gate_key
@@ -279,7 +287,14 @@ impl Server {
                     if !sent {
                         let fail = compose(
                             "hh",
-                            &[Value::I16(if cmd == 3 { 5 } else { 8 }), Value::I16(2)],
+                            &[
+                                Value::I16(if cmd == LobbyCmd::L_LoginWithNPTokenReq.id() {
+                                    LobbyCmd::L_LoginWithNPTokenFail.id()
+                                } else {
+                                    LobbyCmd::L_LoginWithLobbyTokenFail.id()
+                                }),
+                                Value::I16(2),
+                            ],
                         )
                         .map_err(protocol)?;
                         let frame = session.encrypt(&fail, 4002, false).map_err(protocol)?;
@@ -287,11 +302,14 @@ impl Server {
                     }
                     // Keep the gate key after a failed D6/D12 send (§1.2).
                 }
-                9 => (),
-                24 | 103 if client_key != 0 => {
+                Some(LobbyCmd::L_PingReq) => (),
+                Some(
+                    LobbyCmd::L_GetWorldInfoListReq
+                    | LobbyCmd::L_GetPcCafeMileageFeverTimeScheduleListReq,
+                ) if client_key != 0 => {
                     let cached = {
                         let lists = self.lists.lock().unwrap();
-                        if cmd == 24 {
+                        if cmd == LobbyCmd::L_GetWorldInfoListReq.id() {
                             lists.worlds.clone()
                         } else {
                             lists.schedule.clone()
@@ -308,7 +326,12 @@ impl Server {
                         let packet = compose(
                             "hh",
                             &[
-                                Value::I16(if cmd == 24 { 19 } else { 105 }),
+                                // TSV names id 19 L_GetWaitInfoFail (world list fail is 26).
+                                Value::I16(if cmd == LobbyCmd::L_GetWorldInfoListReq.id() {
+                                    LobbyCmd::L_GetWaitInfoFail.id()
+                                } else {
+                                    LobbyCmd::L_GetPcCafeMileageFeverTimeScheduleListFail.id()
+                                }),
                                 Value::I16(reason),
                             ],
                         )
@@ -324,7 +347,7 @@ impl Server {
                         }
                     }
                 }
-                106 => {
+                Some(LobbyCmd::L_ContentsRuleListReq) => {
                     let now = self.started.elapsed().as_millis().min(u64::MAX as u128) as u64;
                     if let Some(rules) = &self.contents {
                         for packet in rules.reply(now, &mut last_list_tick) {
@@ -394,8 +417,11 @@ impl Server {
                             if !self.hub.has_session(key) {
                                 return Ok(());
                             }
-                            let kick = compose("hQ", &[Value::I16(10), values[2].clone()])
-                                .map_err(protocol)?;
+                            let kick = compose(
+                                "hQ",
+                                &[Value::I16(LobbyCmd::L_KickNotify.id()), values[2].clone()],
+                            )
+                            .map_err(protocol)?;
                             self.hub.send_client(key, vec![kick]).await;
                         }
                         if self.close_timeout > 0 {
@@ -433,6 +459,8 @@ impl Server {
         }
         Ok(())
     }
+    // The const for the pattern keeps the official name.
+    #[allow(non_upper_case_globals)]
     fn hello(&self, frame: &[u8]) -> io::Result<(Vec<u8>, SessionPacketCrypt)> {
         let decoded = decode_client(
             frame,
@@ -452,7 +480,8 @@ impl Server {
             },
         )
         .map_err(protocol)?;
-        let [Value::I16(1), Value::I16(58), Value::Bytes(blob)] = fields.as_slice() else {
+        const L_HelloReq: i16 = LobbyCmd::L_HelloReq.id();
+        let [Value::I16(L_HelloReq), Value::I16(58), Value::Bytes(blob)] = fields.as_slice() else {
             return Err(invalid("invalid HelloReq command or version"));
         };
         if blob.len() < 4 {
@@ -466,7 +495,11 @@ impl Server {
         let dh = DhParameters::from_blob(&blob[68..])
             .map_err(protocol)?
             .exchange(&mut OsRng);
-        let reply = compose("hb", &[Value::I16(2), Value::Bytes(dh.reply)]).map_err(protocol)?;
+        let reply = compose(
+            "hb",
+            &[Value::I16(LobbyCmd::L_HelloOk.id()), Value::Bytes(dh.reply)],
+        )
+        .map_err(protocol)?;
         let reply = encode_client(
             &reply,
             ClientEncrypt::Handshake {
@@ -479,22 +512,34 @@ impl Server {
         Ok((reply, SessionPacketCrypt::new(dh.session_key)))
     }
 }
+// The consts for the patterns keep the official names.
+#[allow(non_upper_case_globals)]
 pub fn decode_login(packet: &[u8], cmd: i16) -> io::Result<LoginToken> {
+    const L_LoginWithNPTokenReq: i16 = LobbyCmd::L_LoginWithNPTokenReq.id();
+    const L_LoginWithLobbyTokenReq: i16 = LobbyCmd::L_LoginWithLobbyTokenReq.id();
     let fields = decompose(
-        if cmd == 3 { "hoo" } else { "hqq" },
+        if cmd == L_LoginWithNPTokenReq {
+            "hoo"
+        } else {
+            "hqq"
+        },
         packet,
         DecodeLimits::default(),
     )
     .map_err(protocol)?;
     match fields.as_slice() {
-        [Value::I16(3), Value::Id(token), Value::Id(portal)] => Ok(LoginToken::Np {
-            token: *token,
-            portal: *portal,
-        }),
-        [Value::I16(6), Value::U64(client_key), Value::U64(token)] => Ok(LoginToken::Lobby {
-            client_key: *client_key,
-            token: *token,
-        }),
+        [Value::I16(L_LoginWithNPTokenReq), Value::Id(token), Value::Id(portal)] => {
+            Ok(LoginToken::Np {
+                token: *token,
+                portal: *portal,
+            })
+        }
+        [Value::I16(L_LoginWithLobbyTokenReq), Value::U64(client_key), Value::U64(token)] => {
+            Ok(LoginToken::Lobby {
+                client_key: *client_key,
+                token: *token,
+            })
+        }
         _ => Err(invalid("invalid login request")),
     }
 }

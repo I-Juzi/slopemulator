@@ -1,6 +1,7 @@
 //! Goods reply conversion. Spec 05 §8.6–8.10. No shop decisions occur here.
 use crate::wire::invalid;
 use bloodlib::packet::{compose, decode_fields, Value};
+use packet_ids::LobbyCmd;
 use std::io;
 
 fn p(e: impl std::fmt::Display) -> io::Error {
@@ -84,13 +85,18 @@ impl Input<'_> {
     }
 }
 pub fn service_entries(data: &[u8]) -> io::Result<(u64, Vec<Vec<u8>>)> {
-    fixed_items(data, 72, "", "qQqohq")
+    fixed_items(data, LobbyCmd::L_GetServiceEntryListOk.id(), "", "qQqohq")
 }
 pub fn service_items(data: &[u8]) -> io::Result<(u64, Vec<Vec<u8>>)> {
-    fixed_items(data, 66, "Qi", "qqqiQ")
+    fixed_items(
+        data,
+        LobbyCmd::L_ListLobbyServiceItemInfoOk.id(),
+        "Qi",
+        "qqqiQ",
+    )
 }
 pub fn take_goods(data: &[u8]) -> io::Result<(u64, Vec<Vec<u8>>)> {
-    fixed_items(data, 63, "q", "qqqiQ")
+    fixed_items(data, LobbyCmd::L_TakeGoodsOk.id(), "q", "qqqiQ")
 }
 fn fixed_items(
     data: &[u8],
@@ -128,7 +134,7 @@ pub fn list_goods(data: &[u8]) -> io::Result<(u64, Vec<Vec<u8>>)> {
         row.push(Value::Repeat(items));
         rows.push(row);
     }
-    let mut out = Fragments::new(60);
+    let mut out = Fragments::new(LobbyCmd::L_ListGoodsOk.id());
     out.value('h', &Value::U16(rows.len() as u16))?;
     for row in &rows {
         for (index, (code, value)) in "qiQQqqssissbb".chars().zip(row).enumerate() {
