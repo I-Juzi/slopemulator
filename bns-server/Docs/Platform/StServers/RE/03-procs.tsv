@@ -1,0 +1,52 @@
+service	database	schema	proc	call_site	function	note
+GameAccountSrv	GameDb	v2016120901	AddUserGame	0x1400C5797	0x1400C5720	Login (id 4) create
+GameAccountSrv	GameDb	v2016120901	AddUserGameForNumericId	0x1400C5822	0x1400C5720	Login (id 4) create, numeric form
+GameAccountSrv	GameDb	v2016120901	ChangeUserId	0x1400C920A	0x1400C90C0	UserIdChanged (id 19)
+GameAccountSrv	GameDb	v2016120901	ChangeUserIdByGameCode	0x1400C5FBB	-	MoveEnd txn step (§1.5)
+GameAccountSrv	GameDb	v2016120901	EnableUserChangeable	0x1400C8F05	0x1400C8D50	ResetMoveCount (id 11)
+GameAccountSrv	GameDb	v2016120901	GetUserGame	-	0x1400C4DF0	GetAcctByUserId (id 16); site found by string only
+GameAccountSrv	GameDb	v2016120901	GetUserIdByGameAccountId	-	0x1400C5000	GetUserIdByAcct (id 15); site found by string only
+GameAccountSrv	GameDb	v2016120901	GetUserLastPresence	0x1400C7903	0x1400C7690	ListUserLastPresences (id 6), one game
+GameAccountSrv	GameDb	v2016120901	ListUserGames	-	0x1400C62B0	pre-load (§1.3); site found by string only
+GameAccountSrv	GameDb	v2016120901	ListUserLastPresences	0x1400C789B	0x1400C7690	ListUserLastPresences (id 6), all games
+GameAccountSrv	GameDb	v2016120901	ListWorlds	-	0x1400D1150	Game.ListWorlds; site found by string only
+GameAccountSrv	GameDb	v2016120901	PageGameAccountUserChanges	0x1400C8734	0x1400C85B0	PageAccountMoves (id 18)
+GameAccountSrv	GameDb	v2016120901	RemoveUserGameByGameAccountId	0x1400C8B19	0x1400C8940	RemoveAccount (id 13)
+GameAccountSrv	GameDb	v2016120901	RemoveUserGameByGameAccountId	0x1400CB83B	0x1400CB710	txn step 7
+GameAccountSrv	GameDb	v2016120901	RemoveUserGameByUserId	0x1400C8CA3	0x1400C8C40	RemoveAccounts (id 14)
+GameAccountSrv	GameDb	v2016120901	UpdateUserLastPresence	0x1400CBB3D	0x1400CBAC0	Login (id 4)
+GameAccountSrv	GameDb	v2016120901	UpdateUserLastPresence	0x1400C8052	0x1400C7E90	Logout (id 5)
+GameAccountSrv	GameDb	v2016120901	UpdateUserLastPresence	0x1400CA7AE	0x1400CA550	txn step 1
+SlotSrv	SlotDb	v2016041101	AddTagPolicy	0x1400D1C11	0x1400D1BB0	AddTagPolicy (id 9)
+SlotSrv	SlotDb	v2016041101	CreateSlots	0x1400CA7A0	0x1400CA740	CCreateSlotsReqContext
+SlotSrv	SlotDb	v2016041101	CreateSlots	0x1400CA5F3	0x1400CA590	CCreateSlotsReqContext
+SlotSrv	SlotDb	v2016041101	CreateSlots	0x1400CA2A5	0x1400CA210	CListSlotsReqContext
+SlotSrv	SlotDb	v2016041101	DeleteSlot	0x1400CA93C	0x1400CA8E0	CDeleteSlotReqContext (user id 2)
+SlotSrv	SlotDb	v2016041101	DeleteSlot	0x1400D1F46	0x1400D1EE0	global id 2
+SlotSrv	SlotDb	v2016041101	GetSlot	0x1400CA40C	0x1400CA3B0	CGetSlotReqContext
+SlotSrv	SlotDb	v2016041101	GetSlot	0x1400CC5DF	0x1400CBB30	CCreateSlotsReqContext run
+SlotSrv	SlotDb	v2016041101	GetTagPolicyData	0x1400CA4FC	0x1400CA4A0	CCreateSlotsReqContext
+SlotSrv	SlotDb	v2016041101	ListSlots	0x1400D99D4	0x1400D9940	user load (to header)
+SlotSrv	SlotDb	v2016041101	ListSlots	0x1400D0A14	0x1400D09B0	CGetSlotReqContext
+SlotSrv	SlotDb	v2016041101	ListTagPolicies	0x1400D255D	0x1400D2500	PageTagPolicies (id 8)
+SlotSrv	SlotDb	v2016041101	PageSlots	0x1400D2381	0x1400D2280	PageSlots (id 10); name chosen at run time
+SlotSrv	SlotDb	v2016041101	PageSlotsByTagStatus	0x1400D2381	0x1400D2280	same site
+SlotSrv	SlotDb	v2016041101	PageSlotsByTagPolicyIdList	0x1400D2381	0x1400D2280	same site
+SlotSrv	SlotDb	v2016041101	PageSlotsByTagPolicyIdListAndTagStatus	0x1400D2381	0x1400D2280	same site
+SlotSrv	SlotDb	v2016041101	UpdateSlotActivateLock	0x1400D28EA	0x1400D2830	tag worker TagStatus 1
+SlotSrv	SlotDb	v2016041101	UpdateSlotActivateUnlock	0x1400D2A3B	0x1400D29A0	tag worker ActivateKey
+SlotSrv	SlotDb	v2016041101	UpdateSlotData	0x1400CBA9C	0x1400CBA40	CSetDataReqContext
+SlotSrv	SlotDb	v2016041101	UpdateSlotData	0x1400CB9AC	0x1400CB950	CResetDataReqContext
+SlotSrv	SlotDb	v2016041101	UpdateSlotDeactivateLock	0x1400D1E13	0x1400D1D50	second site
+SlotSrv	SlotDb	v2016041101	UpdateSlotDeactivateLock	0x1400D2DF2	0x1400D2CF0	tag worker TagStatus 2
+SlotSrv	SlotDb	v2016041101	UpdateSlotDeactivateUnlock	0x1400D2F7B	0x1400D2EE0	tag worker DeactivateKey
+SlotSrv	SlotDb	v2016041101	UpdateSlotDisable	0x1400D30C3	0x1400D3060	from 0x1400D43F0
+SlotSrv	SlotDb	v2016041101	UpdateSlotExpire	0x1400D2167	0x1400D2080	ExpireSlot (global id 7)
+SlotSrv	SlotDb	v2016041101	UpdateSlotInstantExpire	0x1400CC212	0x1400CBB30	CCreateSlotsReqContext run
+SlotSrv	SlotDb	v2016041101	UpdateSlotRetry	0x1400D31D7	0x1400D3180	retry pass, RetryFlag
+WorldSrv	GameDb	v2016120901	AddWorld	0x1400C6518	0x1400C64B0	AddWorld (id 1)
+WorldSrv	GameDb	v2016120901	GetWorld	0x1400C679C	0x1400C6630	GetWorld (id 6), cache miss
+WorldSrv	GameDb	v2016120901	ListWorlds	0x1400C7CDA	0x1400C7C60	start and refresh timer
+WorldSrv	GameDb	v2016120901	RemoveWorld	0x1400C6A4E	0x1400C69F0	RemoveWorld (id 3)
+WorldSrv	GameDb	v2016120901	UpdateWorldProfile	0x1400C6B50	0x1400C6AF0	UpdateWorldProfile (id 4)
+WorldSrv	GameDb	v2016120901	UpdateWorldProperty	0x1400C6C70	0x1400C6C10	UpdateWorldProperty (id 5)

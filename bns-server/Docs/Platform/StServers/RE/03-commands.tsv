@@ -1,0 +1,53 @@
+service	command	id	handler	path	request	reply	errors	calls_out	procs	note
+GameAccountSrv	GameAccount/Invalid	0	-	main 0x1400C6E80 default	-	-	52/3/703 invalid command			no case
+GameAccountSrv	GameAccount/ListAccounts	1	0x1400C70D0	main 0x1400C6E80	target code, UserId	array GameAccount (type, Alias)	missing parameters - no target code; invalid userid; target game does not use game account		(ListUserGames pre-load)	same handler as id 3
+GameAccountSrv	GameAccount/ListGames	2	0x1400C7540	main 0x1400C6E80	UserId	reply of GP.ListGames ❓	invalid userid	GP.ListGames 0x1400E0550, 25000 ms		txn type 2
+GameAccountSrv	GameAccount/ListMyAccounts	3	0x1400C70D0	main 0x1400C6E80	as id 1	as id 1	as id 1
+GameAccountSrv	GameAccount/Login	4	0x1400C7AC0	main 0x1400C6E80	UserId, game code, gacct ❓	GameAccountId	missing parameters - no inputed gacct; gacct creation failed; unexpected kind of game account		AddUserGame, AddUserGameForNumericId, UpdateUserLastPresence
+GameAccountSrv	GameAccount/Logout	5	0x1400C7E90	main 0x1400C6E80	UserId, target game	empty Reply	no target game		UpdateUserLastPresence
+GameAccountSrv	GameAccount/ListUserLastPresences	6	0x1400C7690	main 0x1400C6E80	UserId, game code (optional)	array presence	❓		ListUserLastPresences, GetUserLastPresence
+GameAccountSrv	GameAccount/MoveStart	7	0x1400C8490	main 0x1400C6E80	UserId, game code	token ❓	3002/1829 game account not exists; 3802/1834 game account not changeable	Cache 0x1400DEA20 ❓		0x1400CFC40 stops when attempt > RetryCount
+GameAccountSrv	GameAccount/MoveEnd	8	0x1400C8280	main 0x1400C6E80	TokenSecret	❓	missing token secret (1862/1872)	Cache.GetValue; Token.Instant ValidateToken 0x1400E3C70	ChangeUserIdByGameCode (txn step)
+GameAccountSrv	GameAccount/MoveCheck	9	0x1400C80F0	main 0x1400C6E80	UserId, game code	IsUserChangeable	3002/1903
+GameAccountSrv	GameAccount/CheckTokenSecret	10	0x1400CE560	pre-load 0x1400CD760	key (0x140237D00)	❓	❓	Cache.GetValue key %u.%s		txn line 798
+GameAccountSrv	GameAccount/ResetMoveCount	11	0x1400C8D50	main 0x1400C6E80	AppId or GameCode, target	❓	invalid appId or gameCode		EnableUserChangeable
+GameAccountSrv	GameAccount/Exec	12	0x1400C47B0	OnMessage 0x1400CD4C0	inner message	inner reply	52/1/142 invalid command			inner ids 15, 16 only
+GameAccountSrv	GameAccount/RemoveAccount	13	0x1400C8940	main 0x1400C6E80	UserId, game code	❓	game account given does not exist.		RemoveUserGameByGameAccountId
+GameAccountSrv	GameAccount/RemoveAccounts	14	0x1400C8C40	main 0x1400C6E80	UserId	❓	❓		RemoveUserGameByUserId	line 903
+GameAccountSrv	GameAccount/GetUserIdByAcct	15	0x1400C5000	Exec 0x1400C47B0	GameCode, GameAccountId	UserId ❓	missing parameters; invalid parameters		GetUserIdByGameAccountId	gacct resolver
+GameAccountSrv	GameAccount/GetAcctByUserId	16	0x1400C4DF0	Exec 0x1400C47B0	game code, UserId	GameAccountId ❓	missing gamecode; invalid parameters(userId)		GetUserGame
+GameAccountSrv	GameAccount/ListUsersAccounts	17	0x1400D0900	OnMessage 0x1400CD4C0	UserId list, GameCode or AppId	array	has no body.; has no gameCode or appId.; no game code or target game does not use game account			GameTxn.cpp
+GameAccountSrv	GameAccount/PageAccountMoves	18	0x1400C85B0	main 0x1400C6E80	AppId or GameCode, pageIndex, pageSize	page	invalid appId or gameCode; invalid pageIndex or pageSize		PageGameAccountUserChanges	thunk 0x1400FA4D0
+GameAccountSrv	GameAccount/UserIdChanged	19	0x1400C90C0	main 0x1400C6E80	UserId, old, new	❓	invalid userid or old or new; userid is not same the old		ChangeUserId
+GameAccountSrv	GameAccount/Flush	20	0x1400C7020	main 0x1400C6E80 (pre-load skips load)	-	empty Reply
+GameAccountSrv	Game/ListWorlds	-	0x1400D1150	OnMessage Game. 0x1400D0820	❓	DB rows	52/1?/143 invalid command (other Game.* names)		ListWorlds	other Game.* go to 0x1400D0E80
+GameAccountSrv	Update (app notice)	-	0x1400CD810	OnMessage 0x1400CD4C0	Update/Object/AppId	-	missing body; missing <Update/> in body; missing <Object/> in body			app cache 0x1400CC430 ❓
+SlotSrv	Slot/Invalid	0	-	both switches default	-	-	52/4/1117 (global); 52/2/462 (user)			no case
+SlotSrv	Slot/CreateSlots	1	0x1400D6020	user 0x1400D88A0	SlotType, Count, TransactionKey, SlotData, Tag, RequestAppId, AppGroupId	slot list	10/2/525; 10/2/530; 3411/534; 3415/540; 4/2/549		GetTagPolicyData, CreateSlots, UpdateSlotInstantExpire, GetSlot	context type 1, quirk_slot_max_create_zero
+SlotSrv	Slot/DeleteSlot	2	0x1400D6330	user 0x1400D88A0	UserId, SlotId	❓	❓		DeleteSlot	global path 0x1400D1EE0 when no user
+SlotSrv	Slot/GetSlot	3	0x1400D6750	user 0x1400D88A0	UserId, SlotId	slot	❓		GetSlot, ListSlots	context type 4
+SlotSrv	Slot/ListSlots	4	0x1400D6930	user 0x1400D88A0	UserId	array slot	❓		CreateSlots (0x1400CA210)	context type 2
+SlotSrv	Slot/ResetData	5	0x1400D6B30	user 0x1400D88A0	UserId, SlotId	❓	❓		UpdateSlotData	context type 6
+SlotSrv	Slot/SetData	6	0x1400D6D10	user 0x1400D88A0	UserId, SlotId, SlotData	❓	❓		UpdateSlotData	context type 5
+SlotSrv	Slot/ExpireSlot	7	0x1400D6510	user 0x1400D88A0	UserId, SlotId, ExpireAppId, ExpireKey	❓	❓		UpdateSlotExpire	global path 0x1400D2080
+SlotSrv	Slot/PageTagPolicies	8	0x1400D2500	global 0x1400D4A70	PageIndex, PageSize	page	❓		ListTagPolicies
+SlotSrv	Slot/AddTagPolicy	9	0x1400D1BB0	global 0x1400D4A70	TagPolicyId, TagPolicyName, TagKey, TagPolicyData	❓	❓		AddTagPolicy
+SlotSrv	Slot/PageSlots	10	0x1400D2280	global 0x1400D4A70	PageIndex, TagStatus, PolicyIdList, filters (+716, +888, +896)	page	❓		PageSlots, PageSlotsByTagStatus, PageSlotsByTagPolicyIdList, PageSlotsByTagPolicyIdListAndTagStatus
+SlotSrv	Slot/Flush	11	0x1400D6700	user 0x1400D88A0	-	empty Reply
+SlotSrv	Slot/SetClientData	12	0x1400D6D10	user 0x1400D88A0	as id 6	as id 6	as id 6		UpdateSlotData	same handler as id 6
+WorldSrv	World/Invalid	0	-	0x1400C8700 default	-	-	51/2/1542 unknown auth command %s			quirk_world_unknown_cmd_text
+WorldSrv	World/AddWorld	1	0x1400C64B0	0x1400C8700	world code, profile, property ❓	❓			AddWorld	line 1308
+WorldSrv	World/ListWorlds	2	0x1400C6870	0x1400C8700	-	array World (type, UserCounts, Property)				cache only
+WorldSrv	World/RemoveWorld	3	0x1400C69F0	0x1400C8700	world id	❓			RemoveWorld	line 1358
+WorldSrv	World/UpdateWorldProfile	4	0x1400C6AF0	0x1400C8700	world id, profile	❓			UpdateWorldProfile	line 1385
+WorldSrv	World/UpdateWorldProperty	5	0x1400C6C10	0x1400C8700	world id, property	❓			UpdateWorldProperty	line 1411
+WorldSrv	World/GetWorld	6	0x1400C6630	0x1400C8700	world key (+8)	Property, UserCounts			GetWorld (cache miss)
+SpawnSrv	Spawn/Register	1	0x1400D42F0	0x1400D5060	Port	OK	app register, invalid contact port '0' (line 494)			conn +72 = port
+SpawnSrv	Spawn/RegisterPort	2	0x1400D42F0	0x1400D5060	Port	OK	as id 1			same handler as id 1
+SpawnSrv	Spawn/RegisterModule	3	0x1400D41F0	0x1400D5060	Name, Url	OK	-			module row 320 bytes
+SpawnSrv	Spawn/Listen	4	0x1400D40B0	0x1400D5060	Port, ConnType, Build, Program, VirtualHost	OK	-			listener route 0x1400D3B50
+SpawnSrv	Spawn/Shutdown	5	sent	0x1400D4A70	-	reply object 0x1400D35D0	timeout log			sent to unknown child
+SpawnSrv	Spawn/Connect	6	sent ❓	0x1400D5280	ConnectData ❓	-	-			connect broker
+SpawnSrv	Spawn/Found	7	sent ❓	-	-	-	-			builder not traced
+SpawnSrv	Spawn/Lost	8	sent	0x1400D4D20	-	-	-			to all other children
+SpawnSrv	Spawn/DeployInfo	9	sent ❓	-	-	-	-			builder not traced
