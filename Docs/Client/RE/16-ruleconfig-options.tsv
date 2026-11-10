@@ -1,0 +1,702 @@
+entry_addr_381	group	key	type	field_offset_381	field_name_gm	field_offset_gm	default	web_or_log	description
+0x19dde64		region	string	0x0	_region	0x0		0	game service region
+0x19dde88		language	string	0x4	_language	0x4		0	game client language
+0x19ddeac		default-world	int	0x8	_defaultWorld	0x8	0	0	default-world
+0x19dded0		except-world-list	string	0xc	_exceptWorldList	0xc	0	0	except world list (format id,id,id)
+0x19ddef4		use-infogate	bool	0x10	_useInfogate	0x10	0	0	check use infogate
+0x19ddf18		excutionlog-url	string	0x14	_excutionlogUrl	0x14	<url>	1	excutionlog server url
+0x19ddf3c		excutionlog-url2	string	0x18	_excutionlogUrl2	0x18	<url>	1	excutionlog server url
+0x19ddf60		use-userlog	bool	0x1c	_useUserlog	0x1c	0	1	enable userlog
+0x19ddf84		userlog-url	string	0x20	_userlogUrl	0x20	<url>	1	user server url
+0x19ddfa8		userlog-url2	string	0x24	_userlogUrl2	0x24	<url>	1	user server url2
+0x19ddfcc		uilog-all-use	bool	0x28	_uilogAllUse	0x28	0	1	check use ui log all
+0x19ddff0		uilog-world-id	int	0x2c	_uilogWorldId	0x2c	0	1	ui log send able world id
+0x19de014		use-datafile-read-stream	bool	0x30	_useDatafileReadStream	0x30	0	0	use datafile load type stream
+0x19de038		use-ui-scene-2	bool	0x31	_useUiScene2	0x31	0	0	use ui scene 2
+0x19de05c		use-auto-bias-global-cool-time	bool	0x32	_useAutoBiasGlobalCoolTime	0x32	0	0	use auto bias global cool time
+0x19de080		use-many-to-one-process	bool	0x33	_useManyToOneProcess	0x33	0	0	whether to enable many to one-process
+0x19de0a4		use-hide-buff-graph-effect	bool	0x34	_useHideBuffGraphEffect	0x34	0	0	use hide buff graph effect
+0x19de0c8		display-age-restrict	bool	0x35	_displayAgeRestrict	0x35	0	0	display age restrict
+0x19de0ec		use-clock-ui	bool	0x36	_useClockUi	0x36	0	0	check use clock ui
+0x19de110		use-web-launching	bool	0x37	_useWebLaunching	0x37	0	1	check use web launching
+0x19de134		use-chatting-server	bool	0x38	_useChattingServer	0x38	0	0	check use chatting server
+0x19de158		use-np-chatting	bool	0x39	_useNpChatting	0x39	0	0	check use np chatting
+0x19de17c		use-customizing	bool	0x3a	_useCustomizing	0x3a	0	0	check use customizing 
+0x19de1a0		load-local-files	bool	0x3b	_loadLocalFiles	0x3b	0	0	load local files
+0x19de1c4		np-account-postfix	string	0x3c	_npAccountPostfix	0x3c		0	postfix of account when account id is not email form
+0x19de1e8		use-mastery-level	bool	0x40	_useMasteryLevel	0x40	0	0	check use mastery 
+0x19de20c		default-faction2-id	int	0x44	_defaultFaction2Id	0x44	0	0	default faction2 id value
+0x19de230		use-skilltrain-web	bool	0x48	_useSkilltrainWeb	0x48	0	1	use skilltrain web connect
+0x19de254		use-check-same-to-account-name	bool	0x49	_useCheckSameToAccountName	0x49	0	0	check use team
+0x19de278		use-create-user-nick-name	bool	0x4a	_useCreateUserNickName	0x4a	0	0	check use create user nickname 
+0x19de29c		use-cash-inventory	bool	0x4b	_useCashInventory	0x4b	0	0	check use cash inventory 
+0x19de2c0		use-party2	bool	0x4c	_useParty2	0x4c	0	0	check use party 2.0 version
+0x19de2e4		use-inventory2	bool	0x4d	_useInventory2	0x4d	0	0	check use inventory 2.0 version
+0x19de308		use-env2	bool	0x4e	_useEnv2	0x4e	0	0	check use env 2.0 version
+0x19de32c		use-raid	bool	0x4f	_useRaid	0x4f	0	0	check use raid
+0x19de350		use-team	bool	0x50	_useTeam	0x50	0	0	check use team
+0x19de374		use-select-np-option	bool	0x51	_useSelectNpOption	0x51	0	0	check use select np option
+0x19de398		use-duel-spectator	bool	0x52	_useDuelSpectator	0x52	0	0	check duel spectator
+0x19de3bc		use-duel-spectator-ui-toggle	bool	0x53	_useDuelSpectatorUiToggle	0x53	0	0	check duel spectator ui toggle
+0x19de3e0		use-ranking	bool	0x54	_useRanking	0x54	0	0	check use ranking
+0x19de404		use-ranking-duel	bool	0x55	_useRankingDuel	0x55	0	0	check use ranking for tag match
+0x19de428		use-ranking-tagmatch	bool	0x56	_useRankingTagmatch	0x56	0	0	check use ranking for tag match
+0x19de44c		use-ranking-mushin	bool	0x57	_useRankingMushin	0x57	0	0	check use ranking
+0x19de470		use-ranking-party-battle-field-dragonvalley	bool	0x58	_useRankingPartyBattleFieldDragonvalley	0x58	0	0	check use ranking party battle field dragonvalley
+0x19de494		use-ranking-party-battle-field-whitewhalelake	bool	0x59	_useRankingPartyBattleFieldWhitewhalelake	0x59	0	0	check use ranking party battle field whitewhalelake
+0x19de4b8		use-ranking-party-battle-field-leadtheball	bool	0x5a	_useRankingPartyBattleFieldLeadtheball	0x5a	0	0	check use ranking party battle field leadtheball
+0x19de4dc		use-ranking-outlaws	bool	0x5b	_useRankingOutlaws	0x5b	0	0	check use outlaws
+0x19de500		use-guild-ranking	bool	0x5c	_useGuildRanking	0x5c	0	0	check use guild ranking
+0x19de524		use-ranking-solo-dungeon-1	bool	0x5d	_useRankingSoloDungeon1	0x5d	0	0	check use ranking for solo dungeon 1
+0x19de548		use-ranking-solo-dungeon-2	bool	0x5e	_useRankingSoloDungeon2	0x5e	0	0	check use ranking for solo dungeon 2
+0x19de56c		use-party-team-merge	bool	0x5f	_usePartyTeamMerge	0x5f	0	0	check use party, team merge
+0x19de590		use-otp2	bool	0x60	_useOtp2	0x60	0	0	check use otp2
+0x19de5b4		use-guild-voice-chat	bool	0x61	_useGuildVoiceChat	0x61	0	0	check use guild voice chat (only nctalk)
+0x19de5d8		apply-weapon-gem-renewal	bool	0x62	_applyWeaponGemRenewal	0x62	0	0	use weapongem 2
+0x19de5fc		apply-weapon-expansion-gem-slot	bool	0x63	_applyWeaponExpansionGemSlot	0x63	0	0	use weapongem 2
+0x19de620		use-wardrobe-ui	bool	0x64	_useWardrobeUi	0x64	0	0	check use wardrobe ui
+0x19de644		use-unlocated-warehouse	bool	0x65	_useUnlocatedWarehouse	0x65	0	0	check use inventory warehouse
+0x19de668		use-damage-meter-ui	bool	0x66	_useDamageMeterUi	0x66	0	0	check use damage meter ui
+0x19de68c		enable-put-grocery-into-wardrobe	bool	0x67	_enablePutGroceryIntoWardrobe	0x67	0	0	
+0x19de6b0		contribution-system-renewal-enable	bool	0x68	_contributionSystemRenewalEnable	0x68	0	0	
+0x19de6d4		party-vote-enable	bool	0x69	_partyVoteEnable	0x69	0	0	
+0x19de6f8		party-vote-cast-cooltime	int	0x6c	_partyVoteCastCooltime	0x6c	30	0	
+0x19de71c		use-raid-dungeon	bool	0x70	_useRaidDungeon	0x70	0	0	
+0x19de740		use-pet-1-equipslot	bool	0x71	_usePet1Equipslot	0x71	0	0	check use pet-1 equipslot
+0x19de764		use-rune-1-equipslot	bool	0x72	_useRune1Equipslot	0x72	0	0	check use rune-1 equipslot
+0x19de788		use-rune-2-equipslot	bool	0x73	_useRune2Equipslot	0x73	0	0	check use rune-2 equipslot
+0x19de7ac		use-gloves-equipslot	bool	0x74	_useGlovesEquipslot	0x74	0	0	check use gloves equipslot
+0x19de7d0		use-soul-1-equipslot	bool	0x75	_useSoul1Equipslot	0x75	0	0	check use soul-1 equipslot
+0x19de7f4		use-soul-2-equipslot	bool	0x76	_useSoul2Equipslot	0x76	0	0	check use soul-2 equipslot
+0x19de818		use-nova-equipslot	bool	0x77	_useNovaEquipslot	0x77	0	0	check use nova equipslot
+0x19de83c		use-fill-vacancy	bool	0x78	_useFillVacancy	0x78	0	0	check use fill a vacancy
+0x19de860		use-keep-session	bool	0x79	_useKeepSession	0x79	0	0	check use keep session
+0x19de884		use-sub-party-banishment-rule	bool	0x7a	_useSubPartyBanishmentRule	0x7a	0	0	check use kick out keep session
+0x19de8a8		use-jumping-character	bool	0x7b	_useJumpingCharacter	0x7b	0	1	check use jumping character
+0x19de8cc		use-jumping-character-trial	bool	0x7c	_useJumpingCharacterTrial	0x7c	0	1	check use jumping character trial
+0x19de8f0		use-characterslot-order-change	bool	0x7d	_useCharacterslotOrderChange	0x7d	0	0	whether to use slot order
+0x19de914		skill-train-page-count	int	0x80	_skillTrainPageCount	0x80	1	0	skill train page use count value
+0x19de938		use-faction-chat2	bool	0x84	_useFactionChat2	0x84	0	0	check use faction chat 2
+0x19de95c		use-gm-debugger-ui	bool	0x85	_useGmDebuggerUi	0x85	0	0	check use gm debugger UI
+0x19de980		game_show_key_block	bool	0x86	_gameShowKeyBlock	0x86	0	0	check window keys block
+0x19de9a4		use-guild	bool	0x87	_useGuild	0x87	0	0	check use guild UI
+0x19de9c8		use-guild-craft	bool	0x88	_useGuildCraft	0x88	0	0	check use guild craft
+0x19de9ec		use-guild-customize	bool	0x89	_useGuildCustomize	0x89	0	0	check use guild customize
+0x19dea10		use-guild2-bank	bool	0x8a	_useGuild2Bank	0x8a	0	0	check use guild2 Bank
+0x19dea34		use-guild-battle-field	bool	0x8b	_useGuildBattleField	0x8b	0	0	check use guild battle field content
+0x19dea58		use-nagle	bool	0x8c	_useNagle	0x8c	1	0	nagle on/off. true is on;delayed send, false is off;no delay
+0x19dea7c		use-nagle-arena	bool	0x8d	_useNagleArena	0x8d	1	0	nagle on/off. true is on;delayed send, false is off;no delay
+0x19deaa0		use-chatinput-auto-complete	bool	0x8e	_useChatinputAutoComplete	0x8e	0	0	use auto complete function
+0x19deac4		use-skill-training-tooltip-diff	bool	0x8f	_useSkillTrainingTooltipDiff	0x8f	0	0	use skill training tooltip diff
+0x19deae8		use-arena	bool	0x90	_useArena	0x91	0	0	check use Arena UI
+0x19deb0c		use-party-search	bool	0x91	_usePartySearch	0x92	0	0	check use party search
+0x19deb30		use-party-search-smart-guide	bool	0x92	_usePartySearchSmartGuide	0x93	0	0	check use party search smart guide
+0x19deb54		use-attraction-mapunit2	bool	0x93	_useAttractionMapunit2	0x94	0	0	check use attraction map unit 2
+0x19deb78		use-attendance	bool	0x94	_useAttendance	0x95	0	0	check use attendance 
+0x19deb9c		use-context-command	bool	0x95	_useContextCommand	0x96	0	0	check use context command
+0x19debc0		use-indicator-image	bool	0x96	_useIndicatorImage	0x97	0	0	use indicator image
+0x19debe4		check-quest-mapunit-case-filter	bool	0x97	_checkQuestMapunitCaseFilter	0x98	0	0	quest mapunit case check
+0x19dec08		use-map-group-data	bool	0x98	_useMapGroupData	0x99	0	0	use map-group instead of district
+0x19dec2c		use-duel	bool	0x99	_useDuel	0x9a	0	0	check use duel UI
+0x19dec50		use-duel-replay	bool	0x9a	_useDuelReplay	0x9b	0	0	check use duel replay
+0x19dec74		use-duel-fast-loading-enable	bool	0x9b	_useDuelFastLoadingEnable	0x9c	0	0	check use duel fast loading UI
+0x19dec98		use-phantom-sword2	bool	0x9c			0	0	check use phantom sword2
+0x19decbc		use-duel-3vs3-tag-match	bool	0x9d	_useDuel3vs3TagMatch	0x9d	1	0	check use duel 3vs3 tag match mode
+0x19dece0		duel-max-tag-skill-usage-count	int	0xa0	_duelMaxTagSkillUsageCount	0xa0	2	0	duel tag skill count
+0x19ded04		duel-max-interference-skill-usage-count	int	0xa4	_duelMaxInterferenceSkillUsageCount	0xa4	2	0	duel interference skill count
+0x19ded28		duel-tag-skill-id	int	0xa8	_duelTagSkillId	0xa8	0	0	duel tag skill id
+0x19ded4c		duel-interference-skill-id	int	0xac	_duelInterferenceSkillId	0xac	0	0	duel interference skill id
+0x19ded70		duel-take-tag-token-cool-time	int	0xb0	_duelTakeTagTokenCoolTime	0xb0	0	0	duel take tag token cool time
+0x19ded94		use-party-battle-field-solo-or-six-match	bool	0xb4	_usePartyBattleFieldSoloOrSixMatch	0xb4	1	0	check use party battle field solo or six match
+0x19dedb8		use-immediately-enter-dungeon	bool	0xb5	_useImmediatelyEnterDungeon	0xb5	0	0	check use immeidately-enter-dungeon
+0x19deddc		show-party-battle-field-point	bool	0xb6	_showPartyBattleFieldPoint	0xb6	0	0	check show party battle field point
+0x19dee00		use-equal-ability-duel	bool	0xb7	_useEqualAbilityDuel	0xb7	0	0	use equal ability duel mode
+0x19dee24		use-quest-path-way	bool	0xb8	_useQuestPathWay	0xb8	0	0	use start zone quest path way
+0x19dee48		use-quest-navigation	bool	0xb9	_useQuestNavigation	0xb9	0	0	use quest navigation
+0x19dee6c		use-duel-round-match	bool	0xba	_useDuelRoundMatch	0xba	0	0	use duel round match mode
+0x19dee90		use-challenge-today	bool	0xbb	_useChallengeToday	0xbb	0	0	check use challenge today
+0x19deeb4		use-challenge-week	bool	0xbc	_useChallengeWeek	0xbc	0	0	check use challenge week
+0x19deed8		use-rapid-item-decompose	bool	0xbd	_useRapidItemDecompose	0xbd	0	0	check use rapid item decompose
+0x19deefc		use-skillscore	bool	0xbe	_useSkillscore	0xbe	0	0	check use skill score UI
+0x19def20		use-duel-fightmode-ui	bool	0xbf	_useDuelFightmodeUi	0xbf	0	0	check use duel fight mode UI
+0x19def44		use-pc-filter-hidden	bool	0xc0	_usePcFilterHidden	0xc0	0	0	check use pc filter hidden
+0x19def68		use-interserver-dungeon	bool	0xc1	_useInterserverDungeon	0xc1	0	0	check use interserver dungeon
+0x19def8c		duel-zone-chat-count	int	0xc4	_duelZoneChatCount	0xc4	4	0	duel zone chat count
+0x19defb0		arenadungeon-zone-chat-count	int	0xc8	_arenadungeonZoneChatCount	0xc8	1	0	arena dungeon zone chat count
+0x19defd4		duel-decision-value	int	0xcc	_duelDecisionValue	0xcc	50	0	duel decision value
+0x19deff8		duel-rating-separate	bool	0xd0	_duelRatingSeparate	0xd0	0	0	duel rating separate
+0x19df01c		use-not-minus-time	bool	0xd1	_useNotMinusTime	0xd1	0	0	use not minus time
+0x19df040		show-boast-npc-kill-timer	bool	0xd2	_showBoastNpcKillTimer	0xd2	0	0	show-boast npc kill timer
+0x19df064		warehouse-goods-default-retrieve-count	int	0xd4	_warehouseGoodsDefaultRetrieveCount	0xd4	500	0	warehouse goods default retrieve count(max 1000)
+0x19df088		server-cooldown-time	int	0xd8	_serverCooldownTime	0xd8	30	0	server cooldown time
+0x19df0ac		minimize-window	bool	0xdc	_minimizeWindow	0xdc	0	0	minimize window at start game
+0x19df0d0		limit-level-trial	int	0xe0	_limitLevelTrial	0xe0	0	0	limit level in trial version
+0x19df0f4		enable-guild-battle-field-entrance-renewal	bool	0xe4	_enableGuildBattleFieldEntranceRenewal	0xe4	0	0	whether to enable guild battle field entrance renewal
+0x19df118		enable-zone-trigger-event	bool	0xe5	_enableZoneTriggerEvent	0xe5	0	0	whether to enable zone trigger event
+0x19df13c		enable-antibot	bool	0xe6	_enableAntibot	0xe6	0	0	enable tencent tp module
+0x19df160		enable-antibot-arena	bool	0xe7	_enableAntibotArena	0xe7	0	0	enable tencent tp module arena
+0x19df184		enable-safemode	bool	0xe8	_enableSafemode	0xe8	0	0	enable tencent safemode module
+0x19df1a8		safemode-url	string	0xec	_safemodeUrl	0xec	<url>	1	safemode url(should start with http:// or https://)
+0x19df1cc		test-qq-id	int	0xf0	_testQqId	0xf0	0	0	qq-id for tcls test
+0x19df1f0		use-chatting-server-createandjoin	bool	0xf4	_useChattingServerCreateandjoin	0xf4	0	0	use chatting server create and join interface
+0x19df214		use-play-report	bool	0xf5	_usePlayReport	0xf5	0	1	use play report
+0x19df238		use-report-bot-spammer	bool	0xf6	_useReportBotSpammer	0xf6	0	1	
+0x19df25c		use-report-friend-proposed-spammer	bool	0xf7	_useReportFriendProposedSpammer	0xf7	0	1	
+0x19df280		restrict-spammer-chatting-level	int	0xf8	_restrictSpammerChattingLevel	0xf8	0	0	
+0x19df2a4		restrict-spammer-chatting-vip	bool	0xfc	_restrictSpammerChattingVip	0xfc	0	0	
+0x19df2c8		enable-shortcut-exit	bool	0xfd	_enableShortcutExit	0xfd	0	0	enable Lobby and world shortcut exit
+0x19df2ec		weapon-gem-fx-from-grade-to-level	bool	0xfe	_weaponGemFxFromGradeToLevel	0xfe	0	0	weapon gem fx particle set gem level
+0x19df310		use-auto-mode	bool	0xff	_useAutoMode	0xff	1	0	If true, enable automode.
+0x19df334		use-hybrid-mode	bool	0x100	_useHybridMode	0x100	0	0	use hybrid control mode(capslock key)
+0x19df358		use-context-simple-mode	bool	0x101	_useContextSimpleMode	0x101	0	0	use simple context mode(shif F3)
+0x19df37c		use-context-simple-mode-player-character-level	int	0x104	_useContextSimpleModePlayerCharacterLevel	0x104	50	0	
+0x19df3a0		use-context-simple-mode-skill-flow-tooltip-action-1	bool	0x108	_useContextSimpleModeSkillFlowTooltipAction1	0x108	0	0	
+0x19df3c4		use-context-simple-mode-skill-flow-tooltip-action-2	bool	0x109	_useContextSimpleModeSkillFlowTooltipAction2	0x109	0	0	
+0x19df3e8		use-context-simple-mode-skill-flow-tooltip-stance	bool	0x10a	_useContextSimpleModeSkillFlowTooltipStance	0x10a	0	0	
+0x19df40c		use-context-simple-mode-branch-key-ignore-auto-repeat	bool	0x10b	_useContextSimpleModeBranchKeyIgnoreAutoRepeat	0x10b	0	0	
+0x19df430		use-context-simple-mode-default-key	string	0x10c	_useContextSimpleModeDefaultKey	0x10c	action2	0	
+0x19df454		use-skill-train-context-simple-mode-skill-flow-ui	bool	0x110	_useSkillTrainContextSimpleModeSkillFlowUi	0x111	0	0	
+0x19df478		use-skill-train-icon-view-ui	bool	0x111	_useSkillTrainIconViewUi	0x112	0	0	
+0x19df49c		use-mastery-level-point-acquire-detail-ui	bool	0x112	_useMasteryLevelPointAcquireDetailUi	0x113	0	0	use mastery-level-point acquire detail ui
+0x19df4c0		use-arena-craft	bool	0x113	_useArenaCraft	0x114	0	0	use arena craft
+0x19df4e4		hide-ranking-for-championship	bool	0x114	_hideRankingForChampionship	0x115	0	0	hide ranking info for world championship
+0x19df508		random-store-reset-alert-time	int	0x118	_randomStoreResetAlertTime	0x118	5	0	random store reset alert time
+0x19df52c		enable-multilingual-name	bool	0x11c	_enableMultilingualName	0x11c	0	0	allow multilingual name of character, summoned, guild
+0x19df550		force-sentence-case-for-name	bool	0x11d	_forceSentenceCaseForName	0x11d	0	0	force sentence case for name of character, summoned, guild
+0x19df574		enable-numeric-for-name	bool	0x11e	_enableNumericForName	0x11e	0	0	enable numeric characters for name of character, summoned, guild
+0x19df598		forbidden-characters-for-name	string	0x120	_forbiddenCharactersForName	0x120		0	forbidden characters for name of character, summoned, guild
+0x19df5bc		forbidden-characters-for-chatting	string	0x124	_forbiddenCharactersForChatting	0x124		0	forbidden characters for chatting
+0x19df5e0		enable-multilingual-username	bool	0x128	_enableMultilingualUsername	0x128	0	0	allow multilingual username(account nickname)
+0x19df604		force-sentence-case-for-username	bool	0x129	_forceSentenceCaseForUsername	0x129	0	0	force sentence case for username
+0x19df628		username-must-start-with-letter	bool	0x12a	_usernameMustStartWithLetter	0x12a	0	0	first character of username must be a letter(alphabet), not numeric character
+0x19df64c		max-whitespace-count-for-character-name	int	0x12c	_maxWhitespaceCountForCharacterName	0x12c	0	0	then number of whitespace characters for character name are allowed
+0x19df670		max-whitespace-count-for-guild-name	int	0x130	_maxWhitespaceCountForGuildName	0x130	0	0	the number of whitespace characters for guild name are allowed
+0x19df694		max-whitespace-count-for-guildcustomize-description	int	0x134	_maxWhitespaceCountForGuildcustomizeDescription	0x134	0	0	the number of whitespace characters for guild customize description are allowed
+0x19df6b8		use-guild-customize-item-tooltip	bool	0x138	_useGuildCustomizeItemTooltip	0x138	0	0	check use guild customize item tooltip
+0x19df6dc		use-level-download	bool	0x139	_useLevelDownload	0x139	0	0	check use level down client
+0x19df700		use-light-client	bool	0x13a	_useLightClient	0x13a	0	0	check use light client
+0x19df724		use-friend	bool	0x13b	_useFriend	0x13b	0	0	check use friend
+0x19df748		quest-attraction-enable	bool	0x13c	_questAttractionEnable	0x13c	0	0	quest attraction enable
+0x19df76c		publisher	string	0x140	_publisher	0x140		0	publisher
+0x19df790		use-store-renewal	bool	0x144	_useStoreRenewal	0x144	0	0	use store2
+0x19df7b4		show-clause	bool	0x145	_showClause	0x145	1	0	whether to show clause when web login
+0x19df7d8		show-lobby-credit-button	bool	0x146	_showLobbyCreditButton	0x146	0	0	whether to show lobby credit button or not
+0x19df7fc		show-ui-confirm-key-cap	bool	0x147	_showUiConfirmKeyCap	0x147	0	0	show ui confirm key cap
+0x19df820		make-table-cache	bool	0x148	_makeTableCache	0x148	0	0	use table cache
+0x19df844		use-default-ime-ui	bool	0x149	_useDefaultImeUi	0x149	0	0	whether to use default IME UI
+0x19df868		ime-primary-language	string	0x14c	_imePrimaryLanguage	0x14c		0	IME primary language id
+0x19df88c		ime-sub-language	string	0x150	_imeSubLanguage	0x150		0	IME sub language id
+0x19df8b0		ime-primary-french-language	string	0x154	_imePrimaryFrenchLanguage	0x154		0	IME primary french language id
+0x19df8d4		ime-sub-french-language	string	0x158	_imeSubFrenchLanguage	0x158		0	IME sub french language id
+0x19df8f8		ime-primary-german-language	string	0x15c	_imePrimaryGermanLanguage	0x15c		0	IME primary german language id
+0x19df91c		ime-sub-german-language	string	0x160	_imeSubGermanLanguage	0x160		0	IME sub german language id
+0x19df940		ime-primary-bportuguese-language	string	0x164	_imePrimaryBportugueseLanguage	0x164		0	IME primary brazilian portuguese language id
+0x19df964		ime-sub-bportuguese-language	string	0x168	_imeSubBportugueseLanguage	0x168		0	IME sub brazilian portuguese language id
+0x19df988		use-editbox-composition-exception-mode	bool	0x16c	_useEditboxCompositionExceptionMode	0x16c	0	0	false: limit maximum number of characters including composition, true: limit maximum number of characters excluding composition.
+0x19df9ac		use-window-clipboard	bool	0x16d	_useWindowClipboard	0x16d	0	0	whether to use window clipboard for string copy and paste
+0x19df9d0		achievement-enabled	bool	0x16e	_achievementEnabled	0x16e	0	0	whether to enable achievement
+0x19df9f4		enable-customize-preview-world-add	bool	0x16f	_enableCustomizePreviewWorldAdd	0x170	0	0	show preview world icon
+0x19dfa18		use-different-server-friend-whisper	bool	0x170	_useDifferentServerFriendWhisper	0x171	0	0	use different server friend whisper
+0x19dfa3c	achievement-game-cash-reward	achievement-game-cash-reward	group	-				0	
+0x19dfa60	achievement-game-cash-reward	enable	bool	0x171	_achievementGameCashRewardEnable	0x172	0	0	whether to use achievement game cash reward
+0x19dfa84	achievement-game-cash-reward	currency-group-id	int	0x174	_achievementGameCashRewardCurrencyGroupId	0x174	0	0	currency group id to use achievement game cash reward
+0x19dfaa8	achievement-game-cash-reward	use-social-ui-2017	bool	0x178	_useSocialUi2017	0x179	0	0	whether to use social ui 2017
+0x19dfacc	achievement-game-cash-reward	social-ui-2017-hot-key-type	int	0x17c	_socialUi2017HotKeyType	0x17c	0	0	social ui 2017 hot key type. 0: ctrl + alt, 1: key-command turn-on-social-mode
+0x19dfaf0	achievement-game-cash-reward	use-megaphone	bool	0x180	_useMegaphone	0x180	0	0	whether to use megaphone
+0x19dfb14	achievement-game-cash-reward	use-boast-event	bool	0x181	_useBoastEvent	0x181	0	0	whether to use boast event
+0x19dfb38	achievement-game-cash-reward	use-contents-guide	bool	0x182	_useContentsGuide	0x182	0	0	whether to use contents guide
+0x19dfb5c	achievement-game-cash-reward	enable-content-quota	bool	0x183	_enableContentQuota	0x183	0	0	whether to enable content quota
+0x19dfb80	achievement-game-cash-reward	use-random-box-depot	bool	0x184	_useRandomBoxDepot	0x184	0	0	use random box depot
+0x19dfba4	achievement-game-cash-reward	item-lock-enable	bool	0x185	_itemLockEnable	0x185	0	0	use item lock
+0x19dfbc8	achievement-game-cash-reward	item-usable-group-enable	bool	0x186	_itemUsableGroupEnable	0x186	0	0	item usable group enable
+0x19dfbec	achievement-game-cash-reward	use-pc-cafe-mileage	bool	0x187	_usePcCafeMileage	0x187	0	0	whether to use pc cafe mileage
+0x19dfc10	achievement-game-cash-reward	pc-cafe-mileage-update-rate	int	0x188	_pcCafeMileageUpdateRate	0x188	0	0	pc cafe mileage update rate. time unit is minute
+0x19dfc34	achievement-game-cash-reward	pc-cafe-mileage-request-currency-group-id	int	0x18c	_pcCafeMileageRequestCurrencyGroupId	0x18c	0	0	pc cafe mileage request currency group id
+0x19dfc58	achievement-game-cash-reward	use-weapon-gem-transform-2	bool	0x190	_useWeaponGemTransform2	0x190	0	0	whether to use weapon gem 2 category transform
+0x19dfc7c	achievement-game-cash-reward	use-weapon-gem-slot-8	bool	0x191	_useWeaponGemSlot8	0x191	0	0	whether to expand weapon gem slot
+0x19dfca0	achievement-game-cash-reward	use-max-level-guide	bool	0x192			0	0	whether to use max level guide
+0x19dfcc4	achievement-game-cash-reward	enable-dragon-jade-shop	bool	0x193	_enableDragonJadeShop	0x192	0	0	whether to use dragon jade shop
+0x19dfce8	achievement-game-cash-reward	dragon-jade-currency-group-id	int	0x194	_dragonJadeCurrencyGroupId	0x194	0	0	dragon jade currency group id
+0x19dfd0c	achievement-game-cash-reward	dragon-jade-currency-id	int	0x198	_dragonJadeCurrencyId	0x198	0	0	dragon jade currency id
+0x19dfd30	achievement-game-cash-reward	dragon-jade-shop-vip-category-id	int	0x19c	_dragonJadeShopVipCategoryId	0x19c	0	0	dragon jade shop vip category id
+0x19dfd54	achievement-game-cash-reward	dragon-jade-shop-notice-url	string	0x1a0	_dragonJadeShopNoticeUrl	0x1a0		1	dragon jade shop notice url
+0x19dfd78	achievement-game-cash-reward	dragon-silver-currency-group-id	int	0x1a4	_dragonSilverCurrencyGroupId	0x1a4	0	0	dragon silver currency group id. whether to show HUD.
+0x19dfd9c	achievement-game-cash-reward	use-spam-filter	bool	0x1a8	_useSpamFilter	0x1a8	0	0	check use spam filter
+0x19dfdc0	achievement-game-cash-reward	use-client-spammer-list	bool	0x1a9	_useClientSpammerList	0x1a9	0	0	use client spammer list
+0x19dfde4	achievement-game-cash-reward	use-client-spammer-report	bool	0x1aa	_useClientSpammerReport	0x1aa	0	1	use client spammer report
+0x19dfe08	achievement-game-cash-reward	use-new-client-spam-report	bool	0x1ab	_useNewClientSpamReport	0x1ab	0	1	use new client spam report
+0x19dfe2c	achievement-game-cash-reward	client-spammer-report-modulate	int	0x1ac	_clientSpammerReportModulate	0x1ac	10	1	client spammer report modulate
+0x19dfe50	achievement-game-cash-reward	use-duel-bot-challenge	bool	0x1b0	_useDuelBotChallenge	0x1b0	0	0	check use duel bot challenge
+0x19dfe74	achievement-game-cash-reward	use-duel-bot-challenge-virtual-race	bool	0x1b1	_useDuelBotChallengeVirtualRace	0x1b1	0	0	check use duel bot challenge virtual race
+0x19dfe98	achievement-game-cash-reward	enable-duel-bot-challenge-auto-start	bool	0x1b2	_enableDuelBotChallengeAutoStart	0x1b2	0	0	check enable duel bot challenge auto start
+0x19dfebc	achievement-game-cash-reward	use-chroma-keyboard	bool	0x1b3	_useChromaKeyboard	0x1b3	0	0	
+0x19dfee0	achievement-game-cash-reward	use-time-client-locale	bool	0x1b4	_useTimeClientLocale	0x1b4	0	0	
+0x19dff04	achievement-game-cash-reward	use-tendency-field	bool	0x1b5	_useTendencyField	0x1b5	0	0	check use tendency field
+0x19dff28	achievement-game-cash-reward	use-item-graph	bool	0x1b6	_useItemGraph	0x1b6	0	0	check use item graph
+0x19dff4c	achievement-game-cash-reward	use-pet-food	bool	0x1b7	_usePetFood	0x1b7	1	0	check use pet food
+0x19dff70	achievement-game-cash-reward	use-skill-training-room	bool	0x1b8	_useSkillTrainingRoom	0x1b8	0	0	check use skill training room
+0x19dff94	achievement-game-cash-reward	use-job-target-indicator	bool	0x1b9	_useJobTargetIndicator	0x1b9	0	0	check use job target indicator
+0x19dffb8	achievement-game-cash-reward	use-buffgraph	bool	0x1ba	_useBuffgraph	0x1ba	0	0	check use buffgraph
+0x19dffdc	achievement-game-cash-reward	use-attack-attribute	bool	0x1bb	_useAttackAttribute	0x1bb	0	0	use attack attribute
+0x19e0000	tencent	tencent	group	-				0	
+0x19e0024	tencent	enable-beginner-level-restriction	bool	0x1bc	_tencentEnableBeginnerLevelRestriction	0x1bd	0	0	whether to enable beginner level restriction
+0x19e0048	tencent	enable-exp-boost	bool	0x1bd	_tencentEnableExpBoost	0x1be	0	0	whether to enable tencent exp-boost feature
+0x19e006c	tencent	exp-boost-exp-gain-percent	int	0x1c0	_tencentExpBoostExpGainPercent	0x1c0	0	0	exp boost percent. greater than 100
+0x19e0090	tencent	exp-boost-save-percent	int	0x1c4	_tencentExpBoostSavePercent	0x1c4	0	0	saving percent of today's normal to tomorrow's double vitality
+0x19e00b4	tencent	vitality2-max-percent	int	0x1c8	_tencentVitality2MaxPercent	0x1c8	0	0	today's double exp-boost vitality max percent in comparison with today's normal vitality max. 100 means double vitality max equals normal vitality max
+0x19e00d8	tencent	vitality-recharge-time	int	0x1cc	_tencentVitalityRechargeTime	0x1cc	0	0	exp boost recharge hour (server local time)
+0x19e00fc	tencent	item-required-vitality-under-percent	int	0x1d0	_tencentItemRequiredVitalityUnderPercent	0x1d0	0	0	
+0x19e0120	tencent	enable-cross	bool	0x1d4	_tencentEnableCross	0x1d4	0	0	whether to enable tencent cross
+0x19e0144	tencent	enable-cross-party-voicechat	bool	0x1d5	_tencentEnableCrossPartyVoicechat	0x1d5	0	0	whether to enable tencent cross party voice chat
+0x19e0168	tencent	enable-shali	bool	0x1d6	_tencentEnableShali	0x1d6	0	0	whether to enable tencent shali
+0x19e018c	tencent	enable-ingameshop	bool	0x1d7	_tencentEnableIngameshop	0x1d8	0	0	whether to enable ingame shop
+0x19e01b0	tencent	enable-ingameshop-coupon	bool	0x1d8	_tencentEnableIngameshopCoupon	0x1d9	0	0	whether to enable ingame shop coupon
+0x19e01d4	tencent	enable-ingameshop-search	bool	0x1d9	_tencentEnableIngameshopSearch	0x1da	0	0	whether to enable ingame shop search
+0x19e01f8	tencent	enable-lobby-ingameshop	bool	0x1da	_tencentEnableLobbyIngameshop	0x1db	0	0	whether to enable lobby ingame shop
+0x19e021c	tencent	enable-ingameshop-ingame-charge	bool	0x1db	_tencentEnableIngameshopIngameCharge	0x1dc	0	1	whether to enable ingame shop ingame charge
+0x19e0240	tencent	ingameshop-revision-check-cool-time	float	0x1dc	_tencentIngameshopRevisionCheckCoolTime	0x1e0	0	0	ingameshop revision check cool time (sec)
+0x19e0264	tencent	ingameshop-language-code	int	0x1e0	_tencentIngameshopLanguageCode	0x1e4	1	0	ingameshop language code 1:korean 2:simplified chinese 3:traditional chinese 4:english
+0x19e0288	tencent	ingameshop-charge-url	string	0x1e4	_tencentIngameshopChargeUrl	0x1e8		1	ingame-shop cash charge url(should start with http:// or https://;)
+0x19e02ac	tencent	ingameshop-charge-web-browser-width	int	0x1e8	_tencentIngameshopChargeWebBrowserWidth	0x1ec	800	1	ingame-shop cash charge web browser width
+0x19e02d0	tencent	ingameshop-charge-web-browser-height	int	0x1ec	_tencentIngameshopChargeWebBrowserHeight	0x1f0	600	1	ingame-shop cash charge web browser height
+0x19e02f4	tencent	ingameshop-request-currency-group-id	int	0x1f0	_tencentIngameshopRequestCurrencyGroupId	0x1f4	0	0	ingameshop request currency group id
+0x19e0318	tencent	ingameshop-shop-1-currency-group-id	int	0x1f4	_tencentIngameshopShop1CurrencyGroupId	0x1f8	0	0	ingameshop shop1 currency group id
+0x19e033c	tencent	ingameshop-shop-2-currency-group-id	int	0x1f8	_tencentIngameshopShop2CurrencyGroupId	0x1fc	0	0	ingameshop shop2 currency group id
+0x19e0360	tencent	ingameshop-shop-3-currency-group-id	int	0x1fc	_tencentIngameshopShop3CurrencyGroupId	0x200	0	0	ingameshop shop3 currency group id
+0x19e0384	tencent	ingameshop-shop-4-currency-group-id	int	0x200	_tencentIngameshopShop4CurrencyGroupId	0x204	0	0	ingameshop shop4 currency group id
+0x19e03a8	tencent	ingameshop-shop-1-currency-id	int	0x204	_tencentIngameshopShop1CurrencyId	0x208	0	0	ingameshop shop1 currency id
+0x19e03cc	tencent	ingameshop-shop-2-currency-id	int	0x208	_tencentIngameshopShop2CurrencyId	0x20c	0	0	ingameshop shop2 currency id
+0x19e03f0	tencent	ingameshop-shop-3-currency-id	int	0x20c	_tencentIngameshopShop3CurrencyId	0x210	0	0	ingameshop shop3 currency id
+0x19e0414	tencent	ingameshop-shop-4-currency-id	int	0x210	_tencentIngameshopShop4CurrencyId	0x214	0	0	ingameshop shop4 currency id
+0x19e0438	tencent	ingameshop-shop-vip-category-id	int	0x214	_tencentIngameshopShopVipCategoryId	0x218	0	0	ingameshop shop vip category id
+0x19e045c	tencent	ingameshop-shop-pc-cafe-mileage-category-id	int	0x218	_tencentIngameshopShopPcCafeMileageCategoryId	0x21c	0	0	ingameshop shop pc cafe mileage category id
+0x19e0480	tencent	ingameshop-charge-1-currency-group-id	int	0x21c	_tencentIngameshopCharge1CurrencyGroupId	0x220	0	0	ingameshop charge currency group id 1
+0x19e04a4	tencent	ingameshop-charge-2-currency-group-id	int	0x220	_tencentIngameshopCharge2CurrencyGroupId	0x224	0	0	ingameshop charge currency group id 2
+0x19e04c8	tencent	ingameshop-charge-3-currency-group-id	int	0x224	_tencentIngameshopCharge3CurrencyGroupId	0x228	0	0	ingameshop charge currency group id 3
+0x19e04ec	tencent	ingameshop-charge-1-currency-id	int	0x228	_tencentIngameshopCharge1CurrencyId	0x22c	0	0	ingameshop charge currency id 1
+0x19e0510	tencent	ingameshop-charge-2-currency-id	int	0x22c	_tencentIngameshopCharge2CurrencyId	0x230	0	0	ingameshop charge currency id 2
+0x19e0534	tencent	ingameshop-charge-3-currency-id	int	0x230	_tencentIngameshopCharge3CurrencyId	0x234	0	0	ingameshop charge currency id 3
+0x19e0558	tencent	ingameshop-shop-blue-diamond-category-id	int	0x234	_tencentIngameshopShopBlueDiamondCategoryId	0x238	0	0	ingameshop shop vip category id
+0x19e057c	tencent	enable-second-password	bool	0x238	_tencentEnableSecondPassword	0x23c	0	0	whether to enable tencent second-password
+0x19e05a0	tencent	second-password-delete-uri	string	0x23c	_tencentSecondPasswordDeleteUri	0x240		0	second password delete uri
+0x19e05c4	tencent	enable-character-appearance-shot-share-for-external-webbrows	bool	0x240			0	1	whether to enable tencent second-password
+0x19e05e8	tencent	character-appearance-shot-share-login-uri-for-external-webbr	string	0x244				1	character appearance shot share login uri for external webbrowser
+0x19e060c	tencent	character-appearance-shot-share-uri-for-external-webbrowser	string	0x248	_tencentCharacterAppearanceShotShareUriForExternalWebbrowser	0x24c		1	character appearance shot share uri for external webbrowser
+0x19e0630	tencent	delivery-charge-item-currency-group-id	int	0x24c	_tencentDeliveryChargeItemCurrencyGroupId	0x250	0	0	delivery charge item currency group id
+0x19e0654	in-game-web	in-game-web	group	-				0	
+0x19e0678	in-game-web	use-tgos	bool	0x250	_tencentInGameWebUseTgos	0x254	0	1	whether to use TGOS or not
+0x19e069c	in-game-web	tgos-url	string	0x254	_tencentInGameWebTgosUrl	0x258		1	TGOS domain url (should start with http:// or https://)
+0x19e06c0	in-game-web	tgos-home-urn	string	0x258	_tencentInGameWebTgosHomeUrn	0x25c		1	TGOS home path
+0x19e06e4	in-game-web	tgos-login-url	string	0x25c	_tencentInGameWebTgosLoginUrl	0x260		1	TGOS login url (should start with http:// or https://)
+0x19e0708	in-game-web	tgos-login-urn	string	0x260	_tencentInGameWebTgosLoginUrn	0x264		1	TGOS login urn
+0x19e072c	in-game-web	use-tgos-quest	bool	0x264	_tencentInGameWebUseTgosQuest	0x268	0	1	whether to use TGOS Quest or not
+0x19e0750	in-game-web	use-tgos-skill	bool	0x265	_tencentInGameWebUseTgosSkill	0x269	0	1	whether to use TGOS skill or not
+0x19e0774	in-game-web	use-tgos-production	bool	0x266	_tencentInGameWebUseTgosProduction	0x26a	0	1	whether to use TGOS production or not
+0x19e0798	in-game-web	use-tgos-map	bool	0x267	_tencentInGameWebUseTgosMap	0x26b	0	1	whether to use TGOS map or not
+0x19e07bc	in-game-web	tgos-map-default-search-word	string	0x268	_tencentInGameWebTgosMapDefaultSearchWord	0x26c		1	TGOS map default search word
+0x19e07e0	in-game-web	use-tgos-query	bool	0x26c	_tencentInGameWebUseTgosQuery	0x270	0	1	whether to use TGOS query or not
+0x19e0804	in-game-web	use-tgos-guild	int	0x270	_tencentInGameWebUseTgosGuild	0x274	0	1	whether to use TGOS button in guild UI. -1:disable, 0:hide, 1:enable
+0x19e0828	in-game-web	tgos-guild-search-word	string	0x274	_tencentInGameWebTgosGuildSearchWord	0x278		1	TGOS guild search word
+0x19e084c	in-game-web	use-web-contents-guide	bool	0x278	_tencentInGameWebUseWebContentsGuide	0x27c	0	1	
+0x19e0870	in-game-web	web-contents-guide-login-popup-min-level	int	0x27c	_tencentInGameWebWebContentsGuideLoginPopupMinLevel	0x280	4	1	
+0x19e0894	in-game-web	web-contents-guide-level-condition	string	0x280	_tencentInGameWebWebContentsGuideLevelCondition	0x284		1	
+0x19e08b8	in-game-web	use-tencent-lobbyhome	bool	0x284	_tencentInGameWebUseTencentLobbyhome	0x288	0	1	whether to use tencent lobby-home or not
+0x19e08dc	in-game-web	use-charge	bool	0x285	_tencentInGameWebUseCharge	0x289	0	1	whether to use charge in-game broswer or not
+0x19e0900	in-game-web	charge-url	string	0x288	_tencentInGameWebChargeUrl	0x28c		1	charge domain url (should start with http:// or https://)
+0x19e0924	in-game-web	charge-home-urn	string	0x28c	_tencentInGameWebChargeHomeUrn	0x290		1	charge home path
+0x19e0948	in-game-web	use-random-store	bool	0x290	_tencentInGameWebUseRandomStore	0x294	0	1	whether to use random store in-game broswer or not
+0x19e096c	in-game-web	use-event-notice	bool	0x291	_tencentInGameWebUseEventNotice	0x295	0	1	whether to use event notice in-game broswer or not
+0x19e0990	in-game-web	event-notice-url	string	0x294	_tencentInGameWebEventNoticeUrl	0x298		1	event notice domain url (should start with http:// or https://)
+0x19e09b4	in-game-web	event-notice-home-urn	string	0x298	_tencentInGameWebEventNoticeHomeUrn	0x29c		1	event notice home path
+0x19e09d8	in-game-web	use-community-event	bool	0x29c	_tencentInGameWebUseCommunityEvent	0x2a0	0	1	whether to use community event in-game broswer or not
+0x19e09fc	in-game-web	community-event-url	string	0x2a0	_tencentInGameWebCommunityEventUrl	0x2a4		1	community event domain url (should start with http:// or https://)
+0x19e0a20	in-game-web	community-event-home-urn	string	0x2a4	_tencentInGameWebCommunityEventHomeUrn	0x2a8		1	community event home path
+0x19e0a44	in-game-web	use-qqlogin-address	bool	0x2a8	_tencentInGameWebUseQqloginAddress	0x2ac	0	1	whether to use tencent QQLogin address or not
+0x19e0a68	in-game-web	qqlogin-url	string	0x2ac	_tencentInGameWebQqloginUrl	0x2b0		1	tencent QQLogin url (should start with http:// or https://)
+0x19e0a8c	in-game-web	qqlogin-urn	string	0x2b0	_tencentInGameWebQqloginUrn	0x2b4		1	tencent QQLogin urn
+0x19e0ab0	np-auction	np-auction	group	-				0	
+0x19e0ad4	np-auction	enabled	bool	0x2b4	_tencentNpAuctionEnabled	0x2b8	0	0	whether to enable np-auction
+0x19e0af8	np-auction	request-cool-time	float	0x2b8	_tencentNpAuctionRequestCoolTime	0x2bc	0	0	np-auction request cool time 
+0x19e0b1c	np-auction	charge-url	string	0x2bc	_tencentNpAuctionChargeUrl	0x2c0		1	np-auction cash charge url(should start with http:// or https://;)
+0x19e0b40	np-auction	charge-url-2	string	0x2c0	_tencentNpAuctionChargeUrl2	0x2c4		1	np-auction cash charge url(should start with http:// or https://;)
+0x19e0b64	np-auction	charge-web-browser-width	int	0x2c4	_tencentNpAuctionChargeWebBrowserWidth	0x2c8	800	1	np-auction cash charge web browser width
+0x19e0b88	np-auction	charge-web-browser-height	int	0x2c8	_tencentNpAuctionChargeWebBrowserHeight	0x2cc	600	1	np-auction cash charge web browser height
+0x19e0bac	np-auction	request-currency-group-id	int	0x2cc	_tencentNpAuctionRequestCurrencyGroupId	0x2d0	0	0	np-auction request currency group id
+0x19e0bd0	np-auction	use-buy-currency-group-id	int	0x2d0	_tencentNpAuctionUseBuyCurrencyGroupId	0x2d4	0	0	np-auction use buy currency group id
+0x19e0bf4	np-auction	use-receive-currency-group-id	int	0x2d4	_tencentNpAuctionUseReceiveCurrencyGroupId	0x2d8	0	0	np-auction use receive currency group id
+0x19e0c18	np-auction	use-fee-currency-group-id	int	0x2d8	_tencentNpAuctionUseFeeCurrencyGroupId	0x2dc	0	0	np-auction use fee currency group id
+0x19e0c3c	np-auction	use-buy-currency-id	int	0x2dc	_tencentNpAuctionUseBuyCurrencyId	0x2e0	0	0	np-auction use buy currency id
+0x19e0c60	np-auction	use-receive-currency-id	int	0x2e0	_tencentNpAuctionUseReceiveCurrencyId	0x2e4	0	0	np-auction use receive currency id
+0x19e0c84	np-auction	use-bid-request-to-game-daemon	bool	0x2e4	_tencentNpAuctionUseBidRequestToGameDaemon	0x2e8	1	0	np-auction use bid request to game daemon for pc level condition check
+0x19e0ca8	np-auction	auction-escrow-min-money	int	0x2e8	_tencentNpAuctionAuctionEscrowMinMoney	0x2ec	0	0	np-auction escrow min money
+0x19e0ccc	np-auction	use-qqmessenger	bool	0x2ec	_tencentUseQqmessenger	0x2f0	0	0	whether to use QQ Messenger
+0x19e0cf0	np-auction	use-qqgroup	bool	0x2ed	_tencentUseQqgroup	0x2f1	0	0	whether to use QQ Group
+0x19e0d14	np-auction	qq-group-clause-url	string	0x2f0	_tencentQqGroupClauseUrl	0x2f4		1	qq group clause url(should start with http:// or https://)
+0x19e0d38	np-auction	enable-tcls	bool	0x2f4	_tencentEnableTcls	0x2f8	0	0	whether to enable tcls
+0x19e0d5c	np-auction	enable-aas	bool	0x2f5	_tencentEnableAas	0x2f9	0	0	whether to enable tencent aas
+0x19e0d80	innova	innova	group	-				0	
+0x19e0da4	innova	enable-4game	bool	0x2f6	_innovaEnable4game	0x2fa	0	0	whether to enable 4game launcher
+0x19e0dc8	innova	enable-frost	bool	0x2f7	_innovaEnableFrost	0x2fb	0	0	whether to enable innova security
+0x19e0dec	garena	garena	group	-				0	
+0x19e0e10	garena	enable-garena-plus	bool	0x2f8	_garenaEnableGarenaPlus	0x2fc	0	0	whether to enable garena plus launcher
+0x19e0e34	network-latency	network-latency	group	-				0	
+0x19e0e58	network-latency	print-network-log	bool	0x2f9	_networkLatencyPrintNetworkLog	0x2fd	0	1	print network module log
+0x19e0e7c	network-latency	send-network-latency-period	int	0x2fc	_networkLatencySendNetworkLatencyPeriod	0x300	0	1	period for sending client network latency and ping to server. unit is second. 0 means never sending
+0x19e0ea0	network-latency	send-ping-period	int	0x300	_networkLatencySendPingPeriod	0x304	0	1	period for sending ping to check network status. unit is second. 0 means never sending
+0x19e0ec4	network-latency	bad-ping-tolerance	int	0x304	_networkLatencyBadPingTolerance	0x308	0	1	tolerance for bad ping immediete report. unit millisecond.
+0x19e0ee8	network-latency	send-network-latency-to-gamed	bool	0x308	_networkLatencySendNetworkLatencyToGamed	0x30c	0	1	network latency state report send to gamed
+0x19e0f0c	network-latency	send-network-latency-to-web	bool	0x309	_networkLatencySendNetworkLatencyToWeb	0x30d	0	1	network latency state report send to web
+0x19e0f30	contents-control	contents-control	group	-				0	
+0x19e0f54	contents-control	enable-joypad	bool	0x30a	_contentsControlEnableJoypad	0x30e	0	0	
+0x19e0f78	contents-control	use-account-registration-button	int	0x30c	_contentsControlUseAccountRegistrationButton	0x310	0	0	-1:disable, 0:hide, 1:enable
+0x19e0f9c	contents-control	enable-friend-enter-world-notification	bool	0x310	_contentsControlEnableFriendEnterWorldNotification	0x314	0	0	whether to enable enter-world notification of friend
+0x19e0fc0	contents-control	vip-enabled	bool	0x311	_contentsControlVipEnabled	0x315	0	0	whether to enable vip
+0x19e0fe4	contents-control	pc-appearance-shot-enabled	bool	0x312	_contentsControlPcAppearanceShotEnabled	0x316	0	0	whether to enable pc appearance screen shot capture and load
+0x19e1008	contents-control	market-enabled	bool	0x313	_contentsControlMarketEnabled	0x317	1	0	whether to enable market or not
+0x19e102c	contents-control	delivery-enabled	bool	0x314	_contentsControlDeliveryEnabled	0x318	1	0	whether to enable delivery or not
+0x19e1050	contents-control	delivery-guild-discount-enabled	bool	0x315	_contentsControlDeliveryGuildDiscountEnabled	0x319	1	0	whether to enable guild discount for delivery
+0x19e1074	contents-control	sns-enabled	bool	0x316	_contentsControlSnsEnabled	0x31a	1	0	whether to enable sns or not
+0x19e1098	contents-control	petition-enabled	bool	0x317	_contentsControlPetitionEnabled	0x31b	1	0	whether to enable petition or not
+0x19e10bc	contents-control	show-immediate-escape-at-system-menu	bool	0x318	_contentsControlShowImmediateEscapeAtSystemMenu	0x31c	1	0	show immediate escape at system menu
+0x19e10e0	contents-control	use-charge-function	bool	0x319	_contentsControlUseChargeFunction	0x31d	0	0	whether to enable charge related ui in lobby
+0x19e1104	contents-control	limit-time-for-user-away-status	float	0x31c	_contentsControlLimitTimeForUserAwayStatus	0x320	7200	0	limit time (sec) to apply user away status
+0x19e1128	contents-control	party-banish-enabled	bool	0x320	_contentsControlPartyBanishEnabled	0x324	0	0	whether to enable party banish or not
+0x19e114c	contents-control	sextet-party-enabled	bool	0x321	_contentsControlSextetPartyEnabled	0x325	0	0	whether to enable sextet party
+0x19e1170	contents-control	use-multi-key	bool	0x322	_contentsControlUseMultiKey	0x326	0	0	process multi pressed key
+0x19e1194	contents-control	use-brain-2	bool	0x323			0	0	determine using brain 2
+0x19e11b8	contents-control	use-customize-silhouette	bool	0x324	_contentsControlUseCustomizeSilhouette	0x327	0	0	whetehr to enable customize silhouette
+0x19e11dc	contents-control	show-customize-sample-voice-type-1-play-btn	bool	0x325	_contentsControlShowCustomizeSampleVoiceType1PlayBtn	0x328	1	0	show customize sample voice type1 playbtn
+0x19e1200	contents-control	use-summoned-track	bool	0x326	_contentsControlUseSummonedTrack	0x329	0	0	use summoned track
+0x19e1224	contents-control	lobby-change-pc-appearance-enabled	bool	0x327	_contentsControlLobbyChangePcAppearanceEnabled	0x32a	0	0	whether to enable change pc appearance
+0x19e1248	contents-control	lobby-change-pc-race-enabled	bool	0x328	_contentsControlLobbyChangePcRaceEnabled	0x32b	0	0	whether to enable change pc Race
+0x19e126c	contents-control	lobby-change-pc-sex-enabled	bool	0x329	_contentsControlLobbyChangePcSexEnabled	0x32c	0	0	whether to enable change pc Sex
+0x19e1290	contents-control	lobby-change-pc-name-enabled	bool	0x32a	_contentsControlLobbyChangePcNameEnabled	0x32d	0	0	whether to enable change pc name
+0x19e12b4	contents-control	lobby-change-pc-world-enabled	bool	0x32b	_contentsControlLobbyChangePcWorldEnabled	0x32e	0	0	whether to enable change pc world
+0x19e12d8	contents-control	lobby-expand-slot-enabled	bool	0x32c	_contentsControlLobbyExpandSlotEnabled	0x32f	0	0	whether to enable expand slot
+0x19e12fc	contents-control	lobby-expand-slot-max-count	int	0x330	_contentsControlLobbyExpandSlotMaxCount	0x330	7	0	lobby expand slot max count
+0x19e1320	contents-control	lobby-change-user-name-enabled	bool	0x334	_contentsControlLobbyChangeUserNameEnabled	0x334	0	0	whether to enable change username(nickname)
+0x19e1344	contents-control	native-character-info-enabled	bool	0x335	_contentsControlNativeCharacterInfoEnabled	0x335	0	0	whether to enable native character info
+0x19e1368	contents-control	blue-diamond-enabled	bool	0x336	_contentsControlBlueDiamondEnabled	0x336	0	0	whether to enable tencent blue diamond
+0x19e138c	contents-control	tencent-vip-luxury-package-enabled	bool	0x337	_contentsControlTencentVipLuxuryPackageEnabled	0x337	0	0	whether to enable tencent vip luxury package option grade
+0x19e13b0	contents-control	lobby-extend-jumping-character-creation-quota-enabled	bool	0x338	_contentsControlLobbyExtendJumpingCharacterCreationQuotaEnabled	0x338	0	1	whether to enable create jumping character
+0x19e13d4	contents-control	only-event-provide-jumping-character-creation-quota	bool	0x339	_contentsControlOnlyEventProvideJumpingCharacterCreationQuota	0x339	0	1	
+0x19e13f8	in-game-web	in-game-web	group	-				0	
+0x19e141c	in-game-web	use-lobbyhome	bool	0x33a	_inGameWebUseLobbyhome	0x33b	0	1	whether to use in-game web lobbyhome UI or not
+0x19e1440	in-game-web	lobbyhome-url	string	0x33c	_inGameWebLobbyhomeUrl	0x33c		1	web lobbyhome domain url (should start with http:// or https://)
+0x19e1464	in-game-web	lobbyhome-home-urn	string	0x340	_inGameWebLobbyhomeHomeUrn	0x340		1	web lobbyhome home path
+0x19e1488	in-game-web	use-lobby-nshop-home	bool	0x344	_inGameWebUseLobbyNshopHome	0x344	0	1	
+0x19e14ac	in-game-web	lobby-nshop-home-url	string	0x348	_inGameWebLobbyNshopHomeUrl	0x348		1	web lobbyhome domain url (should start with http:// or https://)
+0x19e14d0	in-game-web	lobby-nshop-home-home-urn	string	0x34c	_inGameWebLobbyNshopHomeHomeUrn	0x34c		1	
+0x19e14f4	in-game-web	use-market	bool	0x350	_inGameWebUseMarket	0x350	0	1	whether to use in-game web market UI or not
+0x19e1518	in-game-web	use-sns	bool	0x351	_inGameWebUseSns	0x351	0	1	whether to use in-game web SNS UI or not
+0x19e153c	in-game-web	sns-url	string	0x354	_inGameWebSnsUrl	0x354	<url>	1	web sns domain url (should start with http:// or https://)
+0x19e1560	in-game-web	sns-home-urn	string	0x358	_inGameWebSnsHomeUrn	0x358	/bns	1	web sns home path
+0x19e1584	in-game-web	big-sns-home-urn	string	0x35c	_inGameWebBigSnsHomeUrn	0x35c		1	big sns home path
+0x19e15a8	in-game-web	lobby-sns-server-recommend-urn	string	0x360	_inGameWebLobbySnsServerRecommendUrn	0x360		1	lobby sns server recommendation home path
+0x19e15cc	in-game-web	use-sns-following	bool	0x364	_inGameWebUseSnsFollowing	0x364	0	1	whether to use context menu sns following or not
+0x19e15f0	in-game-web	sns-follow-url	string	0x368	_inGameWebSnsFollowUrl	0x368	<url>	1	web sns follow domain url (should start with http:// or https://)
+0x19e1614	in-game-web	sns-follow-home-urn	string	0x36c	_inGameWebSnsFollowHomeUrn	0x36c	/bns	1	web sns follow home path
+0x19e1638	in-game-web	use-sns-add-friend	bool	0x370	_inGameWebUseSnsAddFriend	0x370	0	1	whether to use sandbox add-friend or not
+0x19e165c	in-game-web	sns-add-friend-urn	string	0x374	_inGameWebSnsAddFriendUrn	0x374		1	sandbox add-friend urn
+0x19e1680	in-game-web	sns-timeline-urn	string	0x378	_inGameWebSnsTimelineUrn	0x378		1	sandbox timeline urn
+0x19e16a4	in-game-web	sns-message-url	string	0x37c	_inGameWebSnsMessageUrl	0x37c		1	sandbox talk page urn
+0x19e16c8	in-game-web	sns-direct-message-urn	string	0x380	_inGameWebSnsDirectMessageUrn	0x380		1	sandbox direct message requesting urn
+0x19e16ec	in-game-web	sns-guestbook-urn	string	0x384	_inGameWebSnsGuestbookUrn	0x384		1	sandbox character guestbook urn
+0x19e1710	in-game-web	sns-boast-write-urn	string	0x388	_inGameWebSnsBoastWriteUrn	0x388		1	sandbox boast writing urn
+0x19e1734	in-game-web	sns-boast-ranking-urn	string	0x38c	_inGameWebSnsBoastRankingUrn	0x38c		1	sandbox boast ranking urn
+0x19e1758	in-game-web	use-sns-achievement	bool	0x390	_inGameWebUseSnsAchievement	0x390	0	1	whether to use in-game web sns achievement or not
+0x19e177c	in-game-web	sns-achievement-url	string	0x394	_inGameWebSnsAchievementUrl	0x394		1	sandbox achievement url
+0x19e17a0	in-game-web	sns-achievement-write-urn	string	0x398	_inGameWebSnsAchievementWriteUrn	0x398		1	sandbox achievement writing urn
+0x19e17c4	in-game-web	use-sns-guild-uniform-design	bool	0x39c	_inGameWebUseSnsGuildUniformDesign	0x39c	0	1	
+0x19e17e8	in-game-web	sns-guild-uniform-design-url	string	0x3a0	_inGameWebSnsGuildUniformDesignUrl	0x3a0		1	URL (should start with http:// or https://)
+0x19e180c	in-game-web	sns-guild-uniform-design-urn	string	0x3a4	_inGameWebSnsGuildUniformDesignUrn	0x3a4		1	URN
+0x19e1830	in-game-web	sns-cookie-url-1	string	0x3a8	_inGameWebSnsCookieUrl1	0x3a8		1	to set cookie for sandbox
+0x19e1854	in-game-web	sns-cookie-url-2	string	0x3ac	_inGameWebSnsCookieUrl2	0x3ac		1	to set cookie for sandbox
+0x19e1878	in-game-web	sns-cookie-url-3	string	0x3b0	_inGameWebSnsCookieUrl3	0x3b0		1	to set cookie for sandbox
+0x19e189c	in-game-web	use-boast	bool	0x3b4	_inGameWebUseBoast	0x3b4	0	1	whether to use in-game web boast UI or not
+0x19e18c0	in-game-web	boast-url	string	0x3b8	_inGameWebBoastUrl	0x3b8		1	boast domain url (should start with http:// or https://)
+0x19e18e4	in-game-web	boast-home-urn	string	0x3bc	_inGameWebBoastHomeUrn	0x3bc	/bns	1	boast home path
+0x19e1908	in-game-web	boast-unrated-home-urn	string	0x3c0	_inGameWebBoastUnratedHomeUrn	0x3c0	/bns	1	boast unrated home path
+0x19e192c	in-game-web	use-boast-duel	bool	0x3c4	_inGameWebUseBoastDuel	0x3c4	0	1	whether to use in-game web duel boast UI or not
+0x19e1950	in-game-web	use-ranking-boast	bool	0x3c5	_inGameWebUseRankingBoast	0x3c5	0	1	whether to use in-game web ranking boast button or not
+0x19e1974	in-game-web	ranking-boast-urn	string	0x3c8	_inGameWebRankingBoastUrn	0x3c8		1	ranking boast path
+0x19e1998	in-game-web	use-nshop	bool	0x3cc	_inGameWebUseNshop	0x3cc	0	1	whether to use in-game web NShop UI or not
+0x19e19bc	in-game-web	nshop-url	string	0x3d0	_inGameWebNshopUrl	0x3d0	<url>	1	web nshop domain url (should start with http:// or https://)
+0x19e19e0	in-game-web	nshop-home-urn	string	0x3d4	_inGameWebNshopHomeUrn	0x3d4	/bns/	1	web nshop home path
+0x19e1a04	in-game-web	nshop-pc-cafe-urn	string	0x3d8	_inGameWebNshopPcCafeUrn	0x3d8	/bns/	1	
+0x19e1a28	in-game-web	use-random-store-web-banner	bool	0x3dc	_inGameWebUseRandomStoreWebBanner	0x3dc	0	1	whether to use random store in-game broswer banner or not
+0x19e1a4c	in-game-web	use-lobby-nshop2	bool	0x3dd	_inGameWebUseLobbyNshop2	0x3dd	0	1	whether to use lobby NShop2 UI or not
+0x19e1a70	in-game-web	lobby-nshop2-url	string	0x3e0	_inGameWebLobbyNshop2Url	0x3e0		1	lobby nshop2 domain url (should start with http:// or https://)
+0x19e1a94	in-game-web	lobby-nshop2-home-urn	string	0x3e4	_inGameWebLobbyNshop2HomeUrn	0x3e4		1	lobby nshop2 home urn
+0x19e1ab8	in-game-web	lobby-nshop2-buy-game-time-urn	string	0x3e8	_inGameWebLobbyNshop2BuyGameTimeUrn	0x3e8		1	lobby nshop2 game time purchase urn
+0x19e1adc	in-game-web	lobby-nshop2-buy-change-pc-appearance-goods-urn	string	0x3ec	_inGameWebLobbyNshop2BuyChangePcAppearanceGoodsUrn	0x3ec		1	lobby nshop2 appearance-goods purchase urn
+0x19e1b00	in-game-web	lobby-nshop2-buy-change-pc-name-goods-urn	string	0x3f0	_inGameWebLobbyNshop2BuyChangePcNameGoodsUrn	0x3f0		1	lobby nshop2 change-pc-name goods purchase urn
+0x19e1b24	in-game-web	lobby-nshop2-buy-expand-slot-goods-urn	string	0x3f4	_inGameWebLobbyNshop2BuyExpandSlotGoodsUrn	0x3f4		1	lobby nshop2 expand-slot-goods purchase urn
+0x19e1b48	in-game-web	lobby-nshop2-buy-extend-jumping-character-creation-quota-goo	string	0x3f8				1	lobby nshop2 create-jumping-character-goods purchase urn
+0x19e1b6c	in-game-web	lobby-nshop2-buy-change-pc-race-goods-urn	string	0x3fc	_inGameWebLobbyNshop2BuyChangePcRaceGoodsUrn	0x3fc		1	lobby nshop2 race-goods purchase urn
+0x19e1b90	in-game-web	lobby-nshop2-buy-change-pc-sex-goods-urn	string	0x400	_inGameWebLobbyNshop2BuyChangePcSexGoodsUrn	0x400		1	lobby nshop2 sex-goods purchase urn
+0x19e1bb4	in-game-web	lobby-nshop2-coupon-urn	string	0x404	_inGameWebLobbyNshop2CouponUrn	0x404		1	로비 좌측에 있는 쿠폰 버튼을 눌렀을때 nshop 창을 열고 쿠폰 팝업을 열어주기 위한 path
+0x19e1bd8	in-game-web	lobby-nshop2-goods-list-urn	string	0x408	_inGameWebLobbyNshop2GoodsListUrn	0x408		1	goods-list urn of lobby nshop2
+0x19e1bfc	in-game-web	lobby-nshop2-goods-detail-urn	string	0x40c	_inGameWebLobbyNshop2GoodsDetailUrn	0x40c		1	goods-detail urn of lobby nshop2
+0x19e1c20	in-game-web	lobby-nshop2-game-time-list-urn	string	0x410	_inGameWebLobbyNshop2GameTimeListUrn	0x410		1	game-time-list urn of lobby nshop2
+0x19e1c44	in-game-web	lobby-nshop2-game-time-detail-urn	string	0x414	_inGameWebLobbyNshop2GameTimeDetailUrn	0x414		1	game-time-detail urn of lobby nshop2
+0x19e1c68	in-game-web	lobby-nshop2-promotion-urn	string	0x418	_inGameWebLobbyNshop2PromotionUrn	0x418		1	promotion urn of lobby nshop2
+0x19e1c8c	in-game-web	use-ncjapan-help	bool	0x41c	_inGameWebUseNcjapanHelp	0x41c	0	1	
+0x19e1cb0	in-game-web	use-help	bool	0x41d	_inGameWebUseHelp	0x41d	0	1	whether to use in-game web help UI or not
+0x19e1cd4	in-game-web	help-url	string	0x420	_inGameWebHelpUrl	0x420		1	web help domain url (should start with http:// or https://)
+0x19e1cf8	in-game-web	help-home-urn	string	0x424	_inGameWebHelpHomeUrn	0x424		1	web help home path
+0x19e1d1c	in-game-web	use-powerbook	bool	0x428	_inGameWebUsePowerbook	0x428	0	1	whether to use in-game web powerbook UI or not
+0x19e1d40	in-game-web	powerbook-url	string	0x42c	_inGameWebPowerbookUrl	0x42c	<url>	1	web powerbook domain url (should start with http:// or https://)
+0x19e1d64	in-game-web	powerbook-home-urn	string	0x430	_inGameWebPowerbookHomeUrn	0x430	/bns	1	web powerbook home path
+0x19e1d88	in-game-web	powerbook-query-home-urn	string	0x434	_inGameWebPowerbookQueryHomeUrn	0x434	/bns/wiki	1	web powerbook query home path
+0x19e1dac	in-game-web	powerbook-query-gather-urn	string	0x438	_inGameWebPowerbookQueryGatherUrn	0x438		1	web powerbook query urn for gather
+0x19e1dd0	in-game-web	powerbook-query-craft-urn	string	0x43c	_inGameWebPowerbookQueryCraftUrn	0x43c		1	web powerbook query urn for craft
+0x19e1df4	in-game-web	powerbook-query-skillbook-urn	string	0x440	_inGameWebPowerbookQuerySkillbookUrn	0x440		1	web powerbook query urn for skillbook
+0x19e1e18	in-game-web	use-skill-powerbook	bool	0x444	_inGameWebUseSkillPowerbook	0x444	0	1	whether to use in-game web skill-powerbook UI or not
+0x19e1e3c	in-game-web	skill-powerbook-url	string	0x448	_inGameWebSkillPowerbookUrl	0x448	<url>	1	web skill-powerbook domain url (should start with http:// or https://)
+0x19e1e60	in-game-web	skill-powerbook-home-urn	string	0x44c	_inGameWebSkillPowerbookHomeUrn	0x44c	/bns	1	web skill-powerbook home path
+0x19e1e84	in-game-web	skill-powerbook-url-2	string	0x450	_inGameWebSkillPowerbookUrl2	0x450	<url>	1	web skill-powerbook domain url (should start with http:// or https://)
+0x19e1ea8	in-game-web	skill-powerbook-home-urn-2	string	0x454	_inGameWebSkillPowerbookHomeUrn2	0x454	/bns	1	web skill-powerbook home path
+0x19e1ecc	in-game-web	use-petition-faq	bool	0x458	_inGameWebUsePetitionFaq	0x458	0	1	whether to use in-game web petition faq UI or not
+0x19e1ef0	in-game-web	petition-url	string	0x45c	_inGameWebPetitionUrl	0x45c		1	petition faq domain url (should start with http:// or https://)
+0x19e1f14	in-game-web	petition-home-urn	string	0x460	_inGameWebPetitionHomeUrn	0x460		1	web petition home path
+0x19e1f38	in-game-web	use-petition2	bool	0x464	_inGameWebUsePetition2	0x464	0	1	whether to use in-game web petition UI or not
+0x19e1f5c	in-game-web	use-gamelog	bool	0x465	_inGameWebUseGamelog	0x465	0	1	whether to use in-game web game-log UI or not
+0x19e1f80	in-game-web	gamelog-url	string	0x468	_inGameWebGamelogUrl	0x468		1	game-log domain url (should start with http:// or https://)
+0x19e1fa4	in-game-web	gamelog-home-urn	string	0x46c	_inGameWebGamelogHomeUrn	0x46c		1	web game-log home path
+0x19e1fc8	in-game-web	use-survey	bool	0x470	_inGameWebUseSurvey	0x470	0	1	whether to use in-game web survey UI or not
+0x19e1fec	in-game-web	survey-url	string	0x474	_inGameWebSurveyUrl	0x474		1	survey domain url (should start with http:// or https://)
+0x19e2010	in-game-web	survey-home-urn	string	0x478	_inGameWebSurveyHomeUrn	0x478		1	web survey home path
+0x19e2034	in-game-web	use-character-info	bool	0x47c	_inGameWebUseCharacterInfo	0x47c	0	1	whether to use in-game web character info UI or not
+0x19e2058	in-game-web	use-gamepic	bool	0x47d	_inGameWebUseGamepic	0x47d	0	1	whether to use profile picture upload feature or not
+0x19e207c	in-game-web	use-profile-image-upload	bool	0x47e	_inGameWebUseProfileImageUpload	0x47e	0	1	whether to use profile picture upload feature or not
+0x19e20a0	in-game-web	use-friends-list	bool	0x47f	_inGameWebUseFriendsList	0x47f	0	1	whether to use friends list download from web or not
+0x19e20c4	in-game-web	friends-list-url	string	0x480	_inGameWebFriendsListUrl	0x480		1	friends list download domain url (should start with http:// or https://)
+0x19e20e8	in-game-web	friends-list-home-urn	string	0x484	_inGameWebFriendsListHomeUrn	0x484		1	friends list download home path
+0x19e210c	in-game-web	use-sns-guild-craft	bool	0x488	_inGameWebUseSnsGuildCraft	0x488	0	1	whether to use in-game web guild craft UI or not
+0x19e2130	in-game-web	sns-guild-craft-url	string	0x48c	_inGameWebSnsGuildCraftUrl	0x48c		1	guild craft domain url (should start with http:// or https://)
+0x19e2154	in-game-web	sns-guild-craft-urn	string	0x490	_inGameWebSnsGuildCraftUrn	0x490		1	guild craft home path
+0x19e2178	in-game-web	use-sns-guild	bool	0x494	_inGameWebUseSnsGuild	0x494	0	1	whether to use in-game web guild UI or not
+0x19e219c	in-game-web	sns-guild-url	string	0x498	_inGameWebSnsGuildUrl	0x498		1	guild domain url (should start with http:// or https://)
+0x19e21c0	in-game-web	sns-guild-urn	string	0x49c	_inGameWebSnsGuildUrn	0x49c		1	guild home path
+0x19e21e4	in-game-web	use-sns-guild-bbs	bool	0x4a0	_inGameWebUseSnsGuildBbs	0x4a0	0	1	whether to use in-game web guild  bbs UI or not
+0x19e2208	in-game-web	sns-guild-bbs-url	string	0x4a4	_inGameWebSnsGuildBbsUrl	0x4a4		1	guild bbs domain url (should start with http:// or https://)
+0x19e222c	in-game-web	sns-guild-bbs-urn	string	0x4a8	_inGameWebSnsGuildBbsUrn	0x4a8		1	guild bbs home path
+0x19e2250	in-game-web	use-duel-ranking	bool	0x4ac	_inGameWebUseDuelRanking	0x4ac	0	1	
+0x19e2274	in-game-web	duel-ranking-url	string	0x4b0	_inGameWebDuelRankingUrl	0x4b0		1	
+0x19e2298	in-game-web	duel-ranking-urn	string	0x4b4	_inGameWebDuelRankingUrn	0x4b4		1	
+0x19e22bc	in-game-web	duel-ranking-url-2	string	0x4b8	_inGameWebDuelRankingUrl2	0x4b8		1	
+0x19e22e0	in-game-web	duel-ranking-urn-2	string	0x4bc	_inGameWebDuelRankingUrn2	0x4bc		1	
+0x19e2304	in-game-web	navigation-filter-url-1	string	0x4c0	_inGameWebNavigationFilterUrl1	0x4c0		1	set navigation filter url which navigated freely in in-game browser(should start with http:// or https://;)
+0x19e2328	in-game-web	navigation-filter-url-2	string	0x4c4	_inGameWebNavigationFilterUrl2	0x4c4		1	set navigation filter url which navigated freely in in-game browser(should start with http:// or https://;)
+0x19e234c	in-game-web	navigation-filter-url-3	string	0x4c8	_inGameWebNavigationFilterUrl3	0x4c8		1	set navigation filter url which navigated freely in in-game browser(should start with http:// or https://;)
+0x19e2370	in-game-web	navigation-filter-url-4	string	0x4cc	_inGameWebNavigationFilterUrl4	0x4cc		1	set navigation filter url which navigated freely in in-game browser(should start with http:// or https://;)
+0x19e2394	in-game-web	navigation-filter-url-5	string	0x4d0	_inGameWebNavigationFilterUrl5	0x4d0		1	set navigation filter url which navigated freely in in-game browser(should start with http:// or https://;)
+0x19e23b8	in-game-web	navigation-filter-url-6	string	0x4d4	_inGameWebNavigationFilterUrl6	0x4d4		1	set navigation filter url which navigated freely in in-game browser(should start with http:// or https://;)
+0x19e23dc	in-game-web	navigation-filter-url-7	string	0x4d8	_inGameWebNavigationFilterUrl7	0x4d8		1	set navigation filter url which navigated freely in in-game browser(should start with http:// or https://;)
+0x19e2400	in-game-web	navigation-filter-url-8	string	0x4dc	_inGameWebNavigationFilterUrl8	0x4dc		1	set navigation filter url which navigated freely in in-game browser(should start with http:// or https://;)
+0x19e2424	in-game-web	navigation-filter-url-9	string	0x4e0	_inGameWebNavigationFilterUrl9	0x4e0		1	set navigation filter url which navigated freely in in-game browser(should start with http:// or https://;)
+0x19e2448	in-game-web	navigation-filter-url-10	string	0x4e4	_inGameWebNavigationFilterUrl10	0x4e4		1	set navigation filter url which navigated freely in in-game browser(should start with http:// or https://;)
+0x19e246c	in-game-web	use-bns-tv	bool	0x4e8	_inGameWebUseBnsTv	0x4e8	0	1	whether to use in-game web bns tv UI or not
+0x19e2490	in-game-web	use-bns-tv-auto-double-clik	bool	0x4e9	_inGameWebUseBnsTvAutoDoubleClik	0x4e9	0	1	auto double click to stop and re-play bns tv
+0x19e24b4	in-game-web	use-event-guide	bool	0x4ea	_inGameWebUseEventGuide	0x4ea	0	1	check use event guide
+0x19e24d8	in-game-web	event-guide-url	string	0x4ec	_inGameWebEventGuideUrl	0x4ec	<url>	1	web event guide domain url (should start with http:// or https://)
+0x19e24fc	in-game-web	event-guide-home-urn	string	0x4f0	_inGameWebEventGuideHomeUrn	0x4f0	/bns	1	web event guide home path
+0x19e2520	in-game-web	use-dungeon-guide	bool	0x4f4	_inGameWebUseDungeonGuide	0x4f4	0	1	check use dungeon guide
+0x19e2544	in-game-web	dungeon-guide-url	string	0x4f8	_inGameWebDungeonGuideUrl	0x4f8	<url>	1	web dungeon guide domain url (should start with http:// or https://)
+0x19e2568	in-game-web	dungeon-guide-home-urn	string	0x4fc	_inGameWebDungeonGuideHomeUrn	0x4fc	/bns	1	web dungeon guide home path
+0x19e258c	in-game-web	dungeon-guide-launch	bool	0x500	_inGameWebDungeonGuideLaunch	0x500	0	1	open dungeon guide on enter world
+0x19e25b0	in-game-web	dungeon-guide-popup-size-change	bool	0x501	_inGameWebDungeonGuidePopupSizeChange	0x501	0	1	dungeon popup size 1170 x 761
+0x19e25d4	in-game-web	use-digital-river	bool	0x502	_inGameWebUseDigitalRiver	0x502	0	1	check use digital river
+0x19e25f8	in-game-web	use-goods-store	bool	0x503	_inGameWebUseGoodsStore	0x503	0	1	check use goods store ad
+0x19e261c	in-game-web	use-goods-store-second	bool	0x504	_inGameWebUseGoodsStoreSecond	0x504	0	1	check use goods store ad 2nd
+0x19e2640	in-game-web	use-goods-store-charge	bool	0x505	_inGameWebUseGoodsStoreCharge	0x505	0	1	check use goods store charge
+0x19e2664	in-game-web	use-ingame-notice	bool	0x506	_inGameWebUseIngameNotice	0x506	0	1	whether to use in-game total notice broswer or not
+0x19e2688	in-game-web	use-ingame-notice-itemtooltip	bool	0x507	_inGameWebUseIngameNoticeItemtooltip	0x507	0	1	use itemtooltip web link at in-game-notice or not
+0x19e26ac	in-game-web	ingame-notice-startzone-id	int	0x508	_inGameWebIngameNoticeStartzoneId	0x508	0	1	in-game notice skip zone id
+0x19e26d0	in-game-web	ingame-notice-startzone-limit-level	int	0x50c	_inGameWebIngameNoticeStartzoneLimitLevel	0x50c	0	1	in-game notice skip limit level
+0x19e26f4	in-game-web	use-guide-movie	bool	0x510	_inGameWebUseGuideMovie	0x510	0	1	whether to use in-game web guide movie or not
+0x19e2718	promotion	promotion	group	-				0	
+0x19e273c	promotion-server-1	promotion-server-1	group	-				0	
+0x19e2760	promotion-server-1	server-name	string	0x514	_promotionPromotionServer1ServerName	0x514		0	
+0x19e2784	promotion-server-1	logo-server-list	string	0x518	_promotionPromotionServer1LogoServerList	0x518		1	
+0x19e27a8	promotion-server-1	logo-character-slot	string	0x51c	_promotionPromotionServer1LogoCharacterSlot	0x51c		1	
+0x19e27cc	promotion-server-1	replace-text	string	0x520	_promotionPromotionServer1ReplaceText	0x520		0	
+0x19e27f0	promotion-server-2	promotion-server-2	group	-				0	
+0x19e2814	promotion-server-2	server-name	string	0x524	_promotionPromotionServer2ServerName	0x524		0	
+0x19e2838	promotion-server-2	logo-server-list	string	0x528	_promotionPromotionServer2LogoServerList	0x528		1	
+0x19e285c	promotion-server-2	logo-character-slot	string	0x52c	_promotionPromotionServer2LogoCharacterSlot	0x52c		1	
+0x19e2880	promotion-server-2	replace-text	string	0x530	_promotionPromotionServer2ReplaceText	0x530		0	
+0x19e28a4	promotion-server-3	promotion-server-3	group	-				0	
+0x19e28c8	promotion-server-3	server-name	string	0x534	_promotionPromotionServer3ServerName	0x534		0	
+0x19e28ec	promotion-server-3	logo-server-list	string	0x538	_promotionPromotionServer3LogoServerList	0x538		1	
+0x19e2910	promotion-server-3	logo-character-slot	string	0x53c	_promotionPromotionServer3LogoCharacterSlot	0x53c		1	
+0x19e2934	promotion-server-3	replace-text	string	0x540	_promotionPromotionServer3ReplaceText	0x540		0	
+0x19e2958	promotion-server-4	promotion-server-4	group	-				0	
+0x19e297c	promotion-server-4	server-name	string	0x544	_promotionPromotionServer4ServerName	0x544		0	
+0x19e29a0	promotion-server-4	logo-server-list	string	0x548	_promotionPromotionServer4LogoServerList	0x548		1	
+0x19e29c4	promotion-server-4	logo-character-slot	string	0x54c	_promotionPromotionServer4LogoCharacterSlot	0x54c		1	
+0x19e29e8	promotion-server-4	replace-text	string	0x550	_promotionPromotionServer4ReplaceText	0x550		0	
+0x19e2a0c	promotion-server-5	promotion-server-5	group	-				0	
+0x19e2a30	promotion-server-5	server-name	string	0x554	_promotionPromotionServer5ServerName	0x554		0	
+0x19e2a54	promotion-server-5	logo-server-list	string	0x558	_promotionPromotionServer5LogoServerList	0x558		1	
+0x19e2a78	promotion-server-5	logo-character-slot	string	0x55c	_promotionPromotionServer5LogoCharacterSlot	0x55c		1	
+0x19e2a9c	promotion-server-5	replace-text	string	0x560	_promotionPromotionServer5ReplaceText	0x560		0	
+0x19e2ac0	instant-payment	instant-payment	group	-				0	
+0x19e2ae4	instant-payment	enable	bool	0x564	_instantPaymentEnable	0x564	0	0	whether to enable instant payment
+0x19e2b08	instant-payment	currency-group-id	int	0x568	_instantPaymentCurrencyGroupId	0x568	0	0	instant payment goods request currency group id
+0x19e2b2c	instant-payment	random-store-enable	bool	0x56c	_instantPaymentRandomStoreEnable	0x56c	0	0	whether to enable instant payment for random store
+0x19e2b50	instant-payment	random-store-draw-popup	bool	0x56d	_instantPaymentRandomStoreDrawPopup	0x56d	0	0	whether to enable instant payment random store draw popup
+0x19e2b74	instant-payment	enable-shopping-basket	bool	0x56e	_instantPaymentEnableShoppingBasket	0x56e	0	1	whether to enable shopping basket in closet group UI
+0x19e2b98	instant-payment	currency-imageset	string	0x570	_instantPaymentCurrencyImageset	0x570		0	instant payment for currency imageset in closet group UI
+0x19e2bbc	external-web-browser	external-web-browser	group	-				0	
+0x19e2be0	external-web-browser	use-whitelist	bool	0x574	_externalWebBrowserUseWhitelist	0x574	0	1	whether to use white-list for external link
+0x19e2c04	external-web-browser	white-list-1	string	0x578	_externalWebBrowserWhiteList1	0x578		1	white-list for petition2 external link
+0x19e2c28	external-web-browser	white-list-2	string	0x57c	_externalWebBrowserWhiteList2	0x57c		1	white-list for petition2 external link
+0x19e2c4c	external-web-browser	white-list-3	string	0x580	_externalWebBrowserWhiteList3	0x580		1	white-list for petition2 external link
+0x19e2c70	external-web-browser	white-list-4	string	0x584	_externalWebBrowserWhiteList4	0x584		1	white-list for petition2 external link
+0x19e2c94	external-web-browser	white-list-5	string	0x588	_externalWebBrowserWhiteList5	0x588		1	white-list for petition2 external link
+0x19e2cb8	external-web-browser	white-list-6	string	0x58c	_externalWebBrowserWhiteList6	0x58c		1	white-list for petition2 external link
+0x19e2cdc	external-web-browser	white-list-7	string	0x590	_externalWebBrowserWhiteList7	0x590		1	white-list for petition2 external link
+0x19e2d00	external-web-browser	white-list-8	string	0x594	_externalWebBrowserWhiteList8	0x594		1	white-list for petition2 external link
+0x19e2d24	external-web-browser	white-list-9	string	0x598	_externalWebBrowserWhiteList9	0x598		1	white-list for petition2 external link
+0x19e2d48	external-web-browser	account-registration-url	string	0x59c	_externalWebBrowserAccountRegistrationUrl	0x59c		1	account registration url for external web browser
+0x19e2d6c	external-web-browser	notice-url	string	0x5a0	_externalWebBrowserNoticeUrl	0x5a0		1	notice url for external web browser
+0x19e2d90	attendance	attendance	group	-				0	
+0x19e2db4	attendance	promotion-language-code	int	0x5a4	_attendancePromotionLanguageCode	0x5a4	0	0	
+0x19e2dd8	attendance	promotion-goods-currency-group-id	int	0x5a8	_attendancePromotionGoodsCurrencyGroupId	0x5a8	0	0	
+0x19e2dfc	attendance	extra-play-count-goods-id	int	0x5ac	_attendanceExtraPlayCountGoodsId	0x5ac	0	0	
+0x19e2e20	attendance	extra-play-count-goods-currency-group-id	int	0x5b0	_attendanceExtraPlayCountGoodsCurrencyGroupId	0x5b0	0	0	
+0x19e2e44	attendance	extra-play-count-goods-playable-count	int	0x5b4	_attendanceExtraPlayCountGoodsPlayableCount	0x5b4	0	0	
+0x19e2e68	attendance	tencent-blue-diamond-grade-id	int	0x5b8	_attendanceTencentBlueDiamondGradeId	0x5b8	0	0	
+0x19e2e8c	attendance	attendance-auto-reward	bool	0x5bc	_attendanceAttendanceAutoReward	0x5bc	0	0	whether to get attendance reward automatically
+0x19e2eb0	attendance	newbie-effect-data-id	int	0x5c0	_attendanceNewbieEffectDataId	0x5c0	0	0	신규 유저 effect data id
+0x19e2ed4	attendance	return-effect-data-id	int	0x5c4	_attendanceReturnEffectDataId	0x5c4	0	1	복귀 유저 effect data id
+0x19e2ef8	attendance	benefit-period	int	0x5c8	_attendanceBenefitPeriod	0x5c8	0	0	신규/복귀 유저 혜택 기간(일단위)
+0x19e2f1c	np-reconnect	np-reconnect	group	-				0	
+0x19e2f40	np-reconnect	enabled	bool	0x5cc	_npReconnectEnabled	0x5cc	0	1	
+0x19e2f64	np-reconnect	interval-seconds	float	0x5d0	_npReconnectIntervalSeconds	0x5d0	10	1	
+0x19e2f88	np-reconnect	max-retry-count	int	0x5d4	_npReconnectMaxRetryCount	0x5d4	6	1	
+0x19e2fac	np-reconnect	request-token-interval-seconds	float	0x5d8	_npReconnectRequestTokenIntervalSeconds	0x5d8	1500	1	
+0x19e2fd0	goods-store	goods-store	group	-				0	
+0x19e2ff4	goods-store	enable	bool	0x5dc	_goodsStoreEnable	0x5dc	0	0	whether to use goods store
+0x19e3018	goods-store	enable-in-lobby	bool	0x5dd	_goodsStoreEnableInLobby	0x5dd	0	0	whether to use goods store in lobby
+0x19e303c	goods-store	show-button-in-growth-window	bool	0x5de	_goodsStoreShowButtonInGrowthWindow	0x5de	0	0	whether to show goods store button in growth window
+0x19e3060	goods-store	use-gift	bool	0x5df	_goodsStoreUseGift	0x5df	0	0	whether to use gift in goods store
+0x19e3084	goods-store	use-multiple-gift	bool	0x5e0	_goodsStoreUseMultipleGift	0x5e0	0	0	whether to use multiple gift in goods store
+0x19e30a8	goods-store	use-wish	bool	0x5e1	_goodsStoreUseWish	0x5e1	0	0	whether to use wish in goods store
+0x19e30cc	goods-store	use-order-history	bool	0x5e2	_goodsStoreUseOrderHistory	0x5e2	0	0	whether to use order history in goods store
+0x19e30f0	goods-store	use-vip-info	bool	0x5e3	_goodsStoreUseVipInfo	0x5e3	0	0	whether to use vip info in goods store
+0x19e3114	goods-store	currency-group-id	int	0x5e4	_goodsStoreCurrencyGroupId	0x5e4	0	0	currency group id for first goods store
+0x19e3138	goods-store	currency-group-id-2	int	0x5e8	_goodsStoreCurrencyGroupId2	0x5e8	0	0	currency group id for second goods store
+0x19e315c	goods-store	currency-group-id-3	int	0x5ec	_goodsStoreCurrencyGroupId3	0x5ec	0	0	currency group id for third goods store
+0x19e3180	goods-store	currency-group-id-4	int	0x5f0	_goodsStoreCurrencyGroupId4	0x5f0	0	0	currency group id for fourth goods store
+0x19e31a4	goods-store	use-direct-purchase-for-charge	bool	0x5f4	_goodsStoreUseDirectPurchaseForCharge	0x5f4	0	0	whether to use direct purchase for charge
+0x19e31c8	goods-store	currency-group-id-for-charge	int	0x5f8	_goodsStoreCurrencyGroupIdForCharge	0x5f8	0	0	currency group id for charging first currency
+0x19e31ec	goods-store	currency-group-id-2-for-charge	int	0x5fc	_goodsStoreCurrencyGroupId2ForCharge	0x5fc	0	0	second currency group id for charging first currency
+0x19e3210	goods-store	currency-group-id-3-for-charge	int	0x600	_goodsStoreCurrencyGroupId3ForCharge	0x600	0	0	third currency group id for charging first currency
+0x19e3234	goods-store	enable-extra-showcase	bool	0x604	_goodsStoreEnableExtraShowcase	0x604	0	0	whether to use extra showcase for goods store
+0x19e3258	goods-store	enable-today-showcase	bool	0x605	_goodsStoreEnableTodayShowcase	0x605	0	0	whether to use today showcase for first goods store
+0x19e327c	goods-store	enable-today-showcase-2	bool	0x606	_goodsStoreEnableTodayShowcase2	0x606	0	0	whether to use today showcase for second goods store
+0x19e32a0	goods-store	enable-today-showcase-3	bool	0x607	_goodsStoreEnableTodayShowcase3	0x607	0	0	whether to use today showcase for third goods store
+0x19e32c4	goods-store	enable-today-showcase-4	bool	0x608	_goodsStoreEnableTodayShowcase4	0x608	0	0	whether to use today showcase for first fourth store
+0x19e32e8	goods-store	enable-vip-showcase	bool	0x609	_goodsStoreEnableVipShowcase	0x609	0	0	whether to use vip showcase for first goods store
+0x19e330c	goods-store	enable-vip-showcase-2	bool	0x60a	_goodsStoreEnableVipShowcase2	0x60a	0	0	whether to use vip showcase for second goods store
+0x19e3330	goods-store	enable-vip-showcase-3	bool	0x60b	_goodsStoreEnableVipShowcase3	0x60b	0	0	whether to use vip showcase for third goods store
+0x19e3354	goods-store	enable-vip-showcase-4	bool	0x60c	_goodsStoreEnableVipShowcase4	0x60c	0	0	whether to use vip showcase for first fourth store
+0x19e3378	goods-store	enable-recommand-home	int	0x610	_goodsStoreEnableRecommandHome	0x610	0	0	whether to use recommand home for first goods store
+0x19e339c	goods-store	enable-recommand-home-2	int	0x614	_goodsStoreEnableRecommandHome2	0x614	0	0	whether to use recommand home for second goods store
+0x19e33c0	goods-store	enable-recommand-home-3	int	0x618	_goodsStoreEnableRecommandHome3	0x618	0	0	whether to use recommand home for third goods store
+0x19e33e4	goods-store	enable-recommand-home-4	int	0x61c	_goodsStoreEnableRecommandHome4	0x61c	0	0	whether to use recommand home for fourth store
+0x19e3408	goods-store	enable-all-display-goods-home	int	0x620	_goodsStoreEnableAllDisplayGoodsHome	0x620	0	0	whether to use all display home for first goods store
+0x19e342c	goods-store	enable-all-display-goods-home-2	int	0x624	_goodsStoreEnableAllDisplayGoodsHome2	0x624	0	0	whether to use all display home for second goods store
+0x19e3450	goods-store	enable-all-display-goods-home-3	int	0x628	_goodsStoreEnableAllDisplayGoodsHome3	0x628	0	0	whether to use all display home for third goods store
+0x19e3474	goods-store	enable-all-display-goods-home-4	int	0x62c	_goodsStoreEnableAllDisplayGoodsHome4	0x62c	0	0	whether to use all display home for fourth goods store
+0x19e3498	goods-store	disable-goods-home	int	0x630	_goodsStoreDisableGoodsHome	0x630	0	0	disable goods store home
+0x19e34bc	goods-store	disable-goods-home-2	int	0x634	_goodsStoreDisableGoodsHome2	0x634	0	0	disable goods store home
+0x19e34e0	goods-store	disable-goods-home-3	int	0x638	_goodsStoreDisableGoodsHome3	0x638	0	0	disable goods store home
+0x19e3504	goods-store	disable-goods-home-4	int	0x63c	_goodsStoreDisableGoodsHome4	0x63c	0	0	disable goods store home
+0x19e3528	goods-store	currency-id-for-mileage	int	0x640	_goodsStoreCurrencyIdForMileage	0x640	0	0	currency id for mileage
+0x19e354c	goods-store	currency-id-for-mileage-2	int	0x644	_goodsStoreCurrencyIdForMileage2	0x644	0	0	second currency id for mileage
+0x19e3570	goods-store	currency-id-for-mileage-3	int	0x648	_goodsStoreCurrencyIdForMileage3	0x648	0	0	third currency id for mileage
+0x19e3594	goods-store	currency-id-for-mileage-4	int	0x64c	_goodsStoreCurrencyIdForMileage4	0x64c	0	0	fourth currency id for mileage
+0x19e35b8	goods-store	enable-qrcode	bool	0x650	_goodsStoreEnableQrcode	0x650	0	0	whether to use QRCode
+0x19e35dc	secondary-money	secondary-money	group	-				0	
+0x19e3600	secondary-money	currency-group-id	int	0x654	_secondaryMoneyCurrencyGroupId	0x654	0	0	
+0x19e3624	secondary-money	daily-reward-target-key	int	0x658	_secondaryMoneyDailyRewardTargetKey	0x658	0	0	
+0x19e3648	secondary-money	daily-reward-enabled	bool	0x65c	_secondaryMoneyDailyRewardEnabled	0x65c	0	0	whether to enable daily reward secondary money
+0x19e366c	craft	craft	group	-				0	
+0x19e3690	craft	enable-join-level	int	0x660	_craftEnableJoinLevel	0x660	11	0	enable join craft union level
+0x19e36b4	attendance-time-based	attendance-time-based	group	-				0	
+0x19e36d8	attendance-time-based	enable-pc-cafe	bool	0x664	_attendanceTimeBasedEnablePcCafe	0x664	1	0	enable pc cafe btn
+0x19e36fc	wardrobe	wardrobe	group	-				0	
+0x19e3720	wardrobe	use-pictorial-during-change-weapon-appearance	bool	0x665	_wardrobeUsePictorialDuringChangeWeaponAppearance	0x665	1	0	use new wardrobe
+0x19e3744	wardrobe	use-collecting	bool	0x666	_wardrobeUseCollecting	0x666	1	0	use collecting
+0x19e3768	wardrobe	favorite-count-costume	int	0x668	_wardrobeFavoriteCountCostume	0x668	10	0	favorite count of costume MAX10
+0x19e378c	wardrobe	favorite-count-weapon	int	0x66c	_wardrobeFavoriteCountWeapon	0x66c	5	0	favorite count of weapon MAX5
+0x19e37b0	wardrobe	favorite-count-pet	int	0x670	_wardrobeFavoriteCountPet	0x670	5	0	favorite count of pet MAX5
+0x19e37d4	wardrobe	favorite-count-rune1	int	0x674	_wardrobeFavoriteCountRune1	0x674	5	0	favorite count of rune1 MAX5
+0x19e37f8	wardrobe	favorite-count-rune2	int	0x678	_wardrobeFavoriteCountRune2	0x678	5	0	favorite count of rune2 MAX5
+0x19e381c	wardrobe	favorite-count-gem	int	0x67c	_wardrobeFavoriteCountGem	0x67c	16	0	favorite count of gem MAX16
+0x19e3840	wardrobe	favorite-count-collecting	int	0x680	_wardrobeFavoriteCountCollecting	0x680	16	0	favorite count of collecting MAX16
+0x19e3864	wardrobe	pingpong-delay-time	float	0x684	_wardrobePingpongDelayTime	0x684	30	1	pingpong MAX delay time(sec)
+0x19e3888	account-contents	account-contents	group	-				0	
+0x19e38ac	account-contents	badge-warehouse-max-count	int	0x688	_accountContentsBadgeWarehouseMaxCount	0x688	48	0	badge warehouse slot max count
+0x19e38d0	account-contents	badge-normal-equip-slot-max-count	int	0x68c	_accountContentsBadgeNormalEquipSlotMaxCount	0x68c	5	0	badge normal equip slot max count
+0x19e38f4	account-contents	badge-equip-page-max-count	int	0x690	_accountContentsBadgeEquipPageMaxCount	0x690	3	0	badge equip page max count
+0x19e3918	account-contents	use-badge-appearance-slot	bool	0x694	_accountContentsUseBadgeAppearanceSlot	0x694	0	0	use badge appearance slot
+0x19e393c	account-contents	use-badge-appearance-hyper-move	bool	0x695	_accountContentsUseBadgeAppearanceHyperMove	0x695	0	0	use badge appearance while hyper moving
+0x19e3960	account-contents	use-account-store	bool	0x696	_accountContentsUseAccountStore	0x696	0	0	use account store
+0x19e3984	account-contents	use-premium-depository	bool	0x697	_usePremiumDepository	0x697	0	0	use premium depository
+0x19e39a8	account-contents	use-independence-contents-journal	bool	0x698	_useIndependenceContentsJournal	0x698	0	1	use independence contents journal(do not belong to character equip window panel
+0x19e39cc	account-contents	use-main-reward-icon-in-contents-journal	bool	0x699	_useMainRewardIconInContentsJournal	0x699	0	1	use main reward icon in contents journal(do not belong to character equip window panel
+0x19e39f0	account-contents	use-contentjournal2-comparing-recommendItem	bool	0x69a	_useContentjournal2ComparingRecommenditem	0x69a	0	1	use comparing recommendItem in contents journal
+0x19e3a14	UI	UI	group	-				0	
+0x19e3a38	UI	use-newskin	bool	0x69b	_uiUseNewskin	0x69b	0	0	Use new ui skin
+0x19e3a5c	remaster	remaster	group	-				0	
+0x19e3a80	remaster	use	bool	0x69c	_remasterUse	0x69c	0	0	use BNSR
+0x19e3aa4	remaster	use-ability	bool	0x69d	_remasterUseAbility	0x69d	0	0	use ability of BNSR
+0x19e3ac8	remaster	use-intension	bool	0x69e	_remasterUseIntension	0x69e	0	0	use ability of BNSR
+0x19e3aec	remaster	use-item-fusion	bool	0x69f	_remasterUseItemFusion	0x69f	0	0	use item fusion of BNSR
+0x19e3b10	remaster	use-dungeon-additional-reward	bool	0x6a0	_remasterUseDungeonAdditionalReward	0x6a0	0	0	whether to use addtional reward system for number of breaking a dungeon
+0x19e3b34	remaster	use-contribution	bool	0x6a1	_remasterUseContribution	0x6a1	0	0	보상 분배 시스템 사용 여부
+0x19e3b58	remaster	use-zone_transit	bool	0x6a2	_remasterUseZoneTransit	0x6a2	0	0	존 이동 사용여부
+0x19e3b7c	remaster	use-time-limit-field	bool	0x6a3	_remasterUseTimeLimitField	0x6a3	0	0	시간 던전 사용 여부
+0x19e3ba0	remaster	use-skill-train	bool	0x6a4	_remasterUseSkillTrain	0x6a4	0	0	수련 UI 규칙 적용 여부
+0x19e3bc4	remaster	use-guide-movie	bool	0x6a5	_remasterUseGuideMovie	0x6a5	0	0	영상 가이드 사용 여부
+0x19e3be8	remaster	use-tumbling-skill	bool	0x6a6	_remasterUseTumblingSkill	0x6a6	0	0	텀플링 스킬 사용 여부
+0x19e3c0c	remaster	use-pouch-opening-delay	bool	0x6a7	_remasterUsePouchOpeningDelay	0x6a7	0	0	파우치 open delay 사용 여부
+0x19e3c30	remaster	use-total-immune-breaker	bool	0x6a8	_remasterUseTotalImmuneBreaker	0x6a8	0	0	신규 합격기 사용 여부, 기획 담당 : 장원석
+0x19e3c54	remaster	disable-tutorial-cinema	bool	0x6a9	_remasterDisableTutorialCinema	0x6a9	0	0	신규 캐릭터 생성 시 재생 되는 시네마 플레이 유/무 (기획 담당: 주나영)
+0x19e3c78	remaster	use-pre-create-player	bool	0x6aa	_remasterUsePreCreatePlayer	0x6aa	0	0	사전생성(기획 담당:노융철)
+0x19e3c9c	remaster	use-pvp-cooltime-rule	bool	0x6ab	_remasterUsePvpCooltimeRule	0x6ab	1	0	pvp 쿨타임 규칙 (기획:황광회)
+0x19e3cc0	remaster	use-pvp-auto-deactivation	bool	0x6ac	_remasterUsePvpAutoDeactivation	0x6ac	1	0	automatically deactivate pvp mode(기획:황광회)
+0x19e3ce4	remaster	use-resist-context-slot	bool	0x6ad	_remasterUseResistContextSlot	0x6ad	1	0	환경설정 대응 컨텍스트 가이드 옵션 사용여부
+0x19e3d08	remaster	use-recommend-context-slot	bool	0x6ae	_remasterUseRecommendContextSlot	0x6ae	1	0	환경설정 합격기 컨텍스트 슬롯 옵션 사용여부
+0x19e3d2c	remaster	use-item-transform-filter	bool	0x6af	_remasterUseItemTransformFilter	0x6af	0	0	변환창 직업 필터 사용
+0x19e3d50	remaster	use-remaster-ranking	bool	0x6b0	_remasterUseRemasterRanking	0x6b0	1	0	리마스터 랭킹 (기획:강미영)
+0x19e3d74	remaster	use-pvp-data	bool	0x6b1	_remasterUsePvpData	0x6b1	0	0	대인전투결과 사용 여부
+0x19e3d98	live-care	live-care	group	-				0	
+0x19e3dbc	live-care	use-huge-boss	bool	0x6b2	_liveCareUseHugeBoss	0x6b9	1	0	show huge-boss icon
+0x19e3de0	live-care	use-party-battle	bool	0x6b3	_liveCareUsePartyBattle	0x6ba	1	0	show party battle
+0x19e3e04	live-care	use-dungeon-difficulty	bool	0x6b4	_liveCareUseDungeonDifficulty	0x6bb	1	0	show party battle
+0x19e3e28	live-care	use-weaponbox-map-unit	bool	0x6b5	_liveCareUseWeaponboxMapUnit	0x6bc	1	0	use origin map unit filter
+0x19e3e4c	live-care	use-party-search-ui	bool	0x6b6	_liveCareUsePartySearchUi	0x6bd	1	0	use party search ui
+0x19e3e70	live-care	use-production	bool	0x6b7	_liveCareUseProduction	0x6be	1	0	use production
+0x19e3e94	live-care	use-quest-journal-power-book	bool	0x6b8	_liveCareUseQuestJournalPowerBook	0x6bf	1	1	use production
+0x19e3eb8	live-care	use-option-alarm-random-store	bool	0x6b9	_liveCareUseOptionAlarmRandomStore	0x6c0	1	0	환경설정-게임-알람-알람 켜기-보물창고 초기화 제어
+0x19e3edc	live-care	use-option-alarm-pvp	bool	0x6ba	_liveCareUseOptionAlarmPvp	0x6c1	1	0	환경설정-게임-알람-알람 켜기-개인전, 태그매치 제어
+0x19e3f00	live-care	use-camp	bool	0x6bb	_liveCareUseCamp	0x6c2	1	0	use camp
+0x19e3f24	live-care	use-repair-camp-fire	bool	0x6bc	_liveCareUseRepairCampFire	0x6c3	1	0	모닥불 수리기능 
+0x19e3f48	live-care	use-roulette	bool	0x6bd	_liveCareUseRoulette	0x6c4	1	0	use roulette
+0x19e3f6c	live-care	use-guild-search	bool	0x6be	_liveCareUseGuildSearch	0x6c5	1	0	use guild search
+0x19e3f90	live-care	use-all-sns	bool	0x6bf	_liveCareUseAllSns	0x6c6	1	0	use all sns(sandbox) system (if false, use only friend system)
+0x19e3fb4	live-care	use-duel-tag	bool	0x6c0	_liveCareUseDuelTag	0x6c7	1	0	통합던전 입장 창에 비무입장 버튼 유무, 맵필터 중 영석던전 제어(기획 담당:황광회)
+0x19e3fd8	live-care	use-unreal4-intro	bool	0x6c1	_liveCareUseUnreal4Intro	0x6c8	0	0	언4용 인트로(기획 담당:노융철, 김연수), 값이 true때 인트로 Asset 번호 11번부터 참조한다.
+0x19e3ffc	live-care	use-daily-quest	bool	0x6c2	_liveCareUseDailyQuest	0x6c9	1	0	use daily quest(ui control)
+0x19e4020	live-care	use-epic-quest-filter	bool	0x6c3	_liveCareUseEpicQuestFilter	0x6ca	0	0	에픽 퀘스트 정렬 조건 필터 사용 여부
+0x19e4044	live-care	hide-epic-mission-step	bool	0x6c4	_liveCareHideEpicMissionStep	0x6cb	0	0	퀘스트 퀵슬롯 에픽 완료 미션 스탭 숨김 여부
+0x19e4068	live-care	use-lobby-light-tab	bool	0x6c5	_liveCareUseLobbyLightTab	0x6cc	1	0	로비 캐릭터 생성 시 조명탭 사용(기획 담당:시스템팀 노융철)
+0x19e408c	battle-royal	battle-royal	group	-				0	
+0x19e40b0	battle-royal	extra-slot-count-solo	int	0x6c8	_battleRoyalExtraSlotCountSolo	0x6d0	4	0	사슬 군도 개인전 시 사용 하는 슬롯 갯수(기획 담당:코어 디자인 김학남)
+0x19e40d4	battle-royal	extra-slot-count-party	int	0x6cc	_battleRoyalExtraSlotCountParty	0x6d4	5	0	사슬 군도 단체전 시 사용 하는 슬롯 갯수(기획 담당:코어 디자인 김학남)
