@@ -204,13 +204,14 @@ def gate(row, wt):
         if key and key in diff:
             return "gateway key in diff"
     if row["kind"] == "rust":
-        c = row["crate"]
-        for cmd in (["cargo", "fmt", "-p", c, "--", "--check"], ["cargo", "test", "-q", "-p", c],
-                    ["cargo", "clippy", "-q", "-p", c, "--all-targets", "--", "-D", "warnings"],
-                    *EXTRA_GATE.get(c, [])):
-            rc, out = sh(cmd, wt)
-            if rc:
-                return f"$ {' '.join(cmd)}\n" + "\n".join(out.splitlines()[-TAIL:])
+        # The crate column can list several crates, comma-separated.
+        for c in [x.strip() for x in row["crate"].split(",") if x.strip()]:
+            for cmd in (["cargo", "fmt", "-p", c, "--", "--check"], ["cargo", "test", "-q", "-p", c],
+                        ["cargo", "clippy", "-q", "-p", c, "--all-targets", "--", "-D", "warnings"],
+                        *EXTRA_GATE.get(c, [])):
+                rc, out = sh(cmd, wt)
+                if rc:
+                    return f"$ {' '.join(cmd)}\n" + "\n".join(out.splitlines()[-TAIL:])
     return ""
 
 
