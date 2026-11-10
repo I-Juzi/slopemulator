@@ -33,6 +33,6 @@ auth-1b-rust	rust	sonnet	authsrv	Cargo.toml,Cargo.lock,Program/Platform/StServer
 dbg-3-rust	rust	sonnet	clientdbg	Program/Tools/ClientDbg/,Cargo.lock	dbg-2-rust	150	hold	clientdbg sampling profiler
 perf-1	ops	-	-	-	-	0	hold	DXVK trial on the client (operator task)
 perf-2	spec	opus	-	Docs/Client/RE/perf.md	dbg-3-rust	150	hold	profile busy scene, plan hot-spot fixes
-dfx-4	spec	opus	-	Docs/DataFile/book/	dfx-3	150	ready	datafile: one merged XML source for client and server (dump, merge, rebuild)
+dfx-4	spec	opus	-	Docs/DataFile/book/	dfx-3	150	done	datafile: one merged XML source for client and server (dump, merge, rebuild)
 ids-1-rust	rust	sonnet	packet-ids,packet,lobbygate,sts,sts-core,dbsrv,cligate,routesrv	Program/Server/PacketIds/,Cargo.toml,Cargo.lock,Program/Server/Packet/,Program/Server/LobbyGate/,Program/Platform/	-	150	ready	official packet and enum names instead of bare numbers
 ids-2-rust	rust	sonnet	gamedaemon	Program/Server/GameDaemon/,Cargo.lock	ids-1-rust	150	hold	official packet names in GameDaemon (after the open GameDaemon work is committed)
