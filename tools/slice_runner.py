@@ -181,8 +181,25 @@ def changed(wt):
     return [l[3:].split(" -> ")[-1] for l in out.splitlines() if l.strip()]
 
 
+ABUSE_PRIVATE = PROJECT / "notes" / "abuse-notes"  # local only; never in git (public repo)
+
+
+def move_abuse_notes(wt):
+    """Move abuse notes out of the worktree, so they are never committed or pushed."""
+    src = Path(wt) / "Docs/Plan/abuse-notes"
+    for f in sorted(src.glob("*.md")) if src.is_dir() else []:
+        if f.name == "README.md":
+            continue
+        ABUSE_PRIVATE.mkdir(parents=True, exist_ok=True)
+        with (ABUSE_PRIVATE / f.name).open("a") as out:
+            out.write(f.read_text(errors="replace").rstrip() + "\n")
+        f.unlink()
+        print(f"abuse note moved to {ABUSE_PRIVATE / f.name}")
+
+
 def gate(row, wt):
     """Return '' when all checks pass, else the failure text (tail only)."""
+    move_abuse_notes(wt)
     files = changed(wt)
     handoff = f"Docs/Plan/handoffs/{row['id']}.md"
     if handoff not in files:
