@@ -55,3 +55,10 @@ write a full dump to analyse the stack.
 - pathengine.dll: 802816 bytes, PE ts 0x5178c03c, PathEngine SDK
   (exports DLLExport_GetIPathEngine). File on laptop pulled to
   <scratch>/pathengine.dll and ida/pathengine.dll.
+
+## Shutdown cleanup patch (2026-11-10)
+- Tip from another player: the pathengine crash is the old client bug on shutdown. Repeat crashes make Windows FTH (Fault Tolerant Heap) slow the client.
+- IDA confirms: cleanup `sub_1000CCA0` (frees the manager, sets `dword_100BE624` = null) has one caller: `DllMain`, reason 0 = DLL_PROCESS_DETACH. A cShape lock after that gives the AV at +0x79d0.
+- Patch: file offset 0xCCA0 `a1` → `c3` (ret). The OS frees the memory at exit, so the skip is safe. The patched DLL stays local (no binaries in git).
+- So 4047 at ~75 s is a teardown crash. The client exits for an earlier reason ❓. With the patch, that reason should show.
+- FTH reset after many crashes (admin): `Rundll32.exe fthsvc.dll,FthSysprepSpecialize`.
