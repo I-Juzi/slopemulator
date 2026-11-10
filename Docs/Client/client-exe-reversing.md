@@ -1,473 +1,91 @@
-# Client.exe reversing notes (build 0.0.381, 2020)
+# Client.exe reversing notes (build 0.0.381, 2020) — overview
 
-This file collects what we know about the 2020 `Client.exe`.
-It is for the Rust server rewrite and for future fun work (new mounts, new movement).
-Datafile facts stay in [`client-datafiles.md`](client-datafiles.md).
-The full game command list is in [`client-381-game-commands.tsv`](client-381-game-commands.tsv).
+This file is the short overview of the 2020 `Client.exe` (0.0.381, x86) reference.
+The full reference is the chapter set in [`RE/`](RE/INDEX.md). Start at [`RE/INDEX.md`](RE/INDEX.md): chapter list, "how to find anything" guide and A–Z keyword index.
+Datafile facts: [`client-datafiles.md`](client-datafiles.md) and the [Datafile book](../DataFile/book/00-index.md).
+The old game command list is [`client-381-game-commands.tsv`](client-381-game-commands.tsv); the full table with handlers and builders is [`RE/game-commands.tsv`](RE/game-commands.tsv).
 
-Rules for this file:
+Rules:
 
 - Each fact has a source: address, symbol, enum, table or file.
-- "381" means the 2020 client (0.0.381.x, x86). "419 GM" means the 2021 GM client with its PDB.
+- "381" = the 2020 client (0.0.381.x, x86). "419 GM" = the 2021 GM client with its PDB.
 - ❓ marks a fact that we did not verify.
-- Sections 1–10: passive reads only. No keys, no crypto internals.
+- Passive reads only. No keys, no crypto internals, no protection details. Where a key is needed, the text writes `keyhere`.
 
 ---
 
-## 1. How we got symbols for the 2020 exe
+## 1. Map of the client
 
 ```
- 419 GM Client.exe + PDB ──► feature dump (bytes, strings, consts, CFG, calls)
-                                         │
- 381 Client.exe (no symbols) ──► feature dump
-                                         │
-                       match.py   : vtables, exact bytes, strings, CFG, consts, call graph
-                       match2.py  : ordered anchors + gap alignment + fuzzy call graph
-                       datamatch.py: globals and vtables through matched code
-                                         │
-                       mkpdb.py   ──► v3 PDB for the 381 exe
+ Client.exe 381 (WinMain 0x1190f60)
+   │ BNSClient::Initialize 0x116f550 ── XmlReader DLL, datafile (ch. 13), UI (ch. 14)
+   │ LoadEngine 0x114c6d0 ── bsengine_Shipping.dll (ch. 15)
+   │
+   ├─ STS client (NPStsMsgLib::Create 0xbc90a0) ──► StServers login          ch. 03
+   ├─ LobbyGateSession (ctor 0xc673e0) ──► LobbyGate, L_* commands 1..110    ch. 04
+   ├─ GameSession (ctor 0xefbf40) ──► GameD (and ArenaD = 2nd GameSession)   ch. 05, 12
+   │     send: BNSClient::SendToGamed 0x114ce20 (PacketDest, sync lock)
+   │     recv: GamePacketHandler[cmd] → World::ProcessNetObjectEvent 0x749550
+   ├─ InfoGate (BNSClient::SendToInfoGate 0x114cdb0)                         ch. 12
+   └─ transport: Network, Session, PacketProcessor (envelope, crypto)        ch. 02
 ```
 
-| Item | Value | Source |
+| Area | Chapter | Key 381 address |
 | --- | --- | --- |
-| Functions matched | 37,543 (83.8 % of the 381 functions) | `c20_named.json` (scratchpad) |
-| Name format | MSVC mangled, demangled with `llvm-undname` | `c20_named.json` |
-| Named IDA db | `t20/pk.i64` (scratchpad copy) | — |
-| Confidence | High for `vtable`, `bytes`, `strings`. Lower for `fuzzy` and `vtslot`. | `how` field per match |
-
-Known false matches: see §6.3 (vehicle names). Treat any name for a feature that has no strings in 381 as ❓.
-
-Matched functions per class (sample):
-
-| Class | Functions | Area |
-| --- | ---: | --- |
-| BPTPlayer | 155 | player object |
-| LobbyGateSession | 55 | lobby protocol |
-| PTFishing | 35 | fishing (player side) |
-| BPTPlayerSummoned | 33 | summoner cat |
-| Fishing | 30 | fishing logic |
-| MoveListMaker | 30 | movement packets |
-| DrElReaderImpl | 24 | datafile reader |
-| GameSession | 15 | game server session |
-| BSummonedBrain | 12 | cat AI |
-| HyperMove | 12 | stamina moves |
-| GamePacketProcessor | 8 | packet framing |
-| Glide | 4 | gliding |
-| InfoGateSession | 4 | info server |
-| PacketParser | 4 | stream to packets |
-| PTEffectMount | 2 | mount effect (stubs) |
+| Binary map, classes, all functions, name-transfer method | [00-inventory](RE/00-inventory.md) | [`RE/classes.tsv`](RE/classes.tsv), `RE/functions-*.tsv` |
+| Start, command line, config, main loop | [01-startup](RE/01-startup.md) | `WinMain` `0x1190f60` |
+| Sockets, framing, session crypto | [02-transport](RE/02-transport.md) | `PPUtil::PacketSize` `0x60f8a0` |
+| STS login | [03-sts-client](RE/03-sts-client.md) | `NPStsMsgLib::Create` `0xbc90a0` |
+| LobbyGate | [04-lobbygate](RE/04-lobbygate.md) | `LobbyGateSession::ProcessLobbyNetObjectEvent` `0xcb86d0` |
+| Game session, dispatch, packet layouts, sync groups | [05-game-dispatch](RE/05-game-dispatch.md) | `BNSClient::SendToGamed` `0x114ce20` |
+| Movement | [06-movement](RE/06-movement.md) | `MoveListMaker::sendWalkPacket` `0xcc4ce0` |
+| Skills and combat | [07-combat](RE/07-combat.md) | `BControlledPlayingActions::UseSkill` `0x1114f50` |
+| Player, NPC, world objects, summoned cat | [08-creature](RE/08-creature.md) | `World::enterCreature` `0x74b640` |
+| Items | [09-items](RE/09-items.md) | `Inventory::RequestMoveItemPosition` `0xe91e00` |
+| Quests, NPC talk, zones | [10-quests-npc](RE/10-quests-npc.md) | `BQuestJournal::ProcessNetObjectEvent` `0xa9e5b0` |
+| Party, guild, chat, mail, market | [11-social](RE/11-social.md) | `BParty::ProcessNetObjectEvent` `0xc4bac0` |
+| InfoGate, ArenaD, other servers | [12-infogate-arena](RE/12-infogate-arena.md) | `BNSClient::SendToInfoGate` `0x114cdb0` |
+| Datafile (link page) | [13-datafile](RE/13-datafile.md) | `Data::DataManager::Load` `0x5bc500` |
+| UI, system messages, commands | [14-ui](RE/14-ui.md) | `Ui::Initialize` `0x8135e0` |
+| Engine, map load, options, sound | [15-engine](RE/15-engine.md) | `LoadEngine` `0x114c6d0` |
+| Error codes, logs, string anchors | [16-strings-errors](RE/16-strings-errors.md) | `GameSession::OnError` `0xf44150` |
+| Coverage audit, open items, moved facts | [17-open-items](RE/17-open-items.md) | — |
+| GM debugger (419 GM) | not written (blocked, [17 §3.3](RE/17-open-items.md)) | — |
 
 ---
 
-## 2. Networking
+## 2. Where each section of the old notes went
 
-### 2.1 Server layout seen by the client
+The old sections 1–10 (before 2026-11-10) are now in the chapters. Every old fact is kept there.
 
-```
-             ┌──────────────┐
-  client ───►│  LobbyGate   │  L_* packets, LobbyGateCommand 1..110
-             └──────┬───────┘
-                    │ lobby_token + cli_key
-                    ▼
-             ┌──────────────┐        ┌──────────┐
-  client ───►│  GameD       │◄──────►│ ArenaD   │  PacketDest selects target
-             └──────────────┘        └──────────┘
-  client ───► InfoGate (I_*), auth (A_*)
-```
-
-### 2.2 Command id tables
-
-| Table | 381 | 419 GM | Source |
-| --- | --- | --- | --- |
-| LobbyGateCommand | 110 values. Same as bns-server `Program/Server/Packet/tables/381.json` (client_max 110, ping 9, ContentsRuleList 106, PcCafe 103). | 110 | GM TPI enum `LobbyGateCommand` |
-| Game MainCommand | 1,598 names. Pointer table at `0x1953620` (.data), index 0 = "None", index = command id. | 1,686 | 381 exe; GM enum `MainCommand` (1686/1686 index match) |
-| UI button commands | 12 names at `0x1955858` | — | 381 exe |
-| InfoGateCommand | — | 73 | GM TPI |
-| ActionsCommand | — | 106 (`GS_ActionsClientMoveCmd` 1, `...ClientMoveAndEventJump` 2, `...Skill` 3) | GM TPI |
-| GameDebugMainCommand | — | 214 | GM TPI |
-| GameBuilderMainCommand | — | 212 | GM TPI |
-| StsMsgLib::ECommand | — | 228 | GM TPI |
-| Auth `Command` | — | `A_IdAuthReqCmd` ... | GM TPI |
-
-Game command ids, 381 against 419 GM:
-
-```
- id    1 ─────────────── 918 │ 919 ────────────── 1598 (381) / 1686 (GM)
-       identical in both     │ ids shift: GM inserts new commands
-                             │ 381 #919 = G_OccupyingRaidDungeonChangeNotifyCmd
-                             │ GM  #919 = G_UnbindPersonalRaidDungeonReqCmd
-```
-
-- Every 381 name exists in GM. GM adds 88 names.
-- Added in GM: `G_ActivateVehicle*`, `G_DeactivateVehicle*`, SoulBoost, WorldAccountCard / Museum, TreasureBoard, ImproveItem, PersonalRaidDungeon, PvpResult, FieldBossSpawnWorldAlarm, SyncDynamicData, WebRequest.
-- Rule for the server: use the 381 TSV for ids. Do not use GM ids above 918.
-
-### 2.3 Packet description types (StructPacket)
-
-`StructPacket::FieldType` (GM TPI). The packet structs are described by these field kinds:
-
-| Value | Name | Value | Name |
-| ---: | --- | ---: | --- |
-| 0 | T_INT8 | 9 | T_MSEC |
-| 1 | T_INT16 | 10 | T_PROP_PAIR |
-| 2 | T_INT32 | 11 | T_PROP_SYNC |
-| 3 | T_INT64 | 12 | T_STRUCT |
-| 4 | T_INT128 | 13 | T_SUB |
-| 5 | T_STRING | 14 | T_REPEAT |
-| 6 | T_SBIN | 15 | T_SEQ |
-| 7 | T_VBIN | 16 | T_PACKET_REF |
-| 8 | T_SU | | |
-
-❓ The wire format probably uses these codes like the LobbyGate format codes in `bns-server/Docs/Server/LobbyGate/03*`. We did not verify it for game packets.
-
-`StructPacket` base (16 bytes, in memory): `_command` short @4, `_dest` @8, `_pending` @12.
-
-### 2.4 Routing, sync groups, events
-
-| Enum | Values | Source |
+| Old § | Topic | Now in |
 | --- | --- | --- |
-| PacketDest | CURRENT 0, ARENAD 1, GAMED 2, GAMED_ONLY 3, BOTH 4 | GM TPI |
-| PacketEventType | NONE 0, CONNECT 1, CLOSE 2, DISCONNECT 3, SEND 4, RECEIVE 5 | GM TPI |
-| GamePacketRightType (flags) | NONE 0, ANY 1, NORMAL_PLAYER 2, OBSERVER 4, MOBILE_APP 8 ... | GM TPI |
-| PacketProcessor::ErrCode | PP_NO_ERROR 0, INVALID_PARAM 1, NOT_SUPPORT 2, ALLOCATE_FAILED 3, INSUFFICIENT_BUFFER 4 ... | GM TPI |
+| 1 | Symbols for the 381 exe (match from 419 GM PDB, 37,543 matched functions = 83.8 %, `c20_named.json`, `mkpdb.py`, `llvm-undname`, per-class counts) | [00 §3](RE/00-inventory.md) (method, now 36,965 names), [17 §4.1](RE/17-open-items.md), class counts in [`RE/classes.tsv`](RE/classes.tsv) |
+| 2.1 | Server layout (LobbyGate → GameD / ArenaD, InfoGate, auth) | [04](RE/04-lobbygate.md), [05](RE/05-game-dispatch.md), [12](RE/12-infogate-arena.md) |
+| 2.2 | Command id tables (LobbyGate 110, game 1,598 names at `0x1953620`, UI buttons at `0x1955858`, GM-only tables, id shift from 919) | [05 §2](RE/05-game-dispatch.md), [14 §3](RE/14-ui.md), [17 §4.1](RE/17-open-items.md) |
+| 2.3 | `StructPacket::FieldType` (T_INT8 0 … T_PACKET_REF 16), `StructPacket` base | [05 §3](RE/05-game-dispatch.md) |
+| 2.4 | `PacketDest`, `PacketEventType`, `GamePacketRightType`, `PacketProcessor::ErrCode`, `GamePacketSync` | [05 §1, §4](RE/05-game-dispatch.md), [02 §8](RE/02-transport.md), [17 §4.3](RE/17-open-items.md) |
+| 2.5 | `PacketParser::ParseData` `0x5fd770` | [02 §6](RE/02-transport.md) (correction: chat and voice only; game framing is [02 §2](RE/02-transport.md)) |
+| 2.6 | Packet layouts (`G_HelloReq`, `L_HelloReq`, lobby token, enter world, move sub-packet) | [05 §5](RE/05-game-dispatch.md), [04](RE/04-lobbygate.md), [`RE/packet-layouts.tsv`](RE/packet-layouts.tsv), [17 §4.3](RE/17-open-items.md) |
+| 2.7 | Session class addresses (`0xefbf40`, `0xf2bf60`, `0xc97480`, `0xc97710`, `0x5fd5d0`, `0x5fd770`), lobby enums | [02](RE/02-transport.md), [04](RE/04-lobbygate.md), [05](RE/05-game-dispatch.md), [12](RE/12-infogate-arena.md) |
+| 3 | Jobs, races, weapon types | [17 §4.2](RE/17-open-items.md), races in [08 §4](RE/08-creature.md) |
+| 4 | Movement: move types, `MoveTypeData`, HyperMove, Glide, MoveListMaker, SendWalkPacketReason | [06](RE/06-movement.md), extras in [17 §4.4](RE/17-open-items.md) (correction: the client sends `G_MoveReqCmd` 64, not `GS_ActionsClientMoveCmd`) |
+| 5 | Summoner cat (`BSummonedBrain` `0x90f140`, `0x968f30`, action and brain enums) | [08 §5](RE/08-creature.md), data fields in [17 §4.4](RE/17-open-items.md) |
+| 6 | Mounts, vehicles, grabs; false vehicle names | [17 §4.5](RE/17-open-items.md) (callers of the 3 false names now checked) |
+| 7 | Fishing | [17 §4.6](RE/17-open-items.md) |
+| 8 | Datafile system | [13](RE/13-datafile.md), [`client-datafiles.md`](client-datafiles.md) |
+| 9 | Skateboard / horse ideas | [17 §4.7](RE/17-open-items.md) |
+| 10 | Open items | [17 §3.4](RE/17-open-items.md) (state of each old item) and [`RE/17-open-items.tsv`](RE/17-open-items.tsv) (all 509 items) |
 
-`GamePacketSync` (one request per group can be pending; the server must answer before the next one ❓):
+---
 
-| Id | Group | Id | Group |
-| ---: | --- | ---: | --- |
-| 1 | TalkSession | 11 | SkillList |
-| 2 | MoveAndWarp | 12 | SkillTrainingList |
-| 3 | Action | 13 | PostBox |
-| 4 | OpenItemPouch | 14 | Craft |
-| 5 | CloseItemPouch | 15 | Market |
-| 6 | PickupItem | 16 | Petition |
-| 7 | ManufactureItem | 17 | InstantPayment |
-| 8 | ExpandInventory | 18 | DuelBotTrainingRoom |
-| 9 | Inventory | 19 | WorldAccount (GM only ❓) |
-| 10 | Quest | 20 | MAX |
+## 3. Key facts for the server port (short form)
 
-### 2.5 Stream framing (PacketParser::ParseData, 381 `0x5fd770`)
-
-```
- recv bytes ──► ParseData(src, size)
-                 │
-                 ├─ partial packet pending? ── copy into pending buffer (+16),
-                 │                              filled count at +12, needed size at +0
-                 │
-                 ├─ header complete ──► size callback (vtable at +4) gives packet size
-                 │                       size too small → return -1 (drop)
-                 └─ full packet ──► PacketPool::AllocPacket ──► packet object at +20 ──► dispatch
-```
-
-- Return -1 on null input, size ≤ 0, or a bad size.
-- The size callback decides the length from the header. ❓ Header layout is not yet read from code. Use the LobbyGate spec as the model.
-
-### 2.6 Example packet layouts (419 GM, in memory, not wire)
-
-| Struct | Fields (offset: name type) |
+| Fact | Source |
 | --- | --- |
-| G_HelloReqPacket | 16 gamePacketVersion i16, 24 propertyVersion i64, 32 publisher, 40 extraPropertyVersion i64, 48 authData |
-| L_HelloReqPacket | 16 packet_version i16, 20 handshake_param |
-| L_LoginWithLobbyTokenReqPacket | 16 cli_key i64, 24 lobby_token i64 |
-| G_LobbyTokenAuthReqPacket | 16 world_id i16, 24 cli_key, 32 lobby_token |
-| G_EnterWorldReqPacket | 16 clientVersion i32, 20 characterId |
-| G_EnterZoneOkPacket | 16 enterSocial i64 |
-| GS_ActionsClientMoveSubPacket (40 B) | 8 creatureId i64, 16 x i16, 18 y i16, 20 z i16, 22 yaw i16, 24 duration i16, 26 standingSocial i8, 28 moveHistory |
-| G_ActivateVehicleReqPacket (GM only) | 16 equipped_vehicle_id i32 |
-
-GM has 2,017 packet struct types named `G_*`, `GS_*`, `L_*`, `I_*` (`tpi.pkl`, scratchpad).
-
-### 2.7 Session classes (381 addresses)
-
-| Function | 381 address |
-| --- | --- |
-| GameSession::GameSession | `0xefbf40` |
-| GameSession::SendEnterArenaReq | `0xf2bf60` |
-| LobbyGateSession::SendMakeCharacterRequest | `0xc97480` |
-| LobbyGateSession::SendWorldListRequest | `0xc97710` |
-| PacketParser::Create | `0x5fd5d0` |
-| PacketParser::ParseData | `0x5fd770` |
-
-Lobby enums: `DisconnectLobbyReason` (12 values: NONE 0, DISCONNECTED_GAME 1, DUPLICATE_LOGIN_KICKED_LOBBYGATE 2, ...), `LOBBY_EVENT` (54 values: login, security card, OTP ...). Source: GM TPI.
-
----
-
-## 3. Characters
-
-### 3.1 Jobs (`CreatureProperty::Job`, GM TPI)
-
-| Id | Job | Id | Job |
-| ---: | --- | ---: | --- |
-| 1 | BLADE_MASTER | 11 | WARRIOR |
-| 2 | KUNG_FU_FIGHTER | 12 | ARCHER |
-| 3 | FORCE_MASTER | 13 | SPEAR_MASTER |
-| 4 | SHOOTER (gunner) | 14 | THUNDERER |
-| 5 | DESTROYER | 15 | DUAL_BLADER |
-| 6 | SUMMONER | 16 | PC_MAX |
-| 7 | ASSASSIN | 17 | ROOKIE |
-| 8 | SWORD_MASTER | 18 | STRIKER |
-| 9 | WARLOCK | 19 | DEFENDER |
-| 10 | SOUL_FIGHTER | 20 | CONTROLLER |
-
-❓ Which jobs are playable in 381 is not checked. The 381 datafile has `decompose-job-reward-shooter`, so SHOOTER exists in 381.
-
-### 3.2 Races (`Race`, GM TPI)
-
-KUN 1, GON 2, LYN 3, JIN 4, SUMMONED_CAT 10, ADVENTSOUL 11, SWORD_DAEMON 12.
-
-### 3.3 Weapon types (`Data::ItemWeaponTypeType`, GM TPI)
-
-| Id | Type | Id | Type |
-| ---: | --- | ---: | --- |
-| 1 | BARE_HAND | 10 | DAGGER |
-| 2 | SWORD | 11 | PET_1 |
-| 3 | GAUNTLET | 12 | PET_2 |
-| 4 | AURA_BANGLE | 13 | GUN |
-| 5 | PISTOL | 14 | GREAT_SWORD |
-| 6 | RIFLE | 15 | LONG_BOW |
-| 7 | TWO_HANDED_AXE | 16 | SPEAR |
-| 8 | BOW | 17 | ORB |
-| 9 | STAFF | 18 | DUAL_BLADE |
-
-Guns: three weapon types exist (PISTOL 5, RIFLE 6, GUN 13). The SHOOTER job uses GUN ❓. A new gun is a data change (item + skill3 + appearance), not a code change ❓.
-
----
-
-## 4. Movement
-
-### 4.1 Move types (`MoveType`, wire values `G_MOVETYPE_*`, GM TPI)
-
-| Ids | Move |
-| --- | --- |
-| 0, 1 | WALK, RUN |
-| 2–4 | JUMP start / loop / end |
-| 5–7 | SPRINT start / loop / end |
-| 8–10 | SPRINT_JUMP start / loop / end |
-| 11–13 | DRIFT start / loop / end |
-| 14 | FALL |
-| 15 | SWIM |
-| 16–18 | GLIDE |
-| 19–21 | NPC_CHASE, NPC_FLEE, NPC_RETREAT |
-| 22–24 | BOOST |
-| 25–27 | DIVE |
-| 28–30 | WALL_RUN |
-| 31–33 | WALL_JUMP |
-| 34–36 | EVENT_JUMP |
-| 37–39 | SUMMON_COMBAT_RUN / SWIM / FALL |
-| 40–42 | ATTACK_GLIDE |
-| 43 | MAX |
-
-Related enums: `MoveTypeMaker::MoveTypeId` (39 values, same order), `EIMoveType` (animation side: THROW 2, ROLLING 3 ... SUMMONED_* 22–34), `EOWorldInfoMoveType` (16 values for world info: Walk ... EventJump 15).
-❓ The 381 values are the same. The order looks stable, but we did not compare against 381 code.
-
-### 4.2 Movement state layouts (GM TPI)
-
-| Struct | Fields |
-| --- | --- |
-| MoveTypeData (40 B) | 0 moveTypeMakerId i8, 1 moveType i8, 2 startCell i8, 4 startTime f32, 8/12/16 diffX/Y/Z f32, 20/24/28 locationX/Y/Z f32, 32 yaw i32, 36 eventJump i16, 38 isDecelFalling bool |
-| HyperMove (88 B) | 0 _state, 4 _max f32, 8 _cur f32, 12 _hyperMove[8], 76 _curHyperMoveType, 80 _block, 84 _isGmMode |
-| Glide (3 B) | 0 _state, 1 _isGlide, 2 _countblockGlide |
-
-### 4.3 HyperMove ("Hyper energy", the stamina bar)
-
-`HyperMove::HyperMoveId`: Hyper 0, Sprint 1, Drift 2, Boost 3, Dive 4, WallMove 5, EventJump 6, **RocketJump 7**, Max 8.
-
-| Function | 381 address | What it does |
-| --- | --- | --- |
-| HyperMove::Start | `0xe93fc0` | |
-| HyperMove::Tick | `0xe82b90` | |
-| HyperMove::acquireHyperMove | `0xe31ed0` | |
-| HyperMove::set | `0xe9ce40` | Gets the player skill book, finds the skill key, calls a UI slot (+100), clears entry `[id]` (8-byte entries at +12: flag, value f32), then calls acquireHyperMove. |
-
-Data hooks: `consume-hyper-energy-point`, `max-hyper-energy-point` (skill3/action), `hypermove-power-value` (pc, npc, mastery-ability, summonedlevel), `enable-infinite-hyper-energy` (zonerule, battle fields). Source: 381 tabledefs.
-
-### 4.4 Glide (`Glide::Set`, 381 `0xf43c60`)
-
-```
- Glide::Set
-   ├─ get local player → skill book → skill key
-   ├─ look up Skill3 record → action → check byte @612 == 8  (❓ action kind "glide")
-   │     yes → _isGlide = 1
-   │     no  → _isGlide = 0
-   ├─ _isGlide == 1 → decrement _countblockGlide, call UI/actor slot +652
-   └─ _isGlide == 0 → Glide::BlockGlide(true)   (0xee0640)
-```
-
-Zone hooks: `zoneenv2` airdash / airdash-leave (`airdash-level`), guild battle `airdash-1/2-by-refiner`.
-
-### 4.5 MoveListMaker (sends the client move packets)
-
-| Function | 381 address |
-| --- | --- |
-| MoveListMaker::MoveListMaker | `0xc61730` |
-| playerTick | `0xcc82b0` |
-| sendWalkPacket | `0xcc4ce0` (decompile failed, ❓ needs a retry) |
-| setPlayerMove | `0xc5b180` |
-| playerWarp | `0xc5ae90` |
-| SyncServerMove | `0xc5b890` |
-| sendCombatHyperMovePacket | `0xc99a00` |
-| MoveTypeMaker::SetMoveType | `0xc5ac10` |
-
-The client sends `GS_ActionsClientMoveCmd` (ActionsCommand 1) with `GS_ActionsClientMoveSubPacket` entries (§2.6). Positions are i16 ❓ (relative to a cell, see `startCell`).
-
-`MoveListMaker::SendWalkPacketReason` (why the client flushes moves). The server can log these:
-
-| Id | Reason | Id | Reason |
-| ---: | --- | ---: | --- |
-| 1 | OVER_TIME | 31 | UNLINK_CATCH |
-| 2 | REST | 34 | NONE_OWNER_ATTACH_DASH |
-| 3 | NO_MOVE | 35 | NONE_OWNER_DETACH_LINK_MOUNT |
-| 4 | LANDING | 36 | NONE_OWNER_DETACH_INHALATION |
-| 5 | ENTER_PORTAL | 37 | NONE_OWNER_DETACH_THROW |
-| 11 | BEFORE_SKILL | 38 | ATTACH_MOVE_MOUNT |
-| 12 | USE_ACTIVE_SKILL | 39 | DETACH_MOVE_MOUNT |
-| 13 | AIRDASH_ENV | 43 | ENTER_BLOCKMOVE |
-| 15 | DEAD | 49/50 | START/END_TRADE |
-| 16 | PLAY_SOCIAL | 53/54 | TALK_START/END |
-| 26 | ATTACH_INHALATION | 55/56 | PERSONAL_CUSTOMIZE_START/END |
-| 27 | ATTACH_CATCH | 57/58 | FISHING_START/END |
-| 28 | DETACH_MOUNT | 59 | BIND_SYNC_DUNGEON |
-
-Full list (60 values) is in GM TPI `MoveListMaker::SendWalkPacketReason`.
-
----
-
-## 5. Summoner cat (BSummonedBrain, BPTPlayerSummoned)
-
-| Item | Value | Source |
-| --- | --- | --- |
-| BSummonedBrain::Initialize | `0x90f140` | 381 match |
-| BSummonedBrain::GetNextReservedAction | `0x968f30` | 381 match |
-| BSummonedAction::EActionType | None 0, Idle 1, Move 2, Recall 3, Skill 4, SequenceSkill 5, SkillCancel 6, HelpRestoration 7 | GM TPI |
-| SummonedBrainType | NORMAL 0, COMBAT_FOLLOW 1, FIXED 2 | GM TPI |
-| Cat move types | EI_MOVE_SUMMONED_RUN ... SUMMONED_DEST (22–34), G_MOVETYPE_SUMMON_COMBAT_* (37–39) | GM TPI |
-
-`Data::SummonedRecord` (GM, 272 B) key fields: `summoned_type`, `brain_type`, `combat_follow_distance`, `far_event_distance`, `speed`, `max_speed_near_master`, `min/max_distance_to_lerp_speed`, `appearance`, `animset`, `spawn_skill_id`, `lifetime_duration`.
-381 tables: `summoned`, `summonedlevel`, `summonedmasterylevel`, `summonedpreset`, `summonedbeautyshop`, `summoneddesignerpreset`.
-
-The cat is a full AI follower with its own move set. It is the closest thing in 381 to a "pet that runs with you".
-
----
-
-## 6. Mounts, vehicles and grabs
-
-### 6.1 381 has no vehicles
-
-| Check | 381 | 419 GM |
-| --- | --- | --- |
-| "Vehicle" text (ASCII and UTF-16) | 0 hits | 32 hits (UTF-16) |
-| `vehicle` / `vehicleappearance` datafile table | no | yes (`Data::VehicleRecord`, `Data::VehicleAppearanceRecord`) |
-| `G_ActivateVehicle*` / `G_DeactivateVehicle*` commands | no | yes |
-
-Conclusion: vehicles came after build 381.
-
-### 6.2 What 381 has instead ("mount" = carry or grab links)
-
-| Mechanic | 381 data hooks | 381 code hooks |
-| --- | --- | --- |
-| Mount link (one creature rides or holds another) | `effect`: `mount-linked`, `mount-linker`; `skillcastcondition3`: `fail-target-mount-linked/linker` | SendWalkPacketReason DETACH_MOUNT 28, NONE_OWNER_DETACH_LINK_MOUNT 35, ATTACH/DETACH_MOVE_MOUNT 38/39 |
-| Catch (grab) | `effect`: `catch-linked/linker`; `effect/link`: `catch-caster-effect`, `catch-target-effect` | ATTACH_CATCH 27, DETACH_CATCH 30, UNLINK_CATCH 31 |
-| Inhalation (pull) | `effect`: `inhalation-linked/linker` | ATTACH_INHALATION 26, DETACH_INHALATION 29 |
-| Throw | — | NONE_OWNER_DETACH_THROW 37, EI_MOVE_THROW 2 |
-| PTEffectMount | — | Activate / Deactivate are 1-byte stubs (`ret`) in 381 |
-
-So 381 can link two creatures and move them together. It uses this for grabs and some boss mechanics ❓. It has no rideable vehicle item.
-
-### 6.3 False vehicle matches in the 381 PDB
-
-| GM name | 381 address | Finding |
-| --- | --- | --- |
-| PTActionRideVehicle::Start | `0xac32c0` | Generic PTAction start: clears `_isStart`, gets caster, calls player vtable +600 with 0. Not a vehicle. ❓ real name unknown. |
-| BPTVehicle::DestroyVehicle | `0xada520` | Decompile failed. Class cannot exist in 381. False. |
-| MakeItemPreviewVehicle | `0x1027fc0` | Uses PcAppearance, CreatureAppearance, ItemRecordCostume. Likely a costume preview function ❓. |
-
-Rule: rename these three in the PDB to `sub_*` in a later pass.
-
-### 6.4 How GM vehicles work (reference for a future feature)
-
-```
- item (equipped_vehicle_id) ──► G_ActivateVehicleReq (16: id i32)
-                                     │
-                    server ──► G_ActivateVehicleOk / Fail
-                                     │
-       client: BPTVehicle {VehicleHandle, RiderHandle, Owner, VehicleAppearance u64, SprintSpeed i32}
-               PTActionRideVehicle {ShowStageHandle, VehicleItemKey u64}
-                                     │
-       data:   vehicle   {alias, vehicle_speed i16, sprint_speed i32, riding_action_duration i32,
-                          appearance → vehicleappearance, context_script}
-               vehicleappearance {mesh, materials, anim set/tree, physic_asset,
-                          ride/getoff/cancel show,
-                          move_rider_*   (idle, walk, run, turn, jump, sprint*, glide*, magnetic_run*)
-                          move_vehicle_* (same set for the mount itself)}
-```
-
-Source: GM TPI structs `BPTVehicle` (32 B), `PTActionRideVehicle` (40 B), `Data::VehicleRecord` (48 B), `Data::VehicleAppearanceRecord` (252 B), `G_*VehiclePacket`.
-
----
-
-## 7. Fishing
-
-| Item | 381 address / value |
-| --- | --- |
-| PTFishing::PTFishing | `0xabab80` |
-| PTFishing::ChangeFishingState | `0xad24e0` |
-| PTFishing::processFishingHooksetSuccess | `0xad1940` |
-| Classes | PTFishing (35 matched), Fishing (30 matched) |
-| Move flush | FISHING_START 57, FISHING_END 58 |
-| 381 tables | `fish`, `fishing-field`, `fishing-paste` |
-| Data hooks | `fishing-point`, `grade-a-fish`, `bonus-reduce-waiting-time-amount`, `dispose-fishing-paste-probability`, `accumulate-life-contents-point-by-fishing` |
-
----
-
-## 8. Datafile system
-
-See [`client-datafiles.md`](client-datafiles.md). Short version:
-
-- Reader: `DrElReaderImpl` (24 matched functions). `readNative` sets the native size to `2*chars+2`.
-- 381 has 277 tables (`bns-server/Docs/DataFile/tabledefs-2020.json`).
-- Movement, glide and skill behaviour is mostly data: `skill3`, `skillcastcondition3`, `skillresultcontroll3`, `skill-caster-function-control`, `combat-sequence` (`combat-move/move-type`), `zonepathway` (`move-type`), `zoneenv2`.
-
----
-
-## 9. Fun stuff: what a skateboard or a horse would touch
-
-Documentation only. Nothing here is built.
-
-```
-            ┌────────────── client (381 exe, no code changes possible) ──────────────┐
-            │                                                                          │
- Option A   │  reuse existing systems through data only                                │
- "fake"     │   • sprint/drift/boost skill with a new animation (skill3 + effect)      │
- mount      │   • HyperMove ids (Sprint, Drift, Boost, RocketJump) for speed and tricks│
-            │   • mount-link effect to attach the player to an NPC "horse"            │
-            │   • summoned cat brain as a follower that the player stands on ❓       │
-            └──────────────────────────────────────────────────────────────────────────┘
- Option B   GM-style vehicle: needs Vehicle tables + G_ActivateVehicle packets.
- "real"     381 exe has neither → not possible on 381 without client code.
-```
-
-| Need | 381 hook | Server side (Rust) |
-| --- | --- | --- |
-| Faster move speed | `sprint` move types, HyperMove Sprint/Boost, skill3 `fly-speed-*`, effect stats | accept higher speed in move validation |
-| Skate "tricks" | Drift (11–13), EventJump (34–36), WallRun (28–30), RocketJump id 7 | allow those move types outside combat |
-| Ride an animal | `mount-linked/linker` effect, ATTACH_MOVE_MOUNT 38 | create the link, move both creatures as one |
-| Board / horse model | appearance tables + animation sets in the game data | none |
-| Start and stop | item use → skill → effect (mount link or speed buff) | handle skill and effect packets |
-
-Best first experiment ❓: a costume-like "skateboard" item that casts a sprint-type skill with a custom social animation. It needs only datafile edits (bnsedit) and server support for the skill.
-
----
-
-## 10. Open items ❓
-
-| # | Item | Next step |
-| ---: | --- | --- |
-| 1 | `sendWalkPacket` `0xcc4ce0` decompile failed | redo with a fresh function boundary |
-| 2 | Game packet wire format | read the size callback and one encoder; compare with LobbyGate spec 03 |
-| 3 | Real names of the 3 false vehicle matches | check callers; rename to `sub_*` |
-| 4 | 381 MoveType values equal GM values | find the 381 move-type name table or a switch |
-| 5 | Mount-link use in 381 content | search `effect` records with `mount-linker` set |
-| 6 | Playable jobs in 381 | read `pc` / `job` tables |
-| 7 | Glide check byte @612 == 8 meaning | map Skill3 action layout |
-| 8 | Sync group rule (one pending request per group) | confirm on the game server side |
-
+| Use 381 game command ids. Ids 1–918 are the same in 419 GM; above 918 they are not. | [`RE/game-commands.tsv`](RE/game-commands.tsv), [17 §4.1](RE/17-open-items.md) |
+| Wire: `u16 EncHeader` envelope, then plain `int16 size` (header included), `int16 command`, body. | [02 §2](RE/02-transport.md) |
+| Field codes of the game packet descriptors (T_INT8 … T_PACKET_REF) give the wire order. | [05 §3](RE/05-game-dispatch.md), [`RE/packet-layouts.tsv`](RE/packet-layouts.tsv) |
+| In 381 all 18 sync ids share one lock. Answer each sync request, or the client blocks other sync requests for 10 s. | [05 §4](RE/05-game-dispatch.md) |
+| Moves arrive as `G_MoveReqCmd` 64 (88-byte packet), positions as server units. | [06 §2](RE/06-movement.md) |
+| 381 has no vehicles. Mount links, catch and inhalation exist. | [17 §4.5](RE/17-open-items.md) |

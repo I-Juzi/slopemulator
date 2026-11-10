@@ -1,0 +1,353 @@
+address	chapter	section	task	function	gm_name	ida_name_381	check
+0x703cfa	00-inventory.md	§1.5	Program entry (loader stub, not game code)	`start`	—	_PDLoaderEntryForExe	func-other-name
+0x1190f60	00-inventory.md	[01-startup](01-startup.md)	Main function	`_WinMain@16`	`0x14728f0`	WinMain(x,x,x,x)	func-other-name
+0x116f550	00-inventory.md	§1.5, [01-startup](01-startup.md)	Client start, loads the XML reader DLL	`BNSClient::Initialize`	`0x146bd10`	BNSClient::Initialize(HINSTANCE__ *)	name-ok
+0x114c6d0	00-inventory.md	§1.5, [15-engine](15-engine.md)	Where the engine DLL loads	`LoadEngine`	`0x1433c60`	LoadEngine(void)	name-ok
+0xbc90a0	00-inventory.md	[03-sts-client](03-sts-client.md)	Where the STS client DLL loads	`NPStsMsgLib::Create`	`0xe2a280`	NPStsMsgLib::Create(NPLibLog const *)	name-ok
+0xc673e0	00-inventory.md	[04-lobbygate](04-lobbygate.md)	Lobby session object	`LobbyGateSession::LobbyGateSession` (vtable `0x15e9a80`)	`0xed33e0`	LobbyGateSession::LobbyGateSession(void)	func-other-name
+0xefbf40	00-inventory.md	[05-game-dispatch](05-game-dispatch.md)	Game session object	`GameSession::GameSession` (vtable `0x15896b8`)	`0x1199da0`	GameSession::GameSession(void)	func-other-name
+0x47d7a0	00-inventory.md	[05-game-dispatch](05-game-dispatch.md)	Game ping send	`GameSession::SendPing`	`0x48b330`	GameSession::SendPing(void)	name-ok
+0x608f10	00-inventory.md	[02-transport](02-transport.md)	Packet encryption entry (no key data here)	`GamePacketProcessor::Encrypt` / `Decrypt`	`0x6f3150` / `0x6f3240`	GamePacketProcessor::Encrypt(uchar const *,int,uchar *,int,bool)	func-other-name
+0x608d10	00-inventory.md	[02-transport](02-transport.md)	Session key set	`GamePacketProcessor::SetSessionKey`	`0x6f2f40`	GamePacketProcessor::SetSessionKey(uchar const *,int)	name-ok
+0x5fd770	00-inventory.md	[02-transport](02-transport.md)	Byte stream to packets	`PacketParser::ParseData`	`0x6e3570`	PacketParser::ParseData(char *,int)	name-ok
+0xcc4ce0	00-inventory.md	[06-movement](06-movement.md)	Where the client sends a move	`MoveListMaker::sendWalkPacket`	`0xf23340`	MoveListMaker::sendWalkPacket(__int64,bool,bool)	name-ok
+0xcc93d0	00-inventory.md	[06-movement](06-movement.md)	Move list tick	`MoveListMaker::Tick`	`0xf264a0`	MoveListMaker::Tick(float)	name-ok
+0xe82b90	00-inventory.md	[06-movement](06-movement.md)	Sprint, drift, boost tick	`HyperMove::Tick`	`0x11121b0`	HyperMove::Tick(float)	name-ok
+0xae3140	00-inventory.md	[08-creature](08-creature.md)	Player object (constructor, tick)	`BPTPlayer::BPTPlayer` / `BPTPlayer::Tick` (vtable `0x16187a0`)	`0xcaa400` / `0xcf0670`	BPTPlayer::BPTPlayer(BGameObject *,PresentationWorld *)	func-other-name
+0x1131520	00-inventory.md	[12-infogate-arena](12-infogate-arena.md)	Info server reconnect	`InfoGateSession::ReconnectInfoGate`	`0x10b4590`	InfoGateSession::ReconnectInfoGate(void)	name-ok
+0x61cb90	00-inventory.md	[13-datafile](13-datafile.md)	Datafile native string read	`DrElReaderImpl::readNative`	`0x7a04a0`	DrElReaderImpl::readNative(char *,wchar_t const *,DrAttrDef const &,dr_log_info const *)	name-ok
+0x5e6630	00-inventory.md	[16-strings-errors](16-strings-errors.md)	Client log file	`LogManager::CreateLogFile`	`0x6d7160`	LogManager::CreateLogFile(void * &,_SYSTEMTIME &,wchar_t *,wchar_t *)	name-ok
+0xf7b2c0	00-inventory.md	[10-quests-npc](10-quests-npc.md) ❓	Auto fishing stop	`Fishing::StopAutomaticFishing`	`0x1219000`	Fishing::StopAutomaticFishing(void)	name-ok
+0x54ca60	00-inventory.md	§1.5	Tencent TCLS proxy load	`CreateTclsProxy`	`0x565ce0`	CreateTclsProxy(void)	name-ok
+-	00-inventory.md	§4	Any function by name or address	`grep` in `functions-*.tsv`	—		no-address
+-	00-inventory.md	§2	Any class, its vtable and constructor	`grep` in `classes.tsv`	—		no-address
+0x703cfa	01-startup.md	§3.1	Process entry (CRT)	`start`	same	_PDLoaderEntryForExe	func-other-name
+0x1190f60	01-startup.md	§3.1	Where the game starts	`WinMain`	same	WinMain(x,x,x,x)	name-ok
+0x113ed60	01-startup.md	§1	Where the command line is parsed	`BNSClient::DoCommandLine`	same	BNSClient::DoCommandLine(void)	name-ok
+0x5d0460	01-startup.md	§1.3	Publisher name → enum	`sub_5D0460` (table `0x19498ec`)	❓	sub_5D0460	func-other-name
+0x5d04d0	01-startup.md	§1.3	Language name → enum	`sub_5D04D0` (table `0x1949928`)	❓	sub_5D04D0	func-other-name
+0x5d0540	01-startup.md	§1.3	Text language code → enum	`sub_5D0540` (table `0x1949958`)	❓	sub_5D0540	func-other-name
+0x5d05b0	01-startup.md	§1.4	Is this publisher + language pair valid	`sub_5D05B0` (table `0x19a4260`)	❓	sub_5D05B0	func-other-name
+0x11297c0	01-startup.md	§2.1	Where `Local.ini` is read	`BNSClient::LoadLocaleInfo`	same	BNSClient::LoadLocaleInfo(void)	name-ok
+0x11313b0	01-startup.md	§2.1	Where `Local.ini` is written	`BNSClient::SaveLocaleInfo`	same	BNSClient::SaveLocaleInfo(void)	name-ok
+0x114cbe0	01-startup.md	§2.2	Where `SystemText.ini` is read	`BNSClient::LoadSystemText`	same	BNSClient::LoadSystemText(void)	name-ok
+0x114c6d0	01-startup.md	§3.2	Where the engine DLL is loaded	`LoadEngine`	same	LoadEngine(void)	name-ok
+0x11904c0	01-startup.md	§3.3	Main start sequence	`BNSClient::MainFramework`	same	BNSClient::MainFramework(HINSTANCE__ *,HINSTANCE__ *,int)	name-ok
+0x116f550	01-startup.md	§3.4	Client subsystem init	`BNSClient::Initialize`	same	BNSClient::Initialize(HINSTANCE__ *)	name-ok
+0x1167630	01-startup.md	§3.5	Per-frame client tick	`BNSClient::Tick`	same	BNSClient::Tick(float)	name-ok
+0x116dc90	01-startup.md	§3.6	Shutdown	`BNSClient::Cleanup`	same	BNSClient::Cleanup(void)	name-ok
+0x10a0110	01-startup.md	§3.7	Start error text (set)	`ClientSystemText::SetAdditionalMsg`	same	ClientSystemText::SetAdditionalMsg(std::basic_string<wchar_t,std::char_traits<wchar_t>,std::allocator<wchar_t>>)	name-ok
+0x114caf0	01-startup.md	§3.6	Start error text (show at exit)	`sub_114CAF0` (false IDA name)	❓	ChoiceRewardSelectConfirmPanel::~ChoiceRewardSelectConfirmPanel(void)	func-other-name
+0x114b560	01-startup.md	§3.7	Error code → GameGuard result (4047)	`ClientGameGuard::GetGameGuardInitializeError`	same	ClientGameGuard::GetGameGuardInitializeError(ulong)	name-ok
+0x1a4be5c	01-startup.md	§3.2	Engine exports	`LoadEngine` globals	same	EInterfaceGetInstance	data
+0x1a4c0f8	01-startup.md	§3.4	`BNSClient` object pointer	global	❓		data
+0x10a9de0	01-startup.md	§2.4	Where the server address file loads	`sub_10A9DE0` (`release.config2.xml`)	❓	sub_10A9DE0	func-other-name
+0x1129d30	01-startup.md	§2.2	Data folder path	`BNSClient::GetDataDirectoryPath`	same	BNSClient::GetDataDirectoryPath(wchar_t *,int,bool)	name-ok
+0x1130100	01-startup.md	§2.1	User option file path	`getLocalOptionFilePath`	same	getLocalOptionFilePath(wchar_t *,int,bool)	name-ok
+0x1a823d0	01-startup.md	§1.2	Session key from launcher	global `0x1a823d0`	`BNSClient::_webLoginSessionKey` ❓		data
+0x1955c40	01-startup.md	§1.2	Region (lobby address set 1 or 2)	global `Value`	❓	Value	name-ok
+0x1955c38	01-startup.md	§1.2	Publisher / language globals	`publisher`, `language`	same	publisher	data
+0x1a4da00	02-transport.md	§1.1	Find the network object	global pointer	`Network`	dword_1A4DA00	data
+0x5d3030	02-transport.md	§1.1	Slot → processor kind, max size, timeout	connect switch	`Network::Connect` ❓	sub_5D3030	func-other-name
+0x5cf400	02-transport.md	§4.3	Open a socket	`Connection::connect`	`Connection::connect`	sub_5CF400	func-other-name
+0x5d2680	02-transport.md	§4.1	Request a connect	connect request	—	sub_5D2680	func-other-name
+0x5d25d0	02-transport.md	§4.1	Resolve a host name	connect by name	—	SeasonContentsTimeAttackRecord::~SeasonContentsTimeAttackRecord(void)	func-other-name
+0x5d5ab0	02-transport.md	§4.2	Network thread loop	thread loop	—	sub_5D5AB0	func-other-name
+0x5d28f0	02-transport.md	§4.2	Keepalive ping (30 s)	ping all sessions	—	sub_5D28F0	func-other-name
+0x5d2740	02-transport.md	§4.4	Send a packet	`Network::Send`	—	sub_5D2740	func-other-name
+0x5cfb70	02-transport.md	§4.4	Receive and cut packets	`recvNext`	`Connection::recvNext`	sub_5CFB70	func-other-name
+0x5d0080	02-transport.md	§4.4	Dispatch received packets	dispatch	—	sub_5D0080	func-other-name
+0x5d2d80	02-transport.md	§5.1	Map errors to reasons	connection event	—	sub_5D2D80	func-other-name
+0x5d33c0	02-transport.md	§5.1	Disconnect	`Network::Disconnect`	`Network::Disconnect` ❓	sub_5D33C0	func-other-name
+0x60f8a0	02-transport.md	§2.1	Envelope length	`PPUtil::PacketSize`	`PPUtil::PacketSize`	PPUtil::PacketSize(EncHeader const *)	name-ok
+0x5d4a20	02-transport.md	§2.2	Plain packet length	`Session::PacketSize`	`PacketSession::PacketSize`	sub_5D4A20	func-other-name
+0x5d4a40	02-transport.md	§2.3	Fragments	`Session::IsCompleted`	`PacketSession::IsCompleted`	sub_5D4A40	func-other-name
+0x5d4c10	02-transport.md	§2.4	Bytes → struct	`ToPacket`	`PacketSession::ToPacket`	sub_5D4C10	func-other-name
+0x5d4d20	02-transport.md	§2.4	Struct → bytes	`ToStream`	`PacketSession::ToStream`	sub_5D4D20	func-other-name
+0x6076b0	02-transport.md	§3.1	Make the processor	`PacketProcessor::Create`	same	PacketProcessor::Create(PacketProcessor::Type,PacketProcessor::Algorithm)	name-ok
+0x608f10	02-transport.md	§3.3	Encrypt / decrypt (GameD)	`GamePacketProcessor::Encrypt` / `Decrypt`	same	GamePacketProcessor::Encrypt(uchar const *,int,uchar *,int,bool)	func-other-name
+0x6088e0	02-transport.md	§3.3	Encrypt / decrypt (LobbyGate, InfoGate)	`AuthPacketProcessor::Encrypt` / `Decrypt`	same	AuthPacketProcessor::Encrypt(uchar const *,int,uchar *,int,bool)	func-other-name
+0x608d10	02-transport.md	§3.1	Session key rotation	`SetSessionKey`	same	GamePacketProcessor::SetSessionKey(uchar const *,int)	name-ok
+0x60fb10	02-transport.md	§3.4	Handshake packet	`PPUtil::EncryptHandshake`	same	PPUtil::EncryptHandshake(PacketProcessor::ErrCode &,Crypto * &,Crypto * &,CryptoKey * &,uchar const *,int,uchar *,int)	name-ok
+0x60f8f0	02-transport.md	§3.4	Session key from DH	`PPUtil::SetupSessionCrypto`	same	PPUtil::SetupSessionCrypto(PacketProcessor::ErrCode &,Crypto::Type,CryptoKey * &,Crypto * &,uchar const *,int)	name-ok
+0x611750	02-transport.md	§3.2	AES-128	`Aes128::Encrypt` / `Decrypt`	same	Aes128::Encrypt(uchar const *,int,uchar *,int *)	func-other-name
+0x5ced10	02-transport.md	§3.5	ZSTD broadcast	`ZSTD_decompress_usingDict`	same	_ZSTD_decompress_usingDict	name-ok
+0x5fd770	02-transport.md	§6	Chat / voice parser	`PacketParser::ParseData`	same	PacketParser::ParseData(char *,int)	name-ok
+-	02-transport.md	§7	Byte example	—	—		no-address
+0xbc90a0	03-sts-client.md	§1	Load the STS DLL	`NPStsMsgLib::Create`	same	NPStsMsgLib::Create(NPLibLog const *)	name-ok
+0xbc9050	03-sts-client.md	§2.2	Next transaction id	`NPStsMsgLib::GetTransactionId` / global	same	NPStsMsgLib::GetTransactionId(void)	func-other-name
+0xbce0f0	03-sts-client.md	§2.2	Build a request	`sub_BCE0F0`	❓	sub_BCE0F0	name-ok
+0xbdd680	03-sts-client.md	§2.2	Remember txn → command	`NPSession::RecordPacket`	same	NPSession::RecordPacket(NPRequestPacket *)	name-ok
+0xbce1e0	03-sts-client.md	§2.3	Receive bytes	NPSession vt18 `IsCompleted`	`Session::IsCompleted`	NPSession::IsCompleted(char const *,int,int &,int &,bool *)	name-ok
+0xbd41d0	03-sts-client.md	§2.3	Parse a message	NPSession vt19 `ToPacket`	`NPSession::ToPacket`	NPSession::ToPacket(char const *,int,Packet * &)	name-ok
+0xc253d0	03-sts-client.md	§2.3	Route by message type	`NPSession::OnRecv`	same	sub_C253D0	func-other-name
+0xc25140	03-sts-client.md	§2.4	Route a reply	`sub_C25140`	`NPSession::ProcessResponse` ❓	sub_C25140	name-ok
+0xbd40c0	03-sts-client.md	§3.1	Start the login	`NPSession::SendLoginRequest`	same	NPSession::SendLoginRequest(wchar_t const *,ushort,wchar_t const *,wchar_t const *,int,wchar_t const *)	name-ok
+0xc22150	03-sts-client.md	§3.1	Start STS after connect	`NPSession::OnConnect`	same	NPSession::OnConnect(void)	name-ok
+0xc076d0	03-sts-client.md	§3.2	Send LoginStart	`NPSession::SendLoginStartMessage`	same	NPSession::SendLoginStartMessage(void)	name-ok
+0xc074b0	03-sts-client.md	§3.2	Send KeyData / LoginFinish	`sub_C074B0` / `sub_C073A0`	`SendLoginKeyData` / `SendLoginFinish` ❓	sub_C074B0	func-other-name
+0xc24d80	03-sts-client.md	§3.3	Login success	`NPSession::ReceiveLoginFinishSuccess`	same	NPSession::ReceiveLoginFinishSuccess(Packet const *)	name-ok
+0xc21c10	03-sts-client.md	§5	Login failure → UI	`NPSession::ReceiveLoginFailure`	same	NPSession::ReceiveLoginFailure(Packet const *)	name-ok
+0xc24710	03-sts-client.md	§3.4	Request a token	`NPSession::SendTokenRequest`	same	NPSession::SendTokenRequest(NPSession::WebSessionTokenType)	name-ok
+0xc24340	03-sts-client.md	§3.4	Token reply	`ReceiveTokenSuccess` / `ReceiveTokenFailure`	same	NPSession::ReceiveTokenSuccess(Packet const *)	func-other-name
+0xc063c0	03-sts-client.md	§3.5	Game token	`sub_C063C0`	`SendRequestGameToken` ❓	sub_C063C0	name-ok
+0x4e25a0	03-sts-client.md	§7.1	Ping	NPSession vt12 → `sub_C067E0`	❓	sub_4E25A0	func-other-name
+0xc08430	03-sts-client.md	§7.2	Server kick (3201)	`sub_C08430` → `0xc06250`	❓	sub_C08430	func-other-name
+0xc075b0	03-sts-client.md	§7.3	Logout	`NPSession::SendLogoutRequest`	same	NPSession::SendLogoutRequest(DisconnectLobbyReason)	name-ok
+0xc223a0	03-sts-client.md	§6	Link error	`NPSession::OnError`	same	NPSession::OnError(int,int,int)	name-ok
+0xc24c50	03-sts-client.md	§6	Reconnect timers	`NPSession::Tick`	same	NPSession::Tick(float)	name-ok
+0xc88240	04-lobbygate.md	§2.1	Where the client receives a LobbyGate packet	`onRecv`	`LobbyGateSession::onRecv`	sub_C88240	func-other-name
+0x14a1830	04-lobbygate.md	§2.1	Handler table (index = cmd)	data	`0x19401c8` (cmd 0)	dword_14A1830	data
+0x14a0f98	04-lobbygate.md	§2.2	Packet Def table (fields per cmd)	data `LobbyGatePacket_define`	`0x193f930`	unk_14A0F98	data
+0xcb86d0	04-lobbygate.md	§2.3	Main receive switch	`LobbyGateSession::ProcessLobbyNetObjectEvent`	same	LobbyGateSession::ProcessLobbyNetObjectEvent(StructPacket const *)	name-ok
+0x128a7f0	04-lobbygate.md	§2.4	Account / goods receive switch	`BAccount::ProcessLobbyNetObjectEvent`	same	BAccount::ProcessLobbyNetObjectEvent(StructPacket const *)	name-ok
+0xc979f0	04-lobbygate.md	§1.2	What happens on connect	`OnConnect` (vt slot 6)	`LobbyGateSession::OnConnect`	sub_C979F0	func-other-name
+0xc978b0	04-lobbygate.md	§1.2	Where the client sends Hello	sender cmd 1	`SendHelloReq`	Lobby::OnEnterWorldFail(FailPacket const *)	func-other-name
+0xcb8660	04-lobbygate.md	§1.3	Handshake reply	`ReceiveHelloOk`	same	LobbyGateSession::ReceiveHelloOk(StructPacket const *)	name-ok
+0xc967d0	04-lobbygate.md	§1.4	Contents rule list request / reply	sender cmd 106 / handler cmd 107	`SendContentsRuleListRequest` / `ReceiveContentsRuleListOk`	sub_C967D0	func-other-name
+0xc97810	04-lobbygate.md	§1.5	Login with NP token / lobby token	senders cmd 3 / cmd 6	`SendLoginWithNPTokenReq` / `SendLoginWithLobbyTokenReq`	sub_C97810	func-other-name
+0xc72b30	04-lobbygate.md	§1.5	Login fail to UI	`ProcessSystemLoginFail`	same	sub_C72B30	func-other-name
+0xc67290	04-lobbygate.md	§1.6	Disconnect reason to message	`OnClose` (vt slot 8)	`LobbyGateSession::OnClose`	sub_C67290	func-other-name
+0xca7080	04-lobbygate.md	§1.6	Network error	`OnError` (vt slot 4)	`LobbyGateSession::OnError`	LobbyGateSession::OnError(int,int,int)	func-other-name
+0x4d61a0	04-lobbygate.md	§1.7	Keepalive ping (cmd 9)	`SendPing` slot 12 → sender	`SendPing` / `sendPingRequest`	sub_4D61A0	func-other-name
+0xc5f870	04-lobbygate.md	§1.1	Reset session data	`clear`	`LobbyGateSession::clear`	LobbyGateSession::clear(void)	name-ok
+0xc97710	04-lobbygate.md	§3.1	World list request	`SendWorldListRequest`	same	LobbyGateSession::SendWorldListRequest(void)	name-ok
+0xc976a0	04-lobbygate.md	§3.2	Character list request	`SendCharacterListRequest`	same	LobbyGateSession::SendCharacterListRequest(void)	name-ok
+0xc97480	04-lobbygate.md	§3.3	Create character	`SendMakeCharacterRequest`	same	LobbyGateSession::SendMakeCharacterRequest(char,int,FsdMakePcRecord const &,bool)	name-ok
+0xc973c0	04-lobbygate.md	§3.4	Delete / cancel / recover	senders cmd 39 / 43 / 46	`SendRemoveCharacterRequest` / `SendCancelRemoveCharacterRequest` / `SendRecoverCharacterRequest`	sub_C973C0	func-other-name
+0xc970a0	04-lobbygate.md	§3.5	Select character (enter-world token)	sender cmd 13	`SendEnterWorldTokenRequest`	Lobby::RequestEnterWorldRequest(char)	func-other-name
+0xc71970	04-lobbygate.md	§3.5	Enter-world token reply	handler cmd 14	`ReceiveEnterWorldTokenOk`	sub_C71970	func-other-name
+0x1157fbd	04-lobbygate.md	§3.5	Connect to GameD with the lobby token	`BNSClient::EnterGameForNPWithLobbyGate`	same		inside-func
+0xf44030	05-game-dispatch.md	§1.3	Where the client gets a game packet	`GameSession::onRecv`	`GameSession::onRecv`	sub_F44030	func-other-name
+0x149ec40	05-game-dispatch.md	§2	Handler of command N	`GamePacketHandler[N]`	`GamePacketHandler`	dword_149EC40	data
+0x1953620	05-game-dispatch.md	§2	Name of command N	name table	enum `MainCommand`		data
+0x1496f40	05-game-dispatch.md	§3	Field layout of command N	`GamePacket_define[N]`	`GamePacket_define`		data
+0x114ce20	05-game-dispatch.md	§1.4	Where the client sends a game packet	`BNSClient::SendToGamed`	same	BNSClient::SendToGamed(StructPacket const *,bool)	name-ok
+0x401690	05-game-dispatch.md	§1.2	GameD or ArenaD?	`BNSClient::isInArena`	same	BNSClient::isInArena(void)	name-ok
+0xf2c0c0	05-game-dispatch.md	§1.5	Hello to GameD / ArenaD	`GameSession::OnConnect`	same	sub_F2C0C0	func-other-name
+0xf70280	05-game-dispatch.md	§1.5	Hello reply	`HandleHelloOkPacket`	same	HandleHelloOkPacket(GameSession const *,StructPacket const *)	name-ok
+0xf4b430	05-game-dispatch.md	§1.5	Server ping reply	`HandleServerPingNotifyPacket` → `SendServerPingReply`	same	sub_F4B430	func-other-name
+0xefbd80	05-game-dispatch.md	§1.6	Disconnect reason → UI event	`GameSession::OnClose`	same	GameSession::OnClose(int)	name-ok
+0xf4b550	05-game-dispatch.md	§1.6	Bad stream hex dump	`GameSession::onStreamError`	same	GameSession::onStreamError(char const *,int)	name-ok
+0x749550	05-game-dispatch.md	§2.2	Second-level dispatch (world objects, UI)	`World::ProcessNetObjectEvent`	same	World::ProcessNetObjectEvent(StructPacket const *)	name-ok
+0x86ed10	05-game-dispatch.md	§4	"Request still pending" lock	`TaskSession::IsLocked` / `Sent` / `Received`	same	TaskSession::IsLocked(int)	func-other-name
+0x867870	05-game-dispatch.md	§4	Sync group names	`GetPacketSyncEnumString`	same	GetPacketSyncEnumString(int)	name-ok
+0x5d4f20	05-game-dispatch.md	§3.3	Field wire encoding (read)	`PacketSession::setField`	same	PacketSession::setField(char const *,int,StructPacket::Def const *,char *)	name-ok
+0x5d52c0	05-game-dispatch.md	§3.3	Field wire encoding (write)	field writer	`PacketSession::structure2stream` ❓	sub_5D52C0	func-other-name
+-	05-game-dispatch.md	§5	Byte example	G_HelloReq	—		no-address
+-	06-movement.md	§1.1	Find the move list layout	`MoveListMaker` type	`MoveListMaker`		no-address
+0x4014b0	06-movement.md	§1.5	Convert engine units to server units	`EngineUnitToServerUnit`	same	EngineUnitToServerUnit(float)	name-ok
+0xcc93d0	06-movement.md	§2.2	Find the per-tick move recorder	`MoveListMaker::Tick` / `playerTick`	same	MoveListMaker::Tick(float)	func-other-name
+0xcc4ce0	06-movement.md	§2.1	Build and send `G_MoveReqCmd` 64	`MoveListMaker::sendWalkPacket`	same	MoveListMaker::sendWalkPacket(__int64,bool,bool)	name-ok
+0xcc55b0	06-movement.md	§2.2	Flush with a reason	`sub_CC55B0`	❓	sub_CC55B0	name-ok
+0xc74470	06-movement.md	§2.3	Make cells	`MoveListMaker::makeCell` / `SetArea`	same	MoveListMaker::makeCell(float,float,float)	func-other-name
+0x15e97b4	06-movement.md	§1.4	Map engine moves to wire move types	maker vtables, slot 1 `Get`	`MoveTypeMaker::MoveTypeId`	off_15E97B4	data
+0xc5b3e0	06-movement.md	§2.4	Send a turn (`G_TurnReqCmd` 66)	`MoveListMaker::checkRotate`	same	MoveListMaker::checkRotate(void)	name-ok
+0xaa33a0	06-movement.md	§3.5	Handle `G_MoveFailCmd` 65	`walkFail`	`BPTPlayer::walkFail` `0xc5e210`	sub_AA33A0	func-other-name
+0xb15dd0	06-movement.md	§3.4	Handle `G_ChangeMoveKeyCmd` 73	`BPTPlayer::ProcessNetObjectEvent` case 73	same	BPTPlayer::ProcessNetObjectEvent(StructPacket const *)	func-other-name
+0xafb560	06-movement.md	§3.2	Snap the player to the server position	`SetWorldInfo` (vslot 81)	`BPTPlayer::SetWorldInfo`	sub_AFB560	func-other-name
+0xc5b890	06-movement.md	§3.3	Reset the move list to a position	`MoveListMaker::SyncServerMove` / `setPlayerMove`	same	MoveListMaker::SyncServerMove(float,float,float,int,bool)	func-other-name
+0xaaa440	06-movement.md	§3.6	Server-driven dash, knockback, mount	`BPTPlayer` vslots 73–76	`MoveKnockBack`, `MoveDash`, `MoveMount`, `MoveTurnBack`	sub_AAA440	func-other-name
+0xaaa110	06-movement.md	§3.6	Sync after a rule move	`BPTPlayer::SyncRuleMoveLocation`	same	BPTPlayer::SyncRuleMoveLocation(void)	name-ok
+0xe94110	06-movement.md	§4.1	Sprint energy drain and refill	`HyperMove` tick	`HyperMove::Tick`	sub_E94110	func-other-name
+0xe93fc0	06-movement.md	§4.1	Start / end sprint	`HyperMove::Start` / `End`	same	HyperMove::Start(char)	name-ok
+0xe9d1c0	06-movement.md	§4.1	Block sprint	`HyperMove::Block`	same	HyperMove::Block(bool)	name-ok
+0xaf2510	06-movement.md	§4.2	Combat sprint request (1053)	`BPTPlayer::RequestCombatHyperMove`	same	BPTPlayer::RequestCombatHyperMove(void)	name-ok
+0xee0640	06-movement.md	§4.3	Block glide	`Glide::BlockGlide`	same	Glide::BlockGlide(bool)	name-ok
+0xaa347c	06-movement.md	§3.5	Fail reason names	G_MOVEFAIL enum (381 = GM − 5)	`$18A4E27B71DB8B3296A36A5F753469C9`	jpt_AA33BA	data
+0x1114f50	07-combat.md	§1.1	Where the client starts a skill	`BControlledPlayingActions::UseSkill`	same	BControlledPlayingActions::UseSkill(uint,bool)	name-ok
+0x10d26e0	07-combat.md	§1.4	Where the client sends a skill	`requestSkill` / `requestGroundSkill`	same ❓	sub_10D26E0	func-other-name
+0x449fd0	07-combat.md	§1.4	`G_UseSkillReq` packet constructor	`G_UseSkillReqPacket::G_UseSkillReqPacket`	same	sub_449FD0	func-other-name
+0x10e9140	07-combat.md	§1.3	Client-side skill check	`isSkillAvailableToUse`	same	BControlledPlayingActions::isSkillAvailableToUse(Data::Skill3RecordActiveSkillPtr,bool,bool)	name-ok
+0x10b90d0	07-combat.md	§1.3	Cast-fail message to the player	`OutputSkillErrorGameMessage`	same	BControlledPlayingActions::OutputSkillErrorGameMessage(ControlledPlayingActionsBase::SKILL_USE_ERROR,__int64)	name-ok
+0x10b0090	07-combat.md	§1.5	"One skill request in flight" lock	`IsRequestedSkillAnswered`	same	BControlledPlayingActions::IsRequestedSkillAnswered(bool)	name-ok
+0x10d3ba0	07-combat.md	§1.6	Cancel a skill	`RequestCancelAction`	same	BControlledPlayingActions::RequestCancelAction(char,char,bool)	name-ok
+0x748b00	07-combat.md	§2.1	Server skill/hit/effect stream	`World::processAction`	same	World::processAction(G_BroadcastActionPacket const *,G_BroadcastPrivateActionPacket const *)	name-ok
+0x737a60	07-combat.md	§2.2	Skill action of a creature	`World::processSkillActionToOwner`	same	World::processSkillActionToOwner(PfStruct const *,char,__int64,__int64,bool,bool)	name-ok
+0x111d2d0	07-combat.md	§2.3	Own skill result (success/cancel)	`BControlledPlayingActions::processSkill`	same	BControlledPlayingActions::processSkill(__int64,char,unsigned __int64,int,int,int,int,char,int,int,std::vector<sTargetDa	name-ok
+0xb1a590	07-combat.md	§3.3	Damage numbers, effect show	`BPTCreature::presentationActions`	same	BPTCreature::presentationActions(GS_ActionsEffectSubPacket const *,BGameObject const *)	name-ok
+0xb319d0	07-combat.md	§3.3	Battle message ("X hits Y")	`BPTCreature::invokeBattleMessage`	same	BPTCreature::invokeBattleMessage(GS_ActionsEffectSubPacket const *,BGameObject const *)	name-ok
+0x1496720	07-combat.md	§2.1	Action variant table	`GS_Actions_define`	same name (GM address ❓)		data
+0x14962e8	07-combat.md	§3.1	Effect variant table	`GS_Effects_define`	same name (GM address ❓)		data
+0x14964a0	07-combat.md	§3.2	Buff/debuff variant table	`GS_PassiveEffectInfo_define`	same name (GM address ❓)		data
+0x1496428	07-combat.md	§2.4	Skill target variant table	`GS_SkillTarget_define`	same name (GM address ❓)		data
+0x10fd7f0	07-combat.md	§4	Skill fail / recycle replies	`BControlledPlayingActions::ProcessNetObjectEvent`	same ❓	sub_10FD7F0	func-other-name
+0x916030	07-combat.md	§5	Global cool-down	`SkillTimer::SetGlobalCoolTime_renewal`	same	SkillTimer::SetGlobalCoolTime_renewal(__int64,int,float)	name-ok
+0x974fc0	07-combat.md	§5	Recycle (cool-down) group	`SkillTimer::SetSkillRecycleTime_renewal`	same	SkillTimer::SetSkillRecycleTime_renewal(__int64,int,int,float)	name-ok
+0xaf30a0	07-combat.md	§6	Select a target	`BPTPlayer::RequestSetTarget`	same	BPTPlayer::RequestSetTarget(unsigned __int64)	name-ok
+0x712bc0	07-combat.md	§4.2	Error code → name	`L_ERROR_CODE_TO_STRING`	same	L_ERROR_CODE_TO_STRING(int)	name-ok
+-	07-combat.md	§8	Byte examples	`G_UseSkillReq`, Effect action	—		no-address
+0x74b6cd	08-creature.md	§1.1	Object type of an id	`id >> 48` (switch in `World::enterCreature`)	`BGameObject::TYPE`		inside-func
+0x71f570	08-creature.md	§1.1	Make an object id from zone and index	`ComposeObjectId`	same	ComposeObjectId(int,int,BGameObject::TYPE)	name-ok
+0x72b670	08-creature.md	§1.3	Find a world object by id	`World::find`	same	World::find(unsigned __int64)	name-ok
+0x74b640	08-creature.md	§2.2	Create a creature (spawn)	`World::enterCreature`	same	World::enterCreature(unsigned __int64,PropertySync const *,char)	name-ok
+0x74b140	08-creature.md	§2.3	Remove a creature (despawn)	`World::leaveCreature`	same	World::leaveCreature(unsigned __int64,char,__int64)	name-ok
+0x74c370	08-creature.md	§2.1	Handle cmd 1 (enter / leave)	`World::EnterLeaveObject`	same	World::EnterLeaveObject(G_EnterLeaveBroadcastPacket const *)	name-ok
+0x73f710	08-creature.md	§2.1	Handle cmd 2 (encounter / out of sight)	NetWorld slot 7	`World::EncounterOutOfSightObject`	sub_73F710	func-other-name
+0x74c0c0	08-creature.md	§2.1	Handle cmd 3 (zone snapshot)	NetWorld slot 8	`World::InZoneObject`	sub_74C0C0	func-other-name
+0x740cd0	08-creature.md	§2.1	Handle cmd 4 (in sight)	NetWorld slot 9	`World::InSightObject`	sub_740CD0	func-other-name
+0x73f4d0	08-creature.md	§2.1	Handle cmd 5 (out of sight)	`World::OutSightObject`	same	World::OutSightObject(G_OutSightCubePacket const *)	name-ok
+0xb53270	08-creature.md	§2.4	Show a creature (3D)	`PresentationWorld::encounterCreature`	same	PresentationWorld::encounterCreature(unsigned __int64,CreaturePropertyEncounterSync const *,PfRepeat const *,__int64)	name-ok
+0x737d30	08-creature.md	§1.2	Create the own player	`World::createPlayer`	same	World::createPlayer(unsigned __int64)	name-ok
+0x7325b0	08-creature.md	§5.2	Create the own cat	`World::createPlayerSummoned`	same	World::createPlayerSummoned(unsigned __int64)	name-ok
+0x5d4600	08-creature.md	§3.2	Read a `T_PROP_SYNC` field	`PropertySync::Set`	same	PropertySync::Set(char const *,uint)	name-ok
+0x5d4810	08-creature.md	§3.3	Read a `T_PROP_PAIR` field	prop-pair reader	`PropertyPair::Set` ❓	sub_5D4810	func-other-name
+0x5d4410	08-creature.md	§3.3	Read one pair value	value reader	`VariantField::Set` ❓	sub_5D4410	func-other-name
+0xee1170	08-creature.md	§3.3	Pair table id → field table	`GameSession::PropertyPairFieldInfo`	same	GameSession::PropertyPairFieldInfo(int)	name-ok
+0xee11a0	08-creature.md	§3.3	Pair table id → field count + 1	`GameSession::PropertyPairFieldMax`	same	GameSession::PropertyPairFieldMax(int)	name-ok
+0x1049760	08-creature.md	§3.5	Apply a pair to a creature	creature `SetPair`	`BCreature::SetPair` ❓	sub_1049760	func-other-name
+0x465d40	08-creature.md	§3.5	Apply changes and call listeners	`TracableProperty<CreatureProperty>::SetPair`	same	TracableProperty<CreatureProperty>::SetPair(PropertyPair const *)	name-ok
+0x5d3d70	08-creature.md	§3.4	Copy a sync into a property	`Property::SetSync`	same	Property::SetSync(PropertySync const *)	name-ok
+0x19f6b48	08-creature.md	§4	Field list of CreatureProperty	`CreatureProperty::FIELD_INFO`	same	Property::FInfo const * const CreatureProperty::FIELD_INFO	name-ok
+-	08-creature.md	§4.2	Field id of "hp", "level", "dead"	107, 103, 163	—		no-address
+0x10d3ad0	08-creature.md	§6.2	Respawn request	`BControlledPlayingActions::RequestRespawn`	same	BControlledPlayingActions::RequestRespawn(RespawnType)	name-ok
+0xa64640	08-creature.md	§5.4	Cat recall request (cmd 71)	`BPTPlayerSummoned::Recall`	same	BPTPlayerSummoned::Recall(void)	name-ok
+0xb78b00	08-creature.md	§5.4	Cat despawn when too far (cmd 636)	builder	❓	sub_B78B00	func-other-name
+-	08-creature.md	§7	Worked example	`G_EnterLeaveBroadcast` enterSummoned	—		no-address
+0xed3820	09-items.md	§2.1	Item change packet handler	(no name) Inventory event handler	Inventory::ProcessNetObjectEvent ❓	sub_ED3820	func-other-name
+0xef1430	09-items.md	§2.1	1332 packet decoder	handler 1332	G_InventoryItemListOk		data
+0xe616a0	09-items.md	§1.4	Set or clear one slot	false name `CommonCommandAutoComplete::setCandidateListPcItemDataID`	Inventory set slot ❓	CommonCommandAutoComplete::setCandidateListPcItemDataID(NewCandidateVector &,std::basic_string<wchar_t,std::char_traits<	name-ok
+0xe3dd40	09-items.md	§1.4	Get item at depot/pos	`Inventory::GetItem`	Inventory::GetItem	Inventory::GetItem(__int64)	name-ok
+0xe91e00	09-items.md	§2.2	Move item	`Inventory::RequestMoveItemPosition`	same	Inventory::RequestMoveItemPosition(__int64,__int64,short,unsigned __int64)	name-ok
+0xe91c50	09-items.md	§2.2	Dispose item	`Inventory::RequestDisposeItem`	same	Inventory::RequestDisposeItem(__int64,short)	name-ok
+0x10d4070	09-items.md	§2.3	Equip	`BControlledPlayingActions::RequestEquipPacket`	same	BControlledPlayingActions::RequestEquipPacket(__int64,BItem::Pos const &)	name-ok
+0x10d3ec0	09-items.md	§2.3	Unequip	`BControlledPlayingActions::RequestUnequipPacket`	same	BControlledPlayingActions::RequestUnequipPacket(BItem::Pos const &,__int64)	name-ok
+0xea9d10	09-items.md	§2.4	Sort / stack (move list)	`Inventory::requestRearrange`	same	Inventory::requestRearrange(char,unsigned __int64,bool)	name-ok
+0xeda780	09-items.md	§3.1	Use grocery	`Inventory::RequestUseGroceryItem`	same	Inventory::RequestUseGroceryItem(__int64,unsigned __int64)	name-ok
+0xe91a30	09-items.md	§3.3	Attach gem	`Inventory::RequestAttachGem`	same	Inventory::RequestAttachGem(__int64,__int64,int)	name-ok
+0xe9c170	09-items.md	§3.4	Enchant	`IntensionPanel::RequestPacket`	same	IntensionPanel::RequestPacket(void)	name-ok
+0xe8a490	09-items.md	§3.2	Transform	`RequestTransformMultipleFeedItem`	same	Inventory::RequestTransformMultipleFeedItem(unsigned __int64,__int64,unsigned __int64,unsigned __int64)	name-ok
+0xd23960	09-items.md	§4	Buy at NPC	`ItemStorePanel::RequestBuyItem`	same	ItemStorePanel::RequestBuyItem(int,int,__int64,__int64)	name-ok
+0xd23270	09-items.md	§4	Sell at NPC	`ItemStorePanel::RequestSellItem`	same	ItemStorePanel::RequestSellItem(__int64,int)	name-ok
+0x10dbb10	09-items.md	§5	Put into wardrobe	`ClosetGroup::MoveInventoryToClostReq`	same	ClosetGroup::MoveInventoryToClostReq(__int64)	name-ok
+0x10db6a0	09-items.md	§5	Take from wardrobe	`ClosetGroup::MoveClosetToInventoryReq`	same	ClosetGroup::MoveClosetToInventoryReq(int,short)	name-ok
+0xf39550	09-items.md	§6	Goods warehouse take	`GoodsInventory::requestTakeWarehouseGoodsItemInQueue`	same	GoodsInventory::requestTakeWarehouseGoodsItemInQueue(void)	name-ok
+0xfdb7e0	09-items.md	§1.2	Expand inventory	`ExpandInvenSlotConfirmPanel::ProgressComplete`	same	ExpandInvenSlotConfirmPanel::ProgressComplete(WindowModalPanel *,short)	name-ok
+0xa9e5b0	10-quests-npc.md	§1.4	Where the client applies quest packets	`BQuestJournal::ProcessNetObjectEvent`	same	BQuestJournal::ProcessNetObjectEvent(StructPacket const *)	name-ok
+0xa5c970	10-quests-npc.md	§1.3	Where the client accepts a quest	`BQuestJournal::RequestAcquireOpenQuest`	same	BQuestJournal::RequestAcquireOpenQuest(__int64,__int64,int,char,short,bool)	name-ok
+0xa684a0	10-quests-npc.md	§1.3	Where the client sends mission progress	`BQuestJournal::RequestProgressMission`	same	BQuestJournal::RequestProgressMission(short,char,short,char,char,__int64,__int64,bool,char,__int64,__int64,__int64,char,	name-ok
+0xa5c720	10-quests-npc.md	§1.3	Abandon (dispose) a quest	`BQuestJournal::RequestDisposeOpenQuest`	same	BQuestJournal::RequestDisposeOpenQuest(std::vector<short,std::allocator<short>> const &)	name-ok
+0xa423f0	10-quests-npc.md	§1.1	Create the quest journal	`BQuestJournal::BQuestJournal` (called from `BPlayer::BPlayer` `0xb8a73c`)	same	BQuestJournal::BQuestJournal(void)	func-other-name
+0xa98d90	10-quests-npc.md	§1.4	Add a quest (1460)	`BQuestJournal::setQuest`	same	BQuestJournal::setQuest(short,PropertySync const *,char,char,char,char)	name-ok
+0xa98520	10-quests-npc.md	§1.4	Change a quest (1461)	`BQuestJournal::updateQuest`	same	BQuestJournal::updateQuest(short,char,char,PropertySync const *,int)	name-ok
+0xa9e320	10-quests-npc.md	§1.4	Complete a quest (1463)	`BQuestJournal::completeQuest`	same	BQuestJournal::completeQuest(short)	name-ok
+0xa9d9b0	10-quests-npc.md	§1.4	Remove a quest (1464)	`BQuestJournal::resetQuest`	same	BQuestJournal::resetQuest(short)	name-ok
+0xa518b0	10-quests-npc.md	§1.6	Can the player accept / complete	`BQuestJournal::CanAcquireQuest` / `CanCompleteQuest`	same	BQuestJournal::CanAcquireQuest(__int64,__int64,__int64,short,char,bool,bool,bool,bool)	func-other-name
+0xa9e9dc	10-quests-npc.md	§1.5	Quest failure message keys	switch in `0xa9e5b0`	—		inside-func
+0x7d9980	10-quests-npc.md	§2	Start NPC talk	`BUiWorld::StartNpcTalk` → `UiStateTalk::StartTalk`	same	BUiWorld::StartNpcTalk(unsigned __int64,bool)	func-other-name
+0x8443f0	10-quests-npc.md	§2	End NPC talk (cmd 61)	`UiStateTalk::EndTalk`	same	UiStateTalk::EndTalk(UiStateTalk::END_TALK_REASON)	name-ok
+0xc4bac0	11-social.md	§1.3	Where the client applies party packets	`BParty::ProcessNetObjectEvent`	same	BParty::ProcessNetObjectEvent(StructPacket const *)	name-ok
+0xc14d60	11-social.md	§1.2	Invite a player to the party	`BParty::RequestInvite` / `RequestInviteByName`	same	BParty::RequestInvite(unsigned __int64,int,BParty::InviteType)	func-other-name
+0xc14a70	11-social.md	§1.2	Accept or reject a party invite	`JoinPartyReq` builder / `RejectPartyReq` builder	— ❓	sub_C14A70	func-other-name
+0xc147b0	11-social.md	§1.2	Leave the party	`BParty::RequestLeave`	same	BParty::RequestLeave(void)	name-ok
+0xc14000	11-social.md	§1.4	Change loot (pickup) rule	`BParty::RequestChangePickupOption`	same	BParty::RequestChangePickupOption(char,char,__int64,unsigned __int64)	name-ok
+0xc1cb10	11-social.md	§1.5	Party timers (logout check, member sync)	`BParty::Tick`	same	BParty::Tick(float)	name-ok
+0xc1c850	11-social.md	§1.4	Party auction (loot bid)	`PartyAuction::ProcessNetObjectEvent`	same	PartyAuction::ProcessNetObjectEvent(StructPacket const *)	name-ok
+0x8f9c90	11-social.md	§1.6	Raid (team) packets	`BTeam::ProcessNetObjectEvent`	same	BTeam::ProcessNetObjectEvent(StructPacket const *)	name-ok
+0x116f260	11-social.md	§2.1	Where the client sends a chat line	`ChatChannel::SendChatMessageReq`	same	ChatChannel::SendChatMessageReq(wchar_t const *,wchar_t const *,char,bool,wchar_t const *,int)	name-ok
+0x740700	11-social.md	§2.1	Chat length / block check	`World::SendUserChatMessage`	same	World::SendUserChatMessage(std::basic_string<wchar_t,std::char_traits<wchar_t>,std::allocator<wchar_t>>,std::basic_strin	name-ok
+0x5eaff0	11-social.md	§2.2	Chat server packet switch	`ChannelChattingClient::PacketHandler`	same	ChannelChattingClient::PacketHandler(PacketParser *,Packet *)	name-ok
+0x11564e0	11-social.md	§2.2	Chat server login signature	`ChatChannel::requestLoginSignature` (387)	same	ChatChannel::requestLoginSignature(void)	name-ok
+0xf6de30	11-social.md	§3	Guild packets	`Guild::ProcessNetObjectEvent`	same	Guild::ProcessNetObjectEvent(StructPacket const *)	name-ok
+0xf3df60	11-social.md	§3.2	Guild InfoGate replies	`Guild::ProcessInfoGateNetObjectEvent`	same	Guild::ProcessInfoGateNetObjectEvent(StructPacket const *)	name-ok
+0x100a3f0	11-social.md	§4	Friend NP replies	`Friends::ProcessNPEvent`	same	Friends::ProcessNPEvent(Packet const *)	name-ok
+0x1060290	11-social.md	§5	Read a mail	`DeliveryBox::RequestRetrievePost`	same	DeliveryBox::RequestRetrievePost(DeliveryBox::DeliveryKey const &,unsigned __int64,bool)	name-ok
+0x106d530	11-social.md	§5	Send a mail	`DeliveryBox::RequestDeliverPost`	same	DeliveryBox::RequestDeliverPost(DeliveryBox::SendingDelivery const &,unsigned __int64)	name-ok
+0x11db510	11-social.md	§6	Market search	`MarketSearchItemReq` builder	—	sub_11DB510	func-other-name
+0x1201b20	11-social.md	§6	Market packets	`AuctionHouse::ProcessNetObjectEvent`	same	AuctionHouse::ProcessNetObjectEvent(StructPacket const *)	name-ok
+0xc98750	11-social.md	§6.3	NP auction bid	`NPAuction::RequestBid`	same	NPAuction::RequestBid(_GUID,__int64)	name-ok
+0x7bf040	11-social.md	§7	Player trade packets	`UiTradeManager::ProcessNetObjectEvent`	same	UiTradeManager::ProcessNetObjectEvent(StructPacket const *)	name-ok
+0xcc3fa0	12-infogate-arena.md	§1.2	Where the client gets the InfoGate address	LobbyGate `HandleLoginWithNPTokenOk` → `ConnectInfoGate`	`InfoGateSession::ConnectInfoGate`	sub_CC3FA0	func-other-name
+0xe36920	12-infogate-arena.md	§1.1	InfoGate session object	`InfoGateSession` ctor	`InfoGateSession::InfoGateSession`	sub_E36920	func-other-name
+0x1a4c0f8	12-infogate-arena.md	§1.1	InfoGate session pointer	`BNSClient+0x34`	`BNSClient::_infoGate` ❓		data
+0x114cdb0	12-infogate-arena.md	§1.4	Where the client sends an InfoGate packet	`BNSClient::SendToInfoGate`	same	BNSClient::SendToInfoGate(StructPacket const *)	name-ok
+0xe66070	12-infogate-arena.md	§1.4	Where the client gets an InfoGate packet	`InfoGateSession::onRecv`	same	sub_E66070	func-other-name
+0x14a0cf8	12-infogate-arena.md	§1.4	Handler of InfoGate command N	`InfoGatePacketHandler[N]`	—	dword_14A0CF8	data
+0x14a0730	12-infogate-arena.md	§1.4, TSV	Field layout of InfoGate command N	`InfoGatePacket_define[N]`	—	unk_14A0730	data
+0xe82cb0	12-infogate-arena.md	§1.3	Hello to InfoGate	`OnConnect` → `SendHelloReq`	`InfoGateSession::SendHelloReq`	sub_E82CB0	func-other-name
+0xe82b90	12-infogate-arena.md	§1.3	Auth token to InfoGate	`SendAuthTokenReq`	same	HyperMove::Tick(float)	func-other-name
+0xea4af0	12-infogate-arena.md	§1.3	Auth token OK (ready)	`receiveAuthTokenOk`	same	sub_EA4AF0	func-other-name
+0xea4bd0	12-infogate-arena.md	§1.3	Hello / auth reply switch	`onResponse`	`InfoGateSession::onResponse`	sub_EA4BD0	func-other-name
+0xea4c90	12-infogate-arena.md	§1.6	Reply fan-out to game objects	`ProcessInfoGateNetObjectEvent`	same	InfoGateSession::ProcessInfoGateNetObjectEvent(StructPacket const *)	name-ok
+0xe54130	12-infogate-arena.md	§1.5	Reconnect	`ReconnectInfoGate` (from `BNSClient::Tick`)	same	sub_E54130	func-other-name
+0x4a5ef0	12-infogate-arena.md	§1.5	InfoGate ping	`InfoGateSession::SendPing` → `sendPingRequest`	same	InfoGateSession::SendPing(void)	func-other-name
+0xea11f0	12-infogate-arena.md	§1.5	InfoGate connect error log	`InfoGateSession::OnError`	same	InfoGateSession::OnError(int,int,int)	name-ok
+0x9d1360	12-infogate-arena.md	§1.7	Season ranking request	`RetrieveCurrentRankingListSummaryReq` / `…ListReq`	`BSeason::*` ❓	sub_9D1360	func-other-name
+0x9d1240	12-infogate-arena.md	§1.7	Guild member ranking request	`BSeason::RequestRetireveCurGuildRanker`	same	BSeason::RequestRetireveCurGuildRanker(char)	name-ok
+0x401690	12-infogate-arena.md	§2.1	GameD or ArenaD?	`BNSClient::isInArena`	same	BNSClient::isInArena(void)	name-ok
+0xf70280	12-infogate-arena.md	§2.2	Hello OK on ArenaD → enter arena	`HandleHelloOkPacket` → `GameSession::SendEnterArenaReq`	same	HandleHelloOkPacket(GameSession const *,StructPacket const *)	func-other-name
+0x123a180	12-infogate-arena.md	§2.3	Arena world object	`ArenaWorld` ctor	same	ArenaWorld::ArenaWorld(void)	func-other-name
+0x123ade0	12-infogate-arena.md	§2.3	Arena lobby object	`ArenaLobby` ctor	same	ArenaLobby::ArenaLobby(void)	func-other-name
+0xe31ae0	12-infogate-arena.md	§3.1	In-game web URLs	`InGameWeb::GetDomainUrl`	same	InGameWeb::GetDomainUrl(InGameWeb::WebContents)	name-ok
+0x7373c0	12-infogate-arena.md	§3.2	HTTP request thread	`WebRequester::RequestUri`	same	WebRequester::RequestUri(std::basic_string<wchar_t,std::char_traits<wchar_t>,std::allocator<wchar_t>> const &)	name-ok
+0x1a4c0cc	14-ui.md	§1.2	Where the client gets the UI interface	`UIEngineInterfaceGetInstance` (function pointer)	same	UIEngineInterface * (*UIEngineInterfaceGetInstance)(void)	data
+0x14fe05c	14-ui.md	§1.2	Export names that `LoadEngine` resolves	strings `EInterfaceGetInstance` … `UIEngineInterfaceGetInstance`	same	aEinterfacegeti	data
+0x8135e0	14-ui.md	§1.3	UI start	`Ui::Initialize`	same	Ui::Initialize(void)	name-ok
+0x401600	14-ui.md	§1.3	Root UI object	`BNSClient::GetUi`	same	BNSClient::GetUi(void)	name-ok
+0x7f3010	14-ui.md	§1.3	Load a UI package / scene	`BUIProxy::LoadByPackageName`	same	BUIProxy::LoadByPackageName(BUiBase::UI_TYPE,wchar_t const *,wchar_t const *,int)	name-ok
+0x7de270	14-ui.md	§1.3	UE package id per UI type	`BUIProxy::getPackageName`	same	BUIProxy::getPackageName(BUiBase::UI_TYPE)	name-ok
+0x7de210	14-ui.md	§1.3	Main scene name per UI type	`BUIProxy::getMainSceneName`	same	BUIProxy::getMainSceneName(BUiBase::UI_TYPE)	name-ok
+0x7fbfe0	14-ui.md	§1.4	Panel base class	`UIPanel::UIPanel` (vtable `0x1685418`)	same	UIPanel::UIPanel(void)	func-other-name
+0x804830	14-ui.md	§1.4	Show or hide a panel	`UIPanel::ShowPanel`	same	UIPanel::ShowPanel(bool,bool)	name-ok
+0x7e3410	14-ui.md	§1.4	Panel visible?	`UIPanel::IsVisible`	same	UIPanel::IsVisible(bool)	name-ok
+0x7fbe40	14-ui.md	§1.4	Widget name → id	`UIPanel::GetWidgetId`	same	UIPanel::GetWidgetId(wchar_t const *,std::map<std::basic_string<wchar_t,std::char_traits<wchar_t>,std::allocator<wchar_t	name-ok
+0x55fbe0	14-ui.md	§1.5	Engine → client widget event	`EventTransmitter<…EUiEvent…>::Transmit`	same	EventTransmitter<uint,EUiEvent,EngineEventHandler,void (*)(EngineEventHandler *,EUiEvent *)>::Transmit(EUiEvent *,bool *	name-ok
+0x7f3220	14-ui.md	§1.5	Event entry slot (calls Transmit)	`sub_7F3220` (vtable `0x1685464` slot 2) ❓	—	sub_7F3220	func-other-name
+0x55fca0	14-ui.md	§1.5	Add a widget receiver	`EventTransmitter<…>::AddReceiver`	same	EventTransmitter<uint,EUiEvent,EngineEventHandler,void (*)(EngineEventHandler *,EUiEvent *)>::AddReceiver(uint,EngineEve	name-ok
+0x83c780	14-ui.md	§1.7	Context menu commands	`UIContextCommandHandler::ProcessUICommand`	same	UIContextCommandHandler::ProcessUICommand(COMMAND_CONTEXT_MENU::UICommand const *)	name-ok
+0x762110	14-ui.md	§1.7	Default command for an icon	`UIUtil::GetDefaultUICommand`	same	UIUtil::GetDefaultUICommand(UICommandOwner *,UICommandParam *,char)	name-ok
+0x401ec0	14-ui.md	§2.2	Show a system message by alias	`World::InvokeGameMessage(wchar_t const *, __int64)`	same	World::InvokeGameMessage(wchar_t const *,__int64)	name-ok
+0x72bae0	14-ui.md	§2.2	Variadic message (core)	`World::invokeGameMessage(wchar_t const *, …)`	same	World::invokeGameMessage(wchar_t const *,...)	name-ok
+0x747980	14-ui.md	§2.2	Route message by UI type	`World::InvokeGameMessageForArgs`	same	World::InvokeGameMessageForArgs(unsigned __int64,char *)	name-ok
+0x7469b0	14-ui.md	§2.2	Message in the world UI (fields of the record)	`World::invokeGameMessageWorld`	same	World::invokeGameMessageWorld(unsigned __int64,char *)	name-ok
+0x746430	14-ui.md	§2.2	Push a line to the message history	`World::AddInstantNotification`	same	World::AddInstantNotification(wchar_t const *,wchar_t const *,wchar_t const *,char,bool,bool,bool,bool,char,wchar_t cons	name-ok
+0xfe7300	14-ui.md	§2.3	Central net → message handler	`GameMessageHandler::ProcessNetObjectEvent` (vtable `0x1574230`)	same	GameMessageHandler::ProcessNetObjectEvent(StructPacket const *)	func-other-name
+0xb5b840	14-ui.md	§2.4	Item / grocery error code → text	`BPlayer::InvokeFailMessage`	same	BPlayer::InvokeFailMessage(StructPacket const *)	name-ok
+0xc4b380	14-ui.md	§2.4	Party error code → text	`BParty::InvokePartyErrorMessage`	same	BParty::InvokePartyErrorMessage(BParty::PartyCheckErr,int)	name-ok
+0x8a5710	14-ui.md	§2.4	Team error code → text	`BTeam::InvokeTeamErrorMessage`	same	BTeam::InvokeTeamErrorMessage(BTeam::TeamCheckErr)	name-ok
+-	14-ui.md	§2.6	Start error text (`SystemText.ini`)	`ClientSystemText`	same		no-address
+0x712bc0	14-ui.md	[07-combat](07-combat.md) §4.2	Error code → enum name	`L_ERROR_CODE_TO_STRING`	same	L_ERROR_CODE_TO_STRING(int)	name-ok
+0x118ce60	14-ui.md	§3.2	Chat enter key (world)	`ChatInputPanel::processChatFunctionWorldByEnterKey`	same	ChatInputPanel::processChatFunctionWorldByEnterKey(wchar_t const *)	name-ok
+0x116e8f0	14-ui.md	§3.2	Split a typed command	`ChatInputPanel::parseUserCommand`	same	ChatInputPanel::parseUserCommand(bool,std::basic_string<wchar_t,std::char_traits<wchar_t>,std::allocator<wchar_t>>,std::	name-ok
+0x116d580	14-ui.md	§3.2	Find the command word in the table	`ChatInputPanel::findUserCommandType`	same	ChatInputPanel::findUserCommandType(std::basic_string<wchar_t,std::char_traits<wchar_t>,std::allocator<wchar_t>>)	name-ok
+0x1150260	14-ui.md	§3.3	`/dice` command	`ChatInputPanel::processDiceUserCommand`	same	ChatInputPanel::processDiceUserCommand(std::vector<std::basic_string<wchar_t,std::char_traits<wchar_t>,std::allocator<wc	name-ok
+0x1179170	14-ui.md	§3.2, [11-social](11-social.md) §2	Send typed chat	`ChatInputPanel::sendChatMessage` / `sendChatMessageWorld`	same	ChatInputPanel::sendChatMessage(wchar_t const *,char,ChatInputPanel::CHAT_TYPE)	func-other-name
+0x1955858	14-ui.md	§3.1	Mouse button command names	pointer array	—		data
+0x1955c58	14-ui.md	§1.8	Client option definitions (2,774)	table	—	off_1955C58	data
+0x1121e80	14-ui.md	§3.1	Apply mouse button options	`sub_1121E80`	—	sub_1121E80	name-ok
+0x114c6d0	15-engine.md	§1.2	Load engine DLL	`LoadEngine`	—	LoadEngine(void)	name-ok
+0x1a4be5c	15-engine.md	§1.3	Get engine interface	`EInterfaceGetInstance` (import pointer)	`EInterface`	EInterfaceGetInstance	data
+0x1190edc	15-engine.md	§1.4	Start engine main loop	EI slot 0x8 call in `MainFramework`	`EnterEngineFramework`		inside-func
+0x1167630	15-engine.md	§1.4	Read engine events	`BNSClient::Tick`	`GetEEventQueue` (EI+0xd50)	BNSClient::Tick(float)	name-ok
+0x7d9680	15-engine.md	§1.5	Zone load state machine	`UiTransitControl::PostTick`	`Ui::TransitState`	UiTransitControl::PostTick(void)	name-ok
+0x754610	15-engine.md	§1.5	Set transit state	`UiTransitControl::SetTransitState`	—	UiTransitControl::SetTransitState(char)	name-ok
+0x7c1950	15-engine.md	§1.5	Engine event to transit	`UiTransitControl::ProcessEvent`	`EngineEvent::type`	UiTransitControl::ProcessEvent(EngineEvent *)	name-ok
+0x78fed0	15-engine.md	§1.6	Zone id → umap name	`UiTransitControl::loadZoneMap`	`MapFunc_StartMap` (EI+0x14)	UiTransitControl::loadZoneMap(void)	name-ok
+0x7815c0	15-engine.md	§1.7	Tell GameD map is ready	`BUiWorld::RequestEnterZone`	`G_EnterZoneReqCmd` 42	BUiWorld::RequestEnterZone(void)	name-ok
+0xf95091	15-engine.md	§1.8	Sub-level streaming	`EventSubLevel::set`	`LoadSubLevel` (EI+0x38)		inside-func
+-	15-engine.md	§1.8	Partial client check	`BNSClient::IsFullClient`	`GetLevelDownloadInfo` (EI+0x118)		no-address
+0x1129d45	15-engine.md	§1.9	Data directory	`BNSClient::GetDataDirectoryPath`	—		inside-func
+0x82bbe0	15-engine.md	§2	Apply options to engine	`Ui::ApplyEngineConfiguration`	`OptFunc_*` (EI+0x7f0..0x888)	Ui::ApplyEngineConfiguration(void)	name-ok
+0x1120370	15-engine.md	§2	Per-level particle/LOD	`ApplyTestOptimizeOption`	EI+0x168..0x1a4	ApplyTestOptimizeOption(ClientGameOption const *)	name-ok
+0xacf8b0	15-engine.md	§2	Raid NPC cull distance	`BPTNpc::updatePublicRaidFieldCullDistance`	`ObjFunc_SetFixedCullDistance`	BPTNpc::updatePublicRaidFieldCullDistance(void)	name-ok
+0xbf21d0	15-engine.md	§3	Audio device list	`AudioDeviceComboBox::RefreshAudioDeviceList`	EI+0xbe4..	AudioDeviceComboBox::RefreshAudioDeviceList(std::basic_string<wchar_t,std::char_traits<wchar_t>,std::allocator<wchar_t>>	name-ok
+0xf7bff0	15-engine.md	§3	Sound handle	`CreateSoundEngineHandle`	`PlaySoundReturnHandle_2` (EI+0xc34)	CreateSoundEngineHandle(wchar_t const *,float,float,float,float,wchar_t const *,...)	name-ok
+0x6005f0	15-engine.md	§3	Windows mixer	`MixerLib::Control::SetDetails`	—	MixerLib::Control::SetDetails(ulong)	name-ok
+0x712bc0	16-strings-errors.md	§1.2	Error code → name text	`L_ERROR_CODE_TO_STRING` (table `0x194fc30`)	same	L_ERROR_CODE_TO_STRING(int)	func-other-name
+0x10a0110	16-strings-errors.md	§1.1	Start error code → `SystemText.ini` text	`ClientSystemText::SetAdditionalMsg`	same	ClientSystemText::SetAdditionalMsg(std::basic_string<wchar_t,std::char_traits<wchar_t>,std::allocator<wchar_t>>)	name-ok
+0xf44150	16-strings-errors.md	§1.4	Where GameD disconnect reason picks the quit panel	`GameSession::OnError`	same	GameSession::OnError(int,int,int)	name-ok
+0x1157e30	16-strings-errors.md	§1.4	Where LobbyGate / NP lost picks the panel	`sub_1157E30`	❓	sub_1157E30	name-ok
+0x1157db0	16-strings-errors.md	§1.4	Where GameD lost picks the panel	`sub_1157DB0`	❓	sub_1157DB0	name-ok
+0x1129a90	16-strings-errors.md	§1.4	Set quit state + codes	`sub_1129A90` (writes `BNSClient` `+0x74..+0x80`)	❓	sub_1129A90	func-other-name
+0xa1a840	16-strings-errors.md	§1.5	Quit panel text per state	`QuitGameConfirmPanel::Open`	same	QuitGameConfirmPanel::Open(void)	name-ok
+0xa15f20	16-strings-errors.md	§2.1	`end.log` at exit	`QuitGameConfirmPanel::endProgress`	same	QuitGameConfirmPanel::endProgress(void)	name-ok
+0x520c60	16-strings-errors.md	§1.5	WSA error shown on the panel	`BNSClient::GetDisconnectWSALastError`	same	BNSClient::GetDisconnectWSALastError(void)	name-ok
+0x10dcd50	16-strings-errors.md	§2.3	Client log line → GameD	`ClientLog::WriteV` → `ClientLog::Flush`	same	ClientLog::WriteV(wchar_t const *,int,int,int,__int64,bool,wchar_t const *,char *)	func-other-name
+0x1167300	16-strings-errors.md	§2.4	Execution log POST	`ClientExecutionLog::SendPostArguments`	same	ClientExecutionLog::SendPostArguments(void *)	name-ok
+0x10e8df0	16-strings-errors.md	§2.4	User log POST	`ClientUserLog::SendPostArguments`	same	ClientUserLog::SendPostArguments(void *)	name-ok
+0x96bcf0	16-strings-errors.md	§2.1	Skill trace file	`SkillTracer::Report`	same	SkillTracer::Report(wchar_t const *,int)	name-ok
+0x876ed0	16-strings-errors.md	§2.1	Latency log file	`TaskSession::InitializeLatencyLogModule`	same	TaskSession::InitializeLatencyLogModule(void)	name-ok
+0x5d0da0	16-strings-errors.md	§2.2	Generic log file object	`LogFile` ctor (IDA name `PvpResultDeadProperty::PvpResultDeadProperty` is false)	❓	PvpResultDeadProperty::PvpResultDeadProperty(void)	func-other-name
+0x119104f	16-strings-errors.md	§2.6	Crash filter	`WinMain` `__except` → `EInterfaceErrorReport`	same	loc_119104F	inside-func
+0xea2148	16-strings-errors.md	§2.5	WinINet wrapper	`HTTPClient::connect`	same		inside-func
+0x19dde64	16-strings-errors.md	§2.7	Rule-config option table	first entry `region`	—		data
