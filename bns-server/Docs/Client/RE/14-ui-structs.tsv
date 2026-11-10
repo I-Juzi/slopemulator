@@ -1,0 +1,322 @@
+struct	struct_size	offset	offset_hex	size	field	type_381_til
+Ui	128	0	0x0	4		NetWorldEventHandler
+Ui	128	4	0x4	4		EngineEventHandler
+Ui	128	8	0x8	4	_uiProxy	BUIProxy *
+Ui	128	12	0xc	4	_activatedUi	BUiBase *
+Ui	128	16	0x10	36	_uiList	BUiBase *[9]
+Ui	128	52	0x34	4	_uiWorldCache	BUiWorld *
+Ui	128	56	0x38	4	_uiArenaLobbyCache	BUiArenaLobby *
+Ui	128	60	0x3c	4	_transitControl	UiTransitControl *
+Ui	128	64	0x40	1	_exit	bool
+Ui	128	65	0x41	1	_enterWorld	bool
+Ui	128	66	0x42	1	_applyClientEngineConfiguration	bool
+Ui	128	72	0x48	8	_leaveSocialId	__int64
+Ui	128	80	0x50	8	_leaveCinemaId	__int64
+Ui	128	88	0x58	8	_enterCinemaId	__int64
+Ui	128	96	0x60	4	_tpsUIModeRefCount	int
+Ui	128	100	0x64	1	_clientFocusLost	bool
+Ui	128	101	0x65	1	_mousePointerGoesOutside	bool
+Ui	128	102	0x66	1	_uiModeKeyPressing	bool
+Ui	128	103	0x67	1	_hybridModeKeyPressed	bool
+Ui	128	104	0x68	1	_teleportMode	bool
+Ui	128	105	0x69	1	_talkMode	bool
+Ui	128	106	0x6a	1	_hudCustomizeMode	bool
+Ui	128	107	0x6b	1	_personalCustomizeMode	bool
+Ui	128	108	0x6c	4	_TPSInnerMode	EngineTPSInnerMode
+Ui	128	112	0x70	1	_isForcedHybridMode	bool
+Ui	128	113	0x71	1	_reserveEnterWorldProccess	bool
+Ui	128	116	0x74	4	_screenshotCount	int
+Ui	128	120	0x78	1	_characterScreenshotMode	bool
+BUiBase	16	0	0x0	4		EngineEventHandler
+BUiBase	16	4	0x4	4	_uiType	BUiBase::UI_TYPE
+BUiBase	16	8	0x8	4	_uiWidgetId	unsigned int
+BUiBase	16	12	0xc	1	_attachAndShow	bool
+BUiWorld	743296	0	0x0	16		BUiBase
+BUiWorld	743296	16	0x10	4		NetWorldEventHandler
+BUiWorld	743296	20	0x14	4		NetObjectEventHandler
+BUiWorld	743296	24	0x18	4		PlayerControlEventHandler
+BUiWorld	743296	28	0x1c	4		NetNPEventHandler
+BUiWorld	743296	32	0x20	4		NetArenaEventHandler
+BUiWorld	743296	36	0x24	4		NetInfoGateEventHandler
+BUiWorld	743296	40	0x28	4		NotificationEventHandler
+BUiWorld	743296	44	0x2c	4		ClientEventHandler
+BUiWorld	743296	48	0x30	4		UICommandOwner
+BUiWorld	743296	52	0x34	8		BuilderCommandHandler
+BUiWorld	743296	60	0x3c	32		DebugCommandHandler
+BUiWorld	743296	92	0x5c	1	_testModeEnableAttendance	bool
+BUiWorld	743296	93	0x5d	1	_debugScreenShot	bool
+BUiWorld	743296	96	0x60	1808	_widgetValues	BUiWorld::WidgetValues
+BUiWorld	743296	1904	0x770	4	_instantNotificationPanel	InstantNotificationPanel *
+BUiWorld	743296	1908	0x774	4	_godsayNotificationPanel	InstantNotificationPanel *
+BUiWorld	743296	1912	0x778	4	_headlineFxPanel	HeadlineFxPanel *
+BUiWorld	743296	1916	0x77c	4	_warningNotificationPanel	WarningNotificationPanel *
+BUiWorld	743296	1920	0x780	156	_areaNotificationPanel	AreaNotificationPanel
+BUiWorld	743296	2076	0x81c	4	_faticueNotificationPanel	FatigueNotificationPanel *
+BUiWorld	743296	2080	0x820	4	_questGuideNotificationPanel	QuestGuideNotificationPanel *
+BUiWorld	743296	2084	0x824	4	_achievementNotifationPanel	AchievementNotificationPanel *
+BUiWorld	743296	2088	0x828	272	_quitGameConfirmPanel	QuitGameConfirmPanel
+BUiWorld	743296	2360	0x938	184	_hudCustomizeConfirmPanel	HudCustomizeConfirmPanel
+BUiWorld	743296	2544	0x9f0	148	_systemProgressConfirmPanel	SystemProgressConfirmPanel
+BUiWorld	743296	2692	0xa84	4	_inventoryFunctionConfirmPanel	InventoryFunctionConfirmPanel *
+BUiWorld	743296	2696	0xa88	4	_attractionQuestWarningConfirmPanel	AttractionQuestWarningConfirmPanel *
+BUiWorld	743296	2704	0xa90	13560	_playReportPanel	PlayReportPanel
+BUiWorld	743296	16264	0x3f88	312	_chatHistoryContextPanel	ChatHistoryContextMenuPanel
+BUiWorld	743296	16576	0x40c0	4	_contextMenuPanel	ContextMenuPanel *
+BUiWorld	743296	16580	0x40c4	4	_uiContextCommandPanel	UIContextCommandPanel *
+BUiWorld	743296	16584	0x40c8	4	_etcContextCommandMenuPanel	EtcContextCommandMenuPanel *
+BUiWorld	743296	16592	0x40d0	248	_itemQuantityConfirmPanel	ItemQuantityConfirmPanel
+BUiWorld	743296	16840	0x41c8	1512	_productionQuickReceiveConfirmPanel	ProductionQuickReceiveConfirmPanel
+BUiWorld	743296	18352	0x47b0	132	_tooltipPanel	TooltipPanel
+BUiWorld	743296	18484	0x4834	132	_balloonTooltipPanel	TooltipPanel
+BUiWorld	743296	18616	0x48b8	132	_contextMenuTooltipPanel	TooltipPanel
+BUiWorld	743296	18748	0x493c	4	_itemTooltipPanel	ItemTooltipPanel *
+BUiWorld	743296	18752	0x4940	4	_itemTooltipPanel_Sub_1	ItemTooltipPanel *
+BUiWorld	743296	18756	0x4944	4	_npcTooltipPanel	NpcTooltipPanel *
+BUiWorld	743296	18760	0x4948	4	_pcTooltipPanel	PcTooltipPanel *
+BUiWorld	743296	18768	0x4950	45888	_partyTooltipPanel	PartyToolTipPanel
+BUiWorld	743296	64656	0xfc90	192	_envObjectTooltipPanel	EnvObjectTooltipPanel
+BUiWorld	743296	64848	0xfd50	1512	_refinerEnvTooltipPanel	RefinerEnvTooltipPanel
+BUiWorld	743296	66360	0x10338	144	_fieldItemTooltipPanel	FieldItemTooltipPanel
+BUiWorld	743296	66504	0x103c8	144	_fieldItemActionTooltipPanel	FieldItemTooltipPanel
+BUiWorld	743296	66648	0x10458	144	_fieldItemDropActionTooltipPanel	FieldItemTooltipPanel
+BUiWorld	743296	66792	0x104e8	4	_fieldItemSkillTooltipPanel	SkillTooltipPanel *
+BUiWorld	743296	66796	0x104ec	4	_skillTooltipPanel_1	SkillTooltipPanel *
+BUiWorld	743296	66800	0x104f0	4	_skillTooltipPanel_2	SkillTooltipPanel *
+BUiWorld	743296	66804	0x104f4	4	_skillTrainSimpleContextFlowTooltipPanel	SkillTrainSimpleContextFlowTooltipPanel *
+BUiWorld	743296	66808	0x104f8	4	_skillSimpleControlInfoTooltipPanel	SkillSimpleControlInfoTooltipPanel *
+BUiWorld	743296	66812	0x104fc	4	_skillSystematizationGroupTooltipPanel	SkillSystematizationGroupTooltipPanel *
+BUiWorld	743296	66816	0x10500	160	_effectTooltipPanel	EffectTooltipPanel
+BUiWorld	743296	66976	0x105a0	128	_repairCostTooltipPanel	RepairCostTooltipPanel
+BUiWorld	743296	67104	0x10620	256	_itemDurabilityTooltipPanel	ItemDurabilityTooltipPanel
+BUiWorld	743296	67360	0x10720	136	_ItemPouchTooltipPanel	ItemPouchTooltipPanel
+BUiWorld	743296	67496	0x107a8	168	_questLootingTooltipPanel	QuestLootingTooltipPanel
+BUiWorld	743296	67664	0x10850	140	_teleportTooltipPanel	TeleportTooltipPanel
+BUiWorld	743296	67804	0x108dc	148	_guildMemberTooltipPanel	GuildMemberTooltipPanel
+BUiWorld	743296	67952	0x10970	144	_guildMemberTooltipPanel2	GuildMemberTooltipPanel2
+BUiWorld	743296	68096	0x10a00	136	_partySearchRecruitTooltipPanel	PartySearchRecruitTooltipPanel
+BUiWorld	743296	68232	0x10a88	140	_guildSearchRecruitTooltipPanel	GuildSearchRecruitTooltipPanel
+BUiWorld	743296	68376	0x10b18	21688	_randomStore2nd5PlusListTooltipPanel	RandomStore2nd5PlusListTooltipPanel
+BUiWorld	743296	90064	0x15fd0	4	_itemBrandTooltipPanel	ItemBrandTooltipPanel *
+BUiWorld	743296	90068	0x15fd4	4	_expandInventoryTooltipPanel	ExpandInventoryTooltipPanel *
+BUiWorld	743296	90072	0x15fd8	4	_raidDungeonUnbindCostToolTipPanel	RaidDungeonUnbindCostToolTipPanel *
+BUiWorld	743296	90076	0x15fdc	4	_goodsTooltipPanel	GoodsTooltipPanel *
+BUiWorld	743296	90080	0x15fe0	4	_guildCustomizeTooltipPanel	GuildCustomizeTooltipPanel *
+BUiWorld	743296	90084	0x15fe4	4	_personalCustomizeTooltipPanel	PersonalCustomizeTooltipPanel *
+BUiWorld	743296	90088	0x15fe8	4	_itemTransformResultTooltipPanel	ItemTransformResultTooltipPanel *
+BUiWorld	743296	90092	0x15fec	4	_itemGrowthAwakenTooltipPanel	ItemGrowthAwakenTooltipPanel *
+BUiWorld	743296	90096	0x15ff0	4	_ingameShopGoodsTooltipPanel	IngameShopGoodsTooltipPanel *
+BUiWorld	743296	90100	0x15ff4	4	_latencyInfoPanel	LatencyInfoPanel *
+BUiWorld	743296	90104	0x15ff8	4	_slateInfoTooltipPanel	SlateInfoTooltipPanel *
+BUiWorld	743296	90108	0x15ffc	4	_stoneInfoTooltipPanel	StoneInfoTooltipPanel *
+BUiWorld	743296	90112	0x16000	4	_energyPointTooltipPanel	EnergyPointTooltipPanel *
+BUiWorld	743296	90116	0x16004	4	_energyPointMultipleTooltipPanel	EnergyPointMultipleTooltipPanel *
+BUiWorld	743296	90120	0x16008	4	_energyPointRewardTooltipPanel	EnergyPointRewardTooltipPanel *
+BUiWorld	743296	90124	0x1600c	136	_expTooltipPanel	ExpTooltipPanel
+BUiWorld	743296	90264	0x16098	2784	_stylepointTooltipPanel	StylePointTooltipPanel
+BUiWorld	743296	93048	0x16b78	2784	_stylepointNotificationPanel	StylePointNotificationPanel
+BUiWorld	743296	95832	0x17658	4	_achievementTooltipPanel	AchievementTooltipPanel *
+BUiWorld	743296	95836	0x1765c	4	_imeLanguageStatePanel	ImeLanguageStatePanel *
+BUiWorld	743296	95840	0x17660	4	_attractionMapUnitTooltipPanel	AttractionMapUnitTooltipPanel *
+BUiWorld	743296	95844	0x17664	4	_damageMeterTooltipPanel	DamageMeterTooltipPanel *
+BUiWorld	743296	95848	0x17668	4	_recipeTooltipPanel	RecipeTooltipPanel *
+BUiWorld	743296	95852	0x1766c	4	_itemGraphVariationToolTipPanel	ItemGraphVariationToolTipPanel *
+BUiWorld	743296	95856	0x17670	4	_materialDiscountListTooltipPanel	MaterialDiscountListTooltipPanel *
+BUiWorld	743296	95860	0x17674	4	_publicRaidInfoTooltipPanel	PublicRaidInfoTooltipPanel *
+BUiWorld	743296	95864	0x17678	4	_skillSkinApplyConditionTooltipPanel	SkillSkinApplyConditionTooltipPanel *
+BUiWorld	743296	95868	0x1767c	300	_challengePartyMemberInfoTooltipPanel	ChallengePartyMemberInfoTooltipPanel
+BUiWorld	743296	96168	0x177a8	4	_accountContentsGradeTooltipPanel	BAccountContentsGradeTooltipPanel *
+BUiWorld	743296	96172	0x177ac	4	_choiceRewardSelectConfirmPanel	ChoiceRewardSelectConfirmPanel *
+BUiWorld	743296	96176	0x177b0	4	_choiceRewardConfirmPanel	ChoiceRewardConfirmPanel *
+BUiWorld	743296	96180	0x177b4	4	BonusRewardTooltipPanel	BBonusRewardTooltipPanel *
+BUiWorld	743296	96184	0x177b8	4	BonusRewardItemTooltipPanel	BBonusRewardItemTooltipPanel *
+BUiWorld	743296	96188	0x177bc	4	MuseumCardTooltipPanel	BMuseumCardTooltipPanel *
+BUiWorld	743296	96192	0x177c0	4	SoulBoostPointTooltipPanel	BSoulBoostPointTooltipPanel *
+BUiWorld	743296	96200	0x177c8	15648	_commonContents	UiCommonContents
+BUiWorld	743296	111848	0x1b4e8	500920	_gameState	UiStateGame
+BUiWorld	743296	612768	0x959a0	108680	_talkState	UiStateTalk
+BUiWorld	743296	721448	0xb0228	32	_csaState	UiStateCSA
+BUiWorld	743296	721480	0xb0248	40	_socialState	UiStateSocial
+BUiWorld	743296	721520	0xb0270	688	_cinemaState	UiStateCinema
+BUiWorld	743296	722208	0xb0520	20648	_personalCustomizeState	UiStatePersonalCustomize
+BUiWorld	743296	742856	0xb55c8	4	_curState	UiWorldState *
+BUiWorld	743296	742860	0xb55cc	1	_activated	bool
+BUiWorld	743296	742864	0xb55d0	32	_clipBoard	UIClipBoard
+BUiWorld	743296	742896	0xb55f0	40	_gameMessageHandler	GameMessageHandler
+BUiWorld	743296	742936	0xb5618	4	_lastHotkeyPressedKey	int
+BUiWorld	743296	742940	0xb561c	1	_lastHotkeyPressedShift	bool
+BUiWorld	743296	742941	0xb561d	1	_lastHotkeyPressedCtrl	bool
+BUiWorld	743296	742944	0xb5620	32	_pendingKey	BInputKey
+BUiWorld	743296	742976	0xb5640	16	_pendingKeyTickTimer	PreciseTimer
+BUiWorld	743296	742992	0xb5650	12	_pressedAutoRepeatSkillKeyList	BPressedKeyList
+BUiWorld	743296	743008	0xb5660	16	_pressedAutoRepeatSkillKeyTickTimer	PreciseTimer
+BUiWorld	743296	743024	0xb5670	1	_waitMainSkillFinished	bool
+BUiWorld	743296	743028	0xb5674	12	_pressedChargeSkillKeyList	BPressedKeyList
+BUiWorld	743296	743040	0xb5680	16	_pressedChargeSkillKeyTickTimer	PreciseTimer
+BUiWorld	743296	743056	0xb5690	4	_clickedChargeSkillSlotKeyCommand	Data::KeyCommandCommandType
+BUiWorld	743296	743060	0xb5694	12	_pressedSkillCombinableKeyList	BPressedKeyList
+BUiWorld	743296	743072	0xb56a0	12	_pressedMoveKeyList	BPressedKeyList
+BUiWorld	743296	743084	0xb56ac	1	_quitGameWaitingMode	bool
+BUiWorld	743296	743085	0xb56ad	1	_jumpingLevelMode	bool
+BUiWorld	743296	743086	0xb56ae	1	_showTooltipByTargeting	bool
+BUiWorld	743296	743088	0xb56b0	8	_attackTargetId	unsigned __int64
+BUiWorld	743296	743096	0xb56b8	8	_actionTargetId	unsigned __int64
+BUiWorld	743296	743104	0xb56c0	8	_contextCommandTargetId	unsigned __int64
+BUiWorld	743296	743112	0xb56c8	1	_contextCommandTargetType	char
+BUiWorld	743296	743120	0xb56d0	8	_activatedPickingObjectId	unsigned __int64
+BUiWorld	743296	743128	0xb56d8	4	_contextCommandAttachParent	unsigned int
+BUiWorld	743296	743136	0xb56e0	40	_dragObject	DragObjectInfo
+BUiWorld	743296	743176	0xb5708	4	_kismetType	BUiWorld::KismetType
+BUiWorld	743296	743180	0xb570c	12	_currentTooltip	UIPanel *[3]
+BUiWorld	743296	743192	0xb5718	4	_hudVisibleType	BUiWorld::HudVisibleType
+BUiWorld	743296	743196	0xb571c	1	_isKeyConfigMode	bool
+BUiWorld	743296	743200	0xb5720	4	_blockZoomCount	int
+BUiWorld	743296	743204	0xb5724	1	_isHudCustomizeMode	bool
+BUiWorld	743296	743205	0xb5725	1	_reserveExpBoostAlart	bool
+BUiWorld	743296	743208	0xb5728	12	_reservedFunctionList	std::list<BUiWorld::ReservedFunction>
+BUiWorld	743296	743220	0xb5734	1	_checkReservedNextTick	bool
+BUiWorld	743296	743221	0xb5735	1	_headlineMessagePending	char
+BUiWorld	743296	743222	0xb5736	1	_fxMessagePending	char
+BUiWorld	743296	743223	0xb5737	1	_chatMessagePending	char
+BUiWorld	743296	743224	0xb5738	1	_achievementNotifyPending	char
+BUiWorld	743296	743228	0xb573c	4	_tooltipWidgetId	unsigned int
+BUiWorld	743296	743232	0xb5740	4	_openPopupWidgetId	unsigned int
+BUiWorld	743296	743236	0xb5744	1	_reserveRemovePopupWidgetId	bool
+BUiWorld	743296	743237	0xb5745	1	_cancelReserveRemovePopupWidgetId	bool
+BUiWorld	743296	743238	0xb5746	1	_reserveUpdateAttendancePromotion	bool
+BUiWorld	743296	743240	0xb5748	8	_reserved_start_npctalk_target_id	__int64
+BUiWorld	743296	743248	0xb5750	1	_reserved_start_npctalk_lock_camera	bool
+BUiWorld	743296	743252	0xb5754	4	_transitState	int
+BUiWorld	743296	743256	0xb5758	4	_webBrowserIEHandler	WebBrowserIEHandler *
+BUiWorld	743296	743264	0xb5760	16	_guildCallAreaExpireTimer	PreciseTimer
+BUiWorld	743296	743280	0xb5770	1	_isEnableGuildCallAreaExpireTimer	bool
+BUiWorld	743296	743284	0xb5774	4	_currentTPSInnerMode	EngineTPSInnerMode
+BUiWorld	743296	743288	0xb5778	4	_currentEnterWorldProgressFunction	BUiWorld::EnterWorldProgressFunctionType
+UIPanel	120	0	0x0	4		EngineEventHandler
+UIPanel	120	4	0x4	4	_panelId	unsigned int
+UIPanel	120	8	0x8	28	_panelName	std::wstring
+UIPanel	120	36	0x24	16	_widgetEventList	std::vector<WidgetEventHandler *>
+UIPanel	120	52	0x34	4	_panelEventHandler	PanelEventHandler *
+UIPanel	120	56	0x38	4	_panelVisibleState	UIPanel::PANEL_VISIBLE_STATE
+UIPanel	120	60	0x3c	1	_activated	bool
+UIPanel	120	61	0x3d	1	_customizeMode	bool
+UIPanel	120	62	0x3e	1	_isWebPanel	bool
+UIPanel	120	63	0x3f	1	_hasMeshWidget	bool
+UIPanel	120	64	0x40	28	_panelLog	std::string
+UIPanel	120	92	0x5c	1	_isForceShowUpdateText	bool
+UIPanel	120	96	0x60	12	WidgetHandlerMap	TMap<unsigned int,TMulticastDelegate<Typelist<EUiEvent *,NullType> > >
+UIPanel	120	108	0x6c	12	WidgetEventHandlerMap	TMap<TTuple<unsigned int,enum EventType>,TMulticastDelegate<Typelist<EUiEvent *,
+EUiEvent	44	0	0x0	16		EngineEvent
+EUiEvent	44	16	0x10	4	_instanceid	unsigned int
+EUiEvent	44	20	0x14	4	_eventtype	EventType
+EUiEvent	44	24	0x18	4	_eventstate	EventState
+EUiEvent	44	28	0x1c	4	_param1	int
+EUiEvent	44	32	0x20	4	_param2	int
+EUiEvent	44	36	0x24	4	_param3	int
+EUiEvent	44	40	0x28	4	_param4	int
+EngineEvent	16	0	0x0	4	__vftable	EngineEvent_vtbl *
+EngineEvent	16	4	0x4	4	_next	EngineEvent *
+EngineEvent	16	8	0x8	8	_etime	__int64
+Data::GameMessageRecord	108	0	0x0	6		DrEl
+Data::GameMessageRecord	108	8	0x8	8	key	Data::GameMessageRecord::Key
+Data::GameMessageRecord	108	16	0x10	4	alias	wchar_t *
+Data::GameMessageRecord	108	20	0x14	1	category	char
+Data::GameMessageRecord	108	24	0x18	8	text	unsigned __int64
+Data::GameMessageRecord	108	32	0x20	1	chatting	bool
+Data::GameMessageRecord	108	36	0x24	4	chatting_fontset	wchar_t *
+Data::GameMessageRecord	108	40	0x28	1	headline2	bool
+Data::GameMessageRecord	108	44	0x2c	4	headline2_fontset	wchar_t *
+Data::GameMessageRecord	108	48	0x30	8	headline_text	unsigned __int64
+Data::GameMessageRecord	108	56	0x38	4	headline_fontset	wchar_t *
+Data::GameMessageRecord	108	60	0x3c	4	headline_particle	wchar_t *
+Data::GameMessageRecord	108	64	0x40	8	boss_headline_text	unsigned __int64
+Data::GameMessageRecord	108	72	0x48	4	boss_headline_fontset	wchar_t *
+Data::GameMessageRecord	108	76	0x4c	1	sound_track	char
+Data::GameMessageRecord	108	77	0x4d	1	stop_previous_track_sound	bool
+Data::GameMessageRecord	108	78	0x4e	1	duplication_check	bool
+Data::GameMessageRecord	108	80	0x50	4	sound	wchar_t *
+Data::GameMessageRecord	108	84	0x54	1	sound_type	char
+Data::GameMessageRecord	108	88	0x58	4	sound2	wchar_t *
+Data::GameMessageRecord	108	92	0x5c	1	sound2_type	char
+Data::GameMessageRecord	108	93	0x5d	1	guild_battle_type	char
+Data::GameMessageRecord	108	96	0x60	8	guild_battle_text	unsigned __int64
+Data::GameMessageRecord	108	104	0x68	1	ghost_mode_type	char
+Data::UserCommandRecord	24	0	0x0	6		DrEl
+Data::UserCommandRecord	24	8	0x8	8	key	Data::UserCommandRecord::Key
+Data::UserCommandRecord	24	16	0x10	8	text	unsigned __int64
+Data::UserCommandRecordCommand	28	0	0x0	24		Data::UserCommandRecord
+Data::UserCommandRecordCommand	28	24	0x18	1	command	char
+Data::UserCommandRecordSocial	44	0	0x0	24		Data::UserCommandRecord
+Data::UserCommandRecordSocial	44	24	0x18	1	social_type	char
+Data::UserCommandRecordSocial	44	28	0x1c	8	talk_social	unsigned __int64
+Data::UserCommandRecordSocial	44	36	0x24	8	state_social	unsigned __int64
+Data::UserCommandRecordEmoticon	32	0	0x0	24		Data::UserCommandRecord
+Data::UserCommandRecordEmoticon	32	24	0x18	8	emoticon	unsigned __int64
+Data::UserCommandRecordSystemSocial	36	0	0x0	24		Data::UserCommandRecord
+Data::UserCommandRecordSystemSocial	36	24	0x18	1	system_social_type	char
+Data::UserCommandRecordSystemSocial	36	28	0x1c	8	talk_social	unsigned __int64
+ClientSystemText	136	0	0x0	28	_fileName	std::wstring
+ClientSystemText	136	28	0x1c	28	_appName	std::wstring
+ClientSystemText	136	56	0x38	1	_existTextFile	bool
+ClientSystemText	136	60	0x3c	4	_lastError	unsigned int
+ClientSystemText	136	64	0x40	4	_curSystemTextCode	unsigned int
+ClientSystemText	136	68	0x44	28	_customMessage	std::wstring
+ClientSystemText	136	96	0x60	28	_additionalMessage	std::wstring
+ClientSystemText	136	124	0x7c	12	_systemTextList	std::map<unsigned int,std::wstring>
+UICommandParam	88	0	0x0	8	invenPos	__int64
+UICommandParam	88	8	0x8	8	targetId	unsigned __int64
+UICommandParam	88	16	0x10	28	targetName	std::wstring
+UICommandParam	88	44	0x2c	1	targetState	char
+UICommandParam	88	48	0x30	8	dataId	unsigned __int64
+UICommandParam	88	56	0x38	2	dataTableType	__int16
+UICommandParam	88	60	0x3c	28	dataParam	std::wstring
+COMMAND_CONTEXT_MENU::UICommand	8	0	0x0	4	slotType	COMMAND_CONTEXT_MENU::SlotType
+COMMAND_CONTEXT_MENU::UICommand	8	4	0x4	1	ui_command	char
+COMMAND_CONTEXT_MENU::UICommand	8	5	0x5	1	isEnable	bool
+GameMessageHistory::GameMessage	116	0	0x0	28	_formated_text	std::wstring
+GameMessageHistory::GameMessage	116	28	0x1c	28	_particleRef	std::wstring
+GameMessageHistory::GameMessage	116	56	0x38	28	_sound	std::wstring
+GameMessageHistory::GameMessage	116	84	0x54	28	_sound2	std::wstring
+GameMessageHistory::GameMessage	116	112	0x70	1	_soundTrackType	char
+GameMessageHistory::GameMessage	116	113	0x71	1	_stopPreviousSound	bool
+GameMessageHistory::GameMessage	116	114	0x72	1	_category	char
+GameMessageHistory	2328	0	0x0	2320	_buffer	GameMessageHistory::GameMessage[20]
+GameMessageHistory	2328	2320	0x910	4	_buffer_bottom	int
+GameMessageHistory	2328	2324	0x914	4	_buffer_top	int
+GameMessageHandler	40	0	0x0	4		NetObjectEventHandler
+GameMessageHandler	40	4	0x4	4	_currentLevel	int
+GameMessageHandler	40	8	0x8	4	_currentMasteryLevel	int
+GameMessageHandler	40	12	0xc	4	_currentExp	int
+GameMessageHandler	40	16	0x10	8	_currentMasteryExp	__int64
+GameMessageHandler	40	24	0x18	8	_currentMoney	__int64
+GameMessageHandler	40	32	0x20	2	_currentSkillBuildUpPoint	__int16
+ChatInputPanel	520	0	0x0	120		UIPanel
+ChatInputPanel	520	120	0x78	4		PcNameSelectHandler
+ChatInputPanel	520	124	0x7c	8		ModalOwner
+ChatInputPanel	520	132	0x84	4	_uiType	ChatInputPanel::UIType
+ChatInputPanel	520	136	0x88	12	_chatFunctionList	std::map<std::wstring,int>
+ChatInputPanel	520	148	0x94	4	_chattingHolder	unsigned int
+ChatInputPanel	520	152	0x98	4	_channelName	unsigned int
+ChatInputPanel	520	156	0x9c	4	_editBox	unsigned int
+ChatInputPanel	520	160	0xa0	4	_toggleIME	unsigned int
+ChatInputPanel	520	164	0xa4	4	_toggleContext	unsigned int
+ChatInputPanel	520	168	0xa8	4	_resizeDummyLeft	unsigned int
+ChatInputPanel	520	172	0xac	4	_resizeDummyRight	unsigned int
+ChatInputPanel	520	176	0xb0	4	_leftLengthInfo	unsigned int
+ChatInputPanel	520	180	0xb4	4	_toggleEmoticon	unsigned int
+ChatInputPanel	520	184	0xb8	4	_imeState	ImeState
+ChatInputPanel	520	188	0xbc	4	_parentChatView	ChatView *
+ChatInputPanel	520	192	0xc0	192	_papering	ChatInputPanel::Papering[2]
+ChatInputPanel	520	384	0x180	28	_reservedPartySearchMsg	std::wstring
+ChatInputPanel	520	412	0x19c	28	_reservedGuildSearchMsg	std::wstring
+ChatInputPanel	520	440	0x1b8	4	_pcNameSelectControl	NameSelectControl *
+ChatInputPanel	520	444	0x1bc	4	_nameInputModeStartQuotIndex	int
+ChatInputPanel	520	448	0x1c0	4	_chatContextPanel	ChatContextPanel *
+ChatInputPanel	520	452	0x1c4	4	_megaphoneConfirmPanel	MegaphoneMessageConfirmPanel *
+ChatInputPanel	520	456	0x1c8	4	_currentPanelScale	float
+ChatInputPanel	520	460	0x1cc	1	_isVisibleWhisperChatGuide	bool
+ChatInputPanel	520	464	0x1d0	4	_currentInputHistoryPrevDepth	int
+ChatInputPanel	520	468	0x1d4	4	_currentWhisperTargetIndex	int
+ChatInputPanel	520	472	0x1d8	28	_reserveSendMegaphoneMessage	std::wstring
+ChatInputPanel	520	500	0x1f4	1	_reserveSendMegaphoneItemRangeType	char
+ChatInputPanel	520	504	0x1f8	8	_reserveSendMegaphoneItemInvenPos	__int64
+ChatInputPanel	520	512	0x200	1	_reserveConfirmParam	char

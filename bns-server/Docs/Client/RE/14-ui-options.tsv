@@ -1,0 +1,2775 @@
+index	entry_address	name	f04_type	f08	f0c	f10_str	f20_str	f24	f28	f2c	f30_id	f34
+0	0x1955c58	light-shaft	2	0	1	0	lightshaft	0	0	1	0x10002	0x31a98
+1	0x1955c90	ao	2	1	1	0	ambientocclusion	0	0	1	0x10003	0x31a9c
+2	0x1955cc8	motion-blur	2	2	1	0	motionblur	0	0	1	0x10004	0x31aa0
+3	0x1955d00	dof	2	3	1	0	depthoffield	0	0	1	0x10005	0x31aac
+4	0x1955d38	dynamic-shadow	2	6	4	0	dynamicshadow	1	0	1	0x10006	0x31ab0
+5	0x1955d70	other-physics	2	7	1	0	enableotherphysics	0	0	1	0x10007	0x31ab4
+6	0x1955da8	foliage	2	8	4	0	foliage	1	0	1	0x10008	0x31ab8
+7	0x1955de0	texture-level	2	9	4	0	texturelevel	1	0	1	0x10009	0x31abc
+8	0x1955e18	static-decal	2	10	1	0	staticdecal	0	0	1	0x1000a	0x31ac0
+9	0x1955e50	effect-view-distance	2	11	4	0	effectviewdistance	1	0	1	0x1000b	0x31acc
+10	0x1955e88	character-view-distance	2	14	4	0	characterviewdistance	1	0	1	0x1000c	0x31ad0
+11	0x1955ec0	bg-view-distance	2	15	4	0	bgviewdistance	1	0	1	0x1000d	0x31ad4
+12	0x1955ef8	shadow-level	2	16	4	0	shadowlevel	1	0	1	0x1000e	0x31ad8
+13	0x1955f30	bloom	2	17	1	0	bloom	0	0	1	0x1000f	0x31adc
+14	0x1955f68	character-view-count	2	18	4	0	characterviewcount	0	0	1	0x10010	0x31ae0
+15	0x1955fa0	background-level	2	19	4	0	backgroundlevel	0	0	1	0x10011	0x31ae4
+16	0x1955fd8	brightness	2	20	3	50		0	0	1	0x12	0x31ae8
+17	0x1956010	refresh-rate	2	21	0	0	refreshrate	0	0	1	0x13	0x31aec
+18	0x1956048	use-refresh-rate	2	22	1	0	userefreshrate	0	0	1	0x10014	0x31b3c
+19	0x1956080	fluid	2	42	1	1	usefluideffect	0	0	1	0x10015	0x31af0
+20	0x19560b8	fx-terrain-check	2	23	1	1	fxterraincheck	0	0	1	0x10016	0x31af4
+21	0x19560f0	3d-vision	2	24	1	0	use3dvision	0	0	0	0x10017	0x31b40
+22	0x1956128	joypad	2	43	1	0	usejoypad	0	0	0	0x10018	0x31b0c
+23	0x1956160	ui-scale	2	30	3	95	uiscale	0	0	0	0x10019	0x31b10
+24	0x1956198	ignore-ui-scale	2	31	1	0	ignoreuiscalebyresolution	0	0	2	0x1a	0x31b14
+25	0x19561d0	music-detail	2	32	0	0	musicdetail	0	0	2	0x1001b	0x31b18
+26	0x1956208	sound-level	2	33	3	100	soundlevel	0	0	2	0x1001c	0x31b1c
+27	0x1956240	bgm-level	2	34	3	0	bgmlevel	0	0	2	0x1001d	0x31b20
+28	0x1956278	effect-sound-level	2	35	3	0	effectsoundlevel	0	0	2	0x1001e	0x31b24
+29	0x19562b0	env-sound-level	2	36	3	0	envsoundlevel	0	0	2	0x1001f	0x31b28
+30	0x19562e8	ui-sound-level	2	37	3	0	uisoundlevel	0	0	2	0x10020	0x31b2c
+31	0x1956320	npc-voice-level	2	38	3	0	npcvoicelevel	0	0	2	0x10021	0x31b34
+32	0x1956358	system-voice-level	2	40	3	0	systemvoicelevel	0	1	1	0x10022	0x31b50
+33	0x1956390	windowed	2	0	1	0	iswindowed	0	1	1	0x10023	0x31b54
+34	0x19563c8	full-windowed	2	1	1	1	isfullwindowed	0	1	1	0x10024	0x31b58
+35	0x1956400	full-screen	2	2	1	0	isfullscreen	0	1	1	0x10025	0x31b5c
+36	0x1956438	resolution	2	3	5	0	resolution67110144means1280x1024	0	1	1	0x10026	0x31b60
+37	0x1956470	use-graphic-quality	2	4	1	1	usegraphicquality	0	1	1	0x10027	0x31b64
+38	0x19564a8	graphic-quality	2	5	4	0	graphicquality	1	1	1	0x10028	0x31b68
+39	0x19564e0	graphic-postprocess	2	6	4	0	graphicpostprocess	1	1	1	0x29	0x31b6c
+40	0x1956518	fixed-frame-rate	2	7	1	0	usefixedframerate	0	1	1	0x1002a	0x31b70
+41	0x1956550	show-fps	2	8	1	0	showfps	0	0	1	0x1002b	0x31af8
+42	0x1956588	vsync	2	25	1	0	verticalsync	0	1	0	0x1002c	0x31b74
+43	0x19565c0	maxZoom	2	9	4	70		0	1	2	0x1002d	0x31d74
+44	0x19565f8	audio-device	5	-1	5	DirectSound Default	audio device	0	1	2	0x1002e	0x31c76
+45	0x1956630	sound-reverb	1	58	1	y	sound reverb on/off	0	1	2	0x1002f	0x31c77
+46	0x1956668	sound-mute	1	59	1	n	sound mute on/off	0	1	0	0x10030	0x31c78
+47	0x19566a0	mouse-invert	1	60	1	n	mouse invert on/off	0	2	3	0x10031	0x31d20
+48	0x19566d8	LBtnCmd	8	8	5	0	bns action mode mouse command	0	2	3	0x10032	0x31d24
+49	0x1956710	MBtnCmd	8	9	5	0	bns action mode mouse command	0	2	3	0x10033	0x31d28
+50	0x1956748	RBtnCmd	8	10	5	0	bns action mode mouse command	0	1	0	0x10034	0x31b94
+51	0x1956780	NonTargetNameplateAlpha	2	17	3	70		0	1	0	0x10035	0x31c6c
+52	0x19567b8	AutoRepeatSkill	1	48	1	y	auto repeat fire skill while key pressed	0	1	0	0x10036	0x31c6d
+53	0x19567f0	LClickMove	1	49	1	y	move character by left button click	0	1	0	0x10037	0x31c6e
+54	0x1956828	LClickInteract	1	50	1	y	interact with object by left button click	0	1	0	0x10038	0x31c6f
+55	0x1956860	AbnormalTargetSensitivity	1	51	1	y	compensation of auto targeting sensitivity for abnormal target	0	1	0	0x39	0x31c70
+56	0x1956898	PushNotificationAll	1	52	1	y	toggle push notification activation	0	1	0	0x1003a	0x31c71
+57	0x19568d0	CloseAllPanelOnEsc	1	53	1	y	close all panels when esc key pressed	0	1	0	0x1003b	0x31c72
+58	0x1956908	ItemIconOutlineByGrade	1	54	1	y	close all panels when esc key pressed	0	1	0	0x3c	0x31c73
+59	0x1956940	SkillCamera	1	55	1	y	toggle skill camera	0	1	0	0x1003d	0x31c74
+60	0x1956978	AutoTargetTooltip	1	56	1	y	use target tooltip	0	2	0	0x1003e	0x31d00
+61	0x19569b0	CtrlMode	2	0	2	0	control mode 0:bns mode, 1:classic mode	0	2	0	0x1003f	0x31d04
+62	0x19569e8	BnsCamSensX	2	1	4	30	bns mode x-axis mouse sensitivity	0	2	0	0x10040	0x31d08
+63	0x1956a20	BnsCamSensY	2	2	4	20	bns mode y-axis mouse sensitivity	0	2	0	0x10041	0x31d0c
+64	0x1956a58	CamSensX	2	3	4	30	classic mode x-axis mouse sensitivity	0	2	0	0x10042	0x31d10
+65	0x1956a90	CamSensY	2	4	4	20	classic mode y-axis mouse sensitivity	0	2	0	0x10043	0x31d1c
+66	0x1956ac8	ATgtSens	2	7	4	1	auto targeting sensitivity	1	1	0	0x10044	0x31b78
+67	0x1956b00	show-partymark-all	2	10	1	0	show party mark all	0	1	0	0x10045	0x31b7c
+68	0x1956b38	show-partymark-except-player	2	11	1	0	show party mark except player	0	1	0	0x10046	0x31b80
+69	0x1956b70	hide-partymark	2	12	1	1	hide party mark	0	1	0	0x47	0x31b84
+70	0x1956ba8	show-partyhud	2	13	1	1	show party hud	0	1	5	0x1004a	0x20f88
+71	0x1956be0	gametip-floating-x	3	-1	0	-1.0	_gametip panel floating x	0	1	5	0x1004b	0x20f8c
+72	0x1956c18	gametip-floating-y	3	-1	0	-1.0	_gametip panel floating y	0	1	5	0x1004c	0x20f90
+73	0x1956c50	inventory-floating-x	3	-1	0	-1.0	inventory panel floating x	0	1	5	0x1004d	0x20f94
+74	0x1956c88	inventory-floating-y	3	-1	0	-1.0	inventory panel floating y	0	1	5	0x10050	0x20f98
+75	0x1956cc0	equip-panel-floating-x	3	-1	0	-1.0	equip panel floating x	0	1	5	0x10051	0x20f9c
+76	0x1956cf8	equip-panel-floating-y	3	-1	0	-1.0	equip panel floating y	0	1	5	0x10052	0x20fa8
+77	0x1956d30	questjournal-panel-floating-x	3	-1	0	-1.0	questjournal panel floating x	0	1	5	0x10053	0x20fac
+78	0x1956d68	questjournal-panel-floating-y	3	-1	0	-1.0	questjournal panel floating y	0	1	5	0x10054	0x20fb0
+79	0x1956da0	option-panel-floating-x	3	-1	0	-1.0	option panel floating x	0	1	5	0x10055	0x20fb4
+80	0x1956dd8	option-panel-floating-y	3	-1	0	-1.0	option panel floating y	0	1	5	0x56	0x20fb8
+81	0x1956e10	skillbook-panel-floating-x	3	-1	0	-1.0	skillbook panel floating x	0	1	5	0x57	0x20fbc
+82	0x1956e48	skillbook-panel-floating-y	3	-1	0	-1.0	skillbook panel floating y	0	1	5	0x10058	0x20fc8
+83	0x1956e80	petition-panel-floating-x	3	-1	0	-1.0	petition panel floating x	0	1	5	0x10059	0x20fcc
+84	0x1956eb8	petition-panel-floating-y	3	-1	0	-1.0	petition panel floating y	0	1	5	0x1005a	0x20fd8
+85	0x1956ef0	inspector-floating-x	3	-1	0	-1.0	skillbook panel floating x	0	1	5	0x1005b	0x20fdc
+86	0x1956f28	inspector-floating-y	3	-1	0	-1.0	skillbook panel floating y	0	1	5	0x1005c	0x20fe0
+87	0x1956f60	delivery2-panel-floating-x	3	-1	0	0.5	skillbook panel floating x	0	1	5	0x1005d	0x20fe4
+88	0x1956f98	delivery2-panel-floating-y	3	-1	0	0.5	skillbook panel floating y	0	1	5	0x5e	0x20fe8
+89	0x1956fd0	delivery-receipt-panel-floating-x	3	-1	0	-1.0	skillbook panel floating x	0	1	5	0x5f	0x20fec
+90	0x1957008	delivery-receipt-panel-floating-x	3	-1	0	-1.0	skillbook panel floating y	0	1	5	0x10060	0x21118
+91	0x1957040	mimimap-panel-resize-ratio-x	3	-1	0	1.0	mimimap panel resize ratio x	0	1	5	0x10061	0x2111c
+92	0x1957078	mimimap-panel-resize-ratio-y	3	-1	0	1.0	mimimap panel resize ratio y	0	1	5	0x10062	0x21120
+93	0x19570b0	mimimap-panel-zoom	2	-1	0	0	mimimap panel zoom	0	1	5	0x10063	0x21124
+94	0x19570e8	mimimap-panel-opacity	3	-1	0	1.0	mimimap panel opacity	0	1	5	0x1006c	0x21128
+95	0x1957120	mimimap-panel-show	1	-1	0	y	mimimappanelshow	0	1	5	0x1006d	0x21198
+96	0x1957158	chat-main-scale-x	3	-1	0	1.0	chatmainscalex	0	1	5	0x1006e	0x211a0
+97	0x1957190	chat-main-ref-history	2	-1	0	-1		0	1	5	0x1006f	0x2119c
+98	0x19571c8	chat-main-scale-y	3	-1	0	1.0	chatmainscaley	0	1	5	0x10070	0x211ac
+99	0x1957200	chat-1-resize-ratio-x	3	-1	0	1.0		0	1	5	0x10071	0x211b0
+100	0x1957238	chat-1-resize-ratio-y	3	-1	0	1.0		0	1	5	0x10072	0x211a4
+101	0x1957270	chat-1-floating-x	3	-1	0	-1.0		0	1	5	0x10073	0x211a8
+102	0x19572a8	chat-1-floating-y	3	-1	0	-1.0		0	1	5	0x10074	0x211b4
+103	0x19572e0	chat-1-ref-history	2	-1	0	-1		0	1	5	0x10075	0x211c0
+104	0x1957318	chat-2-resize-ratio-x	3	-1	0	1.0		0	1	5	0x10076	0x211c4
+105	0x1957350	chat-2-resize-ratio-y	3	-1	0	1.0		0	1	5	0x10077	0x211b8
+106	0x1957388	chat-2-floating-x	3	-1	0	-1.0		0	1	5	0x10078	0x211bc
+107	0x19573c0	chat-2-floating-y	3	-1	0	-1.0		0	1	5	0x10079	0x211c8
+108	0x19573f8	chat-2-ref-history	2	-1	0	-1		0	1	5	0x1007a	0x211d4
+109	0x1957430	chat-3-resize-ratio-x	3	-1	0	1.0		0	1	5	0x1007b	0x211d8
+110	0x1957468	chat-3-resize-ratio-y	3	-1	0	1.0		0	1	5	0x1007c	0x211cc
+111	0x19574a0	chat-3-floating-x	3	-1	0	-1.0		0	1	5	0x1007d	0x211d0
+112	0x19574d8	chat-3-floating-y	3	-1	0	-1		0	1	5	0x1007e	0x211dc
+113	0x1957510	chat-3-ref-history	2	-1	0	-1		0	1	5	0x1007f	0x211e8
+114	0x1957548	chat-4-resize-ratio-x	3	-1	0	1.0		0	1	5	0x10080	0x211ec
+115	0x1957580	chat-4-resize-ratio-y	3	-1	0	1.0		0	1	5	0x10081	0x211e0
+116	0x19575b8	chat-4-floating-x	3	-1	0	-1.0		0	1	5	0x10082	0x211e4
+117	0x19575f0	chat-4-floating-y	3	-1	0	-1.0		0	1	5	0x10083	0x211f0
+118	0x1957628	chat-4-ref-history	2	-1	0	-1		0	1	5	0x10084	0x211fc
+119	0x1957660	chat-5-resize-ratio-x	3	-1	0	1.0		0	1	5	0x10085	0x21200
+120	0x1957698	chat-5-resize-ratio-y	3	-1	0	1.0		0	1	5	0x10086	0x211f4
+121	0x19576d0	chat-5-floating-x	3	-1	0	-1.0		0	1	5	0x10087	0x211f8
+122	0x1957708	chat-5-floating-y	3	-1	0	-1.0		0	1	5	0x10088	0x21204
+123	0x1957740	chat-5-ref-history	2	-1	0	-1		0	1	5	0x10089	0x21210
+124	0x1957778	chat-6-resize-ratio-x	3	-1	0	1.0		0	1	5	0x1008a	0x21214
+125	0x19577b0	chat-6-resize-ratio-y	3	-1	0	1.0		0	1	5	0x1008b	0x21208
+126	0x19577e8	chat-6-floating-x	3	-1	0	-1.0		0	1	5	0x1008c	0x2120c
+127	0x1957820	chat-6-floating-y	3	-1	0	-1.0		0	1	5	0x1008d	0x21218
+128	0x1957858	chat-6-ref-history	2	-1	0	-1		0	1	5	0x1008e	0x21224
+129	0x1957890	chat-7-resize-ratio-x	3	-1	0	1.0		0	1	5	0x1008f	0x21228
+130	0x19578c8	chat-7-resize-ratio-y	3	-1	0	1.0		0	1	5	0x10090	0x2121c
+131	0x1957900	chat-7-floating-x	3	-1	0	-1.0		0	1	5	0x10091	0x21220
+132	0x1957938	chat-7-floating-y	3	-1	0	-1.0		0	1	5	0x10092	0x2122c
+133	0x1957970	chat-7-ref-history	2	-1	0	-1		0	3	5	0x102ab	0x34320
+134	0x19579a8	item1	2	-1	0	-1	item bar slot 1.	0	3	5	0x102ac	0x34324
+135	0x19579e0	item2	2	-1	0	-1	item bar slot 2.	0	3	5	0x102ad	0x34328
+136	0x1957a18	item3	2	-1	0	-1	item bar slot 3.	0	3	5	0x102ae	0x3432c
+137	0x1957a50	item4	2	-1	0	-1	item bar slot 4.	0	3	5	0x102af	0x34344
+138	0x1957a88	q1	2	-1	0	0	checked quest 1.	0	3	5	0x102b0	0x34348
+139	0x1957ac0	q2	2	-1	0	0	checked quest 2.	0	3	5	0x102b1	0x3434c
+140	0x1957af8	q3	2	-1	0	0	checked quest 3.	0	3	5	0x102b2	0x34350
+141	0x1957b30	q4	2	-1	0	0	checked quest 4.	0	3	5	0x102b3	0x34354
+142	0x1957b68	q5	2	-1	0	0	checked quest 5.	0	3	5	0x102b4	0x34358
+143	0x1957ba0	q6	2	-1	0	0	checked quest 6.	0	3	5	0x102b5	0x3435c
+144	0x1957bd8	q7	2	-1	0	0	checked quest 7.	0	3	5	0x102b6	0x34360
+145	0x1957c10	q8	2	-1	0	0	checked quest 8.	0	3	5	0x102b7	0x34364
+146	0x1957c48	q9	2	-1	0	0	checked quest 9.	0	3	5	0x102b8	0x34368
+147	0x1957c80	q10	2	-1	0	0	checked quest 10.	0	3	5	0x102b9	0x3436c
+148	0x1957cb8	q11	2	-1	0	0	checked quest 11.	0	3	5	0x102ba	0x34370
+149	0x1957cf0	q12	2	-1	0	0	checked quest 12.	0	3	5	0x102bb	0x34374
+150	0x1957d28	q13	2	-1	0	0	checked quest 13.	0	3	5	0x102bc	0x34378
+151	0x1957d60	q14	2	-1	0	0	checked quest 14.	0	3	5	0x102bd	0x3437c
+152	0x1957d98	q15	2	-1	0	0	checked quest 15.	0	3	5	0x102be	0x34380
+153	0x1957dd0	q16	2	-1	0	0	checked quest 16.	0	3	5	0x102bf	0x34384
+154	0x1957e08	q17	2	-1	0	0	checked quest 17.	0	3	5	0x102c0	0x34388
+155	0x1957e40	q18	2	-1	0	0	checked quest 18.	0	3	5	0x102c1	0x3438c
+156	0x1957e78	q19	2	-1	0	0	checked quest 19.	0	3	5	0x102c2	0x34390
+157	0x1957eb0	q20	2	-1	0	0	checked quest 20.	0	3	5	0x102c3	0x34394
+158	0x1957ee8	q21	2	-1	0	0	checked quest 21.	0	3	5	0x102c4	0x34398
+159	0x1957f20	q22	2	-1	0	0	checked quest 22.	0	3	5	0x102c5	0x3439c
+160	0x1957f58	q23	2	-1	0	0	checked quest 23.	0	3	5	0x102c6	0x343a0
+161	0x1957f90	q24	2	-1	0	0	checked quest 24.	0	3	5	0x102c7	0x343a4
+162	0x1957fc8	q25	2	-1	0	0	checked quest 25.	0	3	5	0x102c8	0x343a8
+163	0x1958000	q26	2	-1	0	0	checked quest 26.	0	3	5	0x102c9	0x343ac
+164	0x1958038	q27	2	-1	0	0	checked quest 27.	0	3	5	0x102ca	0x343b0
+165	0x1958070	q28	2	-1	0	0	checked quest 28.	0	3	5	0x102cb	0x343b4
+166	0x19580a8	q29	2	-1	0	0	checked quest 29.	0	3	5	0x102cc	0x343b8
+167	0x19580e0	q20	2	-1	0	0	checked quest 30.	0	3	5	0x102cd	0x343bc
+168	0x1958118	q31	2	-1	0	0	checked quest 31.	0	3	5	0x102ce	0x343c0
+169	0x1958150	q32	2	-1	0	0	checked quest 32.	0	3	5	0x102cf	0x343c4
+170	0x1958188	q33	2	-1	0	0	checked quest 33.	0	3	5	0x102d0	0x343c8
+171	0x19581c0	q34	2	-1	0	0	checked quest 34.	0	3	5	0x102d1	0x343cc
+172	0x19581f8	q35	2	-1	0	0	checked quest 35.	0	3	5	0x102d2	0x343d0
+173	0x1958230	q36	2	-1	0	0	checked quest 36.	0	3	5	0x102d3	0x3441c
+174	0x1958268	psgem-idx	2	-1	0	0	gem slot preset index	0	1	0	0x102dc	0x31c3c
+175	0x19582a0	namePlayer	1	0	1	n	show player nameplate.	0	1	0	0x102dd	0x31c3d
+176	0x19582d8	namePc	1	1	1	y	show other pc's nameplate.	0	1	0	0x102de	0x31c3e
+177	0x1958310	nameNpc	1	2	1	y	show npc's nameplate.	0	1	0	0x102df	0x31c3f
+178	0x1958348	gameMsg	1	3	1	y	display game message.	0	1	0	0x2e0	0x31c40
+179	0x1958380	targetCast	1	4	1	y	show target's casting bar.	0	1	2	0x102e1	0x31b88
+180	0x19583b8	gameMsgSound	2	14	5	0	game message sound type.	0	1	0	0x102e2	0x31c41
+181	0x19583f0	nameParty	1	5	1	y	show party nameplate.	0	1	0	0x102e3	0x31c42
+182	0x1958428	nameEnemyPc	1	6	1	y	show enemy pc's nameplate.	0	1	0	0x102e4	0x31c43
+183	0x1958460	nameEnemyNpc	1	7	1	y	show enemy npc's nameplate.	0	1	0	0x2e5	0x31c44
+184	0x1958498	nameTitle	1	8	1	y	show nameplate title.	0	1	0	0x102e6	0x31c48
+185	0x19584d0	ShowSBN	1	12	1	y		0	1	0	0x102e7	0x31c49
+186	0x1958508	showSV	1	13	1	y		0	1	0	0x102e8	0x31b8c
+187	0x1958540	nameHT	2	15	5	0		0	1	0	0x102e9	0x31c4e
+188	0x1958578	nHpPlayer	1	18	1	n		0	1	0	0x102ea	0x31c4f
+189	0x19585b0	nHpParty	1	19	1	y		0	1	0	0x102eb	0x31c50
+190	0x19585e8	nHpConvoy	1	20	1	y		0	1	0	0x102ec	0x31b90
+191	0x1958620	nHpENpc	2	16	5	0		0	1	0	0x102ed	0x31c52
+192	0x1958658	SPETime	1	22	1	y		0	1	0	0x102ee	0x31c53
+193	0x1958690	QQSAuto	1	23	1	y		0	1	0	0x102ef	0x31c54
+194	0x19586c8	QQSTC	1	24	1	n		0	1	0	0x102f0	0x31c56
+195	0x1958700	PawnTTip	1	26	1	y		0	1	0	0x102f1	0x31c57
+196	0x1958738	EIDiffTTip	1	27	1	y		0	1	0	0x102f2	0x31c58
+197	0x1958770	PlayerChatB	1	28	1	y		0	1	0	0x102f3	0x31c59
+198	0x19587a8	NormalCB	1	29	1	y		0	1	0	0x102f4	0x31c5a
+199	0x19587e0	PartyCB	1	30	1	y		0	1	0	0x2f5	0x31c5f
+200	0x1958818	HCFocus	1	35	1	y		0	1	0	0x102f6	0x31c60
+201	0x1958850	FilterText	1	36	1	y		0	1	0	0x102f7	0x31c63
+202	0x1958888	IIParty	1	39	1	n		0	1	0	0x102f8	0x31c64
+203	0x19588c0	MapLLvQ	1	40	1	n		0	1	0	0x102f9	0x31c65
+204	0x19588f8	MapMNav	1	41	0	n		0	1	0	0x2fb	0x31c68
+205	0x1958930	DSigE2P	1	44	1	y	show enemy_to_player damage signal	0	1	0	0x102fc	0x31c69
+206	0x1958968	DSigE2F	1	45	1	n	show enemy_to_friend damage signal	0	1	0	0x2fd	0x31c6a
+207	0x19589a0	DSigP2E	1	46	1	y	show player_to_enemy damage signal	0	1	0	0x102fe	0x31c6b
+208	0x19589d8	DSigF2E	1	47	1	n	show friend_to_enemy damage signal	0	2	3	0x102ff	0x320a8
+209	0x1958a10	kAct1	7	1	0			0	2	3	0x10300	0x320d8
+210	0x1958a48	kAct2	7	2	0			0	2	3	0x10301	0x32108
+211	0x1958a80	kAct3	7	3	0			0	2	3	0x10302	0x32228
+212	0x1958ab8	kSSlt1	7	9	0			0	2	3	0x10303	0x32258
+213	0x1958af0	kSSlt2	7	10	0			0	2	3	0x10304	0x32288
+214	0x1958b28	kSSlt3	7	11	0			0	2	3	0x10305	0x322b8
+215	0x1958b60	kSSlt4	7	12	0			0	2	3	0x10306	0x322e8
+216	0x1958b98	kSSlt5	7	13	0			0	2	3	0x10307	0x32318
+217	0x1958bd0	kSSlt6	7	14	0			0	2	3	0x10308	0x32348
+218	0x1958c08	kSSlt7	7	15	0			0	2	3	0x10309	0x32378
+219	0x1958c40	kSSlt8	7	16	0			0	2	3	0x1030a	0x323a8
+220	0x1958c78	kSSlt9	7	17	0			0	2	3	0x1030b	0x323d8
+221	0x1958cb0	kSSlt10	7	18	0			0	2	3	0x1030c	0x32408
+222	0x1958ce8	kSSlt11	7	19	0			0	2	3	0x1030d	0x32438
+223	0x1958d20	kSSlt12	7	20	0			0	2	3	0x1030e	0x32468
+224	0x1958d58	kSkillQ	7	21	0			0	2	3	0x1030f	0x32498
+225	0x1958d90	kSkillE	7	22	0			0	2	3	0x10310	0x32528
+226	0x1958dc8	kISlt1	7	25	0			0	2	3	0x10311	0x32558
+227	0x1958e00	kISlt2	7	26	0			0	2	3	0x10312	0x32588
+228	0x1958e38	kISlt3	7	27	0			0	2	3	0x10313	0x325b8
+229	0x1958e70	kISlt4	7	28	0			0	2	3	0x10314	0x32648
+230	0x1958ea8	kHelp	7	31	0			0	2	3	0x10315	0x326a8
+231	0x1958ee0	kInven	7	33	0			0	2	3	0x10316	0x326d8
+232	0x1958f18	kGem	7	34	0			0	2	3	0x10317	0x32708
+233	0x1958f50	kPInfo	7	35	0			0	2	3	0x10318	0x32738
+234	0x1958f88	kSkill	7	36	0			0	2	3	0x10319	0x32768
+235	0x1958fc0	kQuest	7	37	0			0	2	3	0x1031a	0x32798
+236	0x1958ff8	kMapSize	7	38	0			0	2	3	0x1031b	0x327c8
+237	0x1959030	kMapShow	7	39	0			0	2	3	0x1031c	0x327f8
+238	0x1959068	kQSlot	7	40	0			0	2	3	0x1031d	0x32078
+239	0x19590a0	kCombo	7	0	0			0	2	3	0x1031e	0x32828
+240	0x19590d8	kCollect	7	41	0			0	2	3	0x1031f	0x32858
+241	0x1959110	kPetition	7	42	0			0	2	3	0x10320	0x32888
+242	0x1959148	kOption	7	43	0			0	2	3	0x321	0x32078
+243	0x1959180	kTraining	7	0	0			0	2	3	0x10322	0x328b8
+244	0x19591b8	kMapAlpha	7	44	0			0	2	3	0x323	0x32078
+245	0x19591f0	kTeleport	7	0	0			0	2	3	0x10324	0x328e8
+246	0x1959228	kParty	7	45	0			0	2	3	0x10325	0x32918
+247	0x1959260	kPartyMk	7	46	0			0	2	3	0x10326	0x329d8
+248	0x1959298	kMTarget	7	50	0			0	2	3	0x10327	0x32a08
+249	0x19592d0	kLeft	7	51	0			0	2	3	0x10328	0x32a38
+250	0x1959308	kRight	7	52	0			0	2	3	0x10329	0x32a98
+251	0x1959340	kFront	7	54	0			0	2	3	0x1032a	0x32ac8
+252	0x1959378	kBack	7	55	0			0	2	3	0x1032b	0x32af8
+253	0x19593b0	kLTurn	7	56	0			0	2	3	0x1032c	0x32b28
+254	0x19593e8	kRTurn	7	57	0			0	2	3	0x1032d	0x32b58
+255	0x1959420	kJump	7	58	0			0	2	3	0x1032e	0x32b88
+256	0x1959458	kWalkRun	7	59	0			0	2	3	0x32f	0x32bb8
+257	0x1959490	kSoc1	7	60	0			0	2	3	0x330	0x32be8
+258	0x19594c8	kSoc2	7	61	0			0	2	3	0x331	0x32c18
+259	0x1959500	kSoc3	7	62	0			0	2	3	0x332	0x32c48
+260	0x1959538	kSoc4	7	63	0			0	2	3	0x333	0x32c78
+261	0x1959570	kSoc5	7	64	0			0	2	3	0x334	0x32ca8
+262	0x19595a8	kSoc6	7	65	0			0	2	3	0x335	0x32cd8
+263	0x19595e0	kSoc7	7	66	0			0	2	3	0x336	0x32d08
+264	0x1959618	kSoc8	7	67	0			0	2	3	0x337	0x32d38
+265	0x1959650	kSoc9	7	68	0			0	2	3	0x338	0x32d68
+266	0x1959688	kSoc10	7	69	0			0	2	3	0x10339	0x32d98
+267	0x19596c0	kAutoMove	7	70	0			0	2	3	0x1033a	0x32dc8
+268	0x19596f8	kSChat	7	71	0			0	2	3	0x1033b	0x32df8
+269	0x1959730	kNChat	7	72	0			0	2	3	0x1033c	0x32e28
+270	0x1959768	kPtChat	7	73	0			0	2	3	0x1033d	0x32e58
+271	0x19597a0	kLChat	7	74	0			0	2	3	0x1033e	0x32e88
+272	0x19597d8	kPrChat	7	75	0			0	2	3	0x1033f	0x32eb8
+273	0x1959810	kHUD	7	76	0			0	2	3	0x10340	0x32f18
+274	0x1959848	kCamUp	7	78	0			0	2	3	0x10341	0x32f48
+275	0x1959880	kCamDown	7	79	0			0	2	3	0x10342	0x32f78
+276	0x19598b8	kZoomIn	7	80	0			0	2	3	0x10343	0x32fa8
+277	0x19598f0	kZoomOut	7	81	0			0	2	3	0x10344	0x33008
+278	0x1959928	kMk1	7	83	0			0	2	3	0x10345	0x33038
+279	0x1959960	kMk2	7	84	0			0	2	3	0x10346	0x33068
+280	0x1959998	kMk3	7	85	0			0	2	3	0x10347	0x33098
+281	0x19599d0	kMk4	7	86	0			0	2	3	0x10348	0x330c8
+282	0x1959a08	kMk5	7	87	0			0	2	3	0x10349	0x330f8
+283	0x1959a40	kMk6	7	88	0			0	2	3	0x1034a	0x33128
+284	0x1959a78	kMk7	7	89	0			0	2	3	0x1034b	0x33158
+285	0x1959ab0	kMk8	7	90	0			0	2	3	0x1034c	0x33188
+286	0x1959ae8	kMkT	7	91	0			0	2	3	0x1034d	0x33278
+287	0x1959b20	kUnmark	7	96	0			0	2	3	0x1034e	0x332d8
+288	0x1959b58	kMapZPlus	7	98	0			0	2	3	0x1034f	0x33308
+289	0x1959b90	kMapZMinus	7	99	0			0	2	3	0x10350	0x32978
+290	0x1959bc8	kHudCustomize	7	48	0			0	2	3	0x10351	0x329a8
+291	0x1959c00	kPartyMatch	7	49	0			0	2	3	0x10352	0x333c8
+292	0x1959c38	kBnS	7	103	0			0	1	2	0x353	0x31c75
+293	0x1959c70	UseSystemVoice	1	57	1	y	use system voice	0	0	1	0x10354	0x31aa4
+294	0x1959ca8	LEAA	2	4	0	0	LE anti aliasing	1	0	1	0x10355	0x31aa8
+295	0x1959ce0	AA	2	5	0	0	anti aliasing	1	1	1	0x10356	0x31b98
+296	0x1959d18	UiColorIndex	2	18	2	0	ui skin color index	0	1	5	0x1036b	0x21ea8
+297	0x1959d50	chat-all-name	5	-1	0			0	1	5	0x1036c	0x22bb4
+298	0x1959d88	chat-battle-name	5	-1	0			0	1	5	0x1036d	0x238c0
+299	0x1959dc0	chat-c1-name	5	-1	0			0	1	5	0x1036e	0x245cc
+300	0x1959df8	chat-c2-name	5	-1	0			0	1	5	0x1036f	0x252d8
+301	0x1959e30	chat-c3-name	5	-1	0			0	1	5	0x10370	0x25fe4
+302	0x1959e68	chat-c4-name	5	-1	0			0	1	5	0x10371	0x26cf0
+303	0x1959ea0	chat-c5-name	5	-1	0			0	1	5	0x10372	0x279fc
+304	0x1959ed8	chat-c6-name	5	-1	0			0	1	5	0x10373	0x212a8
+305	0x1959f10	chat-all-channelVisible	6	-1	0			0	1	5	0x10374	0x21fb4
+306	0x1959f48	chat-battle-channelVisible	6	-1	0			0	1	5	0x10375	0x22cc0
+307	0x1959f80	chat-c1-channelVisible	6	-1	0			0	1	5	0x10376	0x239cc
+308	0x1959fb8	chat-c2-channelVisible	6	-1	0			0	1	5	0x10377	0x246d8
+309	0x1959ff0	chat-c3-channelVisible	6	-1	0			0	1	5	0x10378	0x253e4
+310	0x195a028	chat-c4-channelVisible	6	-1	0			0	1	5	0x10379	0x260f0
+311	0x195a060	chat-c5-channelVisible	6	-1	0			0	1	5	0x1037a	0x26dfc
+312	0x195a098	chat-c6-channelVisible	6	-1	0			0	1	5	0x1037b	0x216a8
+313	0x195a0d0	chat-all-channelFontSize	6	-1	0			0	1	5	0x1037c	0x223b4
+314	0x195a108	chat-battle-channelFontSize	6	-1	0			0	1	5	0x1037d	0x230c0
+315	0x195a140	chat-c1-channelFontSize	6	-1	0			0	1	5	0x1037e	0x23dcc
+316	0x195a178	chat-c2-channelFontSize	6	-1	0			0	1	5	0x1037f	0x24ad8
+317	0x195a1b0	chat-c3-channelFontSize	6	-1	0			0	1	5	0x10380	0x257e4
+318	0x195a1e8	chat-c4-channelFontSize	6	-1	0			0	1	5	0x10381	0x264f0
+319	0x195a220	chat-c5-channelFontSize	6	-1	0			0	1	5	0x10382	0x271fc
+320	0x195a258	chat-c6-channelFontSize	6	-1	0			0	1	5	0x10383	0x21aa8
+321	0x195a290	chat-all-channelFontColor	6	-1	0			0	1	5	0x10384	0x227b4
+322	0x195a2c8	chat-battle-channelFontColor	6	-1	0			0	1	5	0x10385	0x234c0
+323	0x195a300	chat-c1-channelFontColor	6	-1	0			0	1	5	0x10386	0x241cc
+324	0x195a338	chat-c2-channelFontColor	6	-1	0			0	1	5	0x10387	0x24ed8
+325	0x195a370	chat-c3-channelFontColor	6	-1	0			0	1	5	0x10388	0x25be4
+326	0x195a3a8	chat-c4-channelFontColor	6	-1	0			0	1	5	0x10389	0x268f0
+327	0x195a3e0	chat-c5-channelFontColor	6	-1	0			0	1	5	0x1038a	0x275fc
+328	0x195a418	chat-c6-channelFontColor	6	-1	0			0	1	1	0x1038b	0x31b9c
+329	0x195a450	UiColorR	2	19	3	127	ui skin color red	0	1	1	0x1038c	0x31ba0
+330	0x195a488	UiColorG	2	20	3	127	ui skin color green	0	1	1	0x1038d	0x31ba4
+331	0x195a4c0	UiColorB	2	21	3	127	ui skin color blue	0	1	1	0x1038e	0x31ba8
+332	0x195a4f8	UiColorA	2	22	3	20		0	1	5	0x1038f	0x21fa8
+333	0x195a530	chat-all-background-min-alpha	3	-1	0	-1.0		0	1	5	0x10390	0x22cb4
+334	0x195a568	chat-battle-background-min-alpha	3	-1	0	-1.0		0	1	5	0x10391	0x239c0
+335	0x195a5a0	chat-c1-background-min-alpha	3	-1	0	-1.0		0	1	5	0x10392	0x246cc
+336	0x195a5d8	chat-c2-background-min-alpha	3	-1	0	-1.0		0	1	5	0x10393	0x253d8
+337	0x195a610	chat-c3-background-min-alpha	3	-1	0	-1.0		0	1	5	0x10394	0x260e4
+338	0x195a648	chat-c4-background-min-alpha	3	-1	0	-1.0		0	1	5	0x10395	0x26df0
+339	0x195a680	chat-c5-background-min-alpha	3	-1	0	-1.0		0	1	5	0x10396	0x27afc
+340	0x195a6b8	chat-c6-background-min-alpha	3	-1	0	-1.0		0	1	5	0x10397	0x21fac
+341	0x195a6f0	chat-all-enable-global-fontsize	1	-1	0	y		0	1	5	0x10398	0x22cb8
+342	0x195a728	chat-battle-enable-global-fontsize	1	-1	0	y		0	1	5	0x10399	0x239c4
+343	0x195a760	chat-c1-enable-global-fontsize	1	-1	0	y		0	1	5	0x1039a	0x246d0
+344	0x195a798	chat-c2-enable-global-fontsize	1	-1	0	y		0	1	5	0x1039b	0x253dc
+345	0x195a7d0	chat-c3-enable-global-fontsize	1	-1	0	y		0	1	5	0x1039c	0x260e8
+346	0x195a808	chat-c4-enable-global-fontsize	1	-1	0	y		0	1	5	0x1039d	0x26df4
+347	0x195a840	chat-c5-enable-global-fontsize	1	-1	0	y		0	1	5	0x1039e	0x27b00
+348	0x195a878	chat-c6-enable-global-fontsize	1	-1	0	y		0	1	0	0x1039f	0x31c66
+349	0x195a8b0	qqdsn	1	42	1	y		0	1	0	0x103a0	0x31c67
+350	0x195a8e8	sbmcis	1	43	1	y		0	2	3	0x103b5	0x333f8
+351	0x195a920	kNotiY	7	104	0			0	2	3	0x103b6	0x33428
+352	0x195a958	kNotiN	7	105	0			0	1	0	0x3b7	0x31bac
+353	0x195a990	JoypadKeyPreset	2	23	5	0	joypad action mode key mapping preset index	0	1	5	0x103cc	0x21150
+354	0x195a9c8	map-window-floating-x	3	-1	0	-1.0	map Window Panel floating x	0	1	5	0x103cd	0x21154
+355	0x195aa00	map-window-floating-y	3	-1	0	-1.0	map Window Panel floating y	0	0	2	0x103d0	0x31b38
+356	0x195aa38	bgm-constant-play	2	41	1	0	constant bgm play	0	0	1	0x103d1	0x31afc
+357	0x195aa70	object-motion-blur	2	26	1	0	object motion blur	0	0	1	0x103d2	0x31b00
+358	0x195aaa8	filter-effect	2	27	1	0	filter effect	0	0	1	0x103d4	0x31b04
+359	0x195aae0	foreground-max-framerate	2	28	3	60	foreground max framerate	0	0	1	0x103d5	0x31b08
+360	0x195ab18	background-max-framerate	2	29	3	20	background max framerate	0	1	1	0x103d6	0x31bb0
+361	0x195ab50	low-performance-graphic	2	24	1	0	low performance graphic hardware	0	1	0	0x103d8	0x31c79
+362	0x195ab88	dungeon-unlock-alert-1	1	61	1	y		0	1	0	0x103d9	0x31c7a
+363	0x195abc0	dungeon-unlock-alert-2	1	62	1	y		0	1	0	0x103da	0x31c7b
+364	0x195abf8	dungeon-unlock-alert-3	1	63	1	y		0	1	5	0x103de	0x20ff0
+365	0x195ac30	pickupitem-floating-x	3	-1	0	-1.0	pickupitem panel floating x	0	1	5	0x103df	0x20ff4
+366	0x195ac68	pickupitem-floating-y	3	-1	0	-1.0	pickupitem panel floating y	0	1	5	0x103e0	0x20ff8
+367	0x195aca0	master-distribution-floating-x	3	-1	0	-1.0	master distribution panel floating x	0	1	5	0x103e1	0x20ffc
+368	0x195acd8	master-distribution-floating-y	3	-1	0	-1.0	master distribution panel floating y	0	2	3	0x103f4	0x321f8
+369	0x195ad10	kSSltStance	7	8	0			0	1	0	0x10430	0x31cea
+370	0x195ad48	UseJobIndicator	1	174	1	y		0	0	1	0x10431	0x31ac4
+371	0x195ad80	effect-view-spawn	2	12	4	0	effect particle spawn count option	1	1	0	0x10432	0x31bb4
+372	0x195adb8	EmberCountDisplayType	2	25	2	0	embers stack count display type	0	1	0	0x10433	0x31bb8
+373	0x195adf0	TargetIndicatorAlpha	2	26	3	70		0	1	0	0x10434	0x31bbc
+374	0x195ae28	TargetGuideAlpha	2	27	3	70		0	1	0	0x10435	0x31bc0
+375	0x195ae60	TargetGuideColor	2	28	2	0	target guide color index	0	1	0	0x10436	0x31bc4
+376	0x195ae98	TargetGuideShape	2	29	2	0	target guide shape index	0	1	5	0x10437	0x21008
+377	0x195aed0	auction2-floating-x	3	-1	0	0.5	auction panel floating x	0	1	5	0x10438	0x2100c
+378	0x195af08	auction2-floating-y	3	-1	0	0.5	auction panel floating y	0	1	5	0x10439	0x21010
+379	0x195af40	sns-floating-x	3	-1	0	-1.0	sns panel floating x	0	1	5	0x1043a	0x21014
+380	0x195af78	sns-floating-y	3	-1	0	-1.0	sns panel floating y	0	1	5	0x1043b	0x21018
+381	0x195afb0	nshop-floating-x	3	-1	0	-1.0	nshop panel floating x	0	1	5	0x1043c	0x2101c
+382	0x195afe8	nshop-floating-y	3	-1	0	-1.0	nshop panel floating y	0	1	5	0x1043d	0x21030
+383	0x195b020	powerbook-floating-x	3	-1	0	-1.0	powerbook panel floating x	0	1	5	0x1043e	0x21034
+384	0x195b058	powerbook-floating-y	3	-1	0	-1.0	powerbook panel floating y	0	1	2	0x1043f	0x31bcc
+385	0x195b090	voice-chat-output-volume	2	31	3	50	voice chat output volume	0	1	2	0x10440	0x31bd0
+386	0x195b0c8	voice-chat-input-volume	2	32	3	50	voice chat input volume	0	1	2	0x10441	0x31c7c
+387	0x195b100	voice-chat-output-mute	1	64	1	n	voice chat output mute	0	1	2	0x10442	0x31c7d
+388	0x195b138	voice-chat-input-mute	1	65	1	n	voice chat input mute	0	1	2	0x10443	0x31c7e
+389	0x195b170	voice-chat-echo-cancel	1	66	1	y	voice chat echo cancel	0	1	2	0x10444	0x31e74
+390	0x195b1a8	voice-chat-output-device	5	-1	5	Generic Software	voice chat output device	0	1	2	0x10445	0x31f74
+391	0x195b1e0	voice-chat-input-device	5	-1	5	Generic Software	voice chat input device	0	1	0	0x10446	0x31bc8
+392	0x195b218	TargetDistanceFontSet	2	30	4	4		1	2	3	0x10447	0x33578
+393	0x195b250	kEnterPSC	7	112	0			0	2	3	0x10448	0x32138
+394	0x195b288	kClassicAct1	7	4	0			0	2	3	0x10449	0x32168
+395	0x195b2c0	kClassicAct2	7	5	0			0	2	3	0x1044a	0x31d30
+396	0x195b2f8	UiModeMBtnCmd	8	12	5	0	bns ui mode mouse command	0	2	3	0x1044b	0x31d34
+397	0x195b330	UiModeRBtnCmd	8	13	5	0	bns ui mode mouse command	0	0	0	0x1044c	0x31b44
+398	0x195b368	joypad-forcefeedback-level	2	44	4	2	joypad force feedback level	0	1	5	0x1044f	0x21078
+399	0x195b3a0	photo-album-floating-x	3	-1	0	-1.0	photo album panel floating x	0	1	5	0x10450	0x2107c
+400	0x195b3d8	photo-album-floating-y	3	-1	0	-1.0	photo album panel floating y	0	2	3	0x451	0x32078
+401	0x195b410	kPartyS_obsolete	7	0	0			0	1	5	0x10452	0x21080
+402	0x195b448	blacklist-floating-x	3	-1	0	-1.0	blacklist panel floating x	0	1	5	0x10453	0x21084
+403	0x195b480	blacklist-floating-y	3	-1	0	-1.0	blacklist panel floating y	0	1	5	0x10454	0x21038
+404	0x195b4b8	skill-powerbook-floating-x	3	-1	0	-1.0	skill powerbook panel floating x	0	1	5	0x10455	0x2103c
+405	0x195b4f0	skill-powerbook-floating-y	3	-1	0	-1.0	skill powerbook panel floating y	0	1	5	0x10456	0x21040
+406	0x195b528	character-info-floating-x	3	-1	0	-1.0	character info panel floating x	0	1	5	0x10457	0x21044
+407	0x195b560	character-info-floating-y	3	-1	0	-1.0	character info panel floating y	0	2	3	0x10458	0x335a8
+408	0x195b598	kSns	7	113	0			0	2	3	0x10459	0x335d8
+409	0x195b5d0	kPowerbook	7	114	0			0	2	3	0x1045a	0x33608
+410	0x195b608	kSkillPowerbook	7	115	0			0	2	3	0x45b	0x32078
+411	0x195b640	_obsolete	7	0	0			0	2	3	0x1045c	0x33668
+412	0x195b678	kCharacterInfo	7	117	0			0	2	3	0x1045d	0x33698
+413	0x195b6b0	kMarket	7	118	0			0	1	0	0x1045e	0x31c4b
+414	0x195b6e8	show-summoned-status-bar	1	15	1	y	status bar of summoned	0	1	0	0x1045f	0x31c4c
+415	0x195b720	nHpSummoned	1	16	1	n	hp bar of summoned	0	1	0	0x10460	0x31c4d
+416	0x195b758	nHpGuild	1	17	1	n	hp bar of guild member	0	1	0	0x10461	0x31c45
+417	0x195b790	namePlayerSummoned	1	9	1	y	show player summoned nameplate	0	1	0	0x10462	0x31c46
+418	0x195b7c8	namePcSummoned	1	10	1	y	show pc summoned nameplate	0	1	0	0x10463	0x31c7f
+419	0x195b800	production-notify-alert-1	1	67	1	y		0	1	0	0x10464	0x31c80
+420	0x195b838	production-notify-alert-2	1	68	1	n		0	1	0	0x10465	0x31c81
+421	0x195b870	production-notify-alert-3	1	69	1	n		0	1	0	0x10466	0x31bd4
+422	0x195b8a8	IndicatorColor	2	33	2	0	indicator color index	0	1	0	0x10467	0x31c82
+423	0x195b8e0	IIGuild	1	70	1	n		0	1	5	0x10468	0x21000
+424	0x195b918	partyauction-floating-x	3	-1	0	-1.0	partyauction panel floating x	0	1	5	0x10469	0x21004
+425	0x195b950	partyauction-floating-y	3	-1	0	-1.0	partyauction panel floating y	0	1	5	0x1046a	0x21088
+426	0x195b988	item-preview-floating-x	3	-1	0	-1.0	itempreview panel floating x	0	1	5	0x1046b	0x2108c
+427	0x195b9c0	item-preview-floating-y	3	-1	0	-1.0	itempreview panel floating y	0	1	2	0x1046c	0x31c83
+428	0x195b9f8	faction-battle-BGM-mute	1	71	1	y	faction battle BGM on/off	0	1	0	0x1046d	0x31bd8
+429	0x195ba30	NonTargetTalkBalloonAlpha	2	34	3	50		0	3	5	0x1046e	0x343d4
+430	0x195ba68	psgem1-id	2	-1	0	0	gem slot preset 1 item id.	0	3	5	0x1046f	0x343d8
+431	0x195baa0	psgem2-id	2	-1	0	0	gem slot preset 2 item id.	0	3	5	0x10470	0x343dc
+432	0x195bad8	psgem3-id	2	-1	0	0	gem slot preset 3 item id.	0	3	5	0x10471	0x343e0
+433	0x195bb10	psgem4-id	2	-1	0	0	gem slot preset 4 item id.	0	3	5	0x10472	0x343e4
+434	0x195bb48	psgem5-id	2	-1	0	0	gem slot preset 5 item id.	0	3	5	0x10473	0x343e8
+435	0x195bb80	psgem6-id	2	-1	0	0	gem slot preset 6 item id.	0	3	5	0x10474	0x343ec
+436	0x195bbb8	psgem7-id	2	-1	0	0	gem slot preset 7 item id.	0	3	5	0x10475	0x343f0
+437	0x195bbf0	psgem8-id	2	-1	0	0	gem slot preset 8 item id.	0	3	5	0x10476	0x343f4
+438	0x195bc28	psgem1-ri	2	-1	0	0	gem slot preset 1 revealed index.	0	3	5	0x10477	0x343f8
+439	0x195bc60	psgem2-ri	2	-1	0	0	gem slot preset 2 revealed index.	0	3	5	0x10478	0x343fc
+440	0x195bc98	psgem3-ri	2	-1	0	0	gem slot preset 3 revealed index.	0	3	5	0x10479	0x34400
+441	0x195bcd0	psgem4-ri	2	-1	0	0	gem slot preset 4 revealed index.	0	3	5	0x1047a	0x34404
+442	0x195bd08	psgem5-ri	2	-1	0	0	gem slot preset 5 revealed index.	0	3	5	0x1047b	0x34408
+443	0x195bd40	psgem6-ri	2	-1	0	0	gem slot preset 6 revealed index.	0	3	5	0x1047c	0x3440c
+444	0x195bd78	psgem7-ri	2	-1	0	0	gem slot preset 7 revealed index.	0	3	5	0x1047d	0x34410
+445	0x195bdb0	psgem8-ri	2	-1	0	0	gem slot preset 8 revealed index.	0	3	5	0x10488	0x34414
+446	0x195bde8	psgem1-ud	1	-1	0	n	gem slot preset 1 used.	0	3	5	0x10489	0x34415
+447	0x195be20	psgem2-ud	1	-1	0	n	gem slot preset 2 used.	0	3	5	0x1048a	0x34416
+448	0x195be58	psgem3-ud	1	-1	0	n	gem slot preset 3 used.	0	3	5	0x1048b	0x34417
+449	0x195be90	psgem4-ud	1	-1	0	n	gem slot preset 4 used.	0	3	5	0x1048c	0x34418
+450	0x195bec8	psgem5-ud	1	-1	0	n	gem slot preset 5 used.	0	3	5	0x1048d	0x34419
+451	0x195bf00	psgem6-ud	1	-1	0	n	gem slot preset 6 used.	0	3	5	0x1048e	0x3441a
+452	0x195bf38	psgem7-ud	1	-1	0	n	gem slot preset 7 used.	0	3	5	0x1048f	0x3441b
+453	0x195bf70	psgem8-ud	1	-1	0	n	gem slot preset 8 used.	0	1	5	0x10490	0x21090
+454	0x195bfa8	system-inventory-floating-x	3	-1	0	-1.0	system Inventory panel floating x	0	1	5	0x10491	0x21094
+455	0x195bfe0	system-inventory-floating-y	3	-1	0	-1.0	system Inventory panel floating y	0	1	0	0x10492	0x31bdc
+456	0x195c018	screenshot-crop-mode	2	35	2	0	screenshot crop mode	0	1	2	0x10493	0x31c84
+457	0x195c050	whisper-notification-sound	1	72	1	y	whisper notification sound on/off	0	1	0	0x10494	0x31be0
+458	0x195c088	CameraInterpolateMode	2	36	4	0		0	0	0	0x10495	0x31b4c
+459	0x195c0c0	CharacterFitCamera	2	46	1	1	character fit camera	0	1	0	0x10496	0x31c85
+460	0x195c0f8	DSigEnemyToPlayerSummon	1	73	1	y	show enemy_to_player summon damage signal	0	1	0	0x10497	0x31c86
+461	0x195c130	DSigEnemyToPartySummon	1	74	1	n	show enemy_to_party summon damage signal	0	1	0	0x10498	0x31c87
+462	0x195c168	DSigOtherToPlayerTarget	1	75	1	n	show other_to_player target damage signal	0	1	0	0x10499	0x31c88
+463	0x195c1a0	DSigOtherToPartyTarget	1	76	1	n	show other_to_party target damage signal	0	2	3	0x1049a	0x336f8
+464	0x195c1d8	kPostBox	7	120	0			0	1	5	0x1049b	0x21248
+465	0x195c210	confirm-floating-x	3	-1	0	-1.0	confirmPanel panel floating x	0	1	5	0x1049c	0x2124c
+466	0x195c248	confirm-floating-y	3	-1	0	-1.0	confirmPanel panel floating y	0	1	5	0x1049d	0x21244
+467	0x195c280	chat-input-font-size	2	-1	0	0	chat input panel font size	0	1	0	0x1049e	0x31c61
+468	0x195c2b8	ci-auto-cl	1	37	1	y		0	1	0	0x1049f	0x31c62
+469	0x195c2f0	auto-c-pcn	1	38	1	y		0	1	0	0x104a0	0x31c5b
+470	0x195c328	GuildCB	1	31	1	y		0	1	0	0x104a1	0x31c5c
+471	0x195c360	AreaCB	1	32	1	n		0	1	0	0x104a2	0x31c5d
+472	0x195c398	FactionCB	1	33	1	n		0	1	0	0x104a3	0x31c5e
+473	0x195c3d0	WhisperCB	1	34	1	n		0	1	0	0x104a4	0x31be4
+474	0x195c408	p-p-e-icon-type	2	37	2	2		0	0	1	0x104a5	0x31ac8
+475	0x195c440	effect-view-spawn-signi	2	13	4	0	effect particle spawn signi count option	1	1	5	0x104a6	0x29414
+476	0x195c478	chat-partysearch-name	5	-1	0			0	1	5	0x104a7	0x28814
+477	0x195c4b0	chat-partysearch-channelVisible	6	-1	0			0	1	5	0x104a8	0x28c14
+478	0x195c4e8	chat-partysearch-channelFontSize	6	-1	0			0	1	5	0x104a9	0x29014
+479	0x195c520	chat-partysearch-channelFontColor	6	-1	0			0	1	5	0x104aa	0x29514
+480	0x195c558	chat-partysearch-background-min-alpha	3	-1	0	-1.0		0	1	5	0x104ab	0x29518
+481	0x195c590	chat-partysearch-enable-global-fontsize	1	-1	0	y		0	1	5	0x104ac	0x21238
+482	0x195c5c8	chat-8-resize-ratio-x	3	-1	0	1.0		0	1	5	0x104ad	0x2123c
+483	0x195c600	chat-8-resize-ratio-y	3	-1	0	1.0		0	1	5	0x104ae	0x21230
+484	0x195c638	chat-8-floating-x	3	-1	0	-1.0		0	1	5	0x104af	0x21234
+485	0x195c670	chat-8-floating-y	3	-1	0	-1.0		0	1	5	0x104b0	0x21240
+486	0x195c6a8	chat-8-ref-history	2	-1	0	-1		0	1	5	0x104b1	0x210a0
+487	0x195c6e0	party-search-floating-x	3	-1	0	-1.0	system Inventory panel floating x	0	1	5	0x104b2	0x210a4
+488	0x195c718	party-search-floating-y	3	-1	0	-1.0	system Inventory panel floating y	0	2	3	0x104c7	0x32948
+489	0x195c750	kPartySearch	7	47	0			0	1	0	0x104c8	0x31c89
+490	0x195c788	daily-quest-reset-alert	1	77	1	y	daily quest reset alert	0	1	0	0x104c9	0x31c8b
+491	0x195c7c0	request-friend-alert	1	79	1	y	request friend alert	0	1	0	0x104ca	0x31c8c
+492	0x195c7f8	sandbox-message-alert	1	80	1	y	sandbox message alert	0	1	0	0x104cb	0x31c8d
+493	0x195c830	sandbox-follow-alert	1	81	1	y	sandbox follow alert	0	1	0	0x104cc	0x31c8e
+494	0x195c868	QQSToggle	1	82	0	y	toggle quest quick slot	0	1	5	0x104cd	0x210a8
+495	0x195c8a0	suggest-join-party-floating-x	3	-1	0	-1.0	suggest join party panel floating x	0	1	5	0x104ce	0x210ac
+496	0x195c8d8	suggest-join-party-floating-y	3	-1	0	-1.0	suggest join party panel floating y	0	2	3	0x104cf	0x33758
+497	0x195c910	kTencentCross	7	122	0			0	1	0	0x104d0	0x31c8f
+498	0x195c948	field-dungeon-chat-balloon	1	83	1	n		0	2	3	0x104d1	0x321c8
+499	0x195c980	kRecommendKey	7	7	0			0	1	0	0x104fa	0x31be8
+500	0x195c9b8	ps-p-e-icon-type	2	38	2	0		0	1	5	0x104fb	0x210b0
+501	0x195c9f0	tgos-floating-x	3	-1	0	-1.0	TGOS panel position x	0	1	5	0x104fc	0x210b4
+502	0x195ca28	tgos-floating-y	3	-1	0	-1.0	TGOS panel position y	0	1	0	0x104fd	0x31c90
+503	0x195ca60	use-recommend-key	1	84	1	y		0	1	0	0x104fe	0x31bec
+504	0x195ca98	t-p-e-icon-type2	2	39	2	1		0	2	3	0x104ff	0x33638
+505	0x195cad0	kNShop	7	116	0			0	2	3	0x500	0x32078
+506	0x195cb08	kEnter-Duel	7	0	0			0	1	5	0x10501	0x210c8
+507	0x195cb40	boast-floating-x	3	-1	0	-1.0	boast panel position x	0	1	5	0x10502	0x210cc
+508	0x195cb78	boast-floating-y	3	-1	0	-1.0	boast panel position y	0	1	2	0x10503	0x31bf0
+509	0x195cbb0		2	40	5	0		0	2	3	0x10504	0x32fd8
+510	0x195cbe8	kVoiceChatOption	7	82	0			0	1	5	0x10505	0x210d0
+511	0x195cc20	2nd-pwd-menu-panel-floating-x	3	-1	0	-1.0	second password menu panel floating x	0	1	5	0x10506	0x210d4
+512	0x195cc58	2nd-pwd-menu-panel-floating-y	3	-1	0	-1.0	second password menu panel floating y	0	1	5	0x10507	0x210d8
+513	0x195cc90	2nd-pwd-config-panel-floating-x	3	-1	0	-1.0	second password config panel floating x	0	1	5	0x10508	0x210dc
+514	0x195ccc8	2nd-pwd-config-panel-floating-y	3	-1	0	-1.0	second password config panel floating y	0	1	5	0x10509	0x340e8
+515	0x195cd00	ignore-2nd-pwd-remove-noti-time	4	-1	0	0	do not popup second-password-removal-reserved-notification until this time	0	2	3	0x1050a	0x33788
+516	0x195cd38	kSecondPassword	7	123	0			0	1	5	0x1050b	0x21fad
+517	0x195cd70	chat-all-enable-new-message-notify	1	-1	0	y		0	1	5	0x1050c	0x22cb9
+518	0x195cda8	chat-battle-enable-new-message-notify	1	-1	0	n		0	1	5	0x1050d	0x239c5
+519	0x195cde0	chat-c1-enable-new-message-notify	1	-1	0	y		0	1	5	0x1050e	0x246d1
+520	0x195ce18	chat-c2-enable-new-message-notify	1	-1	0	y		0	1	5	0x1050f	0x253dd
+521	0x195ce50	chat-c3-enable-new-message-notify	1	-1	0	y		0	1	5	0x10510	0x260e9
+522	0x195ce88	chat-c4-enable-new-message-notify	1	-1	0	y		0	1	5	0x10511	0x26df5
+523	0x195cec0	chat-c5-enable-new-message-notify	1	-1	0	y		0	1	5	0x10512	0x27b01
+524	0x195cef8	chat-c6-enable-new-message-notify	1	-1	0	y		0	1	5	0x10513	0x29519
+525	0x195cf30	chat-partysearch-enable-new-message-notify	1	-1	0	y		0	1	5	0x10514	0x2a120
+526	0x195cf68	chat-qq-name	5	-1	0			0	1	5	0x10515	0x29520
+527	0x195cfa0	chat-qq-channelVisible	6	-1	0			0	1	5	0x10516	0x29920
+528	0x195cfd8	chat-qq-channelFontSize	6	-1	0			0	1	5	0x10517	0x29d20
+529	0x195d010	chat-qq-channelFontColor	6	-1	0			0	1	5	0x10518	0x2a220
+530	0x195d048	chat-qq-background-min-alpha	3	-1	0	-1.0		0	1	5	0x10519	0x2a224
+531	0x195d080	chat-qq-enable-global-fontsize	1	-1	0	y		0	1	5	0x1051a	0x210e0
+532	0x195d0b8	qq-group-create-option-floating-x	3	-1	0	-1.0	qq group create option panel floating x	0	1	5	0x1051b	0x210e4
+533	0x195d0f0	qq-group-create-option-floating-y	3	-1	0	-1.0	qq group create option panel floating y	0	1	5	0x1051c	0x210e8
+534	0x195d128	qq-group-create-floating-x	3	-1	0	-1.0	qq group create panel floating x	0	1	5	0x1051d	0x210ec
+535	0x195d160	qq-group-create-floating-y	3	-1	0	-1.0	qq group create panel floating y	0	1	5	0x1051e	0x210f0
+536	0x195d198	pc-qq-group-list-floating-x	3	-1	0	-1.0	pc qq group list panel floating x	0	1	5	0x1051f	0x210f4
+537	0x195d1d0	pc-qq-group-list-floating-y	3	-1	0	-1.0	pc qq group list panel floating y	0	1	5	0x10520	0x210f8
+538	0x195d208	qq-invite-group-floating-x	3	-1	0	-1.0	qq invite group panel floating x	0	1	5	0x10521	0x210fc
+539	0x195d240	qq-invite-group-floating-y	3	-1	0	-1.0	qq invite group panel floating y	0	0	2	0x10522	0x31b30
+540	0x195d278	special-voice-level	2	39	3	0	specialvoicelevel	0	1	5	0x10523	0x21100
+541	0x195d2b0	tencent-ingame-shop-panel-floating-x	3	-1	0	-1.0	tencent ingameshop panel floating x	0	1	5	0x10524	0x21104
+542	0x195d2e8	tencent-ingame-shop-panel-floating-y	3	-1	0	-1.0	tencent ingameshop panel floating y	0	1	2	0x10525	0x31c92
+543	0x195d320	qq-notification-sound-mute	1	86	1	n	qq notification sound on/off	0	2	3	0x10526	0x331b8
+544	0x195d358	kMkT-down	7	92	0			0	2	3	0x10527	0x331e8
+545	0x195d390	kMkT-kneel	7	93	0			0	2	3	0x10528	0x33218
+546	0x195d3c8	kMkT-stun	7	94	0			0	2	3	0x10529	0x33248
+547	0x195d400	kMkT-knockback	7	95	0			0	1	0	0x1052a	0x31c93
+548	0x195d438	skill-range-decal-signi	1	87	1	y		0	1	0	0x1052b	0x31c94
+549	0x195d470	skill-range-decal-enemy	1	88	1	y		0	1	5	0x1052f	0x20fa0
+550	0x195d4a8	ability-panel-player-tbs	2	-1	0	0		0	1	5	0x10530	0x20fa4
+551	0x195d4e0	ability-panel-summoned-tbs	2	-1	0	0		0	1	0	0x10531	0x31c98
+552	0x195d518	use-warning-confirm-keyword	1	92	1	y		0	2	3	0x10532	0x32198
+553	0x195d550	kClassicAct3	7	6	0			0	1	5	0x10533	0x2a225
+554	0x195d588	chat-qq-enable-new-message-notify	1	-1	0	y		0	2	3	0x534	0x32078
+555	0x195d5c0	kInterserverDungeon	7	0	0			0	1	5	0x10535	0x210c0
+556	0x195d5f8	tencent-charge-floating-x	3	-1	0	-1.0	Tencent Charge panel position x	0	1	5	0x10536	0x210c4
+557	0x195d630	tencent-charge-floating-y	3	-1	0	-1.0	Tencent Charge panel position y	0	1	5	0x10537	0x21108
+558	0x195d668	np-auction-panel-floating-x	3	-1	0	-1.0	np auction panel floating x	0	1	5	0x10538	0x2110c
+559	0x195d6a0	np-auction-panel-floating-y	3	-1	0	-1.0	np auction panel floating y	0	1	1	0x10539	0x31c99
+560	0x195d6d8	optimized-battle-preset	1	93	1	n	optimized preset on/off	0	1	0	0x53a	0x31c95
+561	0x195d710	skill-range-decal-boss	1	89	1	y		0	1	5	0x1053b	0x31c9b
+562	0x195d748	hud2-coin-m-visible	1	95	0	y		0	1	5	0x1053c	0x31c9c
+563	0x195d780	hud2-coin-fc-visible	1	96	0	n		0	1	5	0x1053d	0x31c9d
+564	0x195d7b8	hud2-coin-ds-visible	1	97	0	y		0	1	5	0x1053e	0x31ca1
+565	0x195d7f0	hud2-coin-i-1-visible	1	101	0	n		0	1	5	0x1053f	0x31ca2
+566	0x195d828	hud2-coin-i-2-visible	1	102	0	n		0	1	5	0x10540	0x31ca3
+567	0x195d860	hud2-coin-i-3-visible	1	103	0	n		0	1	5	0x10541	0x31ca4
+568	0x195d898	hud2-coin-i-4-visible	1	104	0	n		0	1	5	0x10542	0x31ca5
+569	0x195d8d0	hud2-coin-i-5-visible	1	105	0	n		0	1	5	0x10543	0x31ca6
+570	0x195d908	hud2-coin-i-6-visible	1	106	0	n		0	1	5	0x10544	0x31ca7
+571	0x195d940	hud2-coin-i-7-visible	1	107	0	n		0	1	5	0x10545	0x31ca8
+572	0x195d978	hud2-coin-i-8-visible	1	108	0	n		0	1	5	0x10546	0x31ca9
+573	0x195d9b0	hud2-coin-i-9-visible	1	109	0	n		0	1	5	0x10547	0x31caa
+574	0x195d9e8	hud2-coin-i-10-visible	1	110	0	n		0	1	5	0x10548	0x31cab
+575	0x195da20	hud2-coin-i-11-visible	1	111	0	n		0	1	5	0x10549	0x31cac
+576	0x195da58	hud2-coin-i-12-visible	1	112	0	n		0	1	5	0x1054a	0x31cad
+577	0x195da90	hud2-coin-i-13-visible	1	113	0	n		0	1	5	0x1054b	0x31cae
+578	0x195dac8	hud2-coin-i-14-visible	1	114	0	n		0	1	5	0x1054c	0x31caf
+579	0x195db00	hud2-coin-i-15-visible	1	115	0	n		0	1	5	0x1054d	0x31cb0
+580	0x195db38	hud2-coin-i-16-visible	1	116	0	n		0	1	5	0x1054e	0x31cb1
+581	0x195db70	hud2-coin-i-17-visible	1	117	0	n		0	1	0	0x1054f	0x31cb4
+582	0x195dba8	use-growth-warning-keyword	1	120	1	y		0	2	3	0x10550	0x337b8
+583	0x195dbe0	kAchievement	7	124	0			0	1	5	0x10551	0x21278
+584	0x195dc18	achievement-floating-x	3	-1	0	-1.0	achievement panel floating x	0	1	5	0x10552	0x2127c
+585	0x195dc50	achievement-floating-y	3	-1	0	-1.0	achievement panel floating y	0	1	5	0x10553	0x21280
+586	0x195dc88	achievement-filter-mg1	4	-1	0	0	achievement panel filter map group 1	0	1	5	0x10554	0x21288
+587	0x195dcc0	achievement-filter-1	1	-1	0	y	achievement panel filter completed	0	1	5	0x10555	0x21289
+588	0x195dcf8	achievement-filter-2	1	-1	0	y	achievement panel filter progress	0	1	5	0x10556	0x2128a
+589	0x195dd30	achievement-filter-3	1	-1	0	y	achievement panel filter not progress	0	1	5	0x10557	0x2128b
+590	0x195dd68	achievement-filter-4	1	-1	0	n	achievement panel filter has title	0	2	3	0x10558	0x337e8
+591	0x195dda0	use-pc-filter-hidden	7	125	0			0	1	5	0x10559	0x2fd80
+592	0x195ddd8	expand-megaphone-panel	1	-1	0	n		0	1	5	0x1055a	0x21290
+593	0x195de10	achievement-selected-c2	2	-1	0	0	achievement panel selected category 2	0	1	0	0x1055b	0x31cb5
+594	0x195de48	UseDuelFightModeUI	1	121	1	n	use duel fightmode ui	0	1	0	0x1055c	0x31c8a
+595	0x195de80	connect-friend-alert	1	78	1	y	connect friend alert	0	1	0	0x1055d	0x31c4a
+596	0x195deb8	showSPer	1	14	1	y	show status percentage	0	1	5	0x1055e	0x21098
+597	0x195def0	randombox-depot-floating-x	3	-1	0	-1.0	randombox depot panel floating x	0	1	5	0x1055f	0x2109c
+598	0x195df28	randombox-depot-floating-y	3	-1	0	-1.0	randombox depot panel floating y	0	1	5	0x10560	0x3058c
+599	0x195df60	guildpanel2-floating-x	3	-1	0	-1.0	guild panel2 floating x	0	1	5	0x10561	0x30590
+600	0x195df98	guildpanel2-floating-y	3	-1	0	-1.0	guild panel2 floating y	0	1	0	0x564	0x31cb6
+601	0x195dfd0	show-clock	1	122	1	y	show clock	0	1	0	0x565	0x31cb7
+602	0x195e008	show-clock-game-info	1	123	1	y	show clock game info	0	2	3	0x10566	0x33818
+603	0x195e040	kGuild2	7	126	0			0	1	0	0x10567	0x31cb8
+604	0x195e078	showSMTN	1	124	1	y	show system menu title name	0	1	5	0x568	0x3199c
+605	0x195e0b0	raidmember-floating-x	3	-1	0	-1.0	raidmember panel floating x	0	1	5	0x569	0x319a0
+606	0x195e0e8	raidmember-floating-y	3	-1	0	-1.0	raidmember panel floating y	0	1	0	0x1056a	0x31cb9
+607	0x195e120	DSigP2E-normal-damage	1	125	1	y	show player_to_enemy normal damage signal	0	1	0	0x1056b	0x31cba
+608	0x195e158	DSigP2E-abnormal-status	1	126	1	y	show player_to_enemy abnormal status signal	0	1	0	0x1056c	0x31cbb
+609	0x195e190	DSigP2E-healing	1	127	1	y	show player_to_enemy healing signal	0	1	0	0x1056d	0x31cbc
+610	0x195e1c8	DSigE2P-normal-damage	1	128	1	y	show enemy_to_player normal damage signal	0	1	0	0x1056e	0x31cbd
+611	0x195e200	DSigE2P-abnormal-status	1	129	1	y	show enemy_to_player abnormal status signal	0	1	0	0x1056f	0x31cbe
+612	0x195e238	DSigE2P-healing	1	130	1	y	show enemy_to_player healing signal	0	1	0	0x10570	0x31cbf
+613	0x195e270	DSigCritialDamage	1	131	1	n	show critical damage signal	0	1	0	0x10571	0x31cc0
+614	0x195e2a8	showLHPPP	1	132	1	y	show low hp post process	0	1	0	0x10572	0x31cc1
+615	0x195e2e0	guild-craft-notify-alert-1	1	133	1	y		0	1	0	0x10573	0x31cc2
+616	0x195e318	guild-craft-notify-alert-2	1	134	1	y		0	1	0	0x10574	0x31cc3
+617	0x195e350	guild-craft-notify-alert-3	1	135	1	y		0	2	3	0x10575	0x332a8
+618	0x195e388	kHst	7	97	0			0	1	5	0x576	0x319a4
+619	0x195e3c0	attendnace-floating-x	3	-1	0	-1.0	attendnace panel floating x	0	1	5	0x577	0x319a8
+620	0x195e3f8	attendnace-floating-y	3	-1	0	-1.0	attendnace panel floating y	0	2	3	0x10578	0x33728
+621	0x195e430	kTencentInGameShop	7	121	0			0	2	3	0x10579	0x33848
+622	0x195e468	kEconomy	7	127	0			0	2	3	0x1057a	0x33878
+623	0x195e4a0	kCancelOrder	7	128	0			0	2	0	0x1057b	0x31d6c
+624	0x195e4d8	CamTargetControl	9	0	6	0,0		0	1	0	0x1057c	0x31cc4
+625	0x195e510	showGVUI	1	136	1	y	show guild voice hud ui	0	1	5	0x1057d	0x2128c
+626	0x195e548	achievement-filter-5	1	-1	0	n	achievement panel filter title tab acquired only	0	1	5	0x1057e	0x21294
+627	0x195e580	achievement-category_sub	2	-1	0	0	achievement panel current category sub type	0	1	0	0x1057f	0x31cc5
+628	0x195e5b8	UseQuestPathWay	1	137	1	y	use quest path way	0	1	5	0x10580	0x30594
+629	0x195e5f0	guildcustomize-floating-x	3	-1	0	-1.0	guild customize panel floating x	0	1	5	0x10581	0x30598
+630	0x195e628	guildcustomize-floating-y	3	-1	0	-1.0	guild customize panel floating y	0	1	5	0x10582	0x20fd0
+631	0x195e660	petition-panel2-floating-x	3	-1	0	-1.0	petition panel2 floating x	0	1	5	0x10583	0x20fd4
+632	0x195e698	petition-panel2-floating-y	3	-1	0	-1.0	petition panel2 floating y	0	2	5	0x10584	0x31d50
+633	0x195e6d0	QuestRenewalAlert	2	20	0	1		0	1	0	0x10585	0x31c91
+634	0x195e708	use-resist-key	1	85	1	y		0	1	5	0x10586	0x21020
+635	0x195e740	ncj-help-floating-x	3	-1	0	-1.0	ncjapan help panel floating x	0	1	5	0x10587	0x21024
+636	0x195e778	ncj-help-floating-y	3	-1	0	-1.0	ncjapan help panel floating y	0	1	0	0x10588	0x31cc6
+637	0x195e7b0	optimal-performance-mode	1	138	1	n		0	1	0	0x10589	0x31bf4
+638	0x195e7e8	mark-timer-option-type1	2	41	1	1	mark timer option type1	0	1	0	0x1058a	0x31bf8
+639	0x195e820	mark-timer-option-type2	2	42	1	0	mark timer option type2	0	1	0	0x1058b	0x31bfc
+640	0x195e858	mark-timer-option-type3	2	43	1	0	mark timer option type3	0	2	3	0x1058c	0x338a8
+641	0x195e890	kInvite-Party	7	129	0			0	1	5	0x1058d	0x319ac
+642	0x195e8c8	contents-guide-floating-x	3	-1	0	-1.0	contents guide panel floating x	0	1	5	0x1058e	0x319b0
+643	0x195e900	contents-guide-floating-y	3	-1	0	-1.0	contents guide panel floating y	0	2	3	0x1058f	0x338d8
+644	0x195e938	kDuel-Start	7	130	0			0	2	5	0x10590	0x31d54
+645	0x195e970	mlgs	2	21	0	0		0	1	5	0x10591	0x319b4
+646	0x195e9a8	max-level-guide-floating-x	3	-1	0	-1.0	max level guide panel floating x	0	1	5	0x10592	0x319b8
+647	0x195e9e0	max-level-guide-floating-y	3	-1	0	-1.0	max level guide panel floating y	0	2	3	0x10593	0x33908
+648	0x195ea18	kFriend	7	131	0			0	2	3	0x10594	0x33938
+649	0x195ea50	kWardrobe	7	132	0			0	1	0	0x10595	0x31c04
+650	0x195ea88	wardrobe-filter-first	2	45	0	0		0	1	0	0x10596	0x31c08
+651	0x195eac0	wardrobe-filter-second	2	46	0	0		0	1	0	0x10597	0x31c0c
+652	0x195eaf8	wardrobe-viewmode	2	47	0	0		0	1	0	0x10598	0x31c10
+653	0x195eb30	wardrobe-background	2	48	0	0		0	1	5	0x10599	0x210b8
+654	0x195eb68	web-contents-guide-floating-x	3	-1	0	-1.0	web contents guide panel position x	0	1	5	0x1059a	0x210bc
+655	0x195eba0	web-contents-guide-floating-y	3	-1	0	-1.0	web contents guide panel position y	0	1	0	0x1059b	0x31cc7
+656	0x195ebd8	TeamCB	1	139	1	y		0	1	5	0x1059c	0x27f08
+657	0x195ec10	chat-arena-waiting-channelFontSize	6	-1	0			0	1	5	0x1059d	0x2c044
+658	0x195ec48	chat-arena-party-search-channelFontSize	6	-1	0			0	1	5	0x1059e	0x2cd50
+659	0x195ec80	chat-arena-party-channelFontSize	6	-1	0			0	1	5	0x1059f	0x2da5c
+660	0x195ecb8	chat-arena-guild-channelFontSize	6	-1	0			0	1	5	0x105a0	0x2e768
+661	0x195ecf0	chat-arena-indomain-channelFontSize	6	-1	0			0	1	5	0x105a1	0x2f474
+662	0x195ed28	chat-arena-one-channelFontSize	6	-1	0			0	2	3	0x5a2	0x32078
+663	0x195ed60	kTeam-Edit	7	0	0			0	1	5	0x105a3	0x21028
+664	0x195ed98	duel-ranking-floating-x	3	-1	0	-1.0	duel ranking panel floating x	0	1	5	0x105a4	0x2102c
+665	0x195edd0	duel-ranking-floating-y	3	-1	0	-1.0	duel ranking panel floating y	0	1	5	0x105a5	0x319bc
+666	0x195ee08	dragon-jade-shop-panel-floating-x	3	-1	0	-1.0	dragon jade shop panel floating x	0	1	5	0x105a6	0x319c0
+667	0x195ee40	dragon-jade-shop-panel-floating-y	3	-1	0	-1.0	dragon jade shop panel floating y	0	2	3	0x105a7	0x33968
+668	0x195ee78	kDragonJadeShop	7	133	0			0	1	5	0x105a8	0x31c55
+669	0x195eeb0	QQSCTSM	1	25	1	y		0	1	5	0x105a9	0x21298
+670	0x195eee8	challenge-today-panel-floating-x	3	-1	0	-1.0	challengeToday panel floating x	0	1	5	0x105aa	0x2129c
+671	0x195ef20	challenge-today-panel-floating-y	3	-1	0	-1.0	challengeToday panel floating y	0	1	5	0x105ab	0x319c4
+672	0x195ef58	suggest-join-guild-floating-x	3	-1	0	-1.0	suggest join guild panel floating x	0	1	5	0x105ac	0x319c8
+673	0x195ef90	suggest-join-guild-floating-y	3	-1	0	-1.0	suggest join guild panel floating y	0	3	5	0x105ad	0x34330
+674	0x195efc8	item2_1	2	-1	0	-1	item bar slot 1.	0	3	5	0x105ae	0x34334
+675	0x195f000	item2_2	2	-1	0	-1	item bar slot 2.	0	3	5	0x105af	0x34338
+676	0x195f038	item2_3	2	-1	0	-1	item bar slot 3.	0	3	5	0x105b0	0x3433c
+677	0x195f070	item2_4	2	-1	0	-1	item bar slot 4.	0	3	5	0x105b1	0x34340
+678	0x195f0a8	ibs-i	2	-1	0	0	item bar page index	0	2	3	0x105b2	0x339f8
+679	0x195f0e0	kIbsI	7	136	0			0	2	3	0x105b3	0x33a28
+680	0x195f118	kDuel-tag-order-first	7	137	0			0	2	3	0x105b6	0x33a58
+681	0x195f150	kDuel-tag-order-random	7	138	0			0	2	3	0x105b7	0x32618
+682	0x195f188	kSSltTag	7	30	0			0	1	5	0x105b8	0x31c9e
+683	0x195f1c0	hud2-coin-pbp-visible	1	98	0	y		0	1	0	0x105b9	0x31c51
+684	0x195f1f8	SPEMyJob	1	21	1	n		0	2	3	0x105ba	0x33a88
+685	0x195f230	kDuel-leave-arena-square	7	139	0			0	2	3	0x105bb	0x33ab8
+686	0x195f268	kQuickTurn	7	140	0			0	2	3	0x105bc	0x33ae8
+687	0x195f2a0	kJoyFunc1	7	141	0			0	2	3	0x105bd	0x33b18
+688	0x195f2d8	kJoyFunc2	7	142	0			0	2	3	0x105be	0x32a68
+689	0x195f310	kDashForward	7	53	0			0	2	3	0x105bf	0x334b8
+690	0x195f348	kJoyEsc	7	108	0			0	2	3	0x105c0	0x33488
+691	0x195f380	kClosePanels	7	107	0			0	2	3	0x105c1	0x33518
+692	0x195f3b8	kCamRotateType	7	110	0			0	2	3	0x105c2	0x33458
+693	0x195f3f0	kToggleUiMode	7	106	0			0	2	3	0x105c3	0x33b48
+694	0x195f428	kAccelCursorSpeed	7	143	0			0	2	3	0x105c4	0x33b78
+695	0x195f460	kJoyLButton	7	144	0			0	2	3	0x105c5	0x33ba8
+696	0x195f498	kJoyRButton	7	145	0			0	2	0	0x105c6	0x31d14
+697	0x195f4d0	JoypadCamSensX	2	5	4	55	joypad x-axis mouse sensitivity	0	2	0	0x105c7	0x31d18
+698	0x195f508	JoypadCamSensY	2	6	4	25	joypad y-axis mouse sensitivity	0	1	1	0x105c8	0x31c9a
+699	0x195f540	frame-auto-control	1	94	1	y		0	2	3	0x105c9	0x33bd8
+700	0x195f578	change-pet-filter-hidden	7	146	0			0	2	3	0x105ca	0x32ee8
+701	0x195f5b0	kHudLight	7	77	0			0	1	0	0x105cb	0x31cc8
+702	0x195f5e8	SpamFilterText	1	140	1	y		0	2	5	0x105cc	0x340f0
+703	0x195f620	auction-favorites-1	4	-1	0	0	auction favorites	0	2	5	0x105cd	0x340f8
+704	0x195f658	auction-favorites-2	4	-1	0	0	auction favorites	0	2	5	0x105ce	0x34100
+705	0x195f690	auction-favorites-3	4	-1	0	0	auction favorites	0	2	5	0x105cf	0x34108
+706	0x195f6c8	auction-favorites-4	4	-1	0	0	auction favorites	0	2	5	0x105d0	0x34110
+707	0x195f700	auction-favorites-5	4	-1	0	0	auction favorites	0	2	5	0x105d1	0x34118
+708	0x195f738	auction-favorites-6	4	-1	0	0	auction favorites	0	2	5	0x105d2	0x34120
+709	0x195f770	auction-favorites-7	4	-1	0	0	auction favorites	0	2	5	0x105d3	0x34128
+710	0x195f7a8	auction-favorites-8	4	-1	0	0	auction favorites	0	2	5	0x105d4	0x34130
+711	0x195f7e0	auction-favorites-9	4	-1	0	0	auction favorites	0	2	5	0x105d5	0x34138
+712	0x195f818	auction-favorites-10	4	-1	0	0	auction favorites	0	1	0	0x105d6	0x31c14
+713	0x195f850	warehouse-tab-index	2	49	0	0		0	1	5	0x105d7	0x212a0
+714	0x195f888	clock-alarm-panel-floating-x	3	-1	0	-1.0	clockAlarmPanel panel floating x	0	1	5	0x105d8	0x212a4
+715	0x195f8c0	clock-alarm-panel-floating-y	3	-1	0	-1.0	clockAlarmPanel panel floating y	0	1	0	0x105d9	0x31cc9
+716	0x195f8f8	clock-alert-1	1	141	1	y		0	1	0	0x105da	0x31cca
+717	0x195f930	clock-alert-2	1	142	1	y		0	1	0	0x105db	0x31ccb
+718	0x195f968	clock-alert-3	1	143	1	y		0	1	0	0x105dc	0x31ccc
+719	0x195f9a0	clock-peaktime-alarm	1	144	1	y		0	1	0	0x105dd	0x31ccd
+720	0x195f9d8	clock-fevertime-alarm	1	145	1	y		0	1	0	0x105de	0x31cce
+721	0x195fa10	clock-guildbattlefeild-alarm	1	146	1	y		0	1	0	0x105df	0x31cd1
+722	0x195fa48	clock-invadetown-alarm	1	149	1	y		0	1	0	0x105e0	0x31cd2
+723	0x195fa80	clock-quest-alarm	1	150	1	y		0	1	0	0x105e1	0x31cd3
+724	0x195fab8	clock-dungeon-alarm	1	151	1	y		0	1	0	0x105e2	0x31cd4
+725	0x195faf0	clock-randomstore-alarm	1	152	1	y		0	1	0	0x105e3	0x31cd5
+726	0x195fb28	clock-attendance-alarm	1	153	1	y		0	1	1	0x105e4	0x31cd7
+727	0x195fb60	show-subtitle	1	155	1	y		0	2	3	0x105e5	0x33998
+728	0x195fb98	kRanking	7	134	0			0	1	5	0x105e6	0x21048
+729	0x195fbd0	bns-tv-floating-x	3	-1	0	-1.0	bns tv panel floating x	0	1	5	0x105e7	0x2104c
+730	0x195fc08	bns-tv-floating-y	3	-1	0	-1.0	bns tv panel floating y	0	2	3	0x105e8	0x336c8
+731	0x195fc40	kMoneyMarket	7	119	0			0	1	0	0x105e9	0x31cd8
+732	0x195fc78	use-chroma-keyboard	1	156	1	y		0	1	5	0x105ea	0x21250
+733	0x195fcb0	ranking-panel-floating-x	3	-1	0	-1.0	ranking panel floating x	0	1	5	0x105eb	0x21254
+734	0x195fce8	ranking-panel-floating-y	3	-1	0	-1.0	ranking panel floating y	0	1	5	0x105ec	0x21258
+735	0x195fd20	ranking-week-info-panel-floating-x	3	-1	0	-1.0	ranking week info panel floating x	0	1	5	0x105ed	0x2125c
+736	0x195fd58	ranking-week-info-panel-floating-y	3	-1	0	-1.0	ranking week info panel floating y	0	1	5	0x105ee	0x21260
+737	0x195fd90	ranking-season-info-panel-floating-x	3	-1	0	-1.0	ranking season info panel floating x	0	1	5	0x105ef	0x21264
+738	0x195fdc8	ranking-season-info-panel-floating-y	3	-1	0	-1.0	ranking season info panel floating y	0	1	5	0x105f0	0x21270
+739	0x195fe00	ranking-reward-panel-floating-x	3	-1	0	-1.0	ranking reward panel floating x	0	1	5	0x105f1	0x21274
+740	0x195fe38	ranking-reward-panel-floating-y	3	-1	0	-1.0	ranking reward panel floating y	0	1	5	0x105f2	0x21068
+741	0x195fe70	dungeon-guide-floating-x	3	-1	0	-1.0	dungeon guide panel floating x	0	1	5	0x105f3	0x2106c
+742	0x195fea8	dungeon-guide-floating-y	3	-1	0	-1.0	dungeon guide panel floating y	0	1	5	0x105f4	0x21070
+743	0x195fee0	digital-river-floating-x	3	-1	0	-1.0	digital river panel floating x	0	1	5	0x105f5	0x21074
+744	0x195ff18	digital-river-floating-y	3	-1	0	-1.0	digital river panel floating y	0	1	0	0x10624	0x31cd9
+745	0x195ff50	test-l-p-enable	1	157	0	n		0	1	0	0x10625	0x31cda
+746	0x195ff88	test-l-p-l-imme	1	158	0	n		0	1	0	0x10626	0x31c18
+747	0x195ffc0	e-s-r-player	2	50	4	4		1	1	0	0x10627	0x31c1c
+748	0x195fff8	e-s-r-pc	2	51	4	4		1	1	0	0x10628	0x31c20
+749	0x1960030	e-s-r-npc	2	52	4	4		1	1	0	0x10629	0x31c24
+750	0x1960068	e-s-r-back	2	53	4	4		1	2	5	0x1062a	0x34420
+751	0x19600a0	ingame-shop-last-open-time	4	-1	0	0	ingame shop last open time for check new goods	0	1	0	0x1062b	0x31c28
+752	0x19600d8	client-locale-time	2	54	5	0		0	2	5	0x1062c	0x31cdb
+753	0x1960110	azerty-key-binding-mode	1	-1	0	n		0	1	5	0x1062d	0x21fae
+754	0x1960148	chat-all-enable-time-stamp	1	-1	0	n		0	1	5	0x1062e	0x22cba
+755	0x1960180	chat-battle-enable-time-stamp	1	-1	0	y		0	1	5	0x1062f	0x239c6
+756	0x19601b8	chat-c1-enable-time-stamp	1	-1	0	y		0	1	5	0x10630	0x246d2
+757	0x19601f0	chat-c2-enable-time-stamp	1	-1	0	y		0	1	5	0x10631	0x253de
+758	0x1960228	chat-c3-enable-time-stamp	1	-1	0	y		0	1	5	0x10632	0x260ea
+759	0x1960260	chat-c4-enable-time-stamp	1	-1	0	y		0	1	5	0x10633	0x26df6
+760	0x1960298	chat-c5-enable-time-stamp	1	-1	0	y		0	1	5	0x10634	0x27b02
+761	0x19602d0	chat-c6-enable-time-stamp	1	-1	0	y		0	1	5	0x10635	0x2951a
+762	0x1960308	chat-partysearch-enable-time-stamp	1	-1	0	y		0	1	5	0x10636	0x2a226
+763	0x1960340	chat-qq-enable-time-stamp	1	-1	0	y		0	1	5	0x10637	0x2af32
+764	0x1960378	chat-g-c-enable-time-stamp	1	-1	0	y		0	1	5	0x10638	0x2c94a
+765	0x19603b0	chat-arena-p-s-enable-time-stamp	1	-1	0	n		0	1	5	0x10639	0x2d656
+766	0x19603e8	chat-arena-p-enable-time-stamp	1	-1	0	n		0	1	5	0x1063a	0x2e362
+767	0x1960420	chat-arena-g-enable-time-stamp	1	-1	0	y		0	1	5	0x1063b	0x2f06e
+768	0x1960458	chat-arena-d-enable-time-stamp	1	-1	0	n		0	1	5	0x1063c	0x2fd7a
+769	0x1960490	chat-arena-one-enable-time-stamp	1	-1	0	y		0	1	5	0x1063d	0x2880e
+770	0x19604c8	chat-arena-duel-lobby-enable-time-stamp	1	-1	0	n		0	1	0	0x1063e	0x31cdc
+771	0x1960500	show-latency-info	1	160	1	n		0	1	5	0x1063f	0x319cc
+772	0x1960538	damage-meter-floating-x	3	-1	0	-1.0	floating x	0	1	5	0x10640	0x319d0
+773	0x1960570	damage-meter-floating-y	3	-1	0	-1.0	floating y	0	1	5	0x10641	0x319d4
+774	0x19605a8	damage-meter-minimize	1	-1	0	n		0	1	0	0x10642	0x31cdd
+775	0x19605e0	damage-meter-enable	1	161	1	y		0	1	5	0x10644	0x31c9f
+776	0x1960618	hud2-coin-fpp-visible	1	99	0	y		0	2	3	0x10645	0x33c08
+777	0x1960650	kDamageMeter	7	147	0			0	2	3	0x10646	0x33c38
+778	0x1960688	kItemGraph	7	148	0			0	1	5	0x1064a	0x21058
+779	0x19606c0	event-guide-floating-x	3	-1	0	-1.0	event guide panel floating x	0	1	5	0x1064b	0x2105c
+780	0x19606f8	event-guide-floating-y	3	-1	0	-1.0	event guide panel floating y	0	1	5	0x1064c	0x21060
+781	0x1960730	event-guide-lastDiscontinueTime	4	-1	0	0	event guide panel discontinue time	0	1	0	0x64d	0x31cde
+782	0x1960768	show-random-ability-min-max	1	162	1	n		0	1	0	0x10655	0x31ccf
+783	0x19607a0	clock-guildcombat-alarm	1	147	1	y		0	2	3	0x10656	0x33c68
+784	0x19607d8	kDC1N	7	149	0			0	2	3	0x10657	0x33c98
+785	0x1960810	kDC2N	7	150	0			0	2	3	0x10658	0x33cc8
+786	0x1960848	kDC3N	7	151	0			0	2	3	0x10659	0x33cf8
+787	0x1960880	kDC4N	7	152	0			0	2	3	0x1065a	0x33d28
+788	0x19608b8	kDC5N	7	153	0			0	2	3	0x1065b	0x33d58
+789	0x19608f0	kDC6N	7	154	0			0	2	3	0x1065c	0x33d88
+790	0x1960928	kDC7N	7	155	0			0	1	5	0x1065d	0x319d8
+791	0x1960960	random-store-item-display-panel-floating-x	3	-1	0	-1.0	random store item display panel floating x	0	1	5	0x1065e	0x319dc
+792	0x1960998	random-store-item-display-panel-floating-y	3	-1	0	-1.0	random store item display panel floating y	0	1	5	0x1065f	0x21050
+793	0x19609d0	bns-tv-size	2	-1	0	3	bns tv panel size	0	1	0	0x10660	0x31cd6
+794	0x1960a08	clock-training-alarm	1	154	1	y		0	1	5	0x10661	0x319e8
+795	0x1960a40	itemgraph-panel-floating-x	3	-1	0	-1.0	itemgraph panel floating x	0	1	5	0x10662	0x319ec
+796	0x1960a78	itemgraph-panel-floating-y	3	-1	0	-1.0	itemgraph panel floating y	0	1	5	0x10663	0x319f0
+797	0x1960ab0	itemgraph-panel-maximized	1	-1	0	n	if itemgraph panel is maximized	0	1	0	0x10664	0x31ce2
+798	0x1960ae8	clock-goods-store-alarm	1	166	1	y		0	2	3	0x10665	0x33de8
+799	0x1960b20	kSkillTrainingRoom	7	157	0			0	1	5	0x10666	0x319f4
+800	0x1960b58	goods-store-panel-floating-x	3	-1	0	-1.0	goods store panel floating x	0	1	5	0x10667	0x319f8
+801	0x1960b90	goods-store-panel-floating-y	3	-1	0	-1.0	goods store panel floating y	0	1	5	0x10668	0x31a00
+802	0x1960bc8	goods-store-charge-panel-floating-x	3	-1	0	-1.0	goods store charge panel floating x	0	1	5	0x10669	0x31a04
+803	0x1960c00	goods-store-charge-panel-floating-y	3	-1	0	-1.0	goods store charge panel floating y	0	1	5	0x1066a	0x31a10
+804	0x1960c38	tencent-event-notice-floating-x	3	-1	0	-1.0	tencent event notice panel floating x	0	1	5	0x1066b	0x31a14
+805	0x1960c70	tencent-event-notice-floating-y	3	-1	0	-1.0	tencent event notice panel floating y	0	1	5	0x1066c	0x31a18
+806	0x1960ca8	tencent-event-notice-lastDiscontinueTime	4	-1	0	0	tencent event notice panel discontinue time	0	1	5	0x1066d	0x31a20
+807	0x1960ce0	tencent-community-event-floating-x	3	-1	0	-1.0	tencent community event panel floating x	0	1	5	0x1066e	0x31a24
+808	0x1960d18	tencent-community-event-floating-y	3	-1	0	-1.0	tencent community event panel floating y	0	2	3	0x1066f	0x33db8
+809	0x1960d50	kGoodsStore	7	156	0			0	1	0	0x10670	0x31ce3
+810	0x1960d88	open-guild-alarm	1	167	1	y		0	2	5	0x10671	0x31ce4
+811	0x1960dc0	skill-training-room-quick-start-enable	1	-1	0	y	skill training room quick start panel show first	0	2	3	0x10672	0x32678
+812	0x1960df8	kDungeonGuide	7	32	0			0	2	3	0x10673	0x33e18
+813	0x1960e30	kEnterArena	7	158	0			0	2	3	0x10674	0x324c8
+814	0x1960e68	kSkillSpecial1	7	23	0			0	2	3	0x10675	0x324f8
+815	0x1960ea0	kSkillSpecial2	7	24	0			0	1	0	0x10676	0x31ce5
+816	0x1960ed8	skill-train-enable-list	1	169	0	n		0	1	0	0x677	0x31ce7
+817	0x1960f10	shake-player-attack	1	171	1	y	shake player attack	0	1	0	0x10678	0x31ce8
+818	0x1960f48	shake-other-attack	1	172	1	y	shake other attack	0	1	5	0x10679	0x20fc0
+819	0x1960f80	skill-train-panel-floating-x	3	-1	0	-1.0	skill train panel floating x	0	1	5	0x1067a	0x20fc4
+820	0x1960fb8	skill-train-panel-floating-y	3	-1	0	-1.0	skill train panel floating y	0	1	0	0x1067b	0x31c96
+821	0x1960ff0	skill-range-decal-friend-boss	1	90	1	y		0	1	0	0x1067c	0x31c97
+822	0x1961028	skill-range-decal-enemy-boss	1	91	1	y		0	1	0	0x1067d	0x31cdf
+823	0x1961060	arrange-warehouse	1	163	1	n		0	1	0	0x1067e	0x31ce0
+824	0x1961098	arrange-inventory	1	164	1	n		0	1	5	0x1067f	0x2fd84
+825	0x19610d0	boast-chat-show-panel-floating-x	3	-1	0	-1.0	boast chat show panel floating x	0	1	5	0x10680	0x2fd88
+826	0x1961108	boast-chat-show-panel-floating-y	3	-1	0	-1.0	boast chat show panel floating y	0	1	0	0x10681	0x31ce9
+827	0x1961140	bullet-effect	1	173	1	y		0	1	5	0x10682	0x31a28
+828	0x1961178	attendance-time-table-panel-floating-x	3	-1	0	-1.0	attendance time table panel floating x	0	1	5	0x10683	0x31a2c
+829	0x19611b0	attendance-time-table-panel-floating-y	3	-1	0	-1.0	attendance time table panel floating y	0	1	0	0x10684	0x2fd8c
+830	0x19611e8	talk-social-quick-slot-1	5	-1	0	default		0	1	0	0x10685	0x2fe8c
+831	0x1961220	talk-social-quick-slot-2	5	-1	0	default		0	1	0	0x10686	0x2ff8c
+832	0x1961258	talk-social-quick-slot-3	5	-1	0	default		0	1	0	0x10687	0x3008c
+833	0x1961290	talk-social-quick-slot-4	5	-1	0	default		0	1	0	0x10688	0x3018c
+834	0x19612c8	talk-social-quick-slot-5	5	-1	0	default		0	1	0	0x10689	0x3028c
+835	0x1961300	talk-social-quick-slot-6	5	-1	0	default		0	1	0	0x1068a	0x3038c
+836	0x1961338	talk-social-quick-slot-7	5	-1	0	default		0	1	0	0x1068b	0x3048c
+837	0x1961370	talk-social-quick-slot-8	5	-1	0	default		0	1	0	0x1068c	0x31ce1
+838	0x19613a8	ShowBuffGragh	1	165	1	y		0	2	3	0x1068d	0x33e48
+839	0x19613e0	kAppearancePictorial	7	159	0			0	1	0	0x1068e	0x31ceb
+840	0x1961418	clock-attendance-time-talbealarm	1	175	1	y		0	1	0	0x1068f	0x31cec
+841	0x1961450	show-item-sale-enable	1	176	1	y		0	2	3	0x10690	0x33e78
+842	0x1961488	kToggleHybridMode	7	160	0			0	2	3	0x10691	0x31d2c
+843	0x19614c0	UiModeLBtnCmd	8	11	5	0	bns ui mode mouse command	0	2	3	0x10692	0x31d48
+844	0x19614f8	HybridModeMBtnCmd	8	18	5	0	bns hybrid mode mouse command	0	2	3	0x10693	0x31d4c
+845	0x1961530	HybridModeRBtnCmd	8	19	5	0	bns hybrid mode mouse command	0	1	0	0x10694	0x31ced
+846	0x1961568	UseHybridEffect	1	177	1	y	show hybrid(classic) mode ground effect	0	2	3	0x10695	0x31d38
+847	0x19615a0	AltModeLBtnCmd	8	14	5	0	bns alt mode mouse command	0	2	3	0x10696	0x31d3c
+848	0x19615d8	AltModeMBtnCmd	8	15	5	0	bns alt mode mouse command	0	2	3	0x10697	0x31d40
+849	0x1961610	AltModeRBtnCmd	8	16	5	0	bns alt mode mouse command	0	2	3	0x10698	0x31d44
+850	0x1961648	HybridModeLBtnCmd	8	17	5	0	bns hybrid mode mouse command	0	1	0	0x10699	0x31cee
+851	0x1961680	AltModeLClickMove	1	178	1	y		0	1	0	0x1069a	0x31cef
+852	0x19616b8	AltModeLClickInteract	1	179	1	y		0	1	0	0x1069b	0x31cf0
+853	0x19616f0	PermissionHybridControl	1	180	1	n		0	1	0	0x1069c	0x31cf1
+854	0x1961728	HybridModeLClickMove	1	181	1	y		0	1	0	0x1069d	0x31cf2
+855	0x1961760	HybridModeLClickInteract	1	182	1	y		0	1	0	0x1069e	0x31cd0
+856	0x1961798	clock-championship-duel	1	148	1	y		0	2	0	0x1069f	0x3444c
+857	0x19617d0	wardrobe-favorite-Costume-1	2	56	0	0		0	2	0	0x106a0	0x34450
+858	0x1961808	wardrobe-favorite-Costume-2	2	56	0	0		0	2	0	0x106a1	0x34454
+859	0x1961840	wardrobe-favorite-Costume-3	2	56	0	0		0	2	0	0x106a2	0x34458
+860	0x1961878	wardrobe-favorite-Costume-4	2	56	0	0		0	2	0	0x106a3	0x3445c
+861	0x19618b0	wardrobe-favorite-Costume-5	2	56	0	0		0	2	0	0x106a4	0x34460
+862	0x19618e8	wardrobe-favorite-Costume-6	2	56	0	0		0	2	0	0x106a5	0x34464
+863	0x1961920	wardrobe-favorite-Costume-7	2	56	0	0		0	2	0	0x106a6	0x34468
+864	0x1961958	wardrobe-favorite-Costume-8	2	56	0	0		0	2	0	0x106a7	0x3446c
+865	0x1961990	wardrobe-favorite-Costume-9	2	56	0	0		0	2	0	0x106a8	0x34470
+866	0x19619c8	wardrobe-favorite-Costume-10	2	56	0	0		0	2	0	0x106a9	0x34474
+867	0x1961a00	wardrobe-favorite-Weapon-1	2	56	0	0		0	2	0	0x106aa	0x34478
+868	0x1961a38	wardrobe-favorite-Weapon-2	2	56	0	0		0	2	0	0x106ab	0x3447c
+869	0x1961a70	wardrobe-favorite-Weapon-3	2	56	0	0		0	2	0	0x106ac	0x34480
+870	0x1961aa8	wardrobe-favorite-Weapon-4	2	56	0	0		0	2	0	0x106ad	0x34484
+871	0x1961ae0	wardrobe-favorite-Weapon-5	2	56	0	0		0	2	0	0x106ae	0x34488
+872	0x1961b18	wardrobe-favorite-Pet-1	2	56	0	0		0	2	0	0x106af	0x3448c
+873	0x1961b50	wardrobe-favorite-Pet-2	2	56	0	0		0	2	0	0x106b0	0x34490
+874	0x1961b88	wardrobe-favorite-Pet-3	2	56	0	0		0	2	0	0x106b1	0x34494
+875	0x1961bc0	wardrobe-favorite-Pet-4	2	56	0	0		0	2	0	0x106b2	0x34498
+876	0x1961bf8	wardrobe-favorite-Pet-5	2	56	0	0		0	1	0	0x106b3	0x31c00
+877	0x1961c30	wardrobe-filter-zero	2	44	0	0		0	1	0	0x106b4	0x31cf3
+878	0x1961c68	HideBuffGraphEffectIcon	1	183	1	n		0	2	0	0x106b5	0x31d58
+879	0x1961ca0	SimpleBattleMode	2	22	1	n		0	2	3	0x106b6	0x33ed8
+880	0x1961cd8	kToggleContextSimpleMode	7	162	0			0	2	3	0x106b7	0x33548
+881	0x1961d10	kToggleSocialMode	7	111	0			0	2	3	0x106b8	0x33ea8
+882	0x1961d48	toggle-personal-customize	7	161	0			0	2	0	0x106c2	0x31d5c
+883	0x1961d80	skill-train-version	2	23	0	0		0	2	0	0x106c3	0x344b0
+884	0x1961db8	skill-train-page-1-context-lock-1	2	57	0	0		0	2	0	0x106c4	0x344b4
+885	0x1961df0	skill-train-page-1-context-lock-2	2	57	0	0		0	2	0	0x106c5	0x344b8
+886	0x1961e28	skill-train-page-1-context-lock-3	2	57	0	0		0	2	0	0x106c6	0x344bc
+887	0x1961e60	skill-train-page-1-context-lock-4	2	57	0	0		0	2	0	0x106c7	0x344c0
+888	0x1961e98	skill-train-page-1-context-lock-5	2	57	0	0		0	2	0	0x106c8	0x344c4
+889	0x1961ed0	skill-train-page-2-context-lock-1	2	57	0	0		0	2	0	0x106c9	0x344c8
+890	0x1961f08	skill-train-page-2-context-lock-2	2	57	0	0		0	2	0	0x106ca	0x344cc
+891	0x1961f40	skill-train-page-2-context-lock-3	2	57	0	0		0	2	0	0x106cb	0x344d0
+892	0x1961f78	skill-train-page-2-context-lock-4	2	57	0	0		0	2	0	0x106cc	0x344d4
+893	0x1961fb0	skill-train-page-2-context-lock-5	2	57	0	0		0	2	0	0x106cd	0x344d8
+894	0x1961fe8	skill-train-page-3-context-lock-1	2	57	0	0		0	2	0	0x106ce	0x344dc
+895	0x1962020	skill-train-page-3-context-lock-2	2	57	0	0		0	2	0	0x106cf	0x344e0
+896	0x1962058	skill-train-page-3-context-lock-3	2	57	0	0		0	2	0	0x106d0	0x344e4
+897	0x1962090	skill-train-page-3-context-lock-4	2	57	0	0		0	2	0	0x106d1	0x344e8
+898	0x19620c8	skill-train-page-3-context-lock-5	2	57	0	0		0	2	0	0x106d2	0x344ec
+899	0x1962100	skill-train-page-4-context-lock-1	2	57	0	0		0	2	0	0x106d3	0x344f0
+900	0x1962138	skill-train-page-4-context-lock-2	2	57	0	0		0	2	0	0x106d4	0x344f4
+901	0x1962170	skill-train-page-4-context-lock-3	2	57	0	0		0	2	0	0x106d5	0x344f8
+902	0x19621a8	skill-train-page-4-context-lock-4	2	57	0	0		0	2	0	0x106d6	0x344fc
+903	0x19621e0	skill-train-page-4-context-lock-5	2	57	0	0		0	2	0	0x106d7	0x34500
+904	0x1962218	skill-train-page-5-context-lock-1	2	57	0	0		0	2	0	0x106d8	0x34504
+905	0x1962250	skill-train-page-5-context-lock-2	2	57	0	0		0	2	0	0x106d9	0x34508
+906	0x1962288	skill-train-page-5-context-lock-3	2	57	0	0		0	2	0	0x106da	0x3450c
+907	0x19622c0	skill-train-page-5-context-lock-4	2	57	0	0		0	2	0	0x106db	0x34510
+908	0x19622f8	skill-train-page-5-context-lock-5	2	57	0	0		0	1	0	0x106dc	0x31cf4
+909	0x1962330	Show-Alarm	1	184	1	y	use boast panel	0	1	0	0x106dd	0x31cf5
+910	0x1962368	use-challengeparty-warning-confirm	1	185	1	y		0	1	0	0x106de	0x31a30
+911	0x19623a0	mentoring-panel-floating-x	3	-1	0	-1.0	mentoring panel floating x	0	1	0	0x106df	0x31a34
+912	0x19623d8	mentoring-panel-floating-y	3	-1	0	-1.0	mentoring panel floating x	0	1	5	0x106e0	0x31a38
+913	0x1962410	ingame-notice-panel-lastDiscontinueTime	4	-1	0	0	ingame notice panel discontinue time	0	1	0	0x106e1	0x31c47
+914	0x1962448	namePcBackGroundImage	1	11	1	y	show pc nameplate background image	0	2	3	0x106e2	0x33f08
+915	0x1962480	kMentoring	7	163	0			0	2	0	0x106e3	0x3449c
+916	0x19624b8	wardrobe-favorite-Collecting-1	2	56	0	0		0	2	0	0x106e4	0x344a0
+917	0x19624f0	wardrobe-favorite-Collecting-2	2	56	0	0		0	2	0	0x106e5	0x344a4
+918	0x1962528	wardrobe-favorite-Collecting-3	2	56	0	0		0	2	0	0x106e6	0x344a8
+919	0x1962560	wardrobe-favorite-Collecting-4	2	56	0	0		0	2	0	0x106e7	0x344ac
+920	0x1962598	wardrobe-favorite-Collecting-5	2	56	0	0		0	1	5	0x106e8	0x34518
+921	0x19625d0	character-slot-order-1	2	-1	0	0		0	1	5	0x106e9	0x34520
+922	0x1962608	character-slot-order-2	2	-1	0	0		0	1	5	0x106ea	0x34528
+923	0x1962640	character-slot-order-3	2	-1	0	0		0	1	5	0x106eb	0x34530
+924	0x1962678	character-slot-order-4	2	-1	0	0		0	1	5	0x106ec	0x34538
+925	0x19626b0	character-slot-order-5	2	-1	0	0		0	1	5	0x106ed	0x34540
+926	0x19626e8	character-slot-order-6	2	-1	0	0		0	1	5	0x106ee	0x34548
+927	0x1962720	character-slot-order-7	2	-1	0	0		0	1	5	0x106ef	0x34550
+928	0x1962758	character-slot-order-8	2	-1	0	0		0	1	5	0x106f0	0x34558
+929	0x1962790	character-slot-order-9	2	-1	0	0		0	1	5	0x106f1	0x34560
+930	0x19627c8	character-slot-order-10	2	-1	0	0		0	1	5	0x106f2	0x34568
+931	0x1962800	character-slot-order-11	2	-1	0	0		0	1	5	0x106f3	0x34570
+932	0x1962838	character-slot-order-12	2	-1	0	0		0	1	5	0x106f4	0x34578
+933	0x1962870	character-slot-order-13	2	-1	0	0		0	1	5	0x106f5	0x34580
+934	0x19628a8	character-slot-order-14	2	-1	0	0		0	1	5	0x106f6	0x34588
+935	0x19628e0	character-slot-order-15	2	-1	0	0		0	1	5	0x106f7	0x34590
+936	0x1962918	character-slot-order-16	2	-1	0	0		0	1	5	0x106f8	0x34598
+937	0x1962950	character-slot-order-17	2	-1	0	0		0	1	5	0x106f9	0x345a0
+938	0x1962988	character-slot-order-18	2	-1	0	0		0	1	5	0x106fa	0x345a8
+939	0x19629c0	character-slot-order-19	2	-1	0	0		0	1	5	0x106fb	0x345b0
+940	0x19629f8	character-slot-order-20	2	-1	0	0		0	2	3	0x106fc	0x33f38
+941	0x1962a30	kPvP	7	164	0			0	1	0	0x106fe	0x31ce6
+942	0x1962a68	skill-train-trait-list-open	1	170	0	y		0	2	3	0x106ff	0x339c8
+943	0x1962aa0	kingame-notice	7	135	0			0	2	3	0x10700	0x33f68
+944	0x1962ad8	kNovaQuickSlot	7	165	0			0	2	3	0x10701	0x33f98
+945	0x1962b10	kAccountContents	7	166	0			0	2	3	0x10702	0x325e8
+946	0x1962b48	kISlt5	7	29	0			0	2	3	0x10703	0x33fc8
+947	0x1962b80	kContentsJournal2	7	167	0			0	1	0	0x10704	0x31a40
+948	0x1962bb8	contents-journal2-panel-floating-x	3	-1	0	-1.0	contents journal2 panel floating x	0	1	0	0x10705	0x31a44
+949	0x1962bf0	contents-journal2-panel-floating-y	3	-1	0	-1.0	contents journal2 panel floating y	0	2	3	0x10706	0x33ff8
+950	0x1962c28	kFishCollecting	7	168	0			0	1	5	0x10707	0x31ca0
+951	0x1962c60	hud2-coin-lcp-visible	1	100	0	y		0	1	0	0x10708	0x31cf6
+952	0x1962c98	clock-lifecontents-alarm	1	186	1	y		0	2	0	0x10709	0x31d60
+953	0x1962cd0	SimpleBattleModeState	2	24	0	2		0	1	0	0x1070a	0x31cf7
+954	0x1962d08	clock-duelSolo	1	187	1	y		0	1	0	0x1070b	0x31cf8
+955	0x1962d40	clock-duelTagMatch	1	188	1	y		0	2	0	0x1070c	0x31d64
+956	0x1962d78	use-skill-camera	2	25	1	1	toggle skill camera	0	1	0	0x1070d	0x31cf9
+957	0x1962db0	ShowPlayTime-Alarm	1	189	1	y		0	2	0	0x1070e	0x31d68
+958	0x1962de8	use-shake-player-attack	2	26	1	1	shake player attack	0	1	0	0x1070f	0x31cfc
+959	0x1962e20	use-my-language	1	192	0	n		0	1	0	0x10710	0x31cfa
+960	0x1962e58	BoardGacha-alarm	1	190	1	y		0	1	0	0x10711	0x31cfb
+961	0x1962e90	clock-energy-point-reward-reset-alarm	1	191	1	y		0	2	5	0x10712	0x34140
+962	0x1962ec8	auction-favorites-11	4	-1	0	0	auction favorites	0	2	5	0x10713	0x34148
+963	0x1962f00	auction-favorites-12	4	-1	0	0	auction favorites	0	2	5	0x10714	0x34150
+964	0x1962f38	auction-favorites-13	4	-1	0	0	auction favorites	0	2	5	0x10715	0x34158
+965	0x1962f70	auction-favorites-14	4	-1	0	0	auction favorites	0	2	5	0x10716	0x34160
+966	0x1962fa8	auction-favorites-15	4	-1	0	0	auction favorites	0	2	5	0x10717	0x34168
+967	0x1962fe0	auction-favorites-16	4	-1	0	0	auction favorites	0	2	5	0x10718	0x34170
+968	0x1963018	auction-favorites-17	4	-1	0	0	auction favorites	0	2	5	0x10719	0x34178
+969	0x1963050	auction-favorites-18	4	-1	0	0	auction favorites	0	2	5	0x1071a	0x34180
+970	0x1963088	auction-favorites-19	4	-1	0	0	auction favorites	0	2	5	0x1071b	0x34188
+971	0x19630c0	auction-favorites-20	4	-1	0	0	auction favorites	0	2	5	0x1071c	0x34190
+972	0x19630f8	auction-favorites-21	4	-1	0	0	auction favorites	0	2	5	0x1071d	0x34198
+973	0x1963130	auction-favorites-22	4	-1	0	0	auction favorites	0	2	5	0x1071e	0x341a0
+974	0x1963168	auction-favorites-23	4	-1	0	0	auction favorites	0	2	5	0x1071f	0x341a8
+975	0x19631a0	auction-favorites-24	4	-1	0	0	auction favorites	0	2	5	0x10720	0x341b0
+976	0x19631d8	auction-favorites-25	4	-1	0	0	auction favorites	0	2	3	0x10721	0x34028
+977	0x1963210	kSlate	7	169	0			0	2	3	0x10722	0x34058
+978	0x1963248	kToggleAutoMode	7	170	0			0	1	5	0x10723	0x21fb0
+979	0x1963280	chat-all-channelTabOrder	2	-1	0			0	1	5	0x10724	0x22cbc
+980	0x19632b8	chat-battle-channelTabOrder	2	-1	0			0	1	5	0x10725	0x239c8
+981	0x19632f0	chat-c1-channelTabOrder	2	-1	0			0	1	5	0x10726	0x246d4
+982	0x1963328	chat-c2-channelTabOrder	2	-1	0			0	1	5	0x10727	0x253e0
+983	0x1963360	chat-c3-channelTabOrder	2	-1	0			0	1	5	0x10728	0x260ec
+984	0x1963398	chat-c4-channelTabOrder	2	-1	0			0	1	5	0x10729	0x26df8
+985	0x19633d0	chat-c5-channelTabOrder	2	-1	0			0	1	5	0x1072a	0x27b04
+986	0x1963408	chat-c6-channelTabOrder	2	-1	0			0	1	5	0x1072b	0x2951c
+987	0x1963440	chat-partysearch-channelTabOrder	2	-1	0			0	2	5	0x1072c	0x341b8
+988	0x1963478	automode-item-hp1	4	-1	0	-1	automode hp item slot	0	2	5	0x1072d	0x341c0
+989	0x19634b0	automode-item-hp2	4	-1	0	-1	automode hp item slot	0	2	5	0x1072e	0x341c8
+990	0x19634e8	automode-item-hp3	4	-1	0	-1	automode hp item slot	0	2	5	0x1072f	0x341d0
+991	0x1963520	automode-item-hp4	4	-1	0	-1	automode hp item slot	0	2	5	0x10730	0x341d8
+992	0x1963558	automode-item-sp1	4	-1	0	-1	automode sp item slot	0	2	5	0x10731	0x341e0
+993	0x1963590	automode-item-sp2	4	-1	0	-1	automode sp item slot	0	2	5	0x10732	0x341e8
+994	0x19635c8	automode-item-sp3	4	-1	0	-1	automode sp item slot	0	2	5	0x10733	0x341f0
+995	0x1963600	automode-item-sp4	4	-1	0	-1	automode sp item slot	0	2	5	0x10734	0x341f8
+996	0x1963638	automode-item-buff1	4	-1	0	-1	automode buff item slot	0	2	5	0x10735	0x34200
+997	0x1963670	automode-item-buff2	4	-1	0	-1	automode buff item slot	0	2	5	0x10736	0x34208
+998	0x19636a8	automode-item-buff3	4	-1	0	-1	automode buff item slot	0	2	5	0x10737	0x34210
+999	0x19636e0	automode-item-buff4	4	-1	0	-1	automode buff item slot	0	2	5	0x10738	0x34218
+1000	0x1963718	automode-item-buff5	4	-1	0	-1	automode buff item slot	0	2	5	0x10739	0x34220
+1001	0x1963750	automode-item-buff6	4	-1	0	-1	automode buff item slot	0	2	5	0x1073a	0x34228
+1002	0x1963788	automode-item-buff7	4	-1	0	-1	automode buff item slot	0	2	5	0x1073b	0x34230
+1003	0x19637c0	automode-item-buff8	4	-1	0	-1	automode buff item slot	0	2	5	0x1073c	0x34238
+1004	0x19637f8	automode-item-buff9	4	-1	0	-1	automode buff item slot	0	2	5	0x1073d	0x34240
+1005	0x1963830	automode-item-buff10	4	-1	0	-1	automode buff item slot	0	2	5	0x1073e	0x34248
+1006	0x1963868	automode-item-buff11	4	-1	0	-1	automode buff item slot	0	2	5	0x1073f	0x34250
+1007	0x19638a0	automode-item-buff12	4	-1	0	-1	automode buff item slot	0	2	5	0x10740	0x34258
+1008	0x19638d8	automode-item-buff1-enable	1	-1	0	y	automode buff item slot	0	2	5	0x10741	0x34259
+1009	0x1963910	automode-item-buff2-enable	1	-1	0	y	automode buff item slot	0	2	5	0x10742	0x3425a
+1010	0x1963948	automode-item-buff3-enable	1	-1	0	y	automode buff item slot	0	2	5	0x10743	0x3425b
+1011	0x1963980	automode-item-buff4-enable	1	-1	0	y	automode buff item slot	0	2	5	0x10744	0x3425c
+1012	0x19639b8	automode-item-buff5-enable	1	-1	0	y	automode buff item slot	0	2	5	0x10745	0x3425d
+1013	0x19639f0	automode-item-buff6-enable	1	-1	0	y	automode buff item slot	0	2	5	0x10746	0x3425e
+1014	0x1963a28	automode-item-buff7-enable	1	-1	0	y	automode buff item slot	0	2	5	0x10747	0x3425f
+1015	0x1963a60	automode-item-buff8-enable	1	-1	0	y	automode buff item slot	0	2	5	0x10748	0x34260
+1016	0x1963a98	automode-item-buff9-enable	1	-1	0	y	automode buff item slot	0	2	5	0x10749	0x34261
+1017	0x1963ad0	automode-item-buff10-enable	1	-1	0	y	automode buff item slot	0	2	5	0x1074a	0x34262
+1018	0x1963b08	automode-item-buff11-enable	1	-1	0	y	automode buff item slot	0	2	5	0x1074b	0x34263
+1019	0x1963b40	automode-item-buff12-enable	1	-1	0	y	automode buff item slot	0	2	5	0x1074c	0x34268
+1020	0x1963b78	automode-route-return-index	2	-1	0	0	automode route return index	0	2	5	0x1074d	0x3426c
+1021	0x1963bb0	automode-route-return-condition1	1	-1	0	n	automode route return index	0	2	5	0x1074e	0x3426d
+1022	0x1963be8	automode-route-return-condition2	1	-1	0	n	automode route return index	0	2	5	0x1074f	0x3426e
+1023	0x1963c20	automode-route-return-condition3	1	-1	0	n	automode route return index	0	1	5	0x10750	0x3426f
+1024	0x1963c58	automode-tab-open1	1	-1	0	y	automode tab opened	0	1	5	0x10751	0x34270
+1025	0x1963c90	automode-tab-open2	1	-1	0	y	automode tab opened	0	1	5	0x10752	0x34271
+1026	0x1963cc8	automode-tab-open3	1	-1	0	y	automode tab opened	0	1	5	0x10753	0x34272
+1027	0x1963d00	automode-tab-open4	1	-1	0	y	automode tab opened	0	1	5	0x10754	0x34273
+1028	0x1963d38	automode-tab-open5	1	-1	0	y	automode tab opened	0	2	5	0x10755	0x34274
+1029	0x1963d70	automode-combat-ignore-target-owner	1	-1	0	n	automode combat	0	2	5	0x10756	0x34278
+1030	0x1963da8	automode-combat-resistance-skill-rate-type	2	-1	0	0	automode combat	0	2	5	0x10758	0x34280
+1031	0x1963de0	automode-combat-customized-skill-1-skill	4	-1	0	0	automode combat	0	2	5	0x10759	0x34288
+1032	0x1963e18	automode-combat-customized-skill-1-cast-condition-1	4	-1	0	0	automode combat	0	2	5	0x1075a	0x34290
+1033	0x1963e50	automode-combat-customized-skill-1-cast-condition-2	4	-1	0	0	automode combat	0	2	5	0x1075b	0x34298
+1034	0x1963e88	automode-combat-customized-skill-1-cast-condition-op	2	-1	0	0	automode combat	0	2	5	0x1075c	0x3429c
+1035	0x1963ec0	automode-combat-customized-skill-1-activated	1	-1	0	n	automode combat	0	2	5	0x1075d	0x342a0
+1036	0x1963ef8	automode-combat-customized-skill-2-skill	4	-1	0	0	automode combat	0	2	5	0x1075e	0x342a8
+1037	0x1963f30	automode-combat-customized-skill-2-cast-condition-1	4	-1	0	0	automode combat	0	2	5	0x1075f	0x342b0
+1038	0x1963f68	automode-combat-customized-skill-2-cast-condition-2	4	-1	0	0	automode combat	0	2	5	0x10760	0x342b8
+1039	0x1963fa0	automode-combat-customized-skill-2-cast-condition-op	2	-1	0	0	automode combat	0	2	5	0x10761	0x342bc
+1040	0x1963fd8	automode-combat-customized-skill-2-activated	1	-1	0	n	automode combat	0	2	5	0x10762	0x342c0
+1041	0x1964010	automode-combat-customized-skill-3-skill	4	-1	0	0	automode combat	0	2	5	0x10763	0x342c8
+1042	0x1964048	automode-combat-customized-skill-3-cast-condition-1	4	-1	0	0	automode combat	0	2	5	0x10764	0x342d0
+1043	0x1964080	automode-combat-customized-skill-3-cast-condition-2	4	-1	0	0	automode combat	0	2	5	0x10765	0x342d8
+1044	0x19640b8	automode-combat-customized-skill-3-cast-condition-op	2	-1	0	0	automode combat	0	2	5	0x10766	0x342dc
+1045	0x19640f0	automode-combat-customized-skill-3-activated	1	-1	0	n	automode combat	0	2	5	0x10767	0x342e0
+1046	0x1964128	automode-combat-customized-skill-4-skill	4	-1	0	0	automode combat	0	2	5	0x10768	0x342e8
+1047	0x1964160	automode-combat-customized-skill-4-cast-condition-1	4	-1	0	0	automode combat	0	2	5	0x10769	0x342f0
+1048	0x1964198	automode-combat-customized-skill-4-cast-condition-2	4	-1	0	0	automode combat	0	2	5	0x1076a	0x342f8
+1049	0x19641d0	automode-combat-customized-skill-4-cast-condition-op	2	-1	0	0	automode combat	0	2	5	0x1076b	0x342fc
+1050	0x1964208	automode-combat-customized-skill-4-activated	1	-1	0	n	automode combat	0	2	5	0x1076c	0x34300
+1051	0x1964240	automode-combat-customized-skill-5-skill	4	-1	0	0	automode combat	0	2	5	0x1076d	0x34308
+1052	0x1964278	automode-combat-customized-skill-5-cast-condition-1	4	-1	0	0	automode combat	0	2	5	0x1076e	0x34310
+1053	0x19642b0	automode-combat-customized-skill-5-cast-condition-2	4	-1	0	0	automode combat	0	2	5	0x1076f	0x34318
+1054	0x19642e8	automode-combat-customized-skill-5-cast-condition-op	2	-1	0	0	automode combat	0	2	5	0x10770	0x3431c
+1055	0x1964320	automode-combat-customized-skill-5-activated	1	-1	0	n	automode combat	0	2	5	0x10771	0x34264
+1056	0x1964358	automode-route-end-on-dead	1	-1	0	n	automode route end on dead	0	2	3	0x10772	0x34088
+1057	0x1964390	kToggleAutoModeOption	7	171	0			0	1	5	0x10773	0x31cb2
+1058	0x19643c8	hud2-coin-i-18-visible	1	118	0	n		0	1	5	0x10774	0x31cb3
+1059	0x1964400	hud2-coin-i-19-visible	1	119	0	n		0	2	5	0x10775	0x34265
+1060	0x1964438	automode-enable-item-support	1	-1	0	y	automode enable item support	0	2	3	0x10776	0x340b8
+1061	0x1964470	kToggleAutoModeEnableItemSupport	7	172	0			0	1	0	0x10777	0x31c38
+1062	0x19644a8	pvp-data-list-filter	2	58	0	0		0	1	5	0x14e21	0x0
+1063	0x19644e0	hc-1-x	3	-1	0	0.0		0	1	5	0x14e22	0x4
+1064	0x1964518	hc-1-y	3	-1	0	0.0		0	1	5	0x14e23	0x8
+1065	0x1964550	hc-1-a-h	2	-1	0	0		0	1	5	0x14e24	0xc
+1066	0x1964588	hc-1-a-v	2	-1	0	0		0	1	5	0x14e25	0x428
+1067	0x19645c0	hc-1-n	5	-1	0			0	1	5	0x14e26	0x528
+1068	0x19645f8	hc-1-o	2	-1	0	0		0	1	5	0x14e27	0x10
+1069	0x1964630	hc-1-l-h-t	2	-1	0	0		0	1	5	0x14e28	0x21c
+1070	0x1964668	hc-1-l-v-t	2	-1	0	0		0	1	5	0x14e29	0x14
+1071	0x19646a0	hc-1-l-h-o-1	3	-1	0			0	1	5	0x14e2a	0x220
+1072	0x19646d8	hc-1-l-v-o-1	3	-1	0			0	1	5	0x14e2b	0x18
+1073	0x1964710	hc-1-l-h-o-2	3	-1	0			0	1	5	0x14e2c	0x224
+1074	0x1964748	hc-1-l-v-o-2	3	-1	0			0	1	5	0x14e2e	0x1c
+1075	0x1964780	hc-1-l-h-tn-1	5	-1	0			0	1	5	0x14e30	0x228
+1076	0x19647b8	hc-1-l-v-tn-1	5	-1	0			0	1	5	0x14e32	0x11c
+1077	0x19647f0	hc-1-l-h-tn-2	5	-1	0			0	1	5	0x14e34	0x328
+1078	0x1964828	hc-1-l-v-tn-2	5	-1	0			0	1	5	0x14e35	0x52c
+1079	0x1964860	hc-2-x	3	-1	0	0.0		0	1	5	0x14e36	0x530
+1080	0x1964898	hc-2-y	3	-1	0	0.0		0	1	5	0x14e37	0x534
+1081	0x19648d0	hc-2-a-h	2	-1	0	0		0	1	5	0x14e38	0x538
+1082	0x1964908	hc-2-a-v	2	-1	0	0		0	1	5	0x14e39	0x954
+1083	0x1964940	hc-2-n	5	-1	0			0	1	5	0x14e3a	0xa54
+1084	0x1964978	hc-2-o	2	-1	0	0		0	1	5	0x14e3b	0x53c
+1085	0x19649b0	hc-2-l-h-t	2	-1	0	0		0	1	5	0x14e3c	0x748
+1086	0x19649e8	hc-2-l-v-t	2	-1	0	0		0	1	5	0x14e3d	0x540
+1087	0x1964a20	hc-2-l-h-o-1	3	-1	0			0	1	5	0x14e3e	0x74c
+1088	0x1964a58	hc-2-l-v-o-1	3	-1	0			0	1	5	0x14e3f	0x544
+1089	0x1964a90	hc-2-l-h-o-2	3	-1	0			0	1	5	0x14e40	0x750
+1090	0x1964ac8	hc-2-l-v-o-2	3	-1	0			0	1	5	0x14e42	0x548
+1091	0x1964b00	hc-2-l-h-tn-1	5	-1	0			0	1	5	0x14e44	0x754
+1092	0x1964b38	hc-2-l-v-tn-1	5	-1	0			0	1	5	0x14e46	0x648
+1093	0x1964b70	hc-2-l-h-tn-2	5	-1	0			0	1	5	0x14e48	0x854
+1094	0x1964ba8	hc-2-l-v-tn-2	5	-1	0			0	1	5	0x14e49	0xa58
+1095	0x1964be0	hc-3-x	3	-1	0	0.0		0	1	5	0x14e4a	0xa5c
+1096	0x1964c18	hc-3-y	3	-1	0	0.0		0	1	5	0x14e4b	0xa60
+1097	0x1964c50	hc-3-a-h	2	-1	0	0		0	1	5	0x14e4c	0xa64
+1098	0x1964c88	hc-3-a-v	2	-1	0	0		0	1	5	0x14e4d	0xe80
+1099	0x1964cc0	hc-3-n	5	-1	0			0	1	5	0x14e4e	0xf80
+1100	0x1964cf8	hc-3-o	2	-1	0	0		0	1	5	0x14e4f	0xa68
+1101	0x1964d30	hc-3-l-h-t	2	-1	0	0		0	1	5	0x14e50	0xc74
+1102	0x1964d68	hc-3-l-v-t	2	-1	0	0		0	1	5	0x14e51	0xa6c
+1103	0x1964da0	hc-3-l-h-o-1	3	-1	0			0	1	5	0x14e52	0xc78
+1104	0x1964dd8	hc-3-l-v-o-1	3	-1	0			0	1	5	0x14e53	0xa70
+1105	0x1964e10	hc-3-l-h-o-2	3	-1	0			0	1	5	0x14e54	0xc7c
+1106	0x1964e48	hc-3-l-v-o-2	3	-1	0			0	1	5	0x14e56	0xa74
+1107	0x1964e80	hc-3-l-h-tn-1	5	-1	0			0	1	5	0x14e58	0xc80
+1108	0x1964eb8	hc-3-l-v-tn-1	5	-1	0			0	1	5	0x14e5a	0xb74
+1109	0x1964ef0	hc-3-l-h-tn-2	5	-1	0			0	1	5	0x14e5c	0xd80
+1110	0x1964f28	hc-3-l-v-tn-2	5	-1	0			0	1	5	0x14e5d	0x33b8
+1111	0x1964f60	hc-4-x	3	-1	0	0.0		0	1	5	0x14e5e	0x33bc
+1112	0x1964f98	hc-4-y	3	-1	0	0.0		0	1	5	0x14e5f	0x33c0
+1113	0x1964fd0	hc-4-a-h	2	-1	0	0		0	1	5	0x14e60	0x33c4
+1114	0x1965008	hc-4-a-v	2	-1	0	0		0	1	5	0x14e61	0x37e0
+1115	0x1965040	hc-4-n	5	-1	0			0	1	5	0x14e62	0x38e0
+1116	0x1965078	hc-4-o	2	-1	0	0		0	1	5	0x14e63	0x33c8
+1117	0x19650b0	hc-4-l-h-t	2	-1	0	0		0	1	5	0x14e64	0x35d4
+1118	0x19650e8	hc-4-l-v-t	2	-1	0	0		0	1	5	0x14e65	0x33cc
+1119	0x1965120	hc-4-l-h-o-1	3	-1	0			0	1	5	0x14e66	0x35d8
+1120	0x1965158	hc-4-l-v-o-1	3	-1	0			0	1	5	0x14e67	0x33d0
+1121	0x1965190	hc-4-l-h-o-2	3	-1	0			0	1	5	0x14e68	0x35dc
+1122	0x19651c8	hc-4-l-v-o-2	3	-1	0			0	1	5	0x14e6a	0x33d4
+1123	0x1965200	hc-4-l-h-tn-1	5	-1	0			0	1	5	0x14e6c	0x35e0
+1124	0x1965238	hc-4-l-v-tn-1	5	-1	0			0	1	5	0x14e6e	0x34d4
+1125	0x1965270	hc-4-l-h-tn-2	5	-1	0			0	1	5	0x14e70	0x36e0
+1126	0x19652a8	hc-4-l-v-tn-2	5	-1	0			0	1	5	0x14e71	0x38e4
+1127	0x19652e0	hc-5-x	3	-1	0	0.0		0	1	5	0x14e72	0x38e8
+1128	0x1965318	hc-5-y	3	-1	0	0.0		0	1	5	0x14e73	0x38ec
+1129	0x1965350	hc-5-a-h	2	-1	0	0		0	1	5	0x14e74	0x38f0
+1130	0x1965388	hc-5-a-v	2	-1	0	0		0	1	5	0x14e75	0x3d0c
+1131	0x19653c0	hc-5-n	5	-1	0			0	1	5	0x14e76	0x3e0c
+1132	0x19653f8	hc-5-o	2	-1	0	0		0	1	5	0x14e77	0x38f4
+1133	0x1965430	hc-5-l-h-t	2	-1	0	0		0	1	5	0x14e78	0x3b00
+1134	0x1965468	hc-5-l-v-t	2	-1	0	0		0	1	5	0x14e79	0x38f8
+1135	0x19654a0	hc-5-l-h-o-1	3	-1	0			0	1	5	0x14e7a	0x3b04
+1136	0x19654d8	hc-5-l-v-o-1	3	-1	0			0	1	5	0x14e7b	0x38fc
+1137	0x1965510	hc-5-l-h-o-2	3	-1	0			0	1	5	0x14e7c	0x3b08
+1138	0x1965548	hc-5-l-v-o-2	3	-1	0			0	1	5	0x14e7e	0x3900
+1139	0x1965580	hc-5-l-h-tn-1	5	-1	0			0	1	5	0x14e80	0x3b0c
+1140	0x19655b8	hc-5-l-v-tn-1	5	-1	0			0	1	5	0x14e82	0x3a00
+1141	0x19655f0	hc-5-l-h-tn-2	5	-1	0			0	1	5	0x14e84	0x3c0c
+1142	0x1965628	hc-5-l-v-tn-2	5	-1	0			0	1	5	0x14e85	0x5d18
+1143	0x1965660	hc-6-x	3	-1	0	0.0		0	1	5	0x14e86	0x5d1c
+1144	0x1965698	hc-6-y	3	-1	0	0.0		0	1	5	0x14e87	0x5d20
+1145	0x19656d0	hc-6-a-h	2	-1	0	0		0	1	5	0x14e88	0x5d24
+1146	0x1965708	hc-6-a-v	2	-1	0	0		0	1	5	0x14e89	0x6140
+1147	0x1965740	hc-6-n	5	-1	0			0	1	5	0x14e8a	0x6240
+1148	0x1965778	hc-6-o	2	-1	0	0		0	1	5	0x14e8b	0x5d28
+1149	0x19657b0	hc-6-l-h-t	2	-1	0	0		0	1	5	0x14e8c	0x5f34
+1150	0x19657e8	hc-6-l-v-t	2	-1	0	0		0	1	5	0x14e8d	0x5d2c
+1151	0x1965820	hc-6-l-h-o-1	3	-1	0			0	1	5	0x14e8e	0x5f38
+1152	0x1965858	hc-6-l-v-o-1	3	-1	0			0	1	5	0x14e8f	0x5d30
+1153	0x1965890	hc-6-l-h-o-2	3	-1	0			0	1	5	0x14e90	0x5f3c
+1154	0x19658c8	hc-6-l-v-o-2	3	-1	0			0	1	5	0x14e92	0x5d34
+1155	0x1965900	hc-6-l-h-tn-1	5	-1	0			0	1	5	0x14e94	0x5f40
+1156	0x1965938	hc-6-l-v-tn-1	5	-1	0			0	1	5	0x14e96	0x5e34
+1157	0x1965970	hc-6-l-h-tn-2	5	-1	0			0	1	5	0x14e98	0x6040
+1158	0x19659a8	hc-6-l-v-tn-2	5	-1	0			0	1	5	0x14e99	0x6244
+1159	0x19659e0	hc-7-x	3	-1	0	0.0		0	1	5	0x14e9a	0x6248
+1160	0x1965a18	hc-7-y	3	-1	0	0.0		0	1	5	0x14e9b	0x624c
+1161	0x1965a50	hc-7-a-h	2	-1	0	0		0	1	5	0x14e9c	0x6250
+1162	0x1965a88	hc-7-a-v	2	-1	0	0		0	1	5	0x14e9d	0x666c
+1163	0x1965ac0	hc-7-n	5	-1	0			0	1	5	0x14e9e	0x676c
+1164	0x1965af8	hc-7-o	2	-1	0	0		0	1	5	0x14e9f	0x6254
+1165	0x1965b30	hc-7-l-h-t	2	-1	0	0		0	1	5	0x14ea0	0x6460
+1166	0x1965b68	hc-7-l-v-t	2	-1	0	0		0	1	5	0x14ea1	0x6258
+1167	0x1965ba0	hc-7-l-h-o-1	3	-1	0			0	1	5	0x14ea2	0x6464
+1168	0x1965bd8	hc-7-l-v-o-1	3	-1	0			0	1	5	0x14ea3	0x625c
+1169	0x1965c10	hc-7-l-h-o-2	3	-1	0			0	1	5	0x14ea4	0x6468
+1170	0x1965c48	hc-7-l-v-o-2	3	-1	0			0	1	5	0x14ea6	0x6260
+1171	0x1965c80	hc-7-l-h-tn-1	5	-1	0			0	1	5	0x14ea8	0x646c
+1172	0x1965cb8	hc-7-l-v-tn-1	5	-1	0			0	1	5	0x14eaa	0x6360
+1173	0x1965cf0	hc-7-l-h-tn-2	5	-1	0			0	1	5	0x14eac	0x656c
+1174	0x1965d28	hc-7-l-v-tn-2	5	-1	0			0	1	5	0x14ead	0x71c8
+1175	0x1965d60	hc-8-x	3	-1	0	0.0		0	1	5	0x14eae	0x71cc
+1176	0x1965d98	hc-8-y	3	-1	0	0.0		0	1	5	0x14eaf	0x71d0
+1177	0x1965dd0	hc-8-a-h	2	-1	0	0		0	1	5	0x14eb0	0x71d4
+1178	0x1965e08	hc-8-a-v	2	-1	0	0		0	1	5	0x14eb1	0x75f0
+1179	0x1965e40	hc-8-n	5	-1	0			0	1	5	0x14eb2	0x76f0
+1180	0x1965e78	hc-8-o	2	-1	0	0		0	1	5	0x14eb3	0x71d8
+1181	0x1965eb0	hc-8-l-h-t	2	-1	0	0		0	1	5	0x14eb4	0x73e4
+1182	0x1965ee8	hc-8-l-v-t	2	-1	0	0		0	1	5	0x14eb5	0x71dc
+1183	0x1965f20	hc-8-l-h-o-1	3	-1	0			0	1	5	0x14eb6	0x73e8
+1184	0x1965f58	hc-8-l-v-o-1	3	-1	0			0	1	5	0x14eb7	0x71e0
+1185	0x1965f90	hc-8-l-h-o-2	3	-1	0			0	1	5	0x14eb8	0x73ec
+1186	0x1965fc8	hc-8-l-v-o-2	3	-1	0			0	1	5	0x14eba	0x71e4
+1187	0x1966000	hc-8-l-h-tn-1	5	-1	0			0	1	5	0x14ebc	0x73f0
+1188	0x1966038	hc-8-l-v-tn-1	5	-1	0			0	1	5	0x14ebe	0x72e4
+1189	0x1966070	hc-8-l-h-tn-2	5	-1	0			0	1	5	0x14ec0	0x74f0
+1190	0x19660a8	hc-8-l-v-tn-2	5	-1	0			0	1	5	0x14ec1	0x76f4
+1191	0x19660e0	hc-9-x	3	-1	0	0.0		0	1	5	0x14ec2	0x76f8
+1192	0x1966118	hc-9-y	3	-1	0	0.0		0	1	5	0x14ec3	0x76fc
+1193	0x1966150	hc-9-a-h	2	-1	0	0		0	1	5	0x14ec4	0x7700
+1194	0x1966188	hc-9-a-v	2	-1	0	0		0	1	5	0x14ec5	0x7b1c
+1195	0x19661c0	hc-9-n	5	-1	0			0	1	5	0x14ec6	0x7c1c
+1196	0x19661f8	hc-9-o	2	-1	0	0		0	1	5	0x14ec7	0x7704
+1197	0x1966230	hc-9-l-h-t	2	-1	0	0		0	1	5	0x14ec8	0x7910
+1198	0x1966268	hc-9-l-v-t	2	-1	0	0		0	1	5	0x14ec9	0x7708
+1199	0x19662a0	hc-9-l-h-o-1	3	-1	0			0	1	5	0x14eca	0x7914
+1200	0x19662d8	hc-9-l-v-o-1	3	-1	0			0	1	5	0x14ecb	0x770c
+1201	0x1966310	hc-9-l-h-o-2	3	-1	0			0	1	5	0x14ecc	0x7918
+1202	0x1966348	hc-9-l-v-o-2	3	-1	0			0	1	5	0x14ece	0x7710
+1203	0x1966380	hc-9-l-h-tn-1	5	-1	0			0	1	5	0x14ed0	0x791c
+1204	0x19663b8	hc-9-l-v-tn-1	5	-1	0			0	1	5	0x14ed2	0x7810
+1205	0x19663f0	hc-9-l-h-tn-2	5	-1	0			0	1	5	0x14ed4	0x7a1c
+1206	0x1966428	hc-9-l-v-tn-2	5	-1	0			0	1	5	0x14ed5	0x95fc
+1207	0x1966460	hc-10-x	3	-1	0	0.0		0	1	5	0x14ed6	0x9600
+1208	0x1966498	hc-10-y	3	-1	0	0.0		0	1	5	0x14ed7	0x9604
+1209	0x19664d0	hc-10-a-h	2	-1	0	0		0	1	5	0x14ed8	0x9608
+1210	0x1966508	hc-10-a-v	2	-1	0	0		0	1	5	0x14ed9	0x9a24
+1211	0x1966540	hc-10-n	5	-1	0			0	1	5	0x14eda	0x9b24
+1212	0x1966578	hc-10-o	2	-1	0	0		0	1	5	0x14edb	0x960c
+1213	0x19665b0	hc-10-l-h-t	2	-1	0	0		0	1	5	0x14edc	0x9818
+1214	0x19665e8	hc-10-l-v-t	2	-1	0	0		0	1	5	0x14edd	0x9610
+1215	0x1966620	hc-10-l-h-o-1	3	-1	0			0	1	5	0x14ede	0x981c
+1216	0x1966658	hc-10-l-v-o-1	3	-1	0			0	1	5	0x14edf	0x9614
+1217	0x1966690	hc-10-l-h-o-2	3	-1	0			0	1	5	0x14ee0	0x9820
+1218	0x19666c8	hc-10-l-v-o-2	3	-1	0			0	1	5	0x14ee2	0x9618
+1219	0x1966700	hc-10-l-h-tn-1	5	-1	0			0	1	5	0x14ee4	0x9824
+1220	0x1966738	hc-10-l-v-tn-1	5	-1	0			0	1	5	0x14ee6	0x9718
+1221	0x1966770	hc-10-l-h-tn-2	5	-1	0			0	1	5	0x14ee8	0x9924
+1222	0x19667a8	hc-10-l-v-tn-2	5	-1	0			0	1	5	0x14ee9	0xc9b4
+1223	0x19667e0	hc-11-x	3	-1	0	0.0		0	1	5	0x14eea	0xc9b8
+1224	0x1966818	hc-11-y	3	-1	0	0.0		0	1	5	0x14eeb	0xc9bc
+1225	0x1966850	hc-11-a-h	2	-1	0	0		0	1	5	0x14eec	0xc9c0
+1226	0x1966888	hc-11-a-v	2	-1	0	0		0	1	5	0x14eed	0xcddc
+1227	0x19668c0	hc-11-n	5	-1	0			0	1	5	0x14eee	0xcedc
+1228	0x19668f8	hc-11-o	2	-1	0	0		0	1	5	0x14eef	0xc9c4
+1229	0x1966930	hc-11-l-h-t	2	-1	0	0		0	1	5	0x14ef0	0xcbd0
+1230	0x1966968	hc-11-l-v-t	2	-1	0	0		0	1	5	0x14ef1	0xc9c8
+1231	0x19669a0	hc-11-l-h-o-1	3	-1	0			0	1	5	0x14ef2	0xcbd4
+1232	0x19669d8	hc-11-l-v-o-1	3	-1	0			0	1	5	0x14ef3	0xc9cc
+1233	0x1966a10	hc-11-l-h-o-2	3	-1	0			0	1	5	0x14ef4	0xcbd8
+1234	0x1966a48	hc-11-l-v-o-2	3	-1	0			0	1	5	0x14ef6	0xc9d0
+1235	0x1966a80	hc-11-l-h-tn-1	5	-1	0			0	1	5	0x14ef8	0xcbdc
+1236	0x1966ab8	hc-11-l-v-tn-1	5	-1	0			0	1	5	0x14efa	0xcad0
+1237	0x1966af0	hc-11-l-h-tn-2	5	-1	0			0	1	5	0x14efc	0xccdc
+1238	0x1966b28	hc-11-l-v-tn-2	5	-1	0			0	1	5	0x14efd	0x9b28
+1239	0x1966b60	hc-12-x	3	-1	0	0.0		0	1	5	0x14efe	0x9b2c
+1240	0x1966b98	hc-12-y	3	-1	0	0.0		0	1	5	0x14eff	0x9b30
+1241	0x1966bd0	hc-12-a-h	2	-1	0	0		0	1	5	0x14f00	0x9b34
+1242	0x1966c08	hc-12-a-v	2	-1	0	0		0	1	5	0x14f01	0x9f50
+1243	0x1966c40	hc-12-n	5	-1	0			0	1	5	0x14f02	0xa050
+1244	0x1966c78	hc-12-o	2	-1	0	0		0	1	5	0x14f03	0x9b38
+1245	0x1966cb0	hc-12-l-h-t	2	-1	0	0		0	1	5	0x14f04	0x9d44
+1246	0x1966ce8	hc-12-l-v-t	2	-1	0	0		0	1	5	0x14f05	0x9b3c
+1247	0x1966d20	hc-12-l-h-o-1	3	-1	0			0	1	5	0x14f06	0x9d48
+1248	0x1966d58	hc-12-l-v-o-1	3	-1	0			0	1	5	0x14f07	0x9b40
+1249	0x1966d90	hc-12-l-h-o-2	3	-1	0			0	1	5	0x14f08	0x9d4c
+1250	0x1966dc8	hc-12-l-v-o-2	3	-1	0			0	1	5	0x14f0a	0x9b44
+1251	0x1966e00	hc-12-l-h-tn-1	5	-1	0			0	1	5	0x14f0c	0x9d50
+1252	0x1966e38	hc-12-l-v-tn-1	5	-1	0			0	1	5	0x14f0e	0x9c44
+1253	0x1966e70	hc-12-l-h-tn-2	5	-1	0			0	1	5	0x14f10	0x9e50
+1254	0x1966ea8	hc-12-l-v-tn-2	5	-1	0			0	1	5	0x14f11	0xa054
+1255	0x1966ee0	hc-13-x	3	-1	0	0.0		0	1	5	0x14f12	0xa058
+1256	0x1966f18	hc-13-y	3	-1	0	0.0		0	1	5	0x14f13	0xa05c
+1257	0x1966f50	hc-13-a-h	2	-1	0	0		0	1	5	0x14f14	0xa060
+1258	0x1966f88	hc-13-a-v	2	-1	0	0		0	1	5	0x14f15	0xa47c
+1259	0x1966fc0	hc-13-n	5	-1	0			0	1	5	0x14f16	0xa57c
+1260	0x1966ff8	hc-13-o	2	-1	0	0		0	1	5	0x14f17	0xa064
+1261	0x1967030	hc-13-l-h-t	2	-1	0	0		0	1	5	0x14f18	0xa270
+1262	0x1967068	hc-13-l-v-t	2	-1	0	0		0	1	5	0x14f19	0xa068
+1263	0x19670a0	hc-13-l-h-o-1	3	-1	0			0	1	5	0x14f1a	0xa274
+1264	0x19670d8	hc-13-l-v-o-1	3	-1	0			0	1	5	0x14f1b	0xa06c
+1265	0x1967110	hc-13-l-h-o-2	3	-1	0			0	1	5	0x14f1c	0xa278
+1266	0x1967148	hc-13-l-v-o-2	3	-1	0			0	1	5	0x14f1e	0xa070
+1267	0x1967180	hc-13-l-h-tn-1	5	-1	0			0	1	5	0x14f20	0xa27c
+1268	0x19671b8	hc-13-l-v-tn-1	5	-1	0			0	1	5	0x14f22	0xa170
+1269	0x19671f0	hc-13-l-h-tn-2	5	-1	0			0	1	5	0x14f24	0xa37c
+1270	0x1967228	hc-13-l-v-tn-2	5	-1	0			0	1	5	0x14f39	0xaaac
+1271	0x1967260	hc-15-x	3	-1	0	0.0		0	1	5	0x14f3a	0xaab0
+1272	0x1967298	hc-15-y	3	-1	0	0.0		0	1	5	0x14f3b	0xaab4
+1273	0x19672d0	hc-15-a-h	2	-1	0	0		0	1	5	0x14f3c	0xaab8
+1274	0x1967308	hc-15-a-v	2	-1	0	0		0	1	5	0x14f3d	0xaed4
+1275	0x1967340	hc-15-n	5	-1	0			0	1	5	0x14f3e	0xafd4
+1276	0x1967378	hc-15-o	2	-1	0	0		0	1	5	0x14f3f	0xaabc
+1277	0x19673b0	hc-15-l-h-t	2	-1	0	0		0	1	5	0x14f40	0xacc8
+1278	0x19673e8	hc-15-l-v-t	2	-1	0	0		0	1	5	0x14f41	0xaac0
+1279	0x1967420	hc-15-l-h-o-1	3	-1	0			0	1	5	0x14f42	0xaccc
+1280	0x1967458	hc-15-l-v-o-1	3	-1	0			0	1	5	0x14f43	0xaac4
+1281	0x1967490	hc-15-l-h-o-2	3	-1	0			0	1	5	0x14f44	0xacd0
+1282	0x19674c8	hc-15-l-v-o-2	3	-1	0			0	1	5	0x14f46	0xaac8
+1283	0x1967500	hc-15-l-h-tn-1	5	-1	0			0	1	5	0x14f48	0xacd4
+1284	0x1967538	hc-15-l-v-tn-1	5	-1	0			0	1	5	0x14f4a	0xabc8
+1285	0x1967570	hc-15-l-h-tn-2	5	-1	0			0	1	5	0x14f4c	0xadd4
+1286	0x19675a8	hc-15-l-v-tn-2	5	-1	0			0	1	5	0x14f4d	0xafd8
+1287	0x19675e0	hc-16-x	3	-1	0	0.0		0	1	5	0x14f4e	0xafdc
+1288	0x1967618	hc-16-y	3	-1	0	0.0		0	1	5	0x14f4f	0xafe0
+1289	0x1967650	hc-16-a-h	2	-1	0	0		0	1	5	0x14f50	0xafe4
+1290	0x1967688	hc-16-a-v	2	-1	0	0		0	1	5	0x14f51	0xb400
+1291	0x19676c0	hc-16-n	5	-1	0			0	1	5	0x14f52	0xb500
+1292	0x19676f8	hc-16-o	2	-1	0	0		0	1	5	0x14f53	0xafe8
+1293	0x1967730	hc-16-l-h-t	2	-1	0	0		0	1	5	0x14f54	0xb1f4
+1294	0x1967768	hc-16-l-v-t	2	-1	0	0		0	1	5	0x14f55	0xafec
+1295	0x19677a0	hc-16-l-h-o-1	3	-1	0			0	1	5	0x14f56	0xb1f8
+1296	0x19677d8	hc-16-l-v-o-1	3	-1	0			0	1	5	0x14f57	0xaff0
+1297	0x1967810	hc-16-l-h-o-2	3	-1	0			0	1	5	0x14f58	0xb1fc
+1298	0x1967848	hc-16-l-v-o-2	3	-1	0			0	1	5	0x14f5a	0xaff4
+1299	0x1967880	hc-16-l-h-tn-1	5	-1	0			0	1	5	0x14f5c	0xb200
+1300	0x19678b8	hc-16-l-v-tn-1	5	-1	0			0	1	5	0x14f5e	0xb0f4
+1301	0x19678f0	hc-16-l-h-tn-2	5	-1	0			0	1	5	0x14f60	0xb300
+1302	0x1967928	hc-16-l-v-tn-2	5	-1	0			0	1	5	0x14f75	0xb504
+1303	0x1967960	hc-18-x	3	-1	0	0.0		0	1	5	0x14f76	0xb508
+1304	0x1967998	hc-18-y	3	-1	0	0.0		0	1	5	0x14f77	0xb50c
+1305	0x19679d0	hc-18-a-h	2	-1	0	0		0	1	5	0x14f78	0xb510
+1306	0x1967a08	hc-18-a-v	2	-1	0	0		0	1	5	0x14f79	0xb92c
+1307	0x1967a40	hc-18-n	5	-1	0			0	1	5	0x14f7a	0xba2c
+1308	0x1967a78	hc-18-o	2	-1	0	0		0	1	5	0x14f7b	0xb514
+1309	0x1967ab0	hc-18-l-h-t	2	-1	0	0		0	1	5	0x14f7c	0xb720
+1310	0x1967ae8	hc-18-l-v-t	2	-1	0	0		0	1	5	0x14f7d	0xb518
+1311	0x1967b20	hc-18-l-h-o-1	3	-1	0			0	1	5	0x14f7e	0xb724
+1312	0x1967b58	hc-18-l-v-o-1	3	-1	0			0	1	5	0x14f7f	0xb51c
+1313	0x1967b90	hc-18-l-h-o-2	3	-1	0			0	1	5	0x14f80	0xb728
+1314	0x1967bc8	hc-18-l-v-o-2	3	-1	0			0	1	5	0x14f82	0xb520
+1315	0x1967c00	hc-18-l-h-tn-1	5	-1	0			0	1	5	0x14f84	0xb72c
+1316	0x1967c38	hc-18-l-v-tn-1	5	-1	0			0	1	5	0x14f86	0xb620
+1317	0x1967c70	hc-18-l-h-tn-2	5	-1	0			0	1	5	0x14f88	0xb82c
+1318	0x1967ca8	hc-18-l-v-tn-2	5	-1	0			0	1	5	0x14f89	0xba30
+1319	0x1967ce0	hc-19-x	3	-1	0	0.0		0	1	5	0x14f8a	0xba34
+1320	0x1967d18	hc-19-y	3	-1	0	0.0		0	1	5	0x14f8b	0xba38
+1321	0x1967d50	hc-19-a-h	2	-1	0	0		0	1	5	0x14f8c	0xba3c
+1322	0x1967d88	hc-19-a-v	2	-1	0	0		0	1	5	0x14f8d	0xbe58
+1323	0x1967dc0	hc-19-n	5	-1	0			0	1	5	0x14f8e	0xbf58
+1324	0x1967df8	hc-19-o	2	-1	0	0		0	1	5	0x14f8f	0xba40
+1325	0x1967e30	hc-19-l-h-t	2	-1	0	0		0	1	5	0x14f90	0xbc4c
+1326	0x1967e68	hc-19-l-v-t	2	-1	0	0		0	1	5	0x14f91	0xba44
+1327	0x1967ea0	hc-19-l-h-o-1	3	-1	0			0	1	5	0x14f92	0xbc50
+1328	0x1967ed8	hc-19-l-v-o-1	3	-1	0			0	1	5	0x14f93	0xba48
+1329	0x1967f10	hc-19-l-h-o-2	3	-1	0			0	1	5	0x14f94	0xbc54
+1330	0x1967f48	hc-19-l-v-o-2	3	-1	0			0	1	5	0x14f96	0xba4c
+1331	0x1967f80	hc-19-l-h-tn-1	5	-1	0			0	1	5	0x14f98	0xbc58
+1332	0x1967fb8	hc-19-l-v-tn-1	5	-1	0			0	1	5	0x14f9a	0xbb4c
+1333	0x1967ff0	hc-19-l-h-tn-2	5	-1	0			0	1	5	0x14f9c	0xbd58
+1334	0x1968028	hc-19-l-v-tn-2	5	-1	0			0	1	5	0x14fb1	0xbf5c
+1335	0x1968060	hc-21-x	3	-1	0	0.0		0	1	5	0x14fb2	0xbf60
+1336	0x1968098	hc-21-y	3	-1	0	0.0		0	1	5	0x14fb3	0xbf64
+1337	0x19680d0	hc-21-a-h	2	-1	0	0		0	1	5	0x14fb4	0xbf68
+1338	0x1968108	hc-21-a-v	2	-1	0	0		0	1	5	0x14fb5	0xc384
+1339	0x1968140	hc-21-n	5	-1	0			0	1	5	0x14fb6	0xc484
+1340	0x1968178	hc-21-o	2	-1	0	0		0	1	5	0x14fb7	0xbf6c
+1341	0x19681b0	hc-21-l-h-t	2	-1	0	0		0	1	5	0x14fb8	0xc178
+1342	0x19681e8	hc-21-l-v-t	2	-1	0	0		0	1	5	0x14fb9	0xbf70
+1343	0x1968220	hc-21-l-h-o-1	3	-1	0			0	1	5	0x14fba	0xc17c
+1344	0x1968258	hc-21-l-v-o-1	3	-1	0			0	1	5	0x14fbb	0xbf74
+1345	0x1968290	hc-21-l-h-o-2	3	-1	0			0	1	5	0x14fbc	0xc180
+1346	0x19682c8	hc-21-l-v-o-2	3	-1	0			0	1	5	0x14fbe	0xbf78
+1347	0x1968300	hc-21-l-h-tn-1	5	-1	0			0	1	5	0x14fc0	0xc184
+1348	0x1968338	hc-21-l-v-tn-1	5	-1	0			0	1	5	0x14fc2	0xc078
+1349	0x1968370	hc-21-l-h-tn-2	5	-1	0			0	1	5	0x14fc4	0xc284
+1350	0x19683a8	hc-21-l-v-tn-2	5	-1	0			0	1	5	0x14fc5	0xc488
+1351	0x19683e0	hc-22-x	3	-1	0	0.0		0	1	5	0x14fc6	0xc48c
+1352	0x1968418	hc-22-y	3	-1	0	0.0		0	1	5	0x14fc7	0xc490
+1353	0x1968450	hc-22-a-h	2	-1	0	0		0	1	5	0x14fc8	0xc494
+1354	0x1968488	hc-22-a-v	2	-1	0	0		0	1	5	0x14fc9	0xc8b0
+1355	0x19684c0	hc-22-n	5	-1	0			0	1	5	0x14fca	0xc9b0
+1356	0x19684f8	hc-22-o	2	-1	0	0		0	1	5	0x14fcb	0xc498
+1357	0x1968530	hc-22-l-h-t	2	-1	0	0		0	1	5	0x14fcc	0xc6a4
+1358	0x1968568	hc-22-l-v-t	2	-1	0	0		0	1	5	0x14fcd	0xc49c
+1359	0x19685a0	hc-22-l-h-o-1	3	-1	0			0	1	5	0x14fce	0xc6a8
+1360	0x19685d8	hc-22-l-v-o-1	3	-1	0			0	1	5	0x14fcf	0xc4a0
+1361	0x1968610	hc-22-l-h-o-2	3	-1	0			0	1	5	0x14fd0	0xc6ac
+1362	0x1968648	hc-22-l-v-o-2	3	-1	0			0	1	5	0x14fd2	0xc4a4
+1363	0x1968680	hc-22-l-h-tn-1	5	-1	0			0	1	5	0x14fd4	0xc6b0
+1364	0x19686b8	hc-22-l-v-tn-1	5	-1	0			0	1	5	0x14fd6	0xc5a4
+1365	0x19686f0	hc-22-l-h-tn-2	5	-1	0			0	1	5	0x14fd8	0xc7b0
+1366	0x1968728	hc-22-l-v-tn-2	5	-1	0			0	1	5	0x14fd9	0x3e10
+1367	0x1968760	hc-23-x	3	-1	0	0.0		0	1	5	0x14fda	0x3e14
+1368	0x1968798	hc-23-y	3	-1	0	0.0		0	1	5	0x14fdb	0x3e18
+1369	0x19687d0	hc-23-a-h	2	-1	0	0		0	1	5	0x14fdc	0x3e1c
+1370	0x1968808	hc-23-a-v	2	-1	0	0		0	1	5	0x14fdd	0x4238
+1371	0x1968840	hc-23-n	5	-1	0			0	1	5	0x14fde	0x4338
+1372	0x1968878	hc-23-o	2	-1	0	0		0	1	5	0x14fdf	0x3e20
+1373	0x19688b0	hc-23-l-h-t	2	-1	0	0		0	1	5	0x14fe0	0x402c
+1374	0x19688e8	hc-23-l-v-t	2	-1	0	0		0	1	5	0x14fe1	0x3e24
+1375	0x1968920	hc-23-l-h-o-1	3	-1	0			0	1	5	0x14fe2	0x4030
+1376	0x1968958	hc-23-l-v-o-1	3	-1	0			0	1	5	0x14fe3	0x3e28
+1377	0x1968990	hc-23-l-h-o-2	3	-1	0			0	1	5	0x14fe4	0x4034
+1378	0x19689c8	hc-23-l-v-o-2	3	-1	0			0	1	5	0x14fe6	0x3e2c
+1379	0x1968a00	hc-23-l-h-tn-1	5	-1	0			0	1	5	0x14fe8	0x4038
+1380	0x1968a38	hc-23-l-v-tn-1	5	-1	0			0	1	5	0x14fea	0x3f2c
+1381	0x1968a70	hc-23-l-h-tn-2	5	-1	0			0	1	5	0x14fec	0x4138
+1382	0x1968aa8	hc-23-l-v-tn-2	5	-1	0			0	1	5	0x14fed	0x52c0
+1383	0x1968ae0	hc-24-x	3	-1	0	0.0		0	1	5	0x14fee	0x52c4
+1384	0x1968b18	hc-24-y	3	-1	0	0.0		0	1	5	0x14fef	0x52c8
+1385	0x1968b50	hc-24-a-h	2	-1	0	0		0	1	5	0x14ff0	0x52cc
+1386	0x1968b88	hc-24-a-v	2	-1	0	0		0	1	5	0x14ff1	0x56e8
+1387	0x1968bc0	hc-24-n	5	-1	0			0	1	5	0x14ff2	0x57e8
+1388	0x1968bf8	hc-24-o	2	-1	0	0		0	1	5	0x14ff3	0x52d0
+1389	0x1968c30	hc-24-l-h-t	2	-1	0	0		0	1	5	0x14ff4	0x54dc
+1390	0x1968c68	hc-24-l-v-t	2	-1	0	0		0	1	5	0x14ff5	0x52d4
+1391	0x1968ca0	hc-24-l-h-o-1	3	-1	0			0	1	5	0x14ff6	0x54e0
+1392	0x1968cd8	hc-24-l-v-o-1	3	-1	0			0	1	5	0x14ff7	0x52d8
+1393	0x1968d10	hc-24-l-h-o-2	3	-1	0			0	1	5	0x14ff8	0x54e4
+1394	0x1968d48	hc-24-l-v-o-2	3	-1	0			0	1	5	0x14ffa	0x52dc
+1395	0x1968d80	hc-24-l-h-tn-1	5	-1	0			0	1	5	0x14ffc	0x54e8
+1396	0x1968db8	hc-24-l-v-tn-1	5	-1	0			0	1	5	0x14ffe	0x53dc
+1397	0x1968df0	hc-24-l-h-tn-2	5	-1	0			0	1	5	0x15000	0x55e8
+1398	0x1968e28	hc-24-l-v-tn-2	5	-1	0			0	1	5	0x15001	0xcee0
+1399	0x1968e60	hc-25-x	3	-1	0	0.0		0	1	5	0x15002	0xcee4
+1400	0x1968e98	hc-25-y	3	-1	0	0.0		0	1	5	0x15003	0xcee8
+1401	0x1968ed0	hc-25-a-h	2	-1	0	0		0	1	5	0x15004	0xceec
+1402	0x1968f08	hc-25-a-v	2	-1	0	0		0	1	5	0x15005	0xd308
+1403	0x1968f40	hc-25-n	5	-1	0			0	1	5	0x15006	0xd408
+1404	0x1968f78	hc-25-o	2	-1	0	0		0	1	5	0x15007	0xcef0
+1405	0x1968fb0	hc-25-l-h-t	2	-1	0	0		0	1	5	0x15008	0xd0fc
+1406	0x1968fe8	hc-25-l-v-t	2	-1	0	0		0	1	5	0x15009	0xcef4
+1407	0x1969020	hc-25-l-h-o-1	3	-1	0			0	1	5	0x1500a	0xd100
+1408	0x1969058	hc-25-l-v-o-1	3	-1	0			0	1	5	0x1500b	0xcef8
+1409	0x1969090	hc-25-l-h-o-2	3	-1	0			0	1	5	0x1500c	0xd104
+1410	0x19690c8	hc-25-l-v-o-2	3	-1	0			0	1	5	0x1500e	0xcefc
+1411	0x1969100	hc-25-l-h-tn-1	5	-1	0			0	1	5	0x15010	0xd108
+1412	0x1969138	hc-25-l-v-tn-1	5	-1	0			0	1	5	0x15012	0xcffc
+1413	0x1969170	hc-25-l-h-tn-2	5	-1	0			0	1	5	0x15014	0xd208
+1414	0x19691a8	hc-25-l-v-tn-2	5	-1	0			0	1	5	0x15015	0x6770
+1415	0x19691e0	hc-26-x	3	-1	0	0.0		0	1	5	0x15016	0x6774
+1416	0x1969218	hc-26-y	3	-1	0	0.0		0	1	5	0x15017	0x6778
+1417	0x1969250	hc-26-a-h	2	-1	0	0		0	1	5	0x15018	0x677c
+1418	0x1969288	hc-26-a-v	2	-1	0	0		0	1	5	0x15019	0x6b98
+1419	0x19692c0	hc-26-n	5	-1	0			0	1	5	0x1501a	0x6c98
+1420	0x19692f8	hc-26-o	2	-1	0	0		0	1	5	0x1501b	0x6780
+1421	0x1969330	hc-26-l-h-t	2	-1	0	0		0	1	5	0x1501c	0x698c
+1422	0x1969368	hc-26-l-v-t	2	-1	0	0		0	1	5	0x1501d	0x6784
+1423	0x19693a0	hc-26-l-h-o-1	3	-1	0			0	1	5	0x1501e	0x6990
+1424	0x19693d8	hc-26-l-v-o-1	3	-1	0			0	1	5	0x1501f	0x6788
+1425	0x1969410	hc-26-l-h-o-2	3	-1	0			0	1	5	0x15020	0x6994
+1426	0x1969448	hc-26-l-v-o-2	3	-1	0			0	1	5	0x15022	0x678c
+1427	0x1969480	hc-26-l-h-tn-1	5	-1	0			0	1	5	0x15024	0x6998
+1428	0x19694b8	hc-26-l-v-tn-1	5	-1	0			0	1	5	0x15026	0x688c
+1429	0x19694f0	hc-26-l-h-tn-2	5	-1	0			0	1	5	0x15028	0x6a98
+1430	0x1969528	hc-26-l-v-tn-2	5	-1	0			0	1	5	0x15029	0xd40c
+1431	0x1969560	hc-27-x	3	-1	0	0.0		0	1	5	0x1502a	0xd410
+1432	0x1969598	hc-27-y	3	-1	0	0.0		0	1	5	0x1502b	0xd414
+1433	0x19695d0	hc-27-a-h	2	-1	0	0		0	1	5	0x1502c	0xd418
+1434	0x1969608	hc-27-a-v	2	-1	0	0		0	1	5	0x1502d	0xd834
+1435	0x1969640	hc-27-n	5	-1	0			0	1	5	0x1502e	0xd934
+1436	0x1969678	hc-27-o	2	-1	0	0		0	1	5	0x1502f	0xd41c
+1437	0x19696b0	hc-27-l-h-t	2	-1	0	0		0	1	5	0x15030	0xd628
+1438	0x19696e8	hc-27-l-v-t	2	-1	0	0		0	1	5	0x15031	0xd420
+1439	0x1969720	hc-27-l-h-o-1	3	-1	0			0	1	5	0x15032	0xd62c
+1440	0x1969758	hc-27-l-v-o-1	3	-1	0			0	1	5	0x15033	0xd424
+1441	0x1969790	hc-27-l-h-o-2	3	-1	0			0	1	5	0x15034	0xd630
+1442	0x19697c8	hc-27-l-v-o-2	3	-1	0			0	1	5	0x15036	0xd428
+1443	0x1969800	hc-27-l-h-tn-1	5	-1	0			0	1	5	0x15038	0xd634
+1444	0x1969838	hc-27-l-v-tn-1	5	-1	0			0	1	5	0x1503a	0xd528
+1445	0x1969870	hc-27-l-h-tn-2	5	-1	0			0	1	5	0x1503c	0xd734
+1446	0x19698a8	hc-27-l-v-tn-2	5	-1	0			0	1	5	0x1503d	0xd938
+1447	0x19698e0	hc-28-x	3	-1	0	0.0		0	1	5	0x1503e	0xd93c
+1448	0x1969918	hc-28-y	3	-1	0	0.0		0	1	5	0x1503f	0xd940
+1449	0x1969950	hc-28-a-h	2	-1	0	0		0	1	5	0x15040	0xd944
+1450	0x1969988	hc-28-a-v	2	-1	0	0		0	1	5	0x15041	0xdd60
+1451	0x19699c0	hc-28-n	5	-1	0			0	1	5	0x15042	0xde60
+1452	0x19699f8	hc-28-o	2	-1	0	0		0	1	5	0x15043	0xd948
+1453	0x1969a30	hc-28-l-h-t	2	-1	0	0		0	1	5	0x15044	0xdb54
+1454	0x1969a68	hc-28-l-v-t	2	-1	0	0		0	1	5	0x15045	0xd94c
+1455	0x1969aa0	hc-28-l-h-o-1	3	-1	0			0	1	5	0x15046	0xdb58
+1456	0x1969ad8	hc-28-l-v-o-1	3	-1	0			0	1	5	0x15047	0xd950
+1457	0x1969b10	hc-28-l-h-o-2	3	-1	0			0	1	5	0x15048	0xdb5c
+1458	0x1969b48	hc-28-l-v-o-2	3	-1	0			0	1	5	0x1504a	0xd954
+1459	0x1969b80	hc-28-l-h-tn-1	5	-1	0			0	1	5	0x1504c	0xdb60
+1460	0x1969bb8	hc-28-l-v-tn-1	5	-1	0			0	1	5	0x1504e	0xda54
+1461	0x1969bf0	hc-28-l-h-tn-2	5	-1	0			0	1	5	0x15050	0xdc60
+1462	0x1969c28	hc-28-l-v-tn-2	5	-1	0			0	1	5	0x15079	0xf84
+1463	0x1969c60	hc-31-1-x	3	-1	0	0.0		0	1	5	0x1507a	0xf88
+1464	0x1969c98	hc-31-1-y	3	-1	0	0.0		0	1	5	0x1507b	0xf8c
+1465	0x1969cd0	hc-31-1-a-h	2	-1	0	0		0	1	5	0x1507c	0xf90
+1466	0x1969d08	hc-31-1-a-v	2	-1	0	0		0	1	5	0x1507d	0x13ac
+1467	0x1969d40	hc-31-1-n	5	-1	0			0	1	5	0x1507e	0x14ac
+1468	0x1969d78	hc-31-1-o	2	-1	0	0		0	1	5	0x1507f	0xf94
+1469	0x1969db0	hc-31-1-l-h-t	2	-1	0	0		0	1	5	0x15080	0x11a0
+1470	0x1969de8	hc-31-1-l-v-t	2	-1	0	0		0	1	5	0x15081	0xf98
+1471	0x1969e20	hc-31-1-l-h-o-1	3	-1	0			0	1	5	0x15082	0x11a4
+1472	0x1969e58	hc-31-1-l-v-o-1	3	-1	0			0	1	5	0x15083	0xf9c
+1473	0x1969e90	hc-31-1-l-h-o-2	3	-1	0			0	1	5	0x15084	0x11a8
+1474	0x1969ec8	hc-31-1-l-v-o-2	3	-1	0			0	1	5	0x15086	0xfa0
+1475	0x1969f00	hc-31-1-l-h-tn-1	5	-1	0			0	1	5	0x15088	0x11ac
+1476	0x1969f38	hc-31-1-l-v-tn-1	5	-1	0			0	1	5	0x1508a	0x10a0
+1477	0x1969f70	hc-31-1-l-h-tn-2	5	-1	0			0	1	5	0x1508c	0x12ac
+1478	0x1969fa8	hc-31-1-l-v-tn-2	5	-1	0			0	1	5	0x1508d	0x14b0
+1479	0x1969fe0	hc-32-1-x	3	-1	0	0.0		0	1	5	0x1508e	0x14b4
+1480	0x196a018	hc-32-1-y	3	-1	0	0.0		0	1	5	0x1508f	0x14b8
+1481	0x196a050	hc-32-1-a-h	2	-1	0	0		0	1	5	0x15090	0x14bc
+1482	0x196a088	hc-32-1-a-v	2	-1	0	0		0	1	5	0x15091	0x18d8
+1483	0x196a0c0	hc-32-1-n	5	-1	0			0	1	5	0x15092	0x19d8
+1484	0x196a0f8	hc-32-1-o	2	-1	0	0		0	1	5	0x15093	0x14c0
+1485	0x196a130	hc-32-1-l-h-t	2	-1	0	0		0	1	5	0x15094	0x16cc
+1486	0x196a168	hc-32-1-l-v-t	2	-1	0	0		0	1	5	0x15095	0x14c4
+1487	0x196a1a0	hc-32-1-l-h-o-1	3	-1	0			0	1	5	0x15096	0x16d0
+1488	0x196a1d8	hc-32-1-l-v-o-1	3	-1	0			0	1	5	0x15097	0x14c8
+1489	0x196a210	hc-32-1-l-h-o-2	3	-1	0			0	1	5	0x15098	0x16d4
+1490	0x196a248	hc-32-1-l-v-o-2	3	-1	0			0	1	5	0x1509a	0x14cc
+1491	0x196a280	hc-32-1-l-h-tn-1	5	-1	0			0	1	5	0x1509c	0x16d8
+1492	0x196a2b8	hc-32-1-l-v-tn-1	5	-1	0			0	1	5	0x1509e	0x15cc
+1493	0x196a2f0	hc-32-1-l-h-tn-2	5	-1	0			0	1	5	0x150a0	0x17d8
+1494	0x196a328	hc-32-1-l-v-tn-2	5	-1	0			0	1	5	0x150a1	0x19dc
+1495	0x196a360	hc-33-1-x	3	-1	0	0.0		0	1	5	0x150a2	0x19e0
+1496	0x196a398	hc-33-1-y	3	-1	0	0.0		0	1	5	0x150a3	0x19e4
+1497	0x196a3d0	hc-33-1-a-h	2	-1	0	0		0	1	5	0x150a4	0x19e8
+1498	0x196a408	hc-33-1-a-v	2	-1	0	0		0	1	5	0x150a5	0x1e04
+1499	0x196a440	hc-33-1-n	5	-1	0			0	1	5	0x150a6	0x1f04
+1500	0x196a478	hc-33-1-o	2	-1	0	0		0	1	5	0x150a7	0x19ec
+1501	0x196a4b0	hc-33-1-l-h-t	2	-1	0	0		0	1	5	0x150a8	0x1bf8
+1502	0x196a4e8	hc-33-1-l-v-t	2	-1	0	0		0	1	5	0x150a9	0x19f0
+1503	0x196a520	hc-33-1-l-h-o-1	3	-1	0			0	1	5	0x150aa	0x1bfc
+1504	0x196a558	hc-33-1-l-v-o-1	3	-1	0			0	1	5	0x150ab	0x19f4
+1505	0x196a590	hc-33-1-l-h-o-2	3	-1	0			0	1	5	0x150ac	0x1c00
+1506	0x196a5c8	hc-33-1-l-v-o-2	3	-1	0			0	1	5	0x150ae	0x19f8
+1507	0x196a600	hc-33-1-l-h-tn-1	5	-1	0			0	1	5	0x150b0	0x1c04
+1508	0x196a638	hc-33-1-l-v-tn-1	5	-1	0			0	1	5	0x150b2	0x1af8
+1509	0x196a670	hc-33-1-l-h-tn-2	5	-1	0			0	1	5	0x150b4	0x1d04
+1510	0x196a6a8	hc-33-1-l-v-tn-2	5	-1	0			0	1	5	0x150c9	0x8ba4
+1511	0x196a6e0	hc-35-x	3	-1	0	0.0		0	1	5	0x150ca	0x8ba8
+1512	0x196a718	hc-35-y	3	-1	0	0.0		0	1	5	0x150cb	0x8bac
+1513	0x196a750	hc-35-a-h	2	-1	0	0		0	1	5	0x150cc	0x8bb0
+1514	0x196a788	hc-35-a-v	2	-1	0	0		0	1	5	0x150cd	0x8fcc
+1515	0x196a7c0	hc-35-n	5	-1	0			0	1	5	0x150ce	0x90cc
+1516	0x196a7f8	hc-35-o	2	-1	0	0		0	1	5	0x150cf	0x8bb4
+1517	0x196a830	hc-35-l-h-t	2	-1	0	0		0	1	5	0x150d0	0x8dc0
+1518	0x196a868	hc-35-l-v-t	2	-1	0	0		0	1	5	0x150d1	0x8bb8
+1519	0x196a8a0	hc-35-l-h-o-1	3	-1	0			0	1	5	0x150d2	0x8dc4
+1520	0x196a8d8	hc-35-l-v-o-1	3	-1	0			0	1	5	0x150d3	0x8bbc
+1521	0x196a910	hc-35-l-h-o-2	3	-1	0			0	1	5	0x150d4	0x8dc8
+1522	0x196a948	hc-35-l-v-o-2	3	-1	0			0	1	5	0x150d6	0x8bc0
+1523	0x196a980	hc-35-l-h-tn-1	5	-1	0			0	1	5	0x150d8	0x8dcc
+1524	0x196a9b8	hc-35-l-v-tn-1	5	-1	0			0	1	5	0x150da	0x8cc0
+1525	0x196a9f0	hc-35-l-h-tn-2	5	-1	0			0	1	5	0x150dc	0x8ecc
+1526	0x196aa28	hc-35-l-v-tn-2	5	-1	0			0	1	5	0x150dd	0x90d0
+1527	0x196aa60	hc-36-x	3	-1	0	0.0		0	1	5	0x150de	0x90d4
+1528	0x196aa98	hc-36-y	3	-1	0	0.0		0	1	5	0x150df	0x90d8
+1529	0x196aad0	hc-36-a-h	2	-1	0	0		0	1	5	0x150e0	0x90dc
+1530	0x196ab08	hc-36-a-v	2	-1	0	0		0	1	5	0x150e1	0x94f8
+1531	0x196ab40	hc-36-n	5	-1	0			0	1	5	0x150e2	0x95f8
+1532	0x196ab78	hc-36-o	2	-1	0	0		0	1	5	0x150e3	0x90e0
+1533	0x196abb0	hc-36-l-h-t	2	-1	0	0		0	1	5	0x150e4	0x92ec
+1534	0x196abe8	hc-36-l-v-t	2	-1	0	0		0	1	5	0x150e5	0x90e4
+1535	0x196ac20	hc-36-l-h-o-1	3	-1	0			0	1	5	0x150e6	0x92f0
+1536	0x196ac58	hc-36-l-v-o-1	3	-1	0			0	1	5	0x150e7	0x90e8
+1537	0x196ac90	hc-36-l-h-o-2	3	-1	0			0	1	5	0x150e8	0x92f4
+1538	0x196acc8	hc-36-l-v-o-2	3	-1	0			0	1	5	0x150ea	0x90ec
+1539	0x196ad00	hc-36-l-h-tn-1	5	-1	0			0	1	5	0x150ec	0x92f8
+1540	0x196ad38	hc-36-l-v-tn-1	5	-1	0			0	1	5	0x150ee	0x91ec
+1541	0x196ad70	hc-36-l-h-tn-2	5	-1	0			0	1	5	0x150f0	0x93f8
+1542	0x196ada8	hc-36-l-v-tn-2	5	-1	0			0	1	5	0x15119	0xa580
+1543	0x196ade0	hc-39-x	3	-1	0	0.0		0	1	5	0x1511a	0xa584
+1544	0x196ae18	hc-39-y	3	-1	0	0.0		0	1	5	0x1511b	0xa588
+1545	0x196ae50	hc-39-a-h	2	-1	0	0		0	1	5	0x1511c	0xa58c
+1546	0x196ae88	hc-39-a-v	2	-1	0	0		0	1	5	0x1511d	0xa9a8
+1547	0x196aec0	hc-39-n	5	-1	0			0	1	5	0x1511e	0xaaa8
+1548	0x196aef8	hc-39-o	2	-1	0	0		0	1	5	0x1511f	0xa590
+1549	0x196af30	hc-39-l-h-t	2	-1	0	0		0	1	5	0x15120	0xa79c
+1550	0x196af68	hc-39-l-v-t	2	-1	0	0		0	1	5	0x15121	0xa594
+1551	0x196afa0	hc-39-l-h-o-1	3	-1	0			0	1	5	0x15122	0xa7a0
+1552	0x196afd8	hc-39-l-v-o-1	3	-1	0			0	1	5	0x15123	0xa598
+1553	0x196b010	hc-39-l-h-o-2	3	-1	0			0	1	5	0x15124	0xa7a4
+1554	0x196b048	hc-39-l-v-o-2	3	-1	0			0	1	5	0x15126	0xa59c
+1555	0x196b080	hc-39-l-h-tn-1	5	-1	0			0	1	5	0x15128	0xa7a8
+1556	0x196b0b8	hc-39-l-v-tn-1	5	-1	0			0	1	5	0x1512a	0xa69c
+1557	0x196b0f0	hc-39-l-h-tn-2	5	-1	0			0	1	5	0x1512c	0xa8a8
+1558	0x196b128	hc-39-l-v-tn-2	5	-1	0			0	1	5	0x15155	0xe390
+1559	0x196b160	hc-42-x	3	-1	0	0.0		0	1	5	0x15156	0xe394
+1560	0x196b198	hc-42-y	3	-1	0	0.0		0	1	5	0x15157	0xe398
+1561	0x196b1d0	hc-42-a-h	2	-1	0	0		0	1	5	0x15158	0xe39c
+1562	0x196b208	hc-42-a-v	2	-1	0	0		0	1	5	0x15159	0xe7b8
+1563	0x196b240	hc-42-n	5	-1	0			0	1	5	0x1515a	0xe8b8
+1564	0x196b278	hc-42-o	2	-1	0	0		0	1	5	0x1515b	0xe3a0
+1565	0x196b2b0	hc-42-l-h-t	2	-1	0	0		0	1	5	0x1515c	0xe5ac
+1566	0x196b2e8	hc-42-l-v-t	2	-1	0	0		0	1	5	0x1515d	0xe3a4
+1567	0x196b320	hc-42-l-h-o-1	3	-1	0			0	1	5	0x1515e	0xe5b0
+1568	0x196b358	hc-42-l-v-o-1	3	-1	0			0	1	5	0x1515f	0xe3a8
+1569	0x196b390	hc-42-l-h-o-2	3	-1	0			0	1	5	0x15160	0xe5b4
+1570	0x196b3c8	hc-42-l-v-o-2	3	-1	0			0	1	5	0x15162	0xe3ac
+1571	0x196b400	hc-42-l-h-tn-1	5	-1	0			0	1	5	0x15164	0xe5b8
+1572	0x196b438	hc-42-l-v-tn-1	5	-1	0			0	1	5	0x15166	0xe4ac
+1573	0x196b470	hc-42-l-h-tn-2	5	-1	0			0	1	5	0x15168	0xe6b8
+1574	0x196b4a8	hc-42-l-v-tn-2	5	-1	0			0	1	5	0x15169	0x57ec
+1575	0x196b4e0	hc-43-x	3	-1	0	0.0		0	1	5	0x1516a	0x57f0
+1576	0x196b518	hc-43-y	3	-1	0	0.0		0	1	5	0x1516b	0x57f4
+1577	0x196b550	hc-43-a-h	2	-1	0	0		0	1	5	0x1516c	0x57f8
+1578	0x196b588	hc-43-a-v	2	-1	0	0		0	1	5	0x1516d	0x5c14
+1579	0x196b5c0	hc-43-n	5	-1	0			0	1	5	0x1516e	0x5d14
+1580	0x196b5f8	hc-43-o	2	-1	0	0		0	1	5	0x1516f	0x57fc
+1581	0x196b630	hc-43-l-h-t	2	-1	0	0		0	1	5	0x15170	0x5a08
+1582	0x196b668	hc-43-l-v-t	2	-1	0	0		0	1	5	0x15171	0x5800
+1583	0x196b6a0	hc-43-l-h-o-1	3	-1	0			0	1	5	0x15172	0x5a0c
+1584	0x196b6d8	hc-43-l-v-o-1	3	-1	0			0	1	5	0x15173	0x5804
+1585	0x196b710	hc-43-l-h-o-2	3	-1	0			0	1	5	0x15174	0x5a10
+1586	0x196b748	hc-43-l-v-o-2	3	-1	0			0	1	5	0x15176	0x5808
+1587	0x196b780	hc-43-l-h-tn-1	5	-1	0			0	1	5	0x15178	0x5a14
+1588	0x196b7b8	hc-43-l-v-tn-1	5	-1	0			0	1	5	0x1517a	0x5908
+1589	0x196b7f0	hc-43-l-h-tn-2	5	-1	0			0	1	5	0x1517c	0x5b14
+1590	0x196b828	hc-43-l-v-tn-2	5	-1	0			0	1	5	0x15191	0xde64
+1591	0x196b860	hc-45-x	3	-1	0	0.0		0	1	5	0x15192	0xde68
+1592	0x196b898	hc-45-y	3	-1	0	0.0		0	1	5	0x15193	0xde6c
+1593	0x196b8d0	hc-45-a-h	2	-1	0	0		0	1	5	0x15194	0xde70
+1594	0x196b908	hc-45-a-v	2	-1	0	0		0	1	5	0x15195	0xe28c
+1595	0x196b940	hc-45-n	5	-1	0			0	1	5	0x15196	0xe38c
+1596	0x196b978	hc-45-o	2	-1	0	0		0	1	5	0x15197	0xde74
+1597	0x196b9b0	hc-45-l-h-t	2	-1	0	0		0	1	5	0x15198	0xe080
+1598	0x196b9e8	hc-45-l-v-t	2	-1	0	0		0	1	5	0x15199	0xde78
+1599	0x196ba20	hc-45-l-h-o-1	3	-1	0			0	1	5	0x1519a	0xe084
+1600	0x196ba58	hc-45-l-v-o-1	3	-1	0			0	1	5	0x1519b	0xde7c
+1601	0x196ba90	hc-45-l-h-o-2	3	-1	0			0	1	5	0x1519c	0xe088
+1602	0x196bac8	hc-45-l-v-o-2	3	-1	0			0	1	5	0x1519e	0xde80
+1603	0x196bb00	hc-45-l-h-tn-1	5	-1	0			0	1	5	0x151a0	0xe08c
+1604	0x196bb38	hc-45-l-v-tn-1	5	-1	0			0	1	5	0x151a2	0xdf80
+1605	0x196bb70	hc-45-l-h-tn-2	5	-1	0			0	1	5	0x151a4	0xe18c
+1606	0x196bba8	hc-45-l-v-tn-2	5	-1	0			0	1	5	0x151a5	0xe8bc
+1607	0x196bbe0	hc-46-x	3	-1	0	0.0		0	1	5	0x151a6	0xe8c0
+1608	0x196bc18	hc-46-y	3	-1	0	0.0		0	1	5	0x151a7	0xe8c4
+1609	0x196bc50	hc-46-a-h	2	-1	0	0		0	1	5	0x151a8	0xe8c8
+1610	0x196bc88	hc-46-a-v	2	-1	0	0		0	1	5	0x151a9	0xece4
+1611	0x196bcc0	hc-46-n	5	-1	0			0	1	5	0x151aa	0xede4
+1612	0x196bcf8	hc-46-o	2	-1	0	0		0	1	5	0x151ab	0xe8cc
+1613	0x196bd30	hc-46-l-h-t	2	-1	0	0		0	1	5	0x151ac	0xead8
+1614	0x196bd68	hc-46-l-v-t	2	-1	0	0		0	1	5	0x151ad	0xe8d0
+1615	0x196bda0	hc-46-l-h-o-1	3	-1	0			0	1	5	0x151ae	0xeadc
+1616	0x196bdd8	hc-46-l-v-o-1	3	-1	0			0	1	5	0x151af	0xe8d4
+1617	0x196be10	hc-46-l-h-o-2	3	-1	0			0	1	5	0x151b0	0xeae0
+1618	0x196be48	hc-46-l-v-o-2	3	-1	0			0	1	5	0x151b2	0xe8d8
+1619	0x196be80	hc-46-l-h-tn-1	5	-1	0			0	1	5	0x151b4	0xeae4
+1620	0x196beb8	hc-46-l-v-tn-1	5	-1	0			0	1	5	0x151b6	0xe9d8
+1621	0x196bef0	hc-46-l-h-tn-2	5	-1	0			0	1	5	0x151b8	0xebe4
+1622	0x196bf28	hc-46-l-v-tn-2	5	-1	0			0	1	5	0x151b9	0xede8
+1623	0x196bf60	hc-47-x	3	-1	0	0.0		0	1	5	0x151ba	0xedec
+1624	0x196bf98	hc-47-y	3	-1	0	0.0		0	1	5	0x151bb	0xedf0
+1625	0x196bfd0	hc-47-a-h	2	-1	0	0		0	1	5	0x151bc	0xedf4
+1626	0x196c008	hc-47-a-v	2	-1	0	0		0	1	5	0x151bd	0xf210
+1627	0x196c040	hc-47-n	5	-1	0			0	1	5	0x151be	0xf310
+1628	0x196c078	hc-47-o	2	-1	0	0		0	1	5	0x151bf	0xedf8
+1629	0x196c0b0	hc-47-l-h-t	2	-1	0	0		0	1	5	0x151c0	0xf004
+1630	0x196c0e8	hc-47-l-v-t	2	-1	0	0		0	1	5	0x151c1	0xedfc
+1631	0x196c120	hc-47-l-h-o-1	3	-1	0			0	1	5	0x151c2	0xf008
+1632	0x196c158	hc-47-l-v-o-1	3	-1	0			0	1	5	0x151c3	0xee00
+1633	0x196c190	hc-47-l-h-o-2	3	-1	0			0	1	5	0x151c4	0xf00c
+1634	0x196c1c8	hc-47-l-v-o-2	3	-1	0			0	1	5	0x151c6	0xee04
+1635	0x196c200	hc-47-l-h-tn-1	5	-1	0			0	1	5	0x151c8	0xf010
+1636	0x196c238	hc-47-l-v-tn-1	5	-1	0			0	1	5	0x151ca	0xef04
+1637	0x196c270	hc-47-l-h-tn-2	5	-1	0			0	1	5	0x151cc	0xf110
+1638	0x196c2a8	hc-47-l-v-tn-2	5	-1	0			0	1	5	0x151cd	0xf314
+1639	0x196c2e0	hc-48-x	3	-1	0	0.0		0	1	5	0x151ce	0xf318
+1640	0x196c318	hc-48-y	3	-1	0	0.0		0	1	5	0x151cf	0xf31c
+1641	0x196c350	hc-48-a-h	2	-1	0	0		0	1	5	0x151d0	0xf320
+1642	0x196c388	hc-48-a-v	2	-1	0	0		0	1	5	0x151d1	0xf73c
+1643	0x196c3c0	hc-48-n	5	-1	0			0	1	5	0x151d2	0xf83c
+1644	0x196c3f8	hc-48-o	2	-1	0	0		0	1	5	0x151d3	0xf324
+1645	0x196c430	hc-48-l-h-t	2	-1	0	0		0	1	5	0x151d4	0xf530
+1646	0x196c468	hc-48-l-v-t	2	-1	0	0		0	1	5	0x151d5	0xf328
+1647	0x196c4a0	hc-48-l-h-o-1	3	-1	0			0	1	5	0x151d6	0xf534
+1648	0x196c4d8	hc-48-l-v-o-1	3	-1	0			0	1	5	0x151d7	0xf32c
+1649	0x196c510	hc-48-l-h-o-2	3	-1	0			0	1	5	0x151d8	0xf538
+1650	0x196c548	hc-48-l-v-o-2	3	-1	0			0	1	5	0x151da	0xf330
+1651	0x196c580	hc-48-l-h-tn-1	5	-1	0			0	1	5	0x151dc	0xf53c
+1652	0x196c5b8	hc-48-l-v-tn-1	5	-1	0			0	1	5	0x151de	0xf430
+1653	0x196c5f0	hc-48-l-h-tn-2	5	-1	0			0	1	5	0x151e0	0xf63c
+1654	0x196c628	hc-48-l-v-tn-2	5	-1	0			0	1	5	0x151e1	0xfd6c
+1655	0x196c660	hc-49-x	3	-1	0	0.0		0	1	5	0x151e2	0xfd70
+1656	0x196c698	hc-49-y	3	-1	0	0.0		0	1	5	0x151e3	0xfd74
+1657	0x196c6d0	hc-49-a-h	2	-1	0	0		0	1	5	0x151e4	0xfd78
+1658	0x196c708	hc-49-a-v	2	-1	0	0		0	1	5	0x151e5	0x10194
+1659	0x196c740	hc-49-n	5	-1	0			0	1	5	0x151e6	0x10294
+1660	0x196c778	hc-49-o	2	-1	0	0		0	1	5	0x151e7	0xfd7c
+1661	0x196c7b0	hc-49-l-h-t	2	-1	0	0		0	1	5	0x151e8	0xff88
+1662	0x196c7e8	hc-49-l-v-t	2	-1	0	0		0	1	5	0x151e9	0xfd80
+1663	0x196c820	hc-49-l-h-o-1	3	-1	0			0	1	5	0x151ea	0xff8c
+1664	0x196c858	hc-49-l-v-o-1	3	-1	0			0	1	5	0x151eb	0xfd84
+1665	0x196c890	hc-49-l-h-o-2	3	-1	0			0	1	5	0x151ec	0xff90
+1666	0x196c8c8	hc-49-l-v-o-2	3	-1	0			0	1	5	0x151ee	0xfd88
+1667	0x196c900	hc-49-l-h-tn-1	5	-1	0			0	1	5	0x151f0	0xff94
+1668	0x196c938	hc-49-l-v-tn-1	5	-1	0			0	1	5	0x151f2	0xfe88
+1669	0x196c970	hc-49-l-h-tn-2	5	-1	0			0	1	5	0x151f4	0x10094
+1670	0x196c9a8	hc-49-l-v-tn-2	5	-1	0			0	1	5	0x151f5	0x10298
+1671	0x196c9e0	hc-50-x	3	-1	0	0.0		0	1	5	0x151f6	0x1029c
+1672	0x196ca18	hc-50-y	3	-1	0	0.0		0	1	5	0x151f7	0x102a0
+1673	0x196ca50	hc-50-a-h	2	-1	0	0		0	1	5	0x151f8	0x102a4
+1674	0x196ca88	hc-50-a-v	2	-1	0	0		0	1	5	0x151f9	0x106c0
+1675	0x196cac0	hc-50-n	5	-1	0			0	1	5	0x151fa	0x107c0
+1676	0x196caf8	hc-50-o	2	-1	0	0		0	1	5	0x151fb	0x102a8
+1677	0x196cb30	hc-50-l-h-t	2	-1	0	0		0	1	5	0x151fc	0x104b4
+1678	0x196cb68	hc-50-l-v-t	2	-1	0	0		0	1	5	0x151fd	0x102ac
+1679	0x196cba0	hc-50-l-h-o-1	3	-1	0			0	1	5	0x151fe	0x104b8
+1680	0x196cbd8	hc-50-l-v-o-1	3	-1	0			0	1	5	0x151ff	0x102b0
+1681	0x196cc10	hc-50-l-h-o-2	3	-1	0			0	1	5	0x15200	0x104bc
+1682	0x196cc48	hc-50-l-v-o-2	3	-1	0			0	1	5	0x15202	0x102b4
+1683	0x196cc80	hc-50-l-h-tn-1	5	-1	0			0	1	5	0x15204	0x104c0
+1684	0x196ccb8	hc-50-l-v-tn-1	5	-1	0			0	1	5	0x15206	0x103b4
+1685	0x196ccf0	hc-50-l-h-tn-2	5	-1	0			0	1	5	0x15208	0x105c0
+1686	0x196cd28	hc-50-l-v-tn-2	5	-1	0			0	1	5	0x15209	0x107c4
+1687	0x196cd60	hc-51-x	3	-1	0	0.0		0	1	5	0x1520a	0x107c8
+1688	0x196cd98	hc-51-y	3	-1	0	0.0		0	1	5	0x1520b	0x107cc
+1689	0x196cdd0	hc-51-a-h	2	-1	0	0		0	1	5	0x1520c	0x107d0
+1690	0x196ce08	hc-51-a-v	2	-1	0	0		0	1	5	0x1520d	0x10bec
+1691	0x196ce40	hc-51-n	5	-1	0			0	1	5	0x1520e	0x10cec
+1692	0x196ce78	hc-51-o	2	-1	0	0		0	1	5	0x1520f	0x107d4
+1693	0x196ceb0	hc-51-l-h-t	2	-1	0	0		0	1	5	0x15210	0x109e0
+1694	0x196cee8	hc-51-l-v-t	2	-1	0	0		0	1	5	0x15211	0x107d8
+1695	0x196cf20	hc-51-l-h-o-1	3	-1	0			0	1	5	0x15212	0x109e4
+1696	0x196cf58	hc-51-l-v-o-1	3	-1	0			0	1	5	0x15213	0x107dc
+1697	0x196cf90	hc-51-l-h-o-2	3	-1	0			0	1	5	0x15214	0x109e8
+1698	0x196cfc8	hc-51-l-v-o-2	3	-1	0			0	1	5	0x15216	0x107e0
+1699	0x196d000	hc-51-l-h-tn-1	5	-1	0			0	1	5	0x15218	0x109ec
+1700	0x196d038	hc-51-l-v-tn-1	5	-1	0			0	1	5	0x1521a	0x108e0
+1701	0x196d070	hc-51-l-h-tn-2	5	-1	0			0	1	5	0x1521c	0x10aec
+1702	0x196d0a8	hc-51-l-v-tn-2	5	-1	0			0	1	5	0x1521d	0x10cf0
+1703	0x196d0e0	hc-52-x	3	-1	0	0.0		0	1	5	0x1521e	0x10cf4
+1704	0x196d118	hc-52-y	3	-1	0	0.0		0	1	5	0x1521f	0x10cf8
+1705	0x196d150	hc-52-a-h	2	-1	0	0		0	1	5	0x15220	0x10cfc
+1706	0x196d188	hc-52-a-v	2	-1	0	0		0	1	5	0x15221	0x11118
+1707	0x196d1c0	hc-52-n	5	-1	0			0	1	5	0x15222	0x11218
+1708	0x196d1f8	hc-52-o	2	-1	0	0		0	1	5	0x15223	0x10d00
+1709	0x196d230	hc-52-l-h-t	2	-1	0	0		0	1	5	0x15224	0x10f0c
+1710	0x196d268	hc-52-l-v-t	2	-1	0	0		0	1	5	0x15225	0x10d04
+1711	0x196d2a0	hc-52-l-h-o-1	3	-1	0			0	1	5	0x15226	0x10f10
+1712	0x196d2d8	hc-52-l-v-o-1	3	-1	0			0	1	5	0x15227	0x10d08
+1713	0x196d310	hc-52-l-h-o-2	3	-1	0			0	1	5	0x15228	0x10f14
+1714	0x196d348	hc-52-l-v-o-2	3	-1	0			0	1	5	0x1522a	0x10d0c
+1715	0x196d380	hc-52-l-h-tn-1	5	-1	0			0	1	5	0x1522c	0x10f18
+1716	0x196d3b8	hc-52-l-v-tn-1	5	-1	0			0	1	5	0x1522e	0x10e0c
+1717	0x196d3f0	hc-52-l-h-tn-2	5	-1	0			0	1	5	0x15230	0x11018
+1718	0x196d428	hc-52-l-v-tn-2	5	-1	0			0	1	5	0x15231	0x1121c
+1719	0x196d460	hc-53-x	3	-1	0	0.0		0	1	5	0x15232	0x11220
+1720	0x196d498	hc-53-y	3	-1	0	0.0		0	1	5	0x15233	0x11224
+1721	0x196d4d0	hc-53-a-h	2	-1	0	0		0	1	5	0x15234	0x11228
+1722	0x196d508	hc-53-a-v	2	-1	0	0		0	1	5	0x15235	0x11644
+1723	0x196d540	hc-53-n	5	-1	0			0	1	5	0x15236	0x11744
+1724	0x196d578	hc-53-o	2	-1	0	0		0	1	5	0x15237	0x1122c
+1725	0x196d5b0	hc-53-l-h-t	2	-1	0	0		0	1	5	0x15238	0x11438
+1726	0x196d5e8	hc-53-l-v-t	2	-1	0	0		0	1	5	0x15239	0x11230
+1727	0x196d620	hc-52-l-h-o-1	3	-1	0			0	1	5	0x1523a	0x1143c
+1728	0x196d658	hc-53-l-v-o-1	3	-1	0			0	1	5	0x1523b	0x11234
+1729	0x196d690	hc-53-l-h-o-2	3	-1	0			0	1	5	0x1523c	0x11440
+1730	0x196d6c8	hc-53-l-v-o-2	3	-1	0			0	1	5	0x1523e	0x11238
+1731	0x196d700	hc-53-l-h-tn-1	5	-1	0			0	1	5	0x15240	0x11444
+1732	0x196d738	hc-53-l-v-tn-1	5	-1	0			0	1	5	0x15242	0x11338
+1733	0x196d770	hc-53-l-h-tn-2	5	-1	0			0	1	5	0x15244	0x11544
+1734	0x196d7a8	hc-53-l-v-tn-2	5	-1	0			0	1	5	0x15259	0x11c74
+1735	0x196d7e0	hc-55-x	3	-1	0	0.0		0	1	5	0x1525a	0x11c78
+1736	0x196d818	hc-55-y	3	-1	0	0.0		0	1	5	0x1525b	0x11c7c
+1737	0x196d850	hc-55-a-h	2	-1	0	0		0	1	5	0x1525c	0x11c80
+1738	0x196d888	hc-55-a-v	2	-1	0	0		0	1	5	0x1525d	0x1209c
+1739	0x196d8c0	hc-55-n	5	-1	0			0	1	5	0x1525e	0x1219c
+1740	0x196d8f8	hc-55-o	2	-1	0	0		0	1	5	0x1525f	0x11c84
+1741	0x196d930	hc-55-l-h-t	2	-1	0	0		0	1	5	0x15260	0x11e90
+1742	0x196d968	hc-55-l-v-t	2	-1	0	0		0	1	5	0x15261	0x11c88
+1743	0x196d9a0	hc-55-l-h-o-1	3	-1	0			0	1	5	0x15262	0x11e94
+1744	0x196d9d8	hc-55-l-v-o-1	3	-1	0			0	1	5	0x15263	0x11c8c
+1745	0x196da10	hc-55-l-h-o-2	3	-1	0			0	1	5	0x15264	0x11e98
+1746	0x196da48	hc-55-l-v-o-2	3	-1	0			0	1	5	0x15266	0x11c90
+1747	0x196da80	hc-55-l-h-tn-1	5	-1	0			0	1	5	0x15268	0x11e9c
+1748	0x196dab8	hc-55-l-v-tn-1	5	-1	0			0	1	5	0x1526a	0x11d90
+1749	0x196daf0	hc-55-l-h-tn-2	5	-1	0			0	1	5	0x1526c	0x11f9c
+1750	0x196db28	hc-55-l-v-tn-2	5	-1	0			0	1	5	0x1526d	0x121a0
+1751	0x196db60	hc-56-x	3	-1	0	0.0		0	1	5	0x1526e	0x121a4
+1752	0x196db98	hc-56-y	3	-1	0	0.0		0	1	5	0x1526f	0x121a8
+1753	0x196dbd0	hc-56-a-h	2	-1	0	0		0	1	5	0x15270	0x121ac
+1754	0x196dc08	hc-56-a-v	2	-1	0	0		0	1	5	0x15271	0x125c8
+1755	0x196dc40	hc-56-n	5	-1	0			0	1	5	0x15272	0x126c8
+1756	0x196dc78	hc-56-o	2	-1	0	0		0	1	5	0x15273	0x121b0
+1757	0x196dcb0	hc-56-l-h-t	2	-1	0	0		0	1	5	0x15274	0x123bc
+1758	0x196dce8	hc-56-l-v-t	2	-1	0	0		0	1	5	0x15275	0x121b4
+1759	0x196dd20	hc-56-l-h-o-1	3	-1	0			0	1	5	0x15276	0x123c0
+1760	0x196dd58	hc-56-l-v-o-1	3	-1	0			0	1	5	0x15277	0x121b8
+1761	0x196dd90	hc-56-l-h-o-2	3	-1	0			0	1	5	0x15278	0x123c4
+1762	0x196ddc8	hc-56-l-v-o-2	3	-1	0			0	1	5	0x1527a	0x121bc
+1763	0x196de00	hc-56-l-h-tn-1	5	-1	0			0	1	5	0x1527c	0x123c8
+1764	0x196de38	hc-56-l-v-tn-1	5	-1	0			0	1	5	0x1527e	0x122bc
+1765	0x196de70	hc-56-l-h-tn-2	5	-1	0			0	1	5	0x15280	0x124c8
+1766	0x196dea8	hc-56-l-v-tn-2	5	-1	0			0	1	5	0x15281	0x126cc
+1767	0x196dee0	hc-57-x	3	-1	0	0.0		0	1	5	0x15282	0x126d0
+1768	0x196df18	hc-57-y	3	-1	0	0.0		0	1	5	0x15283	0x126d4
+1769	0x196df50	hc-57-a-h	2	-1	0	0		0	1	5	0x15284	0x126d8
+1770	0x196df88	hc-57-a-v	2	-1	0	0		0	1	5	0x15285	0x12af4
+1771	0x196dfc0	hc-57-n	5	-1	0			0	1	5	0x15286	0x12bf4
+1772	0x196dff8	hc-57-o	2	-1	0	0		0	1	5	0x15287	0x126dc
+1773	0x196e030	hc-57-l-h-t	2	-1	0	0		0	1	5	0x15288	0x128e8
+1774	0x196e068	hc-57-l-v-t	2	-1	0	0		0	1	5	0x15289	0x126e0
+1775	0x196e0a0	hc-57-l-h-o-1	3	-1	0			0	1	5	0x1528a	0x128ec
+1776	0x196e0d8	hc-57-l-v-o-1	3	-1	0			0	1	5	0x1528b	0x126e4
+1777	0x196e110	hc-57-l-h-o-2	3	-1	0			0	1	5	0x1528c	0x128f0
+1778	0x196e148	hc-57-l-v-o-2	3	-1	0			0	1	5	0x1528e	0x126e8
+1779	0x196e180	hc-57-l-h-tn-1	5	-1	0			0	1	5	0x15290	0x128f4
+1780	0x196e1b8	hc-57-l-v-tn-1	5	-1	0			0	1	5	0x15292	0x127e8
+1781	0x196e1f0	hc-57-l-h-tn-2	5	-1	0			0	1	5	0x15294	0x129f4
+1782	0x196e228	hc-57-l-v-tn-2	5	-1	0			0	1	5	0x15295	0x12bf8
+1783	0x196e260	hc-58-x	3	-1	0	0.0		0	1	5	0x15296	0x12bfc
+1784	0x196e298	hc-58-y	3	-1	0	0.0		0	1	5	0x15297	0x12c00
+1785	0x196e2d0	hc-58-a-h	2	-1	0	0		0	1	5	0x15298	0x12c04
+1786	0x196e308	hc-58-a-v	2	-1	0	0		0	1	5	0x15299	0x13020
+1787	0x196e340	hc-58-n	5	-1	0			0	1	5	0x1529a	0x13120
+1788	0x196e378	hc-58-o	2	-1	0	0		0	1	5	0x1529b	0x12c08
+1789	0x196e3b0	hc-58-l-h-t	2	-1	0	0		0	1	5	0x1529c	0x12e14
+1790	0x196e3e8	hc-58-l-v-t	2	-1	0	0		0	1	5	0x1529d	0x12c0c
+1791	0x196e420	hc-58-l-h-o-1	3	-1	0			0	1	5	0x1529e	0x12e18
+1792	0x196e458	hc-58-l-v-o-1	3	-1	0			0	1	5	0x1529f	0x12c10
+1793	0x196e490	hc-58-l-h-o-2	3	-1	0			0	1	5	0x152a0	0x12e1c
+1794	0x196e4c8	hc-58-l-v-o-2	3	-1	0			0	1	5	0x152a2	0x12c14
+1795	0x196e500	hc-58-l-h-tn-1	5	-1	0			0	1	5	0x152a4	0x12e20
+1796	0x196e538	hc-58-l-v-tn-1	5	-1	0			0	1	5	0x152a6	0x12d14
+1797	0x196e570	hc-58-l-h-tn-2	5	-1	0			0	1	5	0x152a8	0x12f20
+1798	0x196e5a8	hc-58-l-v-tn-2	5	-1	0			0	1	5	0x152a9	0x13124
+1799	0x196e5e0	hc-59-x	3	-1	0	0.0		0	1	5	0x152aa	0x13128
+1800	0x196e618	hc-59-y	3	-1	0	0.0		0	1	5	0x152ab	0x1312c
+1801	0x196e650	hc-59-a-h	2	-1	0	0		0	1	5	0x152ac	0x13130
+1802	0x196e688	hc-59-a-v	2	-1	0	0		0	1	5	0x152ad	0x1354c
+1803	0x196e6c0	hc-59-n	5	-1	0			0	1	5	0x152ae	0x1364c
+1804	0x196e6f8	hc-59-o	2	-1	0	0		0	1	5	0x152af	0x13134
+1805	0x196e730	hc-59-l-h-t	2	-1	0	0		0	1	5	0x152b0	0x13340
+1806	0x196e768	hc-59-l-v-t	2	-1	0	0		0	1	5	0x152b1	0x13138
+1807	0x196e7a0	hc-59-l-h-o-1	3	-1	0			0	1	5	0x152b2	0x13344
+1808	0x196e7d8	hc-59-l-v-o-1	3	-1	0			0	1	5	0x152b3	0x1313c
+1809	0x196e810	hc-59-l-h-o-2	3	-1	0			0	1	5	0x152b4	0x13348
+1810	0x196e848	hc-59-l-v-o-2	3	-1	0			0	1	5	0x152b6	0x13140
+1811	0x196e880	hc-59-l-h-tn-1	5	-1	0			0	1	5	0x152b8	0x1334c
+1812	0x196e8b8	hc-59-l-v-tn-1	5	-1	0			0	1	5	0x152ba	0x13240
+1813	0x196e8f0	hc-59-l-h-tn-2	5	-1	0			0	1	5	0x152bc	0x1344c
+1814	0x196e928	hc-59-l-v-tn-2	5	-1	0			0	1	5	0x152bd	0x13650
+1815	0x196e960	hc-60-x	3	-1	0	0.0		0	1	5	0x152be	0x13654
+1816	0x196e998	hc-60-y	3	-1	0	0.0		0	1	5	0x152bf	0x13658
+1817	0x196e9d0	hc-60-a-h	2	-1	0	0		0	1	5	0x152c0	0x1365c
+1818	0x196ea08	hc-60-a-v	2	-1	0	0		0	1	5	0x152c1	0x13a78
+1819	0x196ea40	hc-60-n	5	-1	0			0	1	5	0x152c2	0x13b78
+1820	0x196ea78	hc-60-o	2	-1	0	0		0	1	5	0x152c3	0x13660
+1821	0x196eab0	hc-60-l-h-t	2	-1	0	0		0	1	5	0x152c4	0x1386c
+1822	0x196eae8	hc-60-l-v-t	2	-1	0	0		0	1	5	0x152c5	0x13664
+1823	0x196eb20	hc-60-l-h-o-1	3	-1	0			0	1	5	0x152c6	0x13870
+1824	0x196eb58	hc-60-l-v-o-1	3	-1	0			0	1	5	0x152c7	0x13668
+1825	0x196eb90	hc-60-l-h-o-2	3	-1	0			0	1	5	0x152c8	0x13874
+1826	0x196ebc8	hc-60-l-v-o-2	3	-1	0			0	1	5	0x152ca	0x1366c
+1827	0x196ec00	hc-60-l-h-tn-1	5	-1	0			0	1	5	0x152cc	0x13878
+1828	0x196ec38	hc-60-l-v-tn-1	5	-1	0			0	1	5	0x152ce	0x1376c
+1829	0x196ec70	hc-60-l-h-tn-2	5	-1	0			0	1	5	0x152d0	0x13978
+1830	0x196eca8	hc-60-l-v-tn-2	5	-1	0			0	1	5	0x152d1	0x13b7c
+1831	0x196ece0	hc-64-x	3	-1	0	0.0		0	1	5	0x152d2	0x13b80
+1832	0x196ed18	hc-64-y	3	-1	0	0.0		0	1	5	0x152d3	0x13b84
+1833	0x196ed50	hc-64-a-h	2	-1	0	0		0	1	5	0x152d4	0x13b88
+1834	0x196ed88	hc-64-a-v	2	-1	0	0		0	1	5	0x152d5	0x13fa4
+1835	0x196edc0	hc-64-n	5	-1	0			0	1	5	0x152d6	0x140a4
+1836	0x196edf8	hc-64-o	2	-1	0	0		0	1	5	0x152d7	0x13b8c
+1837	0x196ee30	hc-64-l-h-t	2	-1	0	0		0	1	5	0x152d8	0x13d98
+1838	0x196ee68	hc-64-l-v-t	2	-1	0	0		0	1	5	0x152d9	0x13b90
+1839	0x196eea0	hc-64-l-h-o-1	3	-1	0			0	1	5	0x152da	0x13d9c
+1840	0x196eed8	hc-64-l-v-o-1	3	-1	0			0	1	5	0x152db	0x13b94
+1841	0x196ef10	hc-64-l-h-o-2	3	-1	0			0	1	5	0x152dc	0x13da0
+1842	0x196ef48	hc-64-l-v-o-2	3	-1	0			0	1	5	0x152de	0x13b98
+1843	0x196ef80	hc-64-l-h-tn-1	5	-1	0			0	1	5	0x152e0	0x13da4
+1844	0x196efb8	hc-64-l-v-tn-1	5	-1	0			0	1	5	0x152e2	0x13c98
+1845	0x196eff0	hc-64-l-h-tn-2	5	-1	0			0	1	5	0x152e4	0x13ea4
+1846	0x196f028	hc-64-l-v-tn-2	5	-1	0			0	1	5	0x152f9	0x140a8
+1847	0x196f060	hc-66-x	3	-1	0	0.0		0	1	5	0x152fa	0x140ac
+1848	0x196f098	hc-66-y	3	-1	0	0.0		0	1	5	0x152fb	0x140b0
+1849	0x196f0d0	hc-66-a-h	2	-1	0	0		0	1	5	0x152fc	0x140b4
+1850	0x196f108	hc-66-a-v	2	-1	0	0		0	1	5	0x152fd	0x144d0
+1851	0x196f140	hc-66-n	5	-1	0			0	1	5	0x152fe	0x145d0
+1852	0x196f178	hc-66-o	2	-1	0	0		0	1	5	0x152ff	0x140b8
+1853	0x196f1b0	hc-66-l-h-t	2	-1	0	0		0	1	5	0x15300	0x142c4
+1854	0x196f1e8	hc-66-l-v-t	2	-1	0	0		0	1	5	0x15301	0x140bc
+1855	0x196f220	hc-66-l-h-o-1	3	-1	0			0	1	5	0x15302	0x142c8
+1856	0x196f258	hc-66-l-v-o-1	3	-1	0			0	1	5	0x15303	0x140c0
+1857	0x196f290	hc-66-l-h-o-2	3	-1	0			0	1	5	0x15304	0x142cc
+1858	0x196f2c8	hc-66-l-v-o-2	3	-1	0			0	1	5	0x15306	0x140c4
+1859	0x196f300	hc-66-l-h-tn-1	5	-1	0			0	1	5	0x15308	0x142d0
+1860	0x196f338	hc-66-l-v-tn-1	5	-1	0			0	1	5	0x1530a	0x141c4
+1861	0x196f370	hc-66-l-h-tn-2	5	-1	0			0	1	5	0x1530c	0x143d0
+1862	0x196f3a8	hc-66-l-v-tn-2	5	-1	0			0	1	5	0x1530d	0x145d4
+1863	0x196f3e0	hc-67-x	3	-1	0	0.0		0	1	5	0x1530e	0x145d8
+1864	0x196f418	hc-67-y	3	-1	0	0.0		0	1	5	0x1530f	0x145dc
+1865	0x196f450	hc-67-a-h	2	-1	0	0		0	1	5	0x15310	0x145e0
+1866	0x196f488	hc-67-a-v	2	-1	0	0		0	1	5	0x15311	0x149fc
+1867	0x196f4c0	hc-67-n	5	-1	0			0	1	5	0x15312	0x14afc
+1868	0x196f4f8	hc-67-o	2	-1	0	0		0	1	5	0x15313	0x145e4
+1869	0x196f530	hc-67-l-h-t	2	-1	0	0		0	1	5	0x15314	0x147f0
+1870	0x196f568	hc-67-l-v-t	2	-1	0	0		0	1	5	0x15315	0x145e8
+1871	0x196f5a0	hc-67-l-h-o-1	3	-1	0			0	1	5	0x15316	0x147f4
+1872	0x196f5d8	hc-67-l-v-o-1	3	-1	0			0	1	5	0x15317	0x145ec
+1873	0x196f610	hc-67-l-h-o-2	3	-1	0			0	1	5	0x15318	0x147f8
+1874	0x196f648	hc-67-l-v-o-2	3	-1	0			0	1	5	0x1531a	0x145f0
+1875	0x196f680	hc-67-l-h-tn-1	5	-1	0			0	1	5	0x1531c	0x147fc
+1876	0x196f6b8	hc-67-l-v-tn-1	5	-1	0			0	1	5	0x1531e	0x146f0
+1877	0x196f6f0	hc-67-l-h-tn-2	5	-1	0			0	1	5	0x15320	0x148fc
+1878	0x196f728	hc-67-l-v-tn-2	5	-1	0			0	1	5	0x15321	0x14b00
+1879	0x196f760	hc-68-x	3	-1	0	0.0		0	1	5	0x15322	0x14b04
+1880	0x196f798	hc-68-y	3	-1	0	0.0		0	1	5	0x15323	0x14b08
+1881	0x196f7d0	hc-68-a-h	2	-1	0	0		0	1	5	0x15324	0x14b0c
+1882	0x196f808	hc-68-a-v	2	-1	0	0		0	1	5	0x15325	0x14f28
+1883	0x196f840	hc-68-n	5	-1	0			0	1	5	0x15326	0x15028
+1884	0x196f878	hc-68-o	2	-1	0	0		0	1	5	0x15327	0x14b10
+1885	0x196f8b0	hc-68-l-h-t	2	-1	0	0		0	1	5	0x15328	0x14d1c
+1886	0x196f8e8	hc-68-l-v-t	2	-1	0	0		0	1	5	0x15329	0x14b14
+1887	0x196f920	hc-68-l-h-o-1	3	-1	0			0	1	5	0x1532a	0x14d20
+1888	0x196f958	hc-68-l-v-o-1	3	-1	0			0	1	5	0x1532b	0x14b18
+1889	0x196f990	hc-68-l-h-o-2	3	-1	0			0	1	5	0x1532c	0x14d24
+1890	0x196f9c8	hc-68-l-v-o-2	3	-1	0			0	1	5	0x1532e	0x14b1c
+1891	0x196fa00	hc-68-l-h-tn-1	5	-1	0			0	1	5	0x15330	0x14d28
+1892	0x196fa38	hc-68-l-v-tn-1	5	-1	0			0	1	5	0x15332	0x14c1c
+1893	0x196fa70	hc-68-l-h-tn-2	5	-1	0			0	1	5	0x15334	0x14e28
+1894	0x196faa8	hc-68-l-v-tn-2	5	-1	0			0	1	5	0x15335	0x1502c
+1895	0x196fae0	hc-69-x	3	-1	0	0.0		0	1	5	0x15336	0x15030
+1896	0x196fb18	hc-69-y	3	-1	0	0.0		0	1	5	0x15337	0x15034
+1897	0x196fb50	hc-69-a-h	2	-1	0	0		0	1	5	0x15338	0x15038
+1898	0x196fb88	hc-69-a-v	2	-1	0	0		0	1	5	0x15339	0x15454
+1899	0x196fbc0	hc-69-n	5	-1	0			0	1	5	0x1533a	0x15554
+1900	0x196fbf8	hc-69-o	2	-1	0	0		0	1	5	0x1533b	0x1503c
+1901	0x196fc30	hc-69-l-h-t	2	-1	0	0		0	1	5	0x1533c	0x15248
+1902	0x196fc68	hc-69-l-v-t	2	-1	0	0		0	1	5	0x1533d	0x15040
+1903	0x196fca0	hc-69-l-h-o-1	3	-1	0			0	1	5	0x1533e	0x1524c
+1904	0x196fcd8	hc-69-l-v-o-1	3	-1	0			0	1	5	0x1533f	0x15044
+1905	0x196fd10	hc-69-l-h-o-2	3	-1	0			0	1	5	0x15340	0x15250
+1906	0x196fd48	hc-69-l-v-o-2	3	-1	0			0	1	5	0x15342	0x15048
+1907	0x196fd80	hc-69-l-h-tn-1	5	-1	0			0	1	5	0x15344	0x15254
+1908	0x196fdb8	hc-69-l-v-tn-1	5	-1	0			0	1	5	0x15346	0x15148
+1909	0x196fdf0	hc-69-l-h-tn-2	5	-1	0			0	1	5	0x15348	0x15354
+1910	0x196fe28	hc-69-l-v-tn-2	5	-1	0			0	1	5	0x15349	0x15558
+1911	0x196fe60	hc-70-x	3	-1	0	0.0		0	1	5	0x1534a	0x1555c
+1912	0x196fe98	hc-70-y	3	-1	0	0.0		0	1	5	0x1534b	0x15560
+1913	0x196fed0	hc-70-a-h	2	-1	0	0		0	1	5	0x1534c	0x15564
+1914	0x196ff08	hc-70-a-v	2	-1	0	0		0	1	5	0x1534d	0x15980
+1915	0x196ff40	hc-70-n	5	-1	0			0	1	5	0x1534e	0x15a80
+1916	0x196ff78	hc-70-o	2	-1	0	0		0	1	5	0x1534f	0x15568
+1917	0x196ffb0	hc-70-l-h-t	2	-1	0	0		0	1	5	0x15350	0x15774
+1918	0x196ffe8	hc-70-l-v-t	2	-1	0	0		0	1	5	0x15351	0x1556c
+1919	0x1970020	hc-70-l-h-o-1	3	-1	0			0	1	5	0x15352	0x15778
+1920	0x1970058	hc-70-l-v-o-1	3	-1	0			0	1	5	0x15353	0x15570
+1921	0x1970090	hc-70-l-h-o-2	3	-1	0			0	1	5	0x15354	0x1577c
+1922	0x19700c8	hc-70-l-v-o-2	3	-1	0			0	1	5	0x15356	0x15574
+1923	0x1970100	hc-70-l-h-tn-1	5	-1	0			0	1	5	0x15358	0x15780
+1924	0x1970138	hc-70-l-v-tn-1	5	-1	0			0	1	5	0x1535a	0x15674
+1925	0x1970170	hc-70-l-h-tn-2	5	-1	0			0	1	5	0x1535c	0x15880
+1926	0x19701a8	hc-70-l-v-tn-2	5	-1	0			0	1	5	0x1535d	0x15a84
+1927	0x19701e0	hc-71-x	3	-1	0	0.0		0	1	5	0x1535e	0x15a88
+1928	0x1970218	hc-71-y	3	-1	0	0.0		0	1	5	0x1535f	0x15a8c
+1929	0x1970250	hc-71-a-h	2	-1	0	0		0	1	5	0x15360	0x15a90
+1930	0x1970288	hc-71-a-v	2	-1	0	0		0	1	5	0x15361	0x15eac
+1931	0x19702c0	hc-71-n	5	-1	0			0	1	5	0x15362	0x15fac
+1932	0x19702f8	hc-71-o	2	-1	0	0		0	1	5	0x15363	0x15a94
+1933	0x1970330	hc-71-l-h-t	2	-1	0	0		0	1	5	0x15364	0x15ca0
+1934	0x1970368	hc-71-l-v-t	2	-1	0	0		0	1	5	0x15365	0x15a98
+1935	0x19703a0	hc-71-l-h-o-1	3	-1	0			0	1	5	0x15366	0x15ca4
+1936	0x19703d8	hc-71-l-v-o-1	3	-1	0			0	1	5	0x15367	0x15a9c
+1937	0x1970410	hc-71-l-h-o-2	3	-1	0			0	1	5	0x15368	0x15ca8
+1938	0x1970448	hc-71-l-v-o-2	3	-1	0			0	1	5	0x1536a	0x15aa0
+1939	0x1970480	hc-71-l-h-tn-1	5	-1	0			0	1	5	0x1536c	0x15cac
+1940	0x19704b8	hc-71-l-v-tn-1	5	-1	0			0	1	5	0x1536e	0x15ba0
+1941	0x19704f0	hc-71-l-h-tn-2	5	-1	0			0	1	5	0x15370	0x15dac
+1942	0x1970528	hc-71-l-v-tn-2	5	-1	0			0	1	5	0x15371	0x15fb0
+1943	0x1970560	hc-72-x	3	-1	0	0.0		0	1	5	0x15372	0x15fb4
+1944	0x1970598	hc-72-y	3	-1	0	0.0		0	1	5	0x15373	0x15fb8
+1945	0x19705d0	hc-72-a-h	2	-1	0	0		0	1	5	0x15374	0x15fbc
+1946	0x1970608	hc-72-a-v	2	-1	0	0		0	1	5	0x15375	0x163d8
+1947	0x1970640	hc-72-n	5	-1	0			0	1	5	0x15376	0x164d8
+1948	0x1970678	hc-72-o	2	-1	0	0		0	1	5	0x15377	0x15fc0
+1949	0x19706b0	hc-72-l-h-t	2	-1	0	0		0	1	5	0x15378	0x161cc
+1950	0x19706e8	hc-72-l-v-t	2	-1	0	0		0	1	5	0x15379	0x15fc4
+1951	0x1970720	hc-72-l-h-o-1	3	-1	0			0	1	5	0x1537a	0x161d0
+1952	0x1970758	hc-72-l-v-o-1	3	-1	0			0	1	5	0x1537b	0x15fc8
+1953	0x1970790	hc-72-l-h-o-2	3	-1	0			0	1	5	0x1537c	0x161d4
+1954	0x19707c8	hc-72-l-v-o-2	3	-1	0			0	1	5	0x1537e	0x15fcc
+1955	0x1970800	hc-72-l-h-tn-1	5	-1	0			0	1	5	0x15380	0x161d8
+1956	0x1970838	hc-72-l-v-tn-1	5	-1	0			0	1	5	0x15382	0x160cc
+1957	0x1970870	hc-72-l-h-tn-2	5	-1	0			0	1	5	0x15384	0x162d8
+1958	0x19708a8	hc-72-l-v-tn-2	5	-1	0			0	1	5	0x15385	0x164dc
+1959	0x19708e0	hc-73-x	3	-1	0	0.0		0	1	5	0x15386	0x164e0
+1960	0x1970918	hc-73-y	3	-1	0	0.0		0	1	5	0x15387	0x164e4
+1961	0x1970950	hc-73-a-h	2	-1	0	0		0	1	5	0x15388	0x164e8
+1962	0x1970988	hc-73-a-v	2	-1	0	0		0	1	5	0x15389	0x16904
+1963	0x19709c0	hc-73-n	5	-1	0			0	1	5	0x1538a	0x16a04
+1964	0x19709f8	hc-73-o	2	-1	0	0		0	1	5	0x1538b	0x164ec
+1965	0x1970a30	hc-73-l-h-t	2	-1	0	0		0	1	5	0x1538c	0x166f8
+1966	0x1970a68	hc-73-l-v-t	2	-1	0	0		0	1	5	0x1538d	0x164f0
+1967	0x1970aa0	hc-73-l-h-o-1	3	-1	0			0	1	5	0x1538e	0x166fc
+1968	0x1970ad8	hc-73-l-v-o-1	3	-1	0			0	1	5	0x1538f	0x164f4
+1969	0x1970b10	hc-73-l-h-o-2	3	-1	0			0	1	5	0x15390	0x16700
+1970	0x1970b48	hc-73-l-v-o-2	3	-1	0			0	1	5	0x15392	0x164f8
+1971	0x1970b80	hc-73-l-h-tn-1	5	-1	0			0	1	5	0x15394	0x16704
+1972	0x1970bb8	hc-73-l-v-tn-1	5	-1	0			0	1	5	0x15396	0x165f8
+1973	0x1970bf0	hc-73-l-h-tn-2	5	-1	0			0	1	5	0x15398	0x16804
+1974	0x1970c28	hc-73-l-v-tn-2	5	-1	0			0	1	5	0x15399	0x16a08
+1975	0x1970c60	hc-74-x	3	-1	0	0.0		0	1	5	0x1539a	0x16a0c
+1976	0x1970c98	hc-74-y	3	-1	0	0.0		0	1	5	0x1539b	0x16a10
+1977	0x1970cd0	hc-74-a-h	2	-1	0	0		0	1	5	0x1539c	0x16a14
+1978	0x1970d08	hc-74-a-v	2	-1	0	0		0	1	5	0x1539d	0x16e30
+1979	0x1970d40	hc-74-n	5	-1	0			0	1	5	0x1539e	0x16f30
+1980	0x1970d78	hc-74-o	2	-1	0	0		0	1	5	0x1539f	0x16a18
+1981	0x1970db0	hc-74-l-h-t	2	-1	0	0		0	1	5	0x153a0	0x16c24
+1982	0x1970de8	hc-74-l-v-t	2	-1	0	0		0	1	5	0x153a1	0x16a1c
+1983	0x1970e20	hc-74-l-h-o-1	3	-1	0			0	1	5	0x153a2	0x16c28
+1984	0x1970e58	hc-74-l-v-o-1	3	-1	0			0	1	5	0x153a3	0x16a20
+1985	0x1970e90	hc-74-l-h-o-2	3	-1	0			0	1	5	0x153a4	0x16c2c
+1986	0x1970ec8	hc-74-l-v-o-2	3	-1	0			0	1	5	0x153a6	0x16a24
+1987	0x1970f00	hc-74-l-h-tn-1	5	-1	0			0	1	5	0x153a8	0x16c30
+1988	0x1970f38	hc-74-l-v-tn-1	5	-1	0			0	1	5	0x153aa	0x16b24
+1989	0x1970f70	hc-74-l-h-tn-2	5	-1	0			0	1	5	0x153ac	0x16d30
+1990	0x1970fa8	hc-74-l-v-tn-2	5	-1	0			0	1	5	0x153ad	0x16f34
+1991	0x1970fe0	hc-75-x	3	-1	0	0.0		0	1	5	0x153ae	0x16f38
+1992	0x1971018	hc-75-y	3	-1	0	0.0		0	1	5	0x153af	0x16f3c
+1993	0x1971050	hc-75-a-h	2	-1	0	0		0	1	5	0x153b0	0x16f40
+1994	0x1971088	hc-75-a-v	2	-1	0	0		0	1	5	0x153b1	0x1735c
+1995	0x19710c0	hc-75-n	5	-1	0			0	1	5	0x153b2	0x1745c
+1996	0x19710f8	hc-75-o	2	-1	0	0		0	1	5	0x153b3	0x16f44
+1997	0x1971130	hc-75-l-h-t	2	-1	0	0		0	1	5	0x153b4	0x17150
+1998	0x1971168	hc-75-l-v-t	2	-1	0	0		0	1	5	0x153b5	0x16f48
+1999	0x19711a0	hc-75-l-h-o-1	3	-1	0			0	1	5	0x153b6	0x17154
+2000	0x19711d8	hc-75-l-v-o-1	3	-1	0			0	1	5	0x153b7	0x16f4c
+2001	0x1971210	hc-75-l-h-o-2	3	-1	0			0	1	5	0x153b8	0x17158
+2002	0x1971248	hc-75-l-v-o-2	3	-1	0			0	1	5	0x153ba	0x16f50
+2003	0x1971280	hc-75-l-h-tn-1	5	-1	0			0	1	5	0x153bc	0x1715c
+2004	0x19712b8	hc-75-l-v-tn-1	5	-1	0			0	1	5	0x153be	0x17050
+2005	0x19712f0	hc-75-l-h-tn-2	5	-1	0			0	1	5	0x153c0	0x1725c
+2006	0x1971328	hc-75-l-v-tn-2	5	-1	0			0	1	5	0x153c1	0x17460
+2007	0x1971360	hc-76-x	3	-1	0	0.0		0	1	5	0x153c2	0x17464
+2008	0x1971398	hc-76-y	3	-1	0	0.0		0	1	5	0x153c3	0x17468
+2009	0x19713d0	hc-76-a-h	2	-1	0	0		0	1	5	0x153c4	0x1746c
+2010	0x1971408	hc-76-a-v	2	-1	0	0		0	1	5	0x153c5	0x17888
+2011	0x1971440	hc-76-n	5	-1	0			0	1	5	0x153c6	0x17988
+2012	0x1971478	hc-76-o	2	-1	0	0		0	1	5	0x153c7	0x17470
+2013	0x19714b0	hc-76-l-h-t	2	-1	0	0		0	1	5	0x153c8	0x1767c
+2014	0x19714e8	hc-76-l-v-t	2	-1	0	0		0	1	5	0x153c9	0x17474
+2015	0x1971520	hc-76-l-h-o-1	3	-1	0			0	1	5	0x153ca	0x17680
+2016	0x1971558	hc-76-l-v-o-1	3	-1	0			0	1	5	0x153cb	0x17478
+2017	0x1971590	hc-76-l-h-o-2	3	-1	0			0	1	5	0x153cc	0x17684
+2018	0x19715c8	hc-76-l-v-o-2	3	-1	0			0	1	5	0x153ce	0x1747c
+2019	0x1971600	hc-76-l-h-tn-1	5	-1	0			0	1	5	0x153d0	0x17688
+2020	0x1971638	hc-76-l-v-tn-1	5	-1	0			0	1	5	0x153d2	0x1757c
+2021	0x1971670	hc-76-l-h-tn-2	5	-1	0			0	1	5	0x153d4	0x17788
+2022	0x19716a8	hc-76-l-v-tn-2	5	-1	0			0	1	5	0x153d5	0x1798c
+2023	0x19716e0	hc-77-x	3	-1	0	0.0		0	1	5	0x153d6	0x17990
+2024	0x1971718	hc-77-y	3	-1	0	0.0		0	1	5	0x153d7	0x17994
+2025	0x1971750	hc-77-a-h	2	-1	0	0		0	1	5	0x153d8	0x17998
+2026	0x1971788	hc-77-a-v	2	-1	0	0		0	1	5	0x153d9	0x17db4
+2027	0x19717c0	hc-77-n	5	-1	0			0	1	5	0x153da	0x17eb4
+2028	0x19717f8	hc-77-o	2	-1	0	0		0	1	5	0x153db	0x1799c
+2029	0x1971830	hc-77-l-h-t	2	-1	0	0		0	1	5	0x153dc	0x17ba8
+2030	0x1971868	hc-77-l-v-t	2	-1	0	0		0	1	5	0x153dd	0x179a0
+2031	0x19718a0	hc-77-l-h-o-1	3	-1	0			0	1	5	0x153de	0x17bac
+2032	0x19718d8	hc-77-l-v-o-1	3	-1	0			0	1	5	0x153df	0x179a4
+2033	0x1971910	hc-77-l-h-o-2	3	-1	0			0	1	5	0x153e0	0x17bb0
+2034	0x1971948	hc-77-l-v-o-2	3	-1	0			0	1	5	0x153e2	0x179a8
+2035	0x1971980	hc-77-l-h-tn-1	5	-1	0			0	1	5	0x153e4	0x17bb4
+2036	0x19719b8	hc-77-l-v-tn-1	5	-1	0			0	1	5	0x153e6	0x17aa8
+2037	0x19719f0	hc-77-l-h-tn-2	5	-1	0			0	1	5	0x153e8	0x17cb4
+2038	0x1971a28	hc-77-l-v-tn-2	5	-1	0			0	1	5	0x153e9	0x17eb8
+2039	0x1971a60	hc-78-x	3	-1	0	0.0		0	1	5	0x153ea	0x17ebc
+2040	0x1971a98	hc-78-y	3	-1	0	0.0		0	1	5	0x153eb	0x17ec0
+2041	0x1971ad0	hc-78-a-h	2	-1	0	0		0	1	5	0x153ec	0x17ec4
+2042	0x1971b08	hc-78-a-v	2	-1	0	0		0	1	5	0x153ed	0x182e0
+2043	0x1971b40	hc-78-n	5	-1	0			0	1	5	0x153ee	0x183e0
+2044	0x1971b78	hc-78-o	2	-1	0	0		0	1	5	0x153ef	0x17ec8
+2045	0x1971bb0	hc-78-l-h-t	2	-1	0	0		0	1	5	0x153f0	0x180d4
+2046	0x1971be8	hc-78-l-v-t	2	-1	0	0		0	1	5	0x153f1	0x17ecc
+2047	0x1971c20	hc-78-l-h-o-1	3	-1	0			0	1	5	0x153f2	0x180d8
+2048	0x1971c58	hc-78-l-v-o-1	3	-1	0			0	1	5	0x153f3	0x17ed0
+2049	0x1971c90	hc-78-l-h-o-2	3	-1	0			0	1	5	0x153f4	0x180dc
+2050	0x1971cc8	hc-78-l-v-o-2	3	-1	0			0	1	5	0x153f6	0x17ed4
+2051	0x1971d00	hc-78-l-h-tn-1	5	-1	0			0	1	5	0x153f8	0x180e0
+2052	0x1971d38	hc-78-l-v-tn-1	5	-1	0			0	1	5	0x153fa	0x17fd4
+2053	0x1971d70	hc-78-l-h-tn-2	5	-1	0			0	1	5	0x153fc	0x181e0
+2054	0x1971da8	hc-78-l-v-tn-2	5	-1	0			0	1	5	0x153fd	0x183e4
+2055	0x1971de0	hc-79-x	3	-1	0	0.0		0	1	5	0x153fe	0x183e8
+2056	0x1971e18	hc-79-y	3	-1	0	0.0		0	1	5	0x153ff	0x183ec
+2057	0x1971e50	hc-79-a-h	2	-1	0	0		0	1	5	0x15400	0x183f0
+2058	0x1971e88	hc-79-a-v	2	-1	0	0		0	1	5	0x15401	0x1880c
+2059	0x1971ec0	hc-79-n	5	-1	0			0	1	5	0x15402	0x1890c
+2060	0x1971ef8	hc-79-o	2	-1	0	0		0	1	5	0x15403	0x183f4
+2061	0x1971f30	hc-79-l-h-t	2	-1	0	0		0	1	5	0x15404	0x18600
+2062	0x1971f68	hc-79-l-v-t	2	-1	0	0		0	1	5	0x15405	0x183f8
+2063	0x1971fa0	hc-79-l-h-o-1	3	-1	0			0	1	5	0x15406	0x18604
+2064	0x1971fd8	hc-79-l-v-o-1	3	-1	0			0	1	5	0x15407	0x183fc
+2065	0x1972010	hc-79-l-h-o-2	3	-1	0			0	1	5	0x15408	0x18608
+2066	0x1972048	hc-79-l-v-o-2	3	-1	0			0	1	5	0x1540a	0x18400
+2067	0x1972080	hc-79-l-h-tn-1	5	-1	0			0	1	5	0x1540c	0x1860c
+2068	0x19720b8	hc-79-l-v-tn-1	5	-1	0			0	1	5	0x1540e	0x18500
+2069	0x19720f0	hc-79-l-h-tn-2	5	-1	0			0	1	5	0x15410	0x1870c
+2070	0x1972128	hc-79-l-v-tn-2	5	-1	0			0	1	5	0x15411	0x18910
+2071	0x1972160	hc-80-x	3	-1	0	0.0		0	1	5	0x15412	0x18914
+2072	0x1972198	hc-80-y	3	-1	0	0.0		0	1	5	0x15413	0x18918
+2073	0x19721d0	hc-80-a-h	2	-1	0	0		0	1	5	0x15414	0x1891c
+2074	0x1972208	hc-80-a-v	2	-1	0	0		0	1	5	0x15415	0x18d38
+2075	0x1972240	hc-80-n	5	-1	0			0	1	5	0x15416	0x18e38
+2076	0x1972278	hc-80-o	2	-1	0	0		0	1	5	0x15417	0x18920
+2077	0x19722b0	hc-80-l-h-t	2	-1	0	0		0	1	5	0x15418	0x18b2c
+2078	0x19722e8	hc-80-l-v-t	2	-1	0	0		0	1	5	0x15419	0x18924
+2079	0x1972320	hc-80-l-h-o-1	3	-1	0			0	1	5	0x1541a	0x18b30
+2080	0x1972358	hc-80-l-v-o-1	3	-1	0			0	1	5	0x1541b	0x18928
+2081	0x1972390	hc-80-l-h-o-2	3	-1	0			0	1	5	0x1541c	0x18b34
+2082	0x19723c8	hc-80-l-v-o-2	3	-1	0			0	1	5	0x1541e	0x1892c
+2083	0x1972400	hc-80-l-h-tn-1	5	-1	0			0	1	5	0x15420	0x18b38
+2084	0x1972438	hc-80-l-v-tn-1	5	-1	0			0	1	5	0x15422	0x18a2c
+2085	0x1972470	hc-80-l-h-tn-2	5	-1	0			0	1	5	0x15424	0x18c38
+2086	0x19724a8	hc-80-l-v-tn-2	5	-1	0			0	1	5	0x15425	0x18e3c
+2087	0x19724e0	hc-82-x	3	-1	0	0.0		0	1	5	0x15426	0x18e40
+2088	0x1972518	hc-82-y	3	-1	0	0.0		0	1	5	0x15427	0x18e44
+2089	0x1972550	hc-82a-h	2	-1	0	0		0	1	5	0x15428	0x18e48
+2090	0x1972588	hc-82-a-v	2	-1	0	0		0	1	5	0x15429	0x19264
+2091	0x19725c0	hc-82-n	5	-1	0			0	1	5	0x1542a	0x19364
+2092	0x19725f8	hc-82-o	2	-1	0	0		0	1	5	0x1542b	0x18e4c
+2093	0x1972630	hc-82-l-h-t	2	-1	0	0		0	1	5	0x1542c	0x19058
+2094	0x1972668	hc-82-l-v-t	2	-1	0	0		0	1	5	0x1542d	0x18e50
+2095	0x19726a0	hc-82-l-h-o-1	3	-1	0			0	1	5	0x1542e	0x1905c
+2096	0x19726d8	hc-82-l-v-o-1	3	-1	0			0	1	5	0x1542f	0x18e54
+2097	0x1972710	hc-82-l-h-o-2	3	-1	0			0	1	5	0x15430	0x19060
+2098	0x1972748	hc-82-l-v-o-2	3	-1	0			0	1	5	0x15432	0x18e58
+2099	0x1972780	hc-82-l-h-tn-1	5	-1	0			0	1	5	0x15434	0x19064
+2100	0x19727b8	hc-82-l-v-tn-1	5	-1	0			0	1	5	0x15436	0x18f58
+2101	0x19727f0	hc-82-l-h-tn-2	5	-1	0			0	1	5	0x15438	0x19164
+2102	0x1972828	hc-82-l-v-tn-2	5	-1	0			0	1	5	0x15439	0x19368
+2103	0x1972860	hc-83-x	3	-1	0	0.0		0	1	5	0x1543a	0x1936c
+2104	0x1972898	hc-83-y	3	-1	0	0.0		0	1	5	0x1543b	0x19370
+2105	0x19728d0	hc-83-a-h	2	-1	0	0		0	1	5	0x1543c	0x19374
+2106	0x1972908	hc-83-a-v	2	-1	0	0		0	1	5	0x1543d	0x19790
+2107	0x1972940	hc-83-n	5	-1	0			0	1	5	0x1543e	0x19890
+2108	0x1972978	hc-83-o	2	-1	0	0		0	1	5	0x1543f	0x19378
+2109	0x19729b0	hc-83-l-h-t	2	-1	0	0		0	1	5	0x15440	0x19584
+2110	0x19729e8	hc-83-l-v-t	2	-1	0	0		0	1	5	0x15441	0x1937c
+2111	0x1972a20	hc-83-l-h-o-1	3	-1	0			0	1	5	0x15442	0x19588
+2112	0x1972a58	hc-83-l-v-o-1	3	-1	0			0	1	5	0x15443	0x19380
+2113	0x1972a90	hc-83-l-h-o-2	3	-1	0			0	1	5	0x15444	0x1958c
+2114	0x1972ac8	hc-83-l-v-o-2	3	-1	0			0	1	5	0x15446	0x19384
+2115	0x1972b00	hc-83-l-h-tn-1	5	-1	0			0	1	5	0x15448	0x19590
+2116	0x1972b38	hc-83-l-v-tn-1	5	-1	0			0	1	5	0x1544a	0x19484
+2117	0x1972b70	hc-83-l-h-tn-2	5	-1	0			0	1	5	0x1544c	0x19690
+2118	0x1972ba8	hc-83-l-v-tn-2	5	-1	0			0	1	5	0x1544d	0x19894
+2119	0x1972be0	hc-84-x	3	-1	0	0.0		0	1	5	0x1544e	0x19898
+2120	0x1972c18	hc-84-y	3	-1	0	0.0		0	1	5	0x1544f	0x1989c
+2121	0x1972c50	hc-84-a-h	2	-1	0	0		0	1	5	0x15450	0x198a0
+2122	0x1972c88	hc-84-a-v	2	-1	0	0		0	1	5	0x15451	0x19cbc
+2123	0x1972cc0	hc-84-n	5	-1	0			0	1	5	0x15452	0x19dbc
+2124	0x1972cf8	hc-84-o	2	-1	0	0		0	1	5	0x15453	0x198a4
+2125	0x1972d30	hc-84-l-h-t	2	-1	0	0		0	1	5	0x15454	0x19ab0
+2126	0x1972d68	hc-84-l-v-t	2	-1	0	0		0	1	5	0x15455	0x198a8
+2127	0x1972da0	hc-84-l-h-o-1	3	-1	0			0	1	5	0x15456	0x19ab4
+2128	0x1972dd8	hc-84-l-v-o-1	3	-1	0			0	1	5	0x15457	0x198ac
+2129	0x1972e10	hc-84-l-h-o-2	3	-1	0			0	1	5	0x15458	0x19ab8
+2130	0x1972e48	hc-84-l-v-o-2	3	-1	0			0	1	5	0x1545a	0x198b0
+2131	0x1972e80	hc-84-l-h-tn-1	5	-1	0			0	1	5	0x1545c	0x19abc
+2132	0x1972eb8	hc-84-l-v-tn-1	5	-1	0			0	1	5	0x1545e	0x199b0
+2133	0x1972ef0	hc-84-l-h-tn-2	5	-1	0			0	1	5	0x15460	0x19bbc
+2134	0x1972f28	hc-84-l-v-tn-2	5	-1	0			0	1	5	0x15461	0x7c20
+2135	0x1972f60	hc-85-x	3	-1	0	0.0		0	1	5	0x15462	0x7c24
+2136	0x1972f98	hc-85-y	3	-1	0	0.0		0	1	5	0x15463	0x7c28
+2137	0x1972fd0	hc-85-a-h	2	-1	0	0		0	1	5	0x15464	0x7c2c
+2138	0x1973008	hc-85-a-v	2	-1	0	0		0	1	5	0x15465	0x8048
+2139	0x1973040	hc-85-n	5	-1	0			0	1	5	0x15466	0x8148
+2140	0x1973078	hc-85-o	2	-1	0	0		0	1	5	0x15467	0x7c30
+2141	0x19730b0	hc-85-l-h-t	2	-1	0	0		0	1	5	0x15468	0x7e3c
+2142	0x19730e8	hc-85-l-v-t	2	-1	0	0		0	1	5	0x15469	0x7c34
+2143	0x1973120	hc-85-l-h-o-1	3	-1	0			0	1	5	0x1546a	0x7e40
+2144	0x1973158	hc-85-l-v-o-1	3	-1	0			0	1	5	0x1546b	0x7c38
+2145	0x1973190	hc-85-l-h-o-2	3	-1	0			0	1	5	0x1546c	0x7e44
+2146	0x19731c8	hc-85-l-v-o-2	3	-1	0			0	1	5	0x1546e	0x7c3c
+2147	0x1973200	hc-85-l-h-tn-1	5	-1	0			0	1	5	0x15470	0x7e48
+2148	0x1973238	hc-85-l-v-tn-1	5	-1	0			0	1	5	0x15472	0x7d3c
+2149	0x1973270	hc-85-l-h-tn-2	5	-1	0			0	1	5	0x15474	0x7f48
+2150	0x19732a8	hc-85-l-v-tn-2	5	-1	0			0	1	5	0x15475	0x1f08
+2151	0x19732e0	hc-86-1-x	3	-1	0	0.0		0	1	5	0x15476	0x1f0c
+2152	0x1973318	hc-86-1-y	3	-1	0	0.0		0	1	5	0x15477	0x1f10
+2153	0x1973350	hc-86-1-a-h	2	-1	0	0		0	1	5	0x15478	0x1f14
+2154	0x1973388	hc-86-1-a-v	2	-1	0	0		0	1	5	0x15479	0x2330
+2155	0x19733c0	hc-86-1-n	5	-1	0			0	1	5	0x1547a	0x2430
+2156	0x19733f8	hc-86-1-o	2	-1	0	0		0	1	5	0x1547b	0x1f18
+2157	0x1973430	hc-86-1-l-h-t	2	-1	0	0		0	1	5	0x1547c	0x2124
+2158	0x1973468	hc-86-1-l-v-t	2	-1	0	0		0	1	5	0x1547d	0x1f1c
+2159	0x19734a0	hc-86-1-l-h-o-1	3	-1	0			0	1	5	0x1547e	0x2128
+2160	0x19734d8	hc-86-1-l-v-o-1	3	-1	0			0	1	5	0x1547f	0x1f20
+2161	0x1973510	hc-86-1-l-h-o-2	3	-1	0			0	1	5	0x15480	0x212c
+2162	0x1973548	hc-86-1-l-v-o-2	3	-1	0			0	1	5	0x15482	0x1f24
+2163	0x1973580	hc-86-1-l-h-tn-1	5	-1	0			0	1	5	0x15484	0x2130
+2164	0x19735b8	hc-86-1-l-v-tn-1	5	-1	0			0	1	5	0x15486	0x2024
+2165	0x19735f0	hc-86-1-l-h-tn-2	5	-1	0			0	1	5	0x15488	0x2230
+2166	0x1973628	hc-86-1-l-v-tn-2	5	-1	0			0	1	5	0x15489	0x2434
+2167	0x1973660	hc-87-1-x	3	-1	0	0.0		0	1	5	0x1548a	0x2438
+2168	0x1973698	hc-87-1-y	3	-1	0	0.0		0	1	5	0x1548b	0x243c
+2169	0x19736d0	hc-87-1-a-h	2	-1	0	0		0	1	5	0x1548c	0x2440
+2170	0x1973708	hc-87-1-a-v	2	-1	0	0		0	1	5	0x1548d	0x285c
+2171	0x1973740	hc-87-1-n	5	-1	0			0	1	5	0x1548e	0x295c
+2172	0x1973778	hc-87-1-o	2	-1	0	0		0	1	5	0x1548f	0x2444
+2173	0x19737b0	hc-87-1-l-h-t	2	-1	0	0		0	1	5	0x15490	0x2650
+2174	0x19737e8	hc-87-1-l-v-t	2	-1	0	0		0	1	5	0x15491	0x2448
+2175	0x1973820	hc-87-1-l-h-o-1	3	-1	0			0	1	5	0x15492	0x2654
+2176	0x1973858	hc-87-1-l-v-o-1	3	-1	0			0	1	5	0x15493	0x244c
+2177	0x1973890	hc-87-1-l-h-o-2	3	-1	0			0	1	5	0x15494	0x2658
+2178	0x19738c8	hc-87-1-l-v-o-2	3	-1	0			0	1	5	0x15496	0x2450
+2179	0x1973900	hc-87-1-l-h-tn-1	5	-1	0			0	1	5	0x15498	0x265c
+2180	0x1973938	hc-87-1-l-v-tn-1	5	-1	0			0	1	5	0x1549a	0x2550
+2181	0x1973970	hc-87-1-l-h-tn-2	5	-1	0			0	1	5	0x1549c	0x275c
+2182	0x19739a8	hc-87-1-l-v-tn-2	5	-1	0			0	1	5	0x1549d	0x2960
+2183	0x19739e0	hc-88-1-x	3	-1	0	0.0		0	1	5	0x1549e	0x2964
+2184	0x1973a18	hc-88-1-y	3	-1	0	0.0		0	1	5	0x1549f	0x2968
+2185	0x1973a50	hc-88-1-a-h	2	-1	0	0		0	1	5	0x154a0	0x296c
+2186	0x1973a88	hc-88-1-a-v	2	-1	0	0		0	1	5	0x154a1	0x2d88
+2187	0x1973ac0	hc-88-1-n	5	-1	0			0	1	5	0x154a2	0x2e88
+2188	0x1973af8	hc-88-1-o	2	-1	0	0		0	1	5	0x154a3	0x2970
+2189	0x1973b30	hc-88-1-l-h-t	2	-1	0	0		0	1	5	0x154a4	0x2b7c
+2190	0x1973b68	hc-88-1-l-v-t	2	-1	0	0		0	1	5	0x154a5	0x2974
+2191	0x1973ba0	hc-88-1-l-h-o-1	3	-1	0			0	1	5	0x154a6	0x2b80
+2192	0x1973bd8	hc-88-1-l-v-o-1	3	-1	0			0	1	5	0x154a7	0x2978
+2193	0x1973c10	hc-88-1-l-h-o-2	3	-1	0			0	1	5	0x154a8	0x2b84
+2194	0x1973c48	hc-88-1-l-v-o-2	3	-1	0			0	1	5	0x154aa	0x297c
+2195	0x1973c80	hc-88-1-l-h-tn-1	5	-1	0			0	1	5	0x154ac	0x2b88
+2196	0x1973cb8	hc-88-1-l-v-tn-1	5	-1	0			0	1	5	0x154ae	0x2a7c
+2197	0x1973cf0	hc-88-1-l-h-tn-2	5	-1	0			0	1	5	0x154b0	0x2c88
+2198	0x1973d28	hc-88-1-l-v-tn-2	5	-1	0			0	1	5	0x154b1	0x2e8c
+2199	0x1973d60	hc-89-1-x	3	-1	0	0.0		0	1	5	0x154b2	0x2e90
+2200	0x1973d98	hc-89-1-y	3	-1	0	0.0		0	1	5	0x154b3	0x2e94
+2201	0x1973dd0	hc-89-1-a-h	2	-1	0	0		0	1	5	0x154b4	0x2e98
+2202	0x1973e08	hc-89-1-a-v	2	-1	0	0		0	1	5	0x154b5	0x32b4
+2203	0x1973e40	hc-89-1-n	5	-1	0			0	1	5	0x154b6	0x33b4
+2204	0x1973e78	hc-89-1-o	2	-1	0	0		0	1	5	0x154b7	0x2e9c
+2205	0x1973eb0	hc-89-1-l-h-t	2	-1	0	0		0	1	5	0x154b8	0x30a8
+2206	0x1973ee8	hc-89-1-l-v-t	2	-1	0	0		0	1	5	0x154b9	0x2ea0
+2207	0x1973f20	hc-89-1-l-h-o-1	3	-1	0			0	1	5	0x154ba	0x30ac
+2208	0x1973f58	hc-89-1-l-v-o-1	3	-1	0			0	1	5	0x154bb	0x2ea4
+2209	0x1973f90	hc-89-1-l-h-o-2	3	-1	0			0	1	5	0x154bc	0x30b0
+2210	0x1973fc8	hc-89-1-l-v-o-2	3	-1	0			0	1	5	0x154be	0x2ea8
+2211	0x1974000	hc-89-1-l-h-tn-1	5	-1	0			0	1	5	0x154c0	0x30b4
+2212	0x1974038	hc-89-1-l-v-tn-1	5	-1	0			0	1	5	0x154c2	0x2fa8
+2213	0x1974070	hc-89-1-l-h-tn-2	5	-1	0			0	1	5	0x154c4	0x31b4
+2214	0x19740a8	hc-89-1-l-v-tn-2	5	-1	0			0	1	5	0x154c5	0x433c
+2215	0x19740e0	hc-90-1-x	3	-1	0	0.0		0	1	5	0x154c6	0x4340
+2216	0x1974118	hc-90-1-y	3	-1	0	0.0		0	1	5	0x154c7	0x4344
+2217	0x1974150	hc-90-1-a-h	2	-1	0	0		0	1	5	0x154c8	0x4348
+2218	0x1974188	hc-90-1-a-v	2	-1	0	0		0	1	5	0x154c9	0x4764
+2219	0x19741c0	hc-90-1-n	5	-1	0			0	1	5	0x154ca	0x4864
+2220	0x19741f8	hc-90-1-o	2	-1	0	0		0	1	5	0x154cb	0x434c
+2221	0x1974230	hc-90-1-l-h-t	2	-1	0	0		0	1	5	0x154cc	0x4558
+2222	0x1974268	hc-90-1-l-v-t	2	-1	0	0		0	1	5	0x154cd	0x4350
+2223	0x19742a0	hc-90-1-l-h-o-1	3	-1	0			0	1	5	0x154ce	0x455c
+2224	0x19742d8	hc-90-1-l-v-o-1	3	-1	0			0	1	5	0x154cf	0x4354
+2225	0x1974310	hc-90-1-l-h-o-2	3	-1	0			0	1	5	0x154d0	0x4560
+2226	0x1974348	hc-90-1-l-v-o-2	3	-1	0			0	1	5	0x154d2	0x4358
+2227	0x1974380	hc-90-1-l-h-tn-1	5	-1	0			0	1	5	0x154d4	0x4564
+2228	0x19743b8	hc-90-1-l-v-tn-1	5	-1	0			0	1	5	0x154d6	0x4458
+2229	0x19743f0	hc-90-1-l-h-tn-2	5	-1	0			0	1	5	0x154d8	0x4664
+2230	0x1974428	hc-90-1-l-v-tn-2	5	-1	0			0	1	5	0x154d9	0x4868
+2231	0x1974460	hc-91-1-x	3	-1	0	0.0		0	1	5	0x154da	0x486c
+2232	0x1974498	hc-91-1-y	3	-1	0	0.0		0	1	5	0x154db	0x4870
+2233	0x19744d0	hc-91-1-a-h	2	-1	0	0		0	1	5	0x154dc	0x4874
+2234	0x1974508	hc-91-1-a-v	2	-1	0	0		0	1	5	0x154dd	0x4c90
+2235	0x1974540	hc-91-1-n	5	-1	0			0	1	5	0x154de	0x4d90
+2236	0x1974578	hc-91-1-o	2	-1	0	0		0	1	5	0x154df	0x4878
+2237	0x19745b0	hc-91-1-l-h-t	2	-1	0	0		0	1	5	0x154e0	0x4a84
+2238	0x19745e8	hc-91-1-l-v-t	2	-1	0	0		0	1	5	0x154e1	0x487c
+2239	0x1974620	hc-91-1-l-h-o-1	3	-1	0			0	1	5	0x154e2	0x4a88
+2240	0x1974658	hc-91-1-l-v-o-1	3	-1	0			0	1	5	0x154e3	0x4880
+2241	0x1974690	hc-91-1-l-h-o-2	3	-1	0			0	1	5	0x154e4	0x4a8c
+2242	0x19746c8	hc-91-1-l-v-o-2	3	-1	0			0	1	5	0x154e6	0x4884
+2243	0x1974700	hc-91-1-l-h-tn-1	5	-1	0			0	1	5	0x154e8	0x4a90
+2244	0x1974738	hc-91-1-l-v-tn-1	5	-1	0			0	1	5	0x154ea	0x4984
+2245	0x1974770	hc-91-1-l-h-tn-2	5	-1	0			0	1	5	0x154ec	0x4b90
+2246	0x19747a8	hc-91-1-l-v-tn-2	5	-1	0			0	1	5	0x154ed	0x4d94
+2247	0x19747e0	hc-92-1-x	3	-1	0	0.0		0	1	5	0x154ee	0x4d98
+2248	0x1974818	hc-92-1-y	3	-1	0	0.0		0	1	5	0x154ef	0x4d9c
+2249	0x1974850	hc-92-1-a-h	2	-1	0	0		0	1	5	0x154f0	0x4da0
+2250	0x1974888	hc-92-1-a-v	2	-1	0	0		0	1	5	0x154f1	0x51bc
+2251	0x19748c0	hc-92-1-n	5	-1	0			0	1	5	0x154f2	0x52bc
+2252	0x19748f8	hc-92-1-o	2	-1	0	0		0	1	5	0x154f3	0x4da4
+2253	0x1974930	hc-92-1-l-h-t	2	-1	0	0		0	1	5	0x154f4	0x4fb0
+2254	0x1974968	hc-92-1-l-v-t	2	-1	0	0		0	1	5	0x154f5	0x4da8
+2255	0x19749a0	hc-92-1-l-h-o-1	3	-1	0			0	1	5	0x154f6	0x4fb4
+2256	0x19749d8	hc-92-1-l-v-o-1	3	-1	0			0	1	5	0x154f7	0x4dac
+2257	0x1974a10	hc-92-1-l-h-o-2	3	-1	0			0	1	5	0x154f8	0x4fb8
+2258	0x1974a48	hc-92-1-l-v-o-2	3	-1	0			0	1	5	0x154fa	0x4db0
+2259	0x1974a80	hc-92-1-l-h-tn-1	5	-1	0			0	1	5	0x154fc	0x4fbc
+2260	0x1974ab8	hc-92-1-l-v-tn-1	5	-1	0			0	1	5	0x154fe	0x4eb0
+2261	0x1974af0	hc-92-1-l-h-tn-2	5	-1	0			0	1	5	0x15500	0x50bc
+2262	0x1974b28	hc-92-1-l-v-tn-2	5	-1	0			0	1	5	0x15501	0xf840
+2263	0x1974b60	hc-93-x	3	-1	0	0.0		0	1	5	0x15502	0xf844
+2264	0x1974b98	hc-93-y	3	-1	0	0.0		0	1	5	0x15503	0xf848
+2265	0x1974bd0	hc-93-a-h	2	-1	0	0		0	1	5	0x15504	0xf84c
+2266	0x1974c08	hc-93-a-v	2	-1	0	0		0	1	5	0x15505	0xfc68
+2267	0x1974c40	hc-93-n	5	-1	0			0	1	5	0x15506	0xfd68
+2268	0x1974c78	hc-93-o	2	-1	0	0		0	1	5	0x15507	0xf850
+2269	0x1974cb0	hc-93-l-h-t	2	-1	0	0		0	1	5	0x15508	0xfa5c
+2270	0x1974ce8	hc-93-l-v-t	2	-1	0	0		0	1	5	0x15509	0xf854
+2271	0x1974d20	hc-93-l-h-o-1	3	-1	0			0	1	5	0x1550a	0xfa60
+2272	0x1974d58	hc-93-l-v-o-1	3	-1	0			0	1	5	0x1550b	0xf858
+2273	0x1974d90	hc-93-l-h-o-2	3	-1	0			0	1	5	0x1550c	0xfa64
+2274	0x1974dc8	hc-93-l-v-o-2	3	-1	0			0	1	5	0x1550e	0xf85c
+2275	0x1974e00	hc-93-l-h-tn-1	5	-1	0			0	1	5	0x15510	0xfa68
+2276	0x1974e38	hc-93-l-v-tn-1	5	-1	0			0	1	5	0x15512	0xf95c
+2277	0x1974e70	hc-93-l-h-tn-2	5	-1	0			0	1	5	0x15514	0xfb68
+2278	0x1974ea8	hc-93-l-v-tn-2	5	-1	0			0	1	5	0x15515	0x6c9c
+2279	0x1974ee0	hc-94-x	3	-1	0	0.0		0	1	5	0x15516	0x6ca0
+2280	0x1974f18	hc-94-y	3	-1	0	0.0		0	1	5	0x15517	0x6ca4
+2281	0x1974f50	hc-94-a-h	2	-1	0	0		0	1	5	0x15518	0x6ca8
+2282	0x1974f88	hc-94-a-v	2	-1	0	0		0	1	5	0x15519	0x70c4
+2283	0x1974fc0	hc-94-n	5	-1	0			0	1	5	0x1551a	0x71c4
+2284	0x1974ff8	hc-94-o	2	-1	0	0		0	1	5	0x1551b	0x6cac
+2285	0x1975030	hc-94-l-h-t	2	-1	0	0		0	1	5	0x1551c	0x6eb8
+2286	0x1975068	hc-94-l-v-t	2	-1	0	0		0	1	5	0x1551d	0x6cb0
+2287	0x19750a0	hc-94-l-h-o-1	3	-1	0			0	1	5	0x1551e	0x6ebc
+2288	0x19750d8	hc-94-l-v-o-1	3	-1	0			0	1	5	0x1551f	0x6cb4
+2289	0x1975110	hc-94-l-h-o-2	3	-1	0			0	1	5	0x15520	0x6ec0
+2290	0x1975148	hc-94-l-v-o-2	3	-1	0			0	1	5	0x15522	0x6cb8
+2291	0x1975180	hc-94-l-h-tn-1	5	-1	0			0	1	5	0x15524	0x6ec4
+2292	0x19751b8	hc-94-l-v-tn-1	5	-1	0			0	1	5	0x15526	0x6db8
+2293	0x19751f0	hc-94-l-h-tn-2	5	-1	0			0	1	5	0x15528	0x6fc4
+2294	0x1975228	hc-94-l-v-tn-2	5	-1	0			0	1	5	0x15529	0x19dc0
+2295	0x1975260	hc-95-x	3	-1	0	0.0		0	1	5	0x1552a	0x19dc4
+2296	0x1975298	hc-95-y	3	-1	0	0.0		0	1	5	0x1552b	0x19dc8
+2297	0x19752d0	hc-95-a-h	2	-1	0	0		0	1	5	0x1552c	0x19dcc
+2298	0x1975308	hc-95-a-v	2	-1	0	0		0	1	5	0x1552d	0x1a1e8
+2299	0x1975340	hc-95-n	5	-1	0			0	1	5	0x1552e	0x1a2e8
+2300	0x1975378	hc-95-o	2	-1	0	0		0	1	5	0x1552f	0x19dd0
+2301	0x19753b0	hc-95-l-h-t	2	-1	0	0		0	1	5	0x15530	0x19fdc
+2302	0x19753e8	hc-95-l-v-t	2	-1	0	0		0	1	5	0x15531	0x19dd4
+2303	0x1975420	hc-95-l-h-o-1	3	-1	0			0	1	5	0x15532	0x19fe0
+2304	0x1975458	hc-95-l-v-o-1	3	-1	0			0	1	5	0x15533	0x19dd8
+2305	0x1975490	hc-95-l-h-o-2	3	-1	0			0	1	5	0x15534	0x19fe4
+2306	0x19754c8	hc-95-l-v-o-2	3	-1	0			0	1	5	0x15536	0x19ddc
+2307	0x1975500	hc-95-l-h-tn-1	5	-1	0			0	1	5	0x15538	0x19fe8
+2308	0x1975538	hc-95-l-v-tn-1	5	-1	0			0	1	5	0x1553a	0x19edc
+2309	0x1975570	hc-95-l-h-tn-2	5	-1	0			0	1	5	0x1553c	0x1a0e8
+2310	0x19755a8	hc-95-l-v-tn-2	5	-1	0			0	1	5	0x1553d	0x1a818
+2311	0x19755e0	hc-96-x	3	-1	0	0.0		0	1	5	0x1553e	0x1a81c
+2312	0x1975618	hc-96-y	3	-1	0	0.0		0	1	5	0x1553f	0x1a820
+2313	0x1975650	hc-96-a-h	2	-1	0	0		0	1	5	0x15540	0x1a824
+2314	0x1975688	hc-96-a-v	2	-1	0	0		0	1	5	0x15541	0x1ac40
+2315	0x19756c0	hc-96-n	5	-1	0			0	1	5	0x15542	0x1ad40
+2316	0x19756f8	hc-96-o	2	-1	0	0		0	1	5	0x15543	0x1a828
+2317	0x1975730	hc-96-l-h-t	2	-1	0	0		0	1	5	0x15544	0x1aa34
+2318	0x1975768	hc-96-l-v-t	2	-1	0	0		0	1	5	0x15545	0x1a82c
+2319	0x19757a0	hc-96-l-h-o-1	3	-1	0			0	1	5	0x15546	0x1aa38
+2320	0x19757d8	hc-96-l-v-o-1	3	-1	0			0	1	5	0x15547	0x1a830
+2321	0x1975810	hc-96-l-h-o-2	3	-1	0			0	1	5	0x15548	0x1aa3c
+2322	0x1975848	hc-96-l-v-o-2	3	-1	0			0	1	5	0x1554a	0x1a834
+2323	0x1975880	hc-96-l-h-tn-1	5	-1	0			0	1	5	0x1554c	0x1aa40
+2324	0x19758b8	hc-96-l-v-tn-1	5	-1	0			0	1	5	0x1554e	0x1a934
+2325	0x19758f0	hc-96-l-h-tn-2	5	-1	0			0	1	5	0x15550	0x1ab40
+2326	0x1975928	hc-96-l-v-tn-2	5	-1	0			0	1	5	0x15551	0x1ad44
+2327	0x1975960	hc-97-x	3	-1	0	0.0		0	1	5	0x15552	0x1ad48
+2328	0x1975998	hc-97-y	3	-1	0	0.0		0	1	5	0x15553	0x1ad4c
+2329	0x19759d0	hc-97-a-h	2	-1	0	0		0	1	5	0x15554	0x1ad50
+2330	0x1975a08	hc-97-a-v	2	-1	0	0		0	1	5	0x15555	0x1b16c
+2331	0x1975a40	hc-97-n	5	-1	0			0	1	5	0x15556	0x1b26c
+2332	0x1975a78	hc-97-o	2	-1	0	0		0	1	5	0x15557	0x1ad54
+2333	0x1975ab0	hc-97-l-h-t	2	-1	0	0		0	1	5	0x15558	0x1af60
+2334	0x1975ae8	hc-97-l-v-t	2	-1	0	0		0	1	5	0x15559	0x1ad58
+2335	0x1975b20	hc-97-l-h-o-1	3	-1	0			0	1	5	0x1555a	0x1af64
+2336	0x1975b58	hc-97-l-v-o-1	3	-1	0			0	1	5	0x1555b	0x1ad5c
+2337	0x1975b90	hc-97-l-h-o-2	3	-1	0			0	1	5	0x1555c	0x1af68
+2338	0x1975bc8	hc-97-l-v-o-2	3	-1	0			0	1	5	0x1555e	0x1ad60
+2339	0x1975c00	hc-97-l-h-tn-1	5	-1	0			0	1	5	0x15560	0x1af6c
+2340	0x1975c38	hc-97-l-v-tn-1	5	-1	0			0	1	5	0x15562	0x1ae60
+2341	0x1975c70	hc-97-l-h-tn-2	5	-1	0			0	1	5	0x15564	0x1b06c
+2342	0x1975ca8	hc-97-l-v-tn-2	5	-1	0			0	1	5	0x15565	0x1b79c
+2343	0x1975ce0	hc-98-x	3	-1	0	0.0		0	1	5	0x15566	0x1b7a0
+2344	0x1975d18	hc-98-y	3	-1	0	0.0		0	1	5	0x15567	0x1b7a4
+2345	0x1975d50	hc-98-a-h	2	-1	0	0		0	1	5	0x15568	0x1b7a8
+2346	0x1975d88	hc-98-a-v	2	-1	0	0		0	1	5	0x15569	0x1bbc4
+2347	0x1975dc0	hc-98-n	5	-1	0			0	1	5	0x1556a	0x1bcc4
+2348	0x1975df8	hc-98-o	2	-1	0	0		0	1	5	0x1556b	0x1b7ac
+2349	0x1975e30	hc-98-l-h-t	2	-1	0	0		0	1	5	0x1556c	0x1b9b8
+2350	0x1975e68	hc-98-l-v-t	2	-1	0	0		0	1	5	0x1556d	0x1b7b0
+2351	0x1975ea0	hc-98-l-h-o-1	3	-1	0			0	1	5	0x1556e	0x1b9bc
+2352	0x1975ed8	hc-98-l-v-o-1	3	-1	0			0	1	5	0x1556f	0x1b7b4
+2353	0x1975f10	hc-98-l-h-o-2	3	-1	0			0	1	5	0x15570	0x1b9c0
+2354	0x1975f48	hc-98-l-v-o-2	3	-1	0			0	1	5	0x15572	0x1b7b8
+2355	0x1975f80	hc-98-l-h-tn-1	5	-1	0			0	1	5	0x15574	0x1b9c4
+2356	0x1975fb8	hc-98-l-v-tn-1	5	-1	0			0	1	5	0x15576	0x1b8b8
+2357	0x1975ff0	hc-98-l-h-tn-2	5	-1	0			0	1	5	0x15578	0x1bac4
+2358	0x1976028	hc-98-l-v-tn-2	5	-1	0			0	1	5	0x15579	0x1c1f4
+2359	0x1976060	hc-99-x	3	-1	0	0.0		0	1	5	0x1557a	0x1c1f8
+2360	0x1976098	hc-99-y	3	-1	0	0.0		0	1	5	0x1557b	0x1c1fc
+2361	0x19760d0	hc-99-a-h	2	-1	0	0		0	1	5	0x1557c	0x1c200
+2362	0x1976108	hc-99-a-v	2	-1	0	0		0	1	5	0x1557d	0x1c61c
+2363	0x1976140	hc-99-n	5	-1	0			0	1	5	0x1557e	0x1c71c
+2364	0x1976178	hc-99-o	2	-1	0	0		0	1	5	0x1557f	0x1c204
+2365	0x19761b0	hc-99-l-h-t	2	-1	0	0		0	1	5	0x15580	0x1c410
+2366	0x19761e8	hc-99-l-v-t	2	-1	0	0		0	1	5	0x15581	0x1c208
+2367	0x1976220	hc-99-l-h-o-1	3	-1	0			0	1	5	0x15582	0x1c414
+2368	0x1976258	hc-99-l-v-o-1	3	-1	0			0	1	5	0x15583	0x1c20c
+2369	0x1976290	hc-99-l-h-o-2	3	-1	0			0	1	5	0x15584	0x1c418
+2370	0x19762c8	hc-99-l-v-o-2	3	-1	0			0	1	5	0x15586	0x1c210
+2371	0x1976300	hc-99-l-h-tn-1	5	-1	0			0	1	5	0x15588	0x1c41c
+2372	0x1976338	hc-99-l-v-tn-1	5	-1	0			0	1	5	0x1558a	0x1c310
+2373	0x1976370	hc-99-l-h-tn-2	5	-1	0			0	1	5	0x1558c	0x1c51c
+2374	0x19763a8	hc-99-l-v-tn-2	5	-1	0			0	1	5	0x1558d	0x1c720
+2375	0x19763e0	hc-100-x	3	-1	0	0.0		0	1	5	0x1558e	0x1c724
+2376	0x1976418	hc-100-y	3	-1	0	0.0		0	1	5	0x1558f	0x1c728
+2377	0x1976450	hc-100-a-h	2	-1	0	0		0	1	5	0x15590	0x1c72c
+2378	0x1976488	hc-100-a-v	2	-1	0	0		0	1	5	0x15591	0x1cb48
+2379	0x19764c0	hc-100-n	5	-1	0			0	1	5	0x15592	0x1cc48
+2380	0x19764f8	hc-100-o	2	-1	0	0		0	1	5	0x15593	0x1c730
+2381	0x1976530	hc-100-l-h-t	2	-1	0	0		0	1	5	0x15594	0x1c93c
+2382	0x1976568	hc-100-l-v-t	2	-1	0	0		0	1	5	0x15595	0x1c734
+2383	0x19765a0	hc-100-l-h-o-1	3	-1	0			0	1	5	0x15596	0x1c940
+2384	0x19765d8	hc-100-l-v-o-1	3	-1	0			0	1	5	0x15597	0x1c738
+2385	0x1976610	hc-100-l-h-o-2	3	-1	0			0	1	5	0x15598	0x1c944
+2386	0x1976648	hc-100-l-v-o-2	3	-1	0			0	1	5	0x1559a	0x1c73c
+2387	0x1976680	hc-100-l-h-tn-1	5	-1	0			0	1	5	0x1559c	0x1c948
+2388	0x19766b8	hc-100-l-v-tn-1	5	-1	0			0	1	5	0x1559e	0x1c83c
+2389	0x19766f0	hc-100-l-h-tn-2	5	-1	0			0	1	5	0x155a0	0x1ca48
+2390	0x1976728	hc-100-l-v-tn-2	5	-1	0			0	1	5	0x155a1	0x1cc4c
+2391	0x1976760	hc-101-x	3	-1	0	0.0		0	1	5	0x155a2	0x1cc50
+2392	0x1976798	hc-101-y	3	-1	0	0.0		0	1	5	0x155a3	0x1cc54
+2393	0x19767d0	hc-101-a-h	2	-1	0	0		0	1	5	0x155a4	0x1cc58
+2394	0x1976808	hc-101-a-v	2	-1	0	0		0	1	5	0x155a5	0x1d074
+2395	0x1976840	hc-101-n	5	-1	0			0	1	5	0x155a6	0x1d174
+2396	0x1976878	hc-101-o	2	-1	0	0		0	1	5	0x155a7	0x1cc5c
+2397	0x19768b0	hc-101-l-h-t	2	-1	0	0		0	1	5	0x155a8	0x1ce68
+2398	0x19768e8	hc-101-l-v-t	2	-1	0	0		0	1	5	0x155a9	0x1cc60
+2399	0x1976920	hc-101-l-h-o-1	3	-1	0			0	1	5	0x155aa	0x1ce6c
+2400	0x1976958	hc-101-l-v-o-1	3	-1	0			0	1	5	0x155ab	0x1cc64
+2401	0x1976990	hc-101-l-h-o-2	3	-1	0			0	1	5	0x155ac	0x1ce70
+2402	0x19769c8	hc-101-l-v-o-2	3	-1	0			0	1	5	0x155ae	0x1cc68
+2403	0x1976a00	hc-101-l-h-tn-1	5	-1	0			0	1	5	0x155b0	0x1ce74
+2404	0x1976a38	hc-101-l-v-tn-1	5	-1	0			0	1	5	0x155b2	0x1cd68
+2405	0x1976a70	hc-101-l-h-tn-2	5	-1	0			0	1	5	0x155b4	0x1cf74
+2406	0x1976aa8	hc-101-l-v-tn-2	5	-1	0			0	1	5	0x155b5	0x1dbd0
+2407	0x1976ae0	hc-102-x	3	-1	0	0.0		0	1	5	0x155b6	0x1dbd4
+2408	0x1976b18	hc-102-y	3	-1	0	0.0		0	1	5	0x155b7	0x1dbd8
+2409	0x1976b50	hc-102-a-h	2	-1	0	0		0	1	5	0x155b8	0x1dbdc
+2410	0x1976b88	hc-102-a-v	2	-1	0	0		0	1	5	0x155b9	0x1dff8
+2411	0x1976bc0	hc-102-n	5	-1	0			0	1	5	0x155ba	0x1e0f8
+2412	0x1976bf8	hc-102-o	2	-1	0	0		0	1	5	0x155bb	0x1dbe0
+2413	0x1976c30	hc-102-l-h-t	2	-1	0	0		0	1	5	0x155bc	0x1ddec
+2414	0x1976c68	hc-102-l-v-t	2	-1	0	0		0	1	5	0x155bd	0x1dbe4
+2415	0x1976ca0	hc-102-l-h-o-1	3	-1	0			0	1	5	0x155be	0x1ddf0
+2416	0x1976cd8	hc-102-l-v-o-1	3	-1	0			0	1	5	0x155bf	0x1dbe8
+2417	0x1976d10	hc-102-l-h-o-2	3	-1	0			0	1	5	0x155c0	0x1ddf4
+2418	0x1976d48	hc-102-l-v-o-2	3	-1	0			0	1	5	0x155c2	0x1dbec
+2419	0x1976d80	hc-102-l-h-tn-1	5	-1	0			0	1	5	0x155c4	0x1ddf8
+2420	0x1976db8	hc-102-l-v-tn-1	5	-1	0			0	1	5	0x155c6	0x1dcec
+2421	0x1976df0	hc-102-l-h-tn-2	5	-1	0			0	1	5	0x155c8	0x1def8
+2422	0x1976e28	hc-102-l-v-tn-2	5	-1	0			0	1	5	0x155c9	0x814c
+2423	0x1976e60	hc-103-x	3	-1	0	0.0		0	1	5	0x155ca	0x8150
+2424	0x1976e98	hc-103-y	3	-1	0	0.0		0	1	5	0x155cb	0x8154
+2425	0x1976ed0	hc-103-a-h	2	-1	0	0		0	1	5	0x155cc	0x8158
+2426	0x1976f08	hc-103-a-v	2	-1	0	0		0	1	5	0x155cd	0x8574
+2427	0x1976f40	hc-103-n	5	-1	0			0	1	5	0x155ce	0x8674
+2428	0x1976f78	hc-103-o	2	-1	0	0		0	1	5	0x155cf	0x815c
+2429	0x1976fb0	hc-103-l-h-t	2	-1	0	0		0	1	5	0x155d0	0x8368
+2430	0x1976fe8	hc-103-l-v-t	2	-1	0	0		0	1	5	0x155d1	0x8160
+2431	0x1977020	hc-103-l-h-o-1	3	-1	0			0	1	5	0x155d2	0x836c
+2432	0x1977058	hc-103-l-v-o-1	3	-1	0			0	1	5	0x155d3	0x8164
+2433	0x1977090	hc-103-l-h-o-2	3	-1	0			0	1	5	0x155d4	0x8370
+2434	0x19770c8	hc-103-l-v-o-2	3	-1	0			0	1	5	0x155d6	0x8168
+2435	0x1977100	hc-103-l-h-tn-1	5	-1	0			0	1	5	0x155d8	0x8374
+2436	0x1977138	hc-103-l-v-tn-1	5	-1	0			0	1	5	0x155da	0x8268
+2437	0x1977170	hc-103-l-h-tn-2	5	-1	0			0	1	5	0x155dc	0x8474
+2438	0x19771a8	hc-103-l-v-tn-2	5	-1	0			0	1	5	0x155dd	0x1d178
+2439	0x19771e0	hc-104-x	3	-1	0	0.0		0	1	5	0x155de	0x1d17c
+2440	0x1977218	hc-104-y	3	-1	0	0.0		0	1	5	0x155df	0x1d180
+2441	0x1977250	hc-104-a-h	2	-1	0	0		0	1	5	0x155e0	0x1d184
+2442	0x1977288	hc-104-a-v	2	-1	0	0		0	1	5	0x155e1	0x1d5a0
+2443	0x19772c0	hc-104-n	5	-1	0			0	1	5	0x155e2	0x1d6a0
+2444	0x19772f8	hc-104-o	2	-1	0	0		0	1	5	0x155e3	0x1d188
+2445	0x1977330	hc-104-l-h-t	2	-1	0	0		0	1	5	0x155e4	0x1d394
+2446	0x1977368	hc-104-l-v-t	2	-1	0	0		0	1	5	0x155e5	0x1d18c
+2447	0x19773a0	hc-104-l-h-o-1	3	-1	0			0	1	5	0x155e6	0x1d398
+2448	0x19773d8	hc-104-l-v-o-1	3	-1	0			0	1	5	0x155e7	0x1d190
+2449	0x1977410	hc-104-l-h-o-2	3	-1	0			0	1	5	0x155e8	0x1d39c
+2450	0x1977448	hc-104-l-v-o-2	3	-1	0			0	1	5	0x155ea	0x1d194
+2451	0x1977480	hc-104-l-h-tn-1	5	-1	0			0	1	5	0x155ec	0x1d3a0
+2452	0x19774b8	hc-104-l-v-tn-1	5	-1	0			0	1	5	0x155ee	0x1d294
+2453	0x19774f0	hc-104-l-h-tn-2	5	-1	0			0	1	5	0x155f0	0x1d4a0
+2454	0x1977528	hc-104-l-v-tn-2	5	-1	0			0	1	5	0x155f1	0x1e0fc
+2455	0x1977560	hc-105-x	3	-1	0	0.0		0	1	5	0x155f2	0x1e100
+2456	0x1977598	hc-105-y	3	-1	0	0.0		0	1	5	0x155f3	0x1e104
+2457	0x19775d0	hc-105-a-h	2	-1	0	0		0	1	5	0x155f4	0x1e108
+2458	0x1977608	hc-105-a-v	2	-1	0	0		0	1	5	0x155f5	0x1e524
+2459	0x1977640	hc-105-n	5	-1	0			0	1	5	0x155f6	0x1e624
+2460	0x1977678	hc-105-o	2	-1	0	0		0	1	5	0x155f7	0x1e10c
+2461	0x19776b0	hc-105-l-h-t	2	-1	0	0		0	1	5	0x155f8	0x1e318
+2462	0x19776e8	hc-105-l-v-t	2	-1	0	0		0	1	5	0x155f9	0x1e110
+2463	0x1977720	hc-105-l-h-o-1	3	-1	0			0	1	5	0x155fa	0x1e31c
+2464	0x1977758	hc-105-l-v-o-1	3	-1	0			0	1	5	0x155fb	0x1e114
+2465	0x1977790	hc-105-l-h-o-2	3	-1	0			0	1	5	0x155fc	0x1e320
+2466	0x19777c8	hc-105-l-v-o-2	3	-1	0			0	1	5	0x155fd	0x1e118
+2467	0x1977800	hc-105-l-h-tn-1	5	-1	0			0	1	5	0x155fe	0x1e324
+2468	0x1977838	hc-105-l-v-tn-1	5	-1	0			0	1	5	0x155ff	0x1e218
+2469	0x1977870	hc-105-l-h-tn-2	5	-1	0			0	1	5	0x15600	0x1e424
+2470	0x19778a8	hc-105-l-v-tn-2	5	-1	0			0	1	5	0x15601	0x8678
+2471	0x19778e0	hc-106-x	3	-1	0	0.0		0	1	5	0x15602	0x867c
+2472	0x1977918	hc-106-y	3	-1	0	0.0		0	1	5	0x15603	0x8680
+2473	0x1977950	hc-106-a-h	2	-1	0	0		0	1	5	0x15604	0x8684
+2474	0x1977988	hc-106-a-v	2	-1	0	0		0	1	5	0x15605	0x8aa0
+2475	0x19779c0	hc-106-n	5	-1	0			0	1	5	0x15606	0x8ba0
+2476	0x19779f8	hc-106-o	2	-1	0	0		0	1	5	0x15607	0x8688
+2477	0x1977a30	hc-106-l-h-t	2	-1	0	0		0	1	5	0x15608	0x8894
+2478	0x1977a68	hc-106-l-v-t	2	-1	0	0		0	1	5	0x15609	0x868c
+2479	0x1977aa0	hc-106-l-h-o-1	3	-1	0			0	1	5	0x1560a	0x8898
+2480	0x1977ad8	hc-106-l-v-o-1	3	-1	0			0	1	5	0x1560b	0x8690
+2481	0x1977b10	hc-106-l-h-o-2	3	-1	0			0	1	5	0x1560c	0x889c
+2482	0x1977b48	hc-106-l-v-o-2	3	-1	0			0	1	5	0x1560d	0x8694
+2483	0x1977b80	hc-106-l-h-tn-1	5	-1	0			0	1	5	0x1560e	0x88a0
+2484	0x1977bb8	hc-106-l-v-tn-1	5	-1	0			0	1	5	0x1560f	0x8794
+2485	0x1977bf0	hc-106-l-h-tn-2	5	-1	0			0	1	5	0x15610	0x89a0
+2486	0x1977c28	hc-106-l-v-tn-2	5	-1	0			0	1	5	0x15611	0x1b270
+2487	0x1977c60	hc-107-x	3	-1	0	0.0		0	1	5	0x15612	0x1b274
+2488	0x1977c98	hc-107-y	3	-1	0	0.0		0	1	5	0x15613	0x1b278
+2489	0x1977cd0	hc-107-a-h	2	-1	0	0		0	1	5	0x15614	0x1b27c
+2490	0x1977d08	hc-107-a-v	2	-1	0	0		0	1	5	0x15615	0x1b698
+2491	0x1977d40	hc-107-n	5	-1	0			0	1	5	0x15616	0x1b798
+2492	0x1977d78	hc-107-o	2	-1	0	0		0	1	5	0x15617	0x1b280
+2493	0x1977db0	hc-107-l-h-t	2	-1	0	0		0	1	5	0x15618	0x1b48c
+2494	0x1977de8	hc-107-l-v-t	2	-1	0	0		0	1	5	0x15619	0x1b284
+2495	0x1977e20	hc-107-l-h-o-1	3	-1	0			0	1	5	0x1561a	0x1b490
+2496	0x1977e58	hc-107-l-v-o-1	3	-1	0			0	1	5	0x1561b	0x1b288
+2497	0x1977e90	hc-107-l-h-o-2	3	-1	0			0	1	5	0x1561c	0x1b494
+2498	0x1977ec8	hc-107-l-v-o-2	3	-1	0			0	1	5	0x1561d	0x1b28c
+2499	0x1977f00	hc-107-l-h-tn-1	5	-1	0			0	1	5	0x1561e	0x1b498
+2500	0x1977f38	hc-107-l-v-tn-1	5	-1	0			0	1	5	0x1561f	0x1b38c
+2501	0x1977f70	hc-107-l-h-tn-2	5	-1	0			0	1	5	0x15620	0x1b598
+2502	0x1977fa8	hc-107-l-v-tn-2	5	-1	0			0	1	5	0x15621	0x1e628
+2503	0x1977fe0	hc-108-x	3	-1	0	0.0		0	1	5	0x15622	0x1e62c
+2504	0x1978018	hc-108-y	3	-1	0	0.0		0	1	5	0x15623	0x1e630
+2505	0x1978050	hc-108-a-h	2	-1	0	0		0	1	5	0x15624	0x1e634
+2506	0x1978088	hc-108-a-v	2	-1	0	0		0	1	5	0x15625	0x1ea50
+2507	0x19780c0	hc-108-n	5	-1	0			0	1	5	0x15626	0x1eb50
+2508	0x19780f8	hc-108-o	2	-1	0	0		0	1	5	0x15627	0x1e638
+2509	0x1978130	hc-108-l-h-t	2	-1	0	0		0	1	5	0x15628	0x1e844
+2510	0x1978168	hc-108-l-v-t	2	-1	0	0		0	1	5	0x15629	0x1e63c
+2511	0x19781a0	hc-108-l-h-o-1	3	-1	0			0	1	5	0x1562a	0x1e848
+2512	0x19781d8	hc-108-l-v-o-1	3	-1	0			0	1	5	0x1562b	0x1e640
+2513	0x1978210	hc-108-l-h-o-2	3	-1	0			0	1	5	0x1562c	0x1e84c
+2514	0x1978248	hc-108-l-v-o-2	3	-1	0			0	1	5	0x1562d	0x1e644
+2515	0x1978280	hc-108-l-h-tn-1	5	-1	0			0	1	5	0x1562e	0x1e850
+2516	0x19782b8	hc-108-l-v-tn-1	5	-1	0			0	1	5	0x1562f	0x1e744
+2517	0x19782f0	hc-108-l-h-tn-2	5	-1	0			0	1	5	0x15630	0x1e950
+2518	0x1978328	hc-108-l-v-tn-2	5	-1	0			0	1	5	0x15631	0x1eb54
+2519	0x1978360	hc-109-x	3	-1	0	0.0		0	1	5	0x15632	0x1eb58
+2520	0x1978398	hc-109-y	3	-1	0	0.0		0	1	5	0x15633	0x1eb5c
+2521	0x19783d0	hc-109-a-h	2	-1	0	0		0	1	5	0x15634	0x1eb60
+2522	0x1978408	hc-109-a-v	2	-1	0	0		0	1	5	0x15635	0x1ef7c
+2523	0x1978440	hc-109-n	5	-1	0			0	1	5	0x15636	0x1f07c
+2524	0x1978478	hc-109-o	2	-1	0	0		0	1	5	0x15637	0x1eb64
+2525	0x19784b0	hc-109-l-h-t	2	-1	0	0		0	1	5	0x15638	0x1ed70
+2526	0x19784e8	hc-109-l-v-t	2	-1	0	0		0	1	5	0x15639	0x1eb68
+2527	0x1978520	hc-109-l-h-o-1	3	-1	0			0	1	5	0x1563a	0x1ed74
+2528	0x1978558	hc-109-l-v-o-1	3	-1	0			0	1	5	0x1563b	0x1eb6c
+2529	0x1978590	hc-109-l-h-o-2	3	-1	0			0	1	5	0x1563c	0x1ed78
+2530	0x19785c8	hc-109-l-v-o-2	3	-1	0			0	1	5	0x1563d	0x1eb70
+2531	0x1978600	hc-109-l-h-tn-1	5	-1	0			0	1	5	0x1563e	0x1ed7c
+2532	0x1978638	hc-109-l-v-tn-1	5	-1	0			0	1	5	0x1563f	0x1ec70
+2533	0x1978670	hc-109-l-h-tn-2	5	-1	0			0	1	5	0x15640	0x1ee7c
+2534	0x19786a8	hc-109-l-v-tn-2	5	-1	0			0	1	5	0x15641	0x1f080
+2535	0x19786e0	hc-110-x	3	-1	0	0.0		0	1	5	0x15642	0x1f084
+2536	0x1978718	hc-110-y	3	-1	0	0.0		0	1	5	0x15643	0x1f088
+2537	0x1978750	hc-110-a-h	2	-1	0	0		0	1	5	0x15644	0x1f08c
+2538	0x1978788	hc-110-a-v	2	-1	0	0		0	1	5	0x15645	0x1f4a8
+2539	0x19787c0	hc-110-n	5	-1	0			0	1	5	0x15646	0x1f5a8
+2540	0x19787f8	hc-110-o	2	-1	0	0		0	1	5	0x15647	0x1f090
+2541	0x1978830	hc-110-l-h-t	2	-1	0	0		0	1	5	0x15648	0x1f29c
+2542	0x1978868	hc-110-l-v-t	2	-1	0	0		0	1	5	0x15649	0x1f094
+2543	0x19788a0	hc-110-l-h-o-1	3	-1	0			0	1	5	0x1564a	0x1f2a0
+2544	0x19788d8	hc-110-l-v-o-1	3	-1	0			0	1	5	0x1564b	0x1f098
+2545	0x1978910	hc-110-l-h-o-2	3	-1	0			0	1	5	0x1564c	0x1f2a4
+2546	0x1978948	hc-110-l-v-o-2	3	-1	0			0	1	5	0x1564e	0x1f09c
+2547	0x1978980	hc-110-l-h-tn-1	5	-1	0			0	1	5	0x15650	0x1f2a8
+2548	0x19789b8	hc-110-l-v-tn-1	5	-1	0			0	1	5	0x15652	0x1f19c
+2549	0x19789f0	hc-110-l-h-tn-2	5	-1	0			0	1	5	0x15654	0x1f3a8
+2550	0x1978a28	hc-110-l-v-tn-2	5	-1	0			0	1	5	0x15655	0x1a2ec
+2551	0x1978a60	hc-111-x	3	-1	0	0.0		0	1	5	0x15656	0x1a2f0
+2552	0x1978a98	hc-111-y	3	-1	0	0.0		0	1	5	0x15657	0x1a2f4
+2553	0x1978ad0	hc-111-a-h	2	-1	0	0		0	1	5	0x15658	0x1a2f8
+2554	0x1978b08	hc-111-a-v	2	-1	0	0		0	1	5	0x15659	0x1a714
+2555	0x1978b40	hc-111-n	5	-1	0			0	1	5	0x1565a	0x1a814
+2556	0x1978b78	hc-111-o	2	-1	0	0		0	1	5	0x1565b	0x1a2fc
+2557	0x1978bb0	hc-111-l-h-t	2	-1	0	0		0	1	5	0x1565c	0x1a508
+2558	0x1978be8	hc-111-l-v-t	2	-1	0	0		0	1	5	0x1565d	0x1a300
+2559	0x1978c20	hc-111-l-h-o-1	3	-1	0			0	1	5	0x1565e	0x1a50c
+2560	0x1978c58	hc-111-l-v-o-1	3	-1	0			0	1	5	0x1565f	0x1a304
+2561	0x1978c90	hc-111-l-h-o-2	3	-1	0			0	1	5	0x15660	0x1a510
+2562	0x1978cc8	hc-111-l-v-o-2	3	-1	0			0	1	5	0x15662	0x1a308
+2563	0x1978d00	hc-111-l-h-tn-1	5	-1	0			0	1	5	0x15664	0x1a514
+2564	0x1978d38	hc-111-l-v-tn-1	5	-1	0			0	1	5	0x15666	0x1a408
+2565	0x1978d70	hc-111-l-h-tn-2	5	-1	0			0	1	5	0x15668	0x1a614
+2566	0x1978da8	hc-111-l-v-tn-2	5	-1	0			0	1	5	0x15669	0x1d6a4
+2567	0x1978de0	hc-112-x	3	-1	0	0.0		0	1	5	0x1566a	0x1d6a8
+2568	0x1978e18	hc-112-y	3	-1	0	0.0		0	1	5	0x1566b	0x1d6ac
+2569	0x1978e50	hc-112-a-h	2	-1	0	0		0	1	5	0x1566c	0x1d6b0
+2570	0x1978e88	hc-112-a-v	2	-1	0	0		0	1	5	0x1566d	0x1dacc
+2571	0x1978ec0	hc-112-n	5	-1	0			0	1	5	0x1566e	0x1dbcc
+2572	0x1978ef8	hc-112-o	2	-1	0	0		0	1	5	0x1566f	0x1d6b4
+2573	0x1978f30	hc-112-l-h-t	2	-1	0	0		0	1	5	0x15670	0x1d8c0
+2574	0x1978f68	hc-112-l-v-t	2	-1	0	0		0	1	5	0x15671	0x1d6b8
+2575	0x1978fa0	hc-112-l-h-o-1	3	-1	0			0	1	5	0x15672	0x1d8c4
+2576	0x1978fd8	hc-112-l-v-o-1	3	-1	0			0	1	5	0x15673	0x1d6bc
+2577	0x1979010	hc-112-l-h-o-2	3	-1	0			0	1	5	0x15674	0x1d8c8
+2578	0x1979048	hc-112-l-v-o-2	3	-1	0			0	1	5	0x15676	0x1d6c0
+2579	0x1979080	hc-112-l-h-tn-1	5	-1	0			0	1	5	0x15678	0x1d8cc
+2580	0x19790b8	hc-112-l-v-tn-1	5	-1	0			0	1	5	0x1567a	0x1d7c0
+2581	0x19790f0	hc-112-l-h-tn-2	5	-1	0			0	1	5	0x1567c	0x1d9cc
+2582	0x1979128	hc-112-l-v-tn-2	5	-1	0			0	1	5	0x1567d	0x1bcc8
+2583	0x1979160	hc-113-x	3	-1	0	0.0		0	1	5	0x1567e	0x1bccc
+2584	0x1979198	hc-113-y	3	-1	0	0.0		0	1	5	0x1567f	0x1bcd0
+2585	0x19791d0	hc-113-a-h	2	-1	0	0		0	1	5	0x15680	0x1bcd4
+2586	0x1979208	hc-113-a-v	2	-1	0	0		0	1	5	0x15681	0x1c0f0
+2587	0x1979240	hc-113-n	5	-1	0			0	1	5	0x15682	0x1c1f0
+2588	0x1979278	hc-113-o	2	-1	0	0		0	1	5	0x15683	0x1bcd8
+2589	0x19792b0	hc-113-l-h-t	2	-1	0	0		0	1	5	0x15684	0x1bee4
+2590	0x19792e8	hc-113-l-v-t	2	-1	0	0		0	1	5	0x15685	0x1bcdc
+2591	0x1979320	hc-113-l-h-o-1	3	-1	0			0	1	5	0x15686	0x1bee8
+2592	0x1979358	hc-113-l-v-o-1	3	-1	0			0	1	5	0x15687	0x1bce0
+2593	0x1979390	hc-113-l-h-o-2	3	-1	0			0	1	5	0x15688	0x1beec
+2594	0x19793c8	hc-113-l-v-o-2	3	-1	0			0	1	5	0x1568a	0x1bce4
+2595	0x1979400	hc-113-l-h-tn-1	5	-1	0			0	1	5	0x1568c	0x1bef0
+2596	0x1979438	hc-113-l-v-tn-1	5	-1	0			0	1	5	0x1568e	0x1bde4
+2597	0x1979470	hc-113-l-h-tn-2	5	-1	0			0	1	5	0x15690	0x1bff0
+2598	0x19794a8	hc-113-l-v-tn-2	5	-1	0			0	1	5	0x15691	0x1f5ac
+2599	0x19794e0	hc-114-x	3	-1	0	0.0		0	1	5	0x15692	0x1f5b0
+2600	0x1979518	hc-114-y	3	-1	0	0.0		0	1	5	0x15693	0x1f5b4
+2601	0x1979550	hc-114-a-h	2	-1	0	0		0	1	5	0x15694	0x1f5b8
+2602	0x1979588	hc-114-a-v	2	-1	0	0		0	1	5	0x15695	0x1f9d4
+2603	0x19795c0	hc-114-n	5	-1	0			0	1	5	0x15696	0x1fad4
+2604	0x19795f8	hc-114-o	2	-1	0	0		0	1	5	0x15697	0x1f5bc
+2605	0x1979630	hc-114-l-h-t	2	-1	0	0		0	1	5	0x15698	0x1f7c8
+2606	0x1979668	hc-114-l-v-t	2	-1	0	0		0	1	5	0x15699	0x1f5c0
+2607	0x19796a0	hc-114-l-h-o-1	3	-1	0			0	1	5	0x1569a	0x1f7cc
+2608	0x19796d8	hc-114-l-v-o-1	3	-1	0			0	1	5	0x1569b	0x1f5c4
+2609	0x1979710	hc-114-l-h-o-2	3	-1	0			0	1	5	0x1569c	0x1f7d0
+2610	0x1979748	hc-114-l-v-o-2	3	-1	0			0	1	5	0x1569d	0x1f5c8
+2611	0x1979780	hc-114-l-h-tn-1	5	-1	0			0	1	5	0x1569e	0x1f7d4
+2612	0x19797b8	hc-114-l-v-tn-1	5	-1	0			0	1	5	0x1569f	0x1f6c8
+2613	0x19797f0	hc-114-l-h-tn-2	5	-1	0			0	1	5	0x156a0	0x1f8d4
+2614	0x1979828	hc-114-l-v-tn-2	5	-1	0			0	1	5	0x156a5	0x1fad8
+2615	0x1979860	hc-115-x	3	-1	0	0.0		0	1	5	0x156a6	0x1fadc
+2616	0x1979898	hc-115-y	3	-1	0	0.0		0	1	5	0x156a7	0x1fae0
+2617	0x19798d0	hc-115-a-h	2	-1	0	0		0	1	5	0x156a8	0x1fae4
+2618	0x1979908	hc-115-a-v	2	-1	0	0		0	1	5	0x156a9	0x1ff00
+2619	0x1979940	hc-115-n	5	-1	0			0	1	5	0x156aa	0x20000
+2620	0x1979978	hc-115-o	2	-1	0	0		0	1	5	0x156ab	0x1fae8
+2621	0x19799b0	hc-115-l-h-t	2	-1	0	0		0	1	5	0x156ac	0x1fcf4
+2622	0x19799e8	hc-115-l-v-t	2	-1	0	0		0	1	5	0x156ad	0x1faec
+2623	0x1979a20	hc-115-l-h-o-1	3	-1	0			0	1	5	0x156ae	0x1fcf8
+2624	0x1979a58	hc-115-l-v-o-1	3	-1	0			0	1	5	0x156af	0x1faf0
+2625	0x1979a90	hc-115-l-h-o-2	3	-1	0			0	1	5	0x156b0	0x1fcfc
+2626	0x1979ac8	hc-115-l-v-o-2	3	-1	0			0	1	5	0x156b1	0x1faf4
+2627	0x1979b00	hc-115-l-h-tn-1	5	-1	0			0	1	5	0x156b2	0x1fd00
+2628	0x1979b38	hc-115-l-v-tn-1	5	-1	0			0	1	5	0x156b3	0x1fbf4
+2629	0x1979b70	hc-115-l-h-tn-2	5	-1	0			0	1	5	0x156b4	0x1fe00
+2630	0x1979ba8	hc-115-l-v-tn-2	5	-1	0			0	1	5	0x156b9	0x20004
+2631	0x1979be0	hc-116-x	3	-1	0	0.0		0	1	5	0x156ba	0x20008
+2632	0x1979c18	hc-116-y	3	-1	0	0.0		0	1	5	0x156bb	0x2000c
+2633	0x1979c50	hc-116-a-h	2	-1	0	0		0	1	5	0x156bc	0x20010
+2634	0x1979c88	hc-116-a-v	2	-1	0	0		0	1	5	0x156bd	0x2042c
+2635	0x1979cc0	hc-116-n	5	-1	0			0	1	5	0x156be	0x2052c
+2636	0x1979cf8	hc-116-o	2	-1	0	0		0	1	5	0x156bf	0x20014
+2637	0x1979d30	hc-116-l-h-t	2	-1	0	0		0	1	5	0x156c0	0x20220
+2638	0x1979d68	hc-116-l-v-t	2	-1	0	0		0	1	5	0x156c1	0x20018
+2639	0x1979da0	hc-116-l-h-o-1	3	-1	0			0	1	5	0x156c2	0x20224
+2640	0x1979dd8	hc-116-l-v-o-1	3	-1	0			0	1	5	0x156c3	0x2001c
+2641	0x1979e10	hc-116-l-h-o-2	3	-1	0			0	1	5	0x156c4	0x20228
+2642	0x1979e48	hc-116-l-v-o-2	3	-1	0			0	1	5	0x156c5	0x20020
+2643	0x1979e80	hc-116-l-h-tn-1	5	-1	0			0	1	5	0x156c6	0x2022c
+2644	0x1979eb8	hc-116-l-v-tn-1	5	-1	0			0	1	5	0x156c7	0x20120
+2645	0x1979ef0	hc-116-l-h-tn-2	5	-1	0			0	1	5	0x156c8	0x2032c
+2646	0x1979f28	hc-116-l-v-tn-2	5	-1	0			0	1	5	0x156cd	0x20530
+2647	0x1979f60	hc-117-x	3	-1	0	0.0		0	1	5	0x156ce	0x20534
+2648	0x1979f98	hc-117-y	3	-1	0	0.0		0	1	5	0x156cf	0x20538
+2649	0x1979fd0	hc-117-a-h	2	-1	0	0		0	1	5	0x156d0	0x2053c
+2650	0x197a008	hc-117-a-v	2	-1	0	0		0	1	5	0x156d1	0x20958
+2651	0x197a040	hc-117-n	5	-1	0			0	1	5	0x156d2	0x20a58
+2652	0x197a078	hc-117-o	2	-1	0	0		0	1	5	0x156d3	0x20540
+2653	0x197a0b0	hc-117-l-h-t	2	-1	0	0		0	1	5	0x156d4	0x2074c
+2654	0x197a0e8	hc-117-l-v-t	2	-1	0	0		0	1	5	0x156d5	0x20544
+2655	0x197a120	hc-117-l-h-o-1	3	-1	0			0	1	5	0x156d6	0x20750
+2656	0x197a158	hc-117-l-v-o-1	3	-1	0			0	1	5	0x156d7	0x20548
+2657	0x197a190	hc-117-l-h-o-2	3	-1	0			0	1	5	0x156d8	0x20754
+2658	0x197a1c8	hc-117-l-v-o-2	3	-1	0			0	1	5	0x156d9	0x2054c
+2659	0x197a200	hc-117-l-h-tn-1	5	-1	0			0	1	5	0x156da	0x20758
+2660	0x197a238	hc-117-l-v-tn-1	5	-1	0			0	1	5	0x156db	0x2064c
+2661	0x197a270	hc-117-l-h-tn-2	5	-1	0			0	1	5	0x156dc	0x20858
+2662	0x197a2a8	hc-117-l-v-tn-2	5	-1	0			0	1	5	0x156e1	0x20a5c
+2663	0x197a2e0	hc-118-x	3	-1	0	0.0		0	1	5	0x156e2	0x20a60
+2664	0x197a318	hc-118-y	3	-1	0	0.0		0	1	5	0x156e3	0x20a64
+2665	0x197a350	hc-118-a-h	2	-1	0	0		0	1	5	0x156e4	0x20a68
+2666	0x197a388	hc-118-a-v	2	-1	0	0		0	1	5	0x156e5	0x20e84
+2667	0x197a3c0	hc-118-n	5	-1	0			0	1	5	0x156e6	0x20f84
+2668	0x197a3f8	hc-118-o	2	-1	0	0		0	1	5	0x156e7	0x20a6c
+2669	0x197a430	hc-118-l-h-t	2	-1	0	0		0	1	5	0x156e8	0x20c78
+2670	0x197a468	hc-118-l-v-t	2	-1	0	0		0	1	5	0x156e9	0x20a70
+2671	0x197a4a0	hc-118-l-h-o-1	3	-1	0			0	1	5	0x156ea	0x20c7c
+2672	0x197a4d8	hc-118-l-v-o-1	3	-1	0			0	1	5	0x156eb	0x20a74
+2673	0x197a510	hc-118-l-h-o-2	3	-1	0			0	1	5	0x156ec	0x20c80
+2674	0x197a548	hc-118-l-v-o-2	3	-1	0			0	1	5	0x156ee	0x20a78
+2675	0x197a580	hc-118-l-h-tn-1	5	-1	0			0	1	5	0x156f0	0x20c84
+2676	0x197a5b8	hc-118-l-v-tn-1	5	-1	0			0	1	5	0x156f2	0x20b78
+2677	0x197a5f0	hc-118-l-h-tn-2	5	-1	0			0	1	5	0x156ea	0x20d84
+2678	0x197a628	hc-118-l-v-tn-2	5	-1	0			0	1	5	0x161a8	0x2116a
+2679	0x197a660	unit-filter-map-1	1	-1	0	y	map Window filter	0	1	5	0x161a9	0x2116c
+2680	0x197a698	unit-filter-map-2	1	-1	0	n	map Window filter	0	1	5	0x161aa	0x2116d
+2681	0x197a6d0	unit-filter-map-3	1	-1	0	y	map Window filter	0	1	5	0x161ab	0x2116f
+2682	0x197a708	unit-filter-map-4	1	-1	0	y	map Window filter	0	1	5	0x161ac	0x21170
+2683	0x197a740	unit-filter-map-5	1	-1	0	n	map Window filter	0	1	5	0x161ad	0x21171
+2684	0x197a778	unit-filter-map-6	1	-1	0	n	map Window filter	0	1	5	0x161ae	0x21172
+2685	0x197a7b0	unit-filter-map-7	1	-1	0	y	map Window filter	0	1	5	0x161af	0x21173
+2686	0x197a7e8	unit-filter-map-8	1	-1	0	y	map Window filter	0	1	5	0x161b0	0x21182
+2687	0x197a820	unit-filter-map-9	1	-1	0	y	map Window filter	0	1	5	0x161b1	0x21174
+2688	0x197a858	unit-filter-map-10	1	-1	0	n	map Window filter	0	1	5	0x161b2	0x21175
+2689	0x197a890	unit-filter-map-11	1	-1	0	y	map Window filter	0	1	5	0x161b3	0x21176
+2690	0x197a8c8	unit-filter-map-12	1	-1	0	y	map Window filter	0	1	5	0x161b4	0x21177
+2691	0x197a900	unit-filter-map-13	1	-1	0	n	map Window filter	0	1	5	0x161b5	0x21178
+2692	0x197a938	unit-filter-map-14	1	-1	0	y	map Window filter	0	1	5	0x161b6	0x21179
+2693	0x197a970	unit-filter-map-15	1	-1	0	n	map Window filter	0	1	5	0x161b7	0x2117a
+2694	0x197a9a8	unit-filter-map-16	1	-1	0	n	map Window filter	0	1	5	0x161b8	0x2117b
+2695	0x197a9e0	unit-filter-map-17	1	-1	0	n	map Window filter	0	1	5	0x161b9	0x2117c
+2696	0x197aa18	unit-filter-map-18	1	-1	0	n	map Window filter	0	1	5	0x161ba	0x2117d
+2697	0x197aa50	unit-filter-map-19	1	-1	0	n	map Window filter	0	1	5	0x161bb	0x2117e
+2698	0x197aa88	unit-filter-map-20	1	-1	0	n	map Window filter	0	1	5	0x161bc	0x21180
+2699	0x197aac0	unit-filter-map-21	1	-1	0	n	map Window filter	0	1	5	0x161bd	0x21181
+2700	0x197aaf8	unit-filter-map-22	1	-1	0	n	map Window filter	0	1	5	0x161be	0x21183
+2701	0x197ab30	unit-filter-map-23	1	-1	0	y	map Window filter	0	1	5	0x161bf	0x21184
+2702	0x197ab68	unit-filter-map-24	1	-1	0	y	map Window filter	0	1	5	0x161c0	0x2116b
+2703	0x197aba0	unit-filter-map-25	1	-1	0	y	map Window filter	0	1	5	0x161c1	0x21185
+2704	0x197abd8	unit-filter-map-26	1	-1	0	y	map Window filter	0	1	5	0x161c2	0x21186
+2705	0x197ac10	unit-filter-map-27	1	-1	0	y	map Window filter	0	1	5	0x161c3	0x21187
+2706	0x197ac48	unit-filter-map-28	1	-1	0	y	map Window filter	0	1	5	0x161c4	0x21188
+2707	0x197ac80	unit-filter-map-29	1	-1	0	y	map Window filter	0	1	5	0x161c5	0x21189
+2708	0x197acb8	unit-filter-map-30	1	-1	0	y	map Window filter	0	1	5	0x161c6	0x2118a
+2709	0x197acf0	unit-filter-map-31	1	-1	0	y	map Window filter	0	1	5	0x161c7	0x2118b
+2710	0x197ad28	unit-filter-map-32	1	-1	0	y	map Window filter	0	1	5	0x161c8	0x2118c
+2711	0x197ad60	unit-filter-map-33	1	-1	0	y	map Window filter	0	1	5	0x161c9	0x2118d
+2712	0x197ad98	unit-filter-map-34	1	-1	0	y	map Window filter	0	1	5	0x161ca	0x2117f
+2713	0x197add0	unit-filter-map-35	1	-1	0	y	map Window filter	0	1	5	0x161cb	0x2116e
+2714	0x197ae08	unit-filter-map-36	1	-1	0	y	map Window filter	0	1	5	0x161cc	0x2118e
+2715	0x197ae40	unit-filter-map-37	1	-1	0	y	map Window filter	0	1	5	0x1620c	0x2112a
+2716	0x197ae78	unit-filter-minimap-1	1	-1	0	y	map Window filter	0	1	5	0x1620d	0x2112c
+2717	0x197aeb0	unit-filter-minimap-2	1	-1	0	y	map Window filter	0	1	5	0x1620e	0x2112d
+2718	0x197aee8	unit-filter-minimap-3	1	-1	0	y	map Window filter	0	1	5	0x1620f	0x2112f
+2719	0x197af20	unit-filter-minimap-4	1	-1	0	y	map Window filter	0	1	5	0x16210	0x21130
+2720	0x197af58	unit-filter-minimap-5	1	-1	0	y	map Window filter	0	1	5	0x16211	0x21131
+2721	0x197af90	unit-filter-minimap-6	1	-1	0	y	map Window filter	0	1	5	0x16212	0x21132
+2722	0x197afc8	unit-filter-minimap-7	1	-1	0	y	map Window filter	0	1	5	0x16213	0x21133
+2723	0x197b000	unit-filter-minimap-8	1	-1	0	y	map Window filter	0	1	5	0x16214	0x21142
+2724	0x197b038	unit-filter-minimap-9	1	-1	0	y	map Window filter	0	1	5	0x16215	0x21134
+2725	0x197b070	unit-filter-minimap-10	1	-1	0	y	map Window filter	0	1	5	0x16216	0x21135
+2726	0x197b0a8	unit-filter-minimap-11	1	-1	0	y	map Window filter	0	1	5	0x16217	0x21136
+2727	0x197b0e0	unit-filter-minimap-12	1	-1	0	y	map Window filter	0	1	5	0x16218	0x21137
+2728	0x197b118	unit-filter-minimap-13	1	-1	0	y	map Window filter	0	1	5	0x16219	0x21138
+2729	0x197b150	unit-filter-minimap-14	1	-1	0	y	map Window filter	0	1	5	0x1621a	0x21139
+2730	0x197b188	unit-filter-minimap-15	1	-1	0	y	map Window filter	0	1	5	0x1621b	0x2113a
+2731	0x197b1c0	unit-filter-minimap-16	1	-1	0	y	map Window filter	0	1	5	0x1621c	0x2113b
+2732	0x197b1f8	unit-filter-minimap-17	1	-1	0	y	map Window filter	0	1	5	0x1621d	0x2113c
+2733	0x197b230	unit-filter-minimap-18	1	-1	0	y	map Window filter	0	1	5	0x1621e	0x2113d
+2734	0x197b268	unit-filter-minimap-19	1	-1	0	y	map Window filter	0	1	5	0x1621f	0x2113e
+2735	0x197b2a0	unit-filter-minimap-20	1	-1	0	y	map Window filter	0	1	5	0x16220	0x21140
+2736	0x197b2d8	unit-filter-minimap-21	1	-1	0	n	map Window filter	0	1	5	0x16221	0x21141
+2737	0x197b310	unit-filter-minimap-22	1	-1	0	y	map Window filter	0	1	5	0x16222	0x21143
+2738	0x197b348	unit-filter-minimap-23	1	-1	0	y	map Window filter	0	1	5	0x16223	0x21144
+2739	0x197b380	unit-filter-minimap-24	1	-1	0	y	map Window filter	0	1	5	0x16224	0x2112b
+2740	0x197b3b8	unit-filter-minimap-25	1	-1	0	y	map Window filter	0	1	5	0x16225	0x21145
+2741	0x197b3f0	unit-filter-minimap-26	1	-1	0	y	map Window filter	0	1	5	0x16226	0x21146
+2742	0x197b428	unit-filter-minimap-27	1	-1	0	y	map Window filter	0	1	5	0x16227	0x21147
+2743	0x197b460	unit-filter-minimap-28	1	-1	0	y	map Window filter	0	1	5	0x16228	0x21148
+2744	0x197b498	unit-filter-minimap-29	1	-1	0	y	map Window filter	0	1	5	0x16229	0x21149
+2745	0x197b4d0	unit-filter-minimap-30	1	-1	0	y	map Window filter	0	1	5	0x1622a	0x2114a
+2746	0x197b508	unit-filter-minimap-31	1	-1	0	y	map Window filter	0	1	5	0x1622b	0x2114b
+2747	0x197b540	unit-filter-minimap-32	1	-1	0	y	map Window filter	0	1	5	0x1622c	0x2114c
+2748	0x197b578	unit-filter-minimap-33	1	-1	0	y	map Window filter	0	1	5	0x1622d	0x2114d
+2749	0x197b5b0	unit-filter-minimap-34	1	-1	0	y	map Window filter	0	1	5	0x1622e	0x2113f
+2750	0x197b5e8	unit-filter-minimap-35	1	-1	0	y	map Window filter	0	1	5	0x1622f	0x2112e
+2751	0x197b620	unit-filter-minimap-36	1	-1	0	y	map Window filter	0	1	5	0x16230	0x2114e
+2752	0x197b658	unit-filter-minimap-37	1	-1	0	y	map Window filter	0	3	5	0x17530	0x3059c
+2753	0x197b690	b1	5	-1	0			0	3	5	0x17531	0x3069c
+2754	0x197b6c8	b2	5	-1	0			0	3	5	0x17532	0x3079c
+2755	0x197b700	b3	5	-1	0			0	3	5	0x17533	0x3089c
+2756	0x197b738	b4	5	-1	0			0	3	5	0x17534	0x3099c
+2757	0x197b770	b5	5	-1	0			0	3	5	0x17535	0x30a9c
+2758	0x197b7a8	b6	5	-1	0			0	3	5	0x17536	0x30b9c
+2759	0x197b7e0	b7	5	-1	0			0	3	5	0x17537	0x30c9c
+2760	0x197b818	b8	5	-1	0			0	3	5	0x17538	0x30d9c
+2761	0x197b850	b9	5	-1	0			0	3	5	0x17539	0x30e9c
+2762	0x197b888	b10	5	-1	0			0	3	5	0x1753a	0x30f9c
+2763	0x197b8c0	b11	5	-1	0			0	3	5	0x1753b	0x3109c
+2764	0x197b8f8	b12	5	-1	0			0	3	5	0x1753c	0x3119c
+2765	0x197b930	b13	5	-1	0			0	3	5	0x1753d	0x3129c
+2766	0x197b968	b14	5	-1	0			0	3	5	0x1753e	0x3139c
+2767	0x197b9a0	b15	5	-1	0			0	3	5	0x1753f	0x3149c
+2768	0x197b9d8	b16	5	-1	0			0	3	5	0x17540	0x3159c
+2769	0x197ba10	b17	5	-1	0			0	3	5	0x17541	0x3169c
+2770	0x197ba48	b18	5	-1	0			0	3	5	0x17542	0x3179c
+2771	0x197ba80	b19	5	-1	0			0	3	5	0x17543	0x3189c
+2772	0x197bab8	b20	5	-1	0			0	1	5	0x17fff	0x31c2c
+2773	0x197baf0	use-np-option	2	55	2	0		0	1001652404	1127615147	0x4622f8e0	0x3f800000
