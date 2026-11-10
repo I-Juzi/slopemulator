@@ -2,6 +2,7 @@
 //! ❓ Reply root `Reply` and success status `200 OK` need a real-client check.
 //! IDs 3101..3114 are library reply IDs. They are not status codes.
 use crate::{key_data, Frame, StartLine, Transaction};
+use packet_ids::StsCmd;
 use quick_xml::{events::Event, Reader};
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
@@ -386,7 +387,10 @@ impl Request {
                         | ("VirtualCurrency", "GetBalance")
                         | ("Slot", "ListSlots")
                 ) || (protocol == "Auth"
-                    && !matches!(command.as_str(), "ListMyAccounts" | "GetBalance" | "ListSlots")) =>
+                    && !matches!(
+                        command.as_str(),
+                        "ListMyAccounts" | "GetBalance" | "ListSlots"
+                    )) =>
             {
                 Self::parse(command, &frame.body)
             }
@@ -521,21 +525,23 @@ impl Reply {
     }
     pub fn parse(id: u32, body: &[u8]) -> Result<Self, Error> {
         let n = parse_xml(body, "Reply")?;
-        Ok(match id {
-            3101 => {
+        // An ID that does not fit `i16` is not in the table.
+        let known = i16::try_from(id).ok().and_then(StsCmd::from_id);
+        Ok(match known {
+            Some(StsCmd::Auth_LoginStart) => {
                 n.only(&["KeyData"])?;
                 let (salt, public) =
                     key_data::decode_challenge(n.value("KeyData")?).map_err(|_| Error::KeyData)?;
                 Self::LoginStart { salt, public }
             }
-            3102 => {
+            Some(StsCmd::Auth_KeyData) => {
                 n.only(&["KeyData"])?;
                 Self::KeyData {
                     proof: key_data::decode_server(n.value("KeyData")?)
                         .map_err(|_| Error::KeyData)?,
                 }
             }
-            3103 => {
+            Some(StsCmd::Auth_LoginFinish) => {
                 n.only(&[
                     "UserId",
                     "UserCenter",
@@ -571,7 +577,7 @@ impl Reply {
                     pc_cafe_code,
                 })
             }
-            3106 => {
+            Some(StsCmd::GameAccount_ListMyAccounts) => {
                 if !n.text.trim().is_empty() {
                     return Err(Error::Field);
                 }
@@ -585,30 +591,31 @@ impl Reply {
                 }
                 Self::GameAccountList { aliases }
             }
-            3957 | 3970 | 3981 => {
+            // The STS table has no name for these three IDs (VirtualCurrency/GetBalance).
+            None if matches!(id, 3957 | 3970 | 3981) => {
                 n.only(&["BalanceInfoListCount"])?;
                 if n.value("BalanceInfoListCount")? != "0" {
                     return Err(Error::Field);
                 }
                 Self::EmptyBalance
             }
-            1501 => {
+            Some(StsCmd::Slot_ListSlots) => {
                 n.only(&[])?;
                 Self::EmptySlotList
             }
-            3107 => {
+            Some(StsCmd::Auth_RequestGameToken) => {
                 n.only(&["Token"])?;
                 Self::GameToken {
                     token: parse_guid(n.value("Token")?)?,
                 }
             }
-            3110 => {
+            Some(StsCmd::Auth_RequestToken) => {
                 n.only(&["AuthnToken"])?;
                 Self::Token {
                     authentication_token: n.value("AuthnToken")?.into(),
                 }
             }
-            3114 => {
+            Some(StsCmd::Auth_GetMyUserInfo) => {
                 n.only(&[
                     "UserId",
                     "UserCenter",

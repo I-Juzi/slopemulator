@@ -1,0 +1,12 @@
+[package]
+name = "packet-ids"
+version = "0.1.0"
+edition = "2021"
+publish = false
+
+[lib]
+name = "packet_ids"
+
+[[bin]]
+name = "gen-ids"
+path = "src/bin/gen-ids.rs"

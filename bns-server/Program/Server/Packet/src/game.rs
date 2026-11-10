@@ -4,6 +4,7 @@
 //! Command 32 stays unsupported, including its unverified fragment metadata.
 
 use bloodlib::packet::{self, DecodeLimits, PacketError, Value};
+use packet_ids::GameCmd;
 use serde::Deserialize;
 use std::{collections::BTreeMap, sync::OnceLock};
 use thiserror::Error;
@@ -75,20 +76,20 @@ pub fn tables() -> &'static Tables {
 
 fn wire_spec(command: i16) -> Option<(Direction, Option<&'static str>, bool)> {
     use Direction::{ClientToServer as C, ServerToClient as S};
-    Some(match command {
-        11 => (C, Some("hhqsqb"), false),
-        12 => (S, Some("hb"), false),
-        16 => (C, Some("h"), false),
-        17 => (S, Some("hqq"), false),
-        18 => (C, Some("hqq"), false),
-        23 => (C, Some("hhqq"), false),
-        24 => (S, None, false),
-        31 => (C, Some("hic"), false),
-        32 => (S, None, true),
-        41 => (S, Some("hqhiiccKuuuhhh"), false),
-        42 => (C, Some("hiuuuh"), false),
-        43 => (S, Some("hq"), false),
-        929 => (C, None, false),
+    Some(match GameCmd::from_id(command)? {
+        GameCmd::G_HelloReqCmd => (C, Some("hhqsqb"), false),
+        GameCmd::G_HelloOkCmd => (S, Some("hb"), false),
+        GameCmd::G_PingReqCmd => (C, Some("h"), false),
+        GameCmd::G_ServerPingNotifyCmd => (S, Some("hqq"), false),
+        GameCmd::G_ServerPingReqCmd => (C, Some("hqq"), false),
+        GameCmd::G_LobbyTokenAuthReqCmd => (C, Some("hhqq"), false),
+        GameCmd::G_LobbyTokenAuthOkCmd => (S, None, false),
+        GameCmd::G_EnterWorldReqCmd => (C, Some("hic"), false),
+        GameCmd::G_EnterWorldOkCmd => (S, None, true),
+        GameCmd::G_PrepareEnterZoneCmd => (S, Some("hqhiiccKuuuhhh"), false),
+        GameCmd::G_EnterZoneReqCmd => (C, Some("hiuuuh"), false),
+        GameCmd::G_EnterZoneOkCmd => (S, Some("hq"), false),
+        GameCmd::G_ContentsRuleListReqCmd => (C, None, false),
         _ => return None,
     })
 }
@@ -189,16 +190,16 @@ pub enum GamePacket {
 impl GamePacket {
     pub fn command(&self) -> i16 {
         match self {
-            Self::Hello(_) => 11,
-            Self::HelloOk { .. } => 12,
-            Self::ClientPing => 16,
-            Self::ServerPing { .. } => 17,
-            Self::PingEcho { .. } => 18,
-            Self::TokenAuth(_) => 23,
-            Self::EnterWorld { .. } => 31,
-            Self::PrepareZone(_) => 41,
-            Self::EnterZone(_) => 42,
-            Self::EnterZoneOk { .. } => 43,
+            Self::Hello(_) => GameCmd::G_HelloReqCmd.id(),
+            Self::HelloOk { .. } => GameCmd::G_HelloOkCmd.id(),
+            Self::ClientPing => GameCmd::G_PingReqCmd.id(),
+            Self::ServerPing { .. } => GameCmd::G_ServerPingNotifyCmd.id(),
+            Self::PingEcho { .. } => GameCmd::G_ServerPingReqCmd.id(),
+            Self::TokenAuth(_) => GameCmd::G_LobbyTokenAuthReqCmd.id(),
+            Self::EnterWorld { .. } => GameCmd::G_EnterWorldReqCmd.id(),
+            Self::PrepareZone(_) => GameCmd::G_PrepareEnterZoneCmd.id(),
+            Self::EnterZone(_) => GameCmd::G_EnterZoneReqCmd.id(),
+            Self::EnterZoneOk { .. } => GameCmd::G_EnterZoneOkCmd.id(),
             Self::Raw(raw) => raw.command,
         }
     }
@@ -235,36 +236,36 @@ impl GamePacket {
         }
         let mut fields = Fields(values.into_iter());
         fields.short()?; // command
-        Ok(match command {
-            11 => Self::Hello(Hello {
+        Ok(match GameCmd::from_id(command) {
+            Some(GameCmd::G_HelloReqCmd) => Self::Hello(Hello {
                 protocol_version: fields.short()?,
                 property_version: fields.quad()?,
                 publisher: fields.string()?,
                 capabilities: fields.quad()?,
                 handshake_blob: fields.bytes()?,
             }),
-            12 => Self::HelloOk {
+            Some(GameCmd::G_HelloOkCmd) => Self::HelloOk {
                 handshake_blob: fields.bytes()?,
             },
-            16 => Self::ClientPing,
-            17 => Self::ServerPing {
+            Some(GameCmd::G_PingReqCmd) => Self::ClientPing,
+            Some(GameCmd::G_ServerPingNotifyCmd) => Self::ServerPing {
                 sequence: fields.quad()?,
                 timestamp: fields.quad()?,
             },
-            18 => Self::PingEcho {
+            Some(GameCmd::G_ServerPingReqCmd) => Self::PingEcho {
                 sequence: fields.quad()?,
                 timestamp: fields.quad()?,
             },
-            23 => Self::TokenAuth(TokenAuth {
+            Some(GameCmd::G_LobbyTokenAuthReqCmd) => Self::TokenAuth(TokenAuth {
                 world_id: fields.short()?,
                 client_key: fields.quad()?,
                 lobby_token: fields.quad()?,
             }),
-            31 => Self::EnterWorld {
+            Some(GameCmd::G_EnterWorldReqCmd) => Self::EnterWorld {
                 parameter: fields.integer()?,
                 flag: fields.byte()?,
             },
-            41 => Self::PrepareZone(PrepareZone {
+            Some(GameCmd::G_PrepareEnterZoneCmd) => Self::PrepareZone(PrepareZone {
                 zone_object: fields.quad()?,
                 instance_bits: fields.short()?,
                 zone_table_id: fields.integer()?,
@@ -277,12 +278,12 @@ impl GamePacket {
                 player_transition: fields.short()?,
                 summoned_transition: fields.short()?,
             }),
-            42 => Self::EnterZone(EnterZone {
+            Some(GameCmd::G_EnterZoneReqCmd) => Self::EnterZone(EnterZone {
                 correlation: fields.integer()?,
                 summoned_position_bits: [fields.short()?, fields.short()?, fields.short()?],
                 summoned_yaw_bits: fields.short()?,
             }),
-            43 => Self::EnterZoneOk {
+            Some(GameCmd::G_EnterZoneOkCmd) => Self::EnterZoneOk {
                 spawn_context: fields.quad()?,
             },
             _ => unreachable!("checked format has a typed decoder"),

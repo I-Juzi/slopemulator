@@ -1,6 +1,7 @@
 //! Build-381 zone-entry output codecs. Doc 10, 0x1404BEED0 / 0x1402304A0.
 //! These encode authoritative action data. They do not authorize or finish spawn.
 use bloodlib::packet::{self, PacketError, Value};
+use packet_ids::GameCmd;
 
 #[derive(Clone, Debug, PartialEq, Eq)]
 pub struct PrepareZone {
@@ -23,7 +24,7 @@ impl PrepareZone {
         packet::compose(
             "hqhiiccKuuuhhh",
             &[
-                U16(41),
+                U16(GameCmd::G_PrepareEnterZoneCmd.id() as u16),
                 U64(self.runtime_zone_id),
                 U16(self.channel),
                 U32(self.geo_zone_id),
@@ -49,7 +50,13 @@ impl EnterZoneOk {
     /// Native code sends this after appearance queueing but before later updates.
     /// This packet alone does not prove that the full spawn operation succeeded.
     pub fn encode(&self) -> Result<Vec<u8>, PacketError> {
-        packet::compose("hq", &[Value::U16(43), Value::U64(self.context)])
+        packet::compose(
+            "hq",
+            &[
+                Value::U16(GameCmd::G_EnterZoneOkCmd.id() as u16),
+                Value::U64(self.context),
+            ],
+        )
     }
 }
 

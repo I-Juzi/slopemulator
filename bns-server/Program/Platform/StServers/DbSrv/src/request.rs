@@ -74,12 +74,20 @@ impl ExecRequest {
         if !valid_ident(schema) {
             return Err(bad(621));
         }
-        let proc = body.get("ProcName").map_or("unspecified", |e| e.text.as_str());
+        let proc = body
+            .get("ProcName")
+            .map_or("unspecified", |e| e.text.as_str());
         if !valid_ident(proc) {
             return Err(bad(632));
         }
-        let mut req = ExecRequest { schema: schema.to_owned(), proc_name: format!("p_{proc}"), params: vec![] };
-        let Some(params) = body.get("Params") else { return Ok(req) };
+        let mut req = ExecRequest {
+            schema: schema.to_owned(),
+            proc_name: format!("p_{proc}"),
+            params: vec![],
+        };
+        let Some(params) = body.get("Params") else {
+            return Ok(req);
+        };
         let mut named = 0usize;
         for p in &params.children {
             if req.params.len() >= MAX_PARAMS {
@@ -94,7 +102,12 @@ impl ExecRequest {
                     if *cols.get_or_insert(row.children.len()) != row.children.len() {
                         return Err(bad(738));
                     }
-                    rows.push(row.children.iter().map(|c| (!is_null(c)).then(|| c.text.clone())).collect());
+                    rows.push(
+                        row.children
+                            .iter()
+                            .map(|c| (!is_null(c)).then(|| c.text.clone()))
+                            .collect(),
+                    );
                 }
                 Value::Table(rows)
             } else if is_null(p) {
@@ -128,19 +141,44 @@ mod tests {
         assert_eq!(r.params[0].value, Value::VarChar("5".into()));
         assert_eq!(r.params[1].value, Value::Null);
         assert_eq!(r.params[2].value, Value::NVarChar("\u{d55c}".into()));
-        assert_eq!(r.params[3].value, Value::Table(vec![vec![Some("a".into()), None]]));
+        assert_eq!(
+            r.params[3].value,
+            Value::Table(vec![vec![Some("a".into()), None]])
+        );
     }
 
     #[test]
     fn defaults_and_errors() {
         let r = parse("<Request/>").unwrap();
-        assert_eq!((r.schema.as_str(), r.proc_name.as_str()), ("dbo", "p_unspecified"));
-        assert_eq!(parse("<Request><SchemaName>a.b</SchemaName></Request>").unwrap_err().line, 621);
-        assert_eq!(parse("<Request><ProcName>x;drop</ProcName></Request>").unwrap_err().line, 632);
-        let many = format!("<Request><Params>{}</Params></Request>", "<S>1</S>".repeat(33));
+        assert_eq!(
+            (r.schema.as_str(), r.proc_name.as_str()),
+            ("dbo", "p_unspecified")
+        );
+        assert_eq!(
+            parse("<Request><SchemaName>a.b</SchemaName></Request>")
+                .unwrap_err()
+                .line,
+            621
+        );
+        assert_eq!(
+            parse("<Request><ProcName>x;drop</ProcName></Request>")
+                .unwrap_err()
+                .line,
+            632
+        );
+        let many = format!(
+            "<Request><Params>{}</Params></Request>",
+            "<S>1</S>".repeat(33)
+        );
         assert_eq!(parse(&many).unwrap_err().line, 658);
-        assert_eq!(parse("<Request><Params><T><R><C/></R><R/></T></Params></Request>").unwrap_err().line, 738);
-        let e = parse("<Request><Params><S name=\"@a\">1</S><S>2</S></Params></Request>").unwrap_err();
+        assert_eq!(
+            parse("<Request><Params><T><R><C/></R><R/></T></Params></Request>")
+                .unwrap_err()
+                .line,
+            738
+        );
+        let e =
+            parse("<Request><Params><S name=\"@a\">1</S><S>2</S></Params></Request>").unwrap_err();
         assert_eq!((e.code, e.module, e.line), (10, 2, 828));
     }
 }

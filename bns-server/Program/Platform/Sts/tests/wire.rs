@@ -416,8 +416,7 @@ fn keydata_without_session_key_closes_the_session() {
 fn unknown_requests_after_login_get_400_and_keep_the_session() {
     let mut f = Fixture::new();
     let (mut send, mut receive) = authenticate(&mut f);
-    let mut bytes =
-        b"POST /Shop/Unknown STS/1.0\r\ns:9\r\nl:10\r\n\r\n<Request/>".to_vec();
+    let mut bytes = b"POST /Shop/Unknown STS/1.0\r\ns:9\r\nl:10\r\n\r\n<Request/>".to_vec();
     send.apply(&mut bytes);
     let mut replies = f.receive(&bytes).unwrap();
     receive.apply(&mut replies[0]);

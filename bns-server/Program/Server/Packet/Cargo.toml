@@ -6,6 +6,7 @@ publish = false
 
 [dependencies]
 bloodlib = { path = "../BloodLib" }
+packet-ids = { path = "../PacketIds" }
 thiserror = "2"
 serde = { version = "1", features = ["derive"] }
 serde_json = "1"

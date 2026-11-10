@@ -544,6 +544,7 @@ dependencies = [
  "bloodlib",
  "num-bigint",
  "packet",
+ "packet-ids",
  "quick-xml",
  "rand",
  "rsa",
@@ -685,11 +686,16 @@ name = "packet"
 version = "0.1.0"
 dependencies = [
  "bloodlib",
+ "packet-ids",
  "rand",
  "serde",
  "serde_json",
  "thiserror 2.0.21",
 ]
+
+[[package]]
+name = "packet-ids"
+version = "0.1.0"
 
 [[package]]
 name = "pem-rfc7468"
@@ -1122,6 +1128,7 @@ dependencies = [
  "md-5",
  "num-bigint",
  "num-traits",
+ "packet-ids",
  "quick-xml",
  "rand",
  "rsa",

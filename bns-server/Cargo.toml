@@ -2,6 +2,7 @@
 members = [
     "Program/Server/BloodLib",
     "Program/Server/Packet",
+    "Program/Server/PacketIds",
     "Program/Server/GameDaemon",
     "Program/Server/Shared",
     "Program/Server/LobbyGate",

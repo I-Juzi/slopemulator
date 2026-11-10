@@ -11,6 +11,7 @@ path = "src/main.rs"
 [dependencies]
 bloodlib = { path = "../BloodLib" }
 packet = { path = "../Packet" }
+packet-ids = { path = "../PacketIds" }
 tokio = { version = "1", features = ["rt-multi-thread", "net", "io-util", "sync", "time", "macros", "signal"] }
 quick-xml = { version = "0.38", features = ["serialize"] }
 serde = { version = "1", features = ["derive"] }

@@ -227,12 +227,19 @@ fn get_balance_uses_the_virtual_currency_protocol_and_replies_empty() {
     use sts::messages::client::{Reply, Request};
     let body = b"<Request>\n<UserId>01234567-89AB-CDEF-0123-456789ABCDEF</UserId>\n<CurrencyGroupId>1</CurrencyGroupId>\n<CurrencyGroupUnit>1</CurrencyGroupUnit>\n</Request>\n";
     let mut frame = Request::GetBalance.frame(Some(7)).unwrap();
-    assert!(matches!(&frame.start, sts::StartLine::Request { protocol, command } if protocol == "VirtualCurrency" && command == "GetBalance"));
+    assert!(
+        matches!(&frame.start, sts::StartLine::Request { protocol, command } if protocol == "VirtualCurrency" && command == "GetBalance")
+    );
     frame.body = body.to_vec();
     assert!(Request::from_frame(&frame).unwrap() == Request::GetBalance);
     let reply = Reply::EmptyBalance.body().unwrap();
-    assert_eq!(reply, b"<Reply>\n<BalanceInfoListCount>0</BalanceInfoListCount>\n</Reply>\n");
+    assert_eq!(
+        reply,
+        b"<Reply>\n<BalanceInfoListCount>0</BalanceInfoListCount>\n</Reply>\n"
+    );
     assert!(Reply::parse(3957, &reply).unwrap() == Reply::EmptyBalance);
-    if let sts::StartLine::Request { protocol, .. } = &mut frame.start { *protocol = "Auth".into(); }
+    if let sts::StartLine::Request { protocol, .. } = &mut frame.start {
+        *protocol = "Auth".into();
+    }
     assert!(Request::from_frame(&frame).is_err());
 }

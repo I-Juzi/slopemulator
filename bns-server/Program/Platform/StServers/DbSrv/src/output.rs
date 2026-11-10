@@ -20,7 +20,11 @@ pub struct Output {
 
 impl Output {
     pub fn new(sink: Option<Sink>) -> Self {
-        Self { buf: Vec::new(), sink, partials: 0 }
+        Self {
+            buf: Vec::new(),
+            sink,
+            partials: 0,
+        }
     }
 
     fn flush_if(&mut self, extra: usize) {
@@ -75,7 +79,10 @@ mod tests {
         let mut o = Output::new(Some(Box::new(move |b| g.lock().unwrap().push(b.len()))));
         o.raw(&"x".repeat(CHUNK_LIMIT - 3));
         o.raw("<Row>");
-        assert_eq!((o.partials, got.lock().unwrap().clone()), (1, vec![CHUNK_LIMIT - 3]));
+        assert_eq!(
+            (o.partials, got.lock().unwrap().clone()),
+            (1, vec![CHUNK_LIMIT - 3])
+        );
         assert_eq!(o.buf, b"<Row>");
         let mut o = Output::new(None);
         o.raw(&"x".repeat(CHUNK_LIMIT * 2));

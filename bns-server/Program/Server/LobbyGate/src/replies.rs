@@ -1,6 +1,7 @@
 //! Non-goods reply conversion. Spec 05 §7.
 use crate::wire::invalid;
 use bloodlib::packet::{compose, decode_fields, decompose, DecodeLimits, Value};
+use packet_ids::LobbyCmd;
 use std::io;
 fn p(e: impl std::fmt::Display) -> io::Error {
     invalid(&e.to_string())
@@ -12,7 +13,14 @@ pub fn token(data: &[u8]) -> io::Result<(u64, Vec<Vec<u8>>)> {
     };
     Ok((
         key,
-        vec![compose("hq", &[Value::I16(14), v[2].clone()]).map_err(p)?],
+        vec![compose(
+            "hq",
+            &[
+                Value::I16(LobbyCmd::L_GetEnterWorldTokenOk.id()),
+                v[2].clone(),
+            ],
+        )
+        .map_err(p)?],
     ))
 }
 pub fn characters(data: &[u8]) -> io::Result<(u64, Vec<Vec<u8>>)> {
@@ -75,7 +83,7 @@ pub fn characters(data: &[u8]) -> io::Result<(u64, Vec<Vec<u8>>)> {
     for (i, packet) in out.iter_mut().enumerate() {
         let size = packet.len() as i16;
         packet[..2].copy_from_slice(&size.to_le_bytes());
-        packet[2..4].copy_from_slice(&28i16.to_le_bytes());
+        packet[2..4].copy_from_slice(&LobbyCmd::L_GetCharacterInfoListOk.id().to_le_bytes());
         packet[4..8].copy_from_slice(
             &(if i == 0 {
                 total as i32

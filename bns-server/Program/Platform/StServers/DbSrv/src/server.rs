@@ -41,18 +41,42 @@ fn conn_err(code: u32, line: u32, text: String) -> StsError {
 
 impl DbServer {
     pub fn new(executors: Vec<Executor>, server_id: u32, workers: usize) -> Self {
-        let dbs = executors.into_iter().map(|e| (format!("Db.{}", e.cfg.logical), Arc::new(e))).collect();
-        Self { dbs, server_id, workers: Arc::new(Semaphore::new(workers.max(1))) }
+        let dbs = executors
+            .into_iter()
+            .map(|e| (format!("Db.{}", e.cfg.logical), Arc::new(e)))
+            .collect();
+        Self {
+            dbs,
+            server_id,
+            workers: Arc::new(Semaphore::new(workers.max(1))),
+        }
     }
 
     /// Checks 1–4; `Ok((executor, batched, request))`.
-    pub fn route(&self, protocol: &str, command: &str, body: Option<&sts_core::Element>) -> Result<(Arc<Executor>, bool, ExecRequest), StsError> {
+    pub fn route(
+        &self,
+        protocol: &str,
+        command: &str,
+        body: Option<&sts_core::Element>,
+    ) -> Result<(Arc<Executor>, bool, ExecRequest), StsError> {
         let body = body.ok_or_else(|| conn_err(ERR_BAD_PARAM, 71, "DbConn: NULL body".into()))?;
-        let exec = self.dbs.get(protocol).ok_or_else(|| conn_err(ERR_BAD_PARAM, 101, format!("DbConn: unknown protocol {protocol}")))?;
+        let exec = self.dbs.get(protocol).ok_or_else(|| {
+            conn_err(
+                ERR_BAD_PARAM,
+                101,
+                format!("DbConn: unknown protocol {protocol}"),
+            )
+        })?;
         let batched = match command {
             "Exec" => false,
             "ExecBatched" => true,
-            _ => return Err(conn_err(ERR_UNKNOWN_COMMAND, 119, format!("DbConn: unknown command {command}"))),
+            _ => {
+                return Err(conn_err(
+                    ERR_UNKNOWN_COMMAND,
+                    119,
+                    format!("DbConn: unknown command {command}"),
+                ))
+            }
         };
         Ok((exec.clone(), batched, ExecRequest::parse(body)?))
     }
@@ -64,13 +88,18 @@ impl DbServer {
             req.reply(None);
             return;
         }
-        let body = if req.frame.body.is_empty() { None } else { req.body() };
+        let body = if req.frame.body.is_empty() {
+            None
+        } else {
+            req.body()
+        };
         let (exec, batched, call) = match self.route(protocol, command, body.as_ref()) {
             Ok(r) => r,
             Err(e) => return req.reply_error(&e, self.server_id),
         };
         let Ok(_permit) = self.workers.clone().acquire_owned().await else {
-            let e = StsError::new(SHUTDOWN_CODE, crate::request::MODULE_EXEC, 921).with_text("server is shutting down");
+            let e = StsError::new(SHUTDOWN_CODE, crate::request::MODULE_EXEC, 921)
+                .with_text("server is shutting down");
             return req.reply_error(&e, self.server_id);
         };
         let id = req.id();
@@ -90,16 +119,31 @@ impl DbServer {
             return;
         }
         // Final reply: `R` alone, or `R<partials + 1>` after partials.
-        let seq = if out.partials > 0 { out.partials + 1 } else { 0 };
+        let seq = if out.partials > 0 {
+            out.partials + 1
+        } else {
+            0
+        };
         let frame = match result {
             Ok(()) => reply_raw(id, 200, "OK", std::mem::take(&mut out.buf), true, seq),
-            Err(e) => reply_raw(id, 400, e.name(), e.to_element(self.server_id).to_xml().into_bytes(), true, seq),
+            Err(e) => reply_raw(
+                id,
+                400,
+                e.name(),
+                e.to_element(self.server_id).to_xml().into_bytes(),
+                true,
+                seq,
+            ),
         };
         req.peer.send(frame);
     }
 
     /// Accepts STS connections until the listener fails or `shutdown` resolves.
-    pub async fn serve(self: Arc<Self>, listener: TcpListener, shutdown: impl std::future::Future<Output = ()>) -> std::io::Result<()> {
+    pub async fn serve(
+        self: Arc<Self>,
+        listener: TcpListener,
+        shutdown: impl std::future::Future<Output = ()>,
+    ) -> std::io::Result<()> {
         tokio::pin!(shutdown);
         loop {
             tokio::select! {
@@ -132,7 +176,11 @@ mod tests {
 
     fn server() -> DbServer {
         let ini = Ini::parse("[Sql.AcctDb]\nDatabase=PlatformAcctDb\nAddress=127.0.0.1:1\nUsername=sa\nPassword=keyhere\n");
-        DbServer::new(vec![Executor::new(SqlConfig::from_ini(&ini, "AcctDb").unwrap())], 7, 2)
+        DbServer::new(
+            vec![Executor::new(SqlConfig::from_ini(&ini, "AcctDb").unwrap())],
+            7,
+            2,
+        )
     }
 
     #[test]
@@ -140,9 +188,15 @@ mod tests {
         let s = server();
         let body = Element::parse(b"<Request><ProcName>X</ProcName></Request>").unwrap();
         let e = s.route("Db.AcctDb", "Exec", None).err().unwrap();
-        assert_eq!((e.code, e.module, e.line, e.text.as_str()), (10, 1, 71, "DbConn: NULL body"));
+        assert_eq!(
+            (e.code, e.module, e.line, e.text.as_str()),
+            (10, 1, 71, "DbConn: NULL body")
+        );
         let e = s.route("Db.acctdb", "Exec", Some(&body)).err().unwrap();
-        assert_eq!((e.code, e.line, e.text.as_str()), (10, 101, "DbConn: unknown protocol Db.acctdb"));
+        assert_eq!(
+            (e.code, e.line, e.text.as_str()),
+            (10, 101, "DbConn: unknown protocol Db.acctdb")
+        );
         let e = s.route("Db.AcctDb", "Query", Some(&body)).err().unwrap();
         assert_eq!((e.code, e.line), (51, 119));
         let (_, batched, r) = s.route("Db.AcctDb", "ExecBatched", Some(&body)).unwrap();

@@ -1,9 +1,9 @@
 //! Make one STS account TSV record (SRP verifier enrollment).
 //! Usage: enroll <login> <password> <alias> <portal_guid> <account_guid> <slot> [user_name]
 //! Prints one tab-separated line for the sts-local --accounts file. No secret is stored.
-use sts::password::VerifierRecord;
 use base64::{engine::general_purpose::STANDARD, Engine};
 use rand::rngs::OsRng;
+use sts::password::VerifierRecord;
 
 fn main() {
     let a: Vec<String> = std::env::args().skip(1).collect();
@@ -17,7 +17,14 @@ fn main() {
     let rec = VerifierRecord::enroll(login, password.as_bytes(), &mut OsRng);
     println!(
         "{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}",
-        login, user, portal, account, slot, alias,
-        STANDARD.encode(&rec.salt), STANDARD.encode(&rec.verifier), rec.scheme
+        login,
+        user,
+        portal,
+        account,
+        slot,
+        alias,
+        STANDARD.encode(&rec.salt),
+        STANDARD.encode(&rec.verifier),
+        rec.scheme
     );
 }

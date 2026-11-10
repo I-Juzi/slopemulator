@@ -1,6 +1,11 @@
 //! Additive build-381 session codecs. No framing encryption or transaction policy.
 //! Sources: docs 10, 0x14014CCB0 / 0x14014ED65..0x14014EDA7.
+// The const for the pattern keeps the official name.
+#![allow(non_upper_case_globals)]
 use bloodlib::packet::{self, DecodeLimits, PacketError, Value};
+use packet_ids::GameCmd;
+
+const G_LobbyTokenAuthOkCmd: i16 = GameCmd::G_LobbyTokenAuthOkCmd.id();
 
 /// Late state-16 result. This codec does not authorize or complete token auth.
 #[derive(Clone, Debug, PartialEq, Eq)]
@@ -17,7 +22,7 @@ impl LobbyTokenAuthOk {
         packet::compose(
             "hQiQih",
             &[
-                U16(24),
+                U16(GameCmd::G_LobbyTokenAuthOkCmd.id() as u16),
                 I8(self.charge_apply_type as i8),
                 I32(self.remaining_play_time),
                 I8(self.charge_base_type as i8),
@@ -34,7 +39,7 @@ impl LobbyTokenAuthOk {
         }
         let fields = packet::decompose("hQiQih", input, DecodeLimits::default())?;
         match fields.as_slice() {
-            [Value::I16(24), Value::I8(apply), Value::U32(time), Value::I8(base), Value::U32(item), Value::I16(reservations)] => {
+            [Value::I16(G_LobbyTokenAuthOkCmd), Value::I8(apply), Value::U32(time), Value::I8(base), Value::U32(item), Value::I16(reservations)] => {
                 Ok(Self {
                     charge_apply_type: *apply as u8,
                     remaining_play_time: *time as i32,

@@ -6,6 +6,7 @@ use bloodlib::{
     packet::{compose, decode_fields, DecodeLimits, Value},
 };
 use packet::fragments::compose_fragments;
+use packet_ids::LobbyCmd;
 use std::io;
 
 pub const WORLD: &str = "ChhsQQiihhiQQQQQQQ;";
@@ -62,7 +63,12 @@ impl Lists {
             })
             .collect();
         let worlds = broadcast_packets(
-            &compose_fragments(25, "hiChhsQQihiQQQQQQQ;", &[Value::Repeat(rows)]).map_err(p)?,
+            &compose_fragments(
+                LobbyCmd::L_GetWorldInfoListOk.id(),
+                "hiChhsQQihiQQQQQQQ;",
+                &[Value::Repeat(rows)],
+            )
+            .map_err(p)?,
             key,
         )?;
         let schedule = if hello {
@@ -74,7 +80,12 @@ impl Lists {
                 *flag = i8::from(*flag == 1);
             }
             Some(broadcast_packets(
-                &compose_fragments(104, "hiQQqCqqiQiic;", &values).map_err(p)?,
+                &compose_fragments(
+                    LobbyCmd::L_GetPcCafeMileageFeverTimeScheduleListOk.id(),
+                    "hiQQqCqqiQiic;",
+                    &values,
+                )
+                .map_err(p)?,
                 key,
             )?)
         } else {
@@ -88,7 +99,7 @@ impl Lists {
     }
     pub fn announcement(data: &[u8], key: &[u8]) -> io::Result<Vec<Vec<u8>>> {
         let mut v = bloodlib::packet::decompose("hs", data, Default::default()).map_err(p)?;
-        v[0] = Value::I16(11);
+        v[0] = Value::I16(LobbyCmd::L_AnnounceNotify.id());
         broadcast_packets(&[compose("hs", &v).map_err(p)?], key)
     }
 }

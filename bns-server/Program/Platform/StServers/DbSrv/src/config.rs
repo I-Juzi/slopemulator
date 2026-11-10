@@ -41,7 +41,12 @@ fn value(sec: &Section, key: &str, default: &str) -> String {
 fn computer_name() -> String {
     std::env::var("COMPUTERNAME")
         .or_else(|_| std::env::var("HOSTNAME"))
-        .unwrap_or_else(|_| std::fs::read_to_string("/etc/hostname").unwrap_or_default().trim().to_owned())
+        .unwrap_or_else(|_| {
+            std::fs::read_to_string("/etc/hostname")
+                .unwrap_or_default()
+                .trim()
+                .to_owned()
+        })
 }
 
 /// Debug output hides the password.
@@ -54,7 +59,10 @@ impl std::fmt::Debug for SqlConfig {
             .field("port", &self.port)
             .field("instance", &self.instance)
             .field("username", &self.username)
-            .field("password", &if self.password.is_empty() { "" } else { "***" })
+            .field(
+                "password",
+                &if self.password.is_empty() { "" } else { "***" },
+            )
             .field("trans_timeout_secs", &self.trans_timeout_secs)
             .finish_non_exhaustive()
     }
@@ -63,7 +71,9 @@ impl std::fmt::Debug for SqlConfig {
 impl SqlConfig {
     pub fn from_ini(ini: &Ini, logical: &str) -> Result<Self, String> {
         let name = format!("Sql.{logical}");
-        let sec = ini.section(&name).ok_or_else(|| format!("DbTrans: missing configuration section '{name}'"))?;
+        let sec = ini
+            .section(&name)
+            .ok_or_else(|| format!("DbTrans: missing configuration section '{name}'"))?;
         let address = value(sec, "Address", "");
         // `host:port` → `host,port` in the ODBC string; `host/instance` is a named instance.
         let (hostpart, instance) = match address.split_once(['/', '\\']) {
@@ -84,7 +94,11 @@ impl SqlConfig {
             logical: logical.to_owned(),
             database: value(sec, "Database", &computer_name()),
             driver: value(sec, "Driver", DEFAULT_DRIVER),
-            host: if host.is_empty() { "localhost".into() } else { host },
+            host: if host.is_empty() {
+                "localhost".into()
+            } else {
+                host
+            },
             port,
             instance,
             mirror: value(sec, "Mirror", ""),
@@ -106,7 +120,10 @@ impl SqlConfig {
         c.database(&self.database);
         c.application_name("DbSrv");
         if !self.username.is_empty() && !self.password.is_empty() {
-            c.authentication(tiberius::AuthMethod::sql_server(&self.username, &self.password));
+            c.authentication(tiberius::AuthMethod::sql_server(
+                &self.username,
+                &self.password,
+            ));
         }
         c.trust_cert();
         c
@@ -128,10 +145,16 @@ mod tests {
     fn reads_section() {
         let ini = Ini::parse("[Sql.AcctDb]\nDatabase=PlatformAcctDb\nAddress=127.0.0.1:1433\nUsername=sa\nPassword=keyhere\n[Sql.X]\nDatabase=a;b\nAddress=SQLHOST/INST\n");
         let c = SqlConfig::from_ini(&ini, "AcctDb").unwrap();
-        assert_eq!((c.host.as_str(), c.port, c.trans_timeout_secs), ("127.0.0.1", Some(1433), 20));
+        assert_eq!(
+            (c.host.as_str(), c.port, c.trans_timeout_secs),
+            ("127.0.0.1", Some(1433), 20)
+        );
         assert_eq!(c.password, sts_core::SECRET_PLACEHOLDER);
         let x = SqlConfig::from_ini(&ini, "X").unwrap();
-        assert_eq!((x.database.as_str(), x.instance.as_deref()), ("", Some("INST")));
+        assert_eq!(
+            (x.database.as_str(), x.instance.as_deref()),
+            ("", Some("INST"))
+        );
         assert!(SqlConfig::from_ini(&ini, "None").is_err());
     }
 }
