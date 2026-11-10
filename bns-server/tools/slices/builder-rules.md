@@ -17,9 +17,6 @@ Original bugs (quirks):
 - Never panic on bad input. An out-of-bounds index gives the value that the spec says (for example the neighbour field or zero), not a panic and not an error.
 - Add one test for each quirk with the input that triggers it.
 
-Exploits (from the spec, `exploit_<name>`):
-- Do not copy them. Write the fix that the spec gives. Reject the request or clamp the value, and log it with the exploit name.
-- Add one test for each exploit: the bad input is rejected or clamped.
 
 Run these checks before you stop. All must pass:
 ```
