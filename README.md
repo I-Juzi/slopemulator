@@ -6,6 +6,17 @@ LobbyDaemon build 307), with its tools, launcher and reverse-engineering notes.
 Game client files, server binaries, databases, IDA databases and keys are **not**
 in this repository. See [`.gitignore`](.gitignore).
 
+## Plan (10 Nov 2026)
+
+| # | Phase | State |
+| --- | --- | --- |
+| 1 | Client 381 full reverse engineering | **Done** |
+| 2 | StServers (NP platform) full reverse engineering | Next |
+| 3 | 2020 server set full reverse engineering | Waiting |
+| 4 | Port to Rust from the specs | Some servers done (see below) |
+
+Details and the work method: [`bns-server/README.md`](bns-server/README.md).
+
 ## Map
 
 ```
@@ -23,17 +34,21 @@ slopemulator/
 │   │   │       ├── Lmxb/       LMXBOSLB codec
 │   │   │       └── GameData/   Typed game data
 │   │   ├── Platform/
-│   │   │   └── Sts/            NP / STS login server
+│   │   │   ├── Sts/            NP / STS login server
+│   │   │   └── StServers/      StsCore, DbSrv, RouteSrv, CliGate
 │   │   └── Tools/
 │   │       ├── BnsEdit/        BnsEdit GUI editor (own Cargo project)
 │   │       ├── ClientKey/      Handshake RSA-1024 key generator and client patcher
+│   │       ├── ClientDbg/      Live client debugger (plugin + Linux host)
 │   │       ├── DataFile/       Data file crates (BnsData, BnsModel, BnsSchema)
 │   │       └── Emu/            Python handshake / session emulator for build 381
 │   ├── Docs/                   Specs and status for each part
 │   │   ├── Server/             LobbyGate, LobbyDaemon, GameDaemon
-│   │   ├── Platform/Sts/       STS login
-│   │   └── DataFile/           Data file formats, tabledefs, client exe scripts
-│   └── tools/                  Pipeline helper scripts
+│   │   ├── Client/RE/          Client 381 reverse engineering (18 chapters)
+│   │   ├── Platform/           STS login, StServers specs
+│   │   ├── Plan/               Work cards and handoffs
+│   │   └── DataFile/           Data file formats, data file book
+│   └── tools/                  Slice runner, push script, index tools
 ├── launcher-src/               BnsLauncher fork for the private server (C#, MIT)
 ├── notes/                      Client reverse-engineering notes
 ├── tabledefs/BNSR_116_x64/     Table definitions (519 JSON files)
@@ -54,7 +69,7 @@ console library, so small servers are mostly that library.
 
 | Original binary | What it does | Handlers (348 PDB) | Code | Rust crate | Ported | Ported % |
 | --- | --- | ---: | ---: | --- | --- | --- |
-| `GameDaemon.exe` | World server: movement, skills, items, party, guild, chat, quests, shop, post, market | 1435 | 7300 KB | `gamedaemon` (381) | 72 / 1598 commands (+365 partial) | `▌░░░░░░░░░` **4.5 %** (27 % started) |
+| `GameDaemon.exe` | World server: movement, skills, items, party, guild, chat, quests, shop, post, market | 1435 | 7300 KB | `gamedaemon` (381) | 74 / 1598 commands (+423 partial) | `▌░░░░░░░░░` **4.6 %** (31 % started) |
 | `CacheDaemon.exe` | Shared character / world data cache | 171 | 1175 KB | — | 0 | `░░░░░░░░░░` 0 % |
 | `LobbyDaemon.exe` | Account sessions, character list, create / delete / restore, enter-world token | 124 | 1145 KB | `lobbydaemon` (307) | 18 / 118 table rows | `█▌░░░░░░░░` **15 %** |
 | `LobbyGate.exe` | Client entry gate: handshake, login, world list, relay to LobbyDaemon | 112 | 381 KB | `lobbygate` (381) | 56 / 56 commands | `██████████` **100 %** |
@@ -107,7 +122,7 @@ The Rust `sts` crate was built from these original files (not in this repository
 | Code | `.text` virtual size from `llvm-pdbutil dump --section-headers`. |
 | LobbyGate ported | All 56 commands in `Program/Server/Packet/tables/381.json` (client: not-authed 3, any-authed 2, authed 2 + 28 relayed; LobbyDaemon side 21) have a Rust handler in `Program/Server/LobbyGate/src/`. The 348 PDB has 112 functions because it has a separate function for each relayed command; 381 relays them through one path. |
 | LobbyDaemon ported | `Docs/Server/LobbyDaemon/command-tables.json` lists 118 handler rows in 5 tables. Rust handles 18 rows of the LobbyGate-side table (35 rows). The Manage (6), InfoGate (3), Game (51) and AccountInventory (23) tables have no Rust handlers yet; GameDaemon is a local stub. |
-| GameDaemon ported | `Docs/Server/GameDaemon/parity-ledger.tsv`: 1598 commands; `rust` column = 72 ported, 365 partial, 1161 none. |
+| GameDaemon ported | `Docs/Server/GameDaemon/parity-ledger.tsv`: 1598 commands; `rust` column = 74 ported, 423 partial, 1101 none. |
 | STS ported | `Docs/Platform/Sts/STATUS.md`: 7 client XML commands are implemented. ❓ No real-client login has run yet. |
 
 The handler counts come from build 348. The ported counts come from the Rust target builds (381 / 307),
@@ -127,6 +142,11 @@ names only.
 | `Program/Server/Data/Lmxb` | LMXBOSLB codec | Yes |
 | `Program/Server/Data/GameData` | Typed game data | Yes |
 | `Program/Platform/Sts` | NP / STS login server | Yes |
+| `Program/Platform/StServers/StsCore` | StServers framework: STS messages, Connect, route bus client | Yes |
+| `Program/Platform/StServers/DbSrv` | DbSrv: stored-procedure gateway to SQL Server (ported) | Yes |
+| `Program/Platform/StServers/RouteSrv` | RouteSrv: service bus router (phase 1) | Yes |
+| `Program/Platform/StServers/CliGate` | CliGate: platform client gate (phase 1) | Yes |
+| `Program/Tools/ClientDbg` | Live client debugger: plugin in the client, host on Linux | Yes |
 | `Program/Tools/DataFile/BnsData` | Reader and writer for LMXBOSLB / TADBOSLB data files | Yes |
 | `Program/Tools/DataFile/BnsModel` | Data model for BnsData | Yes |
 | `Program/Tools/DataFile/BnsSchema` | Passive TableDefs export from PE client files | Yes |
@@ -155,6 +175,10 @@ cd bns-server/Program/Tools/BnsEdit && cargo build --release
 | `bns-server/Docs/Server/GameDaemon/` | 01–25: tables, world connect, enter world, session, handshake key, parity, handler groups (movement, items, skills, party, guild, chat, quests, shop, post, market, arena); parity ledger and evidence |
 | `bns-server/Docs/Platform/Sts/` | 01–09: transport, messages, login flow, token validation, password login, token key patch, token login server |
 | `bns-server/Docs/DataFile/` | 01–10: LMXBOSLB, TADBOSLB, tabledefs, table body, strings, model, schema from exe; JSON exports |
+| `bns-server/Docs/Client/RE/` | Client 381 reverse engineering: 18 chapters, command and enum tables (`INDEX.md`) |
+| `bns-server/Docs/DataFile/book/` | Data file book: format, protection, schema, loader, versions, server side, tools, merged XML |
+| `bns-server/Docs/Platform/StServers/` | StServers specs: CliGate, DbSrv, RouteSrv, route client, AuthSrv; error codes, procedures |
+| `bns-server/Docs/Plan/` | Work cards and handoffs |
 | `bns-server/Docs/DataFile/client-exe/` | Python scripts for client exe and PDB analysis |
 | `notes/client-datafiles.md` | `datafile.bin`, `datafile64.bin`, `locale.bin`: generation, format, keys, versions |
 | `notes/client-exe-reversing.md` | Client exe reverse-engineering notes |
