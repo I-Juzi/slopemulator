@@ -1,0 +1,16 @@
+level	class	test	merged_value	winner	reason	report_column	source
+table	both-table	client name = server root type (case-insensitive, '-' removed) and client version = server root version	field merge (field rows below)	-	same name and version = same field list	tables_both	10.3.1
+table	version-gap	names match, versions differ	two record sets: _side=client and _side=server; no field merge	none (both kept)	other version = other field list; the gap must stay visible	version_gap	10.3.1; 8.4.1
+table	client-only-table	client table name has no server partner	client records	client	server does not have the table	tables_client_only	10.3.1
+table	server-only-table	server root type has no client partner	server records	server	client does not have the table	tables_server_only	10.3.1
+record	both-record	same key (multi-key: key fields as dotted text; auto-key: alias)	one record, _side=both	-	key is the identity; never the position	records_both	10.3.2; 4.6.3
+record	client-only-record	key only in client dump	client record, _side=client	client	-	records_client_only	10.3.2
+record	server-only-record	key only in server dump	server record, _side=server	server	-	records_server_only	10.3.2
+record	no-key-record	auto-key table and no alias attribute	record kept on its side, no match	-	no identity to match	records_no_key	10.3.2
+field	both-equal	attribute in both; normalized text equal	the value	-	no choice	fields_equal	10.3.2
+field	both-conflict	attribute in both; normalized text differs	server value (default); client value with --prefer client; both in conflicts.tsv	server	server enforces the rule; the client only shows it	fields_conflict	10.3.2
+field	alias-conflict	alias differs on a matched key	server alias; both in conflicts.tsv	server	server scripts use aliases (Table::by_alias)	fields_conflict	10.3.2; 8.6
+field	client-only	attribute in client definition, not in the server record	client value	client	server does not get the field	fields_client_only	10.3.2
+field	server-only	attribute in the server record, not in the client definition	server value	server	client does not get the field	fields_server_only	10.3.2
+field	derived	client DrAttrDef.hidden = 1	not written; dump goes to derived/<table>.tsv	build computes it	client fills it after an XML load; binary needs the value	fields_derived	10.4; 0x5bcd50
+field	deprecated	client DrAttrDef.deprecated = 1 (size 0)	server value if present, else not written	server	client binary has no bytes for it	fields_deprecated	4.3.4

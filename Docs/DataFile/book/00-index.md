@@ -43,6 +43,9 @@ The book has three parts:
 | Rules for a safe edit | 9.5 |
 | Change one value in one table | 9.6 |
 | Install and restore | 9.7 |
+| One merged XML for client and server: form, merge rules, rebuild | 10.2, 10.3, 10.5 ([10-unified-xml.md](10-unified-xml.md)) |
+| Field classes and which side wins in a merge | 10.3.2, [merge-rules.tsv](merge-rules.tsv) |
+| Derived (hidden) fields and their loaders | 10.4 |
 
 ## Chapters and reading path
 
@@ -59,6 +62,8 @@ The book has three parts:
 | [07-versions-history.md](07-versions-history.md) | 381 vs GM 419 vs BNSR 2020/2026 vs server 348/2020, with evidence |
 | [08-server-side.md](08-server-side.md) | LMXBOSLB server data, relation to the client tables, what to keep in sync |
 | [09-tools-and-editing.md](09-tools-and-editing.md) | Public tools, our tools, safe edit rules, walkthrough, install and restore |
+| [10-unified-xml.md](10-unified-xml.md) | One XML source for client and server data: client XML form, merge rules, derived fields, rebuild paths |
+| [merge-rules.tsv](merge-rules.tsv) | Merge classes at table, record and field level, with winner and report column |
 
 Reading paths:
 
@@ -130,6 +135,8 @@ Reading paths:
 | Part 1 (3.9): size-0 fields are server-only | 4.3.4: size-0 fields are deprecated (8.4.4) |
 | Client vs server table IDs | Neither; match by name (7.9) |
 | TableDefs 8876 vs data 8884 | Same branch; versions match; use 8876 (7.11) |
+| Earlier count: 52 hidden-field loaders | 38 loaders; 14 names were STL helpers (10.4.1) |
+| Earlier count: 143 hidden attributes | 281 in 49 tables, when all elements are counted (10.4.1) |
 
 ## Open questions (❓)
 
