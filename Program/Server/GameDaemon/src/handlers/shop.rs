@@ -6,7 +6,20 @@ use super::skills::{counted, queue};
 use super::*;
 
 pub const SHOP_COMMANDS: &[u16] = &[
-    80, 827, 940, 944, 1008, 1345, 1436, 1439, 1566, 1569, 1572, 1575, 1578, 1584,
+    ids::G_RebuyItemListReqCmd,
+    ids::G_RestoreVitalityReqCmd,
+    ids::G_DepositMileageReqCmd,
+    ids::G_RetrieveMysteriousStoreReqCmd,
+    ids::G_SellOldItemReqCmd,
+    ids::G_MysteriousBuyReqCmd,
+    ids::G_R_RestoreEnchantFailedItemReqCmd,
+    ids::G_R_ResetEnchantRestoreInfoReqCmd,
+    ids::G_RandomStoreInfoReqCmd,
+    ids::G_RandomStoreDrawReqCmd,
+    ids::G_ExpandRandomStoreSlotReqCmd,
+    ids::G_BuyRandomStoreItemReqCmd,
+    ids::G_TakeRandomStoreDrawRewardReqCmd,
+    ids::G_BuyCollectionItemsReqCmd,
 ];
 
 /// Each check names a server-owned predicate. Pass never completes a purchase.
@@ -112,20 +125,20 @@ impl From<ShopTask> for SkillTaskKind {
 
 pub(super) fn dispatch_shop(ctx: &mut Context<'_>, command: u16, req: &[u8]) -> Outcome {
     match command {
-        80 => handle_rebuy_item_list(ctx, req),
-        827 => handle_restore_vitality(ctx, req),
-        940 => handle_deposit_mileage(ctx, req),
-        944 => handle_retrieve_mysterious_store(ctx, req),
-        1008 => handle_sell_old_item(ctx, req),
-        1345 => handle_mysterious_buy(ctx, req),
-        1436 => handle_r_restore_enchant_failed_item(ctx, req),
-        1439 => handle_r_reset_enchant_restore_info(ctx, req),
-        1566 => handle_random_store_info(ctx, req),
-        1569 => handle_random_store_draw(ctx, req),
-        1572 => handle_expand_random_store_slot(ctx, req),
-        1575 => handle_buy_random_store_item(ctx, req),
-        1578 => handle_take_random_store_draw_reward(ctx, req),
-        1584 => handle_buy_collection_items(ctx, req),
+        ids::G_RebuyItemListReqCmd => handle_rebuy_item_list(ctx, req),
+        ids::G_RestoreVitalityReqCmd => handle_restore_vitality(ctx, req),
+        ids::G_DepositMileageReqCmd => handle_deposit_mileage(ctx, req),
+        ids::G_RetrieveMysteriousStoreReqCmd => handle_retrieve_mysterious_store(ctx, req),
+        ids::G_SellOldItemReqCmd => handle_sell_old_item(ctx, req),
+        ids::G_MysteriousBuyReqCmd => handle_mysterious_buy(ctx, req),
+        ids::G_R_RestoreEnchantFailedItemReqCmd => handle_r_restore_enchant_failed_item(ctx, req),
+        ids::G_R_ResetEnchantRestoreInfoReqCmd => handle_r_reset_enchant_restore_info(ctx, req),
+        ids::G_RandomStoreInfoReqCmd => handle_random_store_info(ctx, req),
+        ids::G_RandomStoreDrawReqCmd => handle_random_store_draw(ctx, req),
+        ids::G_ExpandRandomStoreSlotReqCmd => handle_expand_random_store_slot(ctx, req),
+        ids::G_BuyRandomStoreItemReqCmd => handle_buy_random_store_item(ctx, req),
+        ids::G_TakeRandomStoreDrawRewardReqCmd => handle_take_random_store_draw_reward(ctx, req),
+        ids::G_BuyCollectionItemsReqCmd => handle_buy_collection_items(ctx, req),
         _ => unreachable!("membership checked"),
     }
 }
@@ -300,7 +313,7 @@ pub fn handle_mysterious_buy(ctx: &mut Context<'_>, req: &[u8]) -> Outcome {
     }
     let t = task(
         ctx,
-        1345,
+        ids::G_MysteriousBuyReqCmd,
         zone,
         ShopTask::MysteriousBuy {
             seller,
@@ -327,7 +340,7 @@ pub fn handle_r_restore_enchant_failed_item(ctx: &mut Context<'_>, req: &[u8]) -
     }
     let t = task(
         ctx,
-        1436,
+        ids::G_R_RestoreEnchantFailedItemReqCmd,
         zone,
         ShopTask::RestoreEnchantFailedItem {
             depot,
@@ -353,7 +366,7 @@ pub fn handle_r_reset_enchant_restore_info(ctx: &mut Context<'_>, req: &[u8]) ->
     }
     let t = task(
         ctx,
-        1439,
+        ids::G_R_ResetEnchantRestoreInfoReqCmd,
         zone,
         ShopTask::ResetEnchantRestoreInfo { depot, item },
     );
@@ -435,7 +448,7 @@ pub fn handle_random_store_draw(ctx: &mut Context<'_>, req: &[u8]) -> Outcome {
     // No native-kind gate in 0x1402A4CC0.
     let t = task(
         ctx,
-        1569,
+        ids::G_RandomStoreDrawReqCmd,
         zone,
         ShopTask::RandomStoreDraw {
             store,
@@ -495,7 +508,7 @@ pub fn handle_expand_random_store_slot(ctx: &mut Context<'_>, req: &[u8]) -> Out
     };
     let t = task(
         ctx,
-        1572,
+        ids::G_ExpandRandomStoreSlotReqCmd,
         zone,
         ShopTask::ExpandRandomStoreSlot {
             store,
@@ -533,7 +546,7 @@ pub fn handle_buy_random_store_item(ctx: &mut Context<'_>, req: &[u8]) -> Outcom
     };
     let t = task(
         ctx,
-        1575,
+        ids::G_BuyRandomStoreItemReqCmd,
         zone,
         ShopTask::BuyRandomStoreItem {
             store,
@@ -562,7 +575,7 @@ pub fn handle_take_random_store_draw_reward(ctx: &mut Context<'_>, req: &[u8]) -
     };
     let t = task(
         ctx,
-        1578,
+        ids::G_TakeRandomStoreDrawRewardReqCmd,
         zone,
         ShopTask::TakeRandomStoreDrawReward { store, reward },
     );

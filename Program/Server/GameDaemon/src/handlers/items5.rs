@@ -9,7 +9,17 @@ use super::items2::{count, pair_fail, pairs, post, u0_passes, KindCheck, Post};
 use super::*;
 
 pub const ITEM6_COMMANDS: &[u16] = &[
-    1398, 1400, 1430, 1433, 1442, 1402, 1405, 1408, 1445, 1411, 1581,
+    ids::G_RevealItemAbilityReqCmd,
+    ids::G_AttachEquipGemPieceReqCmd,
+    ids::G_R_EnchantToItemReqCmd,
+    ids::G_R_ResetEnchantItemInfoReqCmd,
+    ids::G_R_PolishToItemReqCmd,
+    ids::G_GrowthItemReqCmd,
+    ids::G_AwakeningItemReqCmd,
+    ids::G_FeedingRandomStatEquipGemReqCmd,
+    ids::G_ProcessItemFusionReqCmd,
+    ids::G_TakeWarehouseItemReqCmd,
+    ids::G_TransformItemReqCmd,
 ];
 
 type Pairs = Vec<(u16, u16)>;
@@ -68,17 +78,19 @@ impl From<AbilityTask> for ItemTaskKind {
 
 pub(super) fn dispatch_item6(ctx: &mut Context<'_>, command: u16, req: &[u8]) -> Outcome {
     match command {
-        1398 => handle_reveal_item_ability(ctx, req),
-        1400 => handle_attach_equip_gem_piece(ctx, req),
-        1430 => handle_enchant_to_item(ctx, req),
-        1433 => handle_reset_enchant_item_info(ctx, req),
-        1442 => handle_polish_to_item(ctx, req),
-        1402 => handle_growth_item(ctx, req),
-        1405 => handle_two_group(ctx, req, 1405, false),
-        1408 => handle_two_group(ctx, req, 1408, true),
-        1445 => handle_process_item_fusion(ctx, req),
-        1411 => handle_take_warehouse_item(ctx, req),
-        1581 => handle_transform_item(ctx, req),
+        ids::G_RevealItemAbilityReqCmd => handle_reveal_item_ability(ctx, req),
+        ids::G_AttachEquipGemPieceReqCmd => handle_attach_equip_gem_piece(ctx, req),
+        ids::G_R_EnchantToItemReqCmd => handle_enchant_to_item(ctx, req),
+        ids::G_R_ResetEnchantItemInfoReqCmd => handle_reset_enchant_item_info(ctx, req),
+        ids::G_R_PolishToItemReqCmd => handle_polish_to_item(ctx, req),
+        ids::G_GrowthItemReqCmd => handle_growth_item(ctx, req),
+        ids::G_AwakeningItemReqCmd => handle_two_group(ctx, req, ids::G_AwakeningItemReqCmd, false),
+        ids::G_FeedingRandomStatEquipGemReqCmd => {
+            handle_two_group(ctx, req, ids::G_FeedingRandomStatEquipGemReqCmd, true)
+        }
+        ids::G_ProcessItemFusionReqCmd => handle_process_item_fusion(ctx, req),
+        ids::G_TakeWarehouseItemReqCmd => handle_take_warehouse_item(ctx, req),
+        ids::G_TransformItemReqCmd => handle_transform_item(ctx, req),
         _ => unreachable!("membership checked"),
     }
 }

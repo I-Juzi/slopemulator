@@ -5,7 +5,23 @@ use super::skills::queue;
 use super::*;
 
 pub const SEASON_COMMANDS: &[u16] = &[
-    105, 108, 913, 916, 921, 924, 980, 985, 989, 992, 995, 998, 1001, 1059, 1088, 1134, 1213,
+    ids::G_InitializeSeasonContentsInfoReqCmd,
+    ids::G_SeasonContentsInfoReqCmd,
+    ids::G_RetrieveBoundRaidDungeonInfoReqCmd,
+    ids::G_UnbindRaidDungeonReqCmd,
+    ids::G_RaidDungeonOnlinePlayerInfoReqCmd,
+    ids::G_RaidDungeonExpirationReqCmd,
+    ids::G_ReviveByAttractionRuleReqCmd,
+    ids::G_TakeAttractionRewardReqCmd,
+    ids::G_RetrieveSeasonContentsScheduleReqCmd,
+    ids::G_RetrieveMyRankingInfoReqCmd,
+    ids::G_RetrieveGuildRankingInfoReqCmd,
+    ids::G_RetrieveRankingRewardListReqCmd,
+    ids::G_TakeRankingRewardReqCmd,
+    ids::G_PublicRaidEventAddScoreReqCmd,
+    ids::G_RetrieveChallengePartyRankingInfoReqCmd,
+    ids::G_SetPvPModeReqCmd,
+    ids::G_PvpResultListReqCmd,
 ];
 
 /// Each predicate reads server-owned state at its native position.
@@ -75,23 +91,33 @@ impl From<SeasonTask> for SkillTaskKind {
 
 pub(super) fn dispatch_season(ctx: &mut Context<'_>, command: u16, req: &[u8]) -> Outcome {
     match command {
-        105 => handle_initialize_season_contents_info(ctx, req),
-        108 => handle_season_contents_info(ctx, req),
-        913 => handle_retrieve_bound_raid_dungeon_info(ctx, req),
-        916 => handle_unbind_raid_dungeon(ctx, req),
-        921 => handle_raid_dungeon_online_player_info(ctx, req),
-        924 => handle_raid_dungeon_expiration(ctx, req),
-        980 => handle_revive_by_attraction_rule(ctx, req),
-        985 => handle_take_attraction_reward(ctx, req),
-        989 => handle_retrieve_season_contents_schedule(ctx, req),
-        992 => handle_retrieve_my_ranking_info(ctx, req),
-        995 => handle_retrieve_guild_ranking_info(ctx, req),
-        998 => handle_retrieve_ranking_reward_list(ctx, req),
-        1001 => handle_take_ranking_reward(ctx, req),
-        1059 => handle_public_raid_event_add_score(ctx, req),
-        1088 => handle_retrieve_challenge_party_ranking_info(ctx, req),
-        1134 => handle_set_pvp_mode(ctx, req),
-        1213 => handle_pvp_result_list(ctx, req),
+        ids::G_InitializeSeasonContentsInfoReqCmd => {
+            handle_initialize_season_contents_info(ctx, req)
+        }
+        ids::G_SeasonContentsInfoReqCmd => handle_season_contents_info(ctx, req),
+        ids::G_RetrieveBoundRaidDungeonInfoReqCmd => {
+            handle_retrieve_bound_raid_dungeon_info(ctx, req)
+        }
+        ids::G_UnbindRaidDungeonReqCmd => handle_unbind_raid_dungeon(ctx, req),
+        ids::G_RaidDungeonOnlinePlayerInfoReqCmd => {
+            handle_raid_dungeon_online_player_info(ctx, req)
+        }
+        ids::G_RaidDungeonExpirationReqCmd => handle_raid_dungeon_expiration(ctx, req),
+        ids::G_ReviveByAttractionRuleReqCmd => handle_revive_by_attraction_rule(ctx, req),
+        ids::G_TakeAttractionRewardReqCmd => handle_take_attraction_reward(ctx, req),
+        ids::G_RetrieveSeasonContentsScheduleReqCmd => {
+            handle_retrieve_season_contents_schedule(ctx, req)
+        }
+        ids::G_RetrieveMyRankingInfoReqCmd => handle_retrieve_my_ranking_info(ctx, req),
+        ids::G_RetrieveGuildRankingInfoReqCmd => handle_retrieve_guild_ranking_info(ctx, req),
+        ids::G_RetrieveRankingRewardListReqCmd => handle_retrieve_ranking_reward_list(ctx, req),
+        ids::G_TakeRankingRewardReqCmd => handle_take_ranking_reward(ctx, req),
+        ids::G_PublicRaidEventAddScoreReqCmd => handle_public_raid_event_add_score(ctx, req),
+        ids::G_RetrieveChallengePartyRankingInfoReqCmd => {
+            handle_retrieve_challenge_party_ranking_info(ctx, req)
+        }
+        ids::G_SetPvPModeReqCmd => handle_set_pvp_mode(ctx, req),
+        ids::G_PvpResultListReqCmd => handle_pvp_result_list(ctx, req),
         _ => unreachable!("membership checked"),
     }
 }
@@ -189,7 +215,7 @@ pub fn handle_initialize_season_contents_info(ctx: &mut Context<'_>, req: &[u8])
     }
     simple(
         ctx,
-        105,
+        ids::G_InitializeSeasonContentsInfoReqCmd,
         Outcome::reason(107, 2),
         false,
         SeasonTask::InitializeContents { types },
@@ -200,7 +226,7 @@ pub fn handle_initialize_season_contents_info(ctx: &mut Context<'_>, req: &[u8])
 pub fn handle_season_contents_info(ctx: &mut Context<'_>, _req: &[u8]) -> Outcome {
     simple(
         ctx,
-        108,
+        ids::G_SeasonContentsInfoReqCmd,
         Outcome::reason(110, 2),
         false,
         SeasonTask::ContentsInfo,
@@ -220,7 +246,7 @@ pub fn handle_retrieve_bound_raid_dungeon_info(ctx: &mut Context<'_>, req: &[u8]
     };
     simple(
         ctx,
-        913,
+        ids::G_RetrieveBoundRaidDungeonInfoReqCmd,
         Outcome::reason(915, 2),
         true,
         SeasonTask::BoundRaidInfo { raid },
@@ -269,7 +295,7 @@ pub fn handle_unbind_raid_dungeon(ctx: &mut Context<'_>, req: &[u8]) -> Outcome 
     }
     enqueue(
         ctx,
-        916,
+        ids::G_UnbindRaidDungeonReqCmd,
         zone,
         SeasonTask::UnbindRaid { raid, pairs },
         Outcome::reason(918, 2),
@@ -314,7 +340,7 @@ pub fn handle_raid_dungeon_expiration(ctx: &mut Context<'_>, _req: &[u8]) -> Out
     }
     simple(
         ctx,
-        924,
+        ids::G_RaidDungeonExpirationReqCmd,
         Outcome::reason(926, 2),
         true,
         SeasonTask::RaidExpiration { mode: 1 },
@@ -326,7 +352,7 @@ pub fn handle_revive_by_attraction_rule(ctx: &mut Context<'_>, _req: &[u8]) -> O
     // Dispatch supplies the h header. There is no body field or failure reply.
     simple(
         ctx,
-        980,
+        ids::G_ReviveByAttractionRuleReqCmd,
         Outcome::log("revive by attraction: task failed"),
         true,
         SeasonTask::ReviveByAttraction,
@@ -341,7 +367,7 @@ pub fn handle_take_attraction_reward(ctx: &mut Context<'_>, req: &[u8]) -> Outco
     // Native code does not copy the decoded qword into this task.
     simple(
         ctx,
-        985,
+        ids::G_TakeAttractionRewardReqCmd,
         Outcome::reason(987, 2),
         true,
         SeasonTask::TakeAttractionReward,
@@ -427,7 +453,7 @@ pub fn handle_take_ranking_reward(ctx: &mut Context<'_>, req: &[u8]) -> Outcome 
 pub fn handle_public_raid_event_add_score(ctx: &mut Context<'_>, _req: &[u8]) -> Outcome {
     simple(
         ctx,
-        1059,
+        ids::G_PublicRaidEventAddScoreReqCmd,
         Outcome::reason(1061, 2),
         true,
         SeasonTask::PublicRaidScore,
@@ -464,7 +490,7 @@ pub fn handle_set_pvp_mode(ctx: &mut Context<'_>, req: &[u8]) -> Outcome {
     };
     simple(
         ctx,
-        1134,
+        ids::G_SetPvPModeReqCmd,
         Outcome::reason(1136, 2),
         false,
         SeasonTask::SetPvpMode {
@@ -477,7 +503,7 @@ pub fn handle_set_pvp_mode(ctx: &mut Context<'_>, req: &[u8]) -> Outcome {
 pub fn handle_pvp_result_list(ctx: &mut Context<'_>, _req: &[u8]) -> Outcome {
     simple(
         ctx,
-        1213,
+        ids::G_PvpResultListReqCmd,
         Outcome::reason(1215, 2),
         false,
         SeasonTask::PvpResults,

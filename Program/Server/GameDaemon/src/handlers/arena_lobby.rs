@@ -8,8 +8,29 @@ use super::*;
 use std::collections::VecDeque;
 
 pub const ARENA_LOBBY_COMMANDS: &[u16] = &[
-    639, 642, 645, 651, 654, 657, 660, 663, 666, 669, 672, 675, 678, 681, 684, 687, 690, 693, 696,
-    699, 702, 761, 763,
+    ids::G_ReserveArenaLobbyReqCmd,
+    ids::G_EnterArenaLobbyReqCmd,
+    ids::G_LeaveArenaLobbyReqCmd,
+    ids::G_ExitFromArenaLobbyRoomReqCmd,
+    ids::G_SetArenaLobbyRoomMatchOptionReqCmd,
+    ids::G_DelegateArenaLobbyRoomTeamLeaderReqCmd,
+    ids::G_SetArenaLobbyRoomPasswordReqCmd,
+    ids::G_InviteArenaLobbyRoomReqCmd,
+    ids::G_BroadcastArenaLobbyRoomUnratedInvitationReqCmd,
+    ids::G_JoinArenaLobbyRoomReqCmd,
+    ids::G_BanishFromArenaLobbyReqCmd,
+    ids::G_ReadyToMatchArenaLobbyRoomReqCmd,
+    ids::G_UnReadyToMatchArenaLobbyRoomReqCmd,
+    ids::G_MatchArenaLobbyRoomReqCmd,
+    ids::G_SkipArenaLobbyMatchReqCmd,
+    ids::G_CancelArenaLobbyMatchingReqCmd,
+    ids::G_CancelArenaLobbyMatchReqCmd,
+    ids::G_ReadyToGoToArenaReqCmd,
+    ids::G_DecideToGoToArenaReqCmd,
+    ids::G_RetrieveArenaLobbyWaitingNumberReqCmd,
+    ids::G_CancelArenaLobbyWaitingReqCmd,
+    ids::G_ReserveArenaLobbyPartyAgreementReqCmd,
+    ids::G_ReserveArenaLobbyPartyFinalDecisionReqCmd,
 ];
 
 /// Extends the existing PC arena state. It does not hold a second state/key.
@@ -205,29 +226,43 @@ impl MemoryArenaLobby {
 
 pub(super) fn dispatch_arena_lobby(ctx: &mut Context<'_>, command: u16, req: &[u8]) -> Outcome {
     match command {
-        639 => handle_reserve_arena_lobby(ctx, req),
-        642 => handle_enter_arena_lobby(ctx, req),
-        645 => handle_leave_arena_lobby(ctx, req),
-        651 => handle_exit_from_arena_lobby_room(ctx, req),
-        654 => handle_set_arena_lobby_room_match_option(ctx, req),
-        657 => handle_delegate_arena_lobby_room_team_leader(ctx, req),
-        660 => handle_set_arena_lobby_room_password(ctx, req),
-        663 => handle_invite_arena_lobby_room(ctx, req),
-        666 => handle_broadcast_arena_lobby_room_unrated_invitation(ctx, req),
-        669 => handle_join_arena_lobby_room(ctx, req),
-        672 => handle_banish_from_arena_lobby(ctx, req),
-        675 => handle_ready_to_match_arena_lobby_room(ctx, req),
-        678 => handle_unready_to_match_arena_lobby_room(ctx, req),
-        681 => handle_match_arena_lobby_room(ctx, req),
-        684 => handle_skip_arena_lobby_match(ctx, req),
-        687 => handle_cancel_arena_lobby_matching(ctx, req),
-        690 => handle_cancel_arena_lobby_match(ctx, req),
-        693 => handle_ready_to_go_to_arena(ctx, req),
-        696 => handle_decide_to_go_to_arena(ctx, req),
-        699 => handle_retrieve_arena_lobby_waiting_number(ctx, req),
-        702 => handle_cancel_arena_lobby_waiting(ctx, req),
-        761 => handle_reserve_arena_lobby_party_agreement(ctx, req),
-        763 => handle_reserve_arena_lobby_party_final_decision(ctx, req),
+        ids::G_ReserveArenaLobbyReqCmd => handle_reserve_arena_lobby(ctx, req),
+        ids::G_EnterArenaLobbyReqCmd => handle_enter_arena_lobby(ctx, req),
+        ids::G_LeaveArenaLobbyReqCmd => handle_leave_arena_lobby(ctx, req),
+        ids::G_ExitFromArenaLobbyRoomReqCmd => handle_exit_from_arena_lobby_room(ctx, req),
+        ids::G_SetArenaLobbyRoomMatchOptionReqCmd => {
+            handle_set_arena_lobby_room_match_option(ctx, req)
+        }
+        ids::G_DelegateArenaLobbyRoomTeamLeaderReqCmd => {
+            handle_delegate_arena_lobby_room_team_leader(ctx, req)
+        }
+        ids::G_SetArenaLobbyRoomPasswordReqCmd => handle_set_arena_lobby_room_password(ctx, req),
+        ids::G_InviteArenaLobbyRoomReqCmd => handle_invite_arena_lobby_room(ctx, req),
+        ids::G_BroadcastArenaLobbyRoomUnratedInvitationReqCmd => {
+            handle_broadcast_arena_lobby_room_unrated_invitation(ctx, req)
+        }
+        ids::G_JoinArenaLobbyRoomReqCmd => handle_join_arena_lobby_room(ctx, req),
+        ids::G_BanishFromArenaLobbyReqCmd => handle_banish_from_arena_lobby(ctx, req),
+        ids::G_ReadyToMatchArenaLobbyRoomReqCmd => handle_ready_to_match_arena_lobby_room(ctx, req),
+        ids::G_UnReadyToMatchArenaLobbyRoomReqCmd => {
+            handle_unready_to_match_arena_lobby_room(ctx, req)
+        }
+        ids::G_MatchArenaLobbyRoomReqCmd => handle_match_arena_lobby_room(ctx, req),
+        ids::G_SkipArenaLobbyMatchReqCmd => handle_skip_arena_lobby_match(ctx, req),
+        ids::G_CancelArenaLobbyMatchingReqCmd => handle_cancel_arena_lobby_matching(ctx, req),
+        ids::G_CancelArenaLobbyMatchReqCmd => handle_cancel_arena_lobby_match(ctx, req),
+        ids::G_ReadyToGoToArenaReqCmd => handle_ready_to_go_to_arena(ctx, req),
+        ids::G_DecideToGoToArenaReqCmd => handle_decide_to_go_to_arena(ctx, req),
+        ids::G_RetrieveArenaLobbyWaitingNumberReqCmd => {
+            handle_retrieve_arena_lobby_waiting_number(ctx, req)
+        }
+        ids::G_CancelArenaLobbyWaitingReqCmd => handle_cancel_arena_lobby_waiting(ctx, req),
+        ids::G_ReserveArenaLobbyPartyAgreementReqCmd => {
+            handle_reserve_arena_lobby_party_agreement(ctx, req)
+        }
+        ids::G_ReserveArenaLobbyPartyFinalDecisionReqCmd => {
+            handle_reserve_arena_lobby_party_final_decision(ctx, req)
+        }
         _ => unreachable!("membership checked"),
     }
 }
@@ -882,7 +917,7 @@ fn party_decision(ctx: &mut Context<'_>, req: &[u8], final_decision: bool) -> Ou
     }
     let (command, kind) = if final_decision {
         (
-            763,
+            ids::G_ReserveArenaLobbyPartyFinalDecisionReqCmd,
             ArenaLobbyTask::PartyFinalDecision {
                 decided: value != 0,
             },

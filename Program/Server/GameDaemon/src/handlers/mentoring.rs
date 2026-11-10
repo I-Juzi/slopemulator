@@ -6,7 +6,15 @@
 use super::skills::queue;
 use super::*;
 
-pub const MENTORING_COMMANDS: &[u16] = &[1098, 1100, 1103, 1105, 1107, 1111, 1115];
+pub const MENTORING_COMMANDS: &[u16] = &[
+    ids::G_ChangeMentoringTypeReqCmd,
+    ids::G_InviteMentoringReqCmd,
+    ids::G_ConfirmInvitationMentoringReqCmd,
+    ids::G_RejectInvitationMentoringReqCmd,
+    ids::G_LeaveMentoringReqCmd,
+    ids::G_CallMentoringMemberReqCmd,
+    ids::G_WarpToMentoringMemberReqCmd,
+];
 
 /// Doc 17 shared fields.
 #[derive(Clone, Debug)]
@@ -127,13 +135,13 @@ pub enum MentoringRegistry {
 
 pub(super) fn dispatch_mentoring(ctx: &mut Context<'_>, command: u16, req: &[u8]) -> Outcome {
     match command {
-        1098 => handle_change_mentoring_type(ctx, req),
-        1100 => handle_invite_mentoring(ctx, req),
-        1103 => handle_confirm_invitation_mentoring(ctx, req),
-        1105 => handle_reject_invitation_mentoring(ctx, req),
-        1107 => handle_leave_mentoring(ctx, req),
-        1111 => handle_call_mentoring_member(ctx, req),
-        1115 => handle_warp_to_mentoring_member(ctx, req),
+        ids::G_ChangeMentoringTypeReqCmd => handle_change_mentoring_type(ctx, req),
+        ids::G_InviteMentoringReqCmd => handle_invite_mentoring(ctx, req),
+        ids::G_ConfirmInvitationMentoringReqCmd => handle_confirm_invitation_mentoring(ctx, req),
+        ids::G_RejectInvitationMentoringReqCmd => handle_reject_invitation_mentoring(ctx, req),
+        ids::G_LeaveMentoringReqCmd => handle_leave_mentoring(ctx, req),
+        ids::G_CallMentoringMemberReqCmd => handle_call_mentoring_member(ctx, req),
+        ids::G_WarpToMentoringMemberReqCmd => handle_warp_to_mentoring_member(ctx, req),
         _ => unreachable!("membership checked"),
     }
 }
@@ -193,7 +201,7 @@ pub fn handle_change_mentoring_type(ctx: &mut Context<'_>, req: &[u8]) -> Outcom
     };
     let t = task(
         ctx,
-        1098,
+        ids::G_ChangeMentoringTypeReqCmd,
         zone,
         MentoringTask::ChangeType { mentoring_type },
     );
@@ -238,7 +246,7 @@ pub fn handle_invite_mentoring(ctx: &mut Context<'_>, req: &[u8]) -> Outcome {
     }
     let t = task(
         ctx,
-        1100,
+        ids::G_InviteMentoringReqCmd,
         zone,
         MentoringTask::Invite {
             target: target.object_id,
@@ -313,7 +321,7 @@ pub fn handle_confirm_invitation_mentoring(ctx: &mut Context<'_>, req: &[u8]) ->
     if mentee_kind != 1 || inviter_db_id == 0 {
         return Outcome::reason(F, 2);
     }
-    let mut t = task(ctx, 1103, zone, confirm);
+    let mut t = task(ctx, ids::G_ConfirmInvitationMentoringReqCmd, zone, confirm);
     t.caster = mentee_object_id;
     queue(ctx, t, Outcome::reason(F, 2))
 }
@@ -337,7 +345,12 @@ pub fn handle_reject_invitation_mentoring(ctx: &mut Context<'_>, req: &[u8]) -> 
     if ctx.pc().native_kind != 1 {
         return Outcome::log("RejectInvitationMentoring; invalid pc kind");
     }
-    let t = task(ctx, 1105, zone, MentoringTask::Reject { first, second });
+    let t = task(
+        ctx,
+        ids::G_RejectInvitationMentoringReqCmd,
+        zone,
+        MentoringTask::Reject { first, second },
+    );
     queue(
         ctx,
         t,
@@ -365,7 +378,11 @@ pub fn handle_leave_mentoring(ctx: &mut Context<'_>, req: &[u8]) -> Outcome {
 }
 
 fn call_or_warp(ctx: &mut Context<'_>, req: &[u8], warp: bool) -> Outcome {
-    let (command, fail) = if warp { (1115, 1117) } else { (1111, 1113) };
+    let (command, fail) = if warp {
+        (ids::G_WarpToMentoringMemberReqCmd, 1117)
+    } else {
+        (ids::G_CallMentoringMemberReqCmd, 1113)
+    };
     let mut r = Reader(req);
     let (target, decoded) = match (r.quad(), r.short()) {
         (Some(t), Some(_)) => (t, true),

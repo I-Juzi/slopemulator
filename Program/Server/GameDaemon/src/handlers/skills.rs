@@ -11,8 +11,30 @@ use super::items2::{pairs, u0_passes};
 use super::*;
 
 pub const SKILL_COMMANDS: &[u16] = &[
-    1226, 1228, 1229, 1231, 1270, 77, 1272, 71, 74, 134, 135, 137, 139, 142, 821, 824, 113, 117,
-    1485, 1488, 1491, 1494, 1497, 1389,
+    ids::G_UseSkillReqCmd,
+    ids::G_UseSkillToGroundReqCmd,
+    ids::G_CancelActionReqCmd,
+    ids::G_SkillTriggerReqCmd,
+    ids::G_GatherReqCmd,
+    ids::G_GatherCancelReqCmd,
+    ids::G_LootReqCmd,
+    ids::G_RecallSummonReqCmd,
+    ids::G_SpecialSkillGaugeFullReqCmd,
+    ids::G_SelectTargetReqCmd,
+    ids::G_DieInExhaustionReqCmd,
+    ids::G_RestorationInExhaustionReqCmd,
+    ids::G_HelpRestorationReqCmd,
+    ids::G_RespawnReqCmd,
+    ids::G_SaveVitalityReqCmd,
+    ids::G_RechargeVitalityReqCmd,
+    ids::G_SkillList2ReqCmd,
+    ids::G_SetMasteryStatPointReqCmd,
+    ids::G_SkillPageTotalReqCmd,
+    ids::G_ChangeSkillPageReqCmd,
+    ids::G_ExpandSkillPageReqCmd,
+    ids::G_RenameSkillPageReqCmd,
+    ids::G_TrainTraitReqCmd,
+    ids::G_UnlockMasteryLevelReqCmd,
 ];
 
 #[derive(Clone, Debug, Default, PartialEq, Eq)]
@@ -365,30 +387,48 @@ impl Default for MemorySkillCompletion {
 /// These four go through `pc_task` or log only (821).
 pub(super) fn dispatch_skill(ctx: &mut Context<'_>, command: u16, req: &[u8]) -> Outcome {
     match command {
-        1226 => handle_use_skill(ctx, req, false),
-        1228 => handle_use_skill(ctx, req, true),
-        1229 => handle_cancel_action(ctx, req),
-        1231 => handle_skill_trigger(ctx, req),
-        1270 => handle_gather(ctx, req),
-        77 => handle_gather_cancel(ctx, req),
-        1272 => handle_loot(ctx, req),
-        71 => handle_recall_summon(ctx, req),
-        74 => handle_special_skill_gauge_full(ctx, req),
-        134 => handle_select_target(ctx, req),
-        135 => pc_task(ctx, 135, 136, 1, SkillTaskKind::DieInExhaustion),
-        137 => pc_task(ctx, 137, 138, 1, SkillTaskKind::RestorationInExhaustion),
-        139 => handle_help_restoration(ctx, req),
-        142 => handle_respawn(ctx, req),
-        821 => Outcome::log("save vitality: deprecated request"),
-        824 => handle_recharge_vitality(ctx, req),
-        113 => handle_skill_list(ctx, req),
-        117 => handle_set_mastery_stat_point(ctx, req),
-        1485 => pc_task(ctx, 1485, 1487, 2, SkillTaskKind::SkillPageTotal),
-        1488 => handle_change_skill_page(ctx, req),
-        1491 => handle_expand_skill_page(ctx, req),
-        1494 => handle_rename_skill_page(ctx, req),
-        1497 => handle_train_trait(ctx, req),
-        1389 => handle_unlock_mastery_level(ctx, req),
+        ids::G_UseSkillReqCmd => handle_use_skill(ctx, req, false),
+        ids::G_UseSkillToGroundReqCmd => handle_use_skill(ctx, req, true),
+        ids::G_CancelActionReqCmd => handle_cancel_action(ctx, req),
+        ids::G_SkillTriggerReqCmd => handle_skill_trigger(ctx, req),
+        ids::G_GatherReqCmd => handle_gather(ctx, req),
+        ids::G_GatherCancelReqCmd => handle_gather_cancel(ctx, req),
+        ids::G_LootReqCmd => handle_loot(ctx, req),
+        ids::G_RecallSummonReqCmd => handle_recall_summon(ctx, req),
+        ids::G_SpecialSkillGaugeFullReqCmd => handle_special_skill_gauge_full(ctx, req),
+        ids::G_SelectTargetReqCmd => handle_select_target(ctx, req),
+        ids::G_DieInExhaustionReqCmd => pc_task(
+            ctx,
+            ids::G_DieInExhaustionReqCmd,
+            ids::G_DieInExhaustionFailCmd,
+            1,
+            SkillTaskKind::DieInExhaustion,
+        ),
+        ids::G_RestorationInExhaustionReqCmd => pc_task(
+            ctx,
+            ids::G_RestorationInExhaustionReqCmd,
+            ids::G_RestorationInExhaustionFailCmd,
+            1,
+            SkillTaskKind::RestorationInExhaustion,
+        ),
+        ids::G_HelpRestorationReqCmd => handle_help_restoration(ctx, req),
+        ids::G_RespawnReqCmd => handle_respawn(ctx, req),
+        ids::G_SaveVitalityReqCmd => Outcome::log("save vitality: deprecated request"),
+        ids::G_RechargeVitalityReqCmd => handle_recharge_vitality(ctx, req),
+        ids::G_SkillList2ReqCmd => handle_skill_list(ctx, req),
+        ids::G_SetMasteryStatPointReqCmd => handle_set_mastery_stat_point(ctx, req),
+        ids::G_SkillPageTotalReqCmd => pc_task(
+            ctx,
+            ids::G_SkillPageTotalReqCmd,
+            ids::G_SkillPageTotalFailCmd,
+            2,
+            SkillTaskKind::SkillPageTotal,
+        ),
+        ids::G_ChangeSkillPageReqCmd => handle_change_skill_page(ctx, req),
+        ids::G_ExpandSkillPageReqCmd => handle_expand_skill_page(ctx, req),
+        ids::G_RenameSkillPageReqCmd => handle_rename_skill_page(ctx, req),
+        ids::G_TrainTraitReqCmd => handle_train_trait(ctx, req),
+        ids::G_UnlockMasteryLevelReqCmd => handle_unlock_mastery_level(ctx, req),
         _ => unreachable!("membership checked"),
     }
 }
@@ -550,7 +590,11 @@ pub fn handle_use_skill(ctx: &mut Context<'_>, req: &[u8], ground: bool) -> Outc
         },
     };
     let task = SkillTask {
-        command: if ground { 1228 } else { 1226 },
+        command: if ground {
+            ids::G_UseSkillToGroundReqCmd
+        } else {
+            ids::G_UseSkillReqCmd
+        },
         caster: ctx.pc().object_id,
         summon,
         zone,
@@ -674,7 +718,7 @@ pub fn handle_recall_summon(ctx: &mut Context<'_>, req: &[u8]) -> Outcome {
         return Outcome::unsupported(UNCHECKED_DECODE);
     };
     let task = SkillTask {
-        command: 71,
+        command: ids::G_RecallSummonReqCmd,
         caster: pc.object_id,
         summon: true,
         zone,
@@ -699,7 +743,7 @@ pub fn handle_special_skill_gauge_full(ctx: &mut Context<'_>, _: &[u8]) -> Outco
         return Outcome::unsupported("❓ 74 wrong-kind reason-2 reply reads an unsupplied short");
     }
     let task = SkillTask {
-        command: 74,
+        command: ids::G_SpecialSkillGaugeFullReqCmd,
         caster: pc.object_id,
         summon: false,
         zone,
@@ -726,7 +770,7 @@ pub fn handle_select_target(ctx: &mut Context<'_>, req: &[u8]) -> Outcome {
         return Outcome::log("select target: zone is not found");
     };
     let task = SkillTask {
-        command: 134,
+        command: ids::G_SelectTargetReqCmd,
         caster: pc.object_id,
         summon: false,
         zone,
@@ -757,7 +801,7 @@ pub fn handle_help_restoration(ctx: &mut Context<'_>, req: &[u8]) -> Outcome {
         return out;
     }
     let task = SkillTask {
-        command: 139,
+        command: ids::G_HelpRestorationReqCmd,
         caster: ctx.pc().object_id,
         summon,
         zone,
@@ -776,7 +820,7 @@ pub fn handle_respawn(ctx: &mut Context<'_>, req: &[u8]) -> Outcome {
         return Outcome::reason(144, 1);
     };
     let task = SkillTask {
-        command: 142,
+        command: ids::G_RespawnReqCmd,
         caster: pc.object_id,
         summon: false,
         zone,
@@ -1134,7 +1178,7 @@ pub fn handle_recharge_vitality(ctx: &mut Context<'_>, _: &[u8]) -> Outcome {
         return out;
     }
     let task = SkillTask {
-        command: 824,
+        command: ids::G_RechargeVitalityReqCmd,
         caster: pc.object_id,
         summon: false,
         zone,
@@ -1150,7 +1194,7 @@ pub fn handle_skill_list(ctx: &mut Context<'_>, _: &[u8]) -> Outcome {
         return Outcome::reason(115, 2);
     };
     let task = SkillTask {
-        command: 113,
+        command: ids::G_SkillList2ReqCmd,
         caster: pc.object_id,
         summon: false,
         zone,
@@ -1185,7 +1229,7 @@ pub fn handle_set_mastery_stat_point(ctx: &mut Context<'_>, req: &[u8]) -> Outco
         return Outcome::reason(119, 2);
     }
     let task = SkillTask {
-        command: 117,
+        command: ids::G_SetMasteryStatPointReqCmd,
         caster: ctx.pc().object_id,
         summon: false,
         zone,
@@ -1226,7 +1270,7 @@ pub fn handle_expand_skill_page(ctx: &mut Context<'_>, req: &[u8]) -> Outcome {
         return Outcome::default();
     }
     let task = SkillTask {
-        command: 1491,
+        command: ids::G_ExpandSkillPageReqCmd,
         caster: pc.object_id,
         summon: false,
         zone,
@@ -1328,7 +1372,7 @@ fn train_trait_body(
         traits.push((id, level as i8));
     }
     let task = SkillTask {
-        command: 1497,
+        command: ids::G_TrainTraitReqCmd,
         caster: ctx.pc().object_id,
         summon: false,
         zone,
@@ -1357,7 +1401,7 @@ pub fn handle_unlock_mastery_level(ctx: &mut Context<'_>, req: &[u8]) -> Outcome
         return Outcome::log("unlock mastery level: caster is not a PC");
     }
     let task = SkillTask {
-        command: 1389,
+        command: ids::G_UnlockMasteryLevelReqCmd,
         caster: pc.object_id,
         summon: false,
         zone,

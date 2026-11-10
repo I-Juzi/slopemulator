@@ -9,7 +9,15 @@
 use super::skills::queue;
 use super::*;
 
-pub const SOCIAL_COMMANDS: &[u16] = &[896, 898, 901, 904, 1041, 1044, 1047];
+pub const SOCIAL_COMMANDS: &[u16] = &[
+    ids::G_AchievementCompleteReqCmd,
+    ids::G_AchievementTitleInstallReqCmd,
+    ids::G_AchievementAbilityInstallReqCmd,
+    ids::G_ActivateGameGradeReqCmd,
+    ids::G_TakeAchievementRewardReqCmd,
+    ids::G_TimeBasedPlayInfoReqCmd,
+    ids::G_TakeTimeBasedPlayRewardReqCmd,
+];
 
 /// One achievement table record (DataManager slot 39), keyed by (id, step, job).
 #[derive(Clone, Debug, Default, PartialEq, Eq)]
@@ -22,13 +30,13 @@ pub struct AchievementRecord {
 
 pub(super) fn dispatch_social(ctx: &mut Context<'_>, command: u16, req: &[u8]) -> Outcome {
     match command {
-        896 => handle_achievement_complete(ctx, req),
-        898 => handle_achievement_title_install(ctx, req),
-        901 => handle_achievement_ability_install(ctx, req),
-        904 => handle_activate_game_grade(ctx, req),
-        1041 => handle_take_achievement_reward(ctx, req),
-        1044 => handle_time_based_play_info(ctx, req),
-        1047 => handle_take_time_based_play_reward(ctx, req),
+        ids::G_AchievementCompleteReqCmd => handle_achievement_complete(ctx, req),
+        ids::G_AchievementTitleInstallReqCmd => handle_achievement_title_install(ctx, req),
+        ids::G_AchievementAbilityInstallReqCmd => handle_achievement_ability_install(ctx, req),
+        ids::G_ActivateGameGradeReqCmd => handle_activate_game_grade(ctx, req),
+        ids::G_TakeAchievementRewardReqCmd => handle_take_achievement_reward(ctx, req),
+        ids::G_TimeBasedPlayInfoReqCmd => handle_time_based_play_info(ctx, req),
+        ids::G_TakeTimeBasedPlayRewardReqCmd => handle_take_time_based_play_reward(ctx, req),
         _ => unreachable!("membership checked"),
     }
 }
@@ -54,8 +62,8 @@ enum Install {
 
 fn install(ctx: &mut Context<'_>, req: &[u8], kind: Install) -> Outcome {
     let (command, fail, invalid, deprecated) = match kind {
-        Install::Title => (898, 900, 2090, 2091),
-        Install::Ability => (901, 903, 2094, 2095),
+        Install::Title => (ids::G_AchievementTitleInstallReqCmd, 900, 2090, 2091),
+        Install::Ability => (ids::G_AchievementAbilityInstallReqCmd, 903, 2094, 2095),
     };
     if !ctx.world.achievement_enabled {
         return Outcome::default();
@@ -170,7 +178,7 @@ pub fn handle_take_achievement_reward(ctx: &mut Context<'_>, req: &[u8]) -> Outc
         Gate::Unknown => return Outcome::unsupported("❓ reward task initializer 0x1402C15A0"),
     }
     let task = SkillTask {
-        command: 1041,
+        command: ids::G_TakeAchievementRewardReqCmd,
         caster: ctx.pc().object_id,
         summon: false,
         zone,

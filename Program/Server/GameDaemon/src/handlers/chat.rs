@@ -10,7 +10,23 @@ use super::skills::{queue, UNCHECKED_DECODE};
 use super::*;
 
 pub const CHAT_COMMANDS: &[u16] = &[
-    50, 51, 55, 58, 61, 1216, 68, 342, 345, 387, 390, 393, 395, 1557, 1560, 1563, 1185,
+    ids::G_GodSayCmd,
+    ids::G_MessageReqCmd,
+    ids::G_MessageByItemReqCmd,
+    ids::G_MessageByDiceReqCmd,
+    ids::G_TalkSessionCloseReqCmd,
+    ids::G_TalkSessionOpenReqCmd,
+    ids::G_SetPcSocialReqCmd,
+    ids::G_JoinChattingChannelReqCmd,
+    ids::G_LeaveChattingChannelReqCmd,
+    ids::G_ChattingServerLoginSignatureReqCmd,
+    ids::G_CurrentPetitionReqCmd,
+    ids::G_EndPetitionNotifyReqCmd,
+    ids::G_SendPetitionChatNotifyReqCmd,
+    ids::G_SubmitPetitionReqCmd,
+    ids::G_CancelPetitionReqCmd,
+    ids::G_FeedbackPetitionReqCmd,
+    ids::G_BoardGachaTakeParticipationRewardReqCmd,
 ];
 
 /// parity: 844 16-chat-social-handlers.md#844--893--qq-group--partial partial
@@ -30,7 +46,21 @@ pub const CHAT_COMMANDS: &[u16] = &[
 /// parity: 893 16-chat-social-handlers.md#844--893--qq-group--partial partial
 /// QQ commands that share target `0x1400DE550` with 887 (doc 10).
 pub const QQ_COMMANDS: &[u16] = &[
-    844, 849, 852, 855, 857, 860, 863, 866, 869, 873, 877, 881, 884, 890, 893,
+    ids::G_QQLoginReqCmd,
+    ids::G_QQUserStatusReqCmd,
+    ids::G_QQGetUnreadMsgReqCmd,
+    ids::G_QQConfirmUnreadMsgReqCmd,
+    ids::G_QQC2CReqCmd,
+    ids::G_QQGroupCreateReqCmd,
+    ids::G_QQGroupListReqCmd,
+    ids::G_QQGroupBindingReqCmd,
+    ids::G_QQGroupUnbindingReqCmd,
+    ids::G_QQGroupMemberInviteReqCmd,
+    ids::G_QQGroupMemberJoinReqCmd,
+    ids::G_QQGroupMessageReqCmd,
+    ids::G_QQUserChangeStatusReqCmd,
+    ids::G_QQUserNameReqCmd,
+    ids::G_QQGroupMemberNameReqCmd,
 ];
 
 #[derive(Clone, Debug, PartialEq, Eq)]
@@ -114,23 +144,27 @@ impl ChatRequest {
 
 pub(super) fn dispatch_chat(ctx: &mut Context<'_>, command: u16, req: &[u8]) -> Outcome {
     match command {
-        50 => handle_god_say(ctx, req),
-        51 => handle_message(ctx, req),
-        55 => handle_message_by_item(ctx, req),
-        58 => handle_message_by_dice(ctx, req),
-        61 => handle_talk_session_close(ctx, req),
-        1216 => handle_talk_session_open(ctx, req),
-        68 => handle_set_pc_social(ctx, req),
-        342 => handle_join_chatting_channel(ctx, req),
-        345 => handle_leave_chatting_channel(ctx, req),
-        387 => handle_chatting_server_login_signature(ctx, req),
-        390 => handle_current_petition(ctx, req),
-        393 => handle_end_petition_notify(ctx, req),
-        395 => handle_send_petition_chat_notify(ctx, req),
-        1557 => handle_submit_petition(ctx, req),
-        1560 => handle_cancel_petition(ctx, req),
-        1563 => handle_feedback_petition(ctx, req),
-        1185 => handle_board_gacha_take_participation_reward(ctx, req),
+        ids::G_GodSayCmd => handle_god_say(ctx, req),
+        ids::G_MessageReqCmd => handle_message(ctx, req),
+        ids::G_MessageByItemReqCmd => handle_message_by_item(ctx, req),
+        ids::G_MessageByDiceReqCmd => handle_message_by_dice(ctx, req),
+        ids::G_TalkSessionCloseReqCmd => handle_talk_session_close(ctx, req),
+        ids::G_TalkSessionOpenReqCmd => handle_talk_session_open(ctx, req),
+        ids::G_SetPcSocialReqCmd => handle_set_pc_social(ctx, req),
+        ids::G_JoinChattingChannelReqCmd => handle_join_chatting_channel(ctx, req),
+        ids::G_LeaveChattingChannelReqCmd => handle_leave_chatting_channel(ctx, req),
+        ids::G_ChattingServerLoginSignatureReqCmd => {
+            handle_chatting_server_login_signature(ctx, req)
+        }
+        ids::G_CurrentPetitionReqCmd => handle_current_petition(ctx, req),
+        ids::G_EndPetitionNotifyReqCmd => handle_end_petition_notify(ctx, req),
+        ids::G_SendPetitionChatNotifyReqCmd => handle_send_petition_chat_notify(ctx, req),
+        ids::G_SubmitPetitionReqCmd => handle_submit_petition(ctx, req),
+        ids::G_CancelPetitionReqCmd => handle_cancel_petition(ctx, req),
+        ids::G_FeedbackPetitionReqCmd => handle_feedback_petition(ctx, req),
+        ids::G_BoardGachaTakeParticipationRewardReqCmd => {
+            handle_board_gacha_take_participation_reward(ctx, req)
+        }
         _ => unreachable!("membership checked"),
     }
 }
@@ -271,7 +305,7 @@ pub fn handle_set_pc_social(ctx: &mut Context<'_>, req: &[u8]) -> Outcome {
     };
     let task = chat_task(
         ctx,
-        68,
+        ids::G_SetPcSocialReqCmd,
         zone,
         ChatTask::SetPcSocial {
             social: social as i16,

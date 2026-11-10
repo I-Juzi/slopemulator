@@ -8,7 +8,18 @@
 use super::*;
 
 pub const DUEL_RANKING_COMMANDS: &[u16] = &[
-    277, 280, 283, 289, 292, 968, 973, 977, 1022, 1587, 1590, 1594,
+    ids::G_DuelChooseDuelOrderReqCmd,
+    ids::G_DuelReadyRoundReqCmd,
+    ids::G_DuelTakeTagTokenReqCmd,
+    ids::G_PartyBattleReadyReqCmd,
+    ids::G_PartyBattleStartReqCmd,
+    ids::G_DuelBotChallengeCombatStartReqCmd,
+    ids::G_DuelBotChallengePickStrategicToolReqCmd,
+    ids::G_DuelBotChallengeUseStrategicToolReqCmd,
+    ids::G_PartyBattleVoteCastReqCmd,
+    ids::G_DuelBotTrainingRoomPickDuelBotReqCmd,
+    ids::G_DuelBotTrainingRoomCombatStartReqCmd,
+    ids::G_DuelBotTrainingRoomRewardReqCmd,
 ];
 
 #[derive(Clone, Debug, PartialEq, Eq)]
@@ -46,18 +57,28 @@ impl From<DuelTask> for SkillTaskKind {
 
 pub(super) fn dispatch_duel_ranking(ctx: &mut Context<'_>, command: u16, req: &[u8]) -> Outcome {
     match command {
-        277 => handle_duel_choose_duel_order(ctx, req),
-        280 => handle_duel_ready_round(ctx, req),
-        283 => handle_duel_take_tag_token(ctx, req),
-        289 => handle_party_battle_ready(ctx, req),
-        292 => handle_party_battle_start(ctx, req),
-        1022 => handle_party_battle_vote_cast(ctx, req),
-        968 => handle_duel_bot_challenge_combat_start(ctx, req),
-        973 => handle_duel_bot_challenge_pick_strategic_tool(ctx, req),
-        977 => handle_duel_bot_challenge_use_strategic_tool(ctx, req),
-        1587 => handle_duel_bot_training_room_pick_duel_bot(ctx, req),
-        1590 => handle_duel_bot_training_room_combat_start(ctx, req),
-        1594 => handle_duel_bot_training_room_reward(ctx, req),
+        ids::G_DuelChooseDuelOrderReqCmd => handle_duel_choose_duel_order(ctx, req),
+        ids::G_DuelReadyRoundReqCmd => handle_duel_ready_round(ctx, req),
+        ids::G_DuelTakeTagTokenReqCmd => handle_duel_take_tag_token(ctx, req),
+        ids::G_PartyBattleReadyReqCmd => handle_party_battle_ready(ctx, req),
+        ids::G_PartyBattleStartReqCmd => handle_party_battle_start(ctx, req),
+        ids::G_PartyBattleVoteCastReqCmd => handle_party_battle_vote_cast(ctx, req),
+        ids::G_DuelBotChallengeCombatStartReqCmd => {
+            handle_duel_bot_challenge_combat_start(ctx, req)
+        }
+        ids::G_DuelBotChallengePickStrategicToolReqCmd => {
+            handle_duel_bot_challenge_pick_strategic_tool(ctx, req)
+        }
+        ids::G_DuelBotChallengeUseStrategicToolReqCmd => {
+            handle_duel_bot_challenge_use_strategic_tool(ctx, req)
+        }
+        ids::G_DuelBotTrainingRoomPickDuelBotReqCmd => {
+            handle_duel_bot_training_room_pick_duel_bot(ctx, req)
+        }
+        ids::G_DuelBotTrainingRoomCombatStartReqCmd => {
+            handle_duel_bot_training_room_combat_start(ctx, req)
+        }
+        ids::G_DuelBotTrainingRoomRewardReqCmd => handle_duel_bot_training_room_reward(ctx, req),
         _ => unreachable!("membership checked"),
     }
 }

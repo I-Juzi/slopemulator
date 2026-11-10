@@ -7,6 +7,7 @@
 //! Restricted private-object boundary: 381 0x1406E3100. No implementation.
 
 pub mod handlers;
+pub mod ids;
 pub mod kick;
 pub mod validation;
 

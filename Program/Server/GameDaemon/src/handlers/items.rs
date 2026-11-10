@@ -7,7 +7,21 @@
 use super::*;
 
 pub const ITEM2_COMMANDS: &[u16] = &[
-    1325, 1354, 1356, 1359, 1361, 1414, 1416, 1418, 1426, 1512, 1515, 1518, 1521, 1524, 1527,
+    ids::G_ManufactureItemReqCmd,
+    ids::G_EquipItemReqCmd,
+    ids::G_EquipItemListReqCmd,
+    ids::G_UnequipItemReqCmd,
+    ids::G_UnequipItemListReqCmd,
+    ids::G_LockItemReqCmd,
+    ids::G_UnlockItemReqCmd,
+    ids::G_SetItemLockExpirationTimeReqCmd,
+    ids::G_SetItemUsedReqCmd,
+    ids::G_RetrieveCraftListReqCmd,
+    ids::G_RegisterCraftReqCmd,
+    ids::G_TakeCraftReqCmd,
+    ids::G_AbortCraftReqCmd,
+    ids::G_JoinCraftUnionReqCmd,
+    ids::G_LeaveCraftUnionReqCmd,
 ];
 
 #[derive(Clone, Debug, PartialEq, Eq)]
@@ -84,21 +98,21 @@ pub struct CraftRecord {
 
 pub(super) fn dispatch_item2(ctx: &mut Context<'_>, command: u16, req: &[u8]) -> Outcome {
     match command {
-        1325 => handle_manufacture_item(ctx, req),
-        1354 => handle_equip_item(ctx, req),
-        1356 => handle_equip_item_list(ctx, req),
-        1359 => handle_unequip_item(ctx, req),
-        1361 => handle_unequip_item_list(ctx, req),
-        1512 => handle_retrieve_craft_list(ctx, req),
-        1515 => handle_register_craft(ctx, req),
-        1518 => handle_take_craft(ctx, req),
-        1521 => handle_abort_craft(ctx, req),
-        1524 => handle_join_craft_union(ctx, req),
-        1527 => handle_leave_craft_union(ctx, req),
-        1414 => handle_lock_item(ctx, req),
-        1416 => handle_unlock_item(ctx, req),
-        1418 => handle_set_item_lock_expiration(ctx, req),
-        1426 => handle_set_item_used(ctx, req),
+        ids::G_ManufactureItemReqCmd => handle_manufacture_item(ctx, req),
+        ids::G_EquipItemReqCmd => handle_equip_item(ctx, req),
+        ids::G_EquipItemListReqCmd => handle_equip_item_list(ctx, req),
+        ids::G_UnequipItemReqCmd => handle_unequip_item(ctx, req),
+        ids::G_UnequipItemListReqCmd => handle_unequip_item_list(ctx, req),
+        ids::G_RetrieveCraftListReqCmd => handle_retrieve_craft_list(ctx, req),
+        ids::G_RegisterCraftReqCmd => handle_register_craft(ctx, req),
+        ids::G_TakeCraftReqCmd => handle_take_craft(ctx, req),
+        ids::G_AbortCraftReqCmd => handle_abort_craft(ctx, req),
+        ids::G_JoinCraftUnionReqCmd => handle_join_craft_union(ctx, req),
+        ids::G_LeaveCraftUnionReqCmd => handle_leave_craft_union(ctx, req),
+        ids::G_LockItemReqCmd => handle_lock_item(ctx, req),
+        ids::G_UnlockItemReqCmd => handle_unlock_item(ctx, req),
+        ids::G_SetItemLockExpirationTimeReqCmd => handle_set_item_lock_expiration(ctx, req),
+        ids::G_SetItemUsedReqCmd => handle_set_item_used(ctx, req),
         _ => unreachable!("membership checked"),
     }
 }

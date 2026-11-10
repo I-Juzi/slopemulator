@@ -135,7 +135,7 @@ fn correction(ctx: &Context<'_>, reason: u16, selector: u8, summon: bool) -> Out
     for value in [position.x as u16, position.y as u16, position.z as u16, yaw] {
         body.extend(value.to_le_bytes());
     }
-    Outcome::reply(65, body)
+    Outcome::reply(ids::G_MoveFailCmd, body)
 }
 
 /// parity: 66 11-movement-handlers.md#66--g_turnreqcmd--partial partial
@@ -166,7 +166,7 @@ pub fn handle_turn(ctx: &mut Context<'_>, req: &[u8]) -> Outcome {
     }
 }
 fn turn_failure(selector: u8) -> Outcome {
-    let mut out = Outcome::reason(67, 2);
+    let mut out = Outcome::reason(ids::G_TurnFailCmd, 2);
     out.replies[0].body.push(selector);
     out
 }
@@ -174,15 +174,18 @@ fn turn_failure(selector: u8) -> Outcome {
 /// parity: 99 11-movement-handlers.md#99--g_activatedteleportlistreqcmd--partial partial
 pub fn handle_activated_teleport_list(ctx: &mut Context<'_>, _: &[u8]) -> Outcome {
     if ctx.pc().zone.is_none() {
-        return Outcome::reason(101, 2);
+        return Outcome::reason(ids::G_ActivatedTeleportListFailCmd, 2);
     }
     let mut out = ctx.queue(
-        99,
-        101,
+        ids::G_ActivatedTeleportListReqCmd,
+        ids::G_ActivatedTeleportListFailCmd,
         2,
         "TODO ❓ ActivatedTeleport field metadata / packed property adapter",
     );
-    if out.changes.contains(&StateChange::Queued(99)) {
+    if out
+        .changes
+        .contains(&StateChange::Queued(ids::G_ActivatedTeleportListReqCmd))
+    {
         let body = match ctx.services.activated_teleport() {
             PackedProperty::Unknown => return out,
             PackedProperty::Bytes(bytes) if bytes.len() <= 3996 => bytes,
@@ -190,8 +193,9 @@ pub fn handle_activated_teleport_list(ctx: &mut Context<'_>, _: &[u8]) -> Outcom
             // Fetch returns zero bytes, not a new counted empty block.
             PackedProperty::FetchFailed => Vec::new(),
         };
-        out = Outcome::reply(100, body);
-        out.changes.push(StateChange::Queued(99));
+        out = Outcome::reply(ids::G_ActivatedTeleportListOkCmd, body);
+        out.changes
+            .push(StateChange::Queued(ids::G_ActivatedTeleportListReqCmd));
     }
     out
 }
@@ -199,16 +203,24 @@ pub fn handle_activated_teleport_list(ctx: &mut Context<'_>, _: &[u8]) -> Outcom
 /// parity: 102 11-movement-handlers.md#102--g_detectteleportswitchreqcmd--partial partial
 pub fn handle_detect_teleport_switch(ctx: &mut Context<'_>, req: &[u8]) -> Outcome {
     if ctx.pc().zone.is_none() {
-        return Outcome::reason(104, 2);
+        return Outcome::reason(ids::G_DetectTeleportSwitchFailCmd, 2);
     }
     let Some(id) = Reader(req).short() else {
         return Outcome::unsupported("TODO ❓ unchecked teleport-switch decode");
     };
     if ctx.pc().native_kind != 1 {
-        return Outcome::reason(104, 2);
+        return Outcome::reason(ids::G_DetectTeleportSwitchFailCmd, 2);
     }
-    let mut out = ctx.queue(102, 104, 2, "TODO ❓ activation metadata/set/persistence");
-    if !out.changes.contains(&StateChange::Queued(102)) {
+    let mut out = ctx.queue(
+        ids::G_DetectTeleportSwitchReqCmd,
+        ids::G_DetectTeleportSwitchFailCmd,
+        2,
+        "TODO ❓ activation metadata/set/persistence",
+    );
+    if !out
+        .changes
+        .contains(&StateChange::Queued(ids::G_DetectTeleportSwitchReqCmd))
+    {
         return out;
     }
     // The adapter keys the switch map by the current runtime zone. It must
@@ -232,8 +244,9 @@ pub fn handle_detect_teleport_switch(ctx: &mut Context<'_>, req: &[u8]) -> Outco
         },
     };
     if let Some(reason) = reason {
-        out = Outcome::reason(104, reason);
-        out.changes.push(StateChange::Queued(102));
+        out = Outcome::reason(ids::G_DetectTeleportSwitchFailCmd, reason);
+        out.changes
+            .push(StateChange::Queued(ids::G_DetectTeleportSwitchReqCmd));
     }
     // TODO ❓ Property::Set and table bit-index bounds remain unknown. No
     // activation bit, notify packet or persistence send before that boundary.
@@ -243,11 +256,11 @@ pub fn handle_detect_teleport_switch(ctx: &mut Context<'_>, req: &[u8]) -> Outco
 /// parity: 145 11-movement-handlers.md#145--g_returntobasecampreqcmd--partial partial
 pub fn handle_return_to_base_camp(ctx: &mut Context<'_>, _: &[u8]) -> Outcome {
     if ctx.pc().zone.is_none() {
-        return Outcome::reason(146, 2);
+        return Outcome::reason(ids::G_ReturnToBaseCampFailCmd, 2);
     }
     ctx.queue(
-        145,
-        146,
+        ids::G_ReturnToBaseCampReqCmd,
+        ids::G_ReturnToBaseCampFailCmd,
         2,
         "TODO ❓ Pc::ReturnToBaseCamp, 0x1405E6EE0; false -> 146/284",
     )
@@ -256,51 +269,61 @@ pub fn handle_return_to_base_camp(ctx: &mut Context<'_>, _: &[u8]) -> Outcome {
 /// parity: 296 11-movement-handlers.md#296--g_enterportalreqcmd--partial partial
 pub fn handle_enter_portal(ctx: &mut Context<'_>, _: &[u8]) -> Outcome {
     if ctx.pc().zone.is_none() || ctx.pc().native_kind != 1 {
-        return Outcome::reason(297, 2);
+        return Outcome::reason(ids::G_EnterPortalFailCmd, 2);
     }
-    let out = ctx.queue(296, 297, 2, "TODO ❓ EnterPortalTask");
-    if !out.changes.contains(&StateChange::Queued(296)) {
+    let out = ctx.queue(
+        ids::G_EnterPortalReqCmd,
+        ids::G_EnterPortalFailCmd,
+        2,
+        "TODO ❓ EnterPortalTask",
+    );
+    if !out
+        .changes
+        .contains(&StateChange::Queued(ids::G_EnterPortalReqCmd))
+    {
         return out;
     }
     let Some(zone) = ctx.pc().zone.and_then(|id| ctx.world.zones.get(&id)) else {
         return out;
     };
     let mut result = if zone.environment_index <= 0 || zone.portal_subtype != Some(7) {
-        Outcome::reason(297, 1152)
+        Outcome::reason(ids::G_EnterPortalFailCmd, 1152)
     } else {
         match zone.life_state {
             0 => Outcome::unsupported(
                 "TODO ❓ portal helper / reason converter / destination, 0x1405A96F0",
             ),
-            1 | 3 => Outcome::reason(297, 1155),
+            1 | 3 => Outcome::reason(ids::G_EnterPortalFailCmd, 1155),
             2 => Outcome::unsupported(
                 "TODO ❓ portal life-state 2 virtual +128 mutation precedes 297/1155",
             ),
-            _ => Outcome::reason(297, 2),
+            _ => Outcome::reason(ids::G_EnterPortalFailCmd, 2),
         }
     };
-    result.changes.push(StateChange::Queued(296));
+    result
+        .changes
+        .push(StateChange::Queued(ids::G_EnterPortalReqCmd));
     result
 }
 
 /// parity: 298 11-movement-handlers.md#298--g_turnbackfromportalreqcmd--partial partial
 pub fn handle_turn_back_from_portal(ctx: &mut Context<'_>, req: &[u8]) -> Outcome {
     if ctx.pc().zone.is_none() {
-        return Outcome::reason(299, 2);
+        return Outcome::reason(ids::G_TurnBackFromPortalFailCmd, 2);
     }
     if req.len() < 8 {
         return Outcome::unsupported("TODO ❓ unchecked portal-return pose decode");
     }
-    ctx.queue(298, 299, 2, "TODO ❓ WarpAction class 33 terrain/range checks and continuations; no coordinate authorization")
+    ctx.queue(ids::G_TurnBackFromPortalReqCmd, ids::G_TurnBackFromPortalFailCmd, 2, "TODO ❓ WarpAction class 33 terrain/range checks and continuations; no coordinate authorization")
 }
 
 /// parity: 648 11-movement-handlers.md#648--g_returntogamereqcmd--partial partial
 pub fn handle_return_to_game(ctx: &mut Context<'_>, _: &[u8]) -> Outcome {
     if ctx.world.arena {
-        return Outcome::reason(650, 5);
+        return Outcome::reason(ids::G_ReturnToGameFailCmd, 5);
     }
     if ctx.pc().arena_state != 4 {
-        return Outcome::reason(650, 2);
+        return Outcome::reason(ids::G_ReturnToGameFailCmd, 2);
     }
     let pc = ctx.session.pc.as_mut().expect("PC dispatch");
     pc.arena_state = 1;
@@ -332,21 +355,24 @@ pub fn handle_client_run(_: &mut Context<'_>, req: &[u8]) -> Outcome {
 /// parity: 1219 11-movement-handlers.md#1219--g_airdashreqcmd--partial partial
 pub fn handle_air_dash(ctx: &mut Context<'_>, req: &[u8]) -> Outcome {
     if ctx.pc().zone.is_none() {
-        return Outcome::reason(1220, 2);
+        return Outcome::reason(ids::G_AirDashFailCmd, 2);
     }
     let Some(id) = Reader(req).quad() else {
         return Outcome::unsupported("TODO ❓ unchecked AirDash q value");
     };
     if ctx.pc().native_kind != 1 {
-        return Outcome::reason(1220, 2);
+        return Outcome::reason(ids::G_AirDashFailCmd, 2);
     }
     let mut out = ctx.queue(
-        1219,
-        1220,
+        ids::G_AirDashReqCmd,
+        ids::G_AirDashFailCmd,
         2,
         "TODO ❓ AirDash start/effect helpers and cleanup, 0x1404808A0",
     );
-    if !out.changes.contains(&StateChange::Queued(1219)) {
+    if !out
+        .changes
+        .contains(&StateChange::Queued(ids::G_AirDashReqCmd))
+    {
         return out;
     }
     let index = id as u32 as i32;
@@ -393,8 +419,8 @@ pub fn handle_air_dash(ctx: &mut Context<'_>, req: &[u8]) -> Outcome {
         }
     };
     if let Some(reason) = reason {
-        out = Outcome::reason(1220, reason);
-        out.changes.push(StateChange::Queued(1219));
+        out = Outcome::reason(ids::G_AirDashFailCmd, reason);
+        out.changes.push(StateChange::Queued(ids::G_AirDashReqCmd));
     }
     out
 }
@@ -421,8 +447,8 @@ pub fn handle_use_teleport(ctx: &mut Context<'_>, req: &[u8]) -> Outcome {
         return teleport_failure(2);
     }
     let mut out = ctx.queue(
-        1223,
-        1225,
+        ids::G_UseTeleportReqCmd,
+        ids::G_UseTeleportFailCmd,
         2,
         "TODO ❓ Teleport action gates, event rules, tables, start position, cost and LeaveAction",
     );
@@ -432,7 +458,7 @@ pub fn handle_use_teleport(ctx: &mut Context<'_>, req: &[u8]) -> Outcome {
     out
 }
 fn teleport_failure(reason: u16) -> Outcome {
-    let mut out = Outcome::reason(1225, reason);
+    let mut out = Outcome::reason(ids::G_UseTeleportFailCmd, reason);
     out.replies[0].body.extend(0u64.to_le_bytes());
     out
 }
@@ -440,20 +466,20 @@ fn teleport_failure(reason: u16) -> Outcome {
 /// parity: 1239 11-movement-handlers.md#1239--g_usecaveescapereqcmd--partial partial
 pub fn handle_use_cave_escape(ctx: &mut Context<'_>, req: &[u8]) -> Outcome {
     if ctx.pc().zone.is_none() {
-        return Outcome::reason(1241, 1);
+        return Outcome::reason(ids::G_UseCaveEscapeFailCmd, 1);
     }
     let Some(_position) = Reader(req).short() else {
         return Outcome::unsupported("TODO ❓ unchecked cave-escape inventory position");
     };
     if ctx.pc().achievement_reward || ctx.pc().jumping_ticket {
-        return Outcome::reason(1241, 254);
+        return Outcome::reason(ids::G_UseCaveEscapeFailCmd, 254);
     }
     if ctx.pc().instant_payment {
-        return Outcome::reason(1241, 255);
+        return Outcome::reason(ids::G_UseCaveEscapeFailCmd, 255);
     }
     if ctx.pc().native_kind != 1 {
-        return Outcome::reason(1241, 1);
+        return Outcome::reason(ids::G_UseCaveEscapeFailCmd, 1);
     }
     // TODO ❓ Do not send start or consume before unknown item checks/busy flag.
-    ctx.queue(1239, 1241, 1, "TODO ❓ cave-escape item validation/reservation, disposal position register, destination and LeaveAction")
+    ctx.queue(ids::G_UseCaveEscapeReqCmd, ids::G_UseCaveEscapeFailCmd, 1,"TODO ❓ cave-escape item validation/reservation, disposal position register, destination and LeaveAction")
 }

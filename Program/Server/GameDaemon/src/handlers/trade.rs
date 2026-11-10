@@ -9,7 +9,23 @@ use super::*;
 use crate::validation::distance::{interaction, Interaction};
 
 pub const ITEM_COMMANDS: &[u16] = &[
-    121, 123, 311, 314, 317, 320, 324, 327, 330, 333, 336, 339, 793, 796, 799, 802, 805,
+    ids::G_AcquireProfessionReqCmd,
+    ids::G_DisposeProfessionReqCmd,
+    ids::G_InviteTradeReqCmd,
+    ids::G_JoinTradeReqCmd,
+    ids::G_DeclineTradeReqCmd,
+    ids::G_CancelTradeReqCmd,
+    ids::G_AppendTradeSuggestionReqCmd,
+    ids::G_RemoveTradeSuggestionReqCmd,
+    ids::G_SuggestTradeMoneyReqCmd,
+    ids::G_SubmitTradeReqCmd,
+    ids::G_RetractTradeReqCmd,
+    ids::G_ConfirmTradeReqCmd,
+    ids::G_GetGoodsCountFromAccountInventoryReqCmd,
+    ids::G_ListGoodsFromAccountInventoryReqCmd,
+    ids::G_TakeGoodsFromAccountInventoryReqCmd,
+    ids::G_RetrieveWarehouseLobbyServiceItemListReqCmd,
+    ids::G_RetrieveWarehouseItemListReqCmd,
 ];
 
 /// Decoded trade task fields. Native task kinds 46–53.
@@ -180,22 +196,26 @@ pub struct AccountTransaction {
 
 pub(super) fn dispatch_item(ctx: &mut Context<'_>, command: u16, req: &[u8]) -> Outcome {
     match command {
-        121 | 123 => handle_profession_stub(ctx, req),
-        311 => handle_invite_trade(ctx, req),
-        314 => handle_join_trade(ctx, req),
-        317 => handle_decline_trade(ctx, req),
-        320 => handle_cancel_trade(ctx, req),
-        324 => handle_append_trade_suggestion(ctx, req),
-        327 => handle_remove_trade_suggestion(ctx, req),
-        330 => handle_suggest_trade_money(ctx, req),
-        333 => handle_submit_trade(ctx, req),
-        336 => handle_retract_trade(ctx, req),
-        339 => handle_confirm_trade(ctx, req),
-        793 => handle_get_goods_count(ctx, req),
-        796 => handle_list_goods(ctx, req),
-        799 => handle_take_goods(ctx, req),
-        802 => handle_retrieve_lobby_service_list(ctx, req),
-        805 => handle_retrieve_warehouse_list(ctx, req),
+        ids::G_AcquireProfessionReqCmd | ids::G_DisposeProfessionReqCmd => {
+            handle_profession_stub(ctx, req)
+        }
+        ids::G_InviteTradeReqCmd => handle_invite_trade(ctx, req),
+        ids::G_JoinTradeReqCmd => handle_join_trade(ctx, req),
+        ids::G_DeclineTradeReqCmd => handle_decline_trade(ctx, req),
+        ids::G_CancelTradeReqCmd => handle_cancel_trade(ctx, req),
+        ids::G_AppendTradeSuggestionReqCmd => handle_append_trade_suggestion(ctx, req),
+        ids::G_RemoveTradeSuggestionReqCmd => handle_remove_trade_suggestion(ctx, req),
+        ids::G_SuggestTradeMoneyReqCmd => handle_suggest_trade_money(ctx, req),
+        ids::G_SubmitTradeReqCmd => handle_submit_trade(ctx, req),
+        ids::G_RetractTradeReqCmd => handle_retract_trade(ctx, req),
+        ids::G_ConfirmTradeReqCmd => handle_confirm_trade(ctx, req),
+        ids::G_GetGoodsCountFromAccountInventoryReqCmd => handle_get_goods_count(ctx, req),
+        ids::G_ListGoodsFromAccountInventoryReqCmd => handle_list_goods(ctx, req),
+        ids::G_TakeGoodsFromAccountInventoryReqCmd => handle_take_goods(ctx, req),
+        ids::G_RetrieveWarehouseLobbyServiceItemListReqCmd => {
+            handle_retrieve_lobby_service_list(ctx, req)
+        }
+        ids::G_RetrieveWarehouseItemListReqCmd => handle_retrieve_warehouse_list(ctx, req),
         _ => unreachable!("membership checked"),
     }
 }
