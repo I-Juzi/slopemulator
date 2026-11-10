@@ -187,7 +187,7 @@ def gate(row, wt):
     handoff = f"Docs/Plan/handoffs/{row['id']}.md"
     if handoff not in files:
         return f"missing {handoff}"
-    allowed = [p.strip() for p in row["paths"].split(",") if p.strip()] + ["Docs/Plan/handoffs/", "Docs/Plan/cards/"]
+    allowed = [p.strip() for p in row["paths"].split(",") if p.strip()] + ["Docs/Plan/handoffs/", "Docs/Plan/cards/", "Docs/Plan/abuse-notes/"]
     outside = [f for f in files if not any(f.startswith(a) for a in allowed)]
     if outside:
         return "changed files outside the card paths:\n" + "\n".join(outside)
