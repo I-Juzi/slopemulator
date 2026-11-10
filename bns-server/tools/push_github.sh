@@ -16,6 +16,8 @@ done
 [ -n "$LAST" ] || LAST="$(git log --format=%B | grep -m1 -oE '^git-subtree-split: [0-9a-f]+' | awk '{print $2}' || true)"
 BAD="$(git diff --name-only ${LAST:+$LAST} FETCH_HEAD 2>/dev/null | grep -iE '\.(exe|dll|pdb|i64|idb|bin|dat|pem|key|blob|mdf|ldf|rar)$' || true)"
 [ -z "$BAD" ] || { echo "refused: binary or key files: $BAD"; exit 1; }
+NOTES="$(git diff --name-only ${LAST:+$LAST} FETCH_HEAD 2>/dev/null | grep -E '^Docs/Plan/abuse-notes/' | grep -v 'README.md$' || true)"
+[ -z "$NOTES" ] || { echo "refused: abuse notes stay local: $NOTES"; exit 1; }
 if [ -f "$KEYFILE" ] && git diff ${LAST:+$LAST} FETCH_HEAD | grep -qF -f "$KEYFILE"; then echo "refused: gateway key"; exit 1; fi
 if git diff ${LAST:+$LAST} FETCH_HEAD | grep -qiE '^\+.*BEGIN [A-Z ]*PRIVATE KEY'; then echo "refused: private key"; exit 1; fi
 # git subtree keeps only the last -m. Give one -m with subject, body and trailer.
