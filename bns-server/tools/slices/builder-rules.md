@@ -44,3 +44,4 @@ Context budget (each tool result is read again on every later turn):
 - Run cargo with `-q` and pipe it through `tail -40`.
 - For Rust interfaces, run `python3 tools/rust_api.py <crate dir>`. Read a source file only in the line range that you need.
 - Read each spec section one time. Read only the line ranges that the card gives.
+- The runner cuts long work into stages of about 45 turns. At the end of a stage it asks you for a progress note, and a new session continues from it. Save code to files often.

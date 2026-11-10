@@ -86,6 +86,19 @@ def pick(rows, sid):
 # A session stopped by a usage limit is "paused": worktree and session id are kept, the next run resumes it.
 PAUSED = Path.home() / ".cache/bns-slices/paused.json"
 RESUME_PROMPT = "A usage limit stopped you. Continue the card from where you stopped. Do not redo finished work."
+# Staged sessions: cost grows with turns x context, so a long session is cut into fresh stages.
+# At the stage turn limit, the same session writes a progress note (few turns), then a new session
+# starts from the card + note. The spec file on disk keeps the verified facts.
+STAGE_TURNS = 45
+STAGE_MAX = 4
+WRAP_TURNS = "4"
+WRAP_PROMPT = ("Stop work now. This stage is at its turn limit. A new session continues from your note. "
+               "First write all verified facts that are not yet in the spec or code files. Then write {note}, "
+               "40 lines or fewer: topics done, files changed, next steps with exact addresses or functions, "
+               "open questions, and checks still to run. Do not start new work.")
+NEXT_PROMPT = ("This card continues from an earlier session. Do not redo finished work. "
+               "Read the files that the note names only in the line ranges you need.\n\n"
+               "## Progress note\n{note}\n\n## Card\n{card}")
 
 
 def paused():
@@ -140,8 +153,8 @@ def ensure_account():
 
 
 # ---------- session ----------
-def session_cmd(row, prompt, resume=None):
-    cmd = ["claude", "-p", "--model", row["model"], "--max-turns", row["turns"], "--output-format", "json",
+def session_cmd(row, prompt, resume=None, max_turns=None):
+    cmd = ["claude", "-p", "--model", row["model"], "--max-turns", str(max_turns or row["turns"]), "--output-format", "json",
            "--disable-slash-commands", "--tools", TOOLS, "--permission-mode", "dontAsk",
            "--allowedTools", ALLOW[row["kind"]] + f",Edit(/{WT_ROOT}/{row['id']}/**),Write(/{WT_ROOT}/{row['id']}/**)", "--append-system-prompt-file", str(RULES[row["kind"]])]
     cmd += ["--mcp-config", str(MCP), "--strict-mcp-config"] if row["kind"] == "spec" else ["--strict-mcp-config"]
@@ -150,10 +163,10 @@ def session_cmd(row, prompt, resume=None):
     return cmd + [prompt]
 
 
-def run_session(row, wt, prompt, resume=None):
+def run_session(row, wt, prompt, resume=None, max_turns=None):
     env = dict(os.environ, CARGO_TARGET_DIR=str(TARGET))
     t0 = time.time()
-    p = subprocess.run(session_cmd(row, prompt, resume), cwd=wt, capture_output=True, text=True, env=env, timeout=4 * 3600)
+    p = subprocess.run(session_cmd(row, prompt, resume, max_turns), cwd=wt, capture_output=True, text=True, env=env, timeout=4 * 3600)
     try:
         data = json.loads(p.stdout)
         if isinstance(data, list):
@@ -260,18 +273,42 @@ def run(sid, dry, push):
     set_status(row["id"], "running")
     log = []
     resume = paused().get(row["id"])
-    rec = run_session(row, wt, RESUME_PROMPT if resume else prompt, resume=resume)
-    rec["account"], rec["acct_5h"], rec["acct_7d"] = acct["n"], acct["5h"], acct["7d"]
-    log.append(rec)
-    if hit_limit(rec):
-        set_paused(row["id"], rec.get("session") or resume)
-        rec["gate"] = "paused"
-        with LEDGER.open("a") as f:
-            f.write(json.dumps(rec) + "\n")
-        set_status(row["id"], "paused")
-        print(f"PAUSED {row['id']} (usage limit). Resume later in session {rec.get('session') or resume}")
-        return 75
-    set_paused(row["id"], None)
+    note_rel = f"Docs/Plan/handoffs/{row['id']}-progress.md"
+    note = wt / note_rel
+    budget = int(row["turns"])
+    stage_prompt = RESUME_PROMPT if resume else (
+        NEXT_PROMPT.format(note=note.read_text(), card=prompt) if note.exists() else prompt)
+    for stage in range(1, STAGE_MAX + 1):
+        last = stage == STAGE_MAX or budget <= STAGE_TURNS + 10
+        turns = budget if last else STAGE_TURNS
+        rec = run_session(row, wt, stage_prompt, resume=resume, max_turns=turns)
+        rec["stage"] = stage
+        rec["account"], rec["acct_5h"], rec["acct_7d"] = acct["n"], acct["5h"], acct["7d"]
+        log.append(rec)
+        if hit_limit(rec):
+            set_paused(row["id"], rec.get("session") or resume)
+            for r in log:
+                r["gate"] = "paused"
+            with LEDGER.open("a") as f:
+                for r in log:
+                    f.write(json.dumps(r) + "\n")
+            set_status(row["id"], "paused")
+            print(f"PAUSED {row['id']} stage {stage} (usage limit). Resume later in session {rec.get('session') or resume}")
+            return 75
+        set_paused(row["id"], None)
+        resume = None
+        if last or rec.get("subtype") != "error_max_turns" or not rec.get("session"):
+            break
+        wrap = run_session(row, wt, WRAP_PROMPT.format(note=note_rel), resume=rec["session"], max_turns=WRAP_TURNS)
+        wrap["stage"] = stage
+        log.append(wrap)
+        if not note.exists():
+            break  # no note: let the gate judge what exists
+        budget -= int(rec.get("turns") or turns)
+        print(f"STAGE {stage} of {row['id']} done ({rec.get('turns')} turns); next stage from {note_rel}")
+        stage_prompt = NEXT_PROMPT.format(note=note.read_text(), card=prompt)
+    if note.exists():
+        note.unlink()  # working note only; the final handoff is the record
     fail = gate(row, wt)
     if fail and rec.get("session"):
         rep = run_session(row, wt, "The gate failed. Fix only this. Then run the checks again and update the handoff.\n\n" + fail,
