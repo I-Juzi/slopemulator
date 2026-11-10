@@ -1,0 +1,886 @@
+address_381	name	class	method	first_string_anchor	note
+0x403650	DrLog::~DrLog	DrLog	~DrLog		
+0x41c0f0	BNSClient::GetWebSessionManager	BNSClient	GetWebSessionManager		
+0x41ce60	CommonWebBrowserCallback::CommonWebBrowserCallback	CommonWebBrowserCallback	CommonWebBrowserCallback		
+0x41cef0	CommonWebBrowserCallback::~CommonWebBrowserCallback	CommonWebBrowserCallback	~CommonWebBrowserCallback		
+0x41f910	AuctionPanel2::AuctionPanelWebBrowserCallback::`scalar deleting destructor'		destructor		
+0x4404b0	BNSClient::SetWebLoginUserName	BNSClient	SetWebLoginUserName		
+0x440510	BNSClient::SetWebLoginTempPassword	BNSClient	SetWebLoginTempPassword		
+0x440570	BNSClient::SetWebLoginGarenaToken	BNSClient	SetWebLoginGarenaToken		
+0x4409e0	StsMsgLib::_StsMsgRequestReportAddReport::_StsMsgRequestReportAddReport	StsMsgLib::_StsMsgRequestReportAddReport	_StsMsgRequestReportAddReport		
+0x441850	ChattingClientNP::LogoutChannelInfo::LogoutChannelInfo	ChattingClientNP::LogoutChannelInfo	LogoutChannelInfo		
+0x447650	ChattingClientNP::GetTransactionInfo<ChattingClientNP::LogoutChannelInfo>	ChattingClientNP::GetTransactionInfo<ChattingClientNP	LogoutChannelInfo>		
+0x44b6e0	CommonWebBrowserCallback::SetUrlForExternalBrowser	CommonWebBrowserCallback	SetUrlForExternalBrowser		
+0x44b9c0	BUiWorld::ShowWebCharacterInfo	BUiWorld	ShowWebCharacterInfo		
+0x46d750	WebFriendsListUpdater::CharacterData::CharacterData	WebFriendsListUpdater::CharacterData	CharacterData		
+0x46d7e0	WebFriendsListUpdater::WebFriendData::WebFriendData	WebFriendsListUpdater::WebFriendData	WebFriendData		
+0x46d870	WebFriendsListUpdater::WebFriendData::~WebFriendData	WebFriendsListUpdater::WebFriendData	~WebFriendData		
+0x46d8e0	WebFriendsListUpdater::CharacterData::~CharacterData	WebFriendsListUpdater::CharacterData	~CharacterData		
+0x4755b0	WebFriendsListUpdater::CharacterData::CharacterData	WebFriendsListUpdater::CharacterData	CharacterData		
+0x475640	WebFriendsListUpdater::WebFriendData::WebFriendData	WebFriendsListUpdater::WebFriendData	WebFriendData		
+0x478420	stdext::unchecked_copy<WebFriends *,WebFriends *>		*>		
+0x478450	stdext::unchecked_copy<WebFriendsListUpdater::WebFriendData *,WebFriendsListUpdater::WebFriendData *		*>		
+0x47b030	stdext::unchecked_copy<WebFriendsListUpdater::CharacterData *,WebFriendsListUpdater::CharacterData *		*>		
+0x47c690	BNSClient::GetWebRequester	BNSClient	GetWebRequester		
+0x4a38e0	BNSClient::GetWebProcessManager	BNSClient	GetWebProcessManager		
+0x4a4260	InGameWeb::WebContentsInfo::WebContentsInfo	InGameWeb::WebContentsInfo	WebContentsInfo		
+0x4a7ca0	InGameWeb::WebContentsInfo::~WebContentsInfo	InGameWeb::WebContentsInfo	~WebContentsInfo		
+0x4a7d10	`InGameWeb::LoadFromConfig	`InGameWeb	LoadFromConfig		
+0x4d64e0	WebSessionManager::ReserveReloadOnSessionConnect	WebSessionManager	ReserveReloadOnSessionConnect		
+0x4e1040	XmlConfigReaderImpl::GetLastErrorString	XmlConfigReaderImpl	GetLastErrorString		
+0x4e1810	BMember::Logout	BMember	Logout		
+0x4f0770	CommonWebBrowserCallback::GetUrlForExternalBrowser	CommonWebBrowserCallback	GetUrlForExternalBrowser		
+0x4f28a0	LogViewer::OnClearFilterObjecIDListButton	LogViewer	OnClearFilterObjecIDListButton		
+0x4f2ac0	PetitionPanel::BugReportPetitionPage::~BugReportPetitionPage	PetitionPanel::BugReportPetitionPage	~BugReportPetitionPage		
+0x50f1a0	InGameWeb::IsWebEnabled	InGameWeb	IsWebEnabled		
+0x511410	[thunk]:PlayReportPanel::`vector deleting destructor'`adjustor{120}' 				
+0x5115a0	G_QQLoginReqPacket::~G_QQLoginReqPacket	G_QQLoginReqPacket	~G_QQLoginReqPacket		
+0x520c60	BNSClient::GetDisconnectWSALastError	BNSClient	GetDisconnectWSALastError		
+0x54bd10	TeamMember::Logout	TeamMember	Logout		
+0x54c9c0	TaskSession::PlayInfoForNetworkLatencyLog::PlayInfoForNetworkLatencyLog	TaskSession::PlayInfoForNetworkLatencyLog	PlayInfoForNetworkLatencyLog		
+0x55bce0	QuitGameConfirmPanel::SetTitleValue	QuitGameConfirmPanel	SetTitleValue		
+0x55bea0	QuitGameConfirmPanel::SetHealthyTextValue	QuitGameConfirmPanel	SetHealthyTextValue		
+0x55c5f0	QuitGameConfirmPanel::QuitGameConfirmPanel	QuitGameConfirmPanel	QuitGameConfirmPanel		
+0x55c6c0	QuitGameConfirmPanel::Clear	QuitGameConfirmPanel	Clear		
+0x55c730	QuitGameConfirmPanel::~QuitGameConfirmPanel	QuitGameConfirmPanel	~QuitGameConfirmPanel		
+0x5635d0	BUiWorld::WidgetValues::DisconnectAll	BUiWorld::WidgetValues	DisconnectAll		
+0x5767f0	stdext::unchecked_copy<WebSessionManager::SessionLog *,WebSessionManager::SessionLog *>		*>		
+0x5b5d10	QuestTableImpl::GetTableCacheInfoLogStr	QuestTableImpl	GetTableCacheInfoLogStr		
+0x5b5eb0	Data::DataLogger::DataLogger	Data::DataLogger	DataLogger		
+0x5b5f10	Data::DataLogger::~DataLogger	Data::DataLogger	~DataLogger		
+0x5c97c0	Data::DataManager::GetDataCriticalLog	Data::DataManager	GetDataCriticalLog		
+0x5d06a0	Log::RemoveMedia	Log	RemoveMedia		
+0x5d06f0	Log::WriteV	Log	WriteV	0x186c5fc  (TimeDiff %3.3f sec)	
+0x5d0da0	PvpResultDeadProperty::PvpResultDeadProperty	PvpResultDeadProperty	PvpResultDeadProperty		LogFile ctor (IDA name PvpResultDeadProperty is false)
+0x5d0f20	sub_5D0F20		sub_5D0F20	0x186c628 %sLog(%s)-%s.log	LogFile init: path Log(%s)-%s.log
+0x5d12d0	LogFile::write	LogFile	write	0x186c668 %04d/%02d/%02d %02d:%02d:%02d.%03d, %s, %d, {%s}, %s, %s\r\n	
+0x5d1470	LogFile::writeFile	LogFile	writeFile		
+0x5d2150	Log::Write	Log	Write		
+0x5d2930	Network::SocketError	Network	SocketError		
+0x5dd750	_ccSignatureLogin		_ccSignatureLogin	0x186c9c4 [%p]:: ccSignatureLogin called.	
+0x5ddbc0	_ccLoginResult		_ccLoginResult	0x186caf8 [%p]:: ccLoginResult called.	
+0x5ddcb0	_ccLogout		_ccLogout	0x186cb48 [%p]:: ccLogout called.	
+0x5e3ba0	_ccVoiceChatErrorNotified		_ccVoiceChatErrorNotified	0x186d37c [%p]:: ccVoiceChatErrorNotified called.	
+0x5e4b70	TcpSession::Disconnect	TcpSession	Disconnect		
+0x5e5aa0	NCTalk::NCTalkIpcServerErrorHandler	NCTalk	NCTalkIpcServerErrorHandler	0x186dcf8 ChannelChattingClient::NewRecvTask	
+0x5e6400	LogManager::LogManager	LogManager	LogManager		
+0x5e6470	LogManager::Start	LogManager	Start		
+0x5e65b0	LogManager::Stop	LogManager	Stop		
+0x5e6610	LogManager::LogThreadProc	LogManager	LogThreadProc		
+0x5e6630	LogManager::CreateLogFile	LogManager	CreateLogFile		
+0x5e6790	LogManager::LogThreadProc	LogManager	LogThreadProc		
+0x5e68f0	LogManager::Write	LogManager	Write		
+0x5e69c0	LOG_LIB::LogFormattingW	LOG_LIB	LogFormattingW	0x186d438 [%9s] %s (%d) : 	
+0x5e6a40	LOG_LIB::LogFormattingA	LOG_LIB	LogFormattingA	0x186d45c [%9s] %s (%d): 	
+0x5e9df0	ChannelChattingClient::Disconnect	ChannelChattingClient	Disconnect	0x186d8e4 [%p]:: Disconnect called. ip:%s, port:%d	
+0x5ea030	ChannelChattingClient::Login	ChannelChattingClient	Login	0x186d910 ChannelChattingClient::Login	
+0x5ea1a0	ChannelChattingClient::LoginFailed	ChannelChattingClient	LoginFailed	0x186d9ac ChannelChattingClient::LoginFailed	
+0x5ea970	ChannelChattingClient::NewLoginTask	ChannelChattingClient	NewLoginTask	0x186dc54 ChannelChattingClient::NewLoginTask	
+0x5eadb0	ChannelChattingClient::DisconnectTcpSessionHandler	ChannelChattingClient	DisconnectTcpSessionHandler	0x186ddc8 [%p]:: called DisconnectTcpSessionHandler	
+0x5eb8e0	ChannelChattingClient::SetDisconnectReason_	ChannelChattingClient	SetDisconnectReason_		
+0x5ec4a0	NCTalkTest::NCTalkIpcServerErrorHandler	NCTalkTest	NCTalkIpcServerErrorHandler		
+0x5ec760	VoiceChatError::`scalar deleting destructor'		destructor		
+0x5f0ba0	_DisconnectSession		_DisconnectSession		
+0x5f1950	VC::NCTalkIpcServer::DisconnectTcpSessionHandler	VC::NCTalkIpcServer	DisconnectTcpSessionHandler		
+0x5f24e0	TaskInfo::SetLoginTask	TaskInfo	SetLoginTask		
+0x5fdfc0	TcpNode::DisconnectSessionHandler	TcpNode	DisconnectSessionHandler		
+0x602ee0	VC::NCTalkTest::NCTalkIpcServerErrorHandler	VC::NCTalkTest	NCTalkIpcServerErrorHandler	0x186fca0 VC::NCTalkTest::NCTalkIpcServerErrorHandler	
+0x603fd0	VC::NCTalk::NCTalkIpcServerErrorHandler	VC::NCTalk	NCTalkIpcServerErrorHandler	0x18700a8 VoiceModule Error(%d, %s)(from:NCTalkIpcServerErrorHandler)	
+0x6043b0	VC::NCTalk::GetNCTalkErrorCodeToString	VC::NCTalk	GetNCTalkErrorCodeToString	0x1870274 Process Failure.	
+0x605a50	VoiceChattingClient::DisconnectTcpSessionHandler	VoiceChattingClient	DisconnectTcpSessionHandler	0x186ddc8 [%p]:: called DisconnectTcpSessionHandler	
+0x6171f0	Logger		Logger		
+0x617330	DrDefLog::Write	DrDefLog	Write	0x1870e4c {%s} %s\r\n	
+0x621160	DrCacheInfoItem::GetLogStr	DrCacheInfoItem	GetLogStr		
+0x621320	DrCacheInfoItem_Rate::GetLogStr	DrCacheInfoItem_Rate	GetLogStr		
+0x62de90	DrTableCacheInfo::GetLogStr	DrTableCacheInfo	GetLogStr	0x18717e4  %.0f%%/%.0f%% %ums %u%%<br/>	
+0x62fc10	DrCacheData::GetTableCacheInfoLogStr	DrCacheData	GetTableCacheInfoLogStr		
+0x6309b0	DrDataTableImpl::GetTableCacheInfoLogStr	DrDataTableImpl	GetTableCacheInfoLogStr		
+0x633590	sub_633590		sub_633590	0x139d978 .\frostStatic.log	frostStatic.log writer
+0x6f21c4	__CxxUnhandledExceptionFilter		__CxxUnhandledExceptionFilter		
+0x6f2201	___CxxSetUnhandledExceptionFilter		___CxxSetUnhandledExceptionFilter		
+0x6f25c0	CFvLog::Check59LibInstance	CFvLog	Check59LibInstance		
+0x6f2670	CFvLog::Open	CFvLog	Open	0x19440ac %s.erl	
+0x6f2ea0	CFvLog::Close	CFvLog	Close		
+0x6f2fd0	CFvLog::Write	CFvLog	Write		
+0x6f32d0	CGameGuard::DeleteAllLastError	CGameGuard	DeleteAllLastError		
+0x6f33b0	CGameGuard::GGGetLastErrorI	CGameGuard	GGGetLastErrorI		
+0x6f3560	CGameGuard::GGSetLastError	CGameGuard	GGSetLastError		
+0x6f3bc0	CGameGuard::SendHackLog	CGameGuard	SendHackLog		
+0x6f55a0	BackupLogFiles		BackupLogFiles		
+0x6f62e0	CFvLog::~CFvLog	CFvLog	~CFvLog		
+0x6f6ac0	TopLevelExceptionFilter		TopLevelExceptionFilter		
+0x6f7200	RunGGError		RunGGError		
+0x6fba20	CCommPipe::GetHackLog	CCommPipe	GetHackLog		
+0x6fba30	CCommPipe::GetHackLogSize	CCommPipe	GetHackLogSize		
+0x6fc8e0	CLogServer::_InitSafeFunction	CLogServer	_InitSafeFunction		
+0x6fca80	CLogServer::_LSEnct	CLogServer	_LSEnct	0x1945f00 %02X	
+0x6fcbb0	CLogServer::_LSDect	CLogServer	_LSDect		
+0x6fcca0	CLogServer::GetHardWareID	CLogServer	GetHardWareID		
+0x6fd090	CLogServer::Close	CLogServer	Close		
+0x6fd100	CLogServer::Connect	CLogServer	Connect		
+0x6fe200	CLogServer::SendLogExecute	CLogServer	SendLogExecute		
+0x6fe330	CLogServer::GetGameUserInfo	CLogServer	GetGameUserInfo		
+0x6fe550	stdext::_Unchecked_move_backward<std::list<std::pair<ulong const,CLogServer::tagBLOCK_MD5_INFO>,std:		*>		
+0x6fe9c0	stdext::_Hash<stdext::_Hmap_traits<ulong,CLogServer::tagBLOCK_MD5_INFO,stdext::hash_compare<ulong,st	const,CLogServer	tagBLOCK_MD5_INFO>>,0>>		
+0x6feb00	stdext::_Hash<stdext::_Hmap_traits<ulong,CLogServer::tagBLOCK_MD5_INFO,stdext::hash_compare<ulong,st	const,CLogServer::tagBLOCK_MD5_INFO>>,0>>	clear		
+0x6feb70	CLogServer::CLogServer	CLogServer	CLogServer		
+0x6fec90	CLogServer::~CLogServer	CLogServer	~CLogServer		
+0x7028d0	CManageLog2::WriteLog	CManageLog2	WriteLog		
+0x702f80	CManageLog2::Write	CManageLog2	Write		
+0x703160	CManageLog2::WriteA	CManageLog2	WriteA		
+0x703540	CManageLog2::Close	CManageLog2	Close		
+0x703800	CManageLog2::CManageLog2	CManageLog2	CManageLog2		
+0x7038b0	CManageLog2::~CManageLog2	CManageLog2	~CManageLog2		
+0x703930	CManageLog2::GetInstance	CManageLog2	GetInstance		
+0x7039c0	CManageErrorCode::Find	CManageErrorCode	Find		
+0x7039f0	CManageErrorCode::CManageErrorCode	CManageErrorCode	CManageErrorCode		
+0x703a50	CManageErrorCode::Push	CManageErrorCode	Push		
+0x703b30	CManageErrorCode::GetInstance	CManageErrorCode	GetInstance		
+0x70433a	_CxxThrowException		_CxxThrowException		
+0x712bc0	L_ERROR_CODE_TO_STRING		L_ERROR_CODE_TO_STRING		
+0x7144b0	UBehaviorTreeComponent::ResumeLogic	UBehaviorTreeComponent	ResumeLogic		
+0x71f3e0	World::AddUiHistoryLog	World	AddUiHistoryLog		
+0x721070	OptionWidgetInteger::DisconnectAll	OptionWidgetInteger	DisconnectAll		
+0x721090	OptionWidgetInteger::Disconnect	OptionWidgetInteger	Disconnect		
+0x721520	WebUtil::convertUnsignedLongToUnsignedChar	WebUtil	convertUnsignedLongToUnsignedChar		
+0x721530	WebUtil::isUnreservedCharacterForUrlEncodeA	WebUtil	isUnreservedCharacterForUrlEncodeA		
+0x7215d0	WebUtil::GetJpegFileNameFromUrl	WebUtil	GetJpegFileNameFromUrl		
+0x721810	WebSessionManager::logCookie	WebSessionManager	logCookie		
+0x721820	WebSessionManager::clearWebSessionCookieForWinInet	WebSessionManager	clearWebSessionCookieForWinInet		
+0x721830	WebSessionManager::setWebSessionCookieForWinInet	WebSessionManager	setWebSessionCookieForWinInet		
+0x721840	WebSessionManager::closeEvents	WebSessionManager	closeEvents		
+0x721930	WebRequester::destroyEvents	WebRequester	destroyEvents		
+0x721960	WebRequester::createEvents	WebRequester	createEvents		
+0x7219e0	WebProcessManager::GetTotalActivatedProcessCount	WebProcessManager	GetTotalActivatedProcessCount		
+0x723750	WebSessionManager::SessionLog::ToString	WebSessionManager::SessionLog	ToString	0x16afda0 %02d-%02d:%02d:%02d,%c,%d,%u,%s	
+0x726880	WebUtil::RemoveWebFontResource	WebUtil	RemoveWebFontResource		
+0x726a30	WebUtil::AddWebFontResource	WebUtil	AddWebFontResource		
+0x726be0	WebUtil::UrlDecodeA	WebUtil	UrlDecodeA		
+0x726da0	WebUtil::UrlEncodeA	WebUtil	UrlEncodeA	0x16b0114 %%%02X	
+0x726f60	WebUtil::ConvertMultiByteToWideChar	WebUtil	ConvertMultiByteToWideChar		
+0x7270e0	WebUtil::ConvertWideCharToMultiByte	WebUtil	ConvertWideCharToMultiByte		
+0x727240	WebUtil::CallJavaScriptFunction	WebUtil	CallJavaScriptFunction		
+0x7272f0	WebSessionManager::setCookie	WebSessionManager	setCookie	0x16b00a0 ;domain=	
+0x7274a0	WebSessionManager::setCookieForDomains	WebSessionManager	setCookieForDomains		
+0x727620	WebSessionManager::SetPresenceCookie	WebSessionManager	SetPresenceCookie		
+0x7277a0	WebSessionManager::SetWebLanguageCookie	WebSessionManager	SetWebLanguageCookie	0x1589c7c language	
+0x727a20	WebSessionManager::RetryLoginTimerEventListener::StopTimer	WebSessionManager::RetryLoginTimerEventListener	StopTimer		
+0x727a70	WebProcessManager::IsWebProcessActivated	WebProcessManager	IsWebProcessActivated		
+0x72c300	WebUtil::UrlDecodeW	WebUtil	UrlDecodeW		
+0x72c3e0	WebUtil::UrlEncodeW	WebUtil	UrlEncodeW		
+0x72cb90	WebSessionManager::updateCharacterCookies	WebSessionManager	updateCharacterCookies		
+0x72cbf0	WebProcessManager::WebProcessManager	WebProcessManager	WebProcessManager		
+0x72fcb0	WebSessionManager::AddSessionHistory	WebSessionManager	AddSessionHistory		
+0x72fd30	WebSessionManager::UpdateResourcePathCookie	WebSessionManager	UpdateResourcePathCookie	0x16b003c /web	
+0x72ff80	WebSessionManager::updatePcIdAndWorldIdCookie	WebSessionManager	updatePcIdAndWorldIdCookie		
+0x730290	WebSessionManager::UpdateOptionCookie	WebSessionManager	UpdateOptionCookie		
+0x730660	WebSessionManager::ProcessNetObjectEvent	WebSessionManager	ProcessNetObjectEvent		
+0x732840	WidgetValue::DisconnectAll	WidgetValue	DisconnectAll		
+0x732880	WidgetValue::Disconnect	WidgetValue	Disconnect		
+0x733ff0	WebSessionManager::destroyWebSessionCookie	WebSessionManager	destroyWebSessionCookie		
+0x736b00	WebSessionManager::SendAndClearSessionHistoryLog	WebSessionManager	SendAndClearSessionHistoryLog	0x16afc28 E:\DailyBuild02\Client-Common-0.0.381\depot\Branch\381NC\Pro	
+0x736dd0	WebSessionManager::stopThread	WebSessionManager	stopThread	0x16afc28 E:\DailyBuild02\Client-Common-0.0.381\depot\Branch\381NC\Pro	
+0x736e70	WebSessionManager::DestroyPcIdAndCharacterCookie	WebSessionManager	DestroyPcIdAndCharacterCookie	0x16afc28 E:\DailyBuild02\Client-Common-0.0.381\depot\Branch\381NC\Pro	
+0x7371f0	WebSessionManager::RetryLoginTimerEventListener::StartTimer	WebSessionManager::RetryLoginTimerEventListener	StartTimer	0x16afb88 failed to keep web session alive, retry count(%d), extra dat	
+0x737340	WebRequester::stopThread	WebRequester	stopThread	0x16af870 E:\DailyBuild02\Client-Common-0.0.381\depot\Branch\381NC\Pro	
+0x7373c0	WebRequester::RequestUri	WebRequester	RequestUri	0x16af870 E:\DailyBuild02\Client-Common-0.0.381\depot\Branch\381NC\Pro	
+0x737520	WebProcessManager::DeactivateAllWebProcess	WebProcessManager	DeactivateAllWebProcess	0x16af308 E:\DailyBuild02\Client-Common-0.0.381\depot\Branch\381NC\Pro	
+0x737760	WebProcessManager::deactivateWebProcess	WebProcessManager	deactivateWebProcess	0x16af470 failed to SetWebBrowserAlwaysUpdate(false), widgetId(%u)	
+0x7377f0	WebProcessManager::activateWebProcess	WebProcessManager	activateWebProcess	0x16af308 E:\DailyBuild02\Client-Common-0.0.381\depot\Branch\381NC\Pro	
+0x7378b0	WebProcessManager::ToggleWebProcess	WebProcessManager	ToggleWebProcess		
+0x737e10	WebUtil::OpenUrl	WebUtil	OpenUrl		
+0x737e70	WebSessionManager::StartRetryLoginTimer	WebSessionManager	StartRetryLoginTimer		
+0x738330	WebUtil::DownloadFile	WebUtil	DownloadFile	0x16b0104 200 ok	
+0x7385d0	WebUtil::DownloadFile	WebUtil	DownloadFile		
+0x739840	WebRequester::processWebRequest	WebRequester	processWebRequest	0x16af870 E:\DailyBuild02\Client-Common-0.0.381\depot\Branch\381NC\Pro	
+0x73aa90	WebRequester::InternalThreadProc	WebRequester	InternalThreadProc		
+0x73aae0	WebRequester::threadProc	WebRequester	threadProc		
+0x73ab10	WebRequester::startThread	WebRequester	startThread	0x16af870 E:\DailyBuild02\Client-Common-0.0.381\depot\Branch\381NC\Pro	
+0x73eb20	WebSessionManager::reloadWebContentsOnSessionConnect	WebSessionManager	reloadWebContentsOnSessionConnect		
+0x73ebc0	WebSessionManager::Tick	WebSessionManager	Tick		
+0x74d1f0	WebContentsGuidePanel::GetTypeString	WebContentsGuidePanel	GetTypeString		
+0x74d850	WebSessionManager::GetSessionIndex	WebSessionManager	GetSessionIndex		
+0x74eb40	WebSessionManager::ResetRetryLoginCount	WebSessionManager	ResetRetryLoginCount		
+0x750a50	WebContentsGuidePanel::ReadOption	WebContentsGuidePanel	ReadOption		
+0x750ab0	WebContentsGuidePanel::WebContentsGuidePanelWebBrowserCallback::Initialize	WebContentsGuidePanel::WebContentsGuidePanelWebBrowserCallba	Initialize		
+0x752240	BUiWorld::ShowPlayReport	BUiWorld	ShowPlayReport		
+0x752310	BUiWorld::SetQuitGameWaitingMode	BUiWorld	SetQuitGameWaitingMode		
+0x7531b0	UIUtil::SetMoneyToWebEditBoxes	UIUtil	SetMoneyToWebEditBoxes	0x14d2a38 bronzePrice	
+0x75a000	WebContentsGuidePanel::CheckLevelCondition	WebContentsGuidePanel	CheckLevelCondition		
+0x75a0b0	WebContentsGuidePanel::ProcessEvent	WebContentsGuidePanel	ProcessEvent		
+0x762f20	WebContentsGuidePanel::InitLevelCondition	WebContentsGuidePanel	InitLevelCondition		
+0x768de0	WebContentsGuidePanel::~WebContentsGuidePanel	WebContentsGuidePanel	~WebContentsGuidePanel		
+0x768e90	WebContentsGuidePanel::WebContentsGuidePanel	WebContentsGuidePanel	WebContentsGuidePanel		
+0x76f2c0	WardrobePanel::NotifyInstantPaymentError	WardrobePanel	NotifyInstantPaymentError	0x1692848 UI.ClosetGroup.CannotPurchase.NotEnoughInven.Confirm	
+0x776900	UniverseCombinePCActivationPanel::showErrorConfirm	UniverseCombinePCActivationPanel	showErrorConfirm		
+0x7809e0	BUiWorld::OpenWebAttractionInfo	BUiWorld	OpenWebAttractionInfo		
+0x7817a0	WebSessionManager::~WebSessionManager	WebSessionManager	~WebSessionManager		
+0x781ab0	WebRequester::~WebRequester	WebRequester	~WebRequester		
+0x787bc0	BUiWorld::OpenWebItemInfo	BUiWorld	OpenWebItemInfo		
+0x7896b0	WebSessionManager::WebSessionManager	WebSessionManager	WebSessionManager		
+0x7897e0	WebRequester::WebRequester	WebRequester	WebRequester		
+0x78cbb0	InGameWebPanel::Clear	InGameWebPanel	Clear		
+0x78f2e0	BUiWorld::CloseFloatingWebPanels	BUiWorld	CloseFloatingWebPanels		
+0x79efb0	BUiWorld::OpenWebQuestInfo	BUiWorld	OpenWebQuestInfo		
+0x7c34f0	BUiWorld::GoToLogin	BUiWorld	GoToLogin		
+0x7ccb80	BUiWorld::OnJoypadDisconnected	BUiWorld	OnJoypadDisconnected		
+0x7cf680	UiTransitControl::worldToLogin	UiTransitControl	worldToLogin		
+0x7dd970	UiStateGame::SetQuitGameWaitingMode	UiStateGame	SetQuitGameWaitingMode		
+0x7de650	UiLobbyStateLogin::PostTick	UiLobbyStateLogin	PostTick		
+0x7de660	UiLobbyStateLogin::UnloadUI	UiLobbyStateLogin	UnloadUI		
+0x7de6b0	UiLobbyStateLogin::LoadUI	UiLobbyStateLogin	LoadUI	0x167b4d0 ClausePanel	
+0x7decb0	BUiLobby::IsLoginState	BUiLobby	IsLoginState		
+0x7dee20	BUiGuildCustomize::SetQuitGameWaitingMode	BUiGuildCustomize	SetQuitGameWaitingMode		
+0x7dfcc0	BUiArenaLobby::SetQuitGameWaitingMode	BUiArenaLobby	SetQuitGameWaitingMode		
+0x7e0550	TraceRouteLog::settraceinfo	TraceRouteLog	settraceinfo		
+0x7e0580	TraceRouteLog::construct_ip_hdr	TraceRouteLog	construct_ip_hdr		
+0x7e05e0	TraceRouteLog::IsSocketReadible	TraceRouteLog	IsSocketReadible		
+0x7e0620	TraceRouteLog::CalculateChecksum	TraceRouteLog	CalculateChecksum		
+0x7e0750	TitleLoginPanel::CloseLoginPanel	TitleLoginPanel	CloseLoginPanel	0x1675dac           	
+0x7e3600	UiLobbyStateLogin::ProcessNPEvent	UiLobbyStateLogin	ProcessNPEvent		
+0x7e3670	UiLobbyStateLogin::ProcessEvent	UiLobbyStateLogin	ProcessEvent		
+0x7e38e0	BUiLobby::ShowWebCharacterInfo	BUiLobby	ShowWebCharacterInfo		
+0x7e3980	BUiLobby::IsVisibleWebCharacterInfo	BUiLobby	IsVisibleWebCharacterInfo		
+0x7e45b0	BUiGuildCustomize::ShowPlayReport	BUiGuildCustomize	ShowPlayReport		
+0x7e45e0	BUiGuildCustomize::ShowQuitGameConfirm	BUiGuildCustomize	ShowQuitGameConfirm		
+0x7e5220	BUiArenaLobby::ShowPlayReport	BUiArenaLobby	ShowPlayReport		
+0x7e5250	BUiArenaLobby::ShowQuitGameConfirm	BUiArenaLobby	ShowQuitGameConfirm		
+0x7e5810	BUiArenaLobby::IsVisibleWebCharacterInfo	BUiArenaLobby	IsVisibleWebCharacterInfo		
+0x7e6160	TraceRouteLog::gethostaddr	TraceRouteLog	gethostaddr	0x16760e4 Failed to resolve %s\n	
+0x7e7540	UiStateGuildCustomize::ShowWebCharacterInfo	UiStateGuildCustomize	ShowWebCharacterInfo		
+0x7eaee0	UiLobbyStateLogin::checkShowUCPcSlotListInitially	UiLobbyStateLogin	checkShowUCPcSlotListInitially		
+0x7eb5b0	BUiLobby::ShowLoginBannedConfirm	BUiLobby	ShowLoginBannedConfirm		
+0x7ed6a0	BUiArenaLobby::ShowWebCharacterInfo	BUiArenaLobby	ShowWebCharacterInfo		
+0x7f25d0	UiStateGame::RequestTencentIngameShopChargeWebPage	UiStateGame	RequestTencentIngameShopChargeWebPage		
+0x7f3de0	BUiLobby::RequestTencentIngameShopChargeWebPage	BUiLobby	RequestTencentIngameShopChargeWebPage		
+0x7f6e40	TraceRouteLog::construct_proto_pack	TraceRouteLog	construct_proto_pack	0x1676114 Hello there!	
+0x7fa9c0	UiStateGame::ShowWebContentsGuide	UiStateGame	ShowWebContentsGuide		
+0x7fe2b0	UiLobbyStateLogin::~UiLobbyStateLogin	UiLobbyStateLogin	~UiLobbyStateLogin		
+0x7ff0e0	UiLobbyStateLogin::UiLobbyStateLogin	UiLobbyStateLogin	UiLobbyStateLogin		
+0x7ff420	TitleLoginPanel::loginReq	TitleLoginPanel	loginReq		
+0x803d40	UiPartyManager::ShowPartyErrorConfirm	UiPartyManager	ShowPartyErrorConfirm		
+0x804660	UIPanel::makeUIPanelLog	UIPanel	makeUIPanelLog		
+0x804930	UiLobbyStateLogin::ShowLoginOtpPanel	UiLobbyStateLogin	ShowLoginOtpPanel		
+0x807140	UiCommonContents::OpenSkillTrainingRoomErrorConfirmPanel	UiCommonContents	OpenSkillTrainingRoomErrorConfirmPanel	0x16781c8 UI.Confirm.SkillTrainingRoom.StartFail	
+0x807380	UiCommonContents::OpenReportBotSpammerConfirm	UiCommonContents	OpenReportBotSpammerConfirm		
+0x807550	UiCommonContents::OpenInstantPaymentErrorConfirmPanel	UiCommonContents	OpenInstantPaymentErrorConfirmPanel	0x1677d50 UI.Confirm.InstantPayment.InArena	
+0x807df0	BUiArenaLobby::ShowDisconnectServerConfirm	BUiArenaLobby	ShowDisconnectServerConfirm		
+0x809830	TraceRouteLog::ProcessIpPacket	TraceRouteLog	ProcessIpPacket	0x16760fc \n %2d  %4d ms  %15s \n	
+0x809bb0	TitleLoginPanel::LoginFailEvent	TitleLoginPanel	LoginFailEvent	0x1675dc4 (%d)(%d)	
+0x809fe0	TitleLoginPanel::OpenLoginPanel	TitleLoginPanel	OpenLoginPanel		
+0x810e00	UiLobbyStateLogin::EndState	UiLobbyStateLogin	EndState		
+0x8119f0	BUiLobby::ProcessLogin	BUiLobby	ProcessLogin		
+0x814970	TitleLoginPanel::processLogin	TitleLoginPanel	processLogin		
+0x814c20	TitleLoginPanel::Start	TitleLoginPanel	Start		
+0x814d60	TitleLoginPanel::ProcessEvent	TitleLoginPanel	ProcessEvent		
+0x81ae40	TraceRouteLog::ProcessPacket	TraceRouteLog	ProcessPacket		
+0x81c6d0	UiStateGame::CloseFloatingWebPanels	UiStateGame	CloseFloatingWebPanels	0x1681a18 E:\DailyBuild02\Client-Common-0.0.381\depot\Branch\381NC\Pro	
+0x81f900	UiLobbyStateLogin::ShowClause	UiLobbyStateLogin	ShowClause		
+0x81f980	UiLobbyStateLogin::StartState	UiLobbyStateLogin	StartState		
+0x820830	TraceRouteLog::processResponse	TraceRouteLog	processResponse		
+0x824de0	InGameWebPanel::Clear	InGameWebPanel	Clear		
+0x828f90	BUiGuildCustomize::GoToLogin	BUiGuildCustomize	GoToLogin		
+0x8295c0	BUiLobby::LogoutReq	BUiLobby	LogoutReq		
+0x835280	BUiLobby::ChangeUiLobbyStateLogin	BUiLobby	ChangeUiLobbyStateLogin		
+0x83ca40	BUiArenaLobby::GoToLogin	BUiArenaLobby	GoToLogin		
+0x851e70	BUiLobby::OnJoypadDisconnected	BUiLobby	OnJoypadDisconnected		
+0x8633b0	`WebTextFormat::FormatText	`WebTextFormat	FormatText		
+0x8633e0	`WebTextFormat::FormatText	`WebTextFormat	FormatText		
+0x8660c0	TencentIngameShopPanel::isSelectWebChargeGoodsBtn	TencentIngameShopPanel	isSelectWebChargeGoodsBtn		
+0x86c4f0	TencentHealthyOpenPanel::TencentHealthyOpenWebBrowserCallback::Initialize	TencentHealthyOpenPanel::TencentHealthyOpenWebBrowserCallbac	Initialize	0x14e0c60 http	
+0x86c6c0	TencentEventNoticePanel::TencentEventNoticeWebBrowserCallback::Initialize	TencentEventNoticePanel::TencentEventNoticeWebBrowserCallbac	Initialize		
+0x86c9d0	TencentCommunityEventPanel::TencentCommunityEventWebBrowserCallback::Initialize	TencentCommunityEventPanel::TencentCommunityEventWebBrowserC	Initialize		
+0x86cde0	TencentChargePanel::TencentChargeWebBrowserCallback::Initialize	TencentChargePanel::TencentChargeWebBrowserCallback	Initialize	0x16673ec <url>	
+0x871430	TencentQRCodePanel::TencentQRCodeWebBrowserCallback::Initialize	TencentQRCodePanel::TencentQRCodeWebBrowserCallback	Initialize	0x166d414 <url>	
+0x8731a0	TencentEventNoticePanel::TencentEventNoticeWebBrowserCallback::hideTooltip	TencentEventNoticePanel::TencentEventNoticeWebBrowserCallbac	hideTooltip		
+0x8731f0	TencentEventNoticePanel::TencentEventNoticeWebBrowserCallback::onTooltipCommand	TencentEventNoticePanel::TencentEventNoticeWebBrowserCallbac	onTooltipCommand		
+0x873650	TencentCommunityEventPanel::TencentCommunityEventWebBrowserCallback::hideTooltip	TencentCommunityEventPanel::TencentCommunityEventWebBrowserC	hideTooltip		
+0x8736a0	TencentCommunityEventPanel::TencentCommunityEventWebBrowserCallback::onTooltipCommand	TencentCommunityEventPanel::TencentCommunityEventWebBrowserC	onTooltipCommand		
+0x876980	BTeam::checkClearLogoutTeamMember	BTeam	checkClearLogoutTeamMember		
+0x876ed0	TaskSession::InitializeLatencyLogModule	TaskSession	InitializeLatencyLogModule	0x14dd664 ..\log	Latency log file
+0x8810e0	TaskSession::writeNetworkLatencyLog	TaskSession	writeNetworkLatencyLog	0x1662f28 [%s] player : %s, target : %s, duel round : %d, min : %d, ma	
+0x889960	TencentIngameShopPanel::updateErrorHolder	TencentIngameShopPanel	updateErrorHolder	0x1540c18 UI.TecentIngameShop.ErrorMessage.Display	
+0x89add0	WebTextFormat::parseXmlNode	WebTextFormat	parseXmlNode		
+0x8a5710	BTeam::InvokeTeamErrorMessage	BTeam	InvokeTeamErrorMessage	0x1663b60 Msg.Team.InviteFail.CannotFindTarget	
+0x8a5e50	TaskSession::getPlayInfoForNetworkLatencyLog	TaskSession	getPlayInfoForNetworkLatencyLog		
+0x8a9450	WebTextFormat::FormatText	WebTextFormat	FormatText	0x14c5bd8 <?xml version='1.0' encoding='UTF-16'?>	
+0x8b7fe0	TaskSession::requestReportLatency	TaskSession	requestReportLatency		G_WriteLatencyLogReqCmd 416 builder
+0x8d9160	InGameWebPanel::Clear	InGameWebPanel	Clear		
+0x8d9170	InGameWebPanel::Clear	InGameWebPanel	Clear		
+0x8d9730	InGameWebPanel::Clear	InGameWebPanel	Clear		
+0x8d9800	InGameWebPanel::Clear	InGameWebPanel	Clear		
+0x8d9810	InGameWebPanel::Clear	InGameWebPanel	Clear		
+0x8d9820	InGameWebPanel::Clear	InGameWebPanel	Clear		
+0x8d98b0	TestWebBrowserPanel::ShowPanel	TestWebBrowserPanel	ShowPanel		
+0x8d9c70	TencentIngameShopPanel::openChargeExternalWeb	TencentIngameShopPanel	openChargeExternalWeb		
+0x8dac50	TencentEventNoticePanel::TencentEventNoticeWebBrowserCallback::onBnsCommand	TencentEventNoticePanel::TencentEventNoticeWebBrowserCallbac	onBnsCommand	0x14daa50 Msg.Web.NavigationFail.NoExternalLink	
+0x8daee0	TencentCommunityEventPanel::TencentCommunityEventWebBrowserCallback::onBnsCommand	TencentCommunityEventPanel::TencentCommunityEventWebBrowserC	onBnsCommand	0x14daa50 Msg.Web.NavigationFail.NoExternalLink	
+0x8fb590	TencentLobbyHomePanel::TencentLobbyHomePanelWebBrowserCallback::onBnsCommand	TencentLobbyHomePanel::TencentLobbyHomePanelWebBrowserCallba	onBnsCommand	0x14daa50 Msg.Web.NavigationFail.NoExternalLink	
+0x905290	SnsPanel::SnsWebBrowserCallback::Initialize	SnsPanel::SnsWebBrowserCallback	Initialize	0x14dfc8c <url>	
+0x907580	SkillPowerBookPanel::SkillPowerBookWebBrowserCallback::Initialize	SkillPowerBookPanel::SkillPowerBookWebBrowserCallback	Initialize		
+0x93cb00	ReportBotSpammerConfirmPanel::~ReportBotSpammerConfirmPanel	ReportBotSpammerConfirmPanel	~ReportBotSpammerConfirmPanel		
+0x93d710	ReportBotSpammerConfirmPanel::ReportBotSpammerConfirmPanel	ReportBotSpammerConfirmPanel	ReportBotSpammerConfirmPanel		
+0x950bc0	InGameWebPanel::Clear	InGameWebPanel	Clear		
+0x950bd0	SnsPanel::SnsWebBrowserCallback::SetStartLoading	SnsPanel::SnsWebBrowserCallback	SetStartLoading	0x16570f8 E:\DailyBuild02\Client-Common-0.0.381\depot\Branch\381NC\Pro	
+0x96bcf0	SkillTracer::Report	SkillTracer	Report	0x1650958 name:%s, geoZoneId:%d, total:%d(%lluKB), max:%d(%lluKB), suc	SkillTracer::Report: _skill.log
+0x972670	SkillPowerBookPanel::SkillPowerBookWebBrowserCallback::onBnsCommand	SkillPowerBookPanel::SkillPowerBookWebBrowserCallback	onBnsCommand	0x14daa50 Msg.Web.NavigationFail.NoExternalLink	
+0x9941b0	SnsPanel::SnsWebBrowserCallback::onBnsCommand	SnsPanel::SnsWebBrowserCallback	onBnsCommand	0x14daa50 Msg.Web.NavigationFail.NoExternalLink	
+0x9989d0	ReportBotSpammerConfirmPanel::getReportedBotSpammerName	ReportBotSpammerConfirmPanel	getReportedBotSpammerName		
+0x99aa40	RandomStorePanel::OnWebBrowserIEClosed	RandomStorePanel	OnWebBrowserIEClosed		
+0x99b050	RandomStore2ndPanel::OnWebBrowserIEClosed	RandomStore2ndPanel	OnWebBrowserIEClosed		
+0x99b980	QuitGameConfirmPanel::OnClearHotkeyFocus	QuitGameConfirmPanel	OnClearHotkeyFocus		
+0x99b9d0	QuitGameConfirmPanel::OnHotkeyFocused	QuitGameConfirmPanel	OnHotkeyFocused		
+0x99cc10	ReportBotSpammerConfirmPanel::updateButton	ReportBotSpammerConfirmPanel	updateButton		
+0x99ea70	RandomStorePanel::ShowError	RandomStorePanel	ShowError		
+0x99ee60	RandomStore2ndPanel::ShowError	RandomStore2ndPanel	ShowError		
+0x99fa20	QuitGameConfirmPanel::SetCustomizeMode	QuitGameConfirmPanel	SetCustomizeMode		
+0x99fa70	QuitGameConfirmPanel::Close	QuitGameConfirmPanel	Close		
+0x99fed0	SelectCharacterPanel::getLastLogoutPcSlotIndex	SelectCharacterPanel	getLastLogoutPcSlotIndex		
+0x9a2590	RankingPanel::receiveRetrieveChallengePartyLogSummaryOk	RankingPanel	receiveRetrieveChallengePartyLogSummaryOk		
+0x9a2cf0	RandomStorePanel::RandomStorePanelWebBrowserCallback::Initialize	RandomStorePanel::RandomStorePanelWebBrowserCallback	Initialize		
+0x9a36e0	RandomStore2ndPanel::RandomStore2ndPanelWebBrowserCallback::Initialize	RandomStore2ndPanel::RandomStore2ndPanelWebBrowserCallback	Initialize		
+0x9afae0	ReportBotSpammerConfirmPanel::updateDescription	ReportBotSpammerConfirmPanel	updateDescription	0x1642d18 UI.Confirm.ReportBotSpammer.Spammer	
+0x9afc10	ReportBotSpammerConfirmPanel::Open	ReportBotSpammerConfirmPanel	Open	0x1642c64 Msg.ReportBot.Fa	
+0x9b57b0	RankingPanel::showErrorConfirm	RankingPanel	showErrorConfirm		
+0x9bf450	QuitGameConfirmPanel::restartLauncher	QuitGameConfirmPanel	restartLauncher	0x15d5530 UI.Confirm.RestartLauncher.Fail.OutOfMemory	
+0x9dd500	ReportBotSpammerConfirmPanel::sendReporting	ReportBotSpammerConfirmPanel	sendReporting	0x14fb3a8 Msg.ChannelChatting.ReportSpammer.Fail.Common	
+0xa15f20	QuitGameConfirmPanel::endProgress	QuitGameConfirmPanel	endProgress	0x16347a0 \..\log\	
+0xa16470	QuitGameConfirmPanel::ProcessEvent	QuitGameConfirmPanel	ProcessEvent		
+0xa165c0	ReportBotSpammerConfirmPanel::addSpammerList	ReportBotSpammerConfirmPanel	addSpammerList		
+0xa166a0	ReportBotSpammerConfirmPanel::ProcessEvent	ReportBotSpammerConfirmPanel	ProcessEvent		
+0xa17260	QuitGameConfirmPanel::OnInputKeyEvent	QuitGameConfirmPanel	OnInputKeyEvent		
+0xa1a840	QuitGameConfirmPanel::Open	QuitGameConfirmPanel	Open	0x15aea30 <timer type="hms-plusonesec" id="%d"/>	
+0xa20800	PublicRaidQTECrashEventPanel::updateGauge	PublicRaidQTECrashEventPanel	updateGauge		
+0xa247d0	PublicRaidQTECrashEventPanel::OffPublicRaidEventKeyMapping	PublicRaidQTECrashEventPanel	OffPublicRaidEventKeyMapping		
+0xa24880	PublicRaidQTECrashEventPanel::Clear	PublicRaidQTECrashEventPanel	Clear		
+0xa34680	PublicRaidQTECrashEventPanel::setWidgetParticle	PublicRaidQTECrashEventPanel	setWidgetParticle	0x1625cb0 00027869.Particle.UI_FightGauge_SkillIcon	
+0xa45620	QQMessenger::DeleteGroupMessageLog	QQMessenger	DeleteGroupMessageLog		
+0xa45700	QQMessenger::DeleteC2CMessageLog	QQMessenger	DeleteC2CMessageLog		
+0xa49da0	PublicRaidQTECrashEventPanel::convertImageText	PublicRaidQTECrashEventPanel	convertImageText	0x14dde70 %s%c	
+0xa49f40	PublicRaidQTECrashEventPanel::updatePrivateScore	PublicRaidQTECrashEventPanel	updatePrivateScore		
+0xa4a010	PublicRaidQTECrashEventPanel::updateUI	PublicRaidQTECrashEventPanel	updateUI		
+0xa4a030	PublicRaidQTECrashEventPanel::addPrivateScore	PublicRaidQTECrashEventPanel	addPrivateScore		
+0xa4a050	PublicRaidQTECrashEventPanel::processPublicRaidEventBroadcastScoreNotifyPacket	PublicRaidQTECrashEventPanel	processPublicRaidEventBroadcastScoreNotifyPacket		
+0xa4a070	PublicRaidQTECrashEventPanel::playCloseUIAction	PublicRaidQTECrashEventPanel	playCloseUIAction		
+0xa4a160	PublicRaidQTECrashEventPanel::Show	PublicRaidQTECrashEventPanel	Show		
+0xa55720	PublicRaidQTECrashEventPanel::stopQTEEvent	PublicRaidQTECrashEventPanel	stopQTEEvent		
+0xa55760	PublicRaidQTECrashEventPanel::processPublicRaidEventStopNotifyPacket	PublicRaidQTECrashEventPanel	processPublicRaidEventStopNotifyPacket		
+0xa557b0	PublicRaidQTECrashEventPanel::processPublicRaidEventStartNotifyPacket	PublicRaidQTECrashEventPanel	processPublicRaidEventStartNotifyPacket		
+0xa559b0	PublicRaidQTECrashEventPanel::ProcessNetObjectEvent	PublicRaidQTECrashEventPanel	ProcessNetObjectEvent		
+0xa55a60	PublicRaidQTECrashEventPanel::stopQTEIfDead	PublicRaidQTECrashEventPanel	stopQTEIfDead		
+0xa5fec0	QQGroupPanel::processLoadChatLog	QQGroupPanel	processLoadChatLog		
+0xa6a050	QQRecentContactUserPanel::processLoadChatLog	QQRecentContactUserPanel	processLoadChatLog		
+0xaa2b80	PlayReportPanel::OnInputKeyEvent	PlayReportPanel	OnInputKeyEvent		
+0xaa2b90	PlayReportCompleteQuestColumnList::ProcessEvent	PlayReportCompleteQuestColumnList	ProcessEvent		
+0xaa2ba0	PlayReport::OnChangedCreatureProperty	PlayReport	OnChangedCreatureProperty		
+0xaa5710	BPTCreature::DisableJobBattleLogicSockeParticle	BPTCreature	DisableJobBattleLogicSockeParticle		
+0xaa57b0	BPTCreature::EnableJobBattleLogicSockeParticle	BPTCreature	EnableJobBattleLogicSockeParticle		
+0xaa97a0	PowerBookPanel::PowerBookWebBrowserCallback::Initialize	PowerBookPanel::PowerBookWebBrowserCallback	Initialize		
+0xab47e0	PowerBookPanel::PowerBookWebBrowserCallback::onTooltipCommand	PowerBookPanel::PowerBookWebBrowserCallback	onTooltipCommand		
+0xad47a0	BPTCreature::UpdateJobBattleLogicSocketParticle	BPTCreature	UpdateJobBattleLogicSocketParticle		
+0xade540	ProductionPanel2::ShowCompleteErrorInvenFullConfirm	ProductionPanel2	ShowCompleteErrorInvenFullConfirm		
+0xae4b20	PlayReportAcquireItemColumnList::PlayReportAcquireItemColumnList	PlayReportAcquireItemColumnList	PlayReportAcquireItemColumnList		
+0xb38910	PlayReportCompleteQuestColumnList::Refresh	PlayReportCompleteQuestColumnList	Refresh		
+0xb38960	PlayReportAcquireItemColumnList::Refresh	PlayReportAcquireItemColumnList	Refresh		
+0xb3b7b0	DuelResultPanel::DuelBoastPanelWebBrowserCallback::Initialize	DuelResultPanel::DuelBoastPanelWebBrowserCallback	Initialize		
+0xb3b930	PlayReportCompleteQuestColumnList::GetRowCount	PlayReportCompleteQuestColumnList	GetRowCount		
+0xb3b9b0	PlayReport::GetAcquiredItem	PlayReport	GetAcquiredItem		
+0xb3ba10	PlayReport::GetCompleteQuest	PlayReport	GetCompleteQuest		
+0xb3ba50	PlayReport::GetAcquiredFieldPlayPoint	PlayReport	GetAcquiredFieldPlayPoint		
+0xb3ba80	PlayReport::GetAcquiredPartyBattlePoint	PlayReport	GetAcquiredPartyBattlePoint		
+0xb3bab0	PlayReport::GetAcquiredDuelPoint	PlayReport	GetAcquiredDuelPoint		
+0xb3bae0	PlayReport::GetAcquiredMoney	PlayReport	GetAcquiredMoney		
+0xb3bb20	PlayReport::GetAcquiredExp	PlayReport	GetAcquiredExp		
+0xb3bb60	PlayReport::IsLevelUp	PlayReport	IsLevelUp		
+0xb3bd80	BPlayingActions::printDebugLog	BPlayingActions	printDebugLog	0x16152d4 GS_ActionsEquipCmd	
+0xb3cf90	BPlayer::CanReportBotSpammer	BPlayer	CanReportBotSpammer		
+0xb3e2a0	PetitionPanel2::Petition2WebBrowserCallback::Initialize	PetitionPanel2::Petition2WebBrowserCallback	Initialize	0x160faa0 <url>	
+0xb3e3b0	PetitionPanel::BugReportPetitionPage::GetTimeStringFromComboBoxes	PetitionPanel::BugReportPetitionPage	GetTimeStringFromComboBoxes		
+0xb3e7e0	PetitionPanel::PetitionFaqWebBrowserCallback::Initialize	PetitionPanel::PetitionFaqWebBrowserCallback	Initialize		
+0xb41560	PlayReportPanel::updateAcquiredPoint	PlayReportPanel	updateAcquiredPoint		
+0xb417c0	PlayReportPanel::updateAcquiredExp	PlayReportPanel	updateAcquiredExp		
+0xb41850	PlayReportCompleteQuestColumnList::AddWidget	PlayReportCompleteQuestColumnList	AddWidget		
+0xb41ae0	PlayReport::Initialize	PlayReport	Initialize		
+0xb41c00	PlayReport::PlayReport	PlayReport	PlayReport		
+0xb42560	BPlayer::IsLongTimeLogout	BPlayer	IsLongTimeLogout		
+0xb44160	PetitionPanel2::Petition2WebBrowserCallback::onTooltipCommand	PetitionPanel2::Petition2WebBrowserCallback	onTooltipCommand		
+0xb48bb0	PlayReportCompleteQuestColumnList::PlayReportCompleteQuestColumnList	PlayReportCompleteQuestColumnList	PlayReportCompleteQuestColumnList		
+0xb48c30	PlayReport::CompareCompleteQuestOrder	PlayReport	CompareCompleteQuestOrder		
+0xb48e90	PlayReport::AddAcquiredItem	PlayReport	AddAcquiredItem		
+0xb52060	BPlayer::CheckErrorSkillSkinAcquire	BPlayer	CheckErrorSkillSkinAcquire		
+0xb53c60	PlayReportPanel::showAttendanceItemListButton	PlayReportPanel	showAttendanceItemListButton	0x14de12c Label	
+0xb53d50	PlayReportPanel::showAcuiredItemList	PlayReportPanel	showAcuiredItemList	0x14de12c Label	
+0xb53e60	PlayReportPanel::updateButton	PlayReportPanel	updateButton	0x1616be4 UI.PlayReport.GoToTitle	
+0xb53f50	PlayReportPanel::updateBenefitAttendance	PlayReportPanel	updateBenefitAttendance	0x16169f8 UI.PlayReport.Attendance.PlayCount	
+0xb54380	PlayReportPanel::updateAttendance	PlayReportPanel	updateAttendance	0x16169f8 UI.PlayReport.Attendance.PlayCount	
+0xb54610	PlayReportPanel::updateCompleteQuest	PlayReportPanel	updateCompleteQuest	0x16167bc UI.PlayReport.CompleteQuest	
+0xb54750	PlayReportPanel::updateAcquiredMoney	PlayReportPanel	updateAcquiredMoney	0x16166d8 UI.PlayReport.AcquiredMoney.Equal	
+0xb54930	PlayReportPanel::OnChangedCreatureProperty	PlayReportPanel	OnChangedCreatureProperty		
+0xb54a40	PlayReportAcquireItemColumnList::SetAttendanceItems	PlayReportAcquireItemColumnList	SetAttendanceItems		
+0xb54b00	PlayReportAcquireItemColumnList::Clear	PlayReportAcquireItemColumnList	Clear		
+0xb54b60	PlayReport::addCompleteQuest	PlayReport	addCompleteQuest		
+0xb54c80	PlayReport::ProcessNetObjectEvent	PlayReport	ProcessNetObjectEvent		
+0xb58e00	PlayerAbilityRemasterPanel::showErrorConfirm	PlayerAbilityRemasterPanel	showErrorConfirm	0x14b9464 Msg.AbilityPoint.SetEffectFail	
+0xb59980	PlayerAbilityPanel::showErrorConfirm	PlayerAbilityPanel	showErrorConfirm	0x14b9464 Msg.AbilityPoint.SetEffectFail	
+0xb69120	PlayReportPanel::updateChallengeToday	PlayReportPanel	updateChallengeToday	0x1616848 UI.Tooltip.DailyChallenge.Completed	
+0xb694b0	PlayReportPanel::Close	PlayReportPanel	Close		
+0xb6d350	BPlayer::RequestReportBotSpammer	BPlayer	RequestReportBotSpammer		
+0xb84400	PlayReportPanel::PlayReportPanel	PlayReportPanel	PlayReportPanel		
+0xb89c10	PlayReportAcquireItemColumnList::ProcessEvent	PlayReportAcquireItemColumnList	ProcessEvent		
+0xb8eae0	InGameWebPanel::Clear	InGameWebPanel	Clear		
+0xb8fae0	PetitionPanel::BugReportPetitionPage::BugReportPetitionPage	PetitionPanel::BugReportPetitionPage	BugReportPetitionPage		
+0xb90490	PetitionPanel2::Petition2WebBrowserCallback::onBnsCommand	PetitionPanel2::Petition2WebBrowserCallback	onBnsCommand	0x14daa50 Msg.Web.NavigationFail.NoExternalLink	
+0xb90e60	PetitionPanel::PetitionFaqWebBrowserCallback::onBnsCommand	PetitionPanel::PetitionFaqWebBrowserCallback	onBnsCommand	0x14daa50 Msg.Web.NavigationFail.NoExternalLink	
+0xb9c430	PlayReportCompleteQuestColumnList::updateWidget	PlayReportCompleteQuestColumnList	updateWidget	0x15695e8 Grade	
+0xb9c6a0	PlayReportCompleteQuestColumnList::Fill	PlayReportCompleteQuestColumnList	Fill		
+0xba2170	PowerBookPanel::PowerBookWebBrowserCallback::onBnsCommand	PowerBookPanel::PowerBookWebBrowserCallback	onBnsCommand	0x14daa50 Msg.Web.NavigationFail.NoExternalLink	
+0xba78a0	PlayReportPanel::updateAttendanceItem	PlayReportPanel	updateAttendanceItem	0x14d4f38 <timer type="dhms-rounddown2-plusonesec" id="%d"/>	
+0xba85a0	PlayReportPanel::updateAttendanceItem	PlayReportPanel	updateAttendanceItem		
+0xba8650	PlayReportPanel::updateAcquiredItem	PlayReportPanel	updateAcquiredItem		
+0xba8bd0	PlayReportPanel::updateContents	PlayReportPanel	updateContents		
+0xba8c60	PlayReportPanel::OnUserAttendReset	PlayReportPanel	OnUserAttendReset		
+0xba8c90	PlayReportPanel::ProcessNetObjectEvent	PlayReportPanel	ProcessNetObjectEvent		
+0xba8d50	PlayReportAcquireItemColumnList::updateWidget	PlayReportAcquireItemColumnList	updateWidget	0x16159b0 UI.PlayReport.AcquiredItemCount	
+0xba92b0	PlayReportAcquireItemColumnList::Fill	PlayReportAcquireItemColumnList	Fill		
+0xba92d0	PlayReportAcquireItemColumnList::AddWidget	PlayReportAcquireItemColumnList	AddWidget	0x14baf3c Grade_Image	
+0xbb1b20	PlayReportPanel::Start	PlayReportPanel	Start	0x14baf3c Grade_Image	
+0xbb6450	PlayReportPanel::processExit	PlayReportPanel	processExit		
+0xbb6600	PlayReportPanel::ProcessEvent	PlayReportPanel	ProcessEvent		
+0xbbdda0	PlayReportPanel::Open	PlayReportPanel	Open		
+0xbcf0c0	BNpcDeadBody::Disconnect	BNpcDeadBody	Disconnect		
+0xbd3c10	NShopPanel::NShopWebBrowserCallback::onTooltipCommand	NShopPanel::NShopWebBrowserCallback	onTooltipCommand		
+0xbd40c0	NPSession::SendLoginRequest	NPSession	SendLoginRequest		
+0xbda960	BParty::checkClearLogoutMember	BParty	checkClearLogoutMember		
+0xc075b0	NPSession::SendLogoutRequest	NPSession	SendLogoutRequest		
+0xc076d0	NPSession::SendLoginStartMessage	NPSession	SendLoginStartMessage		
+0xc07890	NPSession::SendWebLoginTokenKeyData	NPSession	SendWebLoginTokenKeyData	0x15f2a94 tencent	
+0xc08200	NPSession::SendWebLoginTokenStart	NPSession	SendWebLoginTokenStart		
+0xc13fb0	BParty::RequestClearLogoutMember	BParty	RequestClearLogoutMember		
+0xc1f4f0	NPAuctionPanel::OnWebBrowserIEClosed	NPAuctionPanel	OnWebBrowserIEClosed		
+0xc21c10	NPSession::ReceiveLoginFailure	NPSession	ReceiveLoginFailure	0x15f2c20 ErrAccountNotFound	
+0xc220a0	NPSession::SendWebLoginRequest	NPSession	SendWebLoginRequest	0x15f2760 E:\DailyBuild02\Client-Common-0.0.381\depot\Branch\381NC\Pro	
+0xc223a0	NPSession::OnError	NPSession	OnError	0x15f2760 E:\DailyBuild02\Client-Common-0.0.381\depot\Branch\381NC\Pro	NPSession::OnError
+0xc24120	InGameWebPanel::Clear	InGameWebPanel	Clear		
+0xc24900	NShopPanel::openChargeExternalWeb	NShopPanel	openChargeExternalWeb		
+0xc24a60	NShopPanel::NShopWebBrowserCallback::onBnsCommand	NShopPanel::NShopWebBrowserCallback	onBnsCommand	0x14daa50 Msg.Web.NavigationFail.NoExternalLink	
+0xc24d80	NPSession::ReceiveLoginFinishSuccess	NPSession	ReceiveLoginFinishSuccess	0x15f2760 E:\DailyBuild02\Client-Common-0.0.381\depot\Branch\381NC\Pro	
+0xc26850	BNpc::AddDamageMeterHitLog	BNpc	AddDamageMeterHitLog		
+0xc26940	BNpc::AddDamageMeterDamageLog	BNpc	AddDamageMeterDamageLog		
+0xc481e0	NPAuctionPanel::requestChargeWebPage	NPAuctionPanel	requestChargeWebPage		
+0xc4b380	BParty::InvokePartyErrorMessage	BParty	InvokePartyErrorMessage	0x15f7d90 Msg.Party.InviteFail.PlayerNotLeader	
+0xc59120	LoginGuidePanel::Show	LoginGuidePanel	Show		
+0xc59140	LoginGuidePanel::Clear	LoginGuidePanel	Clear		
+0xc59150	LoginOtpPanel::isOtpNumpad	LoginOtpPanel	isOtpNumpad		
+0xc59170	LoginOtpPanel::Hide	LoginOtpPanel	Hide		
+0xc591b0	LoginOtpPanel::Clear	LoginOtpPanel	Clear		
+0xc591c0	LoginBannedConfirmPanel::isPermanentBanned	LoginBannedConfirmPanel	isPermanentBanned		
+0xc591f0	LoginBannedConfirmPanel::Cancel	LoginBannedConfirmPanel	Cancel		
+0xc59200	LoginBannedConfirmPanel::Close	LoginBannedConfirmPanel	Close		
+0xc59210	LoginBannedConfirmPanel::Clear	LoginBannedConfirmPanel	Clear		
+0xc596a0	LobbyGoodsStoreNotificationPanel::applyErrorView	LobbyGoodsStoreNotificationPanel	applyErrorView		
+0xc5dec0	LoginGuidePanel::ProcessNPEvent	LoginGuidePanel	ProcessNPEvent		
+0xc5df70	LoginGuidePanel::ProcessEvent	LoginGuidePanel	ProcessEvent		
+0xc5dfa0	LoginOtpPanel::setErrorMessageTimer	LoginOtpPanel	setErrorMessageTimer		
+0xc5dff0	LoginOtpPanel::getSecondAuthenticationNumberLength	LoginOtpPanel	getSecondAuthenticationNumberLength		
+0xc5e0b0	LoginOtpPanel::getMaxVerifyCount	LoginOtpPanel	getMaxVerifyCount		
+0xc5e1b0	LoginOtpPanel::EndModal	LoginOtpPanel	EndModal		
+0xc5e1e0	LoginOtpPanel::StartModal	LoginOtpPanel	StartModal		
+0xc5e220	LoginBannedConfirmPanel::getDurationDay	LoginBannedConfirmPanel	getDurationDay		
+0xc5e2b0	LoginBannedConfirmPanel::Initialize	LoginBannedConfirmPanel	Initialize		
+0xc5eec0	LobbyNShopHomePanel::LobbyNShopHomeWebBrowserCallback::Initialize	LobbyNShopHomePanel::LobbyNShopHomeWebBrowserCallback	Initialize		
+0xc5efb0	LobbyHomePanel::LobbyHomeWebBrowserCallback::Initialize	LobbyHomePanel::LobbyHomeWebBrowserCallback	Initialize	0x14dfc8c <url>	
+0xc65ce0	LoginOtpPanel::applyPasswordHash	LoginOtpPanel	applyPasswordHash		
+0xc65e30	LoginOtpPanel::isVerifyEnabled	LoginOtpPanel	isVerifyEnabled		
+0xc67290	sub_C67290		sub_C67290		LobbyGateSession::OnClose
+0xc732b0	LobbyGateSession::RecieveLoginWithNPTokenOk	LobbyGateSession	RecieveLoginWithNPTokenOk		
+0xc84a20	LoginOtpPanel::updateVerifyMode	LoginOtpPanel	updateVerifyMode	0x15dbc10 Mark	
+0xc84ef0	LoginOtpPanel::InitOtpNumpadList	LoginOtpPanel	InitOtpNumpadList		
+0xc85100	LoginOtpPanel::setHelpMsg	LoginOtpPanel	setHelpMsg		
+0xc855b0	LoginOtpPanel::updateHelpMessage	LoginOtpPanel	updateHelpMessage		
+0xc85c40	LoginOtpPanel::update	LoginOtpPanel	update		
+0xc85ca0	LoginOtpPanel::Show	LoginOtpPanel	Show		
+0xc85d90	LoginOtpPanel::~LoginOtpPanel	LoginOtpPanel	~LoginOtpPanel		
+0xc85e10	LoginOtpPanel::LoginOtpPanel	LoginOtpPanel	LoginOtpPanel		
+0xc85f80	LoginBannedConfirmPanel::Open	LoginBannedConfirmPanel	Open		
+0xc86890	LobbyServicePanel::showErrorConfirm	LobbyServicePanel	showErrorConfirm		
+0xc882a0	LobbyCreateUserNamePanel::showErrorConfirm	LobbyCreateUserNamePanel	showErrorConfirm		
+0xc88f40	NativeCharacterInfoPanel::processWebButton	NativeCharacterInfoPanel	processWebButton	0x15e8c20 roleInfo	
+0xc95770	LoginOtpPanel::processOtpBackNumClick	LoginOtpPanel	processOtpBackNumClick		
+0xc957e0	LoginOtpPanel::processOtpInitNumClick	LoginOtpPanel	processOtpInitNumClick		
+0xc95830	LoginOtpPanel::processOtpNumpadClick	LoginOtpPanel	processOtpNumpadClick		
+0xc959d0	LoginBannedConfirmPanel::LoginBannedConfirmPanel	LoginBannedConfirmPanel	LoginBannedConfirmPanel		
+0xc98340	Lobby::RequestLogout	Lobby	RequestLogout		
+0xc9fc00	LoginOtpPanel::processConfirmClick	LoginOtpPanel	processConfirmClick		
+0xc9ffc0	LoginOtpPanel::ProcessNPEvent	LoginOtpPanel	ProcessNPEvent	0x15dbf90 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA	
+0xca1ac0	LobbyGateSession::ReceiveKickNotify	LobbyGateSession	ReceiveKickNotify		
+0xca6ef0	LobbyHomePanel::LobbyHomeWebBrowserCallback::ShowJavascriptDialog	LobbyHomePanel::LobbyHomeWebBrowserCallback	ShowJavascriptDialog		
+0xca7080	LobbyGateSession::OnError	LobbyGateSession	OnError		LobbyGateSession::OnError
+0xcb43b0	InGameWebPanel::Clear	InGameWebPanel	Clear		
+0xcb5560	LobbyNShopPanel2::openChargeExternalWeb	LobbyNShopPanel2	openChargeExternalWeb		
+0xcb55b0	LobbyNShopPanel2::LobbyNShop2WebBrowserCallback::onBnsCommand	LobbyNShopPanel2::LobbyNShop2WebBrowserCallback	onBnsCommand	0x14daa50 Msg.Web.NavigationFail.NoExternalLink	
+0xcb5890	LobbyNShopHomePanel::LobbyNShopHomeWebBrowserCallback::onBnsCommand	LobbyNShopHomePanel::LobbyNShopHomeWebBrowserCallback	onBnsCommand	0x15d9aa0 gameTimeList	
+0xcb79c0	LoginOtpPanel::processCloseClick	LoginOtpPanel	processCloseClick		
+0xcb7b30	LoginOtpPanel::ProcessEvent	LoginOtpPanel	ProcessEvent		
+0xcb7e10	LoginOtpPanel::ProgressCancel	LoginOtpPanel	ProgressCancel		
+0xcb7e90	LoginOtpPanel::ProgressComplete	LoginOtpPanel	ProgressComplete		
+0xcd74c0	LobbyHomePanel::LobbyHomeWebBrowserCallback::onBnsCommand	LobbyHomePanel::LobbyHomeWebBrowserCallback	onBnsCommand	0x15d9aa0 gameTimeList	
+0xce4090	KeyConfig::KeyCombination::CheckBindingEngineKeyErrorForCommand	KeyConfig::KeyCombination	CheckBindingEngineKeyErrorForCommand		
+0xce5910	Lobby::RequestLogin	Lobby	RequestLogin		
+0xcf0bb0	KeyConfig::KeyCombination::CheckBindingErrorForCommand	KeyConfig::KeyCombination	CheckBindingErrorForCommand		
+0xd050b0	ItemStorePanel::GetItemStoreErrorParam	ItemStorePanel	GetItemStoreErrorParam		
+0xd22d10	ItemStorePanel::isContentQuotaError	ItemStorePanel	isContentQuotaError		
+0xd2de60	Lobby::RequestWebLogin	Lobby	RequestWebLogin		
+0xd920a0	ItemFusionPanel::ShowErrorMessagePanel	ItemFusionPanel	ShowErrorMessagePanel		
+0xd96d20	InviteDuelList::InvokeErrorMessage	InviteDuelList	InvokeErrorMessage	0x14cda68 Msg.ArenaDuel.Enter.Fail.CombatMode	
+0xda80a0	InviteArenaDungeonList::InvokeErrorMessage	InviteArenaDungeonList	InvokeErrorMessage	0x14cdab0 Msg.TotalDungeonLobby.Enter.Fail.CombatMode	
+0xe317a0	InGameWebPanel::ShowError	InGameWebPanel	ShowError	0x1589c4c ErrorImage	
+0xe31820	InGameWeb::GetAgentName	InGameWeb	GetAgentName		
+0xe31860	`InGameWeb::MakeQQLoginUri	`InGameWeb	MakeQQLoginUri		
+0xe31900	InGameWeb::GetNavigationFilter	InGameWeb	GetNavigationFilter		
+0xe31940	InGameWeb::GetWebSessionCookieName	InGameWeb	GetWebSessionCookieName		
+0xe319e0	InGameWeb::SetHomeUri	InGameWeb	SetHomeUri		
+0xe31a40	InGameWeb::GetHomeUri	InGameWeb	GetHomeUri		
+0xe31a80	InGameWeb::SetDomainUrl	InGameWeb	SetDomainUrl		
+0xe31ae0	InGameWeb::GetDomainUrl	InGameWeb	GetDomainUrl		
+0xe322b0	HTTPClient::parseURL	HTTPClient	parseURL	0x14e0c60 http	
+0xe32570	HTTPClient::setLastError	HTTPClient	setLastError		
+0xe32590	HTTPClient::GetHttpResponseHeaderUnicodeString	HTTPClient	GetHttpResponseHeaderUnicodeString		
+0xe32660	`HTTPClient::response	`HTTPClient	response		
+0xe32670	HTTPClient::close	HTTPClient	close		
+0xe33370	GuildMemberSortLogoutTimeDescending		GuildMemberSortLogoutTimeDescending		
+0xe333b0	GuildMemberSortLogoutTimeAscending		GuildMemberSortLogoutTimeAscending		
+0xe35190	InGameWebPanel::RetryIfFailedUntil	InGameWebPanel	RetryIfFailedUntil		
+0xe351d0	InGameWebPanel::ShowLoading	InGameWebPanel	ShowLoading	0x1589c64 Background	
+0xe35280	InGameWebPanel::ProgressCancel	InGameWebPanel	ProgressCancel		
+0xe352f0	InGameWebPanel::ProgressComplete	InGameWebPanel	ProgressComplete		
+0xe35360	InGameWebPanel::EndModal	InGameWebPanel	EndModal		
+0xe35390	InGameWebPanel::StartModal	InGameWebPanel	StartModal		
+0xe353d0	InGameWeb::MakeDigitalRiverUri	InGameWeb	MakeDigitalRiverUri		
+0xe354a0	InGameWeb::MakePetitionListUri	InGameWeb	MakePetitionListUri		
+0xe35540	InGameWeb::MakeGuildGroupUri	InGameWeb	MakeGuildGroupUri		
+0xe35560	InGameWeb::MakeGuildDonateUri	InGameWeb	MakeGuildDonateUri		
+0xe356c0	InGameWeb::MakeGuildCraftDonateMaterialUri	InGameWeb	MakeGuildCraftDonateMaterialUri	0x159dea8 &craftType=%d	
+0xe35890	InGameWeb::MakeGuildCraftSignUri	InGameWeb	MakeGuildCraftSignUri	0x159dea8 &craftType=%d	
+0xe35a70	InGameWeb::MakeGuildCraftProducingUri	InGameWeb	MakeGuildCraftProducingUri	0x159df00 &startTime=%I64d	
+0xe35c20	InGameWeb::MakeGuildCraftContractedUri	InGameWeb	MakeGuildCraftContractedUri	0x159de24 &contractTime=%I64d	
+0xe36300	InGameWeb::MakeDuelRankingUri	InGameWeb	MakeDuelRankingUri	0x14e3114 ?contentsId=	
+0xe363b0	InGameWeb::MakeSnsDuelRankingUri	InGameWeb	MakeSnsDuelRankingUri	0x14e3114 ?contentsId=	
+0xe36460	InGameWeb::MakeSnsGuestBookUri	InGameWeb	MakeSnsGuestBookUri		
+0xe36830	InGameNoticePanel::InGameNoticeWebBrowserCallback::Initialize	InGameNoticePanel::InGameNoticeWebBrowserCallback	Initialize		
+0xe36a30	HTTPClient::getContentType	HTTPClient	getContentType	0x159b624 application/octet-stream	
+0xe3e1e0	InGameWeb::MakeGoodsStoreChargeUri	InGameWeb	MakeGoodsStoreChargeUri	0x159e308 ?accessToken=	
+0xe3e2b0	InGameWeb::MakeGuildUniformDesignUri	InGameWeb	MakeGuildUniformDesignUri	0x159e1ec &state=1	
+0xe3e820	InGameWeb::MakeGuildCraftCompleteUri	InGameWeb	MakeGuildCraftCompleteUri	0x159dea8 &craftType=%d	
+0xe3ecb0	InGameWeb::LoadFromConfig	InGameWeb	LoadFromConfig	0x159d0b4 ranking boast	
+0xe42c00	InGameNoticePanel::InGameNoticeWebBrowserCallback::hideTooltip	InGameNoticePanel::InGameNoticeWebBrowserCallback	hideTooltip		
+0xe42c50	InGameNoticePanel::InGameNoticeWebBrowserCallback::onTooltipCommand	InGameNoticePanel::InGameNoticeWebBrowserCallback	onTooltipCommand		
+0xe42d80	HTTPClient::getPostArguments	HTTPClient	getPostArguments		
+0xe42e40	HTTPClient::getMultiPartsFormDataLength	HTTPClient	getMultiPartsFormDataLength		
+0xe42f10	HTTPClient::allocMultiPartsFormData	HTTPClient	allocMultiPartsFormData	0x159a978 --MULTI-PARTS-FORM-DATA-BOUNDARY	
+0xe43460	HTTPClient::GetHttpResponseUnicodeString	HTTPClient	GetHttpResponseUnicodeString		
+0xe435d0	HTTPClient::~HTTPClient	HTTPClient	~HTTPClient		
+0xe43690	HTTPClient::HTTPClient	HTTPClient	HTTPClient		
+0xe51f40	InGameWeb::MakeGuildUniformDesignDonateUri	InGameWeb	MakeGuildUniformDesignDonateUri		
+0xe521b0	InGameWeb::MakeGuildCraftReceiveUri	InGameWeb	MakeGuildCraftReceiveUri		
+0xe523e0	InGameWeb::makeTgosHomeUri	InGameWeb	makeTgosHomeUri	0x159dcb8 ?clientuin=	
+0xe52990	InGameWeb::MakeQQLoginUri	InGameWeb	MakeQQLoginUri	0x159dc90 %02X	
+0xe52f40	InGameWeb::MakeTgosHomeUri	InGameWeb	MakeTgosHomeUri		
+0xe53000	InGameWeb::MakeKillNpcBoastUri	InGameWeb	MakeKillNpcBoastUri	0x14e3114 ?contentsId=	
+0xe536e0	InGameWeb::MakeSnsBoastAchievementUri	InGameWeb	MakeSnsBoastAchievementUri	0x159d904 ?achievementId=	
+0xe53910	InGameWeb::GetSnsAddFriendUri	InGameWeb	GetSnsAddFriendUri	0x159d858 &characterName=	
+0xe53bc0	InGameNoticePanel::ShowEventHandler::IsError	InGameNoticePanel::ShowEventHandler	IsError		
+0xe543d0	HTTPClient::AddPostArguments	HTTPClient	AddPostArguments		
+0xe5b300	Inventory::GetHyperTextParamFromWebParameterString	Inventory	GetHyperTextParamFromWebParameterString	0x14be030 %I64x	
+0xe655d0	InGameWebPanel::~InGameWebPanel	InGameWebPanel	~InGameWebPanel		
+0xe65650	InGameWebPanel::InGameWebPanel	InGameWebPanel	InGameWebPanel		
+0xe80a10	InGameWebPanel::ShowPanel	InGameWebPanel	ShowPanel		
+0xe80a50	InGameWeb::MakeDuelBoastUri	InGameWeb	MakeDuelBoastUri	0x14e3114 ?contentsId=	
+0xe816a0	InGameWeb::MakeMarketSearchUri	InGameWeb	MakeMarketSearchUri		
+0xe81890	InGameWeb::MakeMarketHomeUri	InGameWeb	MakeMarketHomeUri		
+0xe93040	InGameWebPanel::applyWebPageSizeFromMetaData	InGameWebPanel	applyWebPageSizeFromMetaData		
+0xea0fc0	InGameWebPanel::Clear	InGameWebPanel	Clear		
+0xea11f0	InfoGateSession::OnError	InfoGateSession	OnError	0x159bb80 E:\DailyBuild02\Client-Common-0.0.381\depot\Branch\381NC\Pro	
+0xea1440	HTTPClient::requestPost	HTTPClient	requestPost	0x14b11a4 Application/json	
+0xea18d0	HTTPClient::responseOfBytes	HTTPClient	responseOfBytes	0x159af50 failed parse response. NULL buffer	
+0xea19c0	HTTPClient::requestPostMultiPartsFormData	HTTPClient	requestPostMultiPartsFormData	0x14b11a4 Application/json	
+0xea1e30	HTTPClient::requestGet	HTTPClient	requestGet	0x14b11a4 Application/json	
+0xea2130	HTTPClient::connect	HTTPClient	connect	0x159a4f0 failed InternetOpen(). uri:%s, port:%hu, error:%u	
+0xea2860	InGameWebPanel::ManageWebProcessOnShowHide	InGameWebPanel	ManageWebProcessOnShowHide	0x159e3e0 E:\DailyBuild02\Client-Common-0.0.381\depot\Branch\381NC\Pro	
+0xea4790	InGameNoticePanel::InGameNoticeWebBrowserCallback::onBnsCommand	InGameNoticePanel::InGameNoticeWebBrowserCallback	onBnsCommand	0x14daa50 Msg.Web.NavigationFail.NoExternalLink	
+0xea5320	HTTPClient::Request	HTTPClient	Request	0x159a228 failed request. null agent. uri:%s	
+0xead820	InGameWebPanel::ReloadHomeIfVisible	InGameWebPanel	ReloadHomeIfVisible		
+0xece640	GuildPanel2::updateSystemMenuBadgeByLoginMember	GuildPanel2	updateSystemMenuBadgeByLoginMember		
+0xedf5f0	GoodsStorePurchaseConfirmPanel::getPurchaseErrorByErrorCode	GoodsStorePurchaseConfirmPanel	getPurchaseErrorByErrorCode		
+0xedfbb0	GoodsStoreChargePanel::GoodsStoreChargeWebBrowserCallback::onBnsCommand	GoodsStoreChargePanel::GoodsStoreChargeWebBrowserCallback	onBnsCommand		
+0xee1000	HandleWriteClientLogFailPacket		HandleWriteClientLogFailPacket		
+0xee1010	HandleWriteClientLogOkPacket		HandleWriteClientLogOkPacket		
+0xee3a00	GuideMoviePanel::GuideMovieWebBrowserCallback::Initialize	GuideMoviePanel::GuideMovieWebBrowserCallback	Initialize	0x14e0c60 http	
+0xefbd80	GameSession::OnClose	GameSession	OnClose		GameSession::OnClose
+0xf00770	Guild::receiveLogoutGuildMember	Guild	receiveLogoutGuildMember		
+0xf00860	Guild::receiveLoginGuildMember	Guild	receiveLoginGuildMember		
+0xf027e0	BGoodsStorePanel::ShowEventHandler::IsError	BGoodsStorePanel::ShowEventHandler	IsError		
+0xf046d0	BGoodsStore::Showcase::IsError	BGoodsStore::Showcase	IsError		
+0xf0edc0	Guild2ChangeNameConfirmPanel::processErrorMessage	Guild2ChangeNameConfirmPanel	processErrorMessage	0x1582360 Msg.GuildCommon.Fail.Restration	
+0xf107a0	Guild2BankPanel::ProcessErrorMessage	Guild2BankPanel	ProcessErrorMessage	0x1582360 Msg.GuildCommon.Fail.Restration	
+0xf15bf0	GoodsStorePurchaseConfirmPanel::notifyDirectPurchaseError	GoodsStorePurchaseConfirmPanel	notifyDirectPurchaseError	0x157cf80 Msg.GoodsStore.CannotDirectPurchase.BySystemError	
+0xf16e00	GoodsStorePurchaseConfirmPanel::notifyWishError	GoodsStorePurchaseConfirmPanel	notifyWishError	0x157c738 Msg.GoodsStore.CannotSendWish.BySystemError	
+0xf16fb0	GoodsStorePurchaseConfirmPanel::notifyPurchaseError	GoodsStorePurchaseConfirmPanel	notifyPurchaseError	0x157bfd0 UI.GoodsStore.CannotPurchase.ByLimit	
+0xf1a0d0	BGoodsStore::ShowcaseGroup::HasErrorGoodsInShowcase	BGoodsStore::ShowcaseGroup	HasErrorGoodsInShowcase		
+0xf1a220	BGoodsStore::ShowcaseGroup::HasErrorShowcase	BGoodsStore::ShowcaseGroup	HasErrorShowcase		
+0xf34a40	BGoodsStorePanel::initializeWebBrowser	BGoodsStorePanel	initializeWebBrowser	0x157b0b0 GoodsStorePanel_Ad_Web2	
+0xf3a150	GoodsInventory::OnLogin	GoodsInventory	OnLogin		
+0xf44150	GameSession::OnError	GameSession	OnError		GameSession::OnError: DisconnectGameReason -> quit state
+0xf4b550	GameSession::onStreamError	GameSession	onStreamError	0x14c5b80 %02x	
+0xf4b610	GuideMoviePanel::updateIngameWeb	GuideMoviePanel	updateIngameWeb		
+0xf4bff0	BGoodsStorePanel::updateWebBrowser	BGoodsStorePanel	updateWebBrowser		
+0xf4dc00	GuideMoviePanel::GuideMovieWebBrowserCallback::onBnsCommand	GuideMoviePanel::GuideMovieWebBrowserCallback	onBnsCommand		
+0xf60dd0	BGoodsStorePanel::GoodsWidget::ErrorGoods	BGoodsStorePanel::GoodsWidget	ErrorGoods		
+0xf67290	BGoodsStorePanel::TodayGoodsList::Error	BGoodsStorePanel::TodayGoodsList	Error		
+0xf6ff10	BGoodsStorePanel::GoodsStorePanelWebBrowserCallback::onCallback	BGoodsStorePanel::GoodsStorePanelWebBrowserCallback	onCallback	0x14daa50 Msg.Web.NavigationFail.NoExternalLink	
+0xf70050	BGoodsStorePanel::GoodsStorePanelWebBrowserCallback::onBnsCommand	BGoodsStorePanel::GoodsStorePanelWebBrowserCallback	onBnsCommand		
+0xf77480	WebFriendsListUpdater::destroyEvents	WebFriendsListUpdater	destroyEvents		
+0xf774b0	WebFriendsListUpdater::createEvents	WebFriendsListUpdater	createEvents		
+0xf774f0	`WebFriendsListUpdater::parseFriendsFromXml	`WebFriendsListUpdater	parseFriendsFromXml		
+0xf77520	`WebFriendsListUpdater::parseFriendsFromXml	`WebFriendsListUpdater	parseFriendsFromXml		
+0xf77590	WebFriends::WebFriends	WebFriends	WebFriends		
+0xf78890	ReleaseEngineHandleLog		ReleaseEngineHandleLog		
+0xf79380	DungeonGuidePanel::checkExistWebFile	DungeonGuidePanel	checkExistWebFile		
+0xf7a380	FriendsProposedNotificationPanel::canReportFriendProposedSpammer	FriendsProposedNotificationPanel	canReportFriendProposedSpammer		
+0xf7a3f0	WebFriendsListUpdater::notifyCompletion	WebFriendsListUpdater	notifyCompletion		
+0xf7a430	WebFriendsListUpdater::parsePagingNode	WebFriendsListUpdater	parsePagingNode	0x156c6d4 paging	
+0xf7b990	BFieldItem::Disconnect	BFieldItem	Disconnect		
+0xf7bbd0	EventGuidePanel::EventGuideWebBrowserCallback::Initialize	EventGuidePanel::EventGuideWebBrowserCallback	Initialize		
+0xf7de10	WebFriendsListUpdater::parseCountNode	WebFriendsListUpdater	parseCountNode		
+0xf7dfa0	WebFriendsList::IsFriend	WebFriendsList	IsFriend		
+0xf804c0	EventGuidePanel::EventGuideWebBrowserCallback::hideTooltip	EventGuidePanel::EventGuideWebBrowserCallback	hideTooltip		
+0xf80510	EventGuidePanel::EventGuideWebBrowserCallback::onTooltipCommand	EventGuidePanel::EventGuideWebBrowserCallback	onTooltipCommand		
+0xf81100	DungeonLobbyStatePanel::startArenaGoErrorCountdown	DungeonLobbyStatePanel	startArenaGoErrorCountdown		
+0xf81490	DungeonGuidePanel::IsNavigatedToWebData	DungeonGuidePanel	IsNavigatedToWebData		
+0xf81540	DungeonGuidePanel::DungeonGuideWebBrowserCallback::hideTooltip	DungeonGuidePanel::DungeonGuideWebBrowserCallback	hideTooltip		
+0xf81590	DungeonGuidePanel::DungeonGuideWebBrowserCallback::onTooltipCommand	DungeonGuidePanel::DungeonGuideWebBrowserCallback	onTooltipCommand		
+0xf816b0	DungeonGuidePanel::DungeonGuideWebBrowserCallback::Initialize	DungeonGuidePanel::DungeonGuideWebBrowserCallback	Initialize		
+0xf82640	WebFriendsListUpdater::parseCharacterNode	WebFriendsListUpdater	parseCharacterNode	0x156c7e4 lastPlayStartTime	
+0xf82900	WebFriendsList::OnLogin	WebFriendsList	OnLogin		
+0xf8dc40	WebFriendsListUpdater::WebFriendsData::Set	WebFriendsListUpdater::WebFriendsData	Set		
+0xfaa080	FriendsProposedNotificationPanel::showReportBotSpammerConfirm	FriendsProposedNotificationPanel	showReportBotSpammerConfirm		
+0xfaa540	WebFriendsListUpdater::WebFriendsData::Clear	WebFriendsListUpdater::WebFriendsData	Clear		
+0xfaa5b0	WebFriendsListUpdater::WebFriendsData::CopyToFriends	WebFriendsListUpdater::WebFriendsData	CopyToFriends		
+0xfab3a0	Friends::OnLogoff	Friends	OnLogoff		
+0xfbcba0	WebFriendsListUpdater::parseRecordNode	WebFriendsListUpdater	parseRecordNode	0x156c740 friendName	
+0xfbce30	WebFriendsListUpdater::parseDataNode	WebFriendsListUpdater	parseDataNode	0x156c6b8 data	
+0xfbcf10	WebFriendsListUpdater::parseFriendsFromXml	WebFriendsListUpdater	parseFriendsFromXml		
+0xfd5030	DuelResultPanel::DuelBoastPanelWebBrowserCallback::ShowJavascriptDialog	DuelResultPanel::DuelBoastPanelWebBrowserCallback	ShowJavascriptDialog		
+0xfd5190	WebFriendsListUpdater::stopThread	WebFriendsListUpdater	stopThread	0x156c8a0 E:\DailyBuild02\Client-Common-0.0.381\depot\Branch\381NC\Pro	
+0xfd5230	WebFriendsListUpdater::~WebFriendsListUpdater	WebFriendsListUpdater	~WebFriendsListUpdater		
+0xfd52a0	WebFriendsList::~WebFriendsList	WebFriendsList	~WebFriendsList		
+0xfd5870	InGameWebPanel::Clear	InGameWebPanel	Clear		
+0xfd8870	InGameWebPanel::Clear	InGameWebPanel	Clear		
+0xfd8a50	InGameWebPanel::Clear	InGameWebPanel	Clear		
+0xfdab60	WebFriendsListUpdater::retrieveFriendsList	WebFriendsListUpdater	retrieveFriendsList	0x156c6a4  \r\n\t	
+0xfdb020	EventGuidePanel::EventGuideWebBrowserCallback::onBnsCommand	EventGuidePanel::EventGuideWebBrowserCallback	onBnsCommand	0x14daa50 Msg.Web.NavigationFail.NoExternalLink	
+0xfdb5e0	WebFriendsListUpdater::threadProc	WebFriendsListUpdater	threadProc		
+0xfdb660	WebFriendsListUpdater::startThread	WebFriendsListUpdater	startThread		
+0xfdb6b0	WebFriendsListUpdater::WebFriendsListUpdater	WebFriendsListUpdater	WebFriendsListUpdater		
+0xfdb720	WebFriendsList::WebFriendsList	WebFriendsList	WebFriendsList		
+0x1005b70	DungeonGuidePanel::DungeonGuideWebBrowserCallback::onBnsCommand	DungeonGuidePanel::DungeonGuideWebBrowserCallback	onBnsCommand	0x14daa50 Msg.Web.NavigationFail.NoExternalLink	
+0x1009be0	WebFriendsList::update	WebFriendsList	update		
+0x1009e10	WebFriendsList::Tick	WebFriendsList	Tick		
+0x100b5d0	DuelBotBrain::FinalizeBattleLog	DuelBotBrain	FinalizeBattleLog		
+0x1010520	BDroppedPouch::Disconnect	BDroppedPouch	Disconnect		
+0x1010e70	DigitalRiverPanel::DigitalRiverWebBrowserCallback::Initialize	DigitalRiverPanel::DigitalRiverWebBrowserCallback	Initialize		
+0x1014280	BCreature::Disconnect	BCreature	Disconnect		
+0x10148a0	DuelLobbyStatePanel::startArenaGoErrorCountdown	DuelLobbyStatePanel	startArenaGoErrorCountdown		
+0x1017e60	DigitalRiverPanel::DigitalRiverWebBrowserCallback::hideTooltip	DigitalRiverPanel::DigitalRiverWebBrowserCallback	hideTooltip		
+0x1017eb0	DigitalRiverPanel::DigitalRiverWebBrowserCallback::onTooltipCommand	DigitalRiverPanel::DigitalRiverWebBrowserCallback	onTooltipCommand		
+0x1037580	DragonJadeShopPanel::updateErrorHolder	DragonJadeShopPanel	updateErrorHolder	0x1540c70 UI.TecentIngameShop.ErrorMessage.NoGoods	
+0x103be60	DeliveryPanel::openErrorPopup	DeliveryPanel	openErrorPopup		
+0x105b880	WebFriendsList::notifyFriendsList	WebFriendsList	notifyFriendsList		
+0x10715e0	DigitalRiverPanel::DigitalRiverWebBrowserCallback::onBnsCommand	DigitalRiverPanel::DigitalRiverWebBrowserCallback	onBnsCommand	0x14daa50 Msg.Web.NavigationFail.NoExternalLink	
+0x10780d0	DamageMeterPanel::sendBattleCriticalLog	DamageMeterPanel	sendBattleCriticalLog	0x1533480 %04d-%02d-%02d-%02d-%02d-%02d,  zone:%d,  npc:%s,  job:%s,  	
+0x109dbb0	BControlledPlayingActions::checkSendCriticalLog	BControlledPlayingActions	checkSendCriticalLog		
+0x109dbc0	BControlledPlayingActions::checkSendSkilFailCriticalLog	BControlledPlayingActions	checkSendSkilFailCriticalLog		
+0x109ebd0	ContentsControl::IsEnableCharacterAppearanceShotShareForExternalWebBrowser	ContentsControl	IsEnableCharacterAppearanceShotShareForExternalWebBrowser		
+0x109ec70	ContentsControl::IsEnableExecutionLog	ContentsControl	IsEnableExecutionLog		
+0x109ec80	ContentsControl::IsEnableCrashReport	ContentsControl	IsEnableCrashReport		
+0x109f430	CommonWebBrowserCallback::setNavigationFilters	CommonWebBrowserCallback	setNavigationFilters		
+0x109f5b0	CommonWebBrowserCallback::SetErrorCode	CommonWebBrowserCallback	SetErrorCode		
+0x109f690	CommonWebBrowserCallback::BeginNavigation	CommonWebBrowserCallback	BeginNavigation		
+0x10a00e0	ClientUserLog::~ClientUserLog	ClientUserLog	~ClientUserLog		
+0x10a00f0	ClientUserLog::ClientUserLog	ClientUserLog	ClientUserLog		
+0x10a0110	ClientSystemText::SetAdditionalMsg	ClientSystemText	SetAdditionalMsg		
+0x10a0180	ClientSystemText::read	ClientSystemText	read		
+0x10a02d0	ClientSystemText::ResetSystemText	ClientSystemText	ResetSystemText		
+0x10a07f0	`BControlledPlayingActions::sendSkillFailTraceCriticalLog	`BControlledPlayingActions	sendSkillFailTraceCriticalLog	0x15298ac %2d:%2d:%2d(+%d)	
+0x10a3ff0	CommonWebBrowserCallback::setNavigationFiltersBasedPublisher	CommonWebBrowserCallback	setNavigationFiltersBasedPublisher	0x14e0c60 http	
+0x10a4440	CommonWebBrowserCallback::getContentsPublisherPath	CommonWebBrowserCallback	getContentsPublisherPath	0x151fe30 \bin	
+0x10a45f0	CommonWebBrowserCallback::SetLoadingComplete	CommonWebBrowserCallback	SetLoadingComplete	0x1589c64 Background	
+0x10a4df0	ClientSystemText::SetFile	ClientSystemText	SetFile		
+0x10a9fe0	CommonSnsWebBrowserCallback::onTooltipCommand	CommonSnsWebBrowserCallback	onTooltipCommand		
+0x10aac80	ClientUserLog::MakeLogXmlString	ClientUserLog	MakeLogXmlString	0x14fe5fc <?xml version='1.0' encoding='utf-8' ?>\n	
+0x10af0f0	BControlledPlayingActions::getCriticalLogAdditionalString	BControlledPlayingActions	getCriticalLogAdditionalString		
+0x10b5790	CommonWebBrowserCallback::SetDOMReady	CommonWebBrowserCallback	SetDOMReady		
+0x10b74f0	ClientUserLog::Cleanup	ClientUserLog	Cleanup		
+0x10b75d0	ClientSystemText::GetSystemText	ClientSystemText	GetSystemText		
+0x10b77d0	ClientSystemText::readAll	ClientSystemText	readAll		
+0x10b7bf0	ClientSystemText::ReadAll	ClientSystemText	ReadAll		
+0x10b90d0	BControlledPlayingActions::OutputSkillErrorGameMessage	BControlledPlayingActions	OutputSkillErrorGameMessage	0x1529110 Msg.Skill.CastFail.StillOnRecycling	
+0x10c4620	CommonWebBrowserCallback::onLoadLocalResource	CommonWebBrowserCallback	onLoadLocalResource		
+0x10c49a0	CommonWebBrowserCallback::onCommonOpenExternalBrowser	CommonWebBrowserCallback	onCommonOpenExternalBrowser		
+0x10c4cc0	CommonWebBrowserCallback::onCommonGuildUniformComponentTooltip	CommonWebBrowserCallback	onCommonGuildUniformComponentTooltip		
+0x10c4e10	CommonWebBrowserCallback::onCommonBrandItemTooltip	CommonWebBrowserCallback	onCommonBrandItemTooltip	0x14d3c0c brandId	
+0x10c4ee0	CommonSnsWebBrowserCallback::~CommonSnsWebBrowserCallback	CommonSnsWebBrowserCallback	~CommonSnsWebBrowserCallback		
+0x10c4f60	CommonSnsWebBrowserCallback::CommonSnsWebBrowserCallback	CommonSnsWebBrowserCallback	CommonSnsWebBrowserCallback		
+0x10c6b80	ClientLog::~ClientLog	ClientLog	~ClientLog		
+0x10c6f50	ClientUserLog::GetUserLogFieldValue	ClientUserLog	GetUserLogFieldValue		
+0x10c8900	ClientUserLog::MakeLogString	ClientUserLog	MakeLogString		
+0x10c8f80	ClientSystemText::~ClientSystemText	ClientSystemText	~ClientSystemText		
+0x10c9040	ClientSystemText::ClientSystemText	ClientSystemText	ClientSystemText		
+0x10cb410	ContextMenuPanel::processContextFunctionReportBotSpammer	ContextMenuPanel	processContextFunctionReportBotSpammer		
+0x10d1710	ClientLog::ClientLog	ClientLog	ClientLog		
+0x10da1a0	CommonWebBrowserCallback::onJavaScriptDialog	CommonWebBrowserCallback	onJavaScriptDialog		
+0x10da340	CommonWebBrowserCallback::ShowJavascriptDialog	CommonWebBrowserCallback	ShowJavascriptDialog		
+0x10dc8e0	ClientLog::Flush	ClientLog	Flush		
+0x10dc9d0	ClientLog::write	ClientLog	write		
+0x10dcd50	ClientLog::WriteV	ClientLog	WriteV		
+0x10dce00	ClientLog::Initialize	ClientLog	Initialize		
+0x10e01a0	ClientLog::Write	ClientLog	Write		
+0x10e08e0	BControlledPlayingActions::sendSkillFailTraceCriticalLog	BControlledPlayingActions	sendSkillFailTraceCriticalLog		
+0x10e1df0	CommonWebBrowserCallback::SetStartLoading	CommonWebBrowserCallback	SetStartLoading	0x151fc78 E:\DailyBuild02\Client-Common-0.0.381\depot\Branch\381NC\Pro	
+0x10e8df0	ClientUserLog::SendPostArguments	ClientUserLog	SendPostArguments		
+0x10e90d0	ClientUserLog::SendLog	ClientUserLog	SendLog		
+0x10edbd0	CommonSnsWebBrowserCallback::DownloadScreenShot	CommonSnsWebBrowserCallback	DownloadScreenShot		
+0x10edd70	CommonSnsWebBrowserCallback::DownloadScreenShotBooked	CommonSnsWebBrowserCallback	DownloadScreenShotBooked		
+0x10eddd0	ClientUserLog::FormattedWrite	ClientUserLog	FormattedWrite		
+0x110a7f0	CommonWebBrowserCallback::onCommonGuildUniformPreview	CommonWebBrowserCallback	onCommonGuildUniformPreview		
+0x110aa00	CommonWebBrowserCallback::onCommonItemPreview	CommonWebBrowserCallback	onCommonItemPreview		
+0x110ab80	CommonSnsWebBrowserCallback::onBnsCommand	CommonSnsWebBrowserCallback	onBnsCommand	0x151fae0 UI.PhotoAlbum.OverwriteFile.Confirm	
+0x11120b0	CommonWebBrowserCallback::onCommonItemHyperText	CommonWebBrowserCallback	onCommonItemHyperText		
+0x11228d0	ClientExecutionLog::AppendOSName	ClientExecutionLog	AppendOSName	0x14fe6f8 <machine-os>\n	
+0x1122a70	ClientExecutionLog::AppendBaseDirName	ClientExecutionLog	AppendBaseDirName	0x14fe6dc <base-dir>\n	
+0x1122ac0	ClientExecutionLog::AppendBinaryName	ClientExecutionLog	AppendBinaryName	0x14fe6bc <binary-name>\n	
+0x1122b10	ClientExecutionLog::~ClientExecutionLog	ClientExecutionLog	~ClientExecutionLog		
+0x1122b20	ClientExecutionLog::ClientExecutionLog	ClientExecutionLog	ClientExecutionLog		
+0x1122e10	BNSClient::CreateWebSessionCookie	BNSClient	CreateWebSessionCookie		
+0x11241b0	ChattingClientNP::IsLogin	ChattingClientNP	IsLogin		
+0x11241c0	ChattingClientNP::SendSpamReport	ChattingClientNP	SendSpamReport		
+0x11252d0	ChattingClient2::handleKickedOutNotified	ChattingClient2	handleKickedOutNotified		
+0x11291f0	ClientExecutionLog::AppendCommandLine	ClientExecutionLog	AppendCommandLine	0x14fe7e4 <command-line>\n	
+0x1129370	ClientExecutionLog::AppendBinaryVersion	ClientExecutionLog	AppendBinaryVersion	0x14fe7bc <binary-version>\n	
+0x1129420	ClientExecutionLog::AppendServerIP	ClientExecutionLog	AppendServerIP	0x14fe77c <server-ip>\n	
+0x11294e0	ClientExecutionLog::MakeLogXmlFile	ClientExecutionLog	MakeLogXmlFile	0x14fe5fc <?xml version='1.0' encoding='utf-8' ?>\n	
+0x1129a90	sub_1129A90		sub_1129A90		set quit state + codes (BNSClient +0x74..+0x80)
+0x1129bf0	BNSClient::GetWebDataDirectoryPath	BNSClient	GetWebDataDirectoryPath	0x14fd8dc ..\contents\	
+0x1129eb0	BNSClient::OnLogin	BNSClient	OnLogin		
+0x112aa50	ChattingClientNP::validateStsMsgError	ChattingClientNP	validateStsMsgError		
+0x1130ed0	ClientExecutionLog::AppendMachineIP	ClientExecutionLog	AppendMachineIP	0x14fe79c <machine-ip>\n	
+0x1131000	ClientExecutionLog::AddSystemInfo	ClientExecutionLog	AddSystemInfo		
+0x1131030	ClientExecutionLog::Startup	ClientExecutionLog	Startup		
+0x1132270	ChattingClient2::onLogout	ChattingClient2	onLogout		
+0x11322d0	ChattingClient2::onLogin	ChattingClient2	onLogin		
+0x1135670	ChatChannelNP::CreateAddReportData	ChatChannelNP	CreateAddReportData	0x14f4240 {"count":"	
+0x1136620	ChatChannel::CreateAddReportData	ChatChannel	CreateAddReportData	0x14f4240 {"count":"	
+0x11375c0	BNSClient::Login	BNSClient	Login		
+0x1148bf0	ChatChannel::OnVoiceChatErrorNotified	ChatChannel	OnVoiceChatErrorNotified	0x14f4dc8 Msg.VoiceChat.Error.Notified	
+0x114b560	ClientGameGuard::GetGameGuardInitializeError	ClientGameGuard	GetGameGuardInitializeError		
+0x114cbe0	BNSClient::LoadSystemText	BNSClient	LoadSystemText	0x14fdfac ..\bin\SystemText.ini	
+0x114ec60	ChattingClientNP::LogoutChannel	ChattingClientNP	LogoutChannel		
+0x1155170	ChatChannelNP::RequestReportAddReport	ChatChannelNP	RequestReportAddReport		
+0x1156010	ChatChannel::RequestReportAddReport	ChatChannel	RequestReportAddReport		
+0x11564e0	ChatChannel::requestLoginSignature	ChatChannel	requestLoginSignature		
+0x1157db0	sub_1157DB0		sub_1157DB0		GameD session error -> quit state 8 (code 1000)
+0x1157e30	sub_1157E30		sub_1157E30		LobbyGate/NP session error -> quit state 8 (code 2000/3000)
+0x115c3c0	ChattingClientNP::PrintCriticalLogForPlayerVolumeStatusError	ChattingClientNP	PrintCriticalLogForPlayerVolumeStatusError	0x14fb658 E:\DailyBuild02\Client-Common-0.0.381\depot\Branch\381NC\Pro	
+0x115ea70	BNSClient::UpdateWebSessionCookie	BNSClient	UpdateWebSessionCookie		
+0x1160af0	ChattingClient2::handleSignatureLoginResult	ChattingClient2	handleSignatureLoginResult		
+0x1160b70	ChattingClient2::onDisconnect	ChattingClient2	onDisconnect	0x14fb260 E:\DailyBuild02\Client-Common-0.0.381\depot\Branch\381NC\Pro	
+0x11610e0	ChattingClient2::SendSpamReport	ChattingClient2	SendSpamReport		
+0x1166f20	BNSClient::RequestWebSessionToken	BNSClient	RequestWebSessionToken		
+0x1167300	ClientExecutionLog::SendPostArguments	ClientExecutionLog	SendPostArguments	0x14fe5e0 ExecutionLog	
+0x11675c0	ClientExecutionLog::SendLog	ClientExecutionLog	SendLog		
+0x1167ac0	BNSClient::Logout	BNSClient	Logout		
+0x1169580	ChattingClientNP::Logout	ChattingClientNP	Logout		
+0x1169960	ChattingClient2::Logout	ChattingClient2	Logout		
+0x116b180	ChattingClient2::Login	ChattingClient2	Login		
+0x117e950	ChatChannelNP::OnLogoutChannelNotifiedNP	ChatChannelNP	OnLogoutChannelNotifiedNP		
+0x1183150	ChatChannel::OnDisconnect	ChatChannel	OnDisconnect		
+0x1185140	OnJoypadDisconnected		OnJoypadDisconnected		
+0x1186b60	CheckJoypadDisconnection		CheckJoypadDisconnection		
+0x1192890	BoastPanel::BoastPanelWebBrowserCallback::Initialize	BoastPanel::BoastPanelWebBrowserCallback	Initialize		
+0x11930e0	BigSnsPanel::BigSnsWebBrowserCallback::Initialize	BigSnsPanel::BigSnsWebBrowserCallback	Initialize	0x14dfc8c <url>	
+0x1193ed0	HandleKickPlayerPacket		HandleKickPlayerPacket		
+0x1193fa0	AuctionPanel2::AuctionPanelWebBrowserCallback::Initialize	AuctionPanel2::AuctionPanelWebBrowserCallback	Initialize		
+0x1195a60	AttendancePanel::OnWebBrowserIEClosed	AttendancePanel	OnWebBrowserIEClosed		
+0x1196790	CharacterInfoPanel::CharacterInfoWebBrowserCallback::Initialize	CharacterInfoPanel::CharacterInfoWebBrowserCallback	Initialize		
+0x1196e70	BCampfire::Disconnect	BCampfire	Disconnect		
+0x1198630	BnsTvPanel::BnsTvWebBrowserCallback::Initialize	BnsTvPanel::BnsTvWebBrowserCallback	Initialize	0x14e0c60 http	
+0x1198980	BigSnsPanel::BigSnsWebBrowserCallback::SetLoadingComplete	BigSnsPanel::BigSnsWebBrowserCallback	SetLoadingComplete		
+0x11995b0	AuctionPanel2::AuctionPanelWebBrowserCallback::SetLoadingComplete	AuctionPanel2::AuctionPanelWebBrowserCallback	SetLoadingComplete		
+0x119afe0	CharacterInfoPanel::CharacterInfoWebBrowserCallback::hideTooltip	CharacterInfoPanel::CharacterInfoWebBrowserCallback	hideTooltip		
+0x119d390	BnsTvPanel::BnsTvWebBrowserCallback::hideTooltip	BnsTvPanel::BnsTvWebBrowserCallback	hideTooltip		
+0x119d410	BnsTvPanel::BnsTvWebBrowserCallback::onTooltipCommand	BnsTvPanel::BnsTvWebBrowserCallback	onTooltipCommand		
+0x119dc90	BigSnsPanel::BigSnsWebBrowserCallback::onTooltipCommand	BigSnsPanel::BigSnsWebBrowserCallback	onTooltipCommand		
+0x119de90	BattleRoyalField::initLog	BattleRoyalField	initLog	0x14dd664 ..\log	BattleRoyalTournament log file
+0x11c4460	BattleRoyalField::writePlayerLog	BattleRoyalField	writePlayerLog	0x14dcce0 E:\DailyBuild02\Client-Common-0.0.381\depot\Branch\381NC\Pro	
+0x11c67e0	AuctionPanel2::AuctionPanelWebBrowserCallback::onCancelSale	AuctionPanel2::AuctionPanelWebBrowserCallback	onCancelSale	0x14d3828 sale	
+0x11d6350	BattleRoyalField::SendBattleRoyalKickAllPC	BattleRoyalField	SendBattleRoyalKickAllPC		
+0x11d7e70	AuctionPanel2::OpenWebConfirm	AuctionPanel2	OpenWebConfirm	0x13f39a8 BNS.alert(%s)	
+0x11d7fb0	AuctionPanel2::OpenWebConfirmByTextAlias	AuctionPanel2	OpenWebConfirmByTextAlias		
+0x11e8310	AuctionPanel2::AuctionPanelWebBrowserCallback::onAbandonBidCommand	AuctionPanel2::AuctionPanelWebBrowserCallback	onAbandonBidCommand	0x14d3828 sale	
+0x11e8750	AuctionPanel2::AuctionPanelWebBrowserCallback::onRegisterSale	AuctionPanel2::AuctionPanelWebBrowserCallback	onRegisterSale	0x14da3d0 Msg.Auction.RegisterItemFail.Fees	
+0x11f1210	InGameWebPanel::Clear	InGameWebPanel	Clear		
+0x11f1220	CharacterInfoPanel::CharacterInfoWebBrowserCallback::showItemTooltip	CharacterInfoPanel::CharacterInfoWebBrowserCallback	showItemTooltip		
+0x11f1360	CharacterInfoPanel::CharacterInfoWebBrowserCallback::onTooltipCommand	CharacterInfoPanel::CharacterInfoWebBrowserCallback	onTooltipCommand		
+0x11f1a90	InGameWebPanel::Clear	InGameWebPanel	Clear		
+0x11f2360	InGameWebPanel::Clear	InGameWebPanel	Clear		
+0x11f2780	InGameWebPanel::Clear	InGameWebPanel	Clear		
+0x11f2790	AuctionPanel2::AuctionPanelWebBrowserCallback::onTooltipCommand	AuctionPanel2::AuctionPanelWebBrowserCallback	onTooltipCommand		
+0x11f8ec0	BnsTvPanel::BnsTvWebBrowserCallback::onBnsCommand	BnsTvPanel::BnsTvWebBrowserCallback	onBnsCommand	0x14daa50 Msg.Web.NavigationFail.NoExternalLink	
+0x11f9000	BigSnsPanel::BigSnsWebBrowserCallback::onBnsCommand	BigSnsPanel::BigSnsWebBrowserCallback	onBnsCommand	0x14daa50 Msg.Web.NavigationFail.NoExternalLink	
+0x120b450	AuctionPanel2::AuctionPanelWebBrowserCallback::onBnsCommand	AuctionPanel2::AuctionPanelWebBrowserCallback	onBnsCommand	0x14daa50 Msg.Web.NavigationFail.NoExternalLink	
+0x12320c0	CharacterInfoPanel::CharacterInfoWebBrowserCallback::onBnsCommand	CharacterInfoPanel::CharacterInfoWebBrowserCallback	onBnsCommand	0x14daa50 Msg.Web.NavigationFail.NoExternalLink	
+0x1235cb0	AttendanceCalendarPanel::OnWebBrowserIEClosed	AttendanceCalendarPanel	OnWebBrowserIEClosed		
+0x12391c0	BAccount::GetHashUsingLoginName	BAccount	GetHashUsingLoginName		
+0x12468b0	BAccount::ReceiveLoginWithNpTokenOk	BAccount	ReceiveLoginWithNpTokenOk		
+0x125d870	ArenaDuelLobby::invokeErrorMessage	ArenaDuelLobby	invokeErrorMessage	0x14c8238 Msg.DuelLobby.InviteError.Leader	
+0x126ce50	BAbilityPointPanel::ShowErrorConfirm	BAbilityPointPanel	ShowErrorConfirm	0x14b9464 Msg.AbilityPoint.SetEffectFail	
+0x12754c0	ArenaDungeonLobby::invokeErrorMessage	ArenaDungeonLobby	invokeErrorMessage	0x14ca600 Msg.DungeonLobby.InviteError.Leader	
+0x1280ff0	Attendance::OnLogin	Attendance	OnLogin		
+0x1281000	Attendance::OnLogoff	Attendance	OnLogoff		
+0x1289190	BAccount::OnLogin	BAccount	OnLogin		
+0x1397d60	`dynamic initializer for 'BNSClient::_webLoginSessionKey''	BNSClient	_webLoginSessionKey		
+0x1397e00	`dynamic initializer for 'BNSClient::_webLoginUserName''	BNSClient	_webLoginUserName		
+0x1397e20	`dynamic initializer for 'BNSClient::_webLoginTempPassword''	BNSClient	_webLoginTempPassword		
+0x1397e60	`dynamic initializer for 'BNSClient::_webLoginGarenaToken''	BNSClient	_webLoginGarenaToken		
+0x1397e80	`dynamic initializer for 'BNSClient::_autoLoginUserName''	BNSClient	_autoLoginUserName		
+0x1397ee0	`dynamic initializer for 'ClientExecutionLog::_systemInfos''	ClientExecutionLog	_systemInfos		
+0x1397f00	`dynamic initializer for 'ClientExecutionLog::_fileInfos''	ClientExecutionLog	_fileInfos		
+0x1397f20	`dynamic initializer for 'ClientExecutionLog::_pathStr''	ClientExecutionLog	_pathStr		
+0x1397f40	`dynamic initializer for 'ClientExecutionLog::_fileStr''	ClientExecutionLog	_fileStr		
+0x1397ff0	`dynamic initializer for 'ClientUserLog::_logQueue''	ClientUserLog	_logQueue		
+0x1398000	`dynamic initializer for 'ClientUserLog::_duplicateChecker''	ClientUserLog	_duplicateChecker		
+0x1398040	`dynamic initializer for 'ClientUserLog::_formattedVector''	ClientUserLog	_formattedVector		
+0x1398240	`dynamic initializer for 'InGameWeb::_webContentsInfo''	InGameWeb	_webContentsInfo		
+0x1398270	`dynamic initializer for 'InGameWeb::_navigationFilters''	InGameWeb	_navigationFilters		
+0x1398710	`dynamic initializer for 'WebSessionManager::RetryLoginTimerEventListener::_timerId''	WebSessionManager::RetryLoginTimerEventListener	_timerId		
+0x1398800	Data::`dynamic initializer for 'DataLog''		DataLog		
+0x1398ab0	`dynamic atexit destructor for 'BNSClient::_webLoginSessionKey''	BNSClient	_webLoginSessionKey		
+0x1398b00	`dynamic atexit destructor for 'BNSClient::_webLoginUserName''	BNSClient	_webLoginUserName		
+0x1398b10	`dynamic atexit destructor for 'BNSClient::_webLoginTempPassword''	BNSClient	_webLoginTempPassword		
+0x1398b30	`dynamic atexit destructor for 'BNSClient::_webLoginGarenaToken''	BNSClient	_webLoginGarenaToken		
+0x1398b40	`dynamic atexit destructor for 'BNSClient::_autoLoginUserName''	BNSClient	_autoLoginUserName		
+0x1398b60	`dynamic atexit destructor for 'BNSClient::_autoLoginPassword''	BNSClient	_autoLoginPassword		
+0x1398b70	`dynamic atexit destructor for 'ClientExecutionLog::_systemInfos''	ClientExecutionLog	_systemInfos		
+0x1398b80	`dynamic atexit destructor for 'ClientExecutionLog::_fileInfos''	ClientExecutionLog	_fileInfos		
+0x1398b90	`dynamic atexit destructor for 'ClientExecutionLog::_pathStr''	ClientExecutionLog	_pathStr		
+0x1398ba0	`dynamic atexit destructor for 'ClientExecutionLog::_fileStr''	ClientExecutionLog	_fileStr		
+0x1398c40	`ChattingClientNP::GetTransactionInfo<ChattingClientNP::LogoutChannelInfo>	`ChattingClientNP::GetTransactionInfo<ChattingClientNP	LogoutChannelInfo>		
+0x1398c90	`dynamic atexit destructor for 'ClientUserLog::_logQueue''	ClientUserLog	_logQueue		
+0x1398ca0	`dynamic atexit destructor for 'ClientUserLog::_duplicateChecker''	ClientUserLog	_duplicateChecker		
+0x1398cb0	`dynamic atexit destructor for 'ClientUserLog::_formattedVector''	ClientUserLog	_formattedVector		
+0x1398d80	`dynamic atexit destructor for 'InGameWeb::_webContentsInfo''	InGameWeb	_webContentsInfo		
+0x1398da0	`dynamic atexit destructor for 'InGameWeb::_navigationFilters''	InGameWeb	_navigationFilters		
+0x1398ed0	`Petition::GetSubCategoryName'::`4'::`dynamic atexit destructor for 'BugReportCategoryName''		BugReportCategoryName		
+0x1399010	`WebContentsGuidePanel::GetTypeString'::`2'::`dynamic atexit destructor for 'ContentGuideTypeString'		ContentGuideTypeString		
+0x1399040	`dynamic atexit destructor for 'WebSessionManager::RetryLoginTimerEventListener::_timerId''	WebSessionManager::RetryLoginTimerEventListener	_timerId		
+0x13990c0	Data::`dynamic atexit destructor for 'DataLog''		DataLog		
+0x13991f0	`DrDefLog::Instance	`DrDefLog	Instance		
