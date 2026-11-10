@@ -5,7 +5,18 @@
 use super::skills::{counted, queue};
 use super::*;
 
-pub const QUEST_COMMANDS: &[u16] = &[86, 89, 93, 96, 398, 401, 404, 1017, 1205, 1420];
+pub const QUEST_COMMANDS: &[u16] = &[
+    ids::G_QuestListReqCmd,
+    ids::G_QuestCompleteListReqCmd,
+    ids::G_DiscoveryAreaListReqCmd,
+    ids::G_AddDiscoveryAreaReqCmd,
+    ids::G_RegisterSurveyReqCmd,
+    ids::G_AnswerSurveyReqCmd,
+    ids::G_AnswerExtraSurveyReqCmd,
+    ids::G_RefreshSimpleQuestPackReqCmd,
+    ids::G_R_SkipQuestTeleportReqCmd,
+    ids::G_ChangeToReplayQuestReqCmd,
+];
 
 #[derive(Clone, Debug, Default, PartialEq, Eq)]
 pub enum QuestConfig {
@@ -72,16 +83,16 @@ impl From<QuestTask> for SkillTaskKind {
 
 pub(super) fn dispatch_quest(ctx: &mut Context<'_>, command: u16, req: &[u8]) -> Outcome {
     match command {
-        86 => handle_quest_list(ctx, req),
-        89 => handle_quest_complete_list(ctx, req),
-        93 => handle_discovery_area_list(ctx, req),
-        96 => handle_add_discovery_area(ctx, req),
-        398 => handle_register_survey(ctx, req),
-        401 => handle_answer_survey(ctx, req),
-        404 => handle_answer_extra_survey(ctx, req),
-        1017 => handle_refresh_simple_quest_pack(ctx, req),
-        1205 => handle_r_skip_quest_teleport(ctx, req),
-        1420 => handle_change_to_replay_quest(ctx, req),
+        ids::G_QuestListReqCmd => handle_quest_list(ctx, req),
+        ids::G_QuestCompleteListReqCmd => handle_quest_complete_list(ctx, req),
+        ids::G_DiscoveryAreaListReqCmd => handle_discovery_area_list(ctx, req),
+        ids::G_AddDiscoveryAreaReqCmd => handle_add_discovery_area(ctx, req),
+        ids::G_RegisterSurveyReqCmd => handle_register_survey(ctx, req),
+        ids::G_AnswerSurveyReqCmd => handle_answer_survey(ctx, req),
+        ids::G_AnswerExtraSurveyReqCmd => handle_answer_extra_survey(ctx, req),
+        ids::G_RefreshSimpleQuestPackReqCmd => handle_refresh_simple_quest_pack(ctx, req),
+        ids::G_R_SkipQuestTeleportReqCmd => handle_r_skip_quest_teleport(ctx, req),
+        ids::G_ChangeToReplayQuestReqCmd => handle_change_to_replay_quest(ctx, req),
         _ => unreachable!("membership checked"),
     }
 }
@@ -107,17 +118,27 @@ fn list(ctx: &mut Context<'_>, command: u16, fail: u16, kind: QuestTask) -> Outc
 
 /// parity: 86 20-quest-handlers.md#86--g_questlistreqcmd--partial partial
 pub fn handle_quest_list(ctx: &mut Context<'_>, _req: &[u8]) -> Outcome {
-    list(ctx, 86, 88, QuestTask::List)
+    list(ctx, ids::G_QuestListReqCmd, 88, QuestTask::List)
 }
 
 /// parity: 89 20-quest-handlers.md#89--g_questcompletelistreqcmd--partial partial
 pub fn handle_quest_complete_list(ctx: &mut Context<'_>, _req: &[u8]) -> Outcome {
-    list(ctx, 89, 91, QuestTask::CompleteList)
+    list(
+        ctx,
+        ids::G_QuestCompleteListReqCmd,
+        91,
+        QuestTask::CompleteList,
+    )
 }
 
 /// parity: 93 20-quest-handlers.md#93--g_discoveryarealistreqcmd--partial partial
 pub fn handle_discovery_area_list(ctx: &mut Context<'_>, _req: &[u8]) -> Outcome {
-    list(ctx, 93, 95, QuestTask::DiscoveryAreaList)
+    list(
+        ctx,
+        ids::G_DiscoveryAreaListReqCmd,
+        95,
+        QuestTask::DiscoveryAreaList,
+    )
 }
 
 /// parity: 96 20-quest-handlers.md#96--g_adddiscoveryareareqcmd--partial partial
@@ -135,7 +156,7 @@ pub fn handle_add_discovery_area(ctx: &mut Context<'_>, req: &[u8]) -> Outcome {
     };
     let t = task(
         ctx,
-        96,
+        ids::G_AddDiscoveryAreaReqCmd,
         zone,
         QuestTask::AddDiscoveryArea { area: area as i16 },
     );
@@ -158,7 +179,12 @@ pub fn handle_register_survey(ctx: &mut Context<'_>, req: &[u8]) -> Outcome {
     if ctx.pc().native_kind != 1 {
         return register_failure();
     }
-    let t = task(ctx, 398, zone, QuestTask::RegisterSurvey { orders });
+    let t = task(
+        ctx,
+        ids::G_RegisterSurveyReqCmd,
+        zone,
+        QuestTask::RegisterSurvey { orders },
+    );
     queue(ctx, t, register_failure())
 }
 
@@ -180,7 +206,7 @@ pub fn handle_answer_survey(ctx: &mut Context<'_>, req: &[u8]) -> Outcome {
     }
     let t = task(
         ctx,
-        401,
+        ids::G_AnswerSurveyReqCmd,
         zone,
         QuestTask::AnswerSurvey {
             survey,
@@ -228,7 +254,12 @@ pub fn handle_refresh_simple_quest_pack(ctx: &mut Context<'_>, _req: &[u8]) -> O
         return Outcome::reason(F, 2);
     };
     // Native has no PC-kind gate here.
-    let t = task(ctx, 1017, zone, QuestTask::RefreshSimpleQuestPack);
+    let t = task(
+        ctx,
+        ids::G_RefreshSimpleQuestPackReqCmd,
+        zone,
+        QuestTask::RefreshSimpleQuestPack,
+    );
     queue(ctx, t, Outcome::reason(F, 2))
 }
 
@@ -262,7 +293,7 @@ pub fn handle_r_skip_quest_teleport(ctx: &mut Context<'_>, req: &[u8]) -> Outcom
     }
     let t = task(
         ctx,
-        1205,
+        ids::G_R_SkipQuestTeleportReqCmd,
         zone,
         QuestTask::SkipQuestTeleport { level, mastery },
     );
@@ -282,7 +313,7 @@ pub fn handle_change_to_replay_quest(ctx: &mut Context<'_>, req: &[u8]) -> Outco
     // Native has no PC-kind gate here.
     let t = task(
         ctx,
-        1420,
+        ids::G_ChangeToReplayQuestReqCmd,
         zone,
         QuestTask::ChangeToReplayQuest {
             quest: quest as i16,

@@ -6,3 +6,4 @@ license = "MIT"
 
 [dependencies]
 packet = { path = "../Packet" }
+packet-ids = { path = "../PacketIds" }

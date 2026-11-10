@@ -5,7 +5,16 @@
 //! transaction registration. Unknown is never approval.
 use super::*;
 
-pub const POST_COMMANDS: &[u16] = &[368, 371, 374, 785, 1500, 1503, 1506, 1509];
+pub const POST_COMMANDS: &[u16] = &[
+    ids::G_RetrievePostCountReqCmd,
+    ids::G_RetrievePostBriefListReqCmd,
+    ids::G_RetrievePostReqCmd,
+    ids::G_RetrievePcDbIdReqCmd,
+    ids::G_ArchivePostReqCmd,
+    ids::G_MarkExpressPostReqCmd,
+    ids::G_DetachPostAttachmentReqCmd,
+    ids::G_DeliverPostReqCmd,
+];
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub struct PostKey {
@@ -102,14 +111,14 @@ impl MemoryPost {
 
 pub(super) fn dispatch_post(ctx: &mut Context<'_>, command: u16, req: &[u8]) -> Outcome {
     match command {
-        368 => handle_retrieve_post_count(ctx, req),
-        371 => handle_retrieve_post_brief_list(ctx, req),
-        374 => handle_retrieve_post(ctx, req),
-        785 => handle_retrieve_pc_db_id(ctx, req),
-        1500 => handle_archive_post(ctx, req),
-        1503 => handle_mark_express_post(ctx, req),
-        1506 => handle_detach_post_attachment(ctx, req),
-        1509 => handle_deliver_post(ctx, req),
+        ids::G_RetrievePostCountReqCmd => handle_retrieve_post_count(ctx, req),
+        ids::G_RetrievePostBriefListReqCmd => handle_retrieve_post_brief_list(ctx, req),
+        ids::G_RetrievePostReqCmd => handle_retrieve_post(ctx, req),
+        ids::G_RetrievePcDbIdReqCmd => handle_retrieve_pc_db_id(ctx, req),
+        ids::G_ArchivePostReqCmd => handle_archive_post(ctx, req),
+        ids::G_MarkExpressPostReqCmd => handle_mark_express_post(ctx, req),
+        ids::G_DetachPostAttachmentReqCmd => handle_detach_post_attachment(ctx, req),
+        ids::G_DeliverPostReqCmd => handle_deliver_post(ctx, req),
         _ => unreachable!("membership checked"),
     }
 }

@@ -5,7 +5,13 @@
 use super::skills::queue;
 use super::*;
 
-pub const CHALLENGE_COMMANDS: &[u16] = &[1068, 1071, 1075, 1078, 1080];
+pub const CHALLENGE_COMMANDS: &[u16] = &[
+    ids::G_CreateChallengePartyReqCmd,
+    ids::G_InviteChallengePartyReqCmd,
+    ids::G_ConfirmInvitationChallengePartyReqCmd,
+    ids::G_RejectInvitationChallengePartyReqCmd,
+    ids::G_LeaveChallengePartyReqCmd,
+];
 
 /// Opaque server checks. Pass means that the check permits the request.
 #[derive(Clone, Debug, PartialEq, Eq)]
@@ -62,11 +68,15 @@ impl From<ChallengeTask> for SkillTaskKind {
 
 pub(super) fn dispatch_challenge(ctx: &mut Context<'_>, command: u16, req: &[u8]) -> Outcome {
     match command {
-        1068 => handle_create_challenge_party(ctx, req),
-        1071 => handle_invite_challenge_party(ctx, req),
-        1075 => handle_confirm_invitation_challenge_party(ctx, req),
-        1078 => handle_reject_invitation_challenge_party(ctx, req),
-        1080 => handle_leave_challenge_party(ctx, req),
+        ids::G_CreateChallengePartyReqCmd => handle_create_challenge_party(ctx, req),
+        ids::G_InviteChallengePartyReqCmd => handle_invite_challenge_party(ctx, req),
+        ids::G_ConfirmInvitationChallengePartyReqCmd => {
+            handle_confirm_invitation_challenge_party(ctx, req)
+        }
+        ids::G_RejectInvitationChallengePartyReqCmd => {
+            handle_reject_invitation_challenge_party(ctx, req)
+        }
+        ids::G_LeaveChallengePartyReqCmd => handle_leave_challenge_party(ctx, req),
         _ => unreachable!("membership checked"),
     }
 }
@@ -161,7 +171,7 @@ pub fn handle_create_challenge_party(ctx: &mut Context<'_>, req: &[u8]) -> Outco
     }
     queue_task(
         ctx,
-        1068,
+        ids::G_CreateChallengePartyReqCmd,
         ChallengeTask::Create { name },
         Outcome::reason(F, 2),
     )
@@ -181,7 +191,7 @@ pub fn handle_invite_challenge_party(ctx: &mut Context<'_>, req: &[u8]) -> Outco
     }
     queue_task(
         ctx,
-        1071,
+        ids::G_InviteChallengePartyReqCmd,
         ChallengeTask::Invite { name },
         Outcome::reason(F, 2),
     )
@@ -198,7 +208,7 @@ pub fn handle_confirm_invitation_challenge_party(ctx: &mut Context<'_>, req: &[u
     };
     queue_task(
         ctx,
-        1075,
+        ids::G_ConfirmInvitationChallengePartyReqCmd,
         ChallengeTask::Confirm { invitation },
         Outcome::reason(F, 2),
     )
@@ -219,7 +229,7 @@ pub fn handle_reject_invitation_challenge_party(ctx: &mut Context<'_>, req: &[u8
     };
     queue_task(
         ctx,
-        1078,
+        ids::G_RejectInvitationChallengePartyReqCmd,
         ChallengeTask::Reject { invitation },
         Outcome::default(),
     )
@@ -236,7 +246,7 @@ pub fn handle_leave_challenge_party(ctx: &mut Context<'_>, req: &[u8]) -> Outcom
     };
     queue_task(
         ctx,
-        1080,
+        ids::G_LeaveChallengePartyReqCmd,
         ChallengeTask::Leave { option },
         Outcome::reason(F, 2),
     )

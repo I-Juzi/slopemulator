@@ -64,7 +64,7 @@ mod trade;
 pub use items::*;
 pub use trade::*;
 mod wire;
-use crate::{kick::FailureAction, Position};
+use crate::{ids, kick::FailureAction, Position};
 pub use movement::*;
 pub use session::*;
 use std::collections::{BTreeMap, BTreeSet};
@@ -1290,9 +1290,49 @@ impl Context<'_> {
 }
 
 pub const COMMANDS: [u16; 43] = [
-    11, 13, 16, 18, 19, 22, 23, 26, 29, 31, 34, 38, 42, 64, 66, 99, 102, 145, 174, 262, 296, 298,
-    300, 303, 305, 307, 411, 414, 416, 422, 648, 809, 812, 887, 929, 981, 984, 1149, 1210, 1219,
-    1221, 1223, 1239,
+    ids::G_HelloReqCmd,
+    ids::G_MobileHelloReqCmd,
+    ids::G_PingReqCmd,
+    ids::G_ServerPingReqCmd,
+    ids::G_GameKeyAuthReqCmd,
+    ids::G_NPTokenAuthReqCmd,
+    ids::G_LobbyTokenAuthReqCmd,
+    ids::G_ReturnToLobbyReqCmd,
+    ids::G_CleanUserConnectionInfoInCligateReqCmd,
+    ids::G_EnterWorldReqCmd,
+    ids::G_QueryWaitingNumberReqCmd,
+    ids::G_LeaveWorldReqCmd,
+    ids::G_EnterZoneReqCmd,
+    ids::G_MoveReqCmd,
+    ids::G_TurnReqCmd,
+    ids::G_ActivatedTeleportListReqCmd,
+    ids::G_DetectTeleportSwitchReqCmd,
+    ids::G_ReturnToBaseCampReqCmd,
+    ids::G_ClearLogoutPartyMemberReqCmd,
+    ids::G_ClearLogoutTeamMemberReqCmd,
+    ids::G_EnterPortalReqCmd,
+    ids::G_TurnBackFromPortalReqCmd,
+    ids::G_ChannelListReqCmd,
+    ids::G_ChangeChannelReqCmd,
+    ids::G_SaveClientOptionReqCmd,
+    ids::G_ClientConfigReqCmd,
+    ids::G_AutoLogoutCheckReqCmd,
+    ids::G_CheckRoundTripTimeReqCmd,
+    ids::G_WriteLatencyLogReqCmd,
+    ids::G_CurrentUTCTimeReqCmd,
+    ids::G_ReturnToGameReqCmd,
+    ids::G_ExtendJumpingCharacterCreationQuotaWithWarehouseItemReqCmd,
+    ids::G_UpgradeJumpingCharacterStateWithCreationQuotaReqCmd,
+    ids::G_QQLogoutReqCmd,
+    ids::G_ContentsRuleListReqCmd,
+    ids::G_EnterZoneDirectReqCmd,
+    ids::G_LeaveZoneDirectReqCmd,
+    ids::G_UseJumpingCharacterTicketReqCmd,
+    ids::G_ClientRunReqCmd,
+    ids::G_AirDashReqCmd,
+    ids::G_WarpToPosReqCmd,
+    ids::G_UseTeleportReqCmd,
+    ids::G_UseCaveEscapeReqCmd,
 ];
 
 /// Dispatch body bytes only. Framing is the caller's separate responsibility.
@@ -1347,8 +1387,16 @@ fn dispatch_inner(ctx: &mut Context<'_>, command: u16, req: &[u8]) -> Outcome {
     {
         return Outcome::log("unknown command");
     }
-    let any = matches!(command, 16 | 929);
-    let unauth = matches!(command, 11 | 13 | 19 | 22 | 23 | 705);
+    let any = matches!(command, ids::G_PingReqCmd | ids::G_ContentsRuleListReqCmd);
+    let unauth = matches!(
+        command,
+        ids::G_HelloReqCmd
+            | ids::G_MobileHelloReqCmd
+            | ids::G_GameKeyAuthReqCmd
+            | ids::G_NPTokenAuthReqCmd
+            | ids::G_LobbyTokenAuthReqCmd
+            | ids::G_EnterArenaReqCmd
+    );
     if !any {
         if unauth {
             if ctx.session.authenticated {
@@ -1449,49 +1497,55 @@ fn dispatch_inner(ctx: &mut Context<'_>, command: u16, req: &[u8]) -> Outcome {
         return handle_qq_logout(ctx, req);
     }
     match command {
-        11 => handle_hello(ctx, req),
-        13 => handle_mobile_hello(ctx, req),
-        16 => handle_ping(ctx, req),
-        18 => handle_server_ping(ctx, req),
-        19 => handle_game_key_auth(ctx, req),
-        22 => handle_np_token_auth(ctx, req),
-        23 => handle_lobby_token_auth(ctx, req),
-        26 => handle_return_to_lobby(ctx, req),
-        29 => handle_clean_user_connection_info_in_cligate(ctx, req),
-        31 => handle_enter_world(ctx, req),
-        34 => handle_query_waiting_number(ctx, req),
-        38 => handle_leave_world(ctx, req),
-        42 => handle_enter_zone(ctx, req),
-        64 => handle_move(ctx, req),
-        66 => handle_turn(ctx, req),
-        99 => handle_activated_teleport_list(ctx, req),
-        102 => handle_detect_teleport_switch(ctx, req),
-        145 => handle_return_to_base_camp(ctx, req),
-        174 => handle_clear_logout_party_member(ctx, req),
-        262 => handle_clear_logout_team_member(ctx, req),
-        296 => handle_enter_portal(ctx, req),
-        298 => handle_turn_back_from_portal(ctx, req),
-        300 => handle_channel_list(ctx, req),
-        303 => handle_change_channel(ctx, req),
-        305 => handle_save_client_option(ctx, req),
-        307 => handle_client_config(ctx, req),
-        411 => handle_auto_logout_check(ctx, req),
-        414 => handle_check_round_trip_time(ctx, req),
-        416 => handle_write_latency_log(ctx, req),
-        422 => handle_current_utc_time(ctx, req),
-        648 => handle_return_to_game(ctx, req),
-        809 => handle_extend_jumping_character_creation_quota_with_warehouse_item(ctx, req),
-        812 => handle_upgrade_jumping_character_state_with_creation_quota(ctx, req),
-        887 => handle_qq_logout(ctx, req),
-        929 => handle_contents_rule_list(ctx, req),
-        981 => handle_enter_zone_direct(ctx, req),
-        984 => handle_leave_zone_direct(ctx, req),
-        1149 => handle_use_jumping_character_ticket(ctx, req),
-        1210 => handle_client_run(ctx, req),
-        1219 => handle_air_dash(ctx, req),
-        1221 => handle_warp_to_pos(ctx, req),
-        1223 => handle_use_teleport(ctx, req),
-        1239 => handle_use_cave_escape(ctx, req),
+        ids::G_HelloReqCmd => handle_hello(ctx, req),
+        ids::G_MobileHelloReqCmd => handle_mobile_hello(ctx, req),
+        ids::G_PingReqCmd => handle_ping(ctx, req),
+        ids::G_ServerPingReqCmd => handle_server_ping(ctx, req),
+        ids::G_GameKeyAuthReqCmd => handle_game_key_auth(ctx, req),
+        ids::G_NPTokenAuthReqCmd => handle_np_token_auth(ctx, req),
+        ids::G_LobbyTokenAuthReqCmd => handle_lobby_token_auth(ctx, req),
+        ids::G_ReturnToLobbyReqCmd => handle_return_to_lobby(ctx, req),
+        ids::G_CleanUserConnectionInfoInCligateReqCmd => {
+            handle_clean_user_connection_info_in_cligate(ctx, req)
+        }
+        ids::G_EnterWorldReqCmd => handle_enter_world(ctx, req),
+        ids::G_QueryWaitingNumberReqCmd => handle_query_waiting_number(ctx, req),
+        ids::G_LeaveWorldReqCmd => handle_leave_world(ctx, req),
+        ids::G_EnterZoneReqCmd => handle_enter_zone(ctx, req),
+        ids::G_MoveReqCmd => handle_move(ctx, req),
+        ids::G_TurnReqCmd => handle_turn(ctx, req),
+        ids::G_ActivatedTeleportListReqCmd => handle_activated_teleport_list(ctx, req),
+        ids::G_DetectTeleportSwitchReqCmd => handle_detect_teleport_switch(ctx, req),
+        ids::G_ReturnToBaseCampReqCmd => handle_return_to_base_camp(ctx, req),
+        ids::G_ClearLogoutPartyMemberReqCmd => handle_clear_logout_party_member(ctx, req),
+        ids::G_ClearLogoutTeamMemberReqCmd => handle_clear_logout_team_member(ctx, req),
+        ids::G_EnterPortalReqCmd => handle_enter_portal(ctx, req),
+        ids::G_TurnBackFromPortalReqCmd => handle_turn_back_from_portal(ctx, req),
+        ids::G_ChannelListReqCmd => handle_channel_list(ctx, req),
+        ids::G_ChangeChannelReqCmd => handle_change_channel(ctx, req),
+        ids::G_SaveClientOptionReqCmd => handle_save_client_option(ctx, req),
+        ids::G_ClientConfigReqCmd => handle_client_config(ctx, req),
+        ids::G_AutoLogoutCheckReqCmd => handle_auto_logout_check(ctx, req),
+        ids::G_CheckRoundTripTimeReqCmd => handle_check_round_trip_time(ctx, req),
+        ids::G_WriteLatencyLogReqCmd => handle_write_latency_log(ctx, req),
+        ids::G_CurrentUTCTimeReqCmd => handle_current_utc_time(ctx, req),
+        ids::G_ReturnToGameReqCmd => handle_return_to_game(ctx, req),
+        ids::G_ExtendJumpingCharacterCreationQuotaWithWarehouseItemReqCmd => {
+            handle_extend_jumping_character_creation_quota_with_warehouse_item(ctx, req)
+        }
+        ids::G_UpgradeJumpingCharacterStateWithCreationQuotaReqCmd => {
+            handle_upgrade_jumping_character_state_with_creation_quota(ctx, req)
+        }
+        ids::G_QQLogoutReqCmd => handle_qq_logout(ctx, req),
+        ids::G_ContentsRuleListReqCmd => handle_contents_rule_list(ctx, req),
+        ids::G_EnterZoneDirectReqCmd => handle_enter_zone_direct(ctx, req),
+        ids::G_LeaveZoneDirectReqCmd => handle_leave_zone_direct(ctx, req),
+        ids::G_UseJumpingCharacterTicketReqCmd => handle_use_jumping_character_ticket(ctx, req),
+        ids::G_ClientRunReqCmd => handle_client_run(ctx, req),
+        ids::G_AirDashReqCmd => handle_air_dash(ctx, req),
+        ids::G_WarpToPosReqCmd => handle_warp_to_pos(ctx, req),
+        ids::G_UseTeleportReqCmd => handle_use_teleport(ctx, req),
+        ids::G_UseCaveEscapeReqCmd => handle_use_cave_escape(ctx, req),
         _ => unreachable!("membership checked"),
     }
 }

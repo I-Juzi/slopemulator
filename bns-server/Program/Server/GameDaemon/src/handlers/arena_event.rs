@@ -8,8 +8,28 @@ use super::skills::queue;
 use super::*;
 
 pub const ARENA_EVENT_COMMANDS: &[u16] = &[
-    705, 708, 711, 714, 717, 720, 723, 726, 729, 732, 733, 736, 739, 742, 745, 748, 751, 754, 757,
-    955, 959, 963,
+    ids::G_EnterArenaReqCmd,
+    ids::G_ReturnToArenaLobbyFromDuelReqCmd,
+    ids::G_ReturnToArenaLobbyFromDungeonReqCmd,
+    ids::G_ArenaSpectateGameReqCmd,
+    ids::G_ArenaSpectateReturnToArenaLobbyReqCmd,
+    ids::G_ListArenaSpectateGameReqCmd,
+    ids::G_ArenaEventTeleportToReqCmd,
+    ids::G_ArenaEventRecallReqCmd,
+    ids::G_ArenaEventWarpToPosReqCmd,
+    ids::G_ArenaEventDuelGameStartReqCmd,
+    ids::G_ArenaEventFindArenaSessionReqCmd,
+    ids::G_ArenaEventMoveToArenaReqCmd,
+    ids::G_ArenaEventReturnToArenaLobbyReqCmd,
+    ids::G_ArenaEventReturnToArenaLobbyAllPcReqCmd,
+    ids::G_ArenaEventRetreivePcAssetReqCmd,
+    ids::G_ArenaEventWarpToDuelRoundStartPcSpawnReqCmd,
+    ids::G_ArenaEventSetBattleRoyalStateReqCmd,
+    ids::G_ArenaEventInZonePcLocReqCmd,
+    ids::G_ArenaEventBattleRoyalScoreReqCmd,
+    ids::G_ChoiceReturnToArenaLobbyReqCmd,
+    ids::G_PublishRecruitArenaDungeonMemberReqCmd,
+    ids::G_CancelRecruitArenaDungeonMemberReqCmd,
 ];
 
 /// Doc 26 shared fields.
@@ -263,28 +283,44 @@ impl MemoryArenaEvent {
 
 pub(super) fn dispatch_arena_event(ctx: &mut Context<'_>, command: u16, req: &[u8]) -> Outcome {
     match command {
-        705 => handle_enter_arena(ctx, req),
-        955 => handle_choice_return_to_arena_lobby(ctx, req),
-        708 => handle_return_to_arena_lobby_from_duel(ctx, req),
-        711 => handle_return_to_arena_lobby_from_dungeon(ctx, req),
-        714 => handle_arena_spectate_game(ctx, req),
-        717 => handle_arena_spectate_return_to_arena_lobby(ctx, req),
-        720 => handle_list_arena_spectate_game(ctx, req),
-        723 => handle_arena_event_teleport_to(ctx, req),
-        726 => handle_arena_event_recall(ctx, req),
-        729 => handle_arena_event_warp_to_pos(ctx, req),
-        732 => handle_arena_event_duel_game_start(ctx, req),
-        733 => handle_arena_event_find_arena_session(ctx, req),
-        736 => handle_arena_event_move_to_arena(ctx, req),
-        739 => handle_arena_event_return_to_arena_lobby(ctx, req),
-        742 => handle_arena_event_return_to_arena_lobby_all_pc(ctx, req),
-        745 => handle_arena_event_retrieve_pc_asset(ctx, req),
-        748 => handle_arena_event_warp_to_duel_round_start(ctx, req),
-        751 => handle_arena_event_set_battle_royal_state(ctx, req),
-        754 => handle_arena_event_in_zone_pc_loc(ctx, req),
-        757 => handle_arena_event_battle_royal_score(ctx, req),
-        959 => handle_publish_recruit_arena_dungeon_member(ctx, req),
-        963 => handle_cancel_recruit_arena_dungeon_member(ctx, req),
+        ids::G_EnterArenaReqCmd => handle_enter_arena(ctx, req),
+        ids::G_ChoiceReturnToArenaLobbyReqCmd => handle_choice_return_to_arena_lobby(ctx, req),
+        ids::G_ReturnToArenaLobbyFromDuelReqCmd => handle_return_to_arena_lobby_from_duel(ctx, req),
+        ids::G_ReturnToArenaLobbyFromDungeonReqCmd => {
+            handle_return_to_arena_lobby_from_dungeon(ctx, req)
+        }
+        ids::G_ArenaSpectateGameReqCmd => handle_arena_spectate_game(ctx, req),
+        ids::G_ArenaSpectateReturnToArenaLobbyReqCmd => {
+            handle_arena_spectate_return_to_arena_lobby(ctx, req)
+        }
+        ids::G_ListArenaSpectateGameReqCmd => handle_list_arena_spectate_game(ctx, req),
+        ids::G_ArenaEventTeleportToReqCmd => handle_arena_event_teleport_to(ctx, req),
+        ids::G_ArenaEventRecallReqCmd => handle_arena_event_recall(ctx, req),
+        ids::G_ArenaEventWarpToPosReqCmd => handle_arena_event_warp_to_pos(ctx, req),
+        ids::G_ArenaEventDuelGameStartReqCmd => handle_arena_event_duel_game_start(ctx, req),
+        ids::G_ArenaEventFindArenaSessionReqCmd => handle_arena_event_find_arena_session(ctx, req),
+        ids::G_ArenaEventMoveToArenaReqCmd => handle_arena_event_move_to_arena(ctx, req),
+        ids::G_ArenaEventReturnToArenaLobbyReqCmd => {
+            handle_arena_event_return_to_arena_lobby(ctx, req)
+        }
+        ids::G_ArenaEventReturnToArenaLobbyAllPcReqCmd => {
+            handle_arena_event_return_to_arena_lobby_all_pc(ctx, req)
+        }
+        ids::G_ArenaEventRetreivePcAssetReqCmd => handle_arena_event_retrieve_pc_asset(ctx, req),
+        ids::G_ArenaEventWarpToDuelRoundStartPcSpawnReqCmd => {
+            handle_arena_event_warp_to_duel_round_start(ctx, req)
+        }
+        ids::G_ArenaEventSetBattleRoyalStateReqCmd => {
+            handle_arena_event_set_battle_royal_state(ctx, req)
+        }
+        ids::G_ArenaEventInZonePcLocReqCmd => handle_arena_event_in_zone_pc_loc(ctx, req),
+        ids::G_ArenaEventBattleRoyalScoreReqCmd => handle_arena_event_battle_royal_score(ctx, req),
+        ids::G_PublishRecruitArenaDungeonMemberReqCmd => {
+            handle_publish_recruit_arena_dungeon_member(ctx, req)
+        }
+        ids::G_CancelRecruitArenaDungeonMemberReqCmd => {
+            handle_cancel_recruit_arena_dungeon_member(ctx, req)
+        }
         _ => unreachable!("membership checked"),
     }
 }
@@ -456,7 +492,7 @@ pub fn handle_choice_return_to_arena_lobby(ctx: &mut Context<'_>, req: &[u8]) ->
     };
     let t = task(
         ctx,
-        955,
+        ids::G_ChoiceReturnToArenaLobbyReqCmd,
         zone,
         ArenaEventTask::CheckPortal {
             portal_key,
@@ -757,7 +793,7 @@ pub fn handle_arena_event_return_to_arena_lobby(ctx: &mut Context<'_>, req: &[u8
     };
     let t = task(
         ctx,
-        739,
+        ids::G_ArenaEventReturnToArenaLobbyReqCmd,
         zone,
         ArenaEventTask::ReturnToArenaLobby { portal_key },
     );
@@ -806,7 +842,7 @@ pub fn handle_arena_event_return_to_arena_lobby_all_pc(
     };
     let t = task(
         ctx,
-        742,
+        ids::G_ArenaEventReturnToArenaLobbyAllPcReqCmd,
         zone,
         ArenaEventTask::ReturnToArenaLobbyAllPc { portal_key },
     );
@@ -845,7 +881,7 @@ pub fn handle_arena_event_retrieve_pc_asset(ctx: &mut Context<'_>, req: &[u8]) -
     };
     let requester = ctx.pc().object_id;
     let t = task_for(
-        745,
+        ids::G_ArenaEventRetreivePcAssetReqCmd,
         target,
         zone,
         ArenaEventTask::RetrievePcAsset { requester },
@@ -894,7 +930,7 @@ pub fn handle_arena_event_warp_to_duel_round_start(ctx: &mut Context<'_>, req: &
     };
     let t = task(
         ctx,
-        748,
+        ids::G_ArenaEventWarpToDuelRoundStartPcSpawnReqCmd,
         zone,
         ArenaEventTask::WarpToDuelRoundStartPcSpawn { flag },
     );
@@ -950,7 +986,7 @@ pub fn handle_arena_event_set_battle_royal_state(ctx: &mut Context<'_>, req: &[u
     };
     let t = task(
         ctx,
-        751,
+        ids::G_ArenaEventSetBattleRoyalStateReqCmd,
         zone,
         ArenaEventTask::SetBattleRoyalState { state },
     );
@@ -1226,7 +1262,7 @@ pub fn handle_arena_spectate_return_to_arena_lobby(ctx: &mut Context<'_>, req: &
     };
     let t = task(
         ctx,
-        717,
+        ids::G_ArenaSpectateReturnToArenaLobbyReqCmd,
         zone,
         ArenaEventTask::SpectateReturn { portal_key },
     );

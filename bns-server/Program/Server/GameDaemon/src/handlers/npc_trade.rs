@@ -4,7 +4,16 @@
 use super::skills::queue;
 use super::*;
 
-pub const NPC_TRADE_COMMANDS: &[u16] = &[1341, 1343, 1348, 1350, 1352, 1176, 1179, 1456];
+pub const NPC_TRADE_COMMANDS: &[u16] = &[
+    ids::G_BuyReqCmd,
+    ids::G_Buy2ReqCmd,
+    ids::G_SellReqCmd,
+    ids::G_RebuyReqCmd,
+    ids::G_TradeWithNpcReqCmd,
+    ids::G_BoardGachaDrawByItemReqCmd,
+    ids::G_BoardGachaDrawByInstantPaymentReqCmd,
+    ids::G_DungeonProgressToStepReqCmd,
+];
 
 #[derive(Clone, Debug, PartialEq, Eq)]
 pub enum NpcTradeTask {
@@ -95,14 +104,16 @@ impl MemoryNpcTrade {
 
 pub(super) fn dispatch_npc_trade(ctx: &mut Context<'_>, command: u16, req: &[u8]) -> Outcome {
     match command {
-        1341 => handle_buy(ctx, req),
-        1343 => handle_buy2(ctx, req),
-        1348 => handle_sell(ctx, req),
-        1350 => handle_rebuy(ctx, req),
-        1352 => handle_trade_with_npc(ctx, req),
-        1176 => handle_board_gacha_draw_by_item(ctx, req),
-        1179 => handle_board_gacha_draw_by_instant_payment(ctx, req),
-        1456 => handle_dungeon_progress_to_step(ctx, req),
+        ids::G_BuyReqCmd => handle_buy(ctx, req),
+        ids::G_Buy2ReqCmd => handle_buy2(ctx, req),
+        ids::G_SellReqCmd => handle_sell(ctx, req),
+        ids::G_RebuyReqCmd => handle_rebuy(ctx, req),
+        ids::G_TradeWithNpcReqCmd => handle_trade_with_npc(ctx, req),
+        ids::G_BoardGachaDrawByItemReqCmd => handle_board_gacha_draw_by_item(ctx, req),
+        ids::G_BoardGachaDrawByInstantPaymentReqCmd => {
+            handle_board_gacha_draw_by_instant_payment(ctx, req)
+        }
+        ids::G_DungeonProgressToStepReqCmd => handle_dungeon_progress_to_step(ctx, req),
         _ => unreachable!("membership checked"),
     }
 }
@@ -169,7 +180,14 @@ pub fn handle_buy(ctx: &mut Context<'_>, req: &[u8]) -> Outcome {
     let Some(zone) = ctx.pc().zone else {
         return Outcome::reason(F, 2);
     };
-    queue_task(ctx, 1341, zone, NpcTradeTask::Buy { npc, items }, F, 2)
+    queue_task(
+        ctx,
+        ids::G_BuyReqCmd,
+        zone,
+        NpcTradeTask::Buy { npc, items },
+        F,
+        2,
+    )
 }
 
 /// parity: 1343 29-npc-trade-handlers.md#1343--g_buy2reqcmd--partial partial
@@ -196,7 +214,7 @@ pub fn handle_buy2(ctx: &mut Context<'_>, req: &[u8]) -> Outcome {
     };
     queue_task(
         ctx,
-        1343,
+        ids::G_Buy2ReqCmd,
         zone,
         NpcTradeTask::Buy2 {
             npc,
@@ -227,7 +245,14 @@ pub fn handle_sell(ctx: &mut Context<'_>, req: &[u8]) -> Outcome {
     let Some(zone) = ctx.pc().zone else {
         return Outcome::reason(F, 2);
     };
-    queue_task(ctx, 1348, zone, NpcTradeTask::Sell { npc, items }, F, 2)
+    queue_task(
+        ctx,
+        ids::G_SellReqCmd,
+        zone,
+        NpcTradeTask::Sell { npc, items },
+        F,
+        2,
+    )
 }
 
 /// parity: 1350 29-npc-trade-handlers.md#1350--g_rebuyreqcmd--partial partial
@@ -248,7 +273,14 @@ pub fn handle_rebuy(ctx: &mut Context<'_>, req: &[u8]) -> Outcome {
     let (Some(npc), Some(slot)) = (npc, slot) else {
         return Outcome::unsupported("❓ rebuy: unchecked decode, unset NPC or slot");
     };
-    queue_task(ctx, 1350, zone, NpcTradeTask::Rebuy { npc, slot }, F, 1)
+    queue_task(
+        ctx,
+        ids::G_RebuyReqCmd,
+        zone,
+        NpcTradeTask::Rebuy { npc, slot },
+        F,
+        1,
+    )
 }
 
 /// parity: 1352 29-npc-trade-handlers.md#1352--g_tradewithnpcreqcmd--partial partial
@@ -270,7 +302,7 @@ pub fn handle_trade_with_npc(ctx: &mut Context<'_>, req: &[u8]) -> Outcome {
     };
     queue_task(
         ctx,
-        1352,
+        ids::G_TradeWithNpcReqCmd,
         zone,
         NpcTradeTask::TradeWithNpc {
             npc,
@@ -389,7 +421,7 @@ pub fn handle_dungeon_progress_to_step(ctx: &mut Context<'_>, req: &[u8]) -> Out
     // Native quirk: task kind/init/queue failures use 1451, not 1457.
     queue_task(
         ctx,
-        1456,
+        ids::G_DungeonProgressToStepReqCmd,
         zone,
         NpcTradeTask::DungeonProgressToStep {
             dungeon,

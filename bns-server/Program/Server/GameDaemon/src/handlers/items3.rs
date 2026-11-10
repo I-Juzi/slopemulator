@@ -9,7 +9,21 @@ use super::items2::{count, pair_fail, pairs, post, u0_passes, KindCheck, Post};
 use super::*;
 
 pub const ITEM4_COMMANDS: &[u16] = &[
-    1152, 1160, 1162, 1165, 1167, 1170, 1173, 1182, 1140, 1143, 1146, 1191, 1194, 1197, 1200,
+    ids::G_BoardGachaRetrieveSeasonReqCmd,
+    ids::G_BoardGachaSessionOpenReqCmd,
+    ids::G_BoardGachaSessionCloseReqCmd,
+    ids::G_BoardGachaBoardInfoReqCmd,
+    ids::G_BoardGachaGetParticipationCountPerSeasonReqCmd,
+    ids::G_BoardGachaRetrieveParticipationInfoPerPcReqCmd,
+    ids::G_BoardGachaRetrieveParticipationInfoAllReqCmd,
+    ids::G_BoardGachaRetrieveParticipationRewardStateReqCmd,
+    ids::G_ChangeBadgeEquipPageReqCmd,
+    ids::G_SynthesisBadgeReqCmd,
+    ids::G_SynthesisBadgeRecipeDataReqCmd,
+    ids::G_DrawSlateNewStoneReqCmd,
+    ids::G_SetSlateNewStoneReqCmd,
+    ids::G_GiveUpSlateNewStoneReqCmd,
+    ids::G_ChangeSlatePageReqCmd,
 ];
 
 #[derive(Clone, Debug, PartialEq, Eq)]
@@ -66,21 +80,64 @@ impl From<BadgeSlateTask> for ItemTaskKind {
 
 pub(super) fn dispatch_item4(ctx: &mut Context<'_>, command: u16, req: &[u8]) -> Outcome {
     match command {
-        1152 => board_gacha_manager(ctx, 1152, 1154, 56),
-        1160 => board_gacha_manager(ctx, 1160, 1161, 57),
-        1162 => board_gacha_manager(ctx, 1162, 1164, 58),
-        1165 => board_gacha_manager(ctx, 1165, 1166, 60),
-        1173 => board_gacha_manager(ctx, 1173, 1175, 59),
-        1167 => board_gacha_transaction(ctx, 1167, 1169, 65, 4923658),
-        1170 => board_gacha_transaction(ctx, 1170, 1172, 66, 4989194),
-        1182 => board_gacha_transaction(ctx, 1182, 1184, 70, 5251338),
-        1140 => handle_change_badge_equip_page(ctx, req),
-        1143 => handle_synthesis_badge(ctx, req),
-        1146 => handle_synthesis_badge_recipe_data(ctx, req),
-        1191 => handle_draw_slate_new_stone(ctx, req),
-        1194 => handle_set_slate_new_stone(ctx, req),
-        1197 => handle_give_up_slate_new_stone(ctx, req),
-        1200 => handle_change_slate_page(ctx, req),
+        ids::G_BoardGachaRetrieveSeasonReqCmd => board_gacha_manager(
+            ctx,
+            ids::G_BoardGachaRetrieveSeasonReqCmd,
+            ids::G_BoardGachaRetrieveSeasonFailCmd,
+            56,
+        ),
+        ids::G_BoardGachaSessionOpenReqCmd => board_gacha_manager(
+            ctx,
+            ids::G_BoardGachaSessionOpenReqCmd,
+            ids::G_BoardGachaSessionOpenFailCmd,
+            57,
+        ),
+        ids::G_BoardGachaSessionCloseReqCmd => board_gacha_manager(
+            ctx,
+            ids::G_BoardGachaSessionCloseReqCmd,
+            ids::G_BoardGachaSessionCloseFailCmd,
+            58,
+        ),
+        ids::G_BoardGachaBoardInfoReqCmd => board_gacha_manager(
+            ctx,
+            ids::G_BoardGachaBoardInfoReqCmd,
+            ids::G_BoardGachaBoardInfoFailCmd,
+            60,
+        ),
+        ids::G_BoardGachaRetrieveParticipationInfoAllReqCmd => board_gacha_manager(
+            ctx,
+            ids::G_BoardGachaRetrieveParticipationInfoAllReqCmd,
+            ids::G_BoardGachaRetrieveParticipationInfoAllFailCmd,
+            59,
+        ),
+        ids::G_BoardGachaGetParticipationCountPerSeasonReqCmd => board_gacha_transaction(
+            ctx,
+            ids::G_BoardGachaGetParticipationCountPerSeasonReqCmd,
+            ids::G_BoardGachaGetParticipationCountPerSeasonFailCmd,
+            65,
+            4923658,
+        ),
+        ids::G_BoardGachaRetrieveParticipationInfoPerPcReqCmd => board_gacha_transaction(
+            ctx,
+            ids::G_BoardGachaRetrieveParticipationInfoPerPcReqCmd,
+            ids::G_BoardGachaRetrieveParticipationInfoPerPcFailCmd,
+            66,
+            4989194,
+        ),
+        ids::G_BoardGachaRetrieveParticipationRewardStateReqCmd => board_gacha_transaction(
+            ctx,
+            ids::G_BoardGachaRetrieveParticipationRewardStateReqCmd,
+            ids::G_BoardGachaRetrieveParticipationRewardStateFailCmd,
+            70,
+            5251338,
+        ),
+        ids::G_ChangeBadgeEquipPageReqCmd => handle_change_badge_equip_page(ctx, req),
+        ids::G_SynthesisBadgeReqCmd => handle_synthesis_badge(ctx, req),
+        ids::G_SynthesisBadgeRecipeDataReqCmd => handle_synthesis_badge_recipe_data(ctx, req),
+        ids::G_DrawSlateNewStoneReqCmd => handle_draw_slate_new_stone(ctx, req),
+        ids::G_SetSlateNewStoneReqCmd => handle_set_slate_new_stone(ctx, req),
+        ids::G_GiveUpSlateNewStoneReqCmd => handle_give_up_slate_new_stone(ctx, req),
+        ids::G_ChangeSlatePageReqCmd => handle_change_slate_page(ctx, req),
         _ => unreachable!("membership checked"),
     }
 }

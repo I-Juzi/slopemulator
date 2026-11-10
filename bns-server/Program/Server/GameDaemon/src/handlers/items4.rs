@@ -9,8 +9,28 @@ use super::items2::{count, pair_fail, pairs, post, u0_passes, KindCheck, Post};
 use super::*;
 
 pub const ITEM5_COMMANDS: &[u16] = &[
-    830, 833, 947, 1010, 1050, 1233, 1234, 1236, 1237, 1242, 1243, 1245, 1247, 1249, 1251, 1296,
-    1299, 1303, 1306, 1311, 1316, 1321,
+    ids::G_PassingItemAbilityReqCmd,
+    ids::G_PickGemCardReqCmd,
+    ids::G_ChangeWeaponAppearanceReqCmd,
+    ids::G_ExchangeItemReqCmd,
+    ids::G_MakeCustomDressReqCmd,
+    ids::G_UseGroceryReqCmd,
+    ids::G_UseGroceryToGroundReqCmd,
+    ids::G_UseEquippedReqCmd,
+    ids::G_UseEquippedToGroundReqCmd,
+    ids::G_UseFieldItemReqCmd,
+    ids::G_UseFieldItemToGroundReqCmd,
+    ids::G_ThrowFieldItemReqCmd,
+    ids::G_PickupFieldItemReqCmd,
+    ids::G_PutdownFieldItemReqCmd,
+    ids::G_PickupDeadBodyReqCmd,
+    ids::G_OpenItemPouchReqCmd,
+    ids::G_PrivateItemPouchListReqCmd,
+    ids::G_CloseItemPouchReqCmd,
+    ids::G_PickupItemReqCmd,
+    ids::G_TakeContributionRewardReqCmd,
+    ids::G_DistributeItemReqCmd,
+    ids::G_CompleteDistributionReqCmd,
 ];
 
 #[derive(Clone, Debug, PartialEq, Eq)]
@@ -81,26 +101,32 @@ impl From<ItemUseTask> for ItemTaskKind {
 
 pub(super) fn dispatch_item5(ctx: &mut Context<'_>, command: u16, req: &[u8]) -> Outcome {
     match command {
-        830 => handle_passing_item_ability(ctx, req),
-        833 => handle_pick_gem_card(ctx, req),
-        947 => handle_change_weapon_appearance(ctx, req),
-        1010 => handle_exchange_item(ctx, req),
-        1050 => handle_make_custom_dress(ctx, req),
-        1233 => handle_use_grocery(ctx, req),
-        1234 => handle_use_grocery_to_ground(ctx, req),
-        1236 => handle_use_equipped(ctx, req),
-        1237 => handle_use_equipped_to_ground(ctx, req),
-        1242 => handle_use_field_item(ctx, req),
-        1243 | 1245 | 1249 => handle_u_codec_entry(ctx, command, req),
-        1247 => handle_pickup_field_item(ctx, req),
-        1251 => handle_pickup_dead_body(ctx, req),
-        1296 => handle_item_pouch(ctx, req, 1296, false),
-        1303 => handle_item_pouch(ctx, req, 1303, true),
-        1299 => handle_private_item_pouch_list(ctx, req),
-        1306 => handle_pickup_item(ctx, req),
-        1311 => handle_take_contribution_reward(ctx, req),
-        1316 => handle_distribute_item(ctx, req),
-        1321 => handle_complete_distribution(ctx, req),
+        ids::G_PassingItemAbilityReqCmd => handle_passing_item_ability(ctx, req),
+        ids::G_PickGemCardReqCmd => handle_pick_gem_card(ctx, req),
+        ids::G_ChangeWeaponAppearanceReqCmd => handle_change_weapon_appearance(ctx, req),
+        ids::G_ExchangeItemReqCmd => handle_exchange_item(ctx, req),
+        ids::G_MakeCustomDressReqCmd => handle_make_custom_dress(ctx, req),
+        ids::G_UseGroceryReqCmd => handle_use_grocery(ctx, req),
+        ids::G_UseGroceryToGroundReqCmd => handle_use_grocery_to_ground(ctx, req),
+        ids::G_UseEquippedReqCmd => handle_use_equipped(ctx, req),
+        ids::G_UseEquippedToGroundReqCmd => handle_use_equipped_to_ground(ctx, req),
+        ids::G_UseFieldItemReqCmd => handle_use_field_item(ctx, req),
+        ids::G_UseFieldItemToGroundReqCmd
+        | ids::G_ThrowFieldItemReqCmd
+        | ids::G_PutdownFieldItemReqCmd => handle_u_codec_entry(ctx, command, req),
+        ids::G_PickupFieldItemReqCmd => handle_pickup_field_item(ctx, req),
+        ids::G_PickupDeadBodyReqCmd => handle_pickup_dead_body(ctx, req),
+        ids::G_OpenItemPouchReqCmd => {
+            handle_item_pouch(ctx, req, ids::G_OpenItemPouchReqCmd, false)
+        }
+        ids::G_CloseItemPouchReqCmd => {
+            handle_item_pouch(ctx, req, ids::G_CloseItemPouchReqCmd, true)
+        }
+        ids::G_PrivateItemPouchListReqCmd => handle_private_item_pouch_list(ctx, req),
+        ids::G_PickupItemReqCmd => handle_pickup_item(ctx, req),
+        ids::G_TakeContributionRewardReqCmd => handle_take_contribution_reward(ctx, req),
+        ids::G_DistributeItemReqCmd => handle_distribute_item(ctx, req),
+        ids::G_CompleteDistributionReqCmd => handle_complete_distribution(ctx, req),
         _ => unreachable!("membership checked"),
     }
 }

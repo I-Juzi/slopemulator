@@ -6,7 +6,19 @@ use super::skills::queue;
 use super::*;
 
 pub const MARKET_COMMANDS: &[u16] = &[
-    378, 381, 384, 1013, 1530, 1533, 1536, 1539, 1542, 1545, 1548, 1551, 1554,
+    ids::G_RetrieveSaleListReqCmd,
+    ids::G_RetrieveBidListReqCmd,
+    ids::G_RetrieveBidRankStatusReqCmd,
+    ids::G_NPAuctionBidReqCmd,
+    ids::G_RegisterSaleReqCmd,
+    ids::G_AbandonSaleReqCmd,
+    ids::G_UpdateSalePriceReqCmd,
+    ids::G_RegisterBidReqCmd,
+    ids::G_AbandonBidReqCmd,
+    ids::G_UpdateBidPriceReqCmd,
+    ids::G_RegisterPurchaseReqCmd,
+    ids::G_MarketSearchItemReqCmd,
+    ids::G_RetrieveInstantSaleItemLowestPriceReqCmd,
 ];
 
 #[derive(Clone, Debug, PartialEq, Eq)]
@@ -152,19 +164,21 @@ impl MemoryMarket {
 
 pub(super) fn dispatch_market(ctx: &mut Context<'_>, command: u16, req: &[u8]) -> Outcome {
     match command {
-        378 => handle_retrieve_sale_list(ctx, req),
-        381 => handle_retrieve_bid_list(ctx, req),
-        384 => handle_retrieve_bid_rank_status(ctx, req),
-        1013 => handle_np_auction_bid(ctx, req),
-        1530 => handle_register_sale(ctx, req),
-        1533 => handle_abandon_sale(ctx, req),
-        1536 => handle_update_sale_price(ctx, req),
-        1539 => handle_register_bid(ctx, req),
-        1542 => handle_abandon_bid(ctx, req),
-        1545 => handle_update_bid_price(ctx, req),
-        1548 => handle_register_purchase(ctx, req),
-        1551 => handle_market_search_item(ctx, req),
-        1554 => handle_retrieve_instant_sale_item_lowest_price(ctx, req),
+        ids::G_RetrieveSaleListReqCmd => handle_retrieve_sale_list(ctx, req),
+        ids::G_RetrieveBidListReqCmd => handle_retrieve_bid_list(ctx, req),
+        ids::G_RetrieveBidRankStatusReqCmd => handle_retrieve_bid_rank_status(ctx, req),
+        ids::G_NPAuctionBidReqCmd => handle_np_auction_bid(ctx, req),
+        ids::G_RegisterSaleReqCmd => handle_register_sale(ctx, req),
+        ids::G_AbandonSaleReqCmd => handle_abandon_sale(ctx, req),
+        ids::G_UpdateSalePriceReqCmd => handle_update_sale_price(ctx, req),
+        ids::G_RegisterBidReqCmd => handle_register_bid(ctx, req),
+        ids::G_AbandonBidReqCmd => handle_abandon_bid(ctx, req),
+        ids::G_UpdateBidPriceReqCmd => handle_update_bid_price(ctx, req),
+        ids::G_RegisterPurchaseReqCmd => handle_register_purchase(ctx, req),
+        ids::G_MarketSearchItemReqCmd => handle_market_search_item(ctx, req),
+        ids::G_RetrieveInstantSaleItemLowestPriceReqCmd => {
+            handle_retrieve_instant_sale_item_lowest_price(ctx, req)
+        }
         _ => unreachable!("membership checked"),
     }
 }
@@ -314,7 +328,7 @@ pub fn handle_np_auction_bid(ctx: &mut Context<'_>, req: &[u8]) -> Outcome {
     }
     let t = task(
         ctx,
-        1013,
+        ids::G_NPAuctionBidReqCmd,
         zone,
         MarketTask::AuctionBid {
             world: pc.short_96,
@@ -354,7 +368,7 @@ pub fn handle_register_sale(ctx: &mut Context<'_>, req: &[u8]) -> Outcome {
     }
     let t = task(
         ctx,
-        1530,
+        ids::G_RegisterSaleReqCmd,
         zone,
         MarketTask::RegisterSale {
             item,

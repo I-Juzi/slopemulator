@@ -6,7 +6,17 @@ use super::skills::{counted, queue};
 use super::*;
 
 pub const QUEST2_COMMANDS: &[u16] = &[
-    1448, 1450, 1452, 1454, 1458, 1465, 1467, 1469, 1472, 1475, 1478,
+    ids::G_AcquireQuestReqCmd,
+    ids::G_ProgressMissionReqCmd,
+    ids::G_ProgressMissionAllReqCmd,
+    ids::G_ProgressMissionByAcquireSummonedReqCmd,
+    ids::G_DisposeQuestReqCmd,
+    ids::G_MissionStepRollbackReqCmd,
+    ids::G_MissionStepTimeExpiredReqCmd,
+    ids::G_ResetQuestCompletionTimeReqCmd,
+    ids::G_AcquireRenewalQuestReqCmd,
+    ids::G_ChallengeListAcquireQuestReqCmd,
+    ids::G_ProgressSkipMissionStepReqCmd,
 ];
 
 /// Server-owned checks from doc 21. Pass means true; Fail means false.
@@ -157,17 +167,19 @@ impl From<QuestProgressTask> for SkillTaskKind {
 
 pub(super) fn dispatch_quest2(ctx: &mut Context<'_>, command: u16, req: &[u8]) -> Outcome {
     match command {
-        1448 => handle_acquire_quest(ctx, req),
-        1450 => handle_progress_mission(ctx, req),
-        1452 => handle_progress_mission_all(ctx, req),
-        1454 => handle_progress_mission_by_acquire_summoned(ctx, req),
-        1458 => handle_dispose_quest(ctx, req),
-        1465 => handle_mission_step_rollback(ctx, req),
-        1467 => handle_mission_step_time_expired(ctx, req),
-        1469 => handle_reset_quest_completion_time(ctx, req),
-        1472 => handle_acquire_renewal_quest(ctx, req),
-        1475 => handle_challenge_list_acquire_quest(ctx, req),
-        1478 => handle_progress_skip_mission_step(ctx, req),
+        ids::G_AcquireQuestReqCmd => handle_acquire_quest(ctx, req),
+        ids::G_ProgressMissionReqCmd => handle_progress_mission(ctx, req),
+        ids::G_ProgressMissionAllReqCmd => handle_progress_mission_all(ctx, req),
+        ids::G_ProgressMissionByAcquireSummonedReqCmd => {
+            handle_progress_mission_by_acquire_summoned(ctx, req)
+        }
+        ids::G_DisposeQuestReqCmd => handle_dispose_quest(ctx, req),
+        ids::G_MissionStepRollbackReqCmd => handle_mission_step_rollback(ctx, req),
+        ids::G_MissionStepTimeExpiredReqCmd => handle_mission_step_time_expired(ctx, req),
+        ids::G_ResetQuestCompletionTimeReqCmd => handle_reset_quest_completion_time(ctx, req),
+        ids::G_AcquireRenewalQuestReqCmd => handle_acquire_renewal_quest(ctx, req),
+        ids::G_ChallengeListAcquireQuestReqCmd => handle_challenge_list_acquire_quest(ctx, req),
+        ids::G_ProgressSkipMissionStepReqCmd => handle_progress_skip_mission_step(ctx, req),
         _ => unreachable!("membership checked"),
     }
 }
@@ -238,7 +250,7 @@ pub fn handle_acquire_quest(ctx: &mut Context<'_>, req: &[u8]) -> Outcome {
     };
     let t = task(
         ctx,
-        1448,
+        ids::G_AcquireQuestReqCmd,
         zone,
         QuestProgressTask::Acquire {
             quest,
@@ -332,7 +344,7 @@ pub fn handle_progress_mission(ctx: &mut Context<'_>, req: &[u8]) -> Outcome {
     };
     let t = task(
         ctx,
-        1450,
+        ids::G_ProgressMissionReqCmd,
         zone,
         QuestProgressTask::Progress {
             mission,
@@ -413,7 +425,7 @@ pub fn handle_progress_mission_by_acquire_summoned(ctx: &mut Context<'_>, req: &
     }
     let t = task(
         ctx,
-        1454,
+        ids::G_ProgressMissionByAcquireSummonedReqCmd,
         zone,
         QuestProgressTask::AcquireSummoned {
             quest,
@@ -450,7 +462,7 @@ pub fn handle_mission_step_rollback(ctx: &mut Context<'_>, req: &[u8]) -> Outcom
     };
     let t = task(
         ctx,
-        1465,
+        ids::G_MissionStepRollbackReqCmd,
         zone,
         QuestProgressTask::Rollback {
             quest,
@@ -473,7 +485,7 @@ pub fn handle_mission_step_time_expired(ctx: &mut Context<'_>, req: &[u8]) -> Ou
     };
     let t = task(
         ctx,
-        1467,
+        ids::G_MissionStepTimeExpiredReqCmd,
         zone,
         QuestProgressTask::TimeExpired { quest, mission },
     );
@@ -517,7 +529,7 @@ pub fn handle_reset_quest_completion_time(ctx: &mut Context<'_>, req: &[u8]) -> 
     }
     let t = task(
         ctx,
-        1469,
+        ids::G_ResetQuestCompletionTimeReqCmd,
         zone,
         QuestProgressTask::ResetCompletionTime { quest, orders },
     );
@@ -548,7 +560,7 @@ pub fn handle_challenge_list_acquire_quest(ctx: &mut Context<'_>, req: &[u8]) ->
     }
     let t = task(
         ctx,
-        1475,
+        ids::G_ChallengeListAcquireQuestReqCmd,
         zone,
         QuestProgressTask::ChallengeAcquire { sub_type, quest },
     );
@@ -572,7 +584,7 @@ pub fn handle_progress_skip_mission_step(ctx: &mut Context<'_>, req: &[u8]) -> O
     };
     let t = task(
         ctx,
-        1478,
+        ids::G_ProgressSkipMissionStepReqCmd,
         zone,
         QuestProgressTask::SkipMissionStep { quest, reason },
     );

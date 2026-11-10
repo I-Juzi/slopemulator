@@ -7,7 +7,19 @@ use super::skills::{counted, queue};
 use super::*;
 
 pub const MISC_COMMANDS: &[u16] = &[
-    165, 356, 358, 359, 360, 362, 407, 419, 820, 1130, 1137, 1188, 1423,
+    ids::G_StopCinematicReqCmd,
+    ids::G_DpGameClientToServerReqCmd,
+    ids::G_DpArenaClientToServerReqCmd,
+    ids::G_ReloadDaemonReqCmd,
+    ids::G_RegisterTraceReqCmd,
+    ids::G_UnregisterTraceReqCmd,
+    ids::G_WriteClientLogReqCmd,
+    ids::G_ReportBotSpammerReqCmd,
+    ids::G_TraceRouteIPReqCmd,
+    ids::G_ChallengeListsReqCmd,
+    ids::G_SecretTreasureExpirationTimeReqCmd,
+    ids::G_SetSlateAmpSlotReqCmd,
+    ids::G_ChallengeListTakeRewardReqCmd,
 ];
 
 /// Doc 19 shared fields.
@@ -42,15 +54,21 @@ impl From<MiscTask> for SkillTaskKind {
 
 pub(super) fn dispatch_misc(ctx: &mut Context<'_>, command: u16, req: &[u8]) -> Outcome {
     match command {
-        165 => handle_stop_cinematic(ctx, req),
-        356 | 358 | 359 | 360 | 362 => handle_return_true_stub(ctx, req),
-        407 => handle_write_client_log(ctx, req),
-        419 => handle_report_bot_spammer(ctx, req),
-        820 => handle_trace_route_ip(ctx, req),
-        1130 => handle_challenge_lists(ctx, req),
-        1137 => handle_secret_treasure_expiration_time(ctx, req),
-        1188 => handle_set_slate_amp_slot(ctx, req),
-        1423 => handle_challenge_list_take_reward(ctx, req),
+        ids::G_StopCinematicReqCmd => handle_stop_cinematic(ctx, req),
+        ids::G_DpGameClientToServerReqCmd
+        | ids::G_DpArenaClientToServerReqCmd
+        | ids::G_ReloadDaemonReqCmd
+        | ids::G_RegisterTraceReqCmd
+        | ids::G_UnregisterTraceReqCmd => handle_return_true_stub(ctx, req),
+        ids::G_WriteClientLogReqCmd => handle_write_client_log(ctx, req),
+        ids::G_ReportBotSpammerReqCmd => handle_report_bot_spammer(ctx, req),
+        ids::G_TraceRouteIPReqCmd => handle_trace_route_ip(ctx, req),
+        ids::G_ChallengeListsReqCmd => handle_challenge_lists(ctx, req),
+        ids::G_SecretTreasureExpirationTimeReqCmd => {
+            handle_secret_treasure_expiration_time(ctx, req)
+        }
+        ids::G_SetSlateAmpSlotReqCmd => handle_set_slate_amp_slot(ctx, req),
+        ids::G_ChallengeListTakeRewardReqCmd => handle_challenge_list_take_reward(ctx, req),
         _ => unreachable!("membership checked"),
     }
 }
@@ -214,7 +232,7 @@ pub fn handle_secret_treasure_expiration_time(ctx: &mut Context<'_>, req: &[u8])
     };
     let t = task(
         ctx,
-        1137,
+        ids::G_SecretTreasureExpirationTimeReqCmd,
         zone,
         MiscTask::SecretTreasureExpiration { request },
     );
@@ -262,7 +280,7 @@ pub fn handle_set_slate_amp_slot(ctx: &mut Context<'_>, req: &[u8]) -> Outcome {
     let order = u32::from(order) | 0x1_0000;
     let t = task(
         ctx,
-        1188,
+        ids::G_SetSlateAmpSlotReqCmd,
         zone,
         MiscTask::SetSlateAmpSlot {
             page,
@@ -299,7 +317,7 @@ pub fn handle_challenge_list_take_reward(ctx: &mut Context<'_>, req: &[u8]) -> O
     }
     let t = task(
         ctx,
-        1423,
+        ids::G_ChallengeListTakeRewardReqCmd,
         zone,
         MiscTask::ChallengeListTakeReward { sub_type },
     );
