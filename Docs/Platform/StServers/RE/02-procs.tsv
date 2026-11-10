@@ -1,0 +1,132 @@
+service	database	schema	proc	call_site	function	handler_ids
+AuthSrv	AcctDb	v2016102001	AcctChangeLoginNameById	0x1400fab55	0x1400FAA90	
+AuthSrv	AcctDb	v2016102001	AcctChangeNonUniqueUserNameById	0x1400e250d	0x1400E2100	
+AuthSrv	AcctDb	v2016102001	AcctChangeNonUniqueUserNameById	0x1400e395f	0x1400E3700	
+AuthSrv	AcctDb	v2016102001	AcctChangeUserNameById	0x1400de2de	0x1400DE1C0	
+AuthSrv	AcctDb	v2016102001	AcctCreateSession	0x1400faec0	0x1400FACC0	
+AuthSrv	AcctDb	v2016102001	AcctDeleteTentative	0x1400fb041	0x1400FAFC0	
+AuthSrv	AcctDb	v2016102001	AcctDeleteTentatives	0x1400fb11d	0x1400FB0B0	
+AuthSrv	AcctDb	v2016102001	AcctExpirePassword	0x1400e484a	0x1400E4730	17
+AuthSrv	AcctDb	v2016102001	AcctGetSessionDataById	0x1400fb7c1	0x1400FB720	86
+AuthSrv	AcctDb	v2016102001	AcctInfo	0x1400ccabc	0x1400CCA50	102
+AuthSrv	AcctDb	v2016102001	AcctInfo	0x1400fba11	0x1400FB990	
+AuthSrv	AcctDb	v2016102001	AcctInfo	0x1400cc949	0x1400CC8E0	101
+AuthSrv	AcctDb	v2016102001	AcctListMergedUsers	0x1400cdbd8	0x1400CD950	80
+AuthSrv	AcctDb	v2016102001	AcctLoginInfoById	0x1400e6a60	0x1400E6910	22
+AuthSrv	AcctDb	v2016102001	AcctLoginInfoById	0x1400eb100	0x1400EB010	
+AuthSrv	AcctDb	v2016102001	AcctLoginInfoById	0x1400dfe9e	0x1400DFE30	
+AuthSrv	AcctDb	v2016102001	AcctLoginInfoById	0x1400fbcb2	0x1400FBC30	
+AuthSrv	AcctDb	v2016102001	AcctLoginInfoById	0x1400e6da7	0x1400E6B50	25,26
+AuthSrv	AcctDb	v2016102001	AcctLoginInfoById	0x1400cc7ec	0x1400CC780	103
+AuthSrv	AcctDb	v2016102001	AcctLoginInfoById	0x1400e36b4	0x1400E32B0	10
+AuthSrv	AcctDb	v2016102001	AcctLoginInfoById	0x1400e42e3	0x1400E41E0	12
+AuthSrv	AcctDb	v2016102001	AcctResetSession	0x1400fc241	0x1400FC1A0	83
+AuthSrv	AcctDb	v2016102001	AcctResetValidateToken	0x1400fe997	0x1400FE900	
+AuthSrv	AcctDb	v2016102001	AcctTentativeInfo	0x1400fc341	0x1400FC2C0	
+AuthSrv	AcctDb	v2016102001	AcctUpdateMergedUsers	0x1400e716e	0x1400E6EC0	40
+AuthSrv	AcctDb	v2016102001	AcctValidateDataInfo	0x1400fe588	0x1400FE500	
+AuthSrv	AcctDb	v2016102001	AcctValidateNameSession	0x1400fc961	0x1400FC8C0	87
+AuthSrv	AcctDb	v2016102001	AcctValidateSession	0x1400fca81	0x1400FC9E0	
+AuthSrv	AcctDb	v2016102001	AcctValidateTentative	0x1400feaa8	0x1400FEA20	
+AuthSrv	AcctDb	v2016102001	ActivateAccount	0x1400fcb82	0x1400FCB00	
+AuthSrv	AcctDb	v2016102001	AddCheckBannedPassword	0x1400fcc73	0x1400FCC00	
+AuthSrv	AcctDb	v2016102001	AddCheckBannedPassword	0x1400dfc8d	0x1400DFC10	
+AuthSrv	AcctDb	v2016102001	AddCheckBannedPassword	0x1400e30be	0x1400E2BB0	
+AuthSrv	AcctDb	v2016102001	AddValidBannedPassword	0x1400caf29	0x1400CAE80	92
+AuthSrv	AcctDb	v2016102001	CheckBannedPassword	0x1400fcd83	0x1400FCD10	
+AuthSrv	AcctDb	v2016102001	CheckBannedPassword	0x1400e3078	0x1400E2BB0	
+AuthSrv	AcctDb	v2016102001	CheckForValidateTentativeForNameSrv	0x1400fd0d8	0x1400FD050	
+AuthSrv	AcctDb	v2016102001	CheckTentativeLoginName	0x1400fce96	0x1400FCE20	8
+AuthSrv	AcctDb	v2016102001	CreateNameSessionForANCA	0x1400d3132	0x1400D2FD0	
+AuthSrv	AcctDb	v2016102001	CreateNameSessionForCNLN	0x1400d3372	0x1400D3210	
+AuthSrv	AcctDb	v2016102001	CreateNameSessionForCNUN	0x1400e23ae	0x1400E2100	
+AuthSrv	AcctDb	v2016102001	CreateNameSessionForCNUN	0x1400e37e5	0x1400E3700	
+AuthSrv	AcctDb	v2016102001	CreateNameSessionForCNUN	0x1400d35b2	0x1400D3450	
+AuthSrv	AcctDb	v2016102001	CreateNameSessionForCSVE	0x1400d37f2	0x1400D3690	
+AuthSrv	AcctDb	v2016102001	CreateNameSessionForRNRA	0x1400d3a32	0x1400D38D0	
+AuthSrv	AcctDb	v2016102001	DeactivateAccount	0x1400fdb82	0x1400FDB00	13
+AuthSrv	AcctDb	v2016102001	DeactivateUser	0x1400fdc82	0x1400FDC00	65
+AuthSrv	AcctDb	v2016102001	DestroyNameSession	0x1400f93b9	0x1400F9210	
+AuthSrv	AcctDb	v2016102001	DestroyNameSession	0x1400f9177	0x1400F9020	
+AuthSrv	AcctDb	v2016102001	DestroyNameSession	0x1400d4474	0x1400D42D0	
+AuthSrv	AcctDb	v2016102001	GetNameSessionInfoById	0x1400d9174	0x1400D9080	
+AuthSrv	AcctDb	v2016102001	GetNameSessionInfoByTerm	0x1400d9346	0x1400D92E0	
+AuthSrv	AcctDb	v2016102001	GetNameSessionsByName	0x1400d4da5	0x1400D4D00	
+AuthSrv	AcctDb	v2016102001	GetNameSessionsByUserId	0x1400d4efb	0x1400D4E50	
+AuthSrv	AcctDb	v2016102001	GetNameSessionsOlderThanSecs	0x1400d502d	0x1400D4FA0	
+AuthSrv	AcctDb	v2016102001	GetSessionDataForCancelRCLN	0x1400fe3d6	0x1400FE350	88
+AuthSrv	AcctDb	v2016102001	GetUserNameChangeableIncomplete	0x1400e57a3	0x1400E5740	75
+AuthSrv	AcctDb	v2016102001	IsBannedPassword	0x1400cc61e	0x1400CC590	91
+AuthSrv	AcctDb	v2016102001	IsLoginNameChangeable	0x1400fe696	0x1400FE610	9
+AuthSrv	AcctDb	v2016102001	IsUserNameChangeableIncomplete	0x1400e5a73	0x1400E5A10	71
+AuthSrv	AcctDb	v2016102001	IsUserNameChangeableIncomplete	0x1400e2a19	0x1400E28E0	6
+AuthSrv	AcctDb	v2016102001	AcctChange|AcctChangeExpired	0x1400df74f	0x1400DF700	
+AuthSrv	AcctDb	v2016102001	CreateNameSessionForANCA|CSVE(+NonUnique)	0x1400fd7f7	0x1400FD700	
+AuthSrv	AcctDb	v2016102001	GetUserNameChangeable(Incomplete)	0x1400e5683	0x1400E5610	74
+AuthSrv	AcctDb	v2016102001	GetLoginNameChangeable(Incomplete)	0x1400fdea1	0x1400FDE10	72,73
+AuthSrv	AcctDb	v2016102001	AcctCreate(NonUniqueUserName)ForNameSrv	0x1400fd334	0x1400FD250	
+AuthSrv	AcctDb	v2016102001	List*Changes	0x1400cd5ef	0x1400CD260	76,77,78,79
+AuthSrv	AcctDb	v2016102001	?|IsUserNameChangeable(Incomplete)	0x1400e27bd	0x1400E2680	5
+AuthSrv	AcctDb	v2016102001	AcctCreateTentative(NonUniqueUserName)ForNameSrv	0x1400fd9a6	0x1400FD8B0	
+AuthSrv	AcctDb	v2016102001	?|CreateNameSessionForRNRA(+NonUnique)	0x1400e7bff	0x1400E7AD0	14,33,34
+AuthSrv	AcctDb	v2016102001	IsUserNameChangeable(Incomplete)	0x1400e5953	0x1400E58E0	70
+AuthSrv	AcctDb	v2016102001	CreateNameSessionForCNLN|RCLN	0x1400fd5cb	0x1400FD510	
+AuthSrv	AcctDb	v2016102001	ReactivateUser	0x1400fe7a2	0x1400FE720	81
+AuthSrv	AcctDb	v2016102001	RemoveBannedPassword	0x1400fe889	0x1400FE820	
+AuthSrv	AcctDb	v2016102001	RemoveBannedPassword	0x1400ce1f9	0x1400CE150	93
+AuthSrv	AcctDb	v2016102001	RemoveBannedPassword	0x1400f09d4	0x1400F08B0	
+AuthSrv	AcctDb	v2016102001	AcctDeleteUser	0x1400de7b4	0x1400DE690	
+AuthSrv	AcctDb	v2016102001	FailAcctCreateForNameSrv	0x1400d10f1	0x1400D10E0	100 (test switch; name only)
+AuthSrv	AcctDb	v2016102001	FailAcctValidateTentative	0x1400d10ff	0x1400D10E0	100 (test switch; name only)
+AuthSrv	AcctDb	v2016102001	FailAcctChangeLoginNameById	0x1400d110d	0x1400D10E0	100 (test switch; name only)
+AuthSrv	AcctDb	v2016102001	FailAcctChangeUserNameById	0x1400d111b	0x1400D10E0	100 (test switch; name only)
+AppAuthSrv	AppDb	v2016112501	GetAppServiceCodeByAppGroupCode	0x1400c6cfd	0x1400C6C80	47
+AppAuthSrv	AppDb	v2016112501	GetAppServiceCodeByAppId	0x1400c6dda	0x1400C6C80	47
+AppAuthSrv	AppDb	v2016112501	GetExternalSecret	0x1400c6f8e	0x1400C6E80	40
+AppAuthSrv	AppDb	v2016112501	ListExternalSecrets	0x1400c6ff3	0x1400C6E80	40
+AppAuthSrv	AppDb	v2016112501	AddServerSecret	0x1400cf205	0x1400CEE00	11
+AppAuthSrv	AppDb	v2016112501	AddNativeAppSecret	0x1400cef7d	0x1400CEE00	11
+AppAuthSrv	AppDb	v2016112501	GetAppMembers	0x1400d10dc	0x1400D1080	19
+AppAuthSrv	AppDb	v2016112501	RemoveSecret	0x1400d21dc	0x1400D2180	13
+AppAuthSrv	AppDb	v2016112501	AddAccessToken	0x1400d73e8	0x1400D7280	8
+AppAuthSrv	AppDb	v2016112501	GetSecrets	0x1400d9021	0x1400D8D00	app load
+AppAuthSrv	AppDb	v2016112501	ListAppGroupApps	0x1400db16a	0x1400DAF00	28
+AppAuthSrv	AppDb	v2016112501	CreateAppServiceCode	0x1400c6403	0x1400C6390	44
+AppAuthSrv	AppDb	v2016112501	CreatePermission	0x1400c672c	0x1400C6690	34
+AppAuthSrv	AppDb	v2016112501	GetPermissions	0x1400c7678	0x1400C7510	33
+AppAuthSrv	AppDb	v2016112501	RegisterApp	0x1400c7c66	0x1400C7B90	1
+AppAuthSrv	AppDb	v2016112501	ChangeApp	0x1400d0549	0x1400D0490	3
+AppAuthSrv	AppDb	v2016112501	ChangeServerSecret	0x1400d076c	0x1400D0710	14
+AppAuthSrv	AppDb	v2016112501	CheckAppMember	0x1400d08aa	0x1400D0810	18
+AppAuthSrv	AppDb	v2016112501	AddMemberAppGroup	0x1400c58bd	0x1400C5820	22
+AppAuthSrv	AppDb	v2016112501	DeletePermission	0x1400c6a64	0x1400C69A0	36
+AppAuthSrv	AppDb	v2016112501	GetMemberApps	0x1400c7483	0x1400C73A0	20
+AppAuthSrv	AppDb	v2016112501	ListAppGroups	0x1400c7961	0x1400C78A0	29
+AppAuthSrv	AppDb	v2016112501	ChangeExternalSecret	0x1400c6014	0x1400C5F30	39
+AppAuthSrv	AppDb	v2016112501	GetMemberAppGroups	0x1400c7313	0x1400C7230	21
+AppAuthSrv	AppDb	v2016112501	AddExternalSecret	0x1400c7e94	0x1400C7DB0	37
+AppAuthSrv	AppDb	v2016112501	AddAppMember	0x1400cecca	0x1400CEC30	16
+AppAuthSrv	AppDb	v2016112501	RegisterAppGroupApp	0x1400d1ed1	0x1400D1E30	31
+AppAuthSrv	AppDb	v2016112501	GetAccessToken	0x1400c5db8	0x1400C5BC0	23
+AppAuthSrv	AppDb	v2016112501	DeleteAppGroup	0x1400c6905	0x1400C6840	27
+AppAuthSrv	AppDb	v2016112501	GetAppGroupInfo	0x1400c7191	0x1400C70D0	28
+AppAuthSrv	AppDb	v2016112501	GetExternalSecret	0x1400d16d4	0x1400D1250	40 (app path)
+AppAuthSrv	AppDb	v2016112501	ListExternalSecrets	0x1400d175c	0x1400D1250	40 (app path)
+AppAuthSrv	AppDb	v2016112501	GetAppGroupByAppId	0x1400da686	0x1400DA450	app load
+AppAuthSrv	AppDb	v2016112501	AddUserAppAgreement	0x1400dd2f1	0x1400DD150	7
+AppAuthSrv	AppDb	v2016112501	GetUserAppAgreement	0x1400ddbbb	0x1400DDA50	8
+AppAuthSrv	AppDb	v2016112501	AddAppServiceCodeRegion	0x1400c56ff	0x1400C5660	45
+AppAuthSrv	AppDb	v2016112501	AddRegionalAppGroup	0x1400c5a99	0x1400C59E0	46
+AppAuthSrv	AppDb	v2016112501	ListAppGroupApps	0x1400c7821	0x1400C7760	30
+AppAuthSrv	AppDb	v2016112501	RefreshAccessToken	0x1400d76b4	0x1400D7560	8
+AppAuthSrv	AppDb	v2016112501	ChangePermission	0x1400c62da	0x1400C61F0	35
+AppAuthSrv	AppDb	v2016112501	CreateAppGroup	0x1400c6572	0x1400C64F0	26
+AppAuthSrv	AppDb	v2016112501	GetAccessToken	0x1400c6bbf	0x1400C6AF0	25
+AppAuthSrv	AppDb	v2016112501	ListRegionalAppGroupsByAppServiceCodeAndAppGroupType	0x1400c7a68	0x1400C79F0	48
+AppAuthSrv	AppDb	v2016112501	ListRegionalAppGroupsByAppServiceCode	0x1400c7aa0	0x1400C79F0	48
+AppAuthSrv	AppDb	v2016112501	RemoveExternalSecret	0x1400c810c	0x1400C8070	38
+AppAuthSrv	AppDb	v2016112501	RemoveAppMember	0x1400d20e1	0x1400D1FF0	17
+AppAuthSrv	AppDb	v2016112501	UnregisterApp	0x1400d2850	0x1400D27F0	2
+AppAuthSrv	AppDb	v2016112501	UnregisterAppGroupApp	0x1400d297b	0x1400D28F0	32
+AppAuthSrv	AppDb	v2016112501	DeleteAccessTokenByEffectiveUntil	0x1400d7ac9	0x1400D7A70	timer
+AppAuthSrv	AppDb	v2016112501	GetAppInfo	0x1400d3e8e	0x1400D3E10	app load (writer 0x1400F3A90)
