@@ -120,6 +120,37 @@ REPAIR_FRESH = ("An earlier session did the work of the card below in this workt
                 "Then run the failed check again and add one line about the fix to {handoff}.\n\n## Gate failure\n")
 
 
+# Cards that need a person: the runner writes them to one short file, so no chat session must watch the loop.
+ATTN = PROJECT / "notes/slices-blocked.md"
+ATTN_DB = Path.home() / ".cache/bns-slices/attention.json"
+STOP = Path.home() / ".cache/bns-slices/stop"   # tools/run_queue.sh stop: the loop stops after the current card
+
+
+def attention(sid, state, text="", wt=None):
+    """Record (state) or clear (state=None) a card that needs a person. Then write ATTN again."""
+    try:
+        d = json.loads(ATTN_DB.read_text())
+    except (OSError, ValueError):
+        d = {}
+    if state:
+        d[sid] = {"state": state, "time": time.strftime("%Y-%m-%d %H:%M"), "text": text.strip()[-2500:],
+                  "wt": str(wt) if wt else ""}
+    else:
+        d.pop(sid, None)
+    ATTN_DB.parent.mkdir(parents=True, exist_ok=True)
+    ATTN_DB.write_text(json.dumps(d, indent=1))
+    lines = ["# Slice cards that need attention", "",
+             "The slice runner writes this file. A card leaves it when it is done.", ""]
+    if not d:
+        lines.append("Nothing needs attention.")
+    for k, v in sorted(d.items()):
+        lines += [f"## {k}: {v['state']} ({v['time']})", ""]
+        if v["wt"]:
+            lines += [f"- Worktree: `{v['wt']}`", f"- Handoff: `{v['wt']}/Docs/Plan/handoffs/{k}.md`"]
+        lines += ["", "```", v["text"] or "-", "```", ""]
+    ATTN.write_text("\n".join(lines) + "\n")
+
+
 def paused():
     try:
         return json.loads(PAUSED.read_text())
@@ -338,6 +369,7 @@ def run(sid, dry, push):
                     f.write(json.dumps(r) + "\n")
             set_status(row["id"], "paused")
             print(f"PAUSED {row['id']} stage {stage} (usage limit). Resume later in session {rec.get('session') or resume}")
+            attention(row["id"], "paused", f"Usage limit in stage {stage}. The loop resumes it when an account has quota.", wt)
             return 75
         set_paused(row["id"], None)
         resume = None
@@ -375,6 +407,7 @@ def run(sid, dry, push):
     if fail:
         set_status(row["id"], "blocked")
         print(f"BLOCKED {row['id']} ({tokens:,} tokens). Worktree kept: {wt}\n{fail}")
+        attention(row["id"], "blocked", f"Gate failed ({tokens:,} tokens).\n{fail}", wt)
         return 1
     sh(["git", "add", "-A"], wt)
     msg = f"{row['id']}: {row['title']}\n\nCo-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>"
@@ -382,6 +415,7 @@ def run(sid, dry, push):
     if rc:
         set_status(row["id"], "blocked")
         print("commit failed:\n" + out)
+        attention(row["id"], "blocked", "commit failed:\n" + out, wt)
         return 1
     # main may have moved while the slice ran (queue or card commits). Rebase first.
     rc, out = sh(["git", "rebase", "-q", "main"], wt)
@@ -391,6 +425,7 @@ def run(sid, dry, push):
     if rc:
         set_status(row["id"], "blocked")
         print(f"merge into main failed; branch {branch} kept:\n{out}")
+        attention(row["id"], "blocked", f"merge into main failed; branch {branch} kept (salvage retries it):\n{out}", wt)
         return 1
     set_status(row["id"], "done")
     sh(["git", "add", "tools/slices/queue.tsv"], REPO)
@@ -403,6 +438,7 @@ def run(sid, dry, push):
     if push:
         rc, out = sh(["bash", "tools/push_github.sh"], REPO)
         print(out.strip().splitlines()[-1] if out.strip() else f"push rc={rc}")
+    attention(row["id"], None)
     print(f"DONE {row['id']} ({tokens:,} tokens, {sum(r['s'] for r in log)} s)")
     return 0
 
@@ -460,13 +496,27 @@ def salvage():
         sh(["git", "branch", "-q", "-D", branch], REPO)
         if row["kind"] == "spec":
             chain_rust(row)
+        attention(row["id"], None)
         print(f"salvage: {row['id']} merged")
 
 
 def loop(push, max_slices):
     """Run ready slices one by one. Skip past blocked ones. Stop on empty queue or no quota."""
+    rc = _loop(push, max_slices)
+    why = {0: f"done {max_slices} slices (--max)", 2: "no ready slice (queue empty, or the rest wait on blocked cards)",
+           75: "no account had quota for 12 h", 3: "stop asked (tools/run_queue.sh stop)"}.get(rc, f"rc {rc}")
+    attention("_loop", "stopped", f"The loop stopped: {why}. Start it again: tools/run_queue.sh")
+    print(f"LOOP STOPPED: {why}", flush=True)
+    return rc
+
+
+def _loop(push, max_slices):
+    attention("_loop", None)
     salvage()
     for _ in range(max_slices):
+        if STOP.exists():
+            STOP.unlink()
+            return 3
         rc = run(None, False, push)
         salvage()
         waited = 0

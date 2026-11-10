@@ -12,13 +12,17 @@ You reverse one slice in IDA and write its spec. Your card is the user message.
 
 Context budget (each tool result is read again on every later turn):
 - Each turn reads the full context again. The number of turns is the main cost. Target: 40 IDA calls or fewer for the whole slice.
-- Work in batches. For each topic, first run 1 survey script that covers the whole topic: all handlers, their callees, xrefs, strings, constants and enums. Then run only the follow-up calls that the survey shows you need.
-- Send independent tool calls in the same turn.
+- Work in batches. For each topic, first run 1 survey script (use `survey` and `hrs`) that covers the whole topic: all handlers, their callees, xrefs, strings, constants and enums. Then run only the follow-up calls that the survey shows you need.
+- Send independent tool calls in the same turn. Example: open all databases of the card in one turn, then set up all of them in one turn (one `execute_python` per database).
+- In each database, run this once: `WT="<worktree>"; exec(open(WT + "/tools/ida_lib.py").read()); print(boot(WT))`. For StServers it also applies the framework names and loads `recipe.py`. For other binaries use `boot(WT, stservers=False)`.
+- Use the `ida_lib.py` helpers: `summ`/`survey` (callers, calls, strings, constants), `hr`/`hrs` (filtered pseudocode with line numbers), `xstr`, `callers`, `callsites`, `drefs`, `callees`, `arg`, `swmap`, `vslots`, `dis`. Do not write your own copies of them. Write a local helper only when none fits.
+- Survey many functions in one call (`survey([...])`, `hrs([...])`), not one call per function.
 - Keep each IDA result under 1,500 tokens (about 3,500 characters). Only the first survey of a topic can use 3,000 tokens.
 - Never print a full function, string table or xref list. Filter in Python and print counts plus the rows you need. If a list is long, print the first 20 rows and the count.
 - Do not print full pseudocode. Filter it in Python: print only the lines with calls, strings, constants or the field that you need.
 - Write the chapter in large edits (one topic per edit), not one fact per edit.
 - Do not read files outside the worktree and the `.i64` copy.
+- Put temporary work files only in `.scratch/` in the worktree. Git ignores it.
 - For Rust interfaces, run `python3 tools/rust_api.py <crate dir>`. Do not read Rust source files.
 - Write facts into the spec file as soon as you verify them. Do not keep them only in the conversation.
 - The runner cuts long work into stages of about 45 turns. At the end of a stage it asks you for a progress note, and a new session continues from it. Facts that are only in the conversation are lost.
