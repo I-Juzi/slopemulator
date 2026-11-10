@@ -36,7 +36,7 @@ perf-2	spec	opus	-	Docs/Client/RE/perf.md	dbg-3-rust	150	hold	profile busy scene
 dfx-4	spec	opus	-	Docs/DataFile/book/	dfx-3	150	done	datafile: one merged XML source for client and server (dump, merge, rebuild)
 ids-1-rust	rust	sonnet	packet-ids,packet,lobbygate,sts,sts-core,dbsrv,cligate,routesrv	Program/Server/PacketIds/,Cargo.toml,Cargo.lock,Program/Server/Packet/,Program/Server/LobbyGate/,Program/Platform/	-	150	done	official packet and enum names instead of bare numbers
 ids-2-rust	rust	sonnet	gamedaemon	Program/Server/GameDaemon/,Cargo.lock	ids-1-rust	150	done	official packet names in GameDaemon
-st-00	spec	opus	-	Docs/Platform/StServers/RE/	-	150	ready	StServers RE: shared framework
+st-00	spec	opus	-	Docs/Platform/StServers/RE/	-	150	done	StServers RE: shared framework
 st-01	spec	opus	-	Docs/Platform/StServers/RE/	st-00	150	hold	StServers RE: gate library, CliGate, SessionGateSrv
 st-02	spec	opus	-	Docs/Platform/StServers/RE/	st-00	150	hold	StServers RE: AuthSrv, AppAuthSrv
 st-03	spec	opus	-	Docs/Platform/StServers/RE/	st-00	150	hold	StServers RE: GameAccountSrv, SlotSrv, SpawnSrv, WorldSrv
