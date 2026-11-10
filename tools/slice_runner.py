@@ -15,8 +15,8 @@ Queue: tools/slices/queue.tsv (tab-separated)
   status ready | running | done | blocked
   title  short title (commit subject)
 
-Flow: account check -> worktree outside private-project -> session -> gate
-      -> on fail: 1 repair (same session, error tail only) -> gate
+Flow: account check -> worktree outside private-project -> session (stages of 45 turns) -> gate
+      -> on fail: 1 repair (rust: fresh session; spec: same session) -> gate
       -> pass: commit, fast-forward main, push; fail: blocked (worktree kept).
 Ledger: notes/slice-usage.jsonl (one row per session).
 Exit codes: 0 done, 1 blocked, 2 nothing to run, 75 no account with quota.
@@ -96,9 +96,28 @@ WRAP_PROMPT = ("Stop work now. This stage is at its turn limit. A new session co
                "First write all verified facts that are not yet in the spec or code files. Then write {note}, "
                "40 lines or fewer: topics done, files changed, next steps with exact addresses or functions, "
                "open questions, and checks still to run. Do not start new work.")
+# Spec stages lose all analysis that is only in the conversation. The note must keep the open threads.
+WRAP_PROMPT_SPEC = ("Stop work now. This stage is at its turn limit. A new session continues from your note, "
+                    "and it does not see this conversation. "
+                    "1. Write all verified facts into the spec now, with addresses. "
+                    "2. Write {note}, 60 lines or fewer, with these sections: "
+                    "Done (topics complete in the spec); "
+                    "In progress (the analysis you are in now: function addresses, what you know, what is left); "
+                    "Hypotheses (not verified: claim, address, how to check); "
+                    "Ruled out (addresses or ideas already checked and not relevant, so they are not checked again); "
+                    "Next (exact addresses or functions, in order); "
+                    "IDA state (renames or types that are only in memory). "
+                    "Do not start new work.")
 NEXT_PROMPT = ("This card continues from an earlier session. Do not redo finished work. "
                "Read the files that the note names only in the line ranges you need.\n\n"
                "## Progress note\n{note}\n\n## Card\n{card}")
+
+
+REPAIR_TURNS = "30"
+REPAIR_FRESH = ("An earlier session did the work of the card below in this worktree, but the gate failed. "
+                "Fix only the gate failure. Run `git status` and `git diff --stat` to see the work. "
+                "Read only the files and line ranges that the error names. Do not redo or extend the work. "
+                "Then run the failed check again and add one line about the fix to {handoff}.\n\n## Gate failure\n")
 
 
 def paused():
@@ -163,7 +182,31 @@ def session_cmd(row, prompt, resume=None, max_turns=None):
     return cmd + [prompt]
 
 
-def run_session(row, wt, prompt, resume=None, max_turns=None):
+def api_calls(session, t0):
+    """Count real API calls in the transcript since t0. num_turns is not the same number."""
+    files = list((Path.home() / ".claude/projects").glob(f"*/{session}.jsonl")) if session else []
+    if not files:
+        return None
+    ids = set()
+    for line in files[0].read_text(errors="replace").splitlines():
+        try:
+            m = json.loads(line)
+        except ValueError:
+            continue
+        if m.get("type") != "assistant":
+            continue
+        ts = m.get("timestamp", "")
+        try:
+            t = time.mktime(time.strptime(ts[:19], "%Y-%m-%dT%H:%M:%S")) - time.timezone
+        except ValueError:
+            t = t0
+        if t >= t0 - 1:
+            ids.add(m.get("message", {}).get("id"))
+    return len(ids)
+
+
+def run_session(row, wt, prompt, resume=None, max_turns=None, role="work"):
+    """role: work (new session), next (new stage), resume (after a usage limit), wrap (stage note), repair."""
     env = dict(os.environ, CARGO_TARGET_DIR=str(TARGET))
     t0 = time.time()
     p = subprocess.run(session_cmd(row, prompt, resume, max_turns), cwd=wt, capture_output=True, text=True, env=env, timeout=4 * 3600)
@@ -175,8 +218,8 @@ def run_session(row, wt, prompt, resume=None, max_turns=None):
         data = {"subtype": "no_json", "result": (p.stderr or p.stdout)[-500:]}
     u = data.get("usage", {})
     rec = {"ts": int(t0), "slice": row["id"], "kind": row["kind"], "model": row["model"],
-           "repair": bool(resume), "session": data.get("session_id"), "subtype": data.get("subtype"),
-           "turns": data.get("num_turns"), "s": int(time.time() - t0),
+           "role": role, "repair": role == "repair", "session": data.get("session_id"), "subtype": data.get("subtype"),
+           "turns": data.get("num_turns"), "calls": api_calls(data.get("session_id"), t0), "s": int(time.time() - t0),
            "input": u.get("input_tokens", 0), "cache_write": u.get("cache_creation_input_tokens", 0),
            "cache_read": u.get("cache_read_input_tokens", 0), "output": u.get("output_tokens", 0),
            "cost_usd_equiv": data.get("total_cost_usd"), "result": str(data.get("result") or "")[-300:]}
@@ -281,7 +324,8 @@ def run(sid, dry, push):
     for stage in range(1, STAGE_MAX + 1):
         last = stage == STAGE_MAX or budget <= STAGE_TURNS + 10
         turns = budget if last else STAGE_TURNS
-        rec = run_session(row, wt, stage_prompt, resume=resume, max_turns=turns)
+        role = "resume" if resume else ("work" if stage == 1 and not note.exists() else "next")
+        rec = run_session(row, wt, stage_prompt, resume=resume, max_turns=turns, role=role)
         rec["stage"] = stage
         rec["account"], rec["acct_5h"], rec["acct_7d"] = acct["n"], acct["5h"], acct["7d"]
         log.append(rec)
@@ -299,7 +343,8 @@ def run(sid, dry, push):
         resume = None
         if last or rec.get("subtype") != "error_max_turns" or not rec.get("session"):
             break
-        wrap = run_session(row, wt, WRAP_PROMPT.format(note=note_rel), resume=rec["session"], max_turns=WRAP_TURNS)
+        wp = WRAP_PROMPT_SPEC if row["kind"] == "spec" else WRAP_PROMPT
+        wrap = run_session(row, wt, wp.format(note=note_rel), resume=rec["session"], max_turns=WRAP_TURNS, role="wrap")
         wrap["stage"] = stage
         log.append(wrap)
         if not note.exists():
@@ -310,9 +355,16 @@ def run(sid, dry, push):
     if note.exists():
         note.unlink()  # working note only; the final handoff is the record
     fail = gate(row, wt)
-    if fail and rec.get("session"):
-        rep = run_session(row, wt, "The gate failed. Fix only this. Then run the checks again and update the handoff.\n\n" + fail,
-                          resume=rec["session"])
+    if fail and (rec.get("session") or row["kind"] == "rust"):
+        if row["kind"] == "rust" or not rec.get("session"):
+            # Fresh session: a resumed one reads the whole old context again on every call.
+            # A Rust gate error is concrete, so the card, the diff and the error are enough.
+            rp = (REPAIR_FRESH.format(handoff=f"Docs/Plan/handoffs/{row['id']}.md") + fail
+                  + "\n\n## Card\n" + prompt)
+            rep = run_session(row, wt, rp, max_turns=REPAIR_TURNS, role="repair")
+        else:
+            rep = run_session(row, wt, "The gate failed. Fix only this. Then run the checks again and update the handoff.\n\n" + fail,
+                              resume=rec["session"], role="repair")
         log.append(rep)
         fail = gate(row, wt)
     with LEDGER.open("a") as f:
@@ -437,8 +489,14 @@ def status():
     if LEDGER.is_file():
         recs = [json.loads(l) for l in LEDGER.read_text().splitlines() if l.strip()]
         tot = sum(r["input"] + r["cache_write"] + r["cache_read"] + r["output"] for r in recs)
-        waste = sum(r["input"] + r["cache_write"] + r["cache_read"] + r["output"] for r in recs if r.get("gate") == "fail" or r.get("repair"))
-        print(f"ledger: {len(recs)} sessions, {tot:,} tokens, of which repair or failed: {waste:,}")
+        t = lambda r: r["input"] + r["cache_write"] + r["cache_read"] + r["output"]
+        failed = sum(t(r) for r in recs if r.get("gate") == "fail")
+        repair = sum(t(r) for r in recs if r.get("gate") != "fail" and r.get("role", "repair" if r.get("repair") else "work") == "repair")
+        wrap = sum(t(r) for r in recs if r.get("role") == "wrap")
+        print(f"ledger: {len(recs)} sessions, {tot:,} tokens")
+        print(f"  failed gate (work may be kept by a later run): {failed:,} ({100 * failed / max(tot, 1):.1f} %)")
+        print(f"  repairs that passed: {repair:,} ({100 * repair / max(tot, 1):.1f} %)")
+        print(f"  stage notes (wrap): {wrap:,} ({100 * wrap / max(tot, 1):.1f} %)")
     return 0
 
 
