@@ -1,0 +1,35 @@
+service	command	id	handler	request	reply	errors
+GameGate	Presence/Login	3	0x1400CFA20	login name, alias, client net address	Auth/LoginInternal reply via 0x1400D3920	10/1755,1759,1762,1766,1777,1790
+GameGate	Presence/Logout	4	0x1400D0820	UserId; f and t headers	forwarded reply	10/2249,2286; 3007/2266,2309; 49/2298
+GameGate	Auth/LoginTrusted	25	0x1400D04A0	Auth body; client info	CGgCliDataTxn<LoginInfo>	10/1595,1604
+GameGate	Auth/ConsumeGameToken	31	0x1400CF690	Auth body; TokenInfo set by gate	CGgCliDataTxn<void>	10/1346,1351
+GameGate	Auth/RequestToken	32	0x1400D1460	target conn	CGgCliDataTxn<void>	3032
+GameGate	Auth/VerifyMobiOtp	35	0x1400D24B0	-	error only	49/1742 invalid cmd
+GameGate	Auth/VerifySecondPwd	36	0x1400D24B0	-	error only	49/1742 invalid cmd
+GameGate	Auth/LoginToken	53	0x1400D0070	Auth body; id; TokenInfo, random set by gate	CGgCliDataTxn<LoginInfo>	10/1426,1435
+GameGate	Gate/BulkFind	1	0x1400D5F90 default	-	forwarded	3032
+GameGate	Gate/Find	2	0x1400D5F90 default	-	forwarded	3032
+GameGate	Gate/StreamConnect	3	0x1400D1FA0	-	Reply/Stream	line 1266
+GameGate	Gate/StreamDisconnect	4	0x1400D20C0	stream id	-	3032/1279; 1275; 1281
+GameGate	Gate/RegisterService	5	0x1400D2240	Protocol, WorldCode (Srv2World)	register reply	10/2356,2360,2366
+GameGate	Gate/UnregisterService	6	0x1400D9470	Protocol	-	3029/854,857
+GameGate	Gate/RegisterForward	7	0x1400D1140	Scope, Version, ProtocolTemplate, ScopeTemplate	forwarded	10/1297
+GameGate	Gate/LookupGeolocation	8	0x1400D5F90 default	-	forwarded	-
+GameGate	Charge/Start	2	0x1400D1640	UserId, ClientNetAddress, Location, LocationId	CGgCliStartChargeTxn	3007/2444; 10/2436
+GameGate	Charge/Stop	3	0x1400D1B50	UserId, Location, LocationId	CGgCliDataTxn<PortalId>	3007/2497; 2478; 2487
+GameGate	(other Gate.ini [Commands.GameGate])	-	0x1400D5F90 default	any	CGgCliDataTxn<void> reply 0x1400CEE20	3032; gate library errors
+GameGate	bus Charge/NotifyRemainTime	8	0x1400D2F70	-	sent to daemon	-
+GameGate	bus Charge/NotifyApplyNewChargeItem	9	0x1400D2E80	ChargeKey	sent to daemon	-
+GameGate	bus Charge/RequestStop	10	0x1400D3010	-	sent to daemon	-
+GameGate	bus Presence/UserLogout	14	0x1400D32A0	user	sent to daemon	-
+GameGate	bus custom protocol (Srv2*)	-	0x1400D8E30	any	CGgSrvTxn reply	940; 946; 950; 960; 964
+AppGate	HTTP URI (any [Commands.AppGate])	-	0x1400CE600	HTTP request, client info	JSON or XML reply 0x1400CE240/0x1400CEEB0	gate library errors
+AppGate	Gate/RegisterService (extern)	-	0x1400D2F20 -> 0x1400D0B20	Protocol, ServiceCode, WorldCode	register reply	261; 268; 279; 297
+AppGate	Gate/UnregisterService (extern)	-	0x1400D2F20 -> 0x1400D08E0	Protocol	-	fail to unregister service
+AppGate	other on extern conn	-	0x1400D2F20	-	error	%s is unknown command
+MwGate	Gate/RegisterService	1	0x1400D0B90	Protocol, ServiceCode, WorldCode	register reply	null body; missing protocol; protocol is too long
+MwGate	Gate/UnregisterService	2	0x1400D0CB0	Protocol	-	no registered service
+MwGate	Gate/LookupGeolocation	3	0x1400CE5B0 forward	-	forwarded	-
+MwGate	(other [Commands.MwGate])	-	0x1400CE5B0 forward	any	CMwgCliTxn reply 0x1400CE030	gate library errors
+WebGate	Session/*	-	0x1400C5C10	Request, Persistent, Expire (JSON)	txn reply	946 to header; 966 invalid json
+WebGate	(other protocols)	-	0x1400C5C10	Request, _RequestAddr	txn 0x1400C3F30 reply	stream header errors (0x1400C60F0)
