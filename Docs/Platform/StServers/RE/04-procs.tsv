@@ -1,0 +1,5 @@
+service	database	proc	call_site
+GameGate	(none direct)	UserIdByName (exec name only; sent to the daemon, not to DbSrv)	0x1400D8E30
+AppGate	(none)	-	-
+MwGate	(none)	-	-
+WebGate	(none)	-	-
