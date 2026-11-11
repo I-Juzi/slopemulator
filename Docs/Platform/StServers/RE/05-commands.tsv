@@ -1,0 +1,41 @@
+service	command	id	handler_address	request	reply	errors
+RouteSrv	Route/CheckRegistration	1	0x1400D5750	Provider, Protocol, Topology, Forwards	result	3053/3/799
+RouteSrv	Route/Snapshot	2	0x1400D8230	none	log RteDirInfo	none
+RouteSrv	Route/ShutdownServer	3	0x1400D8050	caller server	empty	3022/5/541
+RouteSrv	Route/RegisterProvider	4	0x1400D8A00	Provider, Name, BlockBits, Build, Topology	empty or 3053 (Grid pending)	10/5/346; 49/5/348; 49/5/353; 3053/?/372
+RouteSrv	Route/UnregisterProvider	5	0x1400D8E20	Provider, Name	empty	10/5/383; 49/5/385; 49/5/387; 3053/?/398
+RouteSrv	Route/RegisterForward	6	0x1400D09B0	Protocol, Forward list (Scope)	empty	3029/3/849; 3036/3/873
+RouteSrv	Route/SubscribeService	7	0x1400D8490	Protocol	ProviderFound notices (unverified)	10/5/501
+RouteSrv	Route/SetBlocks	8	0x1400D8C90	Protocol, Desired block map	empty	10/5/464
+RouteSrv	Route/(9-14,21-23)	9-14,21-23	0x1400D0CD0	-	-	10/3/806 RteDirManage: Unknown command
+RouteSrv	Route/ServerShutdown	15	0x1400E16A0	router-to-router	-	invalid origin server
+RouteSrv	Route/ServerDisconnect	16	0x1400E1330	router-to-router	-	invalid origin server
+RouteSrv	Route/ProviderChanged	17	0x1400E0C40	router-to-router	-	invalid origin server
+RouteSrv	Route/ProviderShutdown	18	0x1400E1140	router-to-router	-	invalid origin server
+RouteSrv	Route/ServiceSetForward	19	0x1400E1830	router-to-router	-	invalid origin server
+RouteSrv	Route/MultiRouterChanged	20	0x1400CFEB0	SubCmd	-	invalid origin server
+RouteSrv	Paxos ids	257-1030	0x14010F230	shared Paxos code (not traced)	-	-
+RouteSrv	(any routed request)	-	0x1400CAB70	t target Direct/Key/Forward/Block	provider reply	10/2/1533,1557,1573,1605,1650,1723; 48/2/1693
+ForwardSrv	Forward/Forward	1	0x1400C4DC0	Name; r header (proto, cmd)	Id, Center	10/1/467; 3010/1/472; 10/1/408
+ForwardSrv	Forward/Find	2	0x1400C4DC0	Name	Id, Center (0x1400C5FE0)	3010/1/417; 10/1/408
+ForwardSrv	Forward/FindBulk	3	0x1400C4FF0	Name list	rows	10/2/650-687
+ForwardSrv	Forward/Set	4	0x1400C5EF0	Id, Center (0-63)	empty	10/1/152; create 623, 629
+ForwardSrv	Forward/Flush	5	0x1400C6D10	Name	empty	none
+ForwardSrv	Forward/FlushInternal	6	0x1400C6D10	-	-	51/1/448
+ForwardSrv	(unknown)	-	0x1400C6D10	-	-	51/1/? unknown forward command
+SvcDispatcher	<Protocol>/Update	-	0x1400D79A0	Object, ApiMainVersion, ApiHotfixVersion	Updated	none
+SvcDispatcher	<Protocol>/Dispatch	1	0x1400D5800	HTTP request message	HTTP reply	parse request msg failed; missing or invalid http request msg
+SvcDispatcher	<Protocol>/<any other>	-	0x1400D7160	body (json or xml)	HTTP status and body	10/5/342; 350; 395; 3030/5/385; 3030/5/412; 3033/5/429
+SvcDispatcher	(empty command)	-	0x1400D7C00	-	-	?/?/966 missing command
+CacheSrv	Cache/SetValue	1	0x1400C78D0 (new) / 0x1400C7520 (entry)	to key, Group, Value, Expiration, DataSource	Reply/Value	10/1/198; 10/1/250; 10/1/265; 10/1/280
+CacheSrv	Cache/GetValue	2	0x1400C78D0 (new) / 0x1400C7520 (entry)	to key, Group, DataSource	Reply/Value	3010; 10/1/181; data source 10/379,385,412,418,439
+CacheSrv	Cache/DeleteValue	3	0x1400C78D0 (new) / 0x1400C7520 (entry)	to key, Group	empty	none
+CacheSrv	(unknown)	-	0x1400C78D0 / 0x1400C7520	-	-	51/1/232; 51/1/316
+DbSrv	Storage/Create	1	0x1400C43B0	IssuerAppId, ResourceKey	Reply/Token/TokenId	lines 250, 273
+DbSrv	Storage/Exec	2	0x1400C45E0	Token, Request	DB reply (unverified)	lines 415, 422
+DbSrv	Storage/ExecBatched	3	0x1400C45E0	Token, Request	DB reply (unverified)	lines 415, 422
+DbSrv	Storage/GetInfo	4	0x1400C49C0	Token	Reply/Scope	lines 281, 288, 306
+DbSrv	Storage/Read	5	0x1400C4E40	Token	proc rows	lines 314, 321, 348
+DbSrv	Storage/Write	6	0x1400C5390	Token, Data	empty	lines 361, 368, 396, 402
+DbSrv	Storage/(unknown)	0	0x1400C6480	-	-	10/463; 465; 3030/444,446 disabled storage
+DbSrv	Db.<Logical>/Exec, ExecBatched	1,2	0x1400D28B0	see 12-dbsrv-contract.md	see spec 12	see spec 12
