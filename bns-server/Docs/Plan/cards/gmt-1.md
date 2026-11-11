@@ -15,6 +15,7 @@ This card is deep work. Thoroughness is more important than speed. Do every topi
 - `DrDataReaderImpl::SaveBinaryDataFile` `0x789a90` (vtable +0x40) is linked.
 - Server, GameDaemon 348 PDB names: `BuilderSessionHandler`, `VBuilderSessionHandler`, `GameBuilderPacket`, `GameBuilderPacketHandler(List)`, `NotAuthedGameBuilderPacketHandlerList`, `AuthedGameBuilderPacketHandlerList`, `AnyAuthedGameBuilderPacketHandlerList`, `gameBuilderPacketVersion`, `GameBuilderMainCommand`, `UseBuilderCommand`, `AcquireByBuilderCommand`.
 - Server config: `BnS_2020/config/GameDaemon/bin/gamed.config.xml` line 82 `builder-port` = 40100, line 306 `builder-log-enable`. `BnS_2020/config/AdminWeb/Web.config` line 56 `use-builder-level-QA`.
+- Builder level is a per-character DB field `CreatureProperty.Builderright`, range -1 (QA) to 7. AdminWeb sets it through ManagementDaemon `ChangeBuilderReq` (`Docs/Server/ManagementDaemon/01-overview.md`). Find where GameDaemon reads it and which level each Builder command needs.
 - The GM client is build 419 (386 tables). Our data is build 381 (362 tables). The 2020 `Client.exe` has no PDB.
 
 ## Inputs
