@@ -40,7 +40,7 @@ st-00	spec	opus	-	Docs/Platform/StServers/RE/	-	150	done	StServers RE: shared fr
 st-01	spec	opus	-	Docs/Platform/StServers/RE/	st-00	150	done	StServers RE: gate library, CliGate, SessionGateSrv
 st-02	spec	opus	-	Docs/Platform/StServers/RE/	st-00	150	done	StServers RE: AuthSrv, AppAuthSrv
 st-03	spec	opus	-	Docs/Platform/StServers/RE/	st-00	150	done	StServers RE: GameAccountSrv, SlotSrv, SpawnSrv, WorldSrv
-st-04	spec	opus	-	Docs/Platform/StServers/RE/	st-01	150	paused	StServers RE: GameGate, AppGate, MwGate, WebGate
+st-04	spec	opus	-	Docs/Platform/StServers/RE/	st-01	150	done	StServers RE: GameGate, AppGate, MwGate, WebGate
 st-05	spec	opus	-	Docs/Platform/StServers/RE/	st-00	150	ready	StServers RE: RouteSrv, ForwardSrv, SvcDispatcher, CacheSrv, DbSrv audit
 st-06	spec	opus	-	Docs/Platform/StServers/RE/	st-00	150	ready	StServers RE: AccessSrv, BanSrv, RoleSrv, PrivacySrv
 st-07	spec	opus	-	Docs/Platform/StServers/RE/	st-09	150	ready	StServers RE: ExAuthSrv, ExAuthnSrv, IpCheckSrv
