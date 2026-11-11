@@ -1,0 +1,7 @@
+service	database	proc	call_site	note
+RouteSrv	-	none	-	no DB calls
+ForwardSrv	<Forward Database> (config)	name from entry table +144 (unverified)	0x1400C4EAD	Exec via DbProcBegin 0x1400DB2F0; params name and table+136; $ database adds t header
+SvcDispatcher	-	none	-	no DB calls
+CacheSrv	<DataSource DbName> (caller)	<DataSource ProcName> (caller)	0x1400C68D0	Db.<DbName>/ExecBatched; Mongo uses <Command>
+DbSrv	StorageDb	GetStorageByKey	0x1400C4E40	1 param
+DbSrv	StorageDb	CreateStorage	0x1400C5390	0 params in DbProcBegin
